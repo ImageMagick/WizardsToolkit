@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Hash Algorithm-1</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, secure, hash, algorithm-1, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1931767046"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1561205105"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AcquireSHA1Info">AcquireSHA1Info</a> &bull; <a href="#DestroySHA1Info">DestroySHA1Info</a> &bull; <a href="#FinalizeSHA1">FinalizeSHA1</a> &bull; <a href="#GetSHA1Blocksize">GetSHA1Blocksize</a> &bull; <a href="#GetSHA1Digest">GetSHA1Digest</a> &bull; <a href="#GetSHA1Digestsize">GetSHA1Digestsize</a> &bull; <a href="#IntializeSHA1">IntializeSHA1</a> &bull; <a href="#TransformSHA1">TransformSHA1</a> &bull; <a href="#UpdateSHA1">UpdateSHA1</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
+_8c.html" target="source" name="AcquireSHA1Info">AcquireSHA1Info</a></h2>
+<div class="doc-section">
+
+<p>AcquireSHA1Info() allocate the SHA1Info structure.</p></ol>
+
+<p>The format of the AcquireSHA1Info method is:</p>
+
+<pre class="code">
+  SHA1Info *AcquireSHA1Info(void)
+</pre>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
+_8c.html" target="source" name="DestroySHA1Info">DestroySHA1Info</a></h2>
+<div class="doc-section">
+
+<p>DestroySHA1Info() zeros memory associated with the SHA1Info structure.</p></ol>
+
+<p>The format of the DestroySHA1Info method is:</p>
+
+<pre class="code">
+  SHA1Info *DestroySHA1Info(SHA1Info *sha_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>sha_info</h5>
+<ol><p>The cipher sha_info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
+_8c.html" target="source" name="FinalizeSHA1">FinalizeSHA1</a></h2>
+<div class="doc-section">
+
+<p>FinalizeSHA1() finalizes the SHA1 message accumulator computation.</p></ol>
+
+<p>The format of the FinalizeSHA1 method is:</p>
+
+<pre class="code">
+  FinalizeSHA1(SHA1Info *sha_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>sha_info</h5>
+<ol><p>The address of a structure of type SHA1Info.</p></ol>
+
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
+_8c.html" target="source" name="GetSHA1Blocksize">GetSHA1Blocksize</a></h2>
+<div class="doc-section">
+
+<p>GetSHA1Blocksize() returns the SHA1 blocksize.</p></ol>
+
+<p>The format of the GetSHA1Blocksize method is:</p>
+
+<pre class="code">
+  unsigned int *GetSHA1Blocksize(const SHA1Info *sha1_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>sha1_info</h5>
+<ol><p>The sha1 info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
+_8c.html" target="source" name="GetSHA1Digest">GetSHA1Digest</a></h2>
+<div class="doc-section">
+
+<p>GetSHA1Digest() returns the SHA1 digest.</p></ol>
+
+<p>The format of the GetSHA1Digest method is:</p>
+
+<pre class="code">
+  const StringInfo *GetSHA1Digest(const SHA1Info *sha1_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>sha1_info</h5>
+<ol><p>The sha1 info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
+_8c.html" target="source" name="GetSHA1Digestsize">GetSHA1Digestsize</a></h2>
+<div class="doc-section">
+
+<p>GetSHA1Digestsize() returns the SHA1 digest size.</p></ol>
+
+<p>The format of the GetSHA1Digestsize method is:</p>
+
+<pre class="code">
+  unsigned int *GetSHA1Digestsize(const SHA1Info *sha1_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>sha1_info</h5>
+<ol><p>The sha1 info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
+_8c.html" target="source" name="IntializeSHA1">IntializeSHA1</a></h2>
+<div class="doc-section">
+
+<p>IntializeSHA1() intializes the SHA1 accumulator.</p></ol>
+
+<p>The format of the DestroySHA1Info method is:</p>
+
+<pre class="code">
+  void InitializeSHA1Info(SHA1Info *sha_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>sha_info</h5>
+<ol><p>The cipher sha_info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
+_8c.html" target="source" name="TransformSHA1">TransformSHA1</a></h2>
+<div class="doc-section">
+
+<p>TransformSHA1() transforms the SHA1 message accumulator.</p></ol>
+
+<p>The format of the TransformSHA1 method is:</p>
+
+<pre class="code">
+  TransformSHA1(SHA1Info *sha_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>sha_info</h5>
+<ol><p>The address of a structure of type SHA1Info.</p></ol>
+
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
+_8c.html" target="source" name="UpdateSHA1">UpdateSHA1</a></h2>
+<div class="doc-section">
+
+<p>UpdateSHA1() updates the SHA1 message accumulator.</p></ol>
+
+<p>The format of the UpdateSHA1 method is:</p>
+
+<pre class="code">
+  UpdateSHA1(SHA1Info *sha_info,const StringInfo *message)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>sha_info</h5>
+<ol><p>The address of a structure of type SHA1Info.</p></ol>
+
+<h5>message</h5>
+<ol><p>The message</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="115210610">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

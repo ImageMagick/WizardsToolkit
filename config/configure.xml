@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<configuremap>
+  <configure name="HOST" value="x86_64-unknown-linux-gnu" />
+  <configure name="CONFIGURE" value="./configure " />
+  <configure name="PREFIX" value="/usr/local" />
+  <configure name="EXEC-PREFIX" value="/usr/local" />
+  <configure name="CC" value="gcc" />
+  <configure name="CFLAGS" value="-fopenmp -g -O2 -Wall -W -pthread" />
+  <configure name="CPPFLAGS" value="-I/usr/local/include/WizardsToolkit" />
+  <configure name="LDFLAGS" value="-L/usr/local/lib " />
+  <configure name="LIBS" value="-lWizardsToolkit -lbz2 -lz -lm -lgomp -lpthread" />
+  <configure name="CXX" value="g++" />
+  <configure name="CXXFLAGS" value="-g -O2 -Wall -W -pthread" />
+  <configure name="DISTCHECK_CONFIG_FLAGS" value=" --with-umem=no " />
+  <configure name="CVS_BRANCH_TAG" value="" />
+  <configure name="NAME" value="WizardsToolkit" />
+  <configure name="VERSION" value="1.0.6" />
+  <configure name="LIB_VERSION" value="0x106" />
+  <configure name="LIB_VERSION_NUMBER" value="1,0,6,10" />
+  <configure name="RELEASE_DATE" value="2009-08-31" />
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2009 ImageMagick Studio LLC" />
+  <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
+</configuremap>

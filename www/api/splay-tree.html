@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Self-adjusting Binary Tree</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, self-adjusting, binary, tree, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="859129658"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="2011765347"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AddValueToSplayTree">AddValueToSplayTree</a> &bull; <a href="#BalanceSplayTree">BalanceSplayTree</a> &bull; <a href="#CloneSplayTree">CloneSplayTree</a> &bull; <a href="#CompareSplayTreeString">CompareSplayTreeString</a> &bull; <a href="#CompareSplayTreeStringInfo">CompareSplayTreeStringInfo</a> &bull; <a href="#DeleteNodeByValueFromSplayTree">DeleteNodeByValueFromSplayTree</a> &bull; <a href="#DeleteNodeFromSplayTree">DeleteNodeFromSplayTree</a> &bull; <a href="#DestroySplayTree">DestroySplayTree</a> &bull; <a href="#GetNextKeyInSplayTree">GetNextKeyInSplayTree</a> &bull; <a href="#GetNextValueInSplayTree">GetNextValueInSplayTree</a> &bull; <a href="#GetValueFromSplayTree">GetValueFromSplayTree</a> &bull; <a href="#GetNumberOfNodesInSplayTree">GetNumberOfNodesInSplayTree</a> &bull; <a href="#IterateOverSplayTree">IterateOverSplayTree</a> &bull; <a href="#NewSplayTree">NewSplayTree</a> &bull; <a href="#RemoveNodeByValueFromSplayTree">RemoveNodeByValueFromSplayTree</a> &bull; <a href="#RemoveNodeFromSplayTree">RemoveNodeFromSplayTree</a> &bull; <a href="#ResetSplayTreeIterator">ResetSplayTreeIterator</a> &bull; <a href="#SplaySplayTree">SplaySplayTree</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="AddValueToSplayTree">AddValueToSplayTree</a></h2>
+<div class="doc-section">
+
+<p>AddValueToSplayTree() adds a value to the splay-tree.</p></ol>
+
+<p>The format of the AddValueToSplayTree method is:</p>
+
+<pre class="code">
+  WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
+    const void *key,const void *value)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay-tree info.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+<h5>value</h5>
+<ol><p>The value.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="BalanceSplayTree">BalanceSplayTree</a></h2>
+<div class="doc-section">
+
+<p>BalanceSplayTree() balances the splay-tree.</p></ol>
+
+<p>The format of the BalanceSplayTree method is:</p>
+
+<pre class="code">
+  void *BalanceSplayTree(SplayTreeInfo *splay_tree,const void *key)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay-tree info.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="CloneSplayTree">CloneSplayTree</a></h2>
+<div class="doc-section">
+
+<p>CloneSplayTree() clones the splay tree.</p></ol>
+
+<p>The format of the CloneSplayTree method is:</p>
+
+<pre class="code">
+  SplayTreeInfo *CloneSplayTree(SplayTreeInfo *splay_tree,
+    void *(*clone_key)(void *),void *(*cline_value)(void *))
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay tree.</p></ol>
+
+<h5>clone_key</h5>
+<ol><p>The key clone method, typically ConstantString(), called whenever a key is added to the splay-tree.</p></ol>
+
+<h5>clone_value</h5>
+<ol><p>The value clone method;  typically ConstantString(), called whenever a value object is added to the splay-tree.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="CompareSplayTreeString">CompareSplayTreeString</a></h2>
+<div class="doc-section">
+
+<p>CompareSplayTreeString() method finds a node in a splay-tree based on the contents of a string.</p></ol>
+
+<p>The format of the CompareSplayTreeString method is:</p>
+
+<pre class="code">
+  int CompareSplayTreeString(const void *target,const void *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>target</h5>
+<ol><p>The target string.</p></ol>
+
+<h5>source</h5>
+<ol><p>The source string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="CompareSplayTreeStringInfo">CompareSplayTreeStringInfo</a></h2>
+<div class="doc-section">
+
+<p>CompareSplayTreeStringInfo() finds a node in a splay-tree based on the contents of a string.</p></ol>
+
+<p>The format of the CompareSplayTreeStringInfo method is:</p>
+
+<pre class="code">
+  int CompareSplayTreeStringInfo(const void *target,const void *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>target</h5>
+<ol><p>The target string.</p></ol>
+
+<h5>source</h5>
+<ol><p>The source string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="DeleteNodeByValueFromSplayTree">DeleteNodeByValueFromSplayTree</a></h2>
+<div class="doc-section">
+
+<p>DeleteNodeByValueFromSplayTree() deletes a node by value from the splay-tree.</p></ol>
+
+<p>The format of the DeleteNodeByValueFromSplayTree method is:</p>
+
+<pre class="code">
+  WizardBooleanType DeleteNodeByValueFromSplayTree(
+    SplayTreeInfo *splay_tree,const void *value)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay-tree info.</p></ol>
+
+<h5>value</h5>
+<ol><p>The value.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="DeleteNodeFromSplayTree">DeleteNodeFromSplayTree</a></h2>
+<div class="doc-section">
+
+<p>DeleteNodeFromSplayTree() deletes a node from the splay-tree.</p></ol>
+
+<p>The format of the DeleteNodeFromSplayTree method is:</p>
+
+<pre class="code">
+  WizardBooleanType DeleteNodeFromSplayTree(SplayTreeInfo *splay_tree,
+    const void *key)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay-tree info.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="DestroySplayTree">DestroySplayTree</a></h2>
+<div class="doc-section">
+
+<p>DestroySplayTree() destroys the splay-tree.</p></ol>
+
+<p>The format of the DestroySplayTree method is:</p>
+
+<pre class="code">
+  SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay tree.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="GetNextKeyInSplayTree">GetNextKeyInSplayTree</a></h2>
+<div class="doc-section">
+
+<p>GetNextKeyInSplayTree() gets the next key in the splay-tree.</p></ol>
+
+<p>The format of the GetNextKeyInSplayTree method is:</p>
+
+<pre class="code">
+  void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay tree.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="GetNextValueInSplayTree">GetNextValueInSplayTree</a></h2>
+<div class="doc-section">
+
+<p>GetNextValueInSplayTree() gets the next value in the splay-tree.</p></ol>
+
+<p>The format of the GetNextValueInSplayTree method is:</p>
+
+<pre class="code">
+  void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay tree.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="GetValueFromSplayTree">GetValueFromSplayTree</a></h2>
+<div class="doc-section">
+
+<p>GetValueFromSplayTree() gets a value from the splay-tree by its key.</p></ol>
+
+<p>The format of the GetValueFromSplayTree method is:</p>
+
+<pre class="code">
+  void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,const void *key)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay tree.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="GetNumberOfNodesInSplayTree">GetNumberOfNodesInSplayTree</a></h2>
+<div class="doc-section">
+
+<p>GetNumberOfNodesInSplayTree() returns the number of nodes in the splay-tree.</p></ol>
+
+<p>The format of the GetNumberOfNodesInSplayTree method is:</p>
+
+<pre class="code">
+  unsigned long GetNumberOfNodesInSplayTree(
+    const SplayTreeInfo *splay_tree)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay tree.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="IterateOverSplayTree">IterateOverSplayTree</a></h2>
+<div class="doc-section">
+
+<p>IterateOverSplayTree() iterates over the splay-tree.</p></ol>
+
+<p>The format of the IterateOverSplayTree method is:</p>
+
+<pre class="code">
+  int IterateOverSplayTree(SplayTreeInfo *splay_tree,
+    int (*method)(NodeInfo *,void *),const void *value)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay-tree info.</p></ol>
+
+<h5>method</h5>
+<ol><p>The method.</p></ol>
+
+<h5>value</h5>
+<ol><p>The value.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="NewSplayTree">NewSplayTree</a></h2>
+<div class="doc-section">
+
+<p>NewSplayTree() returns a pointer to a SplayTreeInfo structure initialized to default values.</p></ol>
+
+<p>The format of the NewSplayTree method is:</p>
+
+<pre class="code">
+  SplayTreeInfo *NewSplayTree(int (*compare)(const void *,const void *),
+    void *(*relinquish_key)(void *),void *(*relinquish_value)(void *))
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>compare</h5>
+<ol><p>The compare method.</p></ol>
+
+<h5>relinquish_key</h5>
+<ol><p>The key deallocation method, typically RelinquishWizardMemory(), called whenever a key is removed from the splay-tree.</p></ol>
+
+<h5>relinquish_value</h5>
+<ol><p>The value deallocation method;  typically RelinquishWizardMemory(), called whenever a value object is removed from the splay-tree.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="RemoveNodeByValueFromSplayTree">RemoveNodeByValueFromSplayTree</a></h2>
+<div class="doc-section">
+
+<p>RemoveNodeByValueFromSplayTree() removes a node by value from the splay-tree and returns its key.</p></ol>
+
+<p>The format of the RemoveNodeByValueFromSplayTree method is:</p>
+
+<pre class="code">
+  void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
+    const void *value)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay-tree info.</p></ol>
+
+<h5>value</h5>
+<ol><p>The value.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="RemoveNodeFromSplayTree">RemoveNodeFromSplayTree</a></h2>
+<div class="doc-section">
+
+<p>RemoveNodeFromSplayTree() removes a node from the splay-tree and returns its value.</p></ol>
+
+<p>The format of the RemoveNodeFromSplayTree method is:</p>
+
+<pre class="code">
+  void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,const void *key)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay-tree info.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="ResetSplayTreeIterator">ResetSplayTreeIterator</a></h2>
+<div class="doc-section">
+
+<p>ResetSplayTreeIterator() resets the splay-tree iterator.  Use it in conjunction with GetNextValueInSplayTree() to iterate over all the nodes in the splay-tree.</p></ol>
+
+<p>The format of the ResetSplayTreeIterator method is:</p>
+
+<pre class="code">
+  ResetSplayTreeIterator(SplayTreeInfo *splay_tree)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay tree.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="SplaySplayTree">SplaySplayTree</a></h2>
+<div class="doc-section">
+
+<p>SplaySplayTree() splays the splay-tree.</p></ol>
+
+<p>The format of the SplaySplayTree method is:</p>
+
+<pre class="code">
+  void SplaySplayTree(SplayTreeInfo *splay_tree,const void *key,
+    NodeInfo **node,NodeInfo **parent,NodeInfo **grandparent)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>The splay-tree info.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+<h5>node</h5>
+<ol><p>The node.</p></ol>
+
+<h5>parent</h5>
+<ol><p>The parent node.</p></ol>
+
+<h5>grandparent</h5>
+<ol><p>The grandparent node.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="983316464">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

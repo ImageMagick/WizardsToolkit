@@ -1,0 +1,38 @@
+.TH decipher 1 "Date: 2005/03/01 01:00:00" "Wizard's Toolkit"
+.SH NAME
+decipher \- 
+.SH SYNOPSIS
+.TP
+\fBdecipher\fP [\fIoptions\fP] \fIciphertext\fP \fIplaintext\fP
+.SH OVERVIEW
+\fBDecipher\fP converts ciphertext to plaintext.
+
+For more information about the decipher command, point your browser to file://@DOCUMENTATION_PATH@/www/decipher.html or http://www.wizards-toolkit.org/script/decipher.php.
+.SH DESCRIPTION
+  -authenticate method authenticate with this method: Secret or Public
+  -chunksize bytes     number of bytes in a chunk
+  -cipher type         cipher to decipher content
+  -debug events        display copious debugging information
+  -(de)compress        automagically (de)compress BZIP and ZIP files
+  -entropy type        increase content entropy
+  -help                print program options
+  -hmac hash           ensure message integrity with this hash
+  -key hash            strengthen the key with this hash
+  -key-length value    cipher key length in bits: 256, 512, 1024, or 2048
+  -keyring filename    add private key to this keyring
+  -level value         entropy level: 1 (less entropy) to 9 (more entropy)
+  -list type           print a list of supported option arguments
+  -log format          format of debugging information
+  -mode type           mode of deciphering
+  -passphrase filename get the passphrase from this file
+  -properties filename cipher properties to/from this file
+  -random hash         strengthen random data with this hash
+  -true-random         strengthen enciphering with true random numbers
+  -verbose             print detailed information about the secure content
+  -version             print version information
+.SH SEE-ALSO
+WizardsToolkit(1)
+
+.SH COPYRIGHT
+
+\fBCopyright (C) 1999-2009 ImageMagick Studio LLC. Additional copyrights and licenses apply to this software, see file://@DOCUMENTATION_PATH@/www/license.php or http://www.wizards-toolkit.org/script/license.php\fP

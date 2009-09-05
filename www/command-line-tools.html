@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: Command-line Tools</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="command-line, tools, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../index.html"><img id="titlebar-west" src="../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="744594348"><img id="titlebar-west" src="../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../index.html"><img src="../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1836640887"><img id="titlebar-east" src="../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/install-source.html">Install from Source</a>
+      <a href="../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../www/binary-releases.html">Binary Releases</a>
+      <a href="../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#encipher">encipher</a> &bull; <a href="#decipher">decipher</a> &bull; <a href="#cipher-info">cipher-info</a> &bull; <a href="#keyring">keyring</a> &bull; <a href="#digest">digest</a>]</p>
+
+<p>The Wizard's Toolkit includes a number of command-line utilities for encrypting, identifying, or decrypting files.</p>
+
+<p>The The Wizard's Toolkit command-line tools exit with a status of 0 if the command line arguments have a proper syntax and no problems are encountered.  Expect a descriptive message and an exit status of 1 if any exception occurs such as improper syntax, a problem reading or writing an file, or any other problem that prevents the command from completing successfully.</p>
+
+<p>In the paragraphs below, find a short description for each command-line tool. Click on the program name to get details about the program usage and a list of command-line options that alters how the program behaves.  If you are just getting acquainted with The Wizard's Toolkit, start with the <a href="#encipher">encipher</a> program.</p>
+
+<div style="margin: auto;">
+  <h2><a name="cipher"></a><a href="../www/encipher.html">encipher</a></h2>
+</div>
+
+<p>convert plaintext to ciphertext.</p>
+
+<div style="margin: auto;">
+  <h2><a name="cipher"></a><a href="../www/decipher.html">decipher</a></h2>
+</div>
+
+<p>convert ciphertext to plaintext.</p>
+
+<div style="margin: auto;">
+  <h2><a name="cipher-info"></a><a href="../www/cipher-info.html">cipher-info</a></h2>
+</div>
+
+<p>describe the format and characteristics of one or more encrypted files.</p>
+
+<div style="margin: auto;">
+  <h2><a name="keyring"></a><a href="../www/keyring.html">keyring</a></h2>
+</div>
+
+<p>Import, export, or list properties of keys on your keyring.</p>
+
+<div style="margin: auto;">
+  <h2><a name="cipher-info"></a><a href="../www/digest.html">digest</a></h2>
+</div>
+
+<p>return a message digest for one or more files or read message digests from a file and authenticate them.</p>
+
+<p>To get you started, here is a brief example of how you might use these utilities:</p>
+
+<pre class="text">
+  -> encipher -keyring keyring.xdm secret-message.txt secret-message.cip
+  Enter the passphrase (maximum of 4096 characters)
+  Enter passphrase: 
+  Enter same passphrase again: 
+  
+  -> cipher-info secret-message.cip
+  Filename: secret-message.cip
+    Cipher:
+      type: AES
+      mode: CTR
+      nonce: 61ae70a6a47793b40000000000000000
+    Authenticate:
+      method: Secret
+    Key:
+      hash: SHA256
+      length: 512
+      id: d596e432a92b2e60c76c104958d16dbe8a67519001249b69b46bfade54e6ac8c
+    Entropy Generator:
+      type: BZip
+      level: 6
+    Keyed-Hashed Message Authentication Code:
+      hash: SHA256
+    Random Generator:
+      hash: SHA256
+    Chunksize: 256kb
+    Dates:
+      modify: 2009-02-29T10:39:18-05:00
+      create: 2009-02-29T10:39:18-05:00
+      timestamp: 2009-02-29T10:41:48-05:00
+    Protocol: 1.0
+    Version: WizardsToolkit 1.0.5 02/29/08 http://www.wizards-toolkit.org
+  
+  -> keyring keyring.xdm -
+  &lt;?xml version="1.0"?>
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+           xmlns:keyring="http://www.wizards-toolkit.org/keyring/1.0/">
+    &lt;keyring:Keyring rdf:about="keyring.xdm">
+      &lt;keyring:modify-date>2009-02-29T10:41:48-05:00&lt;/keyring:modify-date>
+      &lt;keyring:create-date>2009-02-29T10:41:48-05:00&lt;/keyring:create-date>
+      &lt;keyring:timestamp>2009-02-29T10:41:48-05:00&lt;/keyring:timestamp>
+    &lt;/keyring:Keyring>
+    &lt;keyring:Key rdf:about="d596e432a92b2e60c76c104958d16dbe8a67519001249b69b46bfade54e6ac8c">
+      &lt;keyring:memberOf rdf:resource="keyring.xdm"/> 
+      &lt;keyring:nonce>1d443b7e02ae82040000000000000000&lt;/keyring:nonce>
+      &lt;keyring:timestamp>2009-02-29T10:41:48-05:00&lt;/keyring:timestamp>
+      &lt;keyring:protocol>1.1&lt;/keyring:protocol>
+    &lt;/keyring:Key>
+  &lt;/rdf:RDF>
+  
+  -> decipher -keyring keyring.xdm secret-message.cip public-message.txt
+  Enter the passphrase (maximum of 4096 characters)
+  Enter passphrase: 
+  Enter same passphrase again: 
+  
+  -> digest secret-message.txt public-message.txt -
+  &lt;?xml version="1.0"?>
+  &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+           xmlns:digest="http://www.wizards-toolkit.org/digest/1.0/">
+    &lt;digest:Content rdf:about="secret-message.txt">
+      &lt;digest:timestamp>2009-02-29T10:42:03-05:00&lt;/digest:timestamp>
+      &lt;digest:modify-date>2009-02-29T10:39:18-05:00&lt;/digest:modify-date>
+      &lt;digest:create-date>2009-02-29T10:39:18-05:00&lt;/digest:create-date>
+      &lt;digest:extent>9113&lt;/digest:extent>
+      &lt;digest:sha256>90ca62d8a67e43f86b67162e6a5804612e2c45d44a014760c49e1999b9fb344e&lt;/digest:sha256>
+    &lt;/digest:Content>
+    &lt;digest:Content rdf:about="public-message.txt">
+      &lt;digest:timestamp>2009-02-29T10:42:03-05:00&lt;/digest:timestamp>
+      &lt;digest:modify-date>2009-02-29T10:39:18-05:00&lt;/digest:modify-date>
+      &lt;digest:create-date>2009-02-29T10:39:18-05:00&lt;/digest:create-date>
+      &lt;digest:extent>8196&lt;/digest:extent>
+      &lt;digest:sha256>90ca62d8a67e43f86b67162e6a5804612e2c45d44a014760c49e1999b9fb344e&lt;/digest:sha256>
+    &lt;/digest:Content>
+  &lt;/rdf:RDF>
+</pre>
+
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="793800654">Discourse Server</a> |
+    <a href="../www/license.html">License</a> |
+    <a href="../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

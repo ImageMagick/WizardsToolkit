@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Authenticate Methods</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, authenticate, methods, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="2021771033"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="95474015"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AcquireAuthenticateInfo">AcquireAuthenticateInfo</a> &bull; <a href="#AuthenticateKey">AuthenticateKey</a> &bull; <a href="#DestroyAuthenticateInfo">DestroyAuthenticateInfo</a> &bull; <a href="#GenerateAuthenticateKey">GenerateAuthenticateKey</a> &bull; <a href="#GetAuthenticateId">GetAuthenticateId</a> &bull; <a href="#GetAuthenticateKey">GetAuthenticateKey</a> &bull; <a href="#GetAuthenticateKeyLength">GetAuthenticateKeyLength</a> &bull; <a href="#GetAuthenticateId">GetAuthenticateId</a> &bull; <a href="#SetAuthenticateId">SetAuthenticateId</a> &bull; <a href="#SetAuthenticateKeyLength">SetAuthenticateKeyLength</a> &bull; <a href="#SetAuthenticatePassphrase">SetAuthenticatePassphrase</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="AcquireAuthenticateInfo">AcquireAuthenticateInfo</a></h2>
+<div class="doc-section">
+
+<p>AcquireAuthenticateInfo() allocates the AuthenticateInfo structure.</p></ol>
+
+<p>The format of the AcquireAuthenticateInfo method is:</p>
+
+<pre class="code">
+  AuthenticateInfo *AcquireAuthenticateInfo(
+    const AuthenticateMethod method,const char *path,const HashType hash)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate</h5>
+<ol><p>The authenticate type.</p></ol>
+
+<h5>path</h5>
+<ol><p>The keyring path.</p></ol>
+
+<h5>hash</h5>
+<ol><p>The hash type.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="AuthenticateKey">AuthenticateKey</a></h2>
+<div class="doc-section">
+
+<p>AuthenticateKey() returns WizardTrue if the caller is authenticated.</p></ol>
+
+<p>The format of the AuthenticateKey method is:</p>
+
+<pre class="code">
+  void AuthenticateKey(AuthenticateInfo *authenticate_info,
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authenticate info.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="DestroyAuthenticateInfo">DestroyAuthenticateInfo</a></h2>
+<div class="doc-section">
+
+<p>DestroyAuthenticateInfo() zeros memory associated with the AuthenticateInfo structure.</p></ol>
+
+<p>The format of the DestroyAuthenticateInfo method is:</p>
+
+<pre class="code">
+  AuthenticateInfo *DestroyAuthenticateInfo(
+    AuthenticateInfo *authenticate_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authenticate info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="GenerateAuthenticateKey">GenerateAuthenticateKey</a></h2>
+<div class="doc-section">
+
+<p>GenerateAuthenticateKey() returns WizardTrue if a secret key is generated and successfully added to the secret key ring.</p></ol>
+
+<p>The format of the GenerateAuthenticateKey method is:</p>
+
+<pre class="code">
+  WizardBooleanType GenerateAuthenticateKey(
+    AuthenticateInfo *authenticate_info,ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authenticate info.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="GetAuthenticateId">GetAuthenticateId</a></h2>
+<div class="doc-section">
+
+<p>GetAuthenticateId() returns the authentication id.</p></ol>
+
+<p>The format of the GetAuthenticateId method is:</p>
+
+<pre class="code">
+  const StringInfo *GetAuthenticateId(
+    const AuthenticateInfo *authenticate_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authenticate info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="GetAuthenticateKey">GetAuthenticateKey</a></h2>
+<div class="doc-section">
+
+<p>GetAuthenticateKey() returns the authenticate key.</p></ol>
+
+<p>The format of the GetAuthenticateKey method is:</p>
+
+<pre class="code">
+  const StringInfo *GetAuthenticateKey(
+    const AuthenticateInfo *authenticate_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authenticate info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="GetAuthenticateKeyLength">GetAuthenticateKeyLength</a></h2>
+<div class="doc-section">
+
+<p>GetAuthenticateKeyLength() returns the authenticate key length.</p></ol>
+
+<p>The format of the GetAuthenticateKeyLength method is:</p>
+
+<pre class="code">
+  size_t GetAuthenticateKeyLength(
+    const AuthenticateInfo *authenticate_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authenticate info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="GetAuthenticateId">GetAuthenticateId</a></h2>
+<div class="doc-section">
+
+<p>GetAuthenticateId() returns the authentication passphrase.</p></ol>
+
+<p>The format of the GetAuthenticatePassphrase method is:</p>
+
+<pre class="code">
+  const char *GetAuthenticatePassphrase(
+    const AuthenticateInfo *authenticate_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authenticate info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="SetAuthenticateId">SetAuthenticateId</a></h2>
+<div class="doc-section">
+
+<p>SetAuthenticateId() sets the authentication id.</p></ol>
+
+<p>The format of the SetAuthenticateId method is:</p>
+
+<pre class="code">
+  void SetAuthenticateId(AuthenticateInfo *authenticate_info,
+    const StringInfo *id)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authentication info.</p></ol>
+
+<h5>id</h5>
+<ol><p>The id.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="SetAuthenticateKeyLength">SetAuthenticateKeyLength</a></h2>
+<div class="doc-section">
+
+<p>SetAuthenticateKeyLength() sets the authentication method key length.</p></ol>
+
+<p>The format of the SetAuthenticateKeyLength method is:</p>
+
+<pre class="code">
+  void SetAuthenticateKeyLength(AuthenticateInfo *authenticate_info,
+    const unsigned long key_length)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authenticate info.</p></ol>
+
+<h5>key_length</h5>
+<ol><p>The key length in bits.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
+_8c.html" target="source" name="SetAuthenticatePassphrase">SetAuthenticatePassphrase</a></h2>
+<div class="doc-section">
+
+<p>SetAuthenticatePassphrase() sets the authentication method key file.</p></ol>
+
+<p>The format of the SetAuthenticatePassphrase method is:</p>
+
+<pre class="code">
+  void SetAuthenticatePassphrase(AuthenticateInfo *authenticate_info,
+    const char *passphrase)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>authenticate_info</h5>
+<ol><p>The authenticate info.</p></ol>
+
+<h5>passphrase</h5>
+<ol><p>The passphrase.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1959064582">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

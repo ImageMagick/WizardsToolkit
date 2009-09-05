@@ -1,0 +1,22 @@
+.TH cipher-info 1 "Date: 2005/03/01 01:00:00" "Wizard's Toolkit"
+.SH NAME
+cipher-info \- 
+.SH SYNOPSIS
+.TP
+\fBcipher-info\fP [\fIoptions\fP] \fIciphertext\fP [ \fIciphertext\fP ... ]
+.SH OVERVIEW
+\fBCipher-info\fP displays properties associated with ciphertext.
+
+For more information about the cipher-info command, point your browser to file://@DOCUMENTATION_PATH@/www/cipher-info.html or http://www.wizards-toolkit.org/script/cipher-info.php.
+.SH DESCRIPTION
+  -debug events        display copious debugging information
+  -help                print program options
+  -list type           print a list of supported option arguments
+  -version             print version information
+
+.SH SEE-ALSO
+WizardsToolkit(1)
+
+.SH COPYRIGHT
+
+\fBCopyright (C) 1999-2009 ImageMagick Studio LLC. Additional copyrights and licenses apply to this software, see file://@DOCUMENTATION_PATH@/www/license.php or http://www.wizards-toolkit.org/script/license.php\fP

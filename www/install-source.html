@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: Install from Source</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="install, from, source, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../index.html"><img id="titlebar-west" src="../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1321262206"><img id="titlebar-west" src="../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../index.html"><img src="../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1017660115"><img id="titlebar-east" src="../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/install-source.html">Install from Source</a>
+      <a href="../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../www/binary-releases.html">Binary Releases</a>
+      <a href="../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+
+<p class="navigation-index">[<a href="#unix">Install from Unix Source</a> &bull; <a href="#windows">Install from Windows Source</a>]</p>
+
+<p>It's possible the Wizard's Toolkit is already installed on your computer.  Type</p>
+
+<pre class="text">
+  WizardsToolkit-config --version
+</pre>
+
+<p>If the WizardsToolkit-config script executes and returns a version number, you may not need to install the Wizard's Toolkit from source unless you want to upgrade to a newer version.  You also have the option of installing a pre-compiled <a href="../www/binary-releases.html">binary release</a>.  However, if you still want to install from source, choose a platform, <a href="#Unix">Unix</a> or <a href="#Windows">Windows</a>.  Before installing from source, you may want to review recent <a href="../www/changelog.html">changes</a> to the the Wizard's Toolkit distribution.</p> 
+
+<div style="margin: auto;">
+  <h2><a name="unix"></a>Install from Unix Source</h2>
+</div>
+
+<p>The Wizard's Toolkit builds on a variety of Unix and Unix-like operating systems including Linux, Solaris, FreeBSD, Mac OS X, and others.  A compiler is required and fortunately almost all modern Unix systems have one.  Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.tar.gz">WizardsToolkit.tar.gz</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit" target="1540646771">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/digest.rdf">message digest</a>.</p>
+
+<p>Unpack the distribution with this command:</p>
+
+<pre class="text">
+  tar xvfz WizardsToolkit.tar.gz
+</pre>
+
+<p>Next configure and compile the Wizard's Toolkit:</p>
+
+<pre class="text">
+  cd WizardsToolkit-1.?.?
+  ./configure
+  make
+</pre>
+
+<p>If the Wizard's Toolkit configured and compiled without complaint, you are ready to install it on your system.  Administrator privileges are required to install.  To install, type</p>
+
+<pre class="text">
+  make install
+</pre>
+
+<p>Finally, verify the the Wizard's Toolkit install worked properly, type</p>
+
+<pre class="text">
+  WizardsToolkit-config --version
+</pre>
+
+<p>Congratulations, you have a working Wizard's Toolkit distribution and you are ready to use the Wizard's Toolkit to use the <a href="../www/api.html">Application Program Interfaces</a> for C.</p>
+
+<div style="margin: auto;">
+  <h2><a name="windows"></a>Install from Windows Source</h2>
+</div>
+
+<p>Building the Wizard's Toolkit source for Windows requires a modern version of Microsoft Visual Studio IDE.  Users have reported success with the Borland C++ compiler as well.  If you don't have a compiler you can still install a self-installing <a href="../www/binary-releases.html">binary release</a>.</p>
+
+<p>Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.zip">WizardsToolkit.zip</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/windows" target="1514043833">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/windows/digest.rdf">message digest</a>.  You can unpack the distribution with <a href="http://www.winzip.com" target="1906061737">WinZip</a> or type the following from any MS-DOS Command Prompt window:</p>
+
+<pre class="text">
+  unzip WizardsToolkit.zip
+</pre>
+
+<p>The Wizard's Toolkit requires <a href="http://gnuwin32.sourceforge.net/packages/bzip2.htm" target="983588109">BZip2 for Windows</a> and <a href="http://gnuwin32.sourceforge.net/packages/zlib.htm" target="1086581839">ZLib for Windows</a>.  Be sure to install the development headers along with the DLL's.  Edit <kbd>zconf.h</kbd> and exclude the <kbd>unistd.h</kbd> include statement since this file is not available under Windows.</p>
+
+<p>Next, launch your Visual Studio IDE and choose <kbd>Open->Project</kbd>.  Select the workspace from the <kbd>WizardsToolkit-1.?.?/windows</kbd> folder and press Open.  Choose <kbd>Build->Build Solution</kbd> to compile the program and on completion run the program.</p>
+
+<p>Congratulations, you have a working Wizard's Toolkit distribution under Windows and you are ready to use the Wizard's Toolkit <a href="../www/api.html">Application Program Interfaces</a> for C.</p>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="886394011">Discourse Server</a> |
+    <a href="../www/license.html">License</a> |
+    <a href="../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

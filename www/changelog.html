@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: Wizard's Toolkit Changelog</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="wizard's, toolkit, changelog, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../index.html"><img id="titlebar-west" src="../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1969114663"><img id="titlebar-west" src="../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../index.html"><img src="../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="2130938441"><img id="titlebar-east" src="../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/install-source.html">Install from Source</a>
+      <a href="../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../www/binary-releases.html">Binary Releases</a>
+      <a href="../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<ul><dt>2009-04-28  1.0.6-6 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Update autoconf / automake configuration files.</li><br />
+<dt>2009-03-05  1.0.6-2 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Add digest:extent element when a digest is generated.</li><br />
+<dt>2008-12-18  1.0.6-1 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> FormatWizardTime() checks to ensure the provided time is valid.</li><br />
+<dt>2008-11-03  1.0.5-7 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Always add crytographic padding to cipher block.</li><br />
+<dt>2008-10-28  1.0.5-6 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Add support for the -random option in the encipher utility.</li><br />
+<dt>2008-03-09  1.0.4-5 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Define inline to _magickcore_inline (to satisfy HP's aCC compiler).</li>
+  <li> Add keyring command-line utility.</li><br />
+<dt>2008-02-16  1.0.3-9 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Update automake/autoconf/libtool scripts.</li><br />
+<dt>2008-02-13  1.0.3-8 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Add -(de)compress command-line option.</li><br />
+<dt>2008-01-25  1.0.3-0 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Add encipher, cipher-info, and digest command-line programs.</li><br />
+<dt>2007-12-05  1.0.3-0 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Update autoconf/automake/libtool configuration files.</li><br />
+<dt>2006-12-23  1.0.2-5 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Remove excess whitespace when converting an XMLTree to XML (reference    http://www.imagemagick.org/discourse-server/viewtopic.html?t=8053).</li><br />
+<dt>2006-12-16  1.0.2-4 Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> CompareStringInfo() no longer returns incorrect results if one string is    a substring of the other.</li>
+  <li> Properly check hash_info pointer before destroying in DestroyHMACInfo().</li><br />
+<dt>2005-09-01  Cristy  &lt;cristy@virgi...&gt;</dt>
+  <li> Wizard's Toolkit version 1.0.1</ul>      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1885573131">Discourse Server</a> |
+    <a href="../www/license.html">License</a> |
+    <a href="../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

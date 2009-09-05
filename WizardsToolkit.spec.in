@@ -1,0 +1,163 @@
+%define VERSION  @PACKAGE_VERSION@
+%define Patchlevel  @PACKAGE_RELEASE@
+
+Name:           @PACKAGE_NAME@
+Version:        %{VERSION}
+Release:        %{Patchlevel}
+Summary:        The Wizard's Toolkit includes command line utilities to convert plaintext to ciphertext, convert ciphertext to plaintext, report properties associated with ciphertext, compute the message digest of a file, and read message digests from a file and authenticate them. In addition, the Wizard's Toolkit includes a a cross-platform C API that includes a number of enciphering and hash methods many developers should find useful in their projects.
+Group:          Applications/Multimedia
+License:        http://www.wizards-toolkit.org/script/license.php
+Url:            http://www.wizards-toolkit.org/
+Source0:        ftp://ftp.wizards-toolkit.org/pub/%{name}/%{name}-%{VERSION}-%{Patchlevel}.tar.bz2
+
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:  bzip2-devel, zlib-devel
+
+%description
+The Wizard's Toolkit includes command line utilities to convert plaintext to ciphertext, convert ciphertext to plaintext, report properties associated with ciphertext, compute the message digest of a file, and read message digests from a file and authenticate them. In addition, the Wizard's Toolkit includes a a cross-platform C API that includes a number of enciphering and hash methods many developers should find useful in their projects.
+
+The Wizard's Toolkit is free software delivered as a ready-to-run binary distribution or as source code that you may freely use, copy, modify, and distribute. Its license is compatible with the GPL. It runs on all major operating systems.
+
+Here are just a few examples of what the Wizard's Toolkit command line utilities can do:
+
+    * Encipher plaintext.
+    * Decipher ciphertext.
+    * Report properties associated with ciphertext.
+    * Compute the message digest of a file.
+    * Read message digests from a file and verify them.
+
+Here are just a few examples of what the Wizard's Toolkit Application Programming Interface can do:
+
+    * Return files as Binary Large OBjectS
+    * Write/read characters, shorts, words, and long words to/from a file
+    * Compute a cyclic redunancy checksum
+    * Handle C exceptions
+    * Generate a secure hash (includes MD5, SHA-1, SHA-224, SHA-256, SHA-384,
+    * and SHA-512)
+    * Generate a keyed-hash for message authentication
+    * Encipher/decipher messages (includes AES, Serpent, and Twofish)
+    * Authenticate a user (only secret-key supported at this time)
+    * Map content with its associated mime type and file extension
+    * Log events to the console or XML-style file
+    * Anonymous memory-mapped memory allocation/deallocation
+    * Increase entropy with message compression
+    * Generate cryptographically-strong random numbers
+    * Acquire/relinquish resources
+    * Acquire/relinquish semaphores
+    * Store/retrieve key-value pairs to/from a hashmap or linked-list
+    * Store/retrieve key-value pairs to/from a self-adjusting binary tree
+    * Parse or generate a XML document
+    * Convenience methods for dealing with strings
+
+%package devel
+Summary: Library links and header files for WizardsToolkit application development
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+Requires: pkgconfig
+
+%description devel
+WizardsToolkit-devel contains the library links and header files you'll
+need to develop Wizard's Toolkit applications. 
+
+If you want to create applications that will use WizardsToolkit code or
+APIs, you need to install WizardsToolkit-devel as well as WizardsToolkit.
+You do not need to install it if you just want to use WizardsToolkit,
+however.
+
+%package doc
+Summary: WizardsToolkit HTML documentation
+Group: Documentation
+
+%description doc
+WizardsToolkit documentation, this package contains usage (for the
+commandline tools) and API (for the libraries) documentation in HTML format.
+Note this documentation can also be found on the WizardsToolkit website:
+http://www.wizards-toolkit.org/
+
+
+%prep
+%setup -q -n %{name}-%{VERSION}-%{Patchlevel}
+sed -i 's/libltdl.la/libltdl.so/g' configure
+
+%build
+%configure --enable-shared \
+           --disable-static \
+           --with-threads
+# Disable rpath
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+make %{?_smp_mflags}
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+cp -a www/source $RPM_BUILD_ROOT%{_datadir}/doc/%{name}-%{VERSION}
+rm $RPM_BUILD_ROOT%{_libdir}/*.la
+
+# These don't belong here, we include them in %%doc
+rm $RPM_BUILD_ROOT%{_datadir}/%{name}-%{VERSION}/{ChangeLog,LICENSE,NEWS.txt}
+
+# fix multilib issues
+%ifarch x86_64 s390x ia64 ppc64 alpha sparc64
+%define wordsize 64
+%else
+%define wordsize 32
+%endif
+
+mv $RPM_BUILD_ROOT%{_includedir}/%{name}/wizard/wizard-config.h \
+   $RPM_BUILD_ROOT%{_includedir}/%{name}/wizard/wizard-config-%{wordsize}.h
+
+cat >$RPM_BUILD_ROOT%{_includedir}/%{name}/wizard/wizard-config.h <<EOF
+#ifndef IMAGEMAGICK_MULTILIB
+#define IMAGEMAGICK_MULTILIB
+
+#include <bits/wordsize.h>
+
+#if __WORDSIZE == 32
+# include "wizard-config-32.h"
+#elif __WORDSIZE == 64
+# include "wizard-config-64.h"
+#else
+# error "unexpected value for __WORDSIZE macro"
+#endif
+
+#endif
+EOF
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+%files
+%defattr(-,root,root,-)
+%doc QuickStart.txt ChangeLog
+%doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt
+%{_libdir}/libWizardsToolkit.so.*
+%{_bindir}/[a-z]*
+%{_libdir}/%{name}-%{VERSION}
+%{_datadir}/%{name}-%{VERSION}
+%{_mandir}/man[145]/[a-z]*
+
+%files devel
+%defattr(-,root,root,-)
+%{_bindir}/WizardsToolkit-config
+%{_libdir}/libWizardsToolkit.so
+%{_libdir}/pkgconfig/WizardsToolkit.pc
+%dir %{_includedir}/%{name}
+%{_includedir}/%{name}/wizard
+%{_mandir}/man1/WizardsToolkit-config.*
+
+%files doc
+%defattr(-,root,root,-)
+%doc %{_datadir}/doc/%{name}-%{VERSION}
+
+%changelog
+* Sun May 01 2005 Cristy <cristy@mystic.es.dupont.com> 1.0-0
+*  Port of Redhat's RPM script to support WizardsToolkit.

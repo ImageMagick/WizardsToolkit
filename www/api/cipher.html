@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Cipher Algorithm Methods</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, secure, cipher, algorithm, methods, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1688579196"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1661743157"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AcquireCipherInfo">AcquireCipherInfo</a> &bull; <a href="#DecipherCipher">DecipherCipher</a> &bull; <a href="#DestroyCipherInfo">DestroyCipherInfo</a> &bull; <a href="#EncipherCipher">EncipherCipher</a> &bull; <a href="#GetCipherBlocksize">GetCipherBlocksize</a> &bull; <a href="#GenerateCipherNonce">GenerateCipherNonce</a> &bull; <a href="#GetCipherNonce">GetCipherNonce</a> &bull; <a href="#ResetCipherNonce">ResetCipherNonce</a> &bull; <a href="#SetCipherNonce">SetCipherNonce</a> &bull; <a href="#SetCipherKey">SetCipherKey</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="AcquireCipherInfo">AcquireCipherInfo</a></h2>
+<div class="doc-section">
+
+<p>AcquireCipherInfo() allocates the CipherInfo structure.</p></ol>
+
+<p>The format of the AcquireCipherInfo method is:</p>
+
+<pre class="code">
+  CipherInfo *AcquireCipherInfo(const CipherType cipher,
+    const CipherMode mode)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher</h5>
+<ol><p>The cipher type.</p></ol>
+
+<h5>mode</h5>
+<ol><p>The cipher mode.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="DecipherCipher">DecipherCipher</a></h2>
+<div class="doc-section">
+
+<p>DecipherCipher() deciphers ciphertext and returns plaintext. The deciphering is performed in-place and DecipherCipher() returns a pointer to the ciphertext string.</p></ol>
+
+<p>The format of the DecipherCipher method is:</p>
+
+<pre class="code">
+       StringInfo *DecipherCipher(CipherInfo *cipher_info,StringInfo *ciphertext)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+<h5>ciphertext</h5>
+<ol><p>The cipher text.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="DestroyCipherInfo">DestroyCipherInfo</a></h2>
+<div class="doc-section">
+
+<p>DestroyCipherInfo() zeros memory associated with the CipherInfo structure.</p></ol>
+
+<p>The format of the DestroyCipherInfo method is:</p>
+
+<pre class="code">
+  CipherInfo *DestroyCipherInfo(CipherInfo *cipher_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher_info</h5>
+<ol><p>The cipher info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="EncipherCipher">EncipherCipher</a></h2>
+<div class="doc-section">
+
+<p>EncipherCipher() enciphers plaintext and returns ciphertext.  The enciphering is performed in-place and EncipherCipher() returns a pointer to the plaintext string.</p></ol>
+
+<p>The format of the EncipherCipher method is:</p>
+
+<pre class="code">
+       StringInfo *EncipherCipher(CipherInfo *cipher_info,StringInfo *plaintext)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+<h5>plaintext</h5>
+<ol><p>The plain text.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="GetCipherBlocksize">GetCipherBlocksize</a></h2>
+<div class="doc-section">
+
+<p>GetCipherBlocksize() returns the cipher blocksize.</p></ol>
+
+<p>The format of the GetCipherBlocksize method is:</p>
+
+<pre class="code">
+  unsigned long *GetCipherBlocksize(const CipherInfo *cipher_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher_info</h5>
+<ol><p>The cipher info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="GenerateCipherNonce">GenerateCipherNonce</a></h2>
+<div class="doc-section">
+
+<p>GenerateCipherNonce() generate a nonce for the given cipher.</p></ol>
+
+<p>The format of the GenerateCipherNonce method is:</p>
+
+<pre class="code">
+       StringInfo *GenerateCipherNonce(CipherInfo *cipher_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="GetCipherNonce">GetCipherNonce</a></h2>
+<div class="doc-section">
+
+<p>GetCipherNonce() returns a nonce of the cipher.</p></ol>
+
+<p>The format of the GetCipherNonce method is:</p>
+
+<pre class="code">
+       const StringInfo *GetCipherNonce(CipherInfo *cipher_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="ResetCipherNonce">ResetCipherNonce</a></h2>
+<div class="doc-section">
+
+<p>ResetCipherNonce() resets the initialization vector for the cipher.</p></ol>
+
+<p>The format of the ResetCipherNonce method is:</p>
+
+<pre class="code">
+  ResetCipherNonce(CipherInfo *cipher_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="SetCipherNonce">SetCipherNonce</a></h2>
+<div class="doc-section">
+
+<p>SetCipherNonce() sets the initialization vector for the cipher.</p></ol>
+
+<p>The format of the SetCipherNonce method is:</p>
+
+<pre class="code">
+  SetCipherNonce(CipherInfo *cipher_info,const StringInfo *nonce)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+<h5>nonce</h5>
+<ol><p>The initialization vector.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
+_8c.html" target="source" name="SetCipherKey">SetCipherKey</a></h2>
+<div class="doc-section">
+
+<p>SetCipherKey() sets the key for the cipher.  The key length is specified in bits.  Valid values are 128, 192, or 256.</p></ol>
+
+<p>The format of the SetCipherKey method is:</p>
+
+<pre class="code">
+  SetCipherKey(CipherInfo *cipher_info,const StringInfo *key)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>cipher_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1196414083">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

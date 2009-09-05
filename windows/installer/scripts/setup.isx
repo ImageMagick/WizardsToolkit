@@ -1,0 +1,44 @@
+#ifdef COPYRIGHT
+;  Copyright 1999-2008 ImageMagick Studio LLC, a non-profit organization
+;  dedicated to making software imaging solutions freely available.
+;
+;  You may not use this file except in compliance with the License.  You may
+;  obtain a copy of the License at
+;
+;    http://www.wizards-toolkit.org/script/license.php
+;
+;  Unless required by applicable law or agreed to in writing, software
+;  distributed under the License is distributed on an "AS IS" BASIS,
+;  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+;  See the License for the specific language governing permissions and
+;  limitations under the License.
+#endif
+
+AppName={#WizardPackageName} {#WizardPackageVersion}
+; When updating the version string, remember to also update the version in
+; the [Registry] section
+AppVerName={#WizardPackageName} {#WizardPackageVersion}{#WizardPackageVersionAddendum} ({#WizardPackageReleaseDate})
+AppVersion={#WizardPackageVersion}
+AppCopyright=Copyright (C) 1999-2008 ImageMagick Studio LLC
+AppPublisher=ImageMagick Studio LLC
+AppPublisherURL=http://www.wizards-toolkit.org/
+AppSupportURL=http://www.wizards-toolkit.org/
+AppUpdatesURL=http://www.wizards-toolkit.org/script/download.php
+; Default install is similiar to "C:\Program Files\Wizard's Toolkit-1.0.5":
+DefaultDirName={pf}\{#WizardPackageName}-{#WizardPackageVersion}
+DefaultGroupName={#WizardPackageName} {#WizardPackageVersion}
+Compression=lzma/max
+ChangesAssociations=1
+AllowRootDirectory=no
+InfoBeforeFile=docs\before.rtf
+InfoAfterFile=docs\after.rtf
+LicenseFile=docs\license.rtf
+UninstallDisplayIcon={#WizardAppDirectory}\Wizard's Toolkit.ico
+OutputDir=..\bin
+OutputBaseFilename={#WizardPackageName}-{#WizardPackageVersion}{#WizardPackageVersionAddendum}-windows-{#WizardPackageType}
+; uncomment the following line if you want your installation to run on NT 3.51 too.
+; MinVersion=4,3.51
+
+#ifdef Wizard64BitArchitecture
+  ArchitecturesInstallIn64BitMode=x64
+#endif

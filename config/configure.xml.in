@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<configuremap>
+  <configure name="HOST" value="@host@" />
+  <configure name="CONFIGURE" value="@CONFIGURE_ARGS@" />
+  <configure name="PREFIX" value="@PREFIX_DIR@" />
+  <configure name="EXEC-PREFIX" value="@EXEC_PREFIX_DIR@" />
+  <configure name="CC" value="@CC@" />
+  <configure name="CFLAGS" value="@WIZARD_CFLAGS@" />
+  <configure name="CPPFLAGS" value="@WIZARD_CPPFLAGS@" />
+  <configure name="LDFLAGS" value="@WIZARD_LDFLAGS@" />
+  <configure name="LIBS" value="@WIZARD_LIBS@" />
+  <configure name="CXX" value="@CXX@" />
+  <configure name="CXXFLAGS" value="@CXXFLAGS@" />
+  <configure name="DISTCHECK_CONFIG_FLAGS" value="@DISTCHECK_CONFIG_FLAGS@" />
+  <configure name="CVS_BRANCH_TAG" value="@CVS_BRANCH_TAG@" />
+  <configure name="NAME" value="@PACKAGE_NAME@" />
+  <configure name="VERSION" value="@PACKAGE_VERSION@" />
+  <configure name="LIB_VERSION" value="@PACKAGE_LIB_VERSION@" />
+  <configure name="LIB_VERSION_NUMBER" value="@PACKAGE_LIB_VERSION_NUMBER@" />
+  <configure name="RELEASE_DATE" value="@PACKAGE_RELEASE_DATE@" />
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2009 ImageMagick Studio LLC" />
+  <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
+</configuremap>

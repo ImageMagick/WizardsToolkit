@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Timing</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, timing, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1432212927"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1149862319"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AcquireTimerInfo">AcquireTimerInfo</a> &bull; <a href="#ContinueTimer">ContinueTimer</a> &bull; <a href="#DestroyTimerInfo">DestroyTimerInfo</a> &bull; <a href="#GetElapsedTime">GetElapsedTime</a> &bull; <a href="#GetUserTime">GetUserTime</a> &bull; <a href="#ResetTimer">ResetTimer</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
+_8c.html" target="source" name="AcquireTimerInfo">AcquireTimerInfo</a></h2>
+<div class="doc-section">
+
+<p>AcquireTimerInfo() initializes the TimerInfo structure.  It effectively creates a stopwatch and starts it.</p></ol>
+
+<p>The format of the AcquireTimerInfo method is:</p>
+
+<pre class="code">
+  TimerInfo *AcquireTimerInfo(void)
+</pre>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
+_8c.html" target="source" name="ContinueTimer">ContinueTimer</a></h2>
+<div class="doc-section">
+
+<p>ContinueTimer() resumes a stopped stopwatch. The stopwatch continues counting from the last StartTimer() onwards.</p></ol>
+
+<p>The format of the ContinueTimer method is:</p>
+
+<pre class="code">
+  WizardBooleanType ContinueTimer(TimerInfo *timer_info)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5> timer_info</h5>
+<ol><p>Time statistics structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
+_8c.html" target="source" name="DestroyTimerInfo">DestroyTimerInfo</a></h2>
+<div class="doc-section">
+
+<p>DestroyTimerInfo() zeros memory associated with the TimerInfo structure.</p></ol>
+
+<p>The format of the DestroyTimerInfo method is:</p>
+
+<pre class="code">
+  TimerInfo *DestroyTimerInfo(TimerInfo *timer_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>timer_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
+_8c.html" target="source" name="GetElapsedTime">GetElapsedTime</a></h2>
+<div class="doc-section">
+
+<p>GetElapsedTime() returns the elapsed time (in seconds) passed between the start and stop events. If the stopwatch is still running, it is stopped first.</p></ol>
+
+<p>The format of the GetElapsedTime method is:</p>
+
+<pre class="code">
+  double GetElapsedTime(TimerInfo *timer_info)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5> timer_info</h5>
+<ol><p>Timer statistics structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
+_8c.html" target="source" name="GetUserTime">GetUserTime</a></h2>
+<div class="doc-section">
+
+<p>GetUserTime() returns the User time (user and system) by the operating system (in seconds) between the start and stop events. If the stopwatch is still running, it is stopped first.</p></ol>
+
+<p>The format of the GetUserTime method is:</p>
+
+<pre class="code">
+  double GetUserTime(TimerInfo *timer_info)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5> timer_info</h5>
+<ol><p>Timer statistics structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
+_8c.html" target="source" name="ResetTimer">ResetTimer</a></h2>
+<div class="doc-section">
+
+<p>ResetTimer() resets the stopwatch.</p></ol>
+
+<p>The format of the ResetTimer method is:</p>
+
+<pre class="code">
+  void ResetTimer(TimerInfo *timer_info)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5> timer_info</h5>
+<ol><p>Timer statistics structure.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="2122890052">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Wizard's Toolkit", "Wizard's Toolkit.vcproj", "{09380641-34BF-4D8E-9B10-24D2AC0EFB8B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "validate", "validate.vcproj", "{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B} = {09380641-34BF-4D8E-9B10-24D2AC0EFB8B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "encipher", "encipher.vcproj", "{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B} = {09380641-34BF-4D8E-9B10-24D2AC0EFB8B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "decipher", "decipher.vcproj", "{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B} = {09380641-34BF-4D8E-9B10-24D2AC0EFB8B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cipher-info", "cipher-info.vcproj", "{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B} = {09380641-34BF-4D8E-9B10-24D2AC0EFB8B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "keyring", "keyring.vcproj", "{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B} = {09380641-34BF-4D8E-9B10-24D2AC0EFB8B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "digest", "digest.vcproj", "{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B} = {09380641-34BF-4D8E-9B10-24D2AC0EFB8B}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B}.Debug.ActiveCfg = Debug|Win32
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B}.Debug.Build.0 = Debug|Win32
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B}.Release.ActiveCfg = Release|Win32
+		{09380641-34BF-4D8E-9B10-24D2AC0EFB8B}.Release.Build.0 = Release|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Debug.ActiveCfg = Debug|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Debug.Build.0 = Debug|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Release.ActiveCfg = Release|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Release.Build.0 = Release|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Debug.ActiveCfg = Debug|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Debug.Build.0 = Debug|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Release.ActiveCfg = Release|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Release.Build.0 = Release|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Debug.ActiveCfg = Debug|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Debug.Build.0 = Debug|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Release.ActiveCfg = Release|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Release.Build.0 = Release|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Debug.ActiveCfg = Debug|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Debug.Build.0 = Debug|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Release.ActiveCfg = Release|Win32
+		{ADCC2AA9-E3B4-4C64-975F-5BCC6441E953}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

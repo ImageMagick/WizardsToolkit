@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Create/DestroyStrings</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, create/destroystrings, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="10984669"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="16000636"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AcquireString">AcquireString</a> &bull; <a href="#AcquireStringInfo">AcquireStringInfo</a> &bull; <a href="#CloneString">CloneString</a> &bull; <a href="#CloneStringInfo">CloneStringInfo</a> &bull; <a href="#CompareStringInfo">CompareStringInfo</a> &bull; <a href="#ConcatenateString">ConcatenateString</a> &bull; <a href="#ConcatenateWizardString">ConcatenateWizardString</a> &bull; <a href="#ConfigureFileToStringInfo">ConfigureFileToStringInfo</a> &bull; <a href="#ConstantString">ConstantString</a> &bull; <a href="#ConcatenateStringInfo">ConcatenateStringInfo</a> &bull; <a href="#CopyWizardString">CopyWizardString</a> &bull; <a href="#DestroyString">DestroyString</a> &bull; <a href="#DestroyStringInfo">DestroyStringInfo</a> &bull; <a href="#DestroyStringList">DestroyStringList</a> &bull; <a href="#FileToString">FileToString</a> &bull; <a href="#FileToStringInfo">FileToStringInfo</a> &bull; <a href="#FormatWizardSize">FormatWizardSize</a> &bull; <a href="#FormatWizardString">FormatWizardString</a> &bull; <a href="#FormatWizardTime">FormatWizardTime</a> &bull; <a href="#GetEnvironmentValue">GetEnvironmentValue</a> &bull; <a href="#GetStringInfoCRC">GetStringInfoCRC</a> &bull; <a href="#GetStringInfoDatum">GetStringInfoDatum</a> &bull; <a href="#GetStringInfoLength">GetStringInfoLength</a> &bull; <a href="#GetStringInfoPath">GetStringInfoPath</a> &bull; <a href="#HexStringToStringInfo">HexStringToStringInfo</a> &bull; <a href="#LocaleCompare">LocaleCompare</a> &bull; <a href="#LocaleLower">LocaleLower</a> &bull; <a href="#LocaleNCompare">LocaleNCompare</a> &bull; <a href="#PrintWizardString">PrintWizardString</a> &bull; <a href="#PrintStringInfo">PrintStringInfo</a> &bull; <a href="#ResetStringInfo">ResetStringInfo</a> &bull; <a href="#SetStringInfo">SetStringInfo</a> &bull; <a href="#SetStringInfoDatum">SetStringInfoDatum</a> &bull; <a href="#SetStringInfoLength">SetStringInfoLength</a> &bull; <a href="#SetStringInfoPath">SetStringInfoPath</a> &bull; <a href="#SplitStringInfo">SplitStringInfo</a> &bull; <a href="#StringInfoToHexString">StringInfoToHexString</a> &bull; <a href="#StringInfoToString">StringInfoToString</a> &bull; <a href="#StringToArgv">StringToArgv</a> &bull; <a href="#StringToStringInfo">StringToStringInfo</a> &bull; <a href="#StripString">StripString</a> &bull; <a href="#SubstituteString">SubstituteString</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="AcquireString">AcquireString</a></h2>
+<div class="doc-section">
+
+<p>AcquireString() allocates memory for a string and copies the source string to that memory location (and returns it).</p></ol>
+
+<p>The format of the AcquireString method is:</p>
+
+<pre class="code">
+  char *AcquireString(const char *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>allocated_string</h5>
+<ol><p>Method AcquireString returns a copy of the source string.</p></ol>
+
+<h5>source</h5>
+<ol><p>A character string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="AcquireStringInfo">AcquireStringInfo</a></h2>
+<div class="doc-section">
+
+<p>AcquireStringInfo() allocates the StringInfo structure.</p></ol>
+
+<p>The format of the AcquireStringInfo method is:</p>
+
+<pre class="code">
+  StringInfo *AcquireStringInfo(const size_t length)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>length</h5>
+<ol><p>The string length.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="CloneString">CloneString</a></h2>
+<div class="doc-section">
+
+<p>CloneString() allocates memory for the destination string and copies the source string to that memory location.</p></ol>
+
+<p>The format of the CloneString method is:</p>
+
+<pre class="code">
+  char *CloneString(char **destination,const char *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>destination</h5>
+<ol><p>A pointer to a character string.</p></ol>
+
+<h5>source</h5>
+<ol><p>A character string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="CloneStringInfo">CloneStringInfo</a></h2>
+<div class="doc-section">
+
+<p>CloneStringInfo() clones a copy of the StringInfo structure.</p></ol>
+
+<p>The format of the CloneStringInfo method is:</p>
+
+<pre class="code">
+  StringInfo *CloneStringInfo(const StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="CompareStringInfo">CompareStringInfo</a></h2>
+<div class="doc-section">
+
+<p>CompareStringInfo() compares the two datums target and source.  It returns an integer less than, equal to, or greater than zero if target is found, respectively, to be less than, to match, or be greater than source.</p></ol>
+
+<p>The format of the CompareStringInfo method is:</p>
+
+<pre class="code">
+  int CompareStringInfo(const StringInfo *target,const StringInfo *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>target</h5>
+<ol><p>The target string.</p></ol>
+
+<h5>source</h5>
+<ol><p>The source string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="ConcatenateString">ConcatenateString</a></h2>
+<div class="doc-section">
+
+<p>ConcatenateString() appends a copy of string source, including the terminating null character, to the end of string destination.</p></ol>
+
+<p>The format of the ConcatenateString method is:</p>
+
+<pre class="code">
+  WizardBooleanType ConcatenateString(char **destination,
+    const char *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>destination</h5>
+<ol><p>A pointer to a character string.</p></ol>
+
+<h5>source</h5>
+<ol><p>A character string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="ConcatenateWizardString">ConcatenateWizardString</a></h2>
+<div class="doc-section">
+
+<p>ConcatenateWizardString() concatenates the source string to the destination string.  The destination buffer is always null-terminated even if the string must be truncated.</p></ol>
+
+<p>The format of the ConcatenateWizardString method is:</p>
+
+<pre class="code">
+  size_t ConcatenateWizardString(char *destination,const char *source,
+    const size_t length)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>destination</h5>
+<ol><p>The destination string.</p></ol>
+
+<h5>source</h5>
+<ol><p>The source string.</p></ol>
+
+<h5>length</h5>
+<ol><p>The length of the destination string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="ConfigureFileToStringInfo">ConfigureFileToStringInfo</a></h2>
+<div class="doc-section">
+
+<p>ConfigureFileToStringInfo() returns the contents of a configure file as a string.</p></ol>
+
+<p>The format of the ConfigureFileToStringInfo method is:</p>
+
+<pre class="code">
+  StringInfo *ConfigureFileToStringInfo(const char *filename)
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>filename</h5>
+<ol><p>The filename.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="ConstantString">ConstantString</a></h2>
+<div class="doc-section">
+
+<p>ConstantString() allocates memory for a string and copies the source string to that memory location (and returns it).  Use it for strings that you do do not expect to change over its lifetime.</p></ol>
+
+<p>The format of the ConstantString method is:</p>
+
+<pre class="code">
+  char *ConstantString(const char *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>source</h5>
+<ol><p>A character string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="ConcatenateStringInfo">ConcatenateStringInfo</a></h2>
+<div class="doc-section">
+
+<p>ConcatenateStringInfo() concatenates the source string to the destination string.</p></ol>
+
+<p>The format of the ConcatentateStringInfo method is:</p>
+
+<pre class="code">
+  void ConcatentateStringInfo(StringInfo *string_info,
+    const StringInfo *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+<h5>source</h5>
+<ol><p>The source string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="CopyWizardString">CopyWizardString</a></h2>
+<div class="doc-section">
+
+<p>CopyWizardString() copies the source string to the destination string.  The destination buffer is always null-terminated even if the string must be truncated.  The return value is the minimum of the  ource string length or the length parameter.</p></ol>
+
+<p>The format of the CopyWizardString method is:</p>
+
+<pre class="code">
+  size_t CopyWizardString(const char *destination,char *source,
+    const size_t length)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>destination</h5>
+<ol><p>The destination string.</p></ol>
+
+<h5>source</h5>
+<ol><p>The source string.</p></ol>
+
+<h5>length</h5>
+<ol><p>The length of the destination string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="DestroyString">DestroyString</a></h2>
+<div class="doc-section">
+
+<p>DestroyString() destorys memory associated with a string.</p></ol>
+
+<p>The format of the DestroyString method is:</p>
+
+<pre class="code">
+  char *DestroyString(char *string)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string</h5>
+<ol><p>The string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="DestroyStringInfo">DestroyStringInfo</a></h2>
+<div class="doc-section">
+
+<p>DestroyStringInfo() zeros memory associated with the StringInfo structure.</p></ol>
+
+<p>The format of the DestroyStringInfo method is:</p>
+
+<pre class="code">
+  StringInfo *DestroyStringInfo(StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="DestroyStringList">DestroyStringList</a></h2>
+<div class="doc-section">
+
+<p>DestroyStringList() zeros memory associated with a string list.</p></ol>
+
+<p>The format of the DestroyStringList method is:</p>
+
+<pre class="code">
+  char **DestroyStringList(char **list)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>list</h5>
+<ol><p>The string list.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="FileToString">FileToString</a></h2>
+<div class="doc-section">
+
+<p>FileToString() returns the contents of a file as a string.</p></ol>
+
+<p>The format of the FileToString method is:</p>
+
+<pre class="code">
+  char *FileToString(const char *filename,const size_t extent,
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>filename</h5>
+<ol><p>The filename.</p></ol>
+
+<h5>extent</h5>
+<ol><p>Maximum length of the string.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="FileToStringInfo">FileToStringInfo</a></h2>
+<div class="doc-section">
+
+<p>FileToStringInfo() returns the contents of a file as a string.</p></ol>
+
+<p>The format of the FileToStringInfo method is:</p>
+
+<pre class="code">
+  StringInfo *FileToStringInfo(const char *filename,const size_t extent,
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>filename</h5>
+<ol><p>The filename.</p></ol>
+
+<h5>extent</h5>
+<ol><p>Maximum length of the string.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="FormatWizardSize">FormatWizardSize</a></h2>
+<div class="doc-section">
+
+<p>FormatWizardSize() converts a size to a human readable format, for example, 14kb, 234mb, 2.7gb, or 3.0tb.  Scaling is done by repetitively dividing by 1024.</p></ol>
+
+<p>The format of the FormatWizardSize method is:</p>
+
+<pre class="code">
+  long FormatWizardSize(const WizardSizeType size,char *format)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>size</h5>
+<ol><p>convert this size to a human readable format.</p></ol>
+
+<h5>format</h5>
+<ol><p>human readable format.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="FormatWizardString">FormatWizardString</a></h2>
+<div class="doc-section">
+
+<p>FormatWizardString() prints formatted output of a variable argument list.</p></ol>
+
+<p>The format of the FormatWizardString method is:</p>
+
+<pre class="code">
+  long FormatWizardString(char *string,const size_t length,
+    const char *format,...)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>string</h5>
+<ol><p>FormatWizardString() returns the formatted string in this character buffer.</p></ol>
+
+<h5>length</h5>
+<ol><p>The maximum length of the string.</p></ol>
+
+<h5>format</h5>
+<ol><p>A string describing the format to use to write the remaining arguments.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="FormatWizardTime">FormatWizardTime</a></h2>
+<div class="doc-section">
+
+<p>FormatWizardTime() returns the specified time in the Internet date/time format and the length of the timestamp.</p></ol>
+
+<p>The format of the FormatWizardTime method is:</p>
+
+<pre class="code">
+  long FormatWizardTime(const time_t time,const size_t length,
+    char *timestamp)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>time</h5>
+<ol><p>the time since the Epoch (00:00:00 UTC, January 1, 1970), measured in seconds.</p></ol>
+
+<h5>length</h5>
+<ol><p>The maximum length of the string.</p></ol>
+
+<h5>timestamp</h5>
+<ol><p>Return the Internet date/time here.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="GetEnvironmentValue">GetEnvironmentValue</a></h2>
+<div class="doc-section">
+
+<p>GetEnvironmentValue() returns the environment string that matches the specified name.</p></ol>
+
+<p>The format of the GetEnvironmentValue method is:</p>
+
+<pre class="code">
+  char *GetEnvironmentValue(const char *name)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>name</h5>
+<ol><p>the environment name.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="GetStringInfoCRC">GetStringInfoCRC</a></h2>
+<div class="doc-section">
+
+<p>GetStringInfoCRC() returns the CRC-64 of a string.</p></ol>
+
+<p>The format of the GetStringInfo method is:</p>
+
+<pre class="code">
+  WizardSizeType GetStringInfo(const StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="GetStringInfoDatum">GetStringInfoDatum</a></h2>
+<div class="doc-section">
+
+<p>GetStringInfoDatum() returns the datum associated with the string.</p></ol>
+
+<p>The format of the GetStringInfoDatum method is:</p>
+
+<pre class="code">
+  unsigned char *GetStringInfoDatum(const StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>the string info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="GetStringInfoLength">GetStringInfoLength</a></h2>
+<div class="doc-section">
+
+<p>GetStringInfoLength() returns the string length.</p></ol>
+
+<p>The format of the GetStringInfoLength method is:</p>
+
+<pre class="code">
+  size_t GetStringInfoLength(const StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>the string info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="GetStringInfoPath">GetStringInfoPath</a></h2>
+<div class="doc-section">
+
+<p>GetStringInfoPath() returns the path associated with the string.</p></ol>
+
+<p>The format of the GetStringInfoPath method is:</p>
+
+<pre class="code">
+  const char *GetStringInfoPath(const StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>the string info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="HexStringToStringInfo">HexStringToStringInfo</a></h2>
+<div class="doc-section">
+
+<p>HexStringToStringInfo() returns the contents of a file as a string.</p></ol>
+
+<p>The format of the HexStringToStringInfo method is:</p>
+
+<pre class="code">
+  StringInfo *HexStringToStringInfo(const char *string)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string</h5>
+<ol><p>The string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="LocaleCompare">LocaleCompare</a></h2>
+<div class="doc-section">
+
+<p>LocaleCompare() performs a case-insensitive comparison of two strings byte-by-byte, according to the ordering of the current locale encoding. LocaleCompare returns an integer greater than, equal to, or less than 0, if the string pointed to by p is greater than, equal to, or less than the string pointed to by q respectively.  The sign of a non-zero return value is determined by the sign of the difference between the values of the first<   pair of bytes that differ in the strings being compared.</p></ol>
+
+<p>The format of the LocaleCompare method is:</p>
+
+<pre class="code">
+  long LocaleCompare(const char *p,const char *q)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>p</h5>
+<ol><p>A pointer to a character string.</p></ol>
+
+<h5>q</h5>
+<ol><p>A pointer to a character string to compare to p.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="LocaleLower">LocaleLower</a></h2>
+<div class="doc-section">
+
+<p>LocaleLower() transforms all of the characters in the supplied null-terminated string, changing all uppercase letters to lowercase.</p></ol>
+
+<p>The format of the LocaleLower method is:</p>
+
+<pre class="code">
+  void LocaleLower(char *string)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string</h5>
+<ol><p>A pointer to the string to convert to lower-case Locale.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="LocaleNCompare">LocaleNCompare</a></h2>
+<div class="doc-section">
+
+<p>LocaleNCompare() performs a case-insensitive comparison of two strings byte-by-byte, according to the ordering of the current locale encoding. LocaleNCompare returns an integer greater than, equal to, or less than 0, if the string pointed to by p is greater than, equal to, or less than the string pointed to by q respectively.  The sign of a non-zero return value is determined by the sign of the difference between the values of the first pair of bytes that differ in the strings being compared.  The LocaleNCompare method makes the same comparison as LocaleCompare but looks at a maximum of n bytes.  Bytes following a null byte are not compared.</p></ol>
+
+<p>The format of the LocaleNCompare method is:</p>
+
+<pre class="code">
+  long LocaleNCompare(const char *p,const char *q,const size_t n)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>p</h5>
+<ol><p>A pointer to a character string.</p></ol>
+
+<h5>q</h5>
+<ol><p>A pointer to a character string to compare to p.</p></ol>
+
+<h5>length</h5>
+<ol><p>The number of characters to compare in strings p & q.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="PrintWizardString">PrintWizardString</a></h2>
+<div class="doc-section">
+
+<p>PrintWizardString() prints the string to the specified file.</p></ol>
+
+<p>The format of the PrintWizardString method is:</p>
+
+<pre class="code">
+  long PrintWizardString(FILE *,const char *format,...)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>file</h5>
+<ol><p>print to this file.</p></ol>
+
+<h5>format</h5>
+<ol><p>A string describing the format to use to write the remaining arguments.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="PrintStringInfo">PrintStringInfo</a></h2>
+<div class="doc-section">
+
+<p>PrintStringInfo() prints the string.</p></ol>
+
+<p>The format of the PrintStringInfo method is:</p>
+
+<pre class="code">
+  void PrintStringInfo(FILE *file,const char *id,
+    const StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>id</h5>
+<ol><p>The string id.</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="ResetStringInfo">ResetStringInfo</a></h2>
+<div class="doc-section">
+
+<p>ResetStringInfo() reset the string to all null bytes.</p></ol>
+
+<p>The format of the ResetStringInfo method is:</p>
+
+<pre class="code">
+  void ResetStringInfo(StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="SetStringInfo">SetStringInfo</a></h2>
+<div class="doc-section">
+
+<p>SetStringInfo() copies the source string to the destination string.</p></ol>
+
+<p>The format of the SetStringInfo method is:</p>
+
+<pre class="code">
+  void SetStringInfo(StringInfo *string_info,const StringInfo *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+<h5>source</h5>
+<ol><p>The source string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="SetStringInfoDatum">SetStringInfoDatum</a></h2>
+<div class="doc-section">
+
+<p>SetStringInfoDatum() copies bytes from the source string for the length of the destination string.</p></ol>
+
+<p>The format of the SetStringInfoDatum method is:</p>
+
+<pre class="code">
+  void SetStringInfoDatum(StringInfo *string_info,
+    const unsigned char *source)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+<h5>source</h5>
+<ol><p>The source string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="SetStringInfoLength">SetStringInfoLength</a></h2>
+<div class="doc-section">
+
+<p>SetStringInfoLength() set the string length to the specified value.</p></ol>
+
+<p>The format of the SetStringInfoLength method is:</p>
+
+<pre class="code">
+  void SetStringInfoLength(StringInfo *string_info,const size_t length)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+<h5>length</h5>
+<ol><p>The string length.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="SetStringInfoPath">SetStringInfoPath</a></h2>
+<div class="doc-section">
+
+<p>SetStringInfoPath() sets the path associated with the string.</p></ol>
+
+<p>The format of the SetStringInfoPath method is:</p>
+
+<pre class="code">
+  void SetStringInfoPath(StringInfo *string_info,const char *path)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+<h5>path</h5>
+<ol><p>The path.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="SplitStringInfo">SplitStringInfo</a></h2>
+<div class="doc-section">
+
+<p>SplitStringInfo() splits a string into two and returns it.</p></ol>
+
+<p>The format of the SplitStringInfo method is:</p>
+
+<pre class="code">
+  StringInfo *SplitStringInfo(StringInfo *string_info,const size_t offset)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="StringInfoToHexString">StringInfoToHexString</a></h2>
+<div class="doc-section">
+
+<p>StringInfoToHexString() converts a string info string to a C string.</p></ol>
+
+<p>The format of the StringInfoToHexString method is:</p>
+
+<pre class="code">
+  char *StringInfoToHexString(const StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="StringInfoToString">StringInfoToString</a></h2>
+<div class="doc-section">
+
+<p>StringInfoToString() converts a string info string to a C string.</p></ol>
+
+<p>The format of the StringInfoToString method is:</p>
+
+<pre class="code">
+  char *StringInfoToString(const StringInfo *string_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string_info</h5>
+<ol><p>The string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="StringToArgv">StringToArgv</a></h2>
+<div class="doc-section">
+
+<p>StringToArgv() converts a text string into command line arguments.</p></ol>
+
+<p>The format of the StringToArgv method is:</p>
+
+<pre class="code">
+  char **StringToArgv(const char *text,int *argc)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>argv</h5>
+<ol><p>Method StringToArgv returns the string list unless an error occurs, otherwise NULL.</p></ol>
+
+<h5>text</h5>
+<ol><p>Specifies the string to segment into a list.</p></ol>
+
+<h5>argc</h5>
+<ol><p>This integer pointer returns the number of arguments in the list.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="StringToStringInfo">StringToStringInfo</a></h2>
+<div class="doc-section">
+
+<p>StringToStringInfo() returns the contents of a file as a string.</p></ol>
+
+<p>The format of the StringToStringInfo method is:</p>
+
+<pre class="code">
+  StringInfo *StringToStringInfo(const char *string)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>string</h5>
+<ol><p>The string.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="StripString">StripString</a></h2>
+<div class="doc-section">
+
+<p>StripString() strips any whitespace or quotes from the beginning and end of a string of characters.</p></ol>
+
+<p>The format of the StripString method is:</p>
+
+<pre class="code">
+  void StripString(char *message)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>message</h5>
+<ol><p>Specifies an array of characters.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/string
+_8c.html" target="source" name="SubstituteString">SubstituteString</a></h2>
+<div class="doc-section">
+
+<p>SubstituteString() performs string substitution on a buffer, replacing the buffer with the substituted version. Buffer must be allocate from the heap.</p></ol>
+
+<p>The format of the SubstituteString method is:</p>
+
+<pre class="code">
+  WizardBooleanType SubstituteString(char **buffer,const char *search,
+    const char *replace)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>buffer</h5>
+<ol><p>The buffer to perform replacements on. Replaced with new allocation if a replacement is made.</p></ol>
+
+<h5>search</h5>
+<ol><p>String to search for.</p></ol>
+
+<h5>replace</h5>
+<ol><p>Replacement string.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="2117135749">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

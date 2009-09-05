@@ -1,0 +1,29 @@
+#ifdef COPYRIGHT
+;  Copyright 1999-2008 ImageMagick Studio LLC, a non-profit organization
+;  dedicated to making software imaging solutions freely available.
+;
+;  You may not use this file except in compliance with the License.  You may
+;  obtain a copy of the License at
+;
+;    http://www.wizards-toolkit.org/script/license.php
+;
+;  Unless required by applicable law or agreed to in writing, software
+;  distributed under the License is distributed on an "AS IS" BASIS,
+;  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+;  See the License for the specific language governing permissions and
+;  limitations under the License.
+#endif
+
+; Batch files
+Source: "..\bin\encipher.exe"; DestDir: {#WizardAppDirectory}; DestName: "encipher.exe"; Flags: ignoreversion
+Source: "..\bin\decipher.exe"; DestDir: {#WizardAppDirectory}; DestName: "decipher.exe"; Flags: ignoreversion
+Source: "..\bin\cipher-info.exe"; DestDir: {#WizardAppDirectory}; DestName: "cipher-info.exe"; Flags: ignoreversion
+Source: "..\bin\keyring.exe"; DestDir: {#WizardAppDirectory}; DestName: "keyring.exe"; Flags: ignoreversion
+Source: "..\bin\digest.exe"; DestDir: {#WizardAppDirectory}; DestName: "digest.exe"; Flags: ignoreversion
+Source: "..\bin\validate.exe"; DestDir: {#WizardAppDirectory}; DestName: "validate.exe"; Flags: ignoreversion
+
+; Path Tool
+Source: "tools\PathTool.exe"; DestDir: "{app}\uninstall"; Flags: ignoreversion
+
+; Icon file
+Source: "images\Wizard's Toolkit.ico"; DestDir: {#WizardAppDirectory}; Flags: ignoreversion

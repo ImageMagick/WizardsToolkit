@@ -1,0 +1,42 @@
+2009-04-28  1.0.6-6 Cristy  <cristy@virgi...>
+  * Update autoconf / automake configuration files.
+
+2009-03-05  1.0.6-2 Cristy  <cristy@virgi...>
+  * Add digest:extent element when a digest is generated.
+
+2008-12-18  1.0.6-1 Cristy  <cristy@virgi...>
+  * FormatWizardTime() checks to ensure the provided time is valid.
+
+2008-11-03  1.0.5-7 Cristy  <cristy@virgi...>
+  * Always add crytographic padding to cipher block.
+
+2008-10-28  1.0.5-6 Cristy  <cristy@virgi...>
+  * Add support for the -random option in the encipher utility.
+
+2008-03-09  1.0.4-5 Cristy  <cristy@virgi...>
+  * Define inline to _magickcore_inline (to satisfy HP's aCC compiler).
+  * Add keyring command-line utility.
+
+2008-02-16  1.0.3-9 Cristy  <cristy@virgi...>
+  * Update automake/autoconf/libtool scripts.
+
+2008-02-13  1.0.3-8 Cristy  <cristy@virgi...>
+  * Add -(de)compress command-line option.
+
+2008-01-25  1.0.3-0 Cristy  <cristy@virgi...>
+  * Add encipher, cipher-info, and digest command-line programs.
+
+2007-12-05  1.0.3-0 Cristy  <cristy@virgi...>
+  * Update autoconf/automake/libtool configuration files.
+
+2006-12-23  1.0.2-5 Cristy  <cristy@virgi...>
+  * Remove excess whitespace when converting an XMLTree to XML (reference
+    http://www.imagemagick.org/discourse-server/viewtopic.php?t=8053).
+
+2006-12-16  1.0.2-4 Cristy  <cristy@virgi...>
+  * CompareStringInfo() no longer returns incorrect results if one string is
+    a substring of the other.
+  * Properly check hash_info pointer before destroying in DestroyHMACInfo().
+
+2005-09-01  Cristy  <cristy@virgi...>
+  * Wizard's Toolkit version 1.0.1

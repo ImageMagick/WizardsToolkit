@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Log Events</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, log, events, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="581544625"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1703404089"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#CloseWizardLog">CloseWizardLog</a> &bull; <a href="#GetLogInfoList">GetLogInfoList</a> &bull; <a href="#GetLogList">GetLogList</a> &bull; <a href="#GetLogName">GetLogName</a> &bull; <a href="#IsEventLogging">IsEventLogging</a> &bull; <a href="#ListLogInfo">ListLogInfo</a> &bull; <a href="#LogWizardEvent">LogWizardEvent</a> &bull; <a href="#LoadLogLists">LoadLogLists</a> &bull; <a href="#SetLogEventMask">SetLogEventMask</a> &bull; <a href="#SetLogFormat">SetLogFormat</a> &bull; <a href="#SetLogName">SetLogName</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="CloseWizardLog">CloseWizardLog</a></h2>
+<div class="doc-section">
+
+<p>CloseWizardLog() closes the Wizard log.</p></ol>
+
+<p>The format of the CloseWizardLog method is:</p>
+
+<pre class="code">
+  CloseWizardLog(void)
+</pre>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="GetLogInfoList">GetLogInfoList</a></h2>
+<div class="doc-section">
+
+<p>GetLogInfoList() returns any logs that match the specified pattern.</p></ol>
+
+<p>The format of the GetLogInfoList function is:</p>
+
+<pre class="text">
+  const LogInfo **GetLogInfoList(const char *pattern,
+    unsigned long *number_preferences,ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>pattern</h5>
+<ol><p>Specifies a pointer to a text string containing a pattern.</p></ol>
+
+<h5>number_preferences</h5>
+<ol><p>This integer returns the number of logs in the list.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="GetLogList">GetLogList</a></h2>
+<div class="doc-section">
+
+<p>GetLogList() returns any logs that match the specified pattern.</p></ol>
+
+<p>The format of the GetLogList function is:</p>
+
+<pre class="text">
+  char **GetLogList(const char *pattern,unsigned long *number_preferences,
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>pattern</h5>
+<ol><p>Specifies a pointer to a text string containing a pattern.</p></ol>
+
+<h5>number_preferences</h5>
+<ol><p>This integer returns the number of logs in the list.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="GetLogName">GetLogName</a></h2>
+<div class="doc-section">
+
+<p>GetLogName() returns the current log name.</p></ol>
+
+<p>The format of the GetLogName method is:</p>
+
+<pre class="code">
+  const char *GetLogName(void)
+</pre>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="IsEventLogging">IsEventLogging</a></h2>
+<div class="doc-section">
+
+<p>IsEventLogging() returns WizardTrue if debug of events is enabled otherwise WizardFalse.</p></ol>
+
+<p>The format of the IsEventLogging method is:</p>
+
+<pre class="code">
+  WizardBooleanType IsEventLogging(void)
+</pre>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="ListLogInfo">ListLogInfo</a></h2>
+<div class="doc-section">
+
+<p>ListLogInfo() lists the log info to a file.</p></ol>
+
+<p>The format of the ListLogInfo method is:</p>
+
+<pre class="code">
+  WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>file</h5>
+<ol><p>An pointer to a FILE.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="LogWizardEvent">LogWizardEvent</a></h2>
+<div class="doc-section">
+
+<p>LogWizardEvent() logs an event as determined by the log configuration file. If an error occurs, WizardFalse is returned otherwise WizardTrue.</p></ol>
+
+<p>The format of the LogWizardEvent method is:</p>
+
+<pre class="code">
+  WizardBooleanType LogWizardEvent(const LogEventType type,
+    const char *module,const char *function,const unsigned long line,
+    const char *format,...)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>type</h5>
+<ol><p>The event type.</p></ol>
+
+<h5>filename</h5>
+<ol><p>The source module filename.</p></ol>
+
+<h5>function</h5>
+<ol><p>The function name.</p></ol>
+
+<h5>line</h5>
+<ol><p>The line number of the source module.</p></ol>
+
+<h5>format</h5>
+<ol><p>The output format.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="LoadLogLists">LoadLogLists</a></h2>
+<div class="doc-section">
+
+<p>LoadLogLists() loads one or more log configuration file which provides a mapping between log attributes and log name.</p></ol>
+
+<p>The format of the LoadLogLists method is:</p>
+
+<pre class="code">
+  WizardBooleanType LoadLogLists(const char *filename,
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>filename</h5>
+<ol><p>The log configuration filename.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="SetLogEventMask">SetLogEventMask</a></h2>
+<div class="doc-section">
+
+<p>SetLogEventMask() accepts a list that determines which events to log.  All other events are ignored.  By default, no debug is enabled.  This method returns the previous log event mask.</p></ol>
+
+<p>The format of the SetLogEventMask method is:</p>
+
+<pre class="code">
+  LogEventType SetLogEventMask(const char *events)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>events</h5>
+<ol><p>log these events.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="SetLogFormat">SetLogFormat</a></h2>
+<div class="doc-section">
+
+<p>SetLogFormat() sets the format for the "human readable" log record.</p></ol>
+
+<p>The format of the LogWizardFormat method is:</p>
+
+<pre class="code">
+  SetLogFormat(const char *format)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>format</h5>
+<ol><p>The log record format.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
+_8c.html" target="source" name="SetLogName">SetLogName</a></h2>
+<div class="doc-section">
+
+<p>SetLogName() sets the log name and returns it.</p></ol>
+
+<p>The format of the SetLogName method is:</p>
+
+<pre class="code">
+  const char *SetLogName(const char *name)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>log_name</h5>
+<ol><p>SetLogName() returns the current client name.</p></ol>
+
+<h5>name</h5>
+<ol><p>Specifies the new client name.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="505478624">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

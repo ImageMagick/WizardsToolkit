@@ -1,0 +1,27 @@
+.TH digest 1 "Date: 2005/03/01 01:00:00" "Wizards Toolkit"
+.SH NAME
+digest \- 
+.SH SYNOPSIS
+.TP
+\fBdigest\fP [\fIoptions\fP] \fIfile\fP  [ \fIfile\fP ... ] \fIdigest.rdf\fP
+
+\fBdigest\fP [\fIoptions\fP] \fIdigest.rdf\fP [ \fIdigest.rdf\fP ]
+.SH OVERVIEW
+\fBDigest\fP prints a message digest for one or more files or verifies against an existing message digest file.
+
+For more information about the digest command, point your browser to file://@DOCUMENTATION_PATH@/www/digest.html or http://www.wizards-toolkit.org/script/digest.php.
+.SH DESCRIPTION
+  -authenticate        read message digests from a file and authenticate them
+  -debug events        display copious debugging information
+  -(de)compress        automagically (de)compress BZIP and ZIP files
+  -hash type           compute the message digest with this hash
+  -help                print program options
+  -list type           print a list of supported option arguments
+  -version             print version information
+
+.SH SEE-ALSO
+WizardsToolkit(1)
+
+.SH COPYRIGHT
+
+\fBCopyright (C) 1999-2009 ImageMagick Studio LLC. Additional copyrights and licenses apply to this software, see file://@DOCUMENTATION_PATH@/www/license.php or http://www.wizards-toolkit.org/script/license.php\fP

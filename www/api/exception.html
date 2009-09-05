@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Exception Handling</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, exception, handling, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="993669238"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="479903482"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AcquireExceptionInfo">AcquireExceptionInfo</a> &bull; <a href="#ClearWizardException">ClearWizardException</a> &bull; <a href="#CatchException">CatchException</a> &bull; <a href="#DestroyExceptionInfo">DestroyExceptionInfo</a> &bull; <a href="#GetExceptionInfo">GetExceptionInfo</a> &bull; <a href="#GetExceptionMessage">GetExceptionMessage</a> &bull; <a href="#GetLocaleExceptionMessage">GetLocaleExceptionMessage</a> &bull; <a href="#GetExceptionSeverity">GetExceptionSeverity</a> &bull; <a href="#InheritException">InheritException</a> &bull; <a href="#WizardError">WizardError</a> &bull; <a href="#WizardFatalError">WizardFatalError</a> &bull; <a href="#WizardWarning">WizardWarning</a> &bull; <a href="#SetErrorHandler">SetErrorHandler</a> &bull; <a href="#SetFatalErrorHandler">SetFatalErrorHandler</a> &bull; <a href="#SetWarningHandler">SetWarningHandler</a> &bull; <a href="#ThrowException">ThrowException</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="AcquireExceptionInfo">AcquireExceptionInfo</a></h2>
+<div class="doc-section">
+
+<p>AcquireExceptionInfo() allocates the ExceptionInfo structure.</p></ol>
+
+<p>The format of the AcquireExceptionInfo method is:</p>
+
+<pre class="code">
+  ExceptionInfo *AcquireExceptionInfo(void)
+</pre>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="ClearWizardException">ClearWizardException</a></h2>
+<div class="doc-section">
+
+<p>ClearWizardException() clears any exception that may not have been caught yet.</p></ol>
+
+<p>The format of the ClearWizardException method is:</p>
+
+<pre class="code">
+  ClearWizardException(ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>exception</h5>
+<ol><p>The exception info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="CatchException">CatchException</a></h2>
+<div class="doc-section">
+
+<p>CatchException() returns if no exceptions is found otherwise it reports the exception as a warning, error, or fatal depending on the severity.</p></ol>
+
+<p>The format of the CatchException method is:</p>
+
+<pre class="code">
+  CatchException(ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>exception</h5>
+<ol><p>The exception info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="DestroyExceptionInfo">DestroyExceptionInfo</a></h2>
+<div class="doc-section">
+
+<p>DestroyExceptionInfo() deallocates memory associated with an exception.</p></ol>
+
+<p>The format of the DestroyExceptionInfo method is:</p>
+
+<pre class="code">
+  ExceptionInfo *DestroyExceptionInfo(ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>exception</h5>
+<ol><p>The exception info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="GetExceptionInfo">GetExceptionInfo</a></h2>
+<div class="doc-section">
+
+<p>GetExceptionInfo() initializes an exception to default values.</p></ol>
+
+<p>The format of the GetExceptionInfo method is:</p>
+
+<pre class="code">
+  GetExceptionInfo(ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>exception</h5>
+<ol><p>The exception info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="GetExceptionMessage">GetExceptionMessage</a></h2>
+<div class="doc-section">
+
+<p>GetExceptionMessage() returns the error message defined by the specified error code.</p></ol>
+
+<p>The format of the GetExceptionMessage method is:</p>
+
+<pre class="code">
+  char *GetExceptionMessage(const int error)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>error</h5>
+<ol><p>the error code.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="GetLocaleExceptionMessage">GetLocaleExceptionMessage</a></h2>
+<div class="doc-section">
+
+<p>GetLocaleExceptionMessage() converts a enumerated exception severity and tag to a message in the current locale.</p></ol>
+
+<p>The format of the GetLocaleExceptionMessage method is:</p>
+
+<pre class="code">
+  const char *GetLocaleExceptionMessage(const ExceptionType severity,
+    const char *tag)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>severity</h5>
+<ol><p>the severity of the exception.</p></ol>
+
+<h5>tag</h5>
+<ol><p>the message tag.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="GetExceptionSeverity">GetExceptionSeverity</a></h2>
+<div class="doc-section">
+
+<p>GetExceptionSeverity() returns the exception severity.</p></ol>
+
+<p>The format of the GetExceptionSeverity method is:</p>
+
+<pre class="code">
+  ExceptionType GetExceptionSeverity(const ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>exception</h5>
+<ol><p>The exception.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="InheritException">InheritException</a></h2>
+<div class="doc-section">
+
+<p>InheritException() inherits an exception from a related exception.</p></ol>
+
+<p>The format of the InheritException method is:</p>
+
+<pre class="code">
+  InheritException(ExceptionInfo *exception,const ExceptionInfo *relative)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>exception</h5>
+<ol><p>The exception info.</p></ol>
+
+<h5>relative</h5>
+<ol><p>The related exception info.</p></ol>
+
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="WizardError">WizardError</a></h2>
+<div class="doc-section">
+
+<p>WizardError() calls the exception handler methods with an error reason.</p></ol>
+
+<p>The format of the WizardError method is:</p>
+
+<pre class="code">
+  void WizardError(const ExceptionType error,const char *reason,
+    const char *description)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>exception</h5>
+<ol><p>Specifies the numeric error category.</p></ol>
+
+<h5>reason</h5>
+<ol><p>Specifies the reason to display before terminating the program.</p></ol>
+
+<h5>description</h5>
+<ol><p>Specifies any description to the reason.</p></ol>
+
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="WizardFatalError">WizardFatalError</a></h2>
+<div class="doc-section">
+
+<p>WizardFatalError() calls the fatal exception handler methods with an error reason.</p></ol>
+
+<p>The format of the WizardError method is:</p>
+
+<pre class="code">
+  void WizardFatalError(const ExceptionType error,const char *reason,
+    const char *description)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>exception</h5>
+<ol><p>Specifies the numeric error category.</p></ol>
+
+<h5>reason</h5>
+<ol><p>Specifies the reason to display before terminating the program.</p></ol>
+
+<h5>description</h5>
+<ol><p>Specifies any description to the reason.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="WizardWarning">WizardWarning</a></h2>
+<div class="doc-section">
+
+<p>WizardWarning() calls the warning handler methods with a warning reason.</p></ol>
+
+<p>The format of the WizardWarning method is:</p>
+
+<pre class="code">
+  void WizardWarning(const ExceptionType warning,const char *reason,
+    const char *description)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>warning</h5>
+<ol><p>The warning severity.</p></ol>
+
+<h5>reason</h5>
+<ol><p>Define the reason for the warning.</p></ol>
+
+<h5>description</h5>
+<ol><p>Describe the warning.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="SetErrorHandler">SetErrorHandler</a></h2>
+<div class="doc-section">
+
+<p>SetErrorHandler() sets the exception handler to the specified method and returns the previous exception handler.</p></ol>
+
+<p>The format of the SetErrorHandler method is:</p>
+
+<pre class="code">
+  ErrorHandler SetErrorHandler(ErrorHandler handler)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>handler</h5>
+<ol><p>The method to handle errors.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="SetFatalErrorHandler">SetFatalErrorHandler</a></h2>
+<div class="doc-section">
+
+<p>SetFatalErrorHandler() sets the fatal exception handler to the specified method and returns the previous fatal exception handler.</p></ol>
+
+<p>The format of the SetErrorHandler method is:</p>
+
+<pre class="code">
+  ErrorHandler SetErrorHandler(ErrorHandler handler)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>handler</h5>
+<ol><p>The method to handle errors.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="SetWarningHandler">SetWarningHandler</a></h2>
+<div class="doc-section">
+
+<p>SetWarningHandler() sets the warning handler to the specified method and returns the previous warning handler.</p></ol>
+
+<p>The format of the SetWarningHandler method is:</p>
+
+<pre class="code">
+  ErrorHandler SetWarningHandler(ErrorHandler handler)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>handler</h5>
+<ol><p>The method to handle warnings.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
+_8c.html" target="source" name="ThrowException">ThrowException</a></h2>
+<div class="doc-section">
+
+<p>ThrowException() throws an exception with the specified severity code, reason, and optional description.</p></ol>
+
+<p>The format of the ThrowException method is:</p>
+
+<pre class="code">
+  WizardBooleanType ThrowException(ExceptionInfo *exception,
+    const ExceptionType severity,const char *reason,
+    const char *description)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>exception</h5>
+<ol><p>The exception info.</p></ol>
+
+<h5>severity</h5>
+<ol><p>The severity of the exception.</p></ol>
+
+<h5>reason</h5>
+<ol><p>The reason for the exception.</p></ol>
+
+<h5>description</h5>
+<ol><p>The exception description.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="403311849">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

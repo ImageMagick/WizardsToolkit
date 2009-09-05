@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Read or Write a File</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, read, or, write, a, file, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1698307809"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="293672149"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AcquireFileLock">AcquireFileLock</a> &bull; <a href="#AcquireFileInfo">AcquireFileInfo</a> &bull; <a href="#DestroyFile">DestroyFile</a> &bull; <a href="#DestroyFileInfo">DestroyFileInfo</a> &bull; <a href="#GetFileDescriptor">GetFileDescriptor</a> &bull; <a href="#GetFilePath">GetFilePath</a> &bull; <a href="#GetFileproperties">GetFileproperties</a> &bull; <a href="#ReadFileByte">ReadFileByte</a> &bull; <a href="#ReadFileChunk">ReadFileChunk</a> &bull; <a href="#ReadFile16Bits">ReadFile16Bits</a> &bull; <a href="#ReadFile32Bits">ReadFile32Bits</a> &bull; <a href="#ReadFile64Bits">ReadFile64Bits</a> &bull; <a href="#RelinquishFileLock">RelinquishFileLock</a> &bull; <a href="#WriteFileChunk">WriteFileChunk</a> &bull; <a href="#WriteFile16Bits">WriteFile16Bits</a> &bull; <a href="#WriteFile32Bits">WriteFile32Bits</a> &bull; <a href="#WriteFile64Bits">WriteFile64Bits</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="AcquireFileLock">AcquireFileLock</a></h2>
+<div class="doc-section">
+
+<p>AcquireFileLock() acquires a lock for a file.</p></ol>
+
+<p>The format of the AcquireFileLock method is:</p>
+
+<pre class="code">
+  WizardBooleanType AcquireFileLock(FileInfo *file_info,
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The file info.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="AcquireFileInfo">AcquireFileInfo</a></h2>
+<div class="doc-section">
+
+<p>AcquireFileInfo() opens the file for reading or writing and returns a FileInfo structure.</p></ol>
+
+<p>The format of the AcquireFileInfo method is:</p>
+
+<pre class="code">
+  FileInfo *AcquireFileInfo(const char *path,const char *relative_path,
+    const FileMode mode,ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>path</h5>
+<ol><p>The file path.</p></ol>
+
+<h5>relative_path</h5>
+<ol><p>The path relative to the default path.</p></ol>
+
+<h5>mode</h5>
+<ol><p>The file I/O mode.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="DestroyFile">DestroyFile</a></h2>
+<div class="doc-section">
+
+<p>DestroyFile() destroys the file on disk.</p></ol>
+
+<p>The format of the DestroyFile method is:</p>
+
+<pre class="code">
+  WizardBooleanType DestroyFile(FileInfo *file_info,
+    Exceptioninfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The file info.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="DestroyFileInfo">DestroyFileInfo</a></h2>
+<div class="doc-section">
+
+<p>DestroyFileInfo() destroys the file info structure.</p></ol>
+
+<p>The format of the DestroyFileInfo method is:</p>
+
+<pre class="code">
+  FileInfo *DestroyFileInfo(FileInfo *file_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>path</h5>
+<ol><p>The file name.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="GetFileDescriptor">GetFileDescriptor</a></h2>
+<div class="doc-section">
+
+<p>GetFileDescriptor() returns the file descriptor.</p></ol>
+
+<p>The format of the GetFileDescriptor method is:</p>
+
+<pre class="code">
+  int GetFileDescriptor(const FileInfo *file_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The file info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="GetFilePath">GetFilePath</a></h2>
+<div class="doc-section">
+
+<p>GetFilePath() returns the file path.</p></ol>
+
+<p>The format of the GetFilePath method is:</p>
+
+<pre class="code">
+  const const char *GetFilePath(const FileInfo *file_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The file info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="GetFileproperties">GetFileproperties</a></h2>
+<div class="doc-section">
+
+<p>GetFileproperties() returns the file properties.</p></ol>
+
+<p>The format of the GetFileProperties method is:</p>
+
+<pre class="code">
+  const struct stat *GetFileProperties(const FileInfo *file_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The file info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="ReadFileByte">ReadFileByte</a></h2>
+<div class="doc-section">
+
+<p>ReadFileByte() returns the character read as an unsigned char cast to an integer or EOF on end of file or error.</p></ol>
+
+<p>The format of the ReadFileByte method is:</p>
+
+<pre class="code">
+  int ReadFileByte(FileInfo *file_info)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>file_info</h5>
+<ol><p>the blob info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="ReadFileChunk">ReadFileChunk</a></h2>
+<div class="doc-section">
+
+<p>ReadFileChunk() reliably reads a chunk of data from a file.  It returns WizardTrue if all the data requested is read otherwise WizardFalse.</p></ol>
+
+<p>The format of the ReadFileChunk method is:</p>
+
+<pre class="code">
+  WizardBooleanType ReadFileChunk(FileInfo *file_info,const void *data,
+    const size_t length)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The file info.</p></ol>
+
+<h5>data</h5>
+<ol><p>The data.</p></ol>
+
+<h5>length</h5>
+<ol><p>The data length in bytes.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="ReadFile16Bits">ReadFile16Bits</a></h2>
+<div class="doc-section">
+
+<p>ReadFile16Bits() reads a 16-bit quantity in least-significant byte first order and returns it.</p></ol>
+
+<p>The format of the ReadFile16Bits method is:</p>
+
+<pre class="code">
+  WizardBooleanType ReadFile16Bits(FileInfo *file_info,
+    unsigned short *value)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The image.</p></ol>
+
+<h5>value</h5>
+<ol><p>The value.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="ReadFile32Bits">ReadFile32Bits</a></h2>
+<div class="doc-section">
+
+<p>ReadFile32Bits() reads a 32-bit quantity in least-significant byte first order and returns it.</p></ol>
+
+<p>The format of the ReadFile32Bits method is:</p>
+
+<pre class="code">
+  WizardBooleanType ReadFile32Bits(FileInfo *file_info,
+    unsigned long *value)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The image.</p></ol>
+
+<h5>value</h5>
+<ol><p>The value.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="ReadFile64Bits">ReadFile64Bits</a></h2>
+<div class="doc-section">
+
+<p>ReadFile64Bits() reads a 64-bit quantity in least-significant byte first order and returns it.</p></ol>
+
+<p>The format of the ReadFile64Bits method is:</p>
+
+<pre class="code">
+  WizardBooleanType ReadFile64Bits(FileInfo *file_info,
+    WizardSizeType *value)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The image.</p></ol>
+
+<h5>value</h5>
+<ol><p>The value.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="RelinquishFileLock">RelinquishFileLock</a></h2>
+<div class="doc-section">
+
+<p>RelinquishFileLock() relinquishes a file lock.</p></ol>
+
+<p>The format of the RelinquishFileLock method is:</p>
+
+<pre class="code">
+  WizardBooleanType RelinquishFileLock(FileInfo *file_info,
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The file info.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="WriteFileChunk">WriteFileChunk</a></h2>
+<div class="doc-section">
+
+<p>WriteFileChunk() reliably writes data to a file.</p></ol>
+
+<p>The format of the WriteFileChunk method is:</p>
+
+<pre class="code">
+  WizardBooleanType WriteFileChunk(FileInfo *file_info,const void *data,
+    const size_t length)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The file info.</p></ol>
+
+<h5>data</h5>
+<ol><p>The data.</p></ol>
+
+<h5>lenth</h5>
+<ol><p>The data length in bytes.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="WriteFile16Bits">WriteFile16Bits</a></h2>
+<div class="doc-section">
+
+<p>WriteFile16Bits() writes a long value as a 16-bit quantity in least-significant byte first order.</p></ol>
+
+<p>The format of the WriteFile16Bits method is:</p>
+
+<pre class="code">
+  WizardBooleanType WriteFile16Bits(FileInfo *file_info,
+    const unsigned short value)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>value</h5>
+<ol><p>Specifies the value to write.</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The image.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="WriteFile32Bits">WriteFile32Bits</a></h2>
+<div class="doc-section">
+
+<p>WriteFile32Bits() writes a long value as a 32-bit quantity in least-significant byte first order.</p></ol>
+
+<p>The format of the WriteFile32Bits method is:</p>
+
+<pre class="code">
+  WizardBooleanType WriteFile32Bits(FileInfo *file_info,
+    const unsigned long value)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>value</h5>
+<ol><p>Specifies the value to write.</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The image.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/file
+_8c.html" target="source" name="WriteFile64Bits">WriteFile64Bits</a></h2>
+<div class="doc-section">
+
+<p>WriteFile64Bits() writes a long value as a 64-bit quantity in least-significant byte first order.</p></ol>
+
+<p>The format of the WriteFile64Bits method is:</p>
+
+<pre class="code">
+  WizardBooleanType WriteFile64Bits(FileInfo *file_info,
+    const WizardSizeType value)
+</pre>
+
+<p>A description of each parameter follows.</p></ol>
+
+<h5>value</h5>
+<ol><p>Specifies the value to write.</p></ol>
+
+<h5>file_info</h5>
+<ol><p>The image.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="936722213">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

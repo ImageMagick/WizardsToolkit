@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: Application Program Interfaces</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="application, program, interfaces, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../index.html"><img id="titlebar-west" src="../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1113599456"><img id="titlebar-west" src="../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../index.html"><img src="../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1904233029"><img id="titlebar-east" src="../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/install-source.html">Install from Source</a>
+      <a href="../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../www/binary-releases.html">Binary Releases</a>
+      <a href="../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p>The <a href="../www/api/WizardsToolkit/index.html" target="1110932832">Wizard's Toolkit API</a>  is a low-level interface between the C programming language and the Toolkit's libraries.  A description of the public methods are found here:</p>
+
+<ul>
+  <li><a href="../www/api/aes.html">American Encryption Standard Methods</a></li>
+  <li><a href="../www/api/authenticate.html">Authentication Methods</a></li>
+  <li><a href="../www/api/blob.html">Binary Large OBjectS Methods</a></li>
+  <li><a href="../www/api/bzip.html">Bzip Entropy Methods</a></li>
+  <li><a href="../www/api/client.html">Client Methods</a></li>
+  <li><a href="../www/api/crc64.html">Cyclic Redunancy Checksum Methods</a></li>
+  <li><a href="../www/api/cipher.html">Secure Cipher Methods</a></li>
+  <li><a href="../www/api/entropy.html">Entropy Methods</a></li>
+  <li><a href="../www/api/exception.html">Exception Methods</a></li>
+  <li><a href="../www/api/file.html">File Methods</a></li>
+  <li><a href="../www/api/hash.html">Secure Hash Algorithm Methods</a></li>
+  <li><a href="../www/api/hashmap.html">Hash-map and Linked-list Methods</a></li>
+  <li><a href="../www/api/hmac.html">Keyed-Hashing for Message Authentication</a></li>
+  <li><a href="../www/api/key.html">Key Methods</a></li>
+  <li><a href="../www/api/keyring.html">Keyring Methods</a></li>
+  <li><a href="../www/api/log.html">Log Events</a></li>
+  <li><a href="../www/api/magick.html">Wizard Methods</a></li>
+  <li><a href="../www/api/md5.html">Message Digest Algorithm Methods</a></li>
+  <li><a href="../www/api/memory.html">Memory Allocation Methods</a></li>
+  <li><a href="../www/api/mime.html">Mime Methods</a></li>
+  <li><a href="../www/api/option.html">Option Methods</a></li>
+  <li><a href="../www/api/passphrase.html">Passphrase Methods</a></li>
+  <li><a href="../www/api/random.html">Random Numbers Methods</a></li>
+  <li><a href="../www/api/resource.html">Get/Set Resources</a></li>
+  <li><a href="../www/api/sanitize.html">Environment Sanitazion Methods</a></li>
+  <li><a href="../www/api/secret.html">Secret Authentication Methods</a></li>
+  <li><a href="../www/api/semaphore.html">Semaphore Methods</a></li>
+  <li><a href="../www/api/sha1.html">Secure Hash Algorithm-256 Methods</a></li>
+  <li><a href="../www/api/sha224.html">Secure Hash Algorithm-224 Methods</a></li>
+  <li><a href="../www/api/sha256.html">Secure Hash Algorithm-256 Methods</a></li>
+  <li><a href="../www/api/sha384.html">Secure Hash Algorithm-384 Methods</a></li>
+  <li><a href="../www/api/sha512.html">Secure Hash Algorithm-512 Methods</a></li>
+  <li><a href="../www/api/splay-tree.html">Self-adjusting Binary Tree Methods</a></li>
+  <li><a href="../www/api/serpent.html">Serpent Cipher Methods</a></li>
+  <li><a href="../www/api/string.html">String Methods</a></li>
+  <li><a href="../www/api/timer.html">Timing Methods</a></li>
+  <li><a href="../www/api/token.html">Token Methods</a></li>
+  <li><a href="../www/api/twofish.html">TwoFish Cipher Methods</a></li>
+  <li><a href="../www/api/version.html">Version Methods</a></li>
+  <li><a href="../www/api/xml-tree.html">XML Parser Methods</a></li>
+  <li><a href="../www/api/zip.html">Zip Entropy Methods</a></li>
+</ul>
+
+<p>After you write your Toolkit program, compile it like this:</p>
+
+<pre class="text">
+  cc `WizardsToolkit-config --cflags --cppflags` -o wizard wizard.c `WizardsToolkit-config --ldflags --libs`
+</pre>
+
+<p>Here is a example program that utilizes the Wizard's Toolkit API to get you started, <a href="../www/source/wizard.c">wizard.c</a>. It simply computes and prints the Secure Hash Algorithm 512-bit digest of a string.</p>
+
+<div class='viewport'>
+<pre class="code">
+  #include &lt;stdio.h>
+  #include &lt;wizard/WizardsToolkit.h>
+  
+  int main(int argc,char **argv)
+  {
+    HashInfo
+      *hash_info;
+  
+    StringInfo
+      *content;
+  
+    WizardsToolkitGenesis(*argv);
+    hash_info=AcquireHashInfo(SHA512Hash);
+    InitializeHash(hash_info);
+    content=StringToStringInfo("The Wizard's Toolkit");
+    UpdateHash(hash_info,content);
+    FinalizeHash(hash_info);
+    PrintStringInfo("Content",content);
+    PrintStringInfo("Digest",GetHashDigest(hash_info));
+    DestroyHashInfo(hash_info);
+    DestroyStringInfo(content);
+    WizardsToolkitTerminus();
+    return(0);
+  }
+</pre>
+</div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1899766240">Discourse Server</a> |
+    <a href="../www/license.html">License</a> |
+    <a href="../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

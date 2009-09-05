@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Keyring Methods</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, keyring, methods, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1221226718"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="48851260"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AcquireKeyringInfo">AcquireKeyringInfo</a> &bull; <a href="#DestroyKeyringInfo">DestroyKeyringInfo</a> &bull; <a href="#ExportKeyringKey">ExportKeyringKey</a> &bull; <a href="#GetKeyringKey">GetKeyringKey</a> &bull; <a href="#GetKeyringNonce">GetKeyringNonce</a> &bull; <a href="#ImportKeyringKey">ImportKeyringKey</a> &bull; <a href="#PrintKeyringProperties">PrintKeyringProperties</a> &bull; <a href="#SetKeyringId">SetKeyringId</a> &bull; <a href="#SetKeyringKey">SetKeyringKey</a> &bull; <a href="#SetKeyringNonce">SetKeyringNonce</a> &bull; <a href="#SetKeyringPath">SetKeyringPath</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="AcquireKeyringInfo">AcquireKeyringInfo</a></h2>
+<div class="doc-section">
+
+<p>AcquireKeyringInfo() allocates the KeyringInfo structure.</p></ol>
+
+<p>The format of the AcquireKeyringInfo method is:</p>
+
+<pre class="code">
+  KeyringInfo *AcquireKeyringInfo(const char *path)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>path</h5>
+<ol><p>The keyring path.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="DestroyKeyringInfo">DestroyKeyringInfo</a></h2>
+<div class="doc-section">
+
+<p>DestroyKeyringInfo() zeros memory associated with the KeyringInfo structure.</p></ol>
+
+<p>The format of the DestroyKeyringInfo method is:</p>
+
+<pre class="code">
+  KeyringInfo *DestroyKeyringInfo(KeyringInfo *keyring_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>keyring_info</h5>
+<ol><p>The ring info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="ExportKeyringKey">ExportKeyringKey</a></h2>
+<div class="doc-section">
+
+<p>ExportKeyringKey() exports a key from the keyring.</p></ol>
+
+<p>The format of the ExportKeyringKey method is:</p>
+
+<pre class="code">
+  WizardBooleanType ExportKeyringKey(KeyringInfo *keyring_info,
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>keyring_info</h5>
+<ol><p>The ring info.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="GetKeyringKey">GetKeyringKey</a></h2>
+<div class="doc-section">
+
+<p>GetKeyringKey() returns the keyring key.</p></ol>
+
+<p>The format of the GetKeyringKey method is:</p>
+
+<pre class="code">
+  const StringInfo *GetKeyringKey(const KeyringInfo *keyring_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>keyring_info</h5>
+<ol><p>The keyring info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="GetKeyringNonce">GetKeyringNonce</a></h2>
+<div class="doc-section">
+
+<p>GetKeyringNonce() returns the keyring nonce.</p></ol>
+
+<p>The format of the GetKeyringNonce method is:</p>
+
+<pre class="code">
+  const StringInfo *GetKeyringNonce(const KeyringInfo *keyring_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>keyring_info</h5>
+<ol><p>The keyring info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="ImportKeyringKey">ImportKeyringKey</a></h2>
+<div class="doc-section">
+
+<p>ImportKeyringKey() imports a key to the keyring.</p></ol>
+
+<p>The format of the ImportKeyringKey method is:</p>
+
+<pre class="code">
+  WizardBooleanType ImportKeyringKey(KeyringInfo *keyring_info,
+    ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>keyring_info</h5>
+<ol><p>The ring info.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="PrintKeyringProperties">PrintKeyringProperties</a></h2>
+<div class="doc-section">
+
+<p>PrintKeyringProperties() prints properties associated with each key in the keyring.</p></ol>
+
+<p>The format of the PrintKeyringProperties method is:</p>
+
+<pre class="code">
+  WizardBooleanType PrintKeyringProperties(const char *path,
+    BlobInfo *keyring_blob,ExceptionInfo *exception)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>path</h5>
+<ol><p>the keyring path.</p></ol>
+
+<h5>blob_ibfo</h5>
+<ol><p>list the key properties to this blob.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="SetKeyringId">SetKeyringId</a></h2>
+<div class="doc-section">
+
+<p>SetKeyringId() sets the keyring id.</p></ol>
+
+<p>The format of the SetKeyringId method is:</p>
+
+<pre class="code">
+  void SetKeyringId(KeyringInfo *keyring_info,const StringInfo *id)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>keyring_info</h5>
+<ol><p>The keyring info.</p></ol>
+
+<h5>id</h5>
+<ol><p>The id.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="SetKeyringKey">SetKeyringKey</a></h2>
+<div class="doc-section">
+
+<p>SetKeyringKey() sets the keyring key.</p></ol>
+
+<p>The format of the SetKeyringKey method is:</p>
+
+<pre class="code">
+  void SetKeyringKey(KeyringInfo *keyring_info,const StringInfo *key)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>keyring_info</h5>
+<ol><p>The keyring info.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="SetKeyringNonce">SetKeyringNonce</a></h2>
+<div class="doc-section">
+
+<p>SetKeyringNonce() sets the keyring nonce.</p></ol>
+
+<p>The format of the SetKeyringNonce method is:</p>
+
+<pre class="code">
+  void SetKeyringNonce(KeyringInfo *keyring_info,const StringInfo *nonce)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>keyring_info</h5>
+<ol><p>The keyring info.</p></ol>
+
+<h5>nonce</h5>
+<ol><p>The nonce.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
+_8c.html" target="source" name="SetKeyringPath">SetKeyringPath</a></h2>
+<div class="doc-section">
+
+<p>SetKeyringPath() sets the keyring path.</p></ol>
+
+<p>The format of the SetKeyringPath method is:</p>
+
+<pre class="code">
+  void SetKeyringPath(KeyringInfo *keyring_info,const char *path)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>keyring_info</h5>
+<ol><p>The keyring info.</p></ol>
+
+<h5>path</h5>
+<ol><p>The keyring path.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="185161993">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>

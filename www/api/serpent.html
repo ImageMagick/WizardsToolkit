@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <style type="text/css"><!--
+    @import url("../../www/wizard.css");
+  //--></style>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Serpent Cipher Methods</title>
+  <meta http-equiv="Content-Language" content="en-US"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Generator" content="PHP"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, serpent, cipher, methods, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Rating" content="INDEX, FOLLOW"/>
+  <meta name="Robots" content="ALL"/>
+  <meta name="Generator" content="ImageMagick Studio LLC"/>
+  <meta name="Author" content="ImageMagick Studio LLC"/>
+  <meta name="Revisit-after" content="2 DAYS"/>
+  <meta name="Resource-type" content="document"/>
+  <meta name="Copyright" content="Copyright (c) 1999-2009 ImageMagick Studio LLC"/>
+  <meta name="Distribution" content="Global"/>
+  <link rel="shortcut icon" href="../../images/wand.ico"  type="images/vnd.microsoft.icon"/>
+</head>
+
+<body id="www-wizards-toolkit.org">
+  <table id="titlebar" style="width: 100%;background-color: #f5f5f5" cellpadding="0" cellspacing="0" border="0" summary="Wizard's Toolkit">
+    <tbody>
+      <tr valign="top">
+        <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="68939798"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td width="99%"><br /></td>
+        <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1597808933"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%" border="0" cellpadding="0" cellspacing="0" summary="">
+  <tbody>
+
+    <tr valign="top" style="height: 100%;">
+      <td id="menu" width="1%" height="100%">
+      <p><a href="#main">Skip to page contents</a></p>
+       <font size="-1">
+      <span>[</span>
+      <a href="../../index.html">About the<br />Wizard's Toolkit</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/command-line-tools.html">Command-line Tools</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/api.html">Application Program<br />Interface</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/install-source.html">Install from Source</a>
+      <a href="../../www/install-source.html#unix" class="sub">Unix</a>
+      <a href="../../www/install-source.html#windows" class="sub">Windows</a>
+      <a href="../../www/binary-releases.html">Binary Releases</a>
+      <a href="../../www/binary-releases.html#unix" class="sub">Unix</a>
+      <a href="../../www/binary-releases.html#windows" class="sub">Windows</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/download.html">Download</a>
+  <span>]</span><br /><span>[</span>
+      <a href="../../www/sponsors.html">Sponsors:</a>
+      <fieldset>
+  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
+<br />
+      </fieldset>
+      <span>]</span>
+      </font>
+      </td>
+
+      <td id="main" valign="top">
+<p class="navigation-index">[<a href="#AcquireSerpentInfo">AcquireSerpentInfo</a> &bull; <a href="#DecipherSerpentBlock">DecipherSerpentBlock</a> &bull; <a href="#DestroySerpentInfo">DestroySerpentInfo</a> &bull; <a href="#EncipherSerpentBlock">EncipherSerpentBlock</a> &bull; <a href="#GetSerpentBlocksize">GetSerpentBlocksize</a> &bull; <a href="#SetSerpentKey">SetSerpentKey</a>]</p>
+
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/serpent
+_8c.html" target="source" name="AcquireSerpentInfo">AcquireSerpentInfo</a></h2>
+<div class="doc-section">
+
+<p>AcquireSerpentInfo() allocate the SerpentInfo structure.</p></ol>
+
+<p>The format of the AcquireSerpentInfo method is:</p>
+
+<pre class="code">
+  SerpentInfo *AcquireSerpentInfo(void)
+</pre>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/serpent
+_8c.html" target="source" name="DecipherSerpentBlock">DecipherSerpentBlock</a></h2>
+<div class="doc-section">
+
+<p>DecipherSerpentBlock() deciphers a single block of ciphertext to produce a block of plaintext.</p></ol>
+
+<p>The format of the DecipherSerpentBlock method is:</p>
+
+<pre class="code">
+       void DecipherSerpentBlock(SerpentInfo *serpent_info,
+   const unsigned char *ciphertext,unsigned char plaintext)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>serpent_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+<h5>ciphertext</h5>
+<ol><p>The cipher text.</p></ol>
+
+<h5>plaintext</h5>
+<ol><p>The plaint text.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/serpent
+_8c.html" target="source" name="DestroySerpentInfo">DestroySerpentInfo</a></h2>
+<div class="doc-section">
+
+<p>DestroySerpentInfo() zeros memory associated with the SerpentInfo structure.</p></ol>
+
+<p>The format of the DestroySerpentInfo method is:</p>
+
+<pre class="code">
+  SerpentInfo *DestroySerpentInfo(SerpentInfo *serpent_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>serpent_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/serpent
+_8c.html" target="source" name="EncipherSerpentBlock">EncipherSerpentBlock</a></h2>
+<div class="doc-section">
+
+<p>EncipherSerpentBlock() enciphers a single block of plaintext to produce a block of ciphertext.</p></ol>
+
+<p>The format of the EncipherSerpentBlock method is:</p>
+
+<pre class="code">
+  void EncipherSerpentBlock(SerpentInfo *serpent_info,
+    const unsigned char *plaintext,unsigned char ciphertext)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>serpent_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+<h5>plaintext</h5>
+<ol><p>The plain text.</p></ol>
+
+<h5>ciphertext</h5>
+<ol><p>The cipher text.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/serpent
+_8c.html" target="source" name="GetSerpentBlocksize">GetSerpentBlocksize</a></h2>
+<div class="doc-section">
+
+<p>GetSerpentBlocksize() returns the Serpent blocksize.</p></ol>
+
+<p>The format of the GetSerpentBlocksize method is:</p>
+
+<pre class="code">
+  unsigned int *GetSerpentBlocksize(const SerpentInfo *serpent_info)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>serpent_info</h5>
+<ol><p>The serpent info.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/serpent
+_8c.html" target="source" name="SetSerpentKey">SetSerpentKey</a></h2>
+<div class="doc-section">
+
+<p>SetSerpentKey() sets the key for the Serpent cipher.  The key length is specified in bits.  Valid values are 128,192,or 256 requiring a key buffer length in bytes of 16,24,and 32 respectively.</p></ol>
+
+<p>The format of the SetSerpentKey method is:</p>
+
+<pre class="code">
+  SetSerpentKey(SerpentInfo *serpent_info,const StringInfo *key)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>serpent_info</h5>
+<ol><p>The cipher context.</p></ol>
+
+<h5>key</h5>
+<ol><p>The key.</p></ol>
+
+ </div>
+      </td>
+      <td id="margin" width="1%" height="100%" valign="top" align="right">&nbsp;</td>
+    </tr>
+  </tbody>
+  </table>
+  <div id="linkbar">
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1265419405">Discourse Server</a> |
+    <a href="../../www/license.html">License</a> |
+    <a href="../../www/notice.html">Notice</a>
+  </div>
+  <div id="footer">
+    <span id="footer-west">&copy; 1999-2009 ImageMagick Studio LLC</span>
+  </div>
+  <div style="clear: both; margin: 0; width: 100%; "></div>
+</body>
+</html>
