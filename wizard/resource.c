@@ -779,9 +779,9 @@ WizardExport WizardBooleanType ListWizardResourceInfo(FILE *file,
   (void) FormatWizardSize(resource_info.disk_limit,disk_limit);
   (void) FormatWizardSize(resource_info.map_limit,map_limit);
   (void) FormatWizardSize(resource_info.memory_limit,memory_limit);
-  (void) fprintf(file,"File       Area     Memory        Map       Disk\n");
-  (void) fprintf(file,"------------------------------------------------\n");
-  (void) fprintf(file,"%4lu  %9s  %9s  %9s  %9s\n",(unsigned long)
+  (void) fprintf(file,"File        Area      Memory         Map        Disk\n");
+  (void) fprintf(file,"----------------------------------------------------\n");
+  (void) fprintf(file,"%4lu  %10s  %10s  %10s  %10s\n",(unsigned long)
     resource_info.file_limit,area_limit,memory_limit,map_limit,disk_limit);
   (void) fflush(file);
   RelinquishSemaphoreInfo(resource_semaphore);
