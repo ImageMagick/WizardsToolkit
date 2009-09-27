@@ -873,7 +873,7 @@ WizardExport const char *ParseWizardTime(const char *timestamp,time_t *target)
     i;
 
   static char
-    *separators = "--T::-:";
+    separators[] = "--T::-:";
 
   struct tm
     gm_time,
