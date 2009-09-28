@@ -979,7 +979,9 @@ int main(int argc,char **argv)
     if (LocaleCompare("regard-warnings",option+1) == 0)
       regard_warnings=WizardTrue;
   }
-  timer=AcquireTimerInfo();
+  timer=(TimerInfo *) NULL;
+  if (iterations > 1)
+    timer=AcquireTimerInfo();
   for (i=0; i < (long) iterations; i++)
   {
     status=EncipherCommand(argc,argv,exception);
@@ -996,11 +998,12 @@ int main(int argc,char **argv)
     {
       elapsed_time=GetElapsedTime(timer);
       user_time=GetUserTime(timer);
-      (void) fprintf(stderr,"Performance: %gips %0.3fu %ld:%02ld\n",1.0*
-        iterations/elapsed_time,user_time,(long) (elapsed_time/60.0+0.5),(long)
-        ceil(fmod(elapsed_time,60.0)));
+      (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %ld:%02ld.%03ld\n",
+        iterations,1.0*iterations/elapsed_time,user_time,(long)
+        (elapsed_time/60.0+0.5),(long) floor(fmod(elapsed_time,60.0)),
+        (long) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
+      timer=DestroyTimerInfo(timer);
     }
-  timer=DestroyTimerInfo(timer);
   exception=DestroyExceptionInfo(exception);
   WizardsToolkitTerminus();
   return(status == WizardFalse ? 1 : 0);
