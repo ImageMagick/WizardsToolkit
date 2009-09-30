@@ -1,5 +1,5 @@
 #ifdef COPYRIGHT
-;  Copyright 1999-2008 ImageMagick Studio LLC, a non-profit organization
+;  Copyright 1999-2009 ImageMagick Studio LLC, a non-profit organization
 ;  dedicated to making software imaging solutions freely available.
 ;
 ;  You may not use this file except in compliance with the License.  You may
@@ -15,4 +15,4 @@
 #endif
 
 ; Add -debug to parameters to enable debugging
-Filename: "{app}\uninstall\PathTool.exe"; Parameters: "/add ""{app}"""; StatusMsg: "Updating environment variables..."; Tasks: update_path
+; Filename: "{app}\uninstall\PathTool.exe"; Parameters: "/add ""{app}"""; StatusMsg: "Updating environment variables..."; Tasks: update_path
