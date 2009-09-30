@@ -1214,14 +1214,14 @@ static StringInfo *EncipherOFBMode(CipherInfo *cipher_info,
 %
 %  The format of the GetCipherBlocksize method is:
 %
-%      unsigned long *GetCipherBlocksize(const CipherInfo *cipher_info)
+%      size_t GetCipherBlocksize(const CipherInfo *cipher_info)
 %
 %  A description of each parameter follows:
 %
 %    o cipher_info: The cipher info.
 %
 */
-WizardExport unsigned long GetCipherBlocksize(const CipherInfo *cipher_info)
+WizardExport size_t GetCipherBlocksize(const CipherInfo *cipher_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(CipherDomain,cipher_info != (CipherInfo *) NULL);

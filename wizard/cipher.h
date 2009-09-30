@@ -60,7 +60,7 @@ extern WizardExport StringInfo
   *EncipherCipher(CipherInfo *,StringInfo *),
   *GenerateCipherNonce(CipherInfo *);
 
-extern WizardExport unsigned long
+extern WizardExport size_t
   GetCipherBlocksize(const CipherInfo *);
 
 extern WizardExport void
