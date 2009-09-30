@@ -1,4 +1,4 @@
-#  Copyright 1999-2007 ImageMagick Studio LLC, a non-profit organization
+#  Copyright 1999-2009 ImageMagick Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.  You may
@@ -15,7 +15,7 @@
 #  Configure script for building the Wizard Executable Environment.
 
 AC_PREREQ(2.63)
-AC_INIT([WizardsToolkit],[1.0.6],[http://www.wizards-toolkit.org],[WizardsToolkit])
+AC_INIT([WizardsToolkit],[1.0.7],[http://www.wizards-toolkit.org],[WizardsToolkit])
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_MACRO_DIR([m4])
