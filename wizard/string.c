@@ -1406,16 +1406,15 @@ WizardExport long LocaleCompare(const char *p,const char *q)
   {
     register int
       c,
-      d;
+      d,
+      i;
 
-    for ( ; ; )
+    for (i=0; ; i++)
     {
-      c=(int) *p;
-      d=(int) *q;
+      c=(int) p[i];
+      d=(int) q[i];
       if ((c == '\0') || (AsciiMap[c] != AsciiMap[d]))
         break;
-      p++;
-      q++;
     }
     return((long) AsciiMap[c]-AsciiMap[d]);
   }
