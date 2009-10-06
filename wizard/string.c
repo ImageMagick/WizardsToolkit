@@ -2222,7 +2222,7 @@ WizardExport WizardBooleanType SubstituteString(char **string,
           Make room for the replacement string.
         */
         offset=p-(*string);
-        extent=strlen(*string)+replace_extent-search_extent;
+        extent=strlen(*string)+replace_extent-search_extent+1;
         *string=(char *) ResizeQuantumMemory(*string,extent+MaxTextExtent,
           sizeof(*p));
         if (*string == (char *) NULL)
