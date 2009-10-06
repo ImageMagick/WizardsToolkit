@@ -2165,19 +2165,19 @@ WizardExport void StripString(char *message)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  SubstituteString() performs string substitution on a buffer, replacing the
-%  buffer with the substituted version. Buffer must be allocated from the heap.
+%  SubstituteString() performs string substitution on a string, replacing the
+%  string with the substituted version. Buffer must be allocated from the heap.
 %  If the string is matched and status, WizardTrue is returned otherwise
 %  WizardFalse.
 %
 %  The format of the SubstituteString method is:
 %
-%      WizardBooleanType SubstituteString(char **buffer,const char *search,
+%      WizardBooleanType SubstituteString(char **string,const char *search,
 %        const char *replace)
 %
 %  A description of each parameter follows:
 %
-%    o buffer: the buffer to perform replacements on;  replaced with new
+%    o string: the string to perform replacements on;  replaced with new
 %      allocation if a replacement is made.
 %
 %    o search: search for this string.
@@ -2185,7 +2185,7 @@ WizardExport void StripString(char *message)
 %    o replace: replace any matches with this string.
 %
 */
-WizardExport WizardBooleanType SubstituteString(char **buffer,
+WizardExport WizardBooleanType SubstituteString(char **string,
   const char *search,const char *replace)
 {
   WizardBooleanType
@@ -2194,29 +2194,27 @@ WizardExport WizardBooleanType SubstituteString(char **buffer,
   register char
     *p;
 
-  register size_t
-    i;
-
   size_t
     extent,
     replace_extent,
     search_extent;
 
+  ssize_t
+    offset;
+
   status=WizardFalse;
   search_extent=0,
   replace_extent=0;
-  p=(*buffer);
-  for (i=0; *(p+i) != '\0'; i++)
+  for (p=strchr(*string,*search); p != (char *) NULL; p=strchr(p+1,*search))
   {
-    if (*(p+i) != *search)
-      continue;
-    if (strcmp(p+i,search) != 0)
+    if (search_extent == 0)
+      search_extent=strlen(search);
+    if (strncmp(p,search,search_extent) != 0)
       continue;
     /*
       We found a match.
     */
-    if (search_extent == 0)
-      search_extent=strlen(search);
+    status=WizardTrue;
     if (replace_extent == 0)
       replace_extent=strlen(replace);
     if (replace_extent > search_extent)
@@ -2224,22 +2222,23 @@ WizardExport WizardBooleanType SubstituteString(char **buffer,
         /*
           Make room for the replacement string.
         */
-        extent=strlen(p)+replace_extent-search_extent;
-        p=(char *) ResizeQuantumMemory(p,extent+MaxTextExtent,sizeof(*p));
-        *buffer=p;
-        if (p == (char *) NULL)
+        offset=p-(*string);
+        extent=strlen(*string)+replace_extent-search_extent;
+        *string=(char *) ResizeQuantumMemory(*string,extent+MaxTextExtent,
+          sizeof(*p));
+        if (*string == (char *) NULL)
           ThrowFatalException(ResourceFatalError,
             "memory allocation failed `%s'");
+        p=(*string)+offset;
       }
     /*
       Replace string.
     */
-    status=WizardTrue;
     if (search_extent != replace_extent)
-      (void) CopyWizardMemory(p+replace_extent+i,p+search_extent+i,
-        strlen(p+search_extent+i)+1);
-    (void) CopyWizardMemory(p+i,replace,replace_extent);
-    i+=replace_extent;
+      (void) CopyWizardMemory(p+replace_extent,p+search_extent,
+        strlen(p+search_extent)+1);
+    (void) CopyWizardMemory(p,replace,replace_extent);
+    p+=replace_extent-1;
   }
   return(status);
 }
