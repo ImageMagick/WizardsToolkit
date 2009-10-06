@@ -2166,7 +2166,9 @@ WizardExport void StripString(char *message)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %  SubstituteString() performs string substitution on a buffer, replacing the
-%  buffer with the substituted version. Buffer must be allocate from the heap.
+%  buffer with the substituted version. Buffer must be allocated from the heap.
+%  If the string is matched and status, WizardTrue is returned otherwise
+%  WizardFalse.
 %
 %  The format of the SubstituteString method is:
 %
@@ -2175,115 +2177,69 @@ WizardExport void StripString(char *message)
 %
 %  A description of each parameter follows:
 %
-%    o buffer: The buffer to perform replacements on. Replaced with new
+%    o buffer: the buffer to perform replacements on;  replaced with new
 %      allocation if a replacement is made.
 %
-%    o search: String to search for.
+%    o search: search for this string.
 %
-%    o replace: Replacement string.
+%    o replace: replace any matches with this string.
 %
 */
 WizardExport WizardBooleanType SubstituteString(char **buffer,
   const char *search,const char *replace)
 {
-  char
-    *result;
+  WizardBooleanType
+    status;
 
-  const char
-    *match,
-    *source;
+  register char
+    *p;
+
+  register size_t
+    i;
 
   size_t
-    length,
-    copy_length,
-    replace_length,
-    result_length,
-    search_length;
+    extent,
+    replace_extent,
+    search_extent;
 
-  WizardOffsetType
-    destination_offset;
-
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(buffer != (char **) NULL);
-  assert(*buffer != (char *) NULL);
-  assert(search != (const char *) NULL);
-  assert(replace != (const char *) NULL);
-  if (strcmp(search,replace) == 0)
-    return(WizardTrue);
-  source=(*buffer);
-  match=strstr(source,search);
-  if (match == (char *) NULL)
-    return(WizardFalse);
-  result=(char *) NULL;
-  length=strlen(source);
-  if (~length >= MaxTextExtent)
-    result=(char *) AcquireQuantumMemory(length+MaxTextExtent,sizeof(*result));
-  if (result == (char *) NULL)
-    ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  *result='\0';
-  result_length=0;
-  destination_offset=0;
-  replace_length=strlen(replace);
-  for (search_length=strlen(search); match != (char *) NULL; )
+  status=WizardFalse;
+  search_extent=0,
+  replace_extent=0;
+  p=(*buffer);
+  for (i=0; *(p+i) != '\0'; i++)
   {
+    if (*(p+i) != *search)
+      continue;
+    if (strcmp(p+i,search) != 0)
+      continue;
     /*
-      Copy portion before match.
+      We found a match.
     */
-    copy_length=(size_t) (match-source);
-    if (copy_length != 0)
+    if (search_extent == 0)
+      search_extent=strlen(search);
+    if (replace_extent == 0)
+      replace_extent=strlen(replace);
+    if (replace_extent > search_extent)
       {
-        result_length+=copy_length;
-        if ((result_length+MaxTextExtent) >= length)
-          {
-            length+=copy_length;
-            result=(char *) ResizeQuantumMemory(result,
-              (length+MaxTextExtent),sizeof(*result));
-            if (result == (char *) NULL)
-              ThrowFatalException(ResourceFatalError,
-                "memory allocation failed `%s'");
-          }
-        (void) CopyWizardString(result+destination_offset,source,copy_length+1);
-        destination_offset+=copy_length;
-      }
-    /*
-      Copy replacement.
-    */
-    result_length+=replace_length;
-    if ((result_length+MaxTextExtent) >= length)
-      {
-        length+=replace_length;
-        result=(char *) ResizeQuantumMemory(result,
-          length+MaxTextExtent,sizeof(*result));
-        if (result == (char *) NULL)
+        /*
+          Make room for the replacement string.
+        */
+        extent=strlen(p)+replace_extent-search_extent;
+        p=(char *) ResizeQuantumMemory(p,extent+MaxTextExtent,sizeof(*p));
+        *buffer=p;
+        if (p == (char *) NULL)
           ThrowFatalException(ResourceFatalError,
             "memory allocation failed `%s'");
       }
-    (void) ConcatenateWizardString(result+destination_offset,replace,length+
-      MaxTextExtent);
-    destination_offset+=replace_length;
     /*
-      Find next match.
+      Replace string.
     */
-    source=match;
-    source+=search_length;
-    match=strstr(source,search);
+    status=WizardTrue;
+    if (search_extent != replace_extent)
+      (void) CopyWizardMemory(p+replace_extent+i,p+search_extent+i,
+        strlen(p+search_extent+i)+1);
+    (void) CopyWizardMemory(p+i,replace,replace_extent);
+    i+=replace_extent;
   }
-  /*
-    Copy remaining string.
-  */
-  copy_length=strlen(source);
-  result_length+=copy_length;
-  if ((result_length+MaxTextExtent) >= length)
-    {
-      length+=copy_length;
-      result=(char *) ResizeQuantumMemory(result,length+MaxTextExtent,
-        sizeof(*result));
-      if (result == (char *) NULL)
-        ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-    }
-  (void) ConcatenateWizardString(result+destination_offset,source,(size_t)
-    (length+MaxTextExtent-destination_offset));
-  (void) RelinquishWizardMemory(*buffer);
-  *buffer=result;
-  return(WizardTrue);
+  return(status);
 }
