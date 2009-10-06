@@ -1404,14 +1404,14 @@ WizardExport long LocaleCompare(const char *p,const char *q)
   return((long) strcasecmp(p,q));
 #else
   {
-    register unsigned char
+    register unsigned int
       c,
       d;
 
     for ( ; ; )
     {
-      c=(unsigned char) *p;
-      d=(unsigned char) *q;
+      c=(unsigned int) *p;
+      d=(unsigned int) *q;
       if ((c == '\0') || (AsciiMap[c] != AsciiMap[d]))
         break;
       p++;
