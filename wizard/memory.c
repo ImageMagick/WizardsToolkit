@@ -136,7 +136,12 @@ typedef struct _WizardMemoryMethods
   Global declarations.
 */
 static WizardMemoryMethods
-  memory_methods = { malloc, realloc, free };
+  memory_methods =
+  {
+    (AcquireMemoryHandler) malloc,
+    (ResizeMemoryHandler) realloc,
+    (DestroyMemoryHandler) free
+  };
 
 #if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
 static MemoryInfo
