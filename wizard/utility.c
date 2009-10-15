@@ -716,18 +716,18 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
         if (program_name == (char *) NULL)
           program_name=program_invocation_name;
         else
-          count=FormatMagickString(program_name,extent,"%s/%s",cwd,
+          count=FormatWizardString(program_name,extent,"%s/%s",cwd,
             program_invocation_name);
       }
     if (count != -1)
       {
         execution_path=realpath(program_name,NULL);
         if (execution_path != (char *) NULL)
-          (void) CopyMagickString(path,execution_path,extent);
+          (void) CopyWizardString(path,execution_path,extent);
       }
     if (program_name != program_invocation_name)
-      program_name=(char *) RelinquishMagickMemory(program_name);
-    execution_path=(char *) RelinquishMagickMemory(execution_path);
+      program_name=(char *) RelinquishWizardMemory(program_name);
+    execution_path=(char *) RelinquishWizardMemory(execution_path);
   }
 #endif
   return(IsAccessible(path));
