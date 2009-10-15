@@ -636,7 +636,7 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
 {
   *path='\0';
   (void) getcwd(path,(unsigned long) extent);
-#if defined(WIZARDSTOOLKIT_HAVE_GETPID) && defined(WIZARDSTOOLKIT_HAVE_READLINK)
+#if defined(WIZARDSTOOLKIT_HAVE_GETPID) && defined(WIZARDSTOOLKIT_HAVE_READLINK) && defined(PATH_MAX)
   {
     char
       link_path[MaxTextExtent],
@@ -693,6 +693,42 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
 #endif
 #if defined(__WINDOWS__)
   NTGetExecutionPath(path,extent);
+#endif
+#if defined(__GNU__)
+  {
+    char
+      *program_name,
+      *execution_path;
+
+    long
+      count;
+
+    count=0;
+    execution_path=(char *) NULL;
+    program_name=program_invocation_name;
+    if (*program_invocation_name != '/')
+      {
+        size_t
+          extent;
+
+        extent=strlen(cwd)+strlen(program_name)+1;
+        program_name=AcquireQuantumMemory(extent,sizeof(*program_name));
+        if (program_name == (char *) NULL)
+          program_name=program_invocation_name;
+        else
+          count=FormatMagickString(program_name,extent,"%s/%s",cwd,
+            program_invocation_name);
+      }
+    if (count != -1)
+      {
+        execution_path=realpath(program_name,NULL);
+        if (execution_path != (char *) NULL)
+          (void) CopyMagickString(path,execution_path,extent);
+      }
+    if (program_name != program_invocation_name)
+      program_name=(char *) RelinquishMagickMemory(program_name);
+    execution_path=(char *) RelinquishMagickMemory(execution_path);
+  }
 #endif
   return(IsAccessible(path));
 }
