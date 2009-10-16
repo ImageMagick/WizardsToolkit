@@ -436,17 +436,6 @@ if test "$with_embeddable" = 'yes'; then
   AC_DEFINE(EMBEDDABLE_SUPPORT,1,[Build self-contained, embeddable, zero-configuration Wizard's Toolkit (experimental)])
 fi
 
-# Enable verbose output from libtool (enable libtool's default)
-AC_ARG_ENABLE([libtool-verbose],
-    [AC_HELP_STRING([--enable-libtool-verbose],
-                    [enable verbose libtool output])],
-    [enable_libtool_verbose=$enableval],
-    [enable_libtool_verbose='no'])
-
-if test "$with_libtool_verbose" = 'no'; then
-  LIBTOOL="$LIBTOOL --silent"
-fi 
-
 # Build a version of Wizard with assert statements.
 AC_ARG_ENABLE([assert],
     [AC_HELP_STRING([--disable-assert],
