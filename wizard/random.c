@@ -305,20 +305,20 @@ WizardExport RandomInfo *DestroyRandomInfo(RandomInfo *random_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   D e s t r o y R a n d o m F a c i l i t y                                 %
++   D e s t r o y R a n d o m C o m p o n e n t                               %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DestroyRandomFacility() destroys the random facility.
+%  DestroyRandomComponent() destroys the random component.
 %
-%  The format of the DestroyRandomFacility method is:
+%  The format of the DestroyRandomComponent method is:
 %
-%      DestroyRandomFacility(void)
+%      DestroyRandomComponent(void)
 %
 */
-WizardExport void DestroyRandomFacility(void)
+WizardExport void DestroyRandomComponent(void)
 {
   AcquireSemaphoreInfo(&random_semaphore);
   RelinquishSemaphoreInfo(random_semaphore);
@@ -774,20 +774,20 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   I n s t a n t i a t e R a n d o m F a c i l i t y                         %
++   I n s t a n t i a t e R a n d o m C o m p o n e n t                       %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  InstantiateRandomFacility() instantiates the random facility.
+%  InstantiateRandomComponent() instantiates the random component.
 %
-%  The format of the InstantiateRandomFacility method is:
+%  The format of the InstantiateRandomComponent method is:
 %
-%      InstantiateRandomFacility(void)
+%      InstantiateRandomComponent(void)
 %
 */
-WizardExport WizardBooleanType InstantiateRandomFacility(void)
+WizardExport WizardBooleanType InstantiateRandomComponent(void)
 {
   AcquireSemaphoreInfo(&random_semaphore);
   RelinquishSemaphoreInfo(random_semaphore);

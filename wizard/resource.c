@@ -448,22 +448,22 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   A s y n c h r o n o u s D e s t r o y R e s o u r c e F a c i l i t y     %
++   A s y n c h r o n o u s D e s t r o y R e s o u r c e C o m p o n e n t   %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AsynchronousDestroyResourceFacility() destroys the resource environment.
-%  It differs from DestroyResourceFacility() in that it can be called from a
+%  AsynchronousDestroyResourceComponent() destroys the resource environment.
+%  It differs from DestroyResourceComponent() in that it can be called from a
 %  asynchronous signal handler.
 %
-%  The format of the DestroyResourceFacility() method is:
+%  The format of the DestroyResourceComponent() method is:
 %
-%      DestroyResourceFacility(void)
+%      DestroyResourceComponent(void)
 %
 */
-WizardExport void AsynchronousDestroyResourceFacility(void)
+WizardExport void AsynchronousDestroyResourceComponent(void)
 {
   const char
     *path;
@@ -489,20 +489,20 @@ WizardExport void AsynchronousDestroyResourceFacility(void)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   D e s t r o y R e s o u r c e F a c i l i t y                             %
++   D e s t r o y R e s o u r c e C o m p o n e n t                           %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DestroyResourceFacility() destroys the resource facility.
+%  DestroyResourceComponent() destroys the resource component.
 %
-%  The format of the DestroyResourceFacility() method is:
+%  The format of the DestroyResourceComponent() method is:
 %
-%      DestroyResourceFacility(void)
+%      DestroyResourceComponent(void)
 %
 */
-WizardExport void DestroyResourceFacility(void)
+WizardExport void DestroyResourceComponent(void)
 {
   AcquireSemaphoreInfo(&resource_semaphore);
   if (temporary_resources != (SplayTreeInfo *) NULL)
@@ -642,17 +642,17 @@ WizardExport WizardSizeType GetWizardResourceLimit(const ResourceType type)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   I n s t a n t i a t e R e s o u r c e F a c i l i t y                     %
++   I n s t a n t i a t e R e s o u r c e C o m p o n e n t                   %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  InstantiateResourceFacility() instantiates the resource facility.
+%  InstantiateResourceComponent() instantiates the resource component.
 %
-%  The format of the InstantiateResourceFacility method is:
+%  The format of the InstantiateResourceComponent method is:
 %
-%      WizardBooleanType InstantiateResourceFacility(void)
+%      WizardBooleanType InstantiateResourceComponent(void)
 %
 */
 
@@ -663,7 +663,7 @@ static inline long WizardMax(const long x,const long y)
   return(y);
 }
 
-WizardExport WizardBooleanType InstantiateResourceFacility(void)
+WizardExport WizardBooleanType InstantiateResourceComponent(void)
 {
   char
     *limit;

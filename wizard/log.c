@@ -230,17 +230,17 @@ WizardExport void CloseWizardLog(void)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   D e s t r o y L o g F a c i l i t y                                       %
++   D e s t r o y L o g C o m p o n e n t                                     %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DestroyLogFacility() destroys the log facility.
+%  DestroyLogComponent() destroys the log component.
 %
-%  The format of the DestroyLogFacility method is:
+%  The format of the DestroyLogComponent method is:
 %
-%      DestroyLogFacility(void)
+%      DestroyLogComponent(void)
 %
 */
 
@@ -269,7 +269,7 @@ static void *DestroyLogElement(void *log_info)
   return((void *) NULL);
 }
 
-WizardExport void DestroyLogFacility(void)
+WizardExport void DestroyLogComponent(void)
 {
   AcquireSemaphoreInfo(&log_semaphore);
   if (log_list != (LinkedListInfo *) NULL)
@@ -594,20 +594,20 @@ static WizardBooleanType InitializeLogList(ExceptionInfo *exception)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   I n s t a n t i a t e L o g F a c i l i t y                               %
++   I n s t a n t i a t e L o g C o m p o n e n t                             %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  InstantiateLogFacility() instantiates the log facility.
+%  InstantiateLogComponent() instantiates the log component.
 %
-%  The format of the InstantiateLogFacility method is:
+%  The format of the InstantiateLogComponent method is:
 %
-%      WizardBooleanType InstantiateLogFacility(void)
+%      WizardBooleanType InstantiateLogComponent(void)
 %
 */
-WizardExport WizardBooleanType InstantiateLogFacility(void)
+WizardExport WizardBooleanType InstantiateLogComponent(void)
 {
   AcquireSemaphoreInfo(&log_semaphore);
   RelinquishSemaphoreInfo(log_semaphore);
