@@ -329,7 +329,7 @@ WizardExport int NTCloseLibrary(void *handle)
 
 static BOOL ControlHandler(DWORD type)
 {
-  AsynchronousDestroyWizardResources();
+  AsynchronousDestroyResourceFacility();
   return(FALSE);
 }
 

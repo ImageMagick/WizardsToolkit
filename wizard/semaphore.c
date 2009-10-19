@@ -10,9 +10,10 @@
 %        SSSSS  EEEEE  M   M  A   A  P      H   H   OOO   R  R   EEEEE        %
 %                                                                             %
 %                                                                             %
-%                      Wizard's Toolkit Semaphore Methods                     %
+%                        WizardCore Semaphore Methods                         %
 %                                                                             %
 %                              Software Design                                %
+%                             William Radcliffe                               %
 %                                John Cristy                                  %
 %                                 June 2000                                   %
 %                                                                             %
@@ -41,7 +42,6 @@
   Include declarations.
 */
 #include "wizard/studio.h"
-#include "wizard/client.h"
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
@@ -81,6 +81,9 @@ static LONG
 static long
   semaphore_mutex = 0;
 #endif
+
+static WizardBooleanType
+  instantiate_semaphore = WizardFalse;
 
 /*
   Forward declaractions.
@@ -138,12 +141,6 @@ WizardExport void AcquireSemaphoreInfo(SemaphoreInfo **semaphore_info)
 %
 %      SemaphoreInfo *AllocateSemaphoreInfo(void)
 %
-%  A description of each parameter follows:
-%
-%    o semaphore_info: Method AllocateSemaphoreInfo returns a pointer to an
-%      initialized SemaphoreInfo structure.
-%
-%
 */
 WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
 {
@@ -174,7 +171,8 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
       {
         semaphore_info=(SemaphoreInfo *) RelinquishAlignedMemory(
           semaphore_info);
-        return((SemaphoreInfo *) NULL);
+        ThrowFatalException(ResourceFatalError,
+          "unable to instantiate semaphore `%s'");
       }
     status=pthread_mutex_init(&semaphore_info->mutex,&mutex_info);
     (void) pthread_mutexattr_destroy(&mutex_info);
@@ -182,7 +180,8 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
       {
         semaphore_info=(SemaphoreInfo *) RelinquishAlignedMemory(
           semaphore_info);
-        return((SemaphoreInfo *) NULL);
+        ThrowFatalException(ResourceFatalError,
+          "unable to instantiate semaphore `%s'");
       }
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
@@ -216,12 +215,13 @@ WizardExport void DestroySemaphore(void)
 {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   if (pthread_mutex_destroy(&semaphore_mutex) != 0)
-    {
-      (void) fprintf(stderr,"pthread_mutex_destroy failed %s\n",
-        strerror(errno));
-      _exit(1);
-    }
+    (void) fprintf(stderr,"pthread_mutex_destroy failed %s\n",
+      GetExceptionMessage(errno));
+#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
+  if (instantiate_semaphore == WizardFalse)
+    DeleteCriticalSection(&semaphore_mutex);
 #endif
+  instantiate_semaphore=WizardFalse;
 }
 
 /*
@@ -267,21 +267,24 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   I n i t i a l i z e S e m a p h o r e                                     %
+%   I n s t a n t i a t e S e m a p h o r e                                   %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  InitializeSemaphore() initializes the semaphore environment.
+%  InstantiateSemaphore() instantiates the semaphore environment.
 %
-%  The format of the InitializeSemaphore method is:
+%  The format of the InstantiateSemaphore method is:
 %
-%      InitializeSemaphore(void)
+%      WizardBooleanType InstantiateSemaphore(void)
 %
 */
-WizardExport void InitializeSemaphore(void)
+WizardExport WizardBooleanType InstantiateSemaphore(void)
 {
+  LockWizardMutex();
+  UnlockWizardMutex();
+  return(WizardTrue);
 }
 
 /*
@@ -289,7 +292,7 @@ WizardExport void InitializeSemaphore(void)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   L o c k W i z a r d M u t e x                                             %
++   L o c k W i z a r d M u t e x                                             %
 %                                                                             %
 %                                                                             %
 %                                                                             %
@@ -303,13 +306,16 @@ WizardExport void InitializeSemaphore(void)
 %      void LockWizardMutex(void)
 %
 */
-WizardExport void LockWizardMutex(void)
+static void LockWizardMutex(void)
 {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   if (pthread_mutex_lock(&semaphore_mutex) != 0)
     (void) fprintf(stderr,"pthread_mutex_lock failed %s\n",
       GetExceptionMessage(errno));
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
+  if (instantiate_semaphore == WizardFalse)
+    InitializeCriticalSection(&semaphore_mutex);
+  instantiate_semaphore=WizardTrue;
   while (InterlockedCompareExchange(&semaphore_mutex,1L,0L) != 0)
     Sleep(10);
 #endif
@@ -371,7 +377,6 @@ WizardExport WizardBooleanType LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
           (void) fprintf(stderr,"Warning: unexpected recursive lock!\n");
           (void) fflush(stderr);
         }
-      semaphore_info->id=id;
     }
 #endif
   }
@@ -415,7 +420,7 @@ WizardExport void RelinquishSemaphoreInfo(SemaphoreInfo *semaphore_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   U n l o c k W i z a r d M u t e x                                         %
++   U n l o c k W i z a r d M u t e x                                         %
 %                                                                             %
 %                                                                             %
 %                                                                             %
@@ -428,7 +433,7 @@ WizardExport void RelinquishSemaphoreInfo(SemaphoreInfo *semaphore_info)
 %      void UnlockWizardMutex(void)
 %
 */
-WizardExport void UnlockWizardMutex(void)
+static void UnlockWizardMutex(void)
 {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   if (pthread_mutex_unlock(&semaphore_mutex) != 0)
@@ -467,7 +472,7 @@ WizardExport WizardBooleanType UnlockSemaphoreInfo(
   assert(semaphore_info != (SemaphoreInfo *) NULL);
   assert(semaphore_info->signature == WizardSignature);
 #if defined(WIZARDSTOOLKIT_DEBUG)
-  assert(IsSizeThreadEqual(semaphore_info->id) != WizardFalse);
+  assert(IsWizardThreadEqual(semaphore_info->id) != WizardFalse);
   if (semaphore_info->reference_count == 0)
     {
       (void) fprintf(stderr,"Warning: semaphore lock already unlocked!\n");

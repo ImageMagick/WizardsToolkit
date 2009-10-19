@@ -64,7 +64,7 @@
 WizardExport WizardBooleanType WizardCreateThreadKey(WizardThreadKey *key)
 {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
-  return(pthread_key_create(key,(void *) NULL) == 0 ? WizardTrue : WizardFalse);
+  return(pthread_key_create(key,NULL) == 0 ? WizardTrue : WizardFalse);
 #elif defined(MAGICKORE_HAVE_WINTHREADS)
   *key=TlsAlloc();
   return(*key != TLS_OUT_OF_INDEXES ? WizardTrue : WizardFalse);

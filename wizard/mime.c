@@ -131,17 +131,17 @@ static WizardBooleanType
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   D e s t r o y M i m e L i s t                                             %
++   D e s t r o y M i m e F a c i l i t y                                     %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DestroyMimeList() deallocates memory associated with the mime list.
+%  DestroyMimeFacility() destroys the mime facility.
 %
-%  The format of the DestroyMimeList method is:
+%  The format of the DestroyMimeFacility method is:
 %
-%      DestroyMimeList(void)
+%      DestroyMimeFacility(void)
 %
 */
 
@@ -165,7 +165,7 @@ static void *DestroyMimeElement(void *mime_info)
   return((void *) NULL);
 }
 
-WizardExport void DestroyMimeList(void)
+WizardExport void DestroyMimeFacility(void)
 {
   AcquireSemaphoreInfo(&mime_semaphore);
   if (mime_list != (LinkedListInfo *) NULL)
@@ -663,6 +663,31 @@ static WizardBooleanType InitializeMimeList(ExceptionInfo *exception)
       RelinquishSemaphoreInfo(mime_semaphore);
     }
   return(mime_list != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   I n s t a n t i a t e M i m e F a c i l i t y                             %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  InstantiateMimeFacility() instantiates the mime facility.
+%
+%  The format of the InstantiateMimeFacility method is:
+%
+%      WizardBooleanType InstantiateMimeFacility(void)
+%
+*/
+WizardExport WizardBooleanType InstantiateMimeFacility(void)
+{
+  AcquireSemaphoreInfo(&mime_semaphore);
+  RelinquishSemaphoreInfo(mime_semaphore);
+  return(WizardTrue);
 }
 
 /*
