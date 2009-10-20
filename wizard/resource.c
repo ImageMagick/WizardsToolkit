@@ -679,6 +679,7 @@ WizardExport WizardBooleanType InstantiateResourceComponent(void)
   /*
     Set Wizard resource limits.
   */
+  AcquireSemaphoreInfo(&resource_semaphore);
   RelinquishSemaphoreInfo(resource_semaphore);
   pagesize=(-1);
 #if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_PAGESIZE)
@@ -737,7 +738,6 @@ WizardExport WizardBooleanType InstantiateResourceComponent(void)
       (void) SetWizardResourceLimit(FileResource,(unsigned long) atol(limit));
       limit=DestroyString(limit);
     }
-  AcquireSemaphoreInfo(&resource_semaphore);
   return(WizardTrue);
 }
 
