@@ -60,14 +60,22 @@
 #define ConfigureFilename  "configure.xml"
 
 /*
+  Typedef declarations.
+*/
+typedef struct _ConfigureMapInfo
+{
+  const char
+    *name,
+    *value;
+} ConfigureMapInfo;
+
+/*
   Static declarations.
 */
-static const char
-  *ConfigureMap = (char *)
-    "<?xml version=\"1.0\"?>"
-    "<configuremap>"
-    "  <configure stealth=\"True\" />"
-    "</configuremap>";
+static const ConfigureMapInfo
+  ConfigureMap[] =
+  {
+  };
 
 static LinkedListInfo
   *configure_list = (LinkedListInfo *) NULL;
@@ -111,12 +119,15 @@ static void *DestroyConfigureElement(void *configure_info)
     *p;
 
   p=(ConfigureInfo *) configure_info;
-  if (p->path != (char *) NULL)
-    p->path=(char *) RelinquishWizardMemory(p->path);
-  if (p->name != (char *) NULL)
-    p->name=(char *) RelinquishWizardMemory(p->name);
-  if (p->value != (char *) NULL)
-    p->value=(char *) RelinquishWizardMemory(p->value);
+  if (p->exempt == WizardFalse)
+    {
+      if (p->value != (char *) NULL)
+        p->value=(char *) RelinquishWizardMemory(p->value);
+      if (p->name != (char *) NULL)
+        p->name=(char *) RelinquishWizardMemory(p->name);
+      if (p->path != (char *) NULL)
+        p->path=(char *) RelinquishWizardMemory(p->path);
+    }
   p=(ConfigureInfo *) RelinquishWizardMemory(p);
   return((void *) NULL);
 }
@@ -988,6 +999,7 @@ static WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
       ThrowFatalException(ResourceFatalError,"memory allocation failed `%s`");
     (void) ResetWizardMemory(configure_info,0,sizeof(*configure_info));
     configure_info->path=ConstantString(filename);
+    configure_info->exempt=WizardFalse;
     configure_info->signature=WizardSignature;
     attribute=GetXMLTreeAttribute(configure,"name");
     if (attribute != (const char *) NULL)
@@ -1037,9 +1049,6 @@ static WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
 static WizardBooleanType LoadConfigureLists(const char *filename,
   ExceptionInfo *exception)
 {
-#if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
-  return(LoadConfigureList(ConfigureMap,"built-in",0,exception));
-#else
   char
     path[MaxTextExtent];
 
@@ -1049,10 +1058,56 @@ static WizardBooleanType LoadConfigureLists(const char *filename,
   LinkedListInfo
     *options;
 
+  register long
+    i;
+
   WizardStatusType
     status;
 
+  /*
+    Load built-in configure map.
+  */
   status=WizardFalse;
+  if (configure_list == (LinkedListInfo *) NULL)
+    {
+      configure_list=NewLinkedList(0);
+      if (configure_list == (LinkedListInfo *) NULL)
+        {
+          ThrowFileException(exception,FileError,filename);
+          return(WizardFalse);
+        }
+    }
+  for (i=0; i < (long) (sizeof(ConfigureMap)/sizeof(*ConfigureMap)); i++)
+  {
+    ConfigureInfo
+      *configure_info;
+
+    register const ConfigureMapInfo
+      *p;
+
+    p=ConfigureMap+i;
+    configure_info=(ConfigureInfo *) AcquireWizardMemory(
+      sizeof(*configure_info));
+    if (configure_info == (ConfigureInfo *) NULL)
+      {
+        (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
+          "memory allocation failed `%s'",strerror(errno));
+        continue;
+      }
+    (void) ResetWizardMemory(configure_info,0,sizeof(*configure_info));
+    configure_info->path=(char *) "[built-in]";
+    configure_info->name=(char *) p->name;
+    configure_info->value=(char *) p->value;
+    configure_info->exempt=WizardTrue;
+    configure_info->signature=WizardSignature;
+    status=AppendValueToLinkedList(configure_list,configure_info);
+    if (status == WizardFalse)
+      (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
+        "memory allocation failed `%s'",strerror(errno));
+  }
+  /*
+    Load external configure map.
+  */
   *path='\0';
   options=GetConfigureOptions(filename,exception);
   option=(const StringInfo *) GetNextValueInLinkedList(options);
@@ -1064,13 +1119,5 @@ static WizardBooleanType LoadConfigureLists(const char *filename,
     option=(const StringInfo *) GetNextValueInLinkedList(options);
   }
   options=DestroyConfigureOptions(options);
-  if ((configure_list == (LinkedListInfo *) NULL) ||
-      (IsLinkedListEmpty(configure_list) != WizardFalse))
-    {
-      (void) ThrowWizardException(exception,GetWizardModule(),ConfigureWarning,
-        "unable to open configure file `%s'",path);
-      status|=LoadConfigureList(ConfigureMap,"built-in",0,exception);
-    }
   return(status != 0 ? WizardTrue : WizardFalse);
-#endif
 }

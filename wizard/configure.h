@@ -32,6 +32,7 @@ typedef struct _ConfigureInfo
     *value;
                                                                                 
   WizardBooleanType
+    exempt,
     stealth;
                                                                                 
   unsigned long
