@@ -123,6 +123,7 @@ struct _LogInfo
 
   WizardBooleanType
     append,
+    exempt,
     stealth;
 
   TimerInfo
@@ -148,19 +149,29 @@ static const HandlerInfo
     { (char *) NULL, UndefinedHandler }
   };
 
-static const char
-  *LogMap = (const char *)
-    "<?xml version=\"1.0\"?>"
-    "<logmap>"
-    "  <log events=\"None\" />"
-    "  <log output=\"console\" />"
-    "  <log filename=\"Wizard-%d.log\" />"
-    "  <log format=\"%t %r %u %v %d %c[%p]: %m/%f/%l/%d\n  %e\" />"
-    "</logmap>";
+typedef struct _LogMapInfo
+{
+  const LogEventType
+    event_mask;
+
+  const LogHandlerType
+    handler_mask;
+
+  const char
+    *filename,
+    *format;
+} LogMapInfo;
 
 /*
   Static declarations.
 */
+static const LogMapInfo
+  LogMap[] =
+  {
+    { NoEvents, ConsoleHandler, "Magick-%d.log",
+      "%t %r %u %v %d %c[%p]: %m/%f/%l/%d\n  %e" }
+  };
+
 static char
   log_name[MaxTextExtent] = "Wizard";
 
@@ -257,12 +268,15 @@ static void *DestroyLogElement(void *log_info)
       (void) fclose(p->file);
       p->file=(FILE *) NULL;
     }
-  if (p->filename != (char *) NULL)
-    p->filename=DestroyString(p->filename);
-  if (p->path != (char *) NULL)
-    p->path=DestroyString(p->path);
-  if (p->format != (char *) NULL)
-    p->format=DestroyString(p->format);
+  if (p->exempt == WizardFalse)
+    {
+      if (p->format != (char *) NULL)
+        p->format=DestroyString(p->format);
+      if (p->filename != (char *) NULL)
+        p->filename=DestroyString(p->filename);
+      if (p->path != (char *) NULL)
+        p->path=DestroyString(p->path);
+    }
   if (p->timer != (TimerInfo *) NULL)
     p->timer=DestroyTimerInfo(p->timer);
   p=(LogInfo *) RelinquishWizardMemory(p);
@@ -1374,6 +1388,7 @@ static WizardBooleanType LoadLogList(const char *xml,const char *filename,
         (void) ResetWizardMemory(log_info,0,sizeof(*log_info));
         log_info->path=ConstantString(filename);
         log_info->timer=AcquireTimerInfo();
+        log_info->exempt=WizardFalse;
         log_info->signature=WizardSignature;
         continue;
       }
@@ -1506,9 +1521,6 @@ static WizardBooleanType LoadLogList(const char *xml,const char *filename,
 static WizardBooleanType LoadLogLists(const char *filename,
   ExceptionInfo *exception)
 {
-#if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
-  return(LoadLogList(LogMap,"built-in",0,exception));
-#else
   const StringInfo
     *option;
 
@@ -1518,7 +1530,55 @@ static WizardBooleanType LoadLogLists(const char *filename,
   WizardStatusType
     status;
 
+  register long
+    i;
+
+  /*
+    Load built-in log map.
+  */
   status=WizardFalse;
+  if (log_list == (LinkedListInfo *) NULL)
+    {
+      log_list=NewLinkedList(0);
+      if (log_list == (LinkedListInfo *) NULL)
+        {
+          ThrowFileException(exception,FileError,filename);
+          return(WizardFalse);
+        }
+    }
+  for (i=0; i < (long) (sizeof(LogMap)/sizeof(*LogMap)); i++)
+  {
+    LogInfo
+      *log_info;
+
+    register const LogMapInfo
+      *p;
+
+    p=LogMap+i;
+    log_info=(LogInfo *) AcquireWizardMemory(sizeof(*log_info));
+    if (log_info == (LogInfo *) NULL)
+      {
+        (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
+          "memory allocation failed `%s'",log_info->name);
+        continue;
+      }
+    (void) ResetWizardMemory(log_info,0,sizeof(*log_info));
+    log_info->path=(char *) "[built-in]";
+    log_info->timer=AcquireTimerInfo();
+    log_info->event_mask=p->event_mask;
+    log_info->handler_mask=p->handler_mask;
+    log_info->filename=(char *) p->filename;
+    log_info->format=(char *) p->format;
+    log_info->exempt=WizardTrue;
+    log_info->signature=WizardSignature;
+    status=AppendValueToLinkedList(log_list,log_info);
+    if (status == WizardFalse)
+      (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
+        "memory allocation failed `%s'",log_info->name);
+  }
+  /*
+    Load external log map.
+  */
   options=GetConfigureOptions(filename,exception);
   option=(const StringInfo *) GetNextValueInLinkedList(options);
   while (option != (const StringInfo *) NULL)
@@ -1528,11 +1588,7 @@ static WizardBooleanType LoadLogLists(const char *filename,
     option=(const StringInfo *) GetNextValueInLinkedList(options);
   }
   options=DestroyConfigureOptions(options);
-  if ((log_list == (LinkedListInfo *) NULL) ||
-      (IsLinkedListEmpty(log_list) != WizardFalse))
-    status|=LoadLogList(LogMap,"built-in",0,exception);
   return(status != 0 ? WizardTrue : WizardFalse);
-#endif
 }
 
 /*
