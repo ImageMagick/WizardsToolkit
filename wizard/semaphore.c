@@ -81,9 +81,6 @@ static LONG
 static long
   semaphore_mutex = 0;
 #endif
-
-static WizardBooleanType
-  instantiate_semaphore = WizardFalse;
 
 /*
   Forward declaractions.
@@ -198,30 +195,26 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   D e s t r o y S e m a p h o r e                                           %
+%   D e s t r o y S e m a p h o r e C o m p o n e n t                         %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DestroySemaphore() destroys the semaphore environment.
+%  DestroySemaphoreComponent() destroys the semaphore environment.
 %
-%  The format of the DestroySemaphore method is:
+%  The format of the DestroySemaphoreComponent method is:
 %
-%      DestroySemaphore(void)
+%      DestroySemaphoreComponent(void)
 %
 */
-WizardExport void DestroySemaphore(void)
+WizardExport void DestroySemaphoreComponent(void)
 {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   if (pthread_mutex_destroy(&semaphore_mutex) != 0)
     (void) fprintf(stderr,"pthread_mutex_destroy failed %s\n",
       GetExceptionMessage(errno));
-#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-  if (instantiate_semaphore == WizardFalse)
-    DeleteCriticalSection(&semaphore_mutex);
 #endif
-  instantiate_semaphore=WizardFalse;
 }
 
 /*
@@ -267,20 +260,20 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   I n s t a n t i a t e S e m a p h o r e                                   %
+%   I n s t a n t i a t e S e m a p h o r e C o m p o n e n t                 %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  InstantiateSemaphore() instantiates the semaphore environment.
+%  InstantiateSemaphoreComponent() instantiates the semaphore component.
 %
-%  The format of the InstantiateSemaphore method is:
+%  The format of the InstantiateSemaphoreComponent method is:
 %
 %      WizardBooleanType InstantiateSemaphore(void)
 %
 */
-WizardExport WizardBooleanType InstantiateSemaphore(void)
+WizardExport WizardBooleanType InstantiateSemaphoreComponent(void)
 {
   LockWizardMutex();
   UnlockWizardMutex();
@@ -313,9 +306,6 @@ static void LockWizardMutex(void)
     (void) fprintf(stderr,"pthread_mutex_lock failed %s\n",
       GetExceptionMessage(errno));
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-  if (instantiate_semaphore == WizardFalse)
-    InitializeCriticalSection(&semaphore_mutex);
-  instantiate_semaphore=WizardTrue;
   while (InterlockedCompareExchange(&semaphore_mutex,1L,0L) != 0)
     Sleep(10);
 #endif

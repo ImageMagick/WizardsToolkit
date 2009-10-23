@@ -314,7 +314,6 @@ WizardExport void WizardsToolkitGenesis(const char *path)
 %
 %      WizardsToolkitTerminus(void)
 %
-%
 */
 WizardExport void WizardsToolkitTerminus(void)
 {
@@ -322,4 +321,5 @@ WizardExport void WizardsToolkitTerminus(void)
   DestroyResourceComponent();
   DestroyRandomComponent();
   DestroyLogComponent();
+  DestroySemaphoreComponent();
 }
