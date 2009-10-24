@@ -241,63 +241,6 @@ WizardExport void CloseWizardLog(void)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   D e s t r o y L o g C o m p o n e n t                                     %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  DestroyLogComponent() destroys the log component.
-%
-%  The format of the DestroyLogComponent method is:
-%
-%      DestroyLogComponent(void)
-%
-*/
-
-static void *DestroyLogElement(void *log_info)
-{
-  register LogInfo
-    *p;
-
-  p=(LogInfo *) log_info;
-  if (p->file != (FILE *) NULL)
-    {
-      if (p->append == WizardFalse)
-        (void) fprintf(p->file,"</log>\n");
-      (void) fclose(p->file);
-      p->file=(FILE *) NULL;
-    }
-  if (p->exempt == WizardFalse)
-    {
-      if (p->format != (char *) NULL)
-        p->format=DestroyString(p->format);
-      if (p->filename != (char *) NULL)
-        p->filename=DestroyString(p->filename);
-      if (p->path != (char *) NULL)
-        p->path=DestroyString(p->path);
-    }
-  if (p->timer != (TimerInfo *) NULL)
-    p->timer=DestroyTimerInfo(p->timer);
-  p=(LogInfo *) RelinquishWizardMemory(p);
-  return((void *) NULL);
-}
-
-WizardExport void DestroyLogComponent(void)
-{
-  AcquireSemaphoreInfo(&log_semaphore);
-  if (log_list != (LinkedListInfo *) NULL)
-    log_list=DestroyLinkedList(log_list,DestroyLogElement);
-  instantiate_log=WizardFalse;
-  RelinquishSemaphoreInfo(log_semaphore);
-  DestroySemaphoreInfo(&log_semaphore);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 +   G e t L o g I n f o                                                       %
 %                                                                             %
 %                                                                             %
@@ -608,31 +551,6 @@ static WizardBooleanType InitializeLogList(ExceptionInfo *exception)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   I n s t a n t i a t e L o g C o m p o n e n t                             %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  InstantiateLogComponent() instantiates the log component.
-%
-%  The format of the InstantiateLogComponent method is:
-%
-%      WizardBooleanType InstantiateLogComponent(void)
-%
-*/
-WizardExport WizardBooleanType InstantiateLogComponent(void)
-{
-  AcquireSemaphoreInfo(&log_semaphore);
-  RelinquishSemaphoreInfo(log_semaphore);
-  return(WizardFalse);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 %  I s E v e n t L o g g i n g                                                %
 %                                                                             %
 %                                                                             %
@@ -746,6 +664,88 @@ WizardExport WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
   (void) fflush(file);
   log_info=(const LogInfo **) RelinquishWizardMemory((void *) log_info);
   return(WizardTrue);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   L o g C o m p o n e n t G e n e s i s                                     %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  LogComponentGenesis() instantiates the log component.
+%
+%  The format of the LogComponentGenesis method is:
+%
+%      WizardBooleanType LogComponentGenesis(void)
+%
+*/
+WizardExport WizardBooleanType LogComponentGenesis(void)
+{
+  AcquireSemaphoreInfo(&log_semaphore);
+  RelinquishSemaphoreInfo(log_semaphore);
+  return(WizardTrue);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   L o g C o m p o n e n t T e r m i n u s                                   %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  LogComponentTerminus() destroys the log component.
+%
+%  The format of the LogComponentTerminus method is:
+%
+%      LogComponentTerminus(void)
+%
+*/
+
+static void *DestroyLogElement(void *log_info)
+{
+  register LogInfo
+    *p;
+
+  p=(LogInfo *) log_info;
+  if (p->file != (FILE *) NULL)
+    {
+      if (p->append == WizardFalse)
+        (void) fprintf(p->file,"</log>\n");
+      (void) fclose(p->file);
+      p->file=(FILE *) NULL;
+    }
+  if (p->exempt == WizardFalse)
+    {
+      if (p->format != (char *) NULL)
+        p->format=DestroyString(p->format);
+      if (p->filename != (char *) NULL)
+        p->filename=DestroyString(p->filename);
+      if (p->path != (char *) NULL)
+        p->path=DestroyString(p->path);
+    }
+  if (p->timer != (TimerInfo *) NULL)
+    p->timer=DestroyTimerInfo(p->timer);
+  p=(LogInfo *) RelinquishWizardMemory(p);
+  return((void *) NULL);
+}
+
+WizardExport void LogComponentTerminus(void)
+{
+  AcquireSemaphoreInfo(&log_semaphore);
+  if (log_list != (LinkedListInfo *) NULL)
+    log_list=DestroyLinkedList(log_list,DestroyLogElement);
+  instantiate_log=WizardFalse;
+  RelinquishSemaphoreInfo(log_semaphore);
+  DestroySemaphoreInfo(&log_semaphore);
 }
 
 /*

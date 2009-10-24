@@ -195,33 +195,6 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   D e s t r o y S e m a p h o r e C o m p o n e n t                         %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  DestroySemaphoreComponent() destroys the semaphore environment.
-%
-%  The format of the DestroySemaphoreComponent method is:
-%
-%      DestroySemaphoreComponent(void)
-%
-*/
-WizardExport void DestroySemaphoreComponent(void)
-{
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
-  if (pthread_mutex_destroy(&semaphore_mutex) != 0)
-    (void) fprintf(stderr,"pthread_mutex_destroy failed %s\n",
-      GetExceptionMessage(errno));
-#endif
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 %   D e s t r o y S e m a p h o r e I n f o                                   %
 %                                                                             %
 %                                                                             %
@@ -253,31 +226,6 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
   (*semaphore_info)->signature=(~WizardSignature);
   *semaphore_info=(SemaphoreInfo *) RelinquishAlignedMemory(*semaphore_info);
   UnlockWizardMutex();
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%   I n s t a n t i a t e S e m a p h o r e C o m p o n e n t                 %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  InstantiateSemaphoreComponent() instantiates the semaphore component.
-%
-%  The format of the InstantiateSemaphoreComponent method is:
-%
-%      WizardBooleanType InstantiateSemaphore(void)
-%
-*/
-WizardExport WizardBooleanType InstantiateSemaphoreComponent(void)
-{
-  LockWizardMutex();
-  UnlockWizardMutex();
-  return(WizardTrue);
 }
 
 /*
@@ -403,6 +351,58 @@ WizardExport void RelinquishSemaphoreInfo(SemaphoreInfo *semaphore_info)
   assert(semaphore_info != (SemaphoreInfo *) NULL);
   assert(semaphore_info->signature == WizardSignature);
   (void) UnlockSemaphoreInfo(semaphore_info);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%   S e m a p h o r e C o m p o n e n t G e n e s i s                         %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  SemaphoreComponentGenesis() instantiates the semaphore component.
+%
+%  The format of the SemaphoreComponentGenesis method is:
+%
+%      WizardBooleanType SemaphoreComponentGenesis(void)
+%
+*/
+WizardExport WizardBooleanType SemaphoreComponentGenesis(void)
+{
+  LockWizardMutex();
+  UnlockWizardMutex();
+  return(WizardTrue);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%   S e m a p h o r e C o m p o n e n t T e r m i n u s                       %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  SemaphoreComponentTerminus() destroys the semaphore environment.
+%
+%  The format of the SemaphoreComponentTerminus method is:
+%
+%      SemaphoreComponentTerminus(void)
+%
+*/
+WizardExport void SemaphoreComponentTerminus(void)
+{
+#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+  if (pthread_mutex_destroy(&semaphore_mutex) != 0)
+    (void) fprintf(stderr,"pthread_mutex_destroy failed %s\n",
+      GetExceptionMessage(errno));
+#endif
 }
 
 /*

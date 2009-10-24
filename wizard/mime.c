@@ -131,55 +131,6 @@ static WizardBooleanType
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   D e s t r o y M i m e C o m p o n e n t                                   %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  DestroyMimeComponent() destroys the mime component.
-%
-%  The format of the DestroyMimeComponent method is:
-%
-%      DestroyMimeComponent(void)
-%
-*/
-
-static void *DestroyMimeElement(void *mime_info)
-{
-  register MimeInfo
-    *p;
-
-  p=(MimeInfo *) mime_info;
-  if (p->magic != (unsigned char *) NULL)
-    p->magic=(unsigned char *) RelinquishWizardMemory(p->magic);
-  if (p->pattern != (char *) NULL)
-    p->pattern=DestroyString(p->pattern);
-  if (p->description != (char *) NULL)
-    p->description=DestroyString(p->description);
-  if (p->type != (char *) NULL)
-    p->type=DestroyString(p->type);
-  if (p->path != (char *) NULL)
-    p->path=DestroyString(p->path);
-  p=(MimeInfo *) RelinquishWizardMemory(p);
-  return((void *) NULL);
-}
-
-WizardExport void DestroyMimeComponent(void)
-{
-  AcquireSemaphoreInfo(&mime_semaphore);
-  if (mime_list != (LinkedListInfo *) NULL)
-    mime_list=DestroyLinkedList(mime_list,DestroyMimeElement);
-  instantiate_mime=WizardFalse;
-  RelinquishSemaphoreInfo(mime_semaphore);
-  DestroySemaphoreInfo(&mime_semaphore);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 +   G e t M i m e I n f o                                                     %
 %                                                                             %
 %                                                                             %
@@ -670,31 +621,6 @@ static WizardBooleanType InitializeMimeList(ExceptionInfo *exception)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   I n s t a n t i a t e M i m e C o m p o n e n t                           %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  InstantiateMimeComponent() instantiates the mime component.
-%
-%  The format of the InstantiateMimeComponent method is:
-%
-%      WizardBooleanType InstantiateMimeComponent(void)
-%
-*/
-WizardExport WizardBooleanType InstantiateMimeComponent(void)
-{
-  AcquireSemaphoreInfo(&mime_semaphore);
-  RelinquishSemaphoreInfo(mime_semaphore);
-  return(WizardTrue);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 %  L i s t M i m e I n f o                                                    %
 %                                                                             %
 %                                                                             %
@@ -1049,6 +975,80 @@ WizardExport WizardBooleanType LoadMimeLists(const char *filename,
     ClearWizardException(exception);
   return(status != 0 ? WizardTrue : WizardFalse);
 #endif
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   M i m e C o m p o n e n t G e n e s i s                                   %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  MimeComponentGenesis() instantiates the mime component.
+%
+%  The format of the MimeComponentGenesis method is:
+%
+%      WizardBooleanType MimeComponentGenesis(void)
+%
+*/
+WizardExport WizardBooleanType MimeComponentGenesis(void)
+{
+  AcquireSemaphoreInfo(&mime_semaphore);
+  RelinquishSemaphoreInfo(mime_semaphore);
+  return(WizardTrue);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   M i m e C o m p o n e n t T e r m i n u s                                 %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  MimeComponentTerminus() destroys the mime component.
+%
+%  The format of the MimeComponentTerminus method is:
+%
+%      MimeComponentTerminus(void)
+%
+*/
+
+static void *DestroyMimeElement(void *mime_info)
+{
+  register MimeInfo
+    *p;
+
+  p=(MimeInfo *) mime_info;
+  if (p->magic != (unsigned char *) NULL)
+    p->magic=(unsigned char *) RelinquishWizardMemory(p->magic);
+  if (p->pattern != (char *) NULL)
+    p->pattern=DestroyString(p->pattern);
+  if (p->description != (char *) NULL)
+    p->description=DestroyString(p->description);
+  if (p->type != (char *) NULL)
+    p->type=DestroyString(p->type);
+  if (p->path != (char *) NULL)
+    p->path=DestroyString(p->path);
+  p=(MimeInfo *) RelinquishWizardMemory(p);
+  return((void *) NULL);
+}
+
+WizardExport void MimeComponentTerminus(void)
+{
+  AcquireSemaphoreInfo(&mime_semaphore);
+  if (mime_list != (LinkedListInfo *) NULL)
+    mime_list=DestroyLinkedList(mime_list,DestroyMimeElement);
+  instantiate_mime=WizardFalse;
+  RelinquishSemaphoreInfo(mime_semaphore);
+  DestroySemaphoreInfo(&mime_semaphore);
 }
 
 /*

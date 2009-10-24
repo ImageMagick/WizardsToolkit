@@ -67,9 +67,9 @@ extern WizardExport LogEventType
   SetLogEventMask(const char *);
 
 extern WizardExport WizardBooleanType
-  InstantiateLogComponent(void),
   IsEventLogging(void),
   ListLogInfo(FILE *,ExceptionInfo *),
+  LogComponentGenesis(void),
   LogWizardEvent(const LogEventType,const char *,const char *,
     const unsigned long,const char *,...) 
     wizard_attribute((format (printf,5,6))),
@@ -79,7 +79,7 @@ extern WizardExport WizardBooleanType
 
 extern WizardExport void
   CloseWizardLog(void),
-  DestroyLogComponent(void),
+  LogComponentTerminus(void),
   SetLogFormat(const char *),
   SetLogPreamble(const char *);
 

@@ -305,31 +305,6 @@ WizardExport RandomInfo *DestroyRandomInfo(RandomInfo *random_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   D e s t r o y R a n d o m C o m p o n e n t                               %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  DestroyRandomComponent() destroys the random component.
-%
-%  The format of the DestroyRandomComponent method is:
-%
-%      DestroyRandomComponent(void)
-%
-*/
-WizardExport void DestroyRandomComponent(void)
-{
-  AcquireSemaphoreInfo(&random_semaphore);
-  RelinquishSemaphoreInfo(random_semaphore);
-  DestroySemaphoreInfo(&random_semaphore);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 +   G e n e r a t e E n t r o p i c C h a o s                                 %
 %                                                                             %
 %                                                                             %
@@ -774,31 +749,6 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   I n s t a n t i a t e R a n d o m C o m p o n e n t                       %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  InstantiateRandomComponent() instantiates the random component.
-%
-%  The format of the InstantiateRandomComponent method is:
-%
-%      InstantiateRandomComponent(void)
-%
-*/
-WizardExport WizardBooleanType InstantiateRandomComponent(void)
-{
-  AcquireSemaphoreInfo(&random_semaphore);
-  RelinquishSemaphoreInfo(random_semaphore);
-  return(WizardTrue);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 %   G e t P s e u d o R a n d o m V a l u e                                   %
 %                                                                             %
 %                                                                             %
@@ -905,6 +855,56 @@ WizardExport double GetRandomValue(RandomInfo *random_info)
     SetRandomKey(random_info,sizeof(key),(unsigned char *) &key);
   } while (key == range);
   return((double) key/range);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   R a n d o m C o m p o n e n t G e n e s i s                               %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  RandomComponentGenesis() instantiates the random component.
+%
+%  The format of the RandomComponentGenesis method is:
+%
+%      RandomComponentGenesis(void)
+%
+*/
+WizardExport WizardBooleanType RandomComponentGenesis(void)
+{
+  AcquireSemaphoreInfo(&random_semaphore);
+  RelinquishSemaphoreInfo(random_semaphore);
+  return(WizardTrue);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   R a n d o m C o m p o n e n t T e r m i n u s                             %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  RandomComponentTerminus() destroys the random component.
+%
+%  The format of the RandomComponentTerminus method is:
+%
+%      RandomComponentTerminus(void)
+%
+*/
+WizardExport void RandomComponentTerminus(void)
+{
+  AcquireSemaphoreInfo(&random_semaphore);
+  RelinquishSemaphoreInfo(random_semaphore);
+  DestroySemaphoreInfo(&random_semaphore);
 }
 
 /*

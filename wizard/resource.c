@@ -448,22 +448,22 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   A s y n c h r o n o u s D e s t r o y R e s o u r c e C o m p o n e n t   %
++   A s y n c h r o n o u s R e s o u r c e C o m p o n e n t T e r m i n u s %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AsynchronousDestroyResourceComponent() destroys the resource environment.
-%  It differs from DestroyResourceComponent() in that it can be called from a
+%  AsynchronousResourceComponentTerminus() destroys the resource environment.
+%  It differs from ResourceComponentTerminus() in that it can be called from a
 %  asynchronous signal handler.
 %
-%  The format of the DestroyResourceComponent() method is:
+%  The format of the ResourceComponentTerminus() method is:
 %
-%      DestroyResourceComponent(void)
+%      ResourceComponentTerminus(void)
 %
 */
-WizardExport void AsynchronousDestroyResourceComponent(void)
+WizardExport void AsynchronousResourceComponentTerminus(void)
 {
   const char
     *path;
@@ -482,33 +482,6 @@ WizardExport void AsynchronousDestroyResourceComponent(void)
   }
   if (random_info != (RandomInfo *) NULL)
     random_info=DestroyRandomInfo(random_info);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-+   D e s t r o y R e s o u r c e C o m p o n e n t                           %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  DestroyResourceComponent() destroys the resource component.
-%
-%  The format of the DestroyResourceComponent() method is:
-%
-%      DestroyResourceComponent(void)
-%
-*/
-WizardExport void DestroyResourceComponent(void)
-{
-  AcquireSemaphoreInfo(&resource_semaphore);
-  if (temporary_resources != (SplayTreeInfo *) NULL)
-    temporary_resources=DestroySplayTree(temporary_resources);
-  RelinquishSemaphoreInfo(resource_semaphore);
-  DestroySemaphoreInfo(&resource_semaphore);
 }
 
 /*
@@ -635,110 +608,6 @@ WizardExport WizardSizeType GetWizardResourceLimit(const ResourceType type)
   }
   RelinquishSemaphoreInfo(resource_semaphore);
   return(resource);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-+   I n s t a n t i a t e R e s o u r c e C o m p o n e n t                   %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  InstantiateResourceComponent() instantiates the resource component.
-%
-%  The format of the InstantiateResourceComponent method is:
-%
-%      WizardBooleanType InstantiateResourceComponent(void)
-%
-*/
-
-static inline long WizardMax(const long x,const long y)
-{
-  if (x > y)
-    return(x);
-  return(y);
-}
-
-WizardExport WizardBooleanType InstantiateResourceComponent(void)
-{
-  char
-    *limit;
-
-  long
-    files,
-    pages,
-    pagesize;
-
-  unsigned long
-    memory;
-
-  /*
-    Set Wizard resource limits.
-  */
-  AcquireSemaphoreInfo(&resource_semaphore);
-  RelinquishSemaphoreInfo(resource_semaphore);
-  pagesize=(-1);
-#if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_PAGESIZE)
-  pagesize=sysconf(_SC_PAGESIZE);
-#elif defined(WIZARDSTOOLKIT_HAVE_GETPAGESIZE) && defined(POSIX)
-  pagesize=getpagesize();
-#endif
-  pages=(-1);
-#if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_PHYS_PAGES)
-  pages=sysconf(_SC_PHYS_PAGES);
-#endif
-  memory=(unsigned long) ((pages+512)/1024)*((pagesize+512)/1024);
-  if ((pagesize <= 0) || (pages <= 0))
-    memory=2048UL;
-#if defined(PixelCacheThreshold)
-  memory=PixelCacheThreshold;
-#endif
-  (void) SetWizardResourceLimit(AreaResource,2*memory);
-  (void) SetWizardResourceLimit(MemoryResource,3*memory/2);
-  (void) SetWizardResourceLimit(MapResource,4*memory);
-  limit=GetEnvironmentValue("WIZARD_AREA_LIMIT");
-  if (limit != (char *) NULL)
-    {
-      (void) SetWizardResourceLimit(AreaResource,(unsigned long) atol(limit));
-      limit=DestroyString(limit);
-    }
-  limit=GetEnvironmentValue("WIZARD_MEMORY_LIMIT");
-  if (limit != (char *) NULL)
-    {
-      (void) SetWizardResourceLimit(MemoryResource,(unsigned long) atol(limit));
-      limit=DestroyString(limit);
-    }
-  limit=GetEnvironmentValue("WIZARD_MAP_LIMIT");
-  if (limit != (char *) NULL)
-    {
-      (void) SetWizardResourceLimit(MapResource,(unsigned long) atol(limit));
-      limit=DestroyString(limit);
-    }
-  limit=GetEnvironmentValue("WIZARD_DISK_LIMIT");
-  if (limit != (char *) NULL)
-    {
-      (void) SetWizardResourceLimit(DiskResource,(unsigned long) atol(limit));
-      limit=DestroyString(limit);
-    }
-  files=(-1);
-#if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_OPEN_MAX)
-  files=sysconf(_SC_OPEN_MAX);
-#elif defined(WIZARDSTOOLKIT_HAVE_GETDTABLESIZE) && defined(POSIX)
-  files=getdtablesize();
-#endif
-  (void) SetWizardResourceLimit(FileResource,(unsigned long)
-    WizardMax(3L*files/4L,64L));
-  limit=GetEnvironmentValue("WIZARD_FILE_LIMIT");
-  if (limit != (char *) NULL)
-    {
-      (void) SetWizardResourceLimit(FileResource,(unsigned long) atol(limit));
-      limit=DestroyString(limit);
-    }
-  return(WizardTrue);
 }
 
 /*
@@ -927,6 +796,137 @@ WizardExport WizardBooleanType RelinquishUniqueFileResource(const char *path,
   if (trash == WizardFalse)
     return(WizardTrue);
   return(remove(path) == 0 ? WizardTrue : WizardFalse);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   R e s o u r c e C o m p o n e n t G e n e s i s                           %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  ResourceComponentGenesis() instantiates the resource component.
+%
+%  The format of the ResourceComponentGenesis method is:
+%
+%      WizardBooleanType ResourceComponentGenesis(void)
+%
+*/
+
+static inline long WizardMax(const long x,const long y)
+{
+  if (x > y)
+    return(x);
+  return(y);
+}
+
+WizardExport WizardBooleanType ResourceComponentGenesis(void)
+{
+  char
+    *limit;
+
+  long
+    files,
+    pages,
+    pagesize;
+
+  unsigned long
+    memory;
+
+  /*
+    Set Wizard resource limits.
+  */
+  AcquireSemaphoreInfo(&resource_semaphore);
+  RelinquishSemaphoreInfo(resource_semaphore);
+  pagesize=(-1);
+#if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_PAGESIZE)
+  pagesize=sysconf(_SC_PAGESIZE);
+#elif defined(WIZARDSTOOLKIT_HAVE_GETPAGESIZE) && defined(POSIX)
+  pagesize=getpagesize();
+#endif
+  pages=(-1);
+#if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_PHYS_PAGES)
+  pages=sysconf(_SC_PHYS_PAGES);
+#endif
+  memory=(unsigned long) ((pages+512)/1024)*((pagesize+512)/1024);
+  if ((pagesize <= 0) || (pages <= 0))
+    memory=2048UL;
+#if defined(PixelCacheThreshold)
+  memory=PixelCacheThreshold;
+#endif
+  (void) SetWizardResourceLimit(AreaResource,2*memory);
+  (void) SetWizardResourceLimit(MemoryResource,3*memory/2);
+  (void) SetWizardResourceLimit(MapResource,4*memory);
+  limit=GetEnvironmentValue("WIZARD_AREA_LIMIT");
+  if (limit != (char *) NULL)
+    {
+      (void) SetWizardResourceLimit(AreaResource,(unsigned long) atol(limit));
+      limit=DestroyString(limit);
+    }
+  limit=GetEnvironmentValue("WIZARD_MEMORY_LIMIT");
+  if (limit != (char *) NULL)
+    {
+      (void) SetWizardResourceLimit(MemoryResource,(unsigned long) atol(limit));
+      limit=DestroyString(limit);
+    }
+  limit=GetEnvironmentValue("WIZARD_MAP_LIMIT");
+  if (limit != (char *) NULL)
+    {
+      (void) SetWizardResourceLimit(MapResource,(unsigned long) atol(limit));
+      limit=DestroyString(limit);
+    }
+  limit=GetEnvironmentValue("WIZARD_DISK_LIMIT");
+  if (limit != (char *) NULL)
+    {
+      (void) SetWizardResourceLimit(DiskResource,(unsigned long) atol(limit));
+      limit=DestroyString(limit);
+    }
+  files=(-1);
+#if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_OPEN_MAX)
+  files=sysconf(_SC_OPEN_MAX);
+#elif defined(WIZARDSTOOLKIT_HAVE_GETDTABLESIZE) && defined(POSIX)
+  files=getdtablesize();
+#endif
+  (void) SetWizardResourceLimit(FileResource,(unsigned long)
+    WizardMax(3L*files/4L,64L));
+  limit=GetEnvironmentValue("WIZARD_FILE_LIMIT");
+  if (limit != (char *) NULL)
+    {
+      (void) SetWizardResourceLimit(FileResource,(unsigned long) atol(limit));
+      limit=DestroyString(limit);
+    }
+  return(WizardTrue);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   R e s o u r c e C o m p o n e n t G e n e s i s                           %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  ResourceComponentTerminus() destroys the resource component.
+%
+%  The format of the ResourceComponentTerminus() method is:
+%
+%      ResourceComponentTerminus(void)
+%
+*/
+WizardExport void ResourceComponentTerminus(void)
+{
+  AcquireSemaphoreInfo(&resource_semaphore);
+  if (temporary_resources != (SplayTreeInfo *) NULL)
+    temporary_resources=DestroySplayTree(temporary_resources);
+  RelinquishSemaphoreInfo(resource_semaphore);
+  DestroySemaphoreInfo(&resource_semaphore);
 }
 
 /*

@@ -152,7 +152,7 @@ static void WizardSignalHandler(int signal_number)
 #if !defined(WIZARDSTOOLKIT_HAVE_SIGACTION)
   (void) signal(signal_number,SIG_IGN);
 #endif
-  AsynchronousDestroyResourceComponent();
+  AsynchronousResourceComponentTerminus();
   instantiate_wizard=WizardFalse;
   (void) SetWizardSignalHandler(signal_number,signal_handlers[signal_number]);
 #if defined(WIZARDSTOOLKIT_HAVE_RAISE)
@@ -214,9 +214,9 @@ WizardExport void WizardsToolkitGenesis(const char *path)
   (void) setlocale(LC_ALL,"");
   (void) setlocale(LC_NUMERIC,"C");
   seconds=time((time_t *) NULL);
-  (void) InstantiateSemaphore();
-  (void) InstantiateLogComponent();
-  (void) InstantiateRandomComponent();
+  (void) SemaphoreComponentGenesis();
+  (void) LogComponentGenesis();
+  (void) RandomComponentGenesis();
   events=GetEnvironmentValue("WIZARD_DEBUG");
   if (events != (char *) NULL)
     {
@@ -293,8 +293,8 @@ WizardExport void WizardsToolkitGenesis(const char *path)
   /*
     Initialize wizard resources.
   */
-  (void) InstantiateResourceComponent();
-  (void) InstantiateMimeComponent();
+  (void) ResourceComponentGenesis();
+  (void) MimeComponentGenesis();
 }
 
 /*
@@ -317,9 +317,9 @@ WizardExport void WizardsToolkitGenesis(const char *path)
 */
 WizardExport void WizardsToolkitTerminus(void)
 {
-  DestroyMimeComponent();
-  DestroyResourceComponent();
-  DestroyRandomComponent();
-  DestroyLogComponent();
-  DestroySemaphoreComponent();
+  MimeComponentTerminus();
+  ResourceComponentTerminus();
+  RandomComponentTerminus();
+  LogComponentTerminus();
+  SemaphoreComponentTerminus();
 }

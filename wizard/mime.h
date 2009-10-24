@@ -34,16 +34,16 @@ extern WizardExport const char
   *GetMimeType(const MimeInfo *);
 
 extern WizardExport WizardBooleanType
-  InstantiateMimeComponent(void),
   ListMimeInfo(FILE *,ExceptionInfo *),
-  LoadMimeLists(const char *,ExceptionInfo *);
+  LoadMimeLists(const char *,ExceptionInfo *),
+  MimeComponentGenesis(void);
 
 extern WizardExport const MimeInfo
   *GetMimeInfo(const char *,const unsigned char *,const size_t,ExceptionInfo *),
   **GetMimeInfoList(const char *,unsigned long *,ExceptionInfo *);
 
 extern WizardExport void
-  DestroyMimeComponent(void);
+  MimeComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

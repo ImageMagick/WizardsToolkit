@@ -44,18 +44,18 @@ extern WizardExport int
 extern WizardExport WizardBooleanType
   AcquireWizardResource(const ResourceType,const WizardSizeType),
   AcquireUniqueFilename(char *,ExceptionInfo *),
-  InstantiateResourceComponent(void),
   ListWizardResourceInfo(FILE *,ExceptionInfo *),
   RelinquishUniqueFileResource(const char *,const WizardBooleanType),
+  ResourceComponentGenesis(void),
   SetWizardResourceLimit(const ResourceType,const WizardSizeType);
 
 extern WizardExport WizardSizeType
   GetWizardResource(const ResourceType);
 
 extern WizardExport void
-  AsynchronousDestroyResourceComponent(void),
-  DestroyResourceComponent(void),
-  RelinquishWizardResource(const ResourceType,const WizardSizeType);
+  AsynchronousResourceComponentTerminus(void),
+  RelinquishWizardResource(const ResourceType,const WizardSizeType),
+  ResourceComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

@@ -45,13 +45,13 @@ extern WizardExport StringInfo
   *GetRandomKey(RandomInfo *,const size_t);
 
 extern WizardExport void
-  DestroyRandomComponent(void),
+  RandomComponentTerminus(void),
   SeedPseudoRandomGenerator(const unsigned long),
   SetRandomKey(RandomInfo *,const size_t,unsigned char *),
   SetRandomTrueRandom(const WizardBooleanType);
 
 extern WizardExport WizardBooleanType
-  InstantiateRandomComponent(void);
+  RandomComponentGenesis(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

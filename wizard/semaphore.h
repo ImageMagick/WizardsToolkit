@@ -30,13 +30,13 @@ extern WizardExport SemaphoreInfo
 
 extern WizardExport void
   AcquireSemaphoreInfo(SemaphoreInfo **),
-  DestroySemaphoreComponent(void),
   DestroySemaphoreInfo(SemaphoreInfo **),
-  RelinquishSemaphoreInfo(SemaphoreInfo *);
+  RelinquishSemaphoreInfo(SemaphoreInfo *),
+  SemaphoreComponentTerminus(void);
 
 extern WizardExport WizardBooleanType
-  InstantiateSemaphoreComponent(void),
   LockSemaphoreInfo(SemaphoreInfo *),
+  SemaphoreComponentGenesis(void),
   UnlockSemaphoreInfo(SemaphoreInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
