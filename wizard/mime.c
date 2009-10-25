@@ -604,7 +604,8 @@ static WizardBooleanType InitializeMimeList(ExceptionInfo *exception)
   if ((mime_list == (LinkedListInfo *) NULL) &&
       (instantiate_mime == WizardFalse))
     {
-      AcquireSemaphoreInfo(&mime_semaphore);
+      if (mime_semaphore == (SemaphoreInfo *) NULL)
+        AcquireSemaphoreInfo(&mime_semaphore);
       LockSemaphoreInfo(mime_semaphore);
       if ((mime_list == (LinkedListInfo *) NULL) &&
           (instantiate_mime == WizardFalse))
