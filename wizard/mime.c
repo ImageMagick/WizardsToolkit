@@ -200,7 +200,7 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
   */
   mime_info=(const MimeInfo *) NULL;
   lsb_first=1;
-  AcquireSemaphoreInfo(&mime_semaphore);
+  LockSemaphoreInfo(mime_semaphore);
   ResetLinkedListIterator(mime_list);
   p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
   while (p != (const MimeInfo *) NULL)
@@ -324,7 +324,7 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
   if (p != (const MimeInfo *) NULL)
     (void) InsertValueInLinkedList(mime_list,0,
       RemoveElementByValueFromLinkedList(mime_list,p));
-  RelinquishSemaphoreInfo(mime_semaphore);
+  UnlockSemaphoreInfo(mime_semaphore);
   return(mime_info);
 }
 
@@ -408,7 +408,7 @@ WizardExport const MimeInfo **GetMimeInfoList(const char *pattern,
   /*
     Generate mime list.
   */
-  AcquireSemaphoreInfo(&mime_semaphore);
+  LockSemaphoreInfo(mime_semaphore);
   ResetLinkedListIterator(mime_list);
   p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
   for (i=0; p != (const MimeInfo *) NULL; )
@@ -418,7 +418,7 @@ WizardExport const MimeInfo **GetMimeInfoList(const char *pattern,
       aliases[i++]=p;
     p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
   }
-  RelinquishSemaphoreInfo(mime_semaphore);
+  UnlockSemaphoreInfo(mime_semaphore);
   qsort((void *) aliases,(size_t) i,sizeof(*aliases),MimeInfoCompare);
   aliases[i]=(MimeInfo *) NULL;
   *number_aliases=(unsigned long) i;
@@ -500,7 +500,7 @@ WizardExport char **GetMimeList(const char *pattern,
     GetNumberOfElementsInLinkedList(mime_list)+1UL,sizeof(*aliases));
   if (aliases == (char **) NULL)
     return((char **) NULL);
-  AcquireSemaphoreInfo(&mime_semaphore);
+  LockSemaphoreInfo(mime_semaphore);
   ResetLinkedListIterator(mime_list);
   p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
   for (i=0; p != (const MimeInfo *) NULL; )
@@ -510,7 +510,7 @@ WizardExport char **GetMimeList(const char *pattern,
       aliases[i++]=ConstantString(p->type);
     p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
   }
-  RelinquishSemaphoreInfo(mime_semaphore);
+  UnlockSemaphoreInfo(mime_semaphore);
   qsort((void *) aliases,(size_t) i,sizeof(*aliases),MimeCompare);
   aliases[i]=(char *) NULL;
   *number_aliases=(unsigned long) i;
@@ -605,13 +605,14 @@ static WizardBooleanType InitializeMimeList(ExceptionInfo *exception)
       (instantiate_mime == WizardFalse))
     {
       AcquireSemaphoreInfo(&mime_semaphore);
+      LockSemaphoreInfo(mime_semaphore);
       if ((mime_list == (LinkedListInfo *) NULL) &&
           (instantiate_mime == WizardFalse))
         {
           (void) LoadMimeLists(MimeFilename,exception);
           instantiate_mime=WizardTrue;
         }
-      RelinquishSemaphoreInfo(mime_semaphore);
+      UnlockSemaphoreInfo(mime_semaphore);
     }
   return(mime_list != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
 }
@@ -997,8 +998,8 @@ WizardExport WizardBooleanType LoadMimeLists(const char *filename,
 */
 WizardExport WizardBooleanType MimeComponentGenesis(void)
 {
-  AcquireSemaphoreInfo(&mime_semaphore);
-  RelinquishSemaphoreInfo(mime_semaphore);
+  assert(mime_semaphore == (SemaphoreInfo *) NULL);
+  mime_semaphore=AllocateSemaphoreInfo();
   return(WizardTrue);
 }
 
@@ -1043,11 +1044,13 @@ static void *DestroyMimeElement(void *mime_info)
 
 WizardExport void MimeComponentTerminus(void)
 {
-  AcquireSemaphoreInfo(&mime_semaphore);
+  if (mime_semaphore == (SemaphoreInfo *) NULL)
+    AcquireSemaphoreInfo(&mime_semaphore);
+  LockSemaphoreInfo(mime_semaphore);
   if (mime_list != (LinkedListInfo *) NULL)
     mime_list=DestroyLinkedList(mime_list,DestroyMimeElement);
   instantiate_mime=WizardFalse;
-  RelinquishSemaphoreInfo(mime_semaphore);
+  UnlockSemaphoreInfo(mime_semaphore);
   DestroySemaphoreInfo(&mime_semaphore);
 }
 

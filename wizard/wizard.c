@@ -40,6 +40,7 @@
 */
 #include "wizard/studio.h"
 #include "wizard/client.h"
+#include "wizard/configure.h"
 #include "wizard/hash.h"
 #include "wizard/log.h"
 #include "wizard/magick.h"
@@ -293,6 +294,7 @@ WizardExport void WizardsToolkitGenesis(const char *path)
   /*
     Initialize wizard resources.
   */
+  (void) ConfigureComponentGenesis();
   (void) ResourceComponentGenesis();
   (void) MimeComponentGenesis();
 }

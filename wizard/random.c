@@ -877,8 +877,8 @@ WizardExport double GetRandomValue(RandomInfo *random_info)
 */
 WizardExport WizardBooleanType RandomComponentGenesis(void)
 {
-  AcquireSemaphoreInfo(&random_semaphore);
-  RelinquishSemaphoreInfo(random_semaphore);
+  assert(random_semaphore == (SemaphoreInfo *) NULL);
+  random_semaphore=AllocateSemaphoreInfo();
   return(WizardTrue);
 }
 
@@ -902,8 +902,8 @@ WizardExport WizardBooleanType RandomComponentGenesis(void)
 */
 WizardExport void RandomComponentTerminus(void)
 {
-  AcquireSemaphoreInfo(&random_semaphore);
-  RelinquishSemaphoreInfo(random_semaphore);
+  if (random_semaphore == (SemaphoreInfo *) NULL)
+    AcquireSemaphoreInfo(&random_semaphore);
   DestroySemaphoreInfo(&random_semaphore);
 }
 

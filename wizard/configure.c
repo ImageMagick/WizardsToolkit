@@ -75,6 +75,7 @@ typedef struct _ConfigureMapInfo
 static const ConfigureMapInfo
   ConfigureMap[] =
   {
+    { "NAME", "ImageMagick" }
   };
 
 static LinkedListInfo
@@ -98,18 +99,43 @@ static WizardBooleanType
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   D e s t r o y C o n f i g u r e L i s t                                   %
++   C o n f i g u r e C o m p o n e n t G e n e s i s                         %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DestroyConfigureList() deallocates memory associated with the configure list.
+%  ConfigureComponentGenesis() instantiates the configure component.
 %
-%  The format of the DestroyConfigureList method is:
+%  The format of the ConfigureComponentGenesis method is:
 %
-%      DestroyConfigureList(void)
+%      WizardBooleanType ConfigureComponentGenesis(void)
 %
+*/
+WizardExport WizardBooleanType ConfigureComponentGenesis(void)
+{
+  assert(configure_semaphore == (SemaphoreInfo *) NULL);
+  configure_semaphore=AllocateSemaphoreInfo();
+  return(WizardTrue);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
++   C o n f i g u r e C o m p o n e n t T e r m i n u s                       %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  ConfigureComponentTerminus() deallocates memory associated with the
+%  configure list.
+%
+%  The format of the ConfigureComponentTerminus method is:
+%
+%      ConfigureComponentTerminus(void)
 %
 */
 
@@ -132,14 +158,16 @@ static void *DestroyConfigureElement(void *configure_info)
   return((void *) NULL);
 }
 
-WizardExport void DestroyConfigureList(void)
+WizardExport void ConfigureComponentTerminus(void)
 {
-  AcquireSemaphoreInfo(&configure_semaphore);
+  if (configure_semaphore == (SemaphoreInfo *) NULL)
+    AcquireSemaphoreInfo(&configure_semaphore);
+  LockSemaphoreInfo(configure_semaphore);
   if (configure_list != (LinkedListInfo *) NULL)
     configure_list=DestroyLinkedList(configure_list,DestroyConfigureElement);
   configure_list=(LinkedListInfo *) NULL;
   instantiate_configure=WizardFalse;
-  RelinquishSemaphoreInfo(configure_semaphore);
+  UnlockSemaphoreInfo(configure_semaphore);
   DestroySemaphoreInfo(&configure_semaphore);
 }
 
@@ -227,7 +255,7 @@ WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
   /*
     Search for named configure.
   */
-  AcquireSemaphoreInfo(&configure_semaphore);
+  LockSemaphoreInfo(configure_semaphore);
   ResetLinkedListIterator(configure_list);
   p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   while (p != (const ConfigureInfo *) NULL)
@@ -242,7 +270,7 @@ WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
   else
     (void) InsertValueInLinkedList(configure_list,0,
       RemoveElementByValueFromLinkedList(configure_list,p));
-  RelinquishSemaphoreInfo(configure_semaphore);
+  UnlockSemaphoreInfo(configure_semaphore);
   return(p);
 }
 
@@ -326,7 +354,7 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
   /*
     Generate configure list.
   */
-  AcquireSemaphoreInfo(&configure_semaphore);
+  LockSemaphoreInfo(configure_semaphore);
   ResetLinkedListIterator(configure_list);
   p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   for (i=0; p != (const ConfigureInfo *) NULL; )
@@ -336,7 +364,7 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
       options[i++]=p;
     p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   }
-  RelinquishSemaphoreInfo(configure_semaphore);
+  UnlockSemaphoreInfo(configure_semaphore);
   qsort((void *) options,(size_t) i,sizeof(*options),ConfigureInfoCompare);
   options[i]=(ConfigureInfo *) NULL;
   *number_options=(unsigned long) i;
@@ -413,13 +441,13 @@ WizardExport char **GetConfigureList(const char *pattern,
   p=GetConfigureInfo("*",exception);
   if (p == (const ConfigureInfo *) NULL)
     return((char **) NULL);
-  AcquireSemaphoreInfo(&configure_semaphore);
-  RelinquishSemaphoreInfo(configure_semaphore);
+  LockSemaphoreInfo(configure_semaphore);
+  UnlockSemaphoreInfo(configure_semaphore);
   options=(char **) AcquireQuantumMemory((size_t)
     GetNumberOfElementsInLinkedList(configure_list)+1UL,sizeof(*options));
   if (options == (char **) NULL)
     return((char **) NULL);
-  AcquireSemaphoreInfo(&configure_semaphore);
+  LockSemaphoreInfo(configure_semaphore);
   ResetLinkedListIterator(configure_list);
   p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   for (i=0; p != (const ConfigureInfo *) NULL; )
@@ -429,7 +457,7 @@ WizardExport char **GetConfigureList(const char *pattern,
       options[i++]=ConstantString(p->name);
     p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   }
-  RelinquishSemaphoreInfo(configure_semaphore);
+  UnlockSemaphoreInfo(configure_semaphore);
   qsort((void *) options,(size_t) i,sizeof(*options),ConfigureCompare);
   options[i]=(char *) NULL;
   *number_options=(unsigned long) i;
@@ -790,14 +818,14 @@ static WizardBooleanType InitializeConfigureList(ExceptionInfo *exception)
   if ((configure_list == (LinkedListInfo *) NULL) &&
       (instantiate_configure == WizardFalse))
     {
-      AcquireSemaphoreInfo(&configure_semaphore);
+      LockSemaphoreInfo(configure_semaphore);
       if ((configure_list == (LinkedListInfo *) NULL) &&
           (instantiate_configure == WizardFalse))
         {
           (void) LoadConfigureLists(ConfigureFilename,exception);
           instantiate_configure=WizardTrue;
         }
-      RelinquishSemaphoreInfo(configure_semaphore);
+      UnlockSemaphoreInfo(configure_semaphore);
     }
   return(configure_list != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
 }

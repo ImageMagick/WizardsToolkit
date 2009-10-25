@@ -118,7 +118,6 @@ WizardExport void AcquireSemaphoreInfo(SemaphoreInfo **semaphore_info)
   if (*semaphore_info == (SemaphoreInfo *) NULL)
     *semaphore_info=AllocateSemaphoreInfo();
   UnlockWizardMutex();
-  (void) LockSemaphoreInfo(*semaphore_info);
 }
 
 /*

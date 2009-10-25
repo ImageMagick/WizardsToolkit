@@ -55,10 +55,11 @@ extern WizardExport LinkedListInfo
   *GetConfigureOptions(const char *,ExceptionInfo *);
 
 extern WizardExport WizardBooleanType
+  ConfigureComponentGenesis(void),
   ListConfigureInfo(FILE *,ExceptionInfo *);
 
 extern WizardExport void
-  DestroyConfigureList(void);
+  ConfigureComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }
