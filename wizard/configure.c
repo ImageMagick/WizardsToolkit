@@ -818,7 +818,7 @@ static WizardBooleanType InitializeConfigureList(ExceptionInfo *exception)
   if ((configure_list == (LinkedListInfo *) NULL) &&
       (instantiate_configure == WizardFalse))
     {
-      if (configure_semaphore == (SemephoreInfo *) NULL)
+      if (configure_semaphore == (SemaphoreInfo *) NULL)
         AcquireSemaphoreInfo(&configure_semaphore);
       (void) LockSemaphoreInfo(configure_semaphore);
       if ((configure_list == (LinkedListInfo *) NULL) &&

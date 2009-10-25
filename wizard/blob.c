@@ -48,6 +48,7 @@
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
+#include "wizard/semaphore.h"
 #include "wizard/utility.h"
 #include "blob.h"
 #if defined(WIZARDSTOOLKIT_HAVE_MMAP_FILEIO) && !defined(__WINDOWS__)
