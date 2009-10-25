@@ -225,7 +225,7 @@ WizardExport void CloseWizardLog(void)
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
-  LockSemaphoreInfo(log_semaphore);
+  (void) LockSemaphoreInfo(log_semaphore);
   if (log_info->file != (FILE *) NULL)
     {
       if (log_info->append == WizardFalse)
@@ -233,7 +233,7 @@ WizardExport void CloseWizardLog(void)
       (void) fclose(log_info->file);
       log_info->file=(FILE *) NULL;
     }
-  UnlockSemaphoreInfo(log_semaphore);
+  (void) UnlockSemaphoreInfo(log_semaphore);
 }
 
 /*
@@ -279,7 +279,7 @@ WizardExport const LogInfo *GetLogInfo(const char *name,
   /*
     Search for named log.
   */
-  LockSemaphoreInfo(log_semaphore);
+  (void) LockSemaphoreInfo(log_semaphore);
   ResetLinkedListIterator(log_list);
   p=(const LogInfo *) GetNextValueInLinkedList(log_list);
   while (p != (const LogInfo *) NULL)
@@ -294,7 +294,7 @@ WizardExport const LogInfo *GetLogInfo(const char *name,
   else
     (void) InsertValueInLinkedList(log_list,0,
       RemoveElementByValueFromLinkedList(log_list,p));
-  UnlockSemaphoreInfo(log_semaphore);
+  (void) UnlockSemaphoreInfo(log_semaphore);
   return(p);
 }
 
@@ -375,7 +375,7 @@ WizardExport const LogInfo **GetLogInfoList(const char *pattern,
   /*
     Generate log list.
   */
-  LockSemaphoreInfo(log_semaphore);
+  (void) LockSemaphoreInfo(log_semaphore);
   ResetLinkedListIterator(log_list);
   p=(const LogInfo *) GetNextValueInLinkedList(log_list);
   for (i=0; p != (const LogInfo *) NULL; )
@@ -385,7 +385,7 @@ WizardExport const LogInfo **GetLogInfoList(const char *pattern,
       preferences[i++]=p;
     p=(const LogInfo *) GetNextValueInLinkedList(log_list);
   }
-  UnlockSemaphoreInfo(log_semaphore);
+  (void) UnlockSemaphoreInfo(log_semaphore);
   qsort((void *) preferences,(size_t) i,sizeof(*preferences),LogInfoCompare);
   preferences[i]=(LogInfo *) NULL;
   *number_preferences=(unsigned long) i;
@@ -468,7 +468,7 @@ WizardExport char **GetLogList(const char *pattern,
   /*
     Generate log list.
   */
-  LockSemaphoreInfo(log_semaphore);
+  (void) LockSemaphoreInfo(log_semaphore);
   ResetLinkedListIterator(log_list);
   p=(const LogInfo *) GetNextValueInLinkedList(log_list);
   for (i=0; p != (const LogInfo *) NULL; )
@@ -478,7 +478,7 @@ WizardExport char **GetLogList(const char *pattern,
       preferences[i++]=ConstantString(p->name);
     p=(const LogInfo *) GetNextValueInLinkedList(log_list);
   }
-  UnlockSemaphoreInfo(log_semaphore);
+  (void) UnlockSemaphoreInfo(log_semaphore);
   qsort((void *) preferences,(size_t) i,sizeof(*preferences),LogCompare);
   preferences[i]=(char *) NULL;
   *number_preferences=(unsigned long) i;
@@ -536,14 +536,14 @@ static WizardBooleanType InitializeLogList(ExceptionInfo *exception)
     {
       if (log_semaphore == (SemaphoreInfo *) NULL)
         AcquireSemaphoreInfo(&log_semaphore);
-      LockSemaphoreInfo(log_semaphore);
+      (void) LockSemaphoreInfo(log_semaphore);
       if ((log_list == (LinkedListInfo *) NULL) &&
           (instantiate_log == WizardFalse))
         {
           (void) LoadLogLists(LogFilename,exception);
           instantiate_log=WizardTrue;
         }
-      UnlockSemaphoreInfo(log_semaphore);
+      (void) UnlockSemaphoreInfo(log_semaphore);
     }
   return(log_list != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
 }
@@ -744,11 +744,11 @@ WizardExport void LogComponentTerminus(void)
 {
   if (log_semaphore == (SemaphoreInfo *) NULL)
     AcquireSemaphoreInfo(&log_semaphore);
-  LockSemaphoreInfo(log_semaphore);
+  (void) LockSemaphoreInfo(log_semaphore);
   if (log_list != (LinkedListInfo *) NULL)
     log_list=DestroyLinkedList(log_list,DestroyLogElement);
   instantiate_log=WizardFalse;
-  UnlockSemaphoreInfo(log_semaphore);
+  (void) UnlockSemaphoreInfo(log_semaphore);
   DestroySemaphoreInfo(&log_semaphore);
 }
 
@@ -1133,10 +1133,10 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
-  LockSemaphoreInfo(log_semaphore);
+  (void) LockSemaphoreInfo(log_semaphore);
   if ((log_info->event_mask & type) == 0)
     {
-      UnlockSemaphoreInfo(log_semaphore);
+      (void) UnlockSemaphoreInfo(log_semaphore);
       return(WizardTrue);
     }
   domain=WizardOptionToMnemonic(WizardLogEventOptions,type);
@@ -1151,7 +1151,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
   if (text == (char *) NULL)
     {
       (void) ContinueTimer(log_info->timer);
-      UnlockSemaphoreInfo(log_semaphore);
+      (void) UnlockSemaphoreInfo(log_semaphore);
       return(WizardFalse);
     }
   if ((log_info->handler_mask & ConsoleHandler) != 0)
@@ -1194,7 +1194,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
           if (filename == (char *) NULL)
             {
               (void) ContinueTimer(log_info->timer);
-              UnlockSemaphoreInfo(log_semaphore);
+              (void) UnlockSemaphoreInfo(log_semaphore);
               return(WizardFalse);
             }
           log_info->append=IsAccessible(filename);
@@ -1202,7 +1202,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
           filename=(char  *) RelinquishWizardMemory(filename);
           if (log_info->file == (FILE *) NULL)
             {
-              UnlockSemaphoreInfo(log_semaphore);
+              (void) UnlockSemaphoreInfo(log_semaphore);
               return(WizardFalse);
             }
           log_info->generation++;
@@ -1228,7 +1228,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
     }
   text=(char  *) RelinquishWizardMemory(text);
   (void) ContinueTimer(log_info->timer);
-  UnlockSemaphoreInfo(log_semaphore);
+  (void) UnlockSemaphoreInfo(log_semaphore);
   return(WizardTrue);
 }
 
@@ -1692,12 +1692,12 @@ WizardExport LogEventType SetLogEventMask(const char *events)
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
   option=ParseWizardOption(WizardLogEventOptions,WizardTrue,events);
-  LockSemaphoreInfo(log_semaphore);
+  (void) LockSemaphoreInfo(log_semaphore);
   log_info=(LogInfo *) GetValueFromLinkedList(log_list,0);
   log_info->event_mask=(LogEventType) option;
   if (option == -1)
     log_info->event_mask=UndefinedEvents;
-  UnlockSemaphoreInfo(log_semaphore);
+  (void) UnlockSemaphoreInfo(log_semaphore);
   return(log_info->event_mask);
 }
 
@@ -1734,11 +1734,11 @@ WizardExport void SetLogFormat(const char *format)
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
-  LockSemaphoreInfo(log_semaphore);
+  (void) LockSemaphoreInfo(log_semaphore);
   if (log_info->format != (char *) NULL)
     log_info->format=DestroyString(log_info->format);
   log_info->format=ConstantString(format);
-  UnlockSemaphoreInfo(log_semaphore);
+  (void) UnlockSemaphoreInfo(log_semaphore);
 }
 
 /*

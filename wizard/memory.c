@@ -390,7 +390,7 @@ WizardExport void *AcquireWizardMemory(const size_t size)
 #else
   if (free_segments == (DataSegmentInfo *) NULL)
     {
-      LockSemaphoreInfo(memory_semaphore);
+      (void) LockSemaphoreInfo(memory_semaphore);
       if (free_segments == (DataSegmentInfo *) NULL)
         {
           register long
@@ -410,16 +410,16 @@ WizardExport void *AcquireWizardMemory(const size_t size)
           }
           free_segments=(&memory_info.segment_pool[0]);
         }
-      UnlockSemaphoreInfo(memory_semaphore);
+      (void) UnlockSemaphoreInfo(memory_semaphore);
     }
-  LockSemaphoreInfo(memory_semaphore);
+  (void) LockSemaphoreInfo(memory_semaphore);
   memory=AcquireBlock(size == 0 ? 1UL : size);
   if (memory == (void *) NULL)
     {
       if (ExpandHeap(size == 0 ? 1UL : size) != WizardFalse)
         memory=AcquireBlock(size == 0 ? 1UL : size);
     }
-  UnlockSemaphoreInfo(memory_semaphore);
+  (void) UnlockSemaphoreInfo(memory_semaphore);
 #endif
   return(memory);
 }
@@ -545,8 +545,8 @@ WizardExport void DestroyWizardMemory(void)
   register long
     i;
 
-  LockSemaphoreInfo(memory_semaphore);
-  UnlockSemaphoreInfo(memory_semaphore);
+  (void) LockSemaphoreInfo(memory_semaphore);
+  (void) UnlockSemaphoreInfo(memory_semaphore);
   for (i=0; i < (long) memory_info.number_segments; i++)
     if (memory_info.segments[i]->mapped == WizardFalse)
       memory_methods.destroy_memory_handler(
@@ -741,7 +741,7 @@ WizardExport void *RelinquishWizardMemory(void *memory)
 #else
   assert((SizeOfBlock(memory) % (4*sizeof(size_t))) == 0);
   assert((*BlockHeader(NextBlock(memory)) & PreviousBlockBit) != 0);
-  LockSemaphoreInfo(memory_semaphore);
+  (void) LockSemaphoreInfo(memory_semaphore);
   if ((*BlockHeader(memory) & PreviousBlockBit) == 0)
     {
       void
@@ -772,7 +772,7 @@ WizardExport void *RelinquishWizardMemory(void *memory)
   *BlockFooter(memory,SizeOfBlock(memory))=SizeOfBlock(memory);
   *BlockHeader(NextBlock(memory))&=(~PreviousBlockBit);
   InsertFreeBlock(memory,AllocationPolicy(SizeOfBlock(memory)));
-  UnlockSemaphoreInfo(memory_semaphore);
+  (void) UnlockSemaphoreInfo(memory_semaphore);
 #endif
   return((void *) NULL);
 }
@@ -869,20 +869,20 @@ WizardExport void *ResizeWizardMemory(void *memory,const size_t size)
   if (block == (void *) NULL)
     memory=RelinquishWizardMemory(memory);
 #else
-  LockSemaphoreInfo(memory_semaphore);
+  (void) LockSemaphoreInfo(memory_semaphore);
   block=ResizeBlock(memory,size == 0 ? 1UL : size);
   if (block == (void *) NULL)
     {
       if (ExpandHeap(size == 0 ? 1UL : size) == WizardFalse)
         {
-          UnlockSemaphoreInfo(memory_semaphore);
+          (void) UnlockSemaphoreInfo(memory_semaphore);
           memory=RelinquishWizardMemory(memory);
           ThrowFatalException(ResourceLimitFatalError,"MemoryAllocationFailed");
         }
       block=ResizeBlock(memory,size == 0 ? 1UL : size);
       assert(block != (void *) NULL);
     }
-  UnlockSemaphoreInfo(memory_semaphore);
+  (void) UnlockSemaphoreInfo(memory_semaphore);
   memory=RelinquishWizardMemory(memory);
 #endif
   return(block);

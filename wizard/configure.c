@@ -162,12 +162,12 @@ WizardExport void ConfigureComponentTerminus(void)
 {
   if (configure_semaphore == (SemaphoreInfo *) NULL)
     AcquireSemaphoreInfo(&configure_semaphore);
-  LockSemaphoreInfo(configure_semaphore);
+  (void) LockSemaphoreInfo(configure_semaphore);
   if (configure_list != (LinkedListInfo *) NULL)
     configure_list=DestroyLinkedList(configure_list,DestroyConfigureElement);
   configure_list=(LinkedListInfo *) NULL;
   instantiate_configure=WizardFalse;
-  UnlockSemaphoreInfo(configure_semaphore);
+  (void) UnlockSemaphoreInfo(configure_semaphore);
   DestroySemaphoreInfo(&configure_semaphore);
 }
 
@@ -255,7 +255,7 @@ WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
   /*
     Search for named configure.
   */
-  LockSemaphoreInfo(configure_semaphore);
+  (void) LockSemaphoreInfo(configure_semaphore);
   ResetLinkedListIterator(configure_list);
   p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   while (p != (const ConfigureInfo *) NULL)
@@ -270,7 +270,7 @@ WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
   else
     (void) InsertValueInLinkedList(configure_list,0,
       RemoveElementByValueFromLinkedList(configure_list,p));
-  UnlockSemaphoreInfo(configure_semaphore);
+  (void) UnlockSemaphoreInfo(configure_semaphore);
   return(p);
 }
 
@@ -354,7 +354,7 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
   /*
     Generate configure list.
   */
-  LockSemaphoreInfo(configure_semaphore);
+  (void) LockSemaphoreInfo(configure_semaphore);
   ResetLinkedListIterator(configure_list);
   p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   for (i=0; p != (const ConfigureInfo *) NULL; )
@@ -364,7 +364,7 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
       options[i++]=p;
     p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   }
-  UnlockSemaphoreInfo(configure_semaphore);
+  (void) UnlockSemaphoreInfo(configure_semaphore);
   qsort((void *) options,(size_t) i,sizeof(*options),ConfigureInfoCompare);
   options[i]=(ConfigureInfo *) NULL;
   *number_options=(unsigned long) i;
@@ -441,13 +441,13 @@ WizardExport char **GetConfigureList(const char *pattern,
   p=GetConfigureInfo("*",exception);
   if (p == (const ConfigureInfo *) NULL)
     return((char **) NULL);
-  LockSemaphoreInfo(configure_semaphore);
-  UnlockSemaphoreInfo(configure_semaphore);
+  (void) LockSemaphoreInfo(configure_semaphore);
+  (void) UnlockSemaphoreInfo(configure_semaphore);
   options=(char **) AcquireQuantumMemory((size_t)
     GetNumberOfElementsInLinkedList(configure_list)+1UL,sizeof(*options));
   if (options == (char **) NULL)
     return((char **) NULL);
-  LockSemaphoreInfo(configure_semaphore);
+  (void) LockSemaphoreInfo(configure_semaphore);
   ResetLinkedListIterator(configure_list);
   p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   for (i=0; p != (const ConfigureInfo *) NULL; )
@@ -457,7 +457,7 @@ WizardExport char **GetConfigureList(const char *pattern,
       options[i++]=ConstantString(p->name);
     p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
   }
-  UnlockSemaphoreInfo(configure_semaphore);
+  (void) UnlockSemaphoreInfo(configure_semaphore);
   qsort((void *) options,(size_t) i,sizeof(*options),ConfigureCompare);
   options[i]=(char *) NULL;
   *number_options=(unsigned long) i;
@@ -820,14 +820,14 @@ static WizardBooleanType InitializeConfigureList(ExceptionInfo *exception)
     {
       if (configure_semaphore == (SemephoreInfo *) NULL)
         AcquireSemaphoreInfo(&configure_semaphore);
-      LockSemaphoreInfo(configure_semaphore);
+      (void) LockSemaphoreInfo(configure_semaphore);
       if ((configure_list == (LinkedListInfo *) NULL) &&
           (instantiate_configure == WizardFalse))
         {
           (void) LoadConfigureLists(ConfigureFilename,exception);
           instantiate_configure=WizardTrue;
         }
-      UnlockSemaphoreInfo(configure_semaphore);
+      (void) UnlockSemaphoreInfo(configure_semaphore);
     }
   return(configure_list != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
 }
