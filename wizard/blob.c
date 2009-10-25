@@ -695,6 +695,7 @@ WizardExport void GetBlobInfo(BlobInfo *blob_info)
   blob_info->quantum=(size_t) WizardMaxBlobExtent;
   blob_info->debug=IsEventLogging();
   blob_info->reference_count=1;
+  blob_info->semaphore=AllocateSemaphoreInfo();
   blob_info->signature=WizardSignature;
 }
 
