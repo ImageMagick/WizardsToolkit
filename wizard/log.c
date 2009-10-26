@@ -688,8 +688,7 @@ WizardExport WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
 */
 WizardExport WizardBooleanType LogComponentGenesis(void)
 {
-  assert(log_semaphore == (SemaphoreInfo *) NULL);
-  log_semaphore=AllocateSemaphoreInfo();
+  AcquireSemaphoreInfo(&log_semaphore);
   return(WizardTrue);
 }
 

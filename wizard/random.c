@@ -877,8 +877,7 @@ WizardExport double GetRandomValue(RandomInfo *random_info)
 */
 WizardExport WizardBooleanType RandomComponentGenesis(void)
 {
-  assert(random_semaphore == (SemaphoreInfo *) NULL);
-  random_semaphore=AllocateSemaphoreInfo();
+  AcquireSemaphoreInfo(&random_semaphore);
   return(WizardTrue);
 }
 

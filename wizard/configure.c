@@ -114,8 +114,7 @@ static WizardBooleanType
 */
 WizardExport WizardBooleanType ConfigureComponentGenesis(void)
 {
-  assert(configure_semaphore == (SemaphoreInfo *) NULL);
-  configure_semaphore=AllocateSemaphoreInfo();
+  AcquireSemaphoreInfo(&configure_semaphore);
   return(WizardTrue);
 }
 

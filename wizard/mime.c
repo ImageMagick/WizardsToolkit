@@ -999,8 +999,7 @@ WizardExport WizardBooleanType LoadMimeLists(const char *filename,
 */
 WizardExport WizardBooleanType MimeComponentGenesis(void)
 {
-  assert(mime_semaphore == (SemaphoreInfo *) NULL);
-  mime_semaphore=AllocateSemaphoreInfo();
+  AcquireSemaphoreInfo(&mime_semaphore);
   return(WizardTrue);
 }
 
