@@ -114,10 +114,13 @@ static void
 WizardExport void AcquireSemaphoreInfo(SemaphoreInfo **semaphore_info)
 {
   assert(semaphore_info != (SemaphoreInfo **) NULL);
-  LockWizardMutex();
   if (*semaphore_info == (SemaphoreInfo *) NULL)
-    *semaphore_info=AllocateSemaphoreInfo();
-  UnlockWizardMutex();
+    {
+      LockWizardMutex();
+      if (*semaphore_info == (SemaphoreInfo *) NULL)
+        *semaphore_info=AllocateSemaphoreInfo();
+      UnlockWizardMutex();
+    }
 }
 
 /*
@@ -282,7 +285,6 @@ static void LockWizardMutex(void)
 */
 WizardExport WizardBooleanType LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 {
-  assert(semaphore_info != (SemaphoreInfo *) NULL);
   assert(semaphore_info->signature == WizardSignature);
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   {
@@ -459,7 +461,6 @@ WizardExport WizardBooleanType UnlockSemaphoreInfo(
   SemaphoreInfo *semaphore_info)
 {
   assert(semaphore_info != (SemaphoreInfo *) NULL);
-  assert(semaphore_info->signature == WizardSignature);
 #if defined(WIZARDSTOOLKIT_DEBUG)
   assert(IsWizardThreadEqual(semaphore_info->id) != WizardFalse);
   if (semaphore_info->reference_count == 0)
