@@ -876,7 +876,7 @@ WizardExport char *FileToString(const char *filename,const size_t extent,
     length;
 
   WizardAssert(StringDomain,filename != (const char *) NULL);
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),filename);
+  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",filename);
   WizardAssert(StringDomain,exception != (ExceptionInfo *) NULL);
   return((char *) FileToBlob(filename,extent,&length,exception));
 }
@@ -915,7 +915,7 @@ WizardExport StringInfo *FileToStringInfo(const char *filename,
     *string_info;
 
   WizardAssert(StringDomain,filename != (const char *) NULL);
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),filename);
+  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",filename);
   WizardAssert(StringDomain,exception != (ExceptionInfo *) NULL);
   string_info=AcquireStringInfo(0);
   (void) CopyWizardString(string_info->path,filename,MaxTextExtent);

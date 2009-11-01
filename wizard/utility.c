@@ -45,6 +45,9 @@
 #include "wizard/memory_.h"
 #include "wizard/resource_.h"
 #include "wizard/utility.h"
+#if defined(WIZARDSTOOLKIT_HAVE_MACH_O_DYLD_H)
+#include <mach-o/dyld.h>
+#endif
 
 /*
   Static declarations.

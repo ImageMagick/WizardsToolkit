@@ -122,7 +122,8 @@ WizardExport ContentInfo *DestroyContentInfo(ContentInfo *content_info)
 {
   WizardAssert(CipherDomain,content_info != (ContentInfo *) NULL);
   WizardAssert(CipherDomain,content_info->signature == WizardSignature);
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),content_info->content);
+  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",
+    content_info->content);
   if (content_info->random_info != (RandomInfo *) NULL)
     content_info->random_info=DestroyRandomInfo(content_info->random_info);
   if (content_info->hmac_info != (HMACInfo *) NULL)
@@ -226,7 +227,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
   WizardAssert(CipherDomain,content_info->signature == WizardSignature);
   WizardAssert(CipherDomain,cipher_blob != (BlobInfo *) NULL);
   WizardAssert(CipherDomain,exception != (ExceptionInfo *) NULL);
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),
+  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",
     GetBlobFilename(cipher_blob));
   (void) ResetWizardMemory(key,0,sizeof(key));
   bytes=0;
