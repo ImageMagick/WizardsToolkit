@@ -44,13 +44,6 @@
 #include "wizard/string_.h"
 
 /*
-  Static declaractions.
-*/
-static char
-  client_name[MaxTextExtent] = "Wizard",
-  client_path[MaxTextExtent] = "";
-
-/*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                             %
 %                                                                             %
@@ -70,7 +63,7 @@ static char
 */
 WizardExport const char *GetClientName(void)
 {
-  return(client_name);
+  return(SetClientName((const char *) NULL));
 }
 
 /*
@@ -93,7 +86,7 @@ WizardExport const char *GetClientName(void)
 */
 WizardExport const char *GetClientPath(void)
 {
-  return(client_path);
+  return(SetClientPath((const char *) NULL));
 }
 
 /*
@@ -115,13 +108,14 @@ WizardExport const char *GetClientPath(void)
 %
 %  A description of each parameter follows:
 %
-%    o client_name: SetClientName() returns the current client name.
-%
 %    o name: Specifies the new client name.
 %
 */
 WizardExport const char *SetClientName(const char *name)
 {
+  static char
+    client_name[MaxTextExtent] = "Wizard";
+
   if ((name != (char *) NULL) && (*name != '\0'))
     (void) CopyWizardString(client_name,name,MaxTextExtent);
   return(client_name);
@@ -148,13 +142,14 @@ WizardExport const char *SetClientName(const char *name)
 %
 %  A description of each parameter follows:
 %
-%    o client_path: Method SetClientPath returns the current client path.
-%
 %    o path: Specifies the new client path.
 %
 */
 WizardExport const char *SetClientPath(const char *path)
 {
+  static char
+    client_path[MaxTextExtent] = "";
+
   if ((path != (char *) NULL) && (*path != '\0'))
     (void) CopyWizardString(client_path,path,MaxTextExtent);
   return(client_path);
