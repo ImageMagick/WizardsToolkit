@@ -263,7 +263,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 #endif
 
 #if !defined(wizard_attribute)
-#  if (defined(__GNUC__) && (__GNUC__ > 3) && !defined( __STRICT_ANSI__))
+#  if (defined(__GNUC__) && (__GNUC__ > 3))
 #    define wizard_attribute  __attribute__
 #  else
 #    define wizard_attribute(x)  /* nothing */
@@ -271,7 +271,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 #endif
 
 #if !defined(wizard_unused)
-#  if (defined(__GNUC__) && (__GNUC__ > 3) && !defined( __STRICT_ANSI__))
+#  if (defined(__GNUC__) && (__GNUC__ > 3))
 #    define wizard_unused(x)  wizard_unused_ ## x __attribute__((unused))
 #  elif defined(__LCLINT__)
 #    define wizard_unused(x) /*@unused@*/ x
