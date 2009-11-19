@@ -47,8 +47,10 @@ extern WizardExport int
   CompareStringInfo(const StringInfo *,const StringInfo *);
 
 extern WizardExport size_t
-  ConcatenateWizardString(char *,const char *,const size_t),
-  CopyWizardString(char *,const char *,const size_t);
+  ConcatenateWizardString(char *,const char *,const size_t)
+    wizard_attribute((nonnull)),
+  CopyWizardString(char *,const char *,const size_t)
+    wizard_attribute((nonnull));
 
 extern WizardExport long
   FormatWizardSize(const WizardSizeType,char *),
@@ -78,14 +80,15 @@ extern WizardExport unsigned char
   *GetStringInfoDatum(const StringInfo *);
 
 extern WizardExport WizardBooleanType
-  ConcatenateString(char **,const char *),
+  ConcatenateString(char **,const char *) wizard_attribute((nonnull)),
   SubstituteString(char **,const char *,const char *);
 
 extern WizardExport WizardSizeType
   GetStringInfoCRC(const StringInfo *);
 
 extern WizardExport void
-  ConcatenateStringInfo(StringInfo *,const StringInfo *),
+  ConcatenateStringInfo(StringInfo *,const StringInfo *)
+    wizard_attribute((nonnull)),
   LocaleLower(char *),
   PrintStringInfo(FILE *,const char *,const StringInfo *),
   ResetStringInfo(StringInfo *),

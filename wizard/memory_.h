@@ -28,10 +28,11 @@ typedef void
   *(*ResizeMemoryHandler)(void *,size_t);
 
 extern WizardExport void
-  *AcquireAlignedMemory(const size_t,const size_t),
-  *AcquireWizardMemory(const size_t),
-  *AcquireQuantumMemory(const size_t,const size_t),
-  *CopyWizardMemory(void *,const void *,const size_t),
+  *AcquireAlignedMemory(const size_t,const size_t) wizard_attribute((malloc)),
+  *AcquireWizardMemory(const size_t) wizard_attribute((malloc)),
+  *AcquireQuantumMemory(const size_t,const size_t) wizard_attribute((malloc)),
+  *CopyWizardMemory(void *,const void *,const size_t)
+    wizard_attribute((nonnull)),
   DestroyWizardMemory(void),
   GetWizardMemoryMethods(AcquireMemoryHandler *,ResizeMemoryHandler *,
     DestroyMemoryHandler *),
