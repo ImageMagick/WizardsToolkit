@@ -1570,8 +1570,8 @@ static WizardBooleanType LoadLogLists(const char *filename,
     log_info->timer=AcquireTimerInfo();
     log_info->event_mask=p->event_mask;
     log_info->handler_mask=p->handler_mask;
-    log_info->filename=(char *) p->filename;
-    log_info->format=(char *) p->format;
+    log_info->filename=ConstantString(p->filename);
+    log_info->format=ConstantString(p->format);
     log_info->exempt=WizardTrue;
     log_info->signature=WizardSignature;
     status=AppendValueToLinkedList(log_list,log_info);
