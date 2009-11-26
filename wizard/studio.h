@@ -66,16 +66,16 @@ extern "C" {
 # define _FILE_OFFSET_BITS _WIZARDSTOOLKIT__FILE_OFFSET_BITS
 #endif
 #if defined(_wizardstoolkit_const) && !defined(const)
-# define const _wizardstoolkit_const
+# define const  _wizardstoolkit_const
 #endif
 #if defined(_wizardstoolkit_inline) && !defined(inline)
-# define inline _wizardstoolkit_inline
+# define inline  _wizardstoolkit_inline
 #endif
 # if defined(__cplusplus) || defined(c_plusplus)
 #  undef inline
 # endif
-# if defined(_magickcore_restrict) && !defined(__restrict)
-#  define __restrict _wizardstoolkit_restrict
+# if defined(_magickcore_restrict) && !defined(restrict)
+#  define restrict  _wizardstoolkit_restrict
 # endif
 #endif
 

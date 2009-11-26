@@ -72,15 +72,21 @@
 
 // Use Visual C++ C inline method extension to improve performance
 #define inline __inline
-#if !defined(__FUNCTION__)
-  #define __FUNCTION__  "unknown"
+
+// Visual C++ does not define restrict by default.
+#if !defined(restrict)
+  #define restrict
 #endif
-#define __func__  __FUNCTION__
 
 // Visual C++ does not define ssize_t by default.
 #if !defined(ssize_t)
 #  define ssize_t  long
 #endif
+
+#if !defined(__FUNCTION__)
+  #define __FUNCTION__  "unknown"
+#endif
+#define __func__  __FUNCTION__
 
 /* Define to 1 if you have the `ftruncate' function. */
 #define WIZARDSTOOLKIT_HAVE_FTRUNCATE 1
