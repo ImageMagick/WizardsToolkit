@@ -58,6 +58,8 @@ AC_SUBST(CONFIGURE_ARGS)
 . ${srcdir}/version.sh
 
 echo "configuring ${PACKAGE_NAME} ${PACKAGE_VERSION}${PACKAGE_LIB_SUBVERSION}"
+AC_CANONICAL_BUILD
+AC_CANONICAL_HOST
 AC_CANONICAL_TARGET([])
 
 # Substitute library versioning
