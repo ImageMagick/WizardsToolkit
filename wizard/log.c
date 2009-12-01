@@ -657,7 +657,7 @@ WizardExport WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
           (void) fprintf(file," ");
       }
     (void) fprintf(file,"%9lu  ",log_info[i]->generations);
-    (void) FormatWizardSize(MegabytesToBytes(log_info[i]->limit),MagickFalse,
+    (void) FormatWizardSize(MegabytesToBytes(log_info[i]->limit),WizardFalse,
       limit);
     (void) fprintf(file,"%8s  ",limit);
     if (log_info[i]->format != (char *) NULL)
