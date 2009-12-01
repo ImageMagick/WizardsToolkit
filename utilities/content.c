@@ -650,7 +650,7 @@ WizardExport WizardBooleanType PrintCipherProperties(
   (void) fprintf(file,"    type: %s\n",WizardOptionToMnemonic(
     WizardEntropyOptions,content_info->entropy));
   (void) fprintf(file,"    level: %lu\n",1UL*content_info->level);
-  (void) FormatWizardSize(content_info->chunksize,chunksize);
+  (void) FormatWizardSize(content_info->chunksize,MagickFalse,chunksize);
   (void) fprintf(file,"  Keyed-Hashed Message Authentication Code:\n");
   (void) fprintf(file,"    hash: %s\n",WizardOptionToMnemonic(WizardHashOptions,
     content_info->hmac));
