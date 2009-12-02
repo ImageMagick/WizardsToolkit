@@ -53,7 +53,7 @@ extern WizardExport size_t
     wizard_attribute((nonnull));
 
 extern WizardExport long
-  FormatWizardSize(const WizardSizeType,char *),
+  FormatWizardSize(const WizardSizeType,const WizardBooleanType,char *),
   FormatWizardString(char *,const size_t,const char *,...)
     wizard_attribute((format (printf,3,4))),
   FormatWizardStringList(char *,const size_t,const char *,va_list),
