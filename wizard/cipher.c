@@ -136,7 +136,7 @@ WizardExport CipherInfo *AcquireCipherInfo(const CipherType cipher,
   CipherInfo
     *cipher_info;
 
-  cipher_info=(CipherInfo *) AcquireWizardMemory(sizeof(*cipher_info));
+  cipher_info=(CipherInfo *) AcquireAlignedMemory(1,sizeof(*cipher_info));
   if (cipher_info == (CipherInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
   (void) ResetWizardMemory(cipher_info,0,sizeof(*cipher_info));

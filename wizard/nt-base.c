@@ -897,7 +897,7 @@ WizardExport DIR *NTOpenDirectory(const char *path)
     MaxTextExtent);
   if (length >= MaxTextExtent)
     return((DIR *) NULL);
-  entry=(DIR *) AcquireWizardMemory(sizeof(DIR));
+  entry=(DIR *) AcquireAlignedMemory(1,sizeof(DIR));
   if (entry != (DIR *) NULL)
     {
       entry->firsttime=TRUE;

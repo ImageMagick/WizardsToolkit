@@ -114,7 +114,7 @@ WizardExport TwofishInfo *AcquireTwofishInfo(void)
   TwofishInfo
     *twofish_info;
 
-  twofish_info=(TwofishInfo *) AcquireWizardMemory(sizeof(*twofish_info));
+  twofish_info=(TwofishInfo *) AcquireAlignedMemory(1,sizeof(*twofish_info));
   if (twofish_info == (TwofishInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
   (void) ResetWizardMemory(twofish_info,0,sizeof(*twofish_info));

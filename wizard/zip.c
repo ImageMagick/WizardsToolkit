@@ -95,7 +95,7 @@ WizardExport ZIPInfo *AcquireZIPInfo(const unsigned long level)
   ZIPInfo
     *zip_info;
 
-  zip_info=(ZIPInfo *) AcquireWizardMemory(sizeof(*zip_info));
+  zip_info=(ZIPInfo *) AcquireAlignedMemory(1,sizeof(*zip_info));
   if (zip_info == (ZIPInfo *) NULL)
     ThrowWizardFatalError(EntropyError,MemoryError);
   (void) ResetWizardMemory(zip_info,0,sizeof(*zip_info));

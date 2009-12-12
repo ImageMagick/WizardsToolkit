@@ -127,7 +127,7 @@ WizardExport SecretInfo *AcquireSecretInfo(const char *path,const HashType hash,
   SecretInfo
     *secret_info;
 
-  secret_info=(SecretInfo *) AcquireWizardMemory(sizeof(*secret_info));
+  secret_info=(SecretInfo *) AcquireAlignedMemory(1,sizeof(*secret_info));
   if (secret_info == (SecretInfo *) NULL)
     ThrowWizardFatalError(AuthenticateDomain,MemoryError);
   (void) ResetWizardMemory(secret_info,0,sizeof(*secret_info));

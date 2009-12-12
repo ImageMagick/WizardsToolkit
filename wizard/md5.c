@@ -104,7 +104,7 @@ WizardExport MD5Info *AcquireMD5Info(void)
   MD5Info
     *md5_info;
 
-  md5_info=(MD5Info *) AcquireWizardMemory(sizeof(*md5_info));
+  md5_info=(MD5Info *) AcquireAlignedMemory(1,sizeof(*md5_info));
   if (md5_info == (MD5Info *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
   (void) ResetWizardMemory(md5_info,0,sizeof(*md5_info));

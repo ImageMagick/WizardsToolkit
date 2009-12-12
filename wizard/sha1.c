@@ -114,7 +114,7 @@ WizardExport SHA1Info *AcquireSHA1Info(void)
   unsigned int
     lsb_first;
 
-  sha_info=(SHA1Info *) AcquireWizardMemory(sizeof(*sha_info));
+  sha_info=(SHA1Info *) AcquireAlignedMemory(1,sizeof(*sha_info));
   if (sha_info == (SHA1Info *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
   (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));

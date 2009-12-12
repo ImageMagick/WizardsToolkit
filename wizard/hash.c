@@ -103,7 +103,7 @@ WizardExport HashInfo *AcquireHashInfo(const HashType hash)
   unsigned long
     digestsize;
 
-  hash_info=(HashInfo *) AcquireWizardMemory(sizeof(*hash_info));
+  hash_info=(HashInfo *) AcquireAlignedMemory(1,sizeof(*hash_info));
   if (hash_info == (HashInfo *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
   (void) ResetWizardMemory(hash_info,0,sizeof(*hash_info));

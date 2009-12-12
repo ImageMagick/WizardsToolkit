@@ -166,7 +166,7 @@ WizardExport XMLTreeInfo *AddChildToXMLTree(XMLTreeInfo *xml_info,
 
   if (xml_info == (XMLTreeInfo *) NULL)
     return((XMLTreeInfo *) NULL);
-  child=(XMLTreeInfo *) AcquireWizardMemory(sizeof(*child));
+  child=(XMLTreeInfo *) AcquireAlignedMemory(1,sizeof(*child));
   if (child == (XMLTreeInfo *) NULL)
     return((XMLTreeInfo *) NULL);
   (void) ResetWizardMemory(child,0,sizeof(*child));
@@ -1460,7 +1460,7 @@ static void ParseProcessingInstructions(XMLTreeRoot *root,char *xml,
     }
   if (root->processing_instructions[0] == (char **) NULL)
     {
-      root->processing_instructions=(char ***) AcquireWizardMemory(sizeof(
+      root->processing_instructions=(char ***) AcquireAlignedMemory(1,sizeof(
         *root->processing_instructions));
       if (root->processing_instructions ==(char ***) NULL)
         ThrowFatalException(ResourceFatalError,"unable to acquire string `%s'");
@@ -1526,7 +1526,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
     i;
 
   n=(char *) NULL;
-  predefined_entitites=(char **) AcquireWizardMemory(sizeof(sentinel));
+  predefined_entitites=(char **) AcquireAlignedMemory(1,sizeof(sentinel));
   if (predefined_entitites == (char **) NULL)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
@@ -2130,7 +2130,7 @@ WizardExport XMLTreeInfo *NewXMLTreeTag(const char *tag)
   XMLTreeRoot
     *root;
 
-  root=(XMLTreeRoot *) AcquireWizardMemory(sizeof(*root));
+  root=(XMLTreeRoot *) AcquireAlignedMemory(1,sizeof(*root));
   if (root == (XMLTreeRoot *) NULL)
     return((XMLTreeInfo *) NULL);
   (void) ResetWizardMemory(root,0,sizeof(*root));
@@ -2139,7 +2139,7 @@ WizardExport XMLTreeInfo *NewXMLTreeTag(const char *tag)
     root->root.tag=ConstantString(tag);
   root->node=(&root->root);
   root->root.content=ConstantString("");
-  root->entities=(char **) AcquireWizardMemory(sizeof(predefined_entities));
+  root->entities=(char **) AcquireAlignedMemory(1,sizeof(predefined_entities));
   if (root->entities == (char **) NULL)
     return((XMLTreeInfo *) NULL);
   (void) CopyWizardMemory(root->entities,predefined_entities,

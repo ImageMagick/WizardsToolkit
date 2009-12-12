@@ -1385,7 +1385,7 @@ static WizardBooleanType LoadLogList(const char *xml,const char *filename,
         /*
           Allocate memory for the log list.
         */
-        log_info=(LogInfo *) AcquireWizardMemory(sizeof(*log_info));
+        log_info=(LogInfo *) AcquireAlignedMemory(1,sizeof(*log_info));
         if (log_info == (LogInfo *) NULL)
           ThrowFatalException(ResourceFatalError,
             "memory allocation failed: `%s'");
@@ -1559,7 +1559,7 @@ static WizardBooleanType LoadLogLists(const char *filename,
       *p;
 
     p=LogMap+i;
-    log_info=(LogInfo *) AcquireWizardMemory(sizeof(*log_info));
+    log_info=(LogInfo *) AcquireAlignedMemory(1,sizeof(*log_info));
     if (log_info == (LogInfo *) NULL)
       {
         (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,

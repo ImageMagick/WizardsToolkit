@@ -127,7 +127,7 @@ WizardExport ExceptionInfo *AcquireExceptionInfo(void)
   ExceptionInfo
     *exception;
 
-  exception=(ExceptionInfo *) AcquireWizardMemory(sizeof(*exception));
+  exception=(ExceptionInfo *) AcquireAlignedMemory(1,sizeof(*exception));
   if (exception == (ExceptionInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   (void) ResetWizardMemory(exception,0,sizeof(*exception));
@@ -927,7 +927,7 @@ WizardExport WizardBooleanType ThrowException(ExceptionInfo *exception,
       (LocaleCompare(exception->reason,reason) == 0) &&
       (LocaleCompare(exception->description,description) == 0))
     return(WizardTrue);
-  p=(ExceptionInfo *) AcquireWizardMemory(sizeof(*p));
+  p=(ExceptionInfo *) AcquireAlignedMemory(1,sizeof(*p));
   if (p == (ExceptionInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   (void) ResetWizardMemory(p,0,sizeof(*p));
