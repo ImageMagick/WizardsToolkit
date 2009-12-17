@@ -56,6 +56,7 @@
 #include "wizard/semaphore.h"
 #include "wizard/splay-tree.h"
 #include "wizard/string_.h"
+#include "wizard/string-private.h"
 #include "wizard/xml-tree.h"
 #include "wizard/utility.h"
 
@@ -245,7 +246,7 @@ WizardExport XMLTreeInfo *AddPathToXMLTree(XMLTreeInfo *xml_info,
     node=child;
     if (node == (XMLTreeInfo *) NULL)
       break;
-    for (j=atol(subnode)-1; j > 0; j--)
+    for (j=StringToLong(subnode)-1; j > 0; j--)
     {
       node=GetXMLTreeOrdered(node);
       if (node == (XMLTreeInfo *) NULL)
@@ -875,7 +876,7 @@ WizardExport XMLTreeInfo *GetXMLTreePath(XMLTreeInfo *xml_info,const char *path)
     node=GetXMLTreeChild(node,tag);
     if (node == (XMLTreeInfo *) NULL)
       break;
-    for (j=atol(subnode)-1; j > 0; j--)
+    for (j=StringToLong(subnode)-1; j > 0; j--)
     {
       node=GetXMLTreeOrdered(node);
       if (node == (XMLTreeInfo *) NULL)

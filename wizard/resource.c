@@ -52,6 +52,7 @@
 #include "wizard/signature.h"
 #include "wizard/splay-tree.h"
 #include "wizard/string_.h"
+#include "wizard/string-private.h"
 #include "wizard/token.h"
 #include "wizard/utility.h"
 
@@ -885,25 +886,25 @@ WizardExport WizardBooleanType ResourceComponentGenesis(void)
   limit=GetEnvironmentValue("WIZARD_AREA_LIMIT");
   if (limit != (char *) NULL)
     {
-      (void) SetWizardResourceLimit(AreaResource,(unsigned long) atol(limit));
+      (void) SetWizardResourceLimit(AreaResource,(unsigned long) StringToLong(limit));
       limit=DestroyString(limit);
     }
   limit=GetEnvironmentValue("WIZARD_MEMORY_LIMIT");
   if (limit != (char *) NULL)
     {
-      (void) SetWizardResourceLimit(MemoryResource,(unsigned long) atol(limit));
+      (void) SetWizardResourceLimit(MemoryResource,(unsigned long) StringToLong(limit));
       limit=DestroyString(limit);
     }
   limit=GetEnvironmentValue("WIZARD_MAP_LIMIT");
   if (limit != (char *) NULL)
     {
-      (void) SetWizardResourceLimit(MapResource,(unsigned long) atol(limit));
+      (void) SetWizardResourceLimit(MapResource,(unsigned long) StringToLong(limit));
       limit=DestroyString(limit);
     }
   limit=GetEnvironmentValue("WIZARD_DISK_LIMIT");
   if (limit != (char *) NULL)
     {
-      (void) SetWizardResourceLimit(DiskResource,(unsigned long) atol(limit));
+      (void) SetWizardResourceLimit(DiskResource,(unsigned long) StringToLong(limit));
       limit=DestroyString(limit);
     }
   files=(-1);
@@ -917,7 +918,7 @@ WizardExport WizardBooleanType ResourceComponentGenesis(void)
   limit=GetEnvironmentValue("WIZARD_FILE_LIMIT");
   if (limit != (char *) NULL)
     {
-      (void) SetWizardResourceLimit(FileResource,(unsigned long) atol(limit));
+      (void) SetWizardResourceLimit(FileResource,(unsigned long) StringToLong(limit));
       limit=DestroyString(limit);
     }
   return(WizardTrue);

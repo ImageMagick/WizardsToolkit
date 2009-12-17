@@ -47,6 +47,7 @@
 #include "wizard/WizardsToolkit.h"
 #include "wizard/blob-private.h"
 #include "wizard/exception-private.h"
+#include "wizard/string-private.h"
 #if defined(WIZARDSTOOLKIT_HAVE_UTIME)
 #if defined(WIZARDSTOOLKIT_HAVE_UTIME_H)
 #include <utime.h>
@@ -547,7 +548,7 @@ int main(int argc,char **argv)
     if ((strlen(option) == 1) || ((*option != '-') && (*option != '+')))
       continue;
     if (LocaleCompare("bench",option+1) == 0)
-      iterations=(unsigned int) atol(argv[++i]);
+      iterations=(unsigned int) StringToLong(argv[++i]);
     if (LocaleCompare("debug",option+1) == 0)
       (void) SetLogEventMask(argv[++i]);
     if (LocaleCompare("regard-warnings",option+1) == 0)

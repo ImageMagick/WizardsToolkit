@@ -49,6 +49,7 @@
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
 #include "wizard/semaphore.h"
+#include "wizard/string-private.h"
 #include "wizard/utility.h"
 #include "blob.h"
 #if defined(WIZARDSTOOLKIT_HAVE_MMAP_FILEIO) && !defined(__WINDOWS__)
@@ -983,7 +984,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 
       *mode=(*type);
       mode[1]='\0';
-      blob_info->file=fdopen(atoi(filename+3),mode);
+      blob_info->file=fdopen(StringToLong(filename+3),mode);
 #if defined(__WINDOWS__)
       if (strchr(type,'b') != (char *) NULL)
         setmode(_fileno(blob_info->file),_O_BINARY);

@@ -47,6 +47,7 @@
 #include "wizard/WizardsToolkit.h"
 #include "wizard/blob-private.h"
 #include "wizard/exception-private.h"
+#include "wizard/string-private.h"
 #if defined(WIZARDSTOOLKIT_HAVE_UTIME)
 #if defined(WIZARDSTOOLKIT_HAVE_UTIME_H)
 #include <utime.h>
@@ -136,36 +137,6 @@ static void DecipherUsage(void)
   for (p=options; *p != (char *) NULL; p++)
     (void) fprintf(stdout,"  %s\n",*p);
   exit(0);
-}
-
-static double StringToDouble(const char *string,const double interval)
-{
-  char
-    *q;
-
-  double
-    scale,
-    value;
-
-  assert(string != (char *) NULL);
-  value=strtod(string,&q);
-  scale=1000.0;
-  if ((*q != '\0') && (tolower((int) ((unsigned char) *(q+1))) == 'i'))
-    scale=1024.0;
-  switch (tolower((int) ((unsigned char) *q)))
-  {
-    case '%': value*=pow(scale,0)*interval/100.0; break;
-    case 'k': value*=pow(scale,1); break;
-    case 'm': value*=pow(scale,2); break;
-    case 'g': value*=pow(scale,3); break;
-    case 't': value*=pow(scale,4); break;
-    case 'p': value*=pow(scale,5); break;
-    case 'e': value*=pow(scale,6); break;
-    case 'z': value*=pow(scale,7); break;
-    case 'y': value*=pow(scale,8); break;
-    default:  break;
-  }
-  return(value);
 }
 
 WizardExport WizardBooleanType DecipherCommand(int argc,char **argv,
@@ -324,7 +295,7 @@ WizardExport WizardBooleanType DecipherCommand(int argc,char **argv,
             (void) strtod(argv[i],&p);
             if (p == argv[i])
               ThrowInvalidArgumentException(option,argv[i]);
-            content_info->chunksize=(size_t) StringToDouble(argv[i],100.0);
+            content_info->chunksize=(size_t) SiPrefixToDouble(argv[i],100.0);
             break;
           }
         ThrowCipherException(OptionFatalError,"unrecognized option: `%s'",
@@ -892,7 +863,7 @@ int main(int argc,char **argv)
     if ((strlen(option) == 1) || ((*option != '-') && (*option != '+')))
       continue;
     if (LocaleCompare("bench",option+1) == 0)
-      iterations=(unsigned int) atol(argv[++i]);
+      iterations=(unsigned int) StringToLong(argv[++i]);
     if (LocaleCompare("debug",option+1) == 0)
       (void) SetLogEventMask(argv[++i]);
     if (LocaleCompare("regard-warnings",option+1) == 0)

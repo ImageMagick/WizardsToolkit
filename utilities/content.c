@@ -45,6 +45,7 @@
 #include "wizard/WizardsToolkit.h"
 #include "wizard/blob-private.h"
 #include "wizard/exception-private.h"
+#include "wizard/string-private.h"
 #include "content.h"
 
 /*
@@ -307,7 +308,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
               if (LocaleCompare(key,"bytes") == 0)
                 {
                   StripString(options);
-                  bytes=(size_t) atol(options);
+                  bytes=(size_t) StringToLong(options);
                   break;
                 }
               break;
@@ -413,7 +414,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
       {
         if (strcmp(tag,"chunksize") == 0)
           {
-            content_info->chunksize=(unsigned int) atol(content);
+            content_info->chunksize=(unsigned int) StringToLong(content);
             break;
           }
         if (strcmp(tag,"create-date") == 0)

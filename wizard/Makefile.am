@@ -119,6 +119,7 @@ WIZARD_BASE_SRCS = \
   wizard/splay-tree.h \
   wizard/string.c \
   wizard/string_.h \
+  wizard/string-private.h \
   wizard/studio.h \
   wizard/thread.c \
   wizard/thread_.h \
@@ -209,6 +210,7 @@ WIZARD_NOINST_HDRS = \
   wizard/sha256.h \
   wizard/sha384.h \
   wizard/sha512.h \
+  wizard/string-private.h \
   wizard/studio.h \
   wizard/thread-private.h \
   wizard/twofish.h
