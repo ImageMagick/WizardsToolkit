@@ -1456,7 +1456,7 @@ static WizardBooleanType LoadLogList(const char *xml,const char *filename,
                 log_info->generations=(~0UL);
                 break;
               }
-            log_info->generations=(unsigned long) StringToLong(token);
+            log_info->generations=StringToUnsignedLong(token);
             break;
           }
         break;
@@ -1471,7 +1471,7 @@ static WizardBooleanType LoadLogList(const char *xml,const char *filename,
                 log_info->limit=(~0UL);
                 break;
               }
-            log_info->limit=(unsigned long) StringToLong(token);
+            log_info->limit=StringToUnsignedLong(token);
             break;
           }
         break;

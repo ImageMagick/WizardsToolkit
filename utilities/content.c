@@ -414,7 +414,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
       {
         if (strcmp(tag,"chunksize") == 0)
           {
-            content_info->chunksize=(unsigned int) StringToLong(content);
+            content_info->chunksize=(unsigned int) StringToUnsignedLong(content);
             break;
           }
         if (strcmp(tag,"create-date") == 0)

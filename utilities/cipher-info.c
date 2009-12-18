@@ -334,7 +334,7 @@ int main(int argc,char **argv)
     if ((strlen(option) == 1) || ((*option != '-') && (*option != '+')))
       continue;
     if (LocaleCompare("bench",option+1) == 0)
-      iterations=(unsigned int) StringToLong(argv[++i]);
+      iterations=(unsigned int) StringToUnsignedLong(argv[++i]);
     if (LocaleCompare("debug",option+1) == 0)
       (void) SetLogEventMask(argv[++i]);
     if (LocaleCompare("regard-warnings",option+1) == 0)
