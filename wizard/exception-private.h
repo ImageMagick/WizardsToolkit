@@ -51,7 +51,7 @@ extern "C" {
 #define ThrowFileException(exception,severity,context) \
 { \
   (void) ThrowWizardException(exception,GetWizardModule(),severity, \
-    "file exception `%s': %s",context,strerror(errno)); \
+    "file exception `%s': %s",context,GetExceptionMessage(errno)); \
 }
 
 #define ThrowWizardFatalError(domain,error) \
@@ -68,7 +68,7 @@ extern "C" {
 
 #define ThrowFatalException(severity,tag) \
 { \
-  CatchWizardException(severity,tag,strerror(errno)); \
+  CatchWizardException(severity,tag,GetExceptionMessage(errno)); \
   _exit(127); \
 }
 
