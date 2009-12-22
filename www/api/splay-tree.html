@@ -28,10 +28,10 @@
     <tbody>
       <tr valign="top">
         <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
-        <td align="left"><a href="http://www.wizards-toolkit.org/" target="859129658"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1915993494"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
         <td width="99%"><br /></td>
         <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
-        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="2011765347"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="570265778"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
       </tr>
     </tbody>
   </table>
@@ -59,17 +59,21 @@
   <span>]</span><br /><span>[</span>
       <a href="../../www/download.html">Download</a>
   <span>]</span><br /><span>[</span>
-      <a href="../../www/sponsors.html">Sponsors:</a>
-      <fieldset>
-  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
-<br />
-      </fieldset>
+<div class="menu">
+  <a href="../../www/sponsors.html">Sponsors:</a>
+
+<div class="sponsbox">
+<div  class="sponsor">
+  <a href="http://www.tomsgutscheine.de">Tom's Gutscheine</a><!-- 201005010360 invendio.de-->
+</div>
+</div>
+</div>
       <span>]</span>
       </font>
       </td>
 
       <td id="main" valign="top">
-<p class="navigation-index">[<a href="#AddValueToSplayTree">AddValueToSplayTree</a> &bull; <a href="#BalanceSplayTree">BalanceSplayTree</a> &bull; <a href="#CloneSplayTree">CloneSplayTree</a> &bull; <a href="#CompareSplayTreeString">CompareSplayTreeString</a> &bull; <a href="#CompareSplayTreeStringInfo">CompareSplayTreeStringInfo</a> &bull; <a href="#DeleteNodeByValueFromSplayTree">DeleteNodeByValueFromSplayTree</a> &bull; <a href="#DeleteNodeFromSplayTree">DeleteNodeFromSplayTree</a> &bull; <a href="#DestroySplayTree">DestroySplayTree</a> &bull; <a href="#GetNextKeyInSplayTree">GetNextKeyInSplayTree</a> &bull; <a href="#GetNextValueInSplayTree">GetNextValueInSplayTree</a> &bull; <a href="#GetValueFromSplayTree">GetValueFromSplayTree</a> &bull; <a href="#GetNumberOfNodesInSplayTree">GetNumberOfNodesInSplayTree</a> &bull; <a href="#IterateOverSplayTree">IterateOverSplayTree</a> &bull; <a href="#NewSplayTree">NewSplayTree</a> &bull; <a href="#RemoveNodeByValueFromSplayTree">RemoveNodeByValueFromSplayTree</a> &bull; <a href="#RemoveNodeFromSplayTree">RemoveNodeFromSplayTree</a> &bull; <a href="#ResetSplayTreeIterator">ResetSplayTreeIterator</a> &bull; <a href="#SplaySplayTree">SplaySplayTree</a>]</p>
+<p class="navigation-index">[<a href="#AddValueToSplayTree">AddValueToSplayTree</a> &bull; <a href="#BalanceSplayTree">BalanceSplayTree</a> &bull; <a href="#CloneSplayTree">CloneSplayTree</a> &bull; <a href="#CompareSplayTreeString">CompareSplayTreeString</a> &bull; <a href="#CompareSplayTreeStringInfo">CompareSplayTreeStringInfo</a> &bull; <a href="#DeleteNodeByValueFromSplayTree">DeleteNodeByValueFromSplayTree</a> &bull; <a href="#DeleteNodeFromSplayTree">DeleteNodeFromSplayTree</a> &bull; <a href="#DestroySplayTree">DestroySplayTree</a> &bull; <a href="#GetNextKeyInSplayTree">GetNextKeyInSplayTree</a> &bull; <a href="#GetNextValueInSplayTree">GetNextValueInSplayTree</a> &bull; <a href="#GetValueFromSplayTree">GetValueFromSplayTree</a> &bull; <a href="#GetNumberOfNodesInSplayTree">GetNumberOfNodesInSplayTree</a> &bull; <a href="#IterateOverSplayTree">IterateOverSplayTree</a> &bull; <a href="#NewSplayTree">NewSplayTree</a> &bull; <a href="#RemoveNodeByValueFromSplayTree">RemoveNodeByValueFromSplayTree</a> &bull; <a href="#RemoveNodeFromSplayTree">RemoveNodeFromSplayTree</a> &bull; <a href="#ResetSplayTree">ResetSplayTree</a> &bull; <a href="#ResetSplayTreeIterator">ResetSplayTreeIterator</a> &bull; <a href="#SplaySplayTree">SplaySplayTree</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
 _8c.html" target="source" name="AddValueToSplayTree">AddValueToSplayTree</a></h2>
@@ -422,6 +426,24 @@ _8c.html" target="source" name="RemoveNodeFromSplayTree">RemoveNodeFromSplayTree
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
+_8c.html" target="source" name="ResetSplayTree">ResetSplayTree</a></h2>
+<div class="doc-section">
+
+<p>ResetSplayTree() resets the splay-tree.  That is, it deletes all the nodes from the tree.</p></ol>
+
+<p>The format of the ResetSplayTree method is:</p>
+
+<pre class="code">
+  ResetSplayTree(SplayTreeInfo *splay_tree)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>splay_tree</h5>
+<ol><p>the splay tree.</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/splay-tree
 _8c.html" target="source" name="ResetSplayTreeIterator">ResetSplayTreeIterator</a></h2>
 <div class="doc-section">
 
@@ -476,7 +498,7 @@ _8c.html" target="source" name="SplaySplayTree">SplaySplayTree</a></h2>
   </tbody>
   </table>
   <div id="linkbar">
-    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="983316464">Discourse Server</a> |
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="117729548">Discourse Server</a> |
     <a href="../../www/license.html">License</a> |
     <a href="../../www/notice.html">Notice</a>
   </div>

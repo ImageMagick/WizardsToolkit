@@ -28,10 +28,10 @@
     <tbody>
       <tr valign="top">
         <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
-        <td align="left"><a href="http://www.wizards-toolkit.org/" target="284437389"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="603879436"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
         <td width="99%"><br /></td>
         <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
-        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="391077775"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1670722430"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
       </tr>
     </tbody>
   </table>
@@ -59,34 +59,41 @@
   <span>]</span><br /><span>[</span>
       <a href="../../www/download.html">Download</a>
   <span>]</span><br /><span>[</span>
-      <a href="../../www/sponsors.html">Sponsors:</a>
-      <fieldset>
-  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
-<br />
-      </fieldset>
+<div class="menu">
+  <a href="../../www/sponsors.html">Sponsors:</a>
+
+<div class="sponsbox">
+<div  class="sponsor">
+  <a href="http://www.tomsgutscheine.de">Tom's Gutscheine</a><!-- 201005010360 invendio.de-->
+</div>
+</div>
+</div>
       <span>]</span>
       </font>
       </td>
 
       <td id="main" valign="top">
-<p class="navigation-index">[<a href="#AcquireCachelineMemory">AcquireCachelineMemory</a> &bull; <a href="#AcquireWizardMemory">AcquireWizardMemory</a> &bull; <a href="#AcquireQuantumMemory">AcquireQuantumMemory</a> &bull; <a href="#CopyWizardMemory">CopyWizardMemory</a> &bull; <a href="#GetWizardMemoryMethods">GetWizardMemoryMethods</a> &bull; <a href="#RelinquishWizardMemory">RelinquishWizardMemory</a> &bull; <a href="#ResetWizardMemory">ResetWizardMemory</a> &bull; <a href="#ResizeWizardMemory">ResizeWizardMemory</a> &bull; <a href="#ResizeQuantumMemory">ResizeQuantumMemory</a> &bull; <a href="#SetWizardMemoryMethods">SetWizardMemoryMethods</a>]</p>
+<p class="navigation-index">[<a href="#AcquireAlignedMemory">AcquireAlignedMemory</a> &bull; <a href="#AcquireWizardMemory">AcquireWizardMemory</a> &bull; <a href="#AcquireQuantumMemory">AcquireQuantumMemory</a> &bull; <a href="#CopyWizardMemory">CopyWizardMemory</a> &bull; <a href="#GetWizardMemoryMethods">GetWizardMemoryMethods</a> &bull; <a href="#RelinquishAlignedMemory">RelinquishAlignedMemory</a> &bull; <a href="#RelinquishWizardMemory">RelinquishWizardMemory</a> &bull; <a href="#ResetWizardMemory">ResetWizardMemory</a> &bull; <a href="#ResizeWizardMemory">ResizeWizardMemory</a> &bull; <a href="#ResizeQuantumMemory">ResizeQuantumMemory</a> &bull; <a href="#SetWizardMemoryMethods">SetWizardMemoryMethods</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="AcquireCachelineMemory">AcquireCachelineMemory</a></h2>
+_8c.html" target="source" name="AcquireAlignedMemory">AcquireAlignedMemory</a></h2>
 <div class="doc-section">
 
-<p>AcquireCachelineMemory() returns a pointer to a block of memory at least size bytes but not less than 128 bytes suitably aligned for any use.</p></ol>
+<p>AcquireAlignedMemory() returns a pointer to a block of memory at least size bytes whose address is a multiple of 16*sizeof(void *).</p></ol>
 
-<p>The format of the AcquireCachelineMemory method is:</p>
+<p>The format of the AcquireAlignedMemory method is:</p>
 
 <pre class="code">
-  void *AcquireCachelineMemory(const size_t size)
+  void *AcquireAlignedMemory(const size_t count,const size_t quantum)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
 
-<h5>size</h5>
-<ol><p>the size of the memory in bytes to allocate.</p></ol>
+<h5>count</h5>
+<ol><p>the number of quantum elements to allocate.</p></ol>
+
+<h5>quantum</h5>
+<ol><p>the number of bytes in each quantum.</p></ol>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
@@ -177,6 +184,24 @@ _8c.html" target="source" name="GetWizardMemoryMethods">GetWizardMemoryMethods</
 
 <h5>destroy_memory_handler</h5>
 <ol><p>method to destroy memory (e.g. free).</p></ol>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
+_8c.html" target="source" name="RelinquishAlignedMemory">RelinquishAlignedMemory</a></h2>
+<div class="doc-section">
+
+<p>RelinquishAlignedMemory() frees memory acquired with AcquireAlignedMemory() or reuse.</p></ol>
+
+<p>The format of the RelinquishAlignedMemory method is:</p>
+
+<pre class="code">
+  void *RelinquishAlignedMemory(void *memory)
+</pre>
+
+<p>A description of each parameter follows:</p></ol>
+
+<h5>memory</h5>
+<ol><p>A pointer to a block of memory to free for reuse.</p></ol>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
@@ -299,7 +324,7 @@ _8c.html" target="source" name="SetWizardMemoryMethods">SetWizardMemoryMethods</
   </tbody>
   </table>
   <div id="linkbar">
-    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1436562212">Discourse Server</a> |
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1798280429">Discourse Server</a> |
     <a href="../../www/license.html">License</a> |
     <a href="../../www/notice.html">Notice</a>
   </div>

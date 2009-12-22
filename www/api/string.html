@@ -28,10 +28,10 @@
     <tbody>
       <tr valign="top">
         <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
-        <td align="left"><a href="http://www.wizards-toolkit.org/" target="10984669"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1893266229"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
         <td width="99%"><br /></td>
         <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
-        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="16000636"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1074285785"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
       </tr>
     </tbody>
   </table>
@@ -59,11 +59,15 @@
   <span>]</span><br /><span>[</span>
       <a href="../../www/download.html">Download</a>
   <span>]</span><br /><span>[</span>
-      <a href="../../www/sponsors.html">Sponsors:</a>
-      <fieldset>
-  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
-<br />
-      </fieldset>
+<div class="menu">
+  <a href="../../www/sponsors.html">Sponsors:</a>
+
+<div class="sponsbox">
+<div  class="sponsor">
+  <a href="http://www.tomsgutscheine.de">Tom's Gutscheine</a><!-- 201005010360 invendio.de-->
+</div>
+</div>
+</div>
       <span>]</span>
       </font>
       </td>
@@ -409,7 +413,7 @@ _8c.html" target="source" name="FileToStringInfo">FileToStringInfo</a></h2>
 _8c.html" target="source" name="FormatWizardSize">FormatWizardSize</a></h2>
 <div class="doc-section">
 
-<p>FormatWizardSize() converts a size to a human readable format, for example, 14kb, 234mb, 2.7gb, or 3.0tb.  Scaling is done by repetitively dividing by 1024.</p></ol>
+<p>FormatWizardSize() converts a size to a human readable format, for example, 14kb, 234mb, 2.7gb, or 3.0tb.  Scaling is done by repetitively dividing by 1000.</p></ol>
 
 <p>The format of the FormatWizardSize method is:</p>
 
@@ -421,6 +425,9 @@ _8c.html" target="source" name="FormatWizardSize">FormatWizardSize</a></h2>
 
 <h5>size</h5>
 <ol><p>convert this size to a human readable format.</p></ol>
+
+<h5>bi</h5>
+<ol><p>use power of two rather than power of ten.</p></ol>
 
 <h5>format</h5>
 <ol><p>human readable format.</p></ol>
@@ -911,25 +918,25 @@ _8c.html" target="source" name="StripString">StripString</a></h2>
 _8c.html" target="source" name="SubstituteString">SubstituteString</a></h2>
 <div class="doc-section">
 
-<p>SubstituteString() performs string substitution on a buffer, replacing the buffer with the substituted version. Buffer must be allocate from the heap.</p></ol>
+<p>SubstituteString() performs string substitution on a string, replacing the string with the substituted version. Buffer must be allocated from the heap. If the string is matched and status, WizardTrue is returned otherwise WizardFalse.</p></ol>
 
 <p>The format of the SubstituteString method is:</p>
 
 <pre class="code">
-  WizardBooleanType SubstituteString(char **buffer,const char *search,
+  WizardBooleanType SubstituteString(char **string,const char *search,
     const char *replace)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
 
-<h5>buffer</h5>
-<ol><p>The buffer to perform replacements on. Replaced with new allocation if a replacement is made.</p></ol>
+<h5>string</h5>
+<ol><p>the string to perform replacements on;  replaced with new allocation if a replacement is made.</p></ol>
 
 <h5>search</h5>
-<ol><p>String to search for.</p></ol>
+<ol><p>search for this string.</p></ol>
 
 <h5>replace</h5>
-<ol><p>Replacement string.</p></ol>
+<ol><p>replace any matches with this string.</p></ol>
 
  </div>
       </td>
@@ -938,7 +945,7 @@ _8c.html" target="source" name="SubstituteString">SubstituteString</a></h2>
   </tbody>
   </table>
   <div id="linkbar">
-    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="2117135749">Discourse Server</a> |
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1832553292">Discourse Server</a> |
     <a href="../../www/license.html">License</a> |
     <a href="../../www/notice.html">Notice</a>
   </div>

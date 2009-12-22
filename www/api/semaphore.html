@@ -28,10 +28,10 @@
     <tbody>
       <tr valign="top">
         <td align="left"><a href="../../index.html"><img id="titlebar-west" src="../../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
-        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1956684035"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="226065469"><img id="titlebar-west" src="../../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
         <td width="99%"><br /></td>
         <td style="background-color: white" align="right"><a href="../../index.html"><img src="../../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
-        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="582008919"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="2017136401"><img id="titlebar-east" src="../../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
       </tr>
     </tbody>
   </table>
@@ -59,17 +59,21 @@
   <span>]</span><br /><span>[</span>
       <a href="../../www/download.html">Download</a>
   <span>]</span><br /><span>[</span>
-      <a href="../../www/sponsors.html">Sponsors:</a>
-      <fieldset>
-  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
-<br />
-      </fieldset>
+<div class="menu">
+  <a href="../../www/sponsors.html">Sponsors:</a>
+
+<div class="sponsbox">
+<div  class="sponsor">
+  <a href="http://www.tomsgutscheine.de">Tom's Gutscheine</a><!-- 201005010360 invendio.de-->
+</div>
+</div>
+</div>
       <span>]</span>
       </font>
       </td>
 
       <td id="main" valign="top">
-<p class="navigation-index">[<a href="#AcquireSemaphoreInfo">AcquireSemaphoreInfo</a> &bull; <a href="#AllocateSemaphoreInfo">AllocateSemaphoreInfo</a> &bull; <a href="#DestroySemaphore">DestroySemaphore</a> &bull; <a href="#DestroySemaphoreInfo">DestroySemaphoreInfo</a> &bull; <a href="#InitializeSemaphore">InitializeSemaphore</a> &bull; <a href="#LockSemaphoreInfo">LockSemaphoreInfo</a> &bull; <a href="#RelinquishSemaphoreInfo">RelinquishSemaphoreInfo</a> &bull; <a href="#UnlockSemaphoreInfo">UnlockSemaphoreInfo</a>]</p>
+<p class="navigation-index">[<a href="#AcquireSemaphoreInfo">AcquireSemaphoreInfo</a> &bull; <a href="#AllocateSemaphoreInfo">AllocateSemaphoreInfo</a> &bull; <a href="#DestroySemaphoreInfo">DestroySemaphoreInfo</a> &bull; <a href="#LockSemaphoreInfo">LockSemaphoreInfo</a> &bull; <a href="#RelinquishSemaphoreInfo">RelinquishSemaphoreInfo</a> &bull; <a href="#SemaphoreComponentGenesis">SemaphoreComponentGenesis</a> &bull; <a href="#SemaphoreComponentTerminus">SemaphoreComponentTerminus</a> &bull; <a href="#UnlockSemaphoreInfo">UnlockSemaphoreInfo</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
 _8c.html" target="source" name="AcquireSemaphoreInfo">AcquireSemaphoreInfo</a></h2>
@@ -101,25 +105,6 @@ _8c.html" target="source" name="AllocateSemaphoreInfo">AllocateSemaphoreInfo</a>
   SemaphoreInfo *AllocateSemaphoreInfo(void)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
-
-<h5>semaphore_info</h5>
-<ol><p>Method AllocateSemaphoreInfo returns a pointer to an initialized SemaphoreInfo structure.</p></ol>
-
-
- </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="DestroySemaphore">DestroySemaphore</a></h2>
-<div class="doc-section">
-
-<p>DestroySemaphore() destroys the semaphore environment.</p></ol>
-
-<p>The format of the DestroySemaphore method is:</p>
-
-<pre class="code">
-  DestroySemaphore(void)
-</pre>
-
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
 _8c.html" target="source" name="DestroySemaphoreInfo">DestroySemaphoreInfo</a></h2>
@@ -137,19 +122,6 @@ _8c.html" target="source" name="DestroySemaphoreInfo">DestroySemaphoreInfo</a></
 
 <h5>semaphore_info</h5>
 <ol><p>Specifies a pointer to an SemaphoreInfo structure.</p></ol>
-
- </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="InitializeSemaphore">InitializeSemaphore</a></h2>
-<div class="doc-section">
-
-<p>InitializeSemaphore() initializes the semaphore environment.</p></ol>
-
-<p>The format of the InitializeSemaphore method is:</p>
-
-<pre class="code">
-  InitializeSemaphore(void)
-</pre>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
@@ -189,6 +161,32 @@ _8c.html" target="source" name="RelinquishSemaphoreInfo">RelinquishSemaphoreInfo
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
+_8c.html" target="source" name="SemaphoreComponentGenesis">SemaphoreComponentGenesis</a></h2>
+<div class="doc-section">
+
+<p>SemaphoreComponentGenesis() instantiates the semaphore component.</p></ol>
+
+<p>The format of the SemaphoreComponentGenesis method is:</p>
+
+<pre class="code">
+  WizardBooleanType SemaphoreComponentGenesis(void)
+</pre>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
+_8c.html" target="source" name="SemaphoreComponentTerminus">SemaphoreComponentTerminus</a></h2>
+<div class="doc-section">
+
+<p>SemaphoreComponentTerminus() destroys the semaphore environment.</p></ol>
+
+<p>The format of the SemaphoreComponentTerminus method is:</p>
+
+<pre class="code">
+  SemaphoreComponentTerminus(void)
+</pre>
+
+ </div>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
 _8c.html" target="source" name="UnlockSemaphoreInfo">UnlockSemaphoreInfo</a></h2>
 <div class="doc-section">
 
@@ -212,7 +210,7 @@ _8c.html" target="source" name="UnlockSemaphoreInfo">UnlockSemaphoreInfo</a></h2
   </tbody>
   </table>
   <div id="linkbar">
-    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="420644353">Discourse Server</a> |
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1333206696">Discourse Server</a> |
     <a href="../../www/license.html">License</a> |
     <a href="../../www/notice.html">Notice</a>
   </div>

@@ -28,10 +28,10 @@
     <tbody>
       <tr valign="top">
         <td align="left"><a href="../index.html"><img id="titlebar-west" src="../images/script.png" alt="[Wizard's Toolkit]" width="400" height="60" border="0" vspace="28" name="titlebar-west" /></a></td>
-        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1321262206"><img id="titlebar-west" src="../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
+        <td align="left"><a href="http://www.wizards-toolkit.org/" target="1500548574"><img id="titlebar-west" src="../images/sponsor.jpg" alt="[sponsor]" border="0" vspace="28" name="titlebar-west" /></a></td>
         <td width="99%"><br /></td>
         <td style="background-color: white" align="right"><a href="../index.html"><img src="../images/sprite.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
-        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1017660115"><img id="titlebar-east" src="../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
+        <td style="background-color: white" align="right"><a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1565259317"><img id="titlebar-east" src="../images/logo.jpg" alt="" width="114" height="118" border="0" name="titlebar-east" /></a></td>
       </tr>
     </tbody>
   </table>
@@ -59,11 +59,15 @@
   <span>]</span><br /><span>[</span>
       <a href="../www/download.html">Download</a>
   <span>]</span><br /><span>[</span>
-      <a href="../www/sponsors.html">Sponsors:</a>
-      <fieldset>
-  <a href="http://www.anxietyspinnerrings.com" class="sponsor" target="sponsor">Silver Rings</a><!-- 200904010140 -->
-<br />
-      </fieldset>
+<div class="menu">
+  <a href="../www/sponsors.html">Sponsors:</a>
+
+<div class="sponsbox">
+<div  class="sponsor">
+  <a href="http://www.tomsgutscheine.de">Tom's Gutscheine</a><!-- 201005010360 invendio.de-->
+</div>
+</div>
+</div>
       <span>]</span>
       </font>
       </td>
@@ -84,7 +88,7 @@
   <h2><a name="unix"></a>Install from Unix Source</h2>
 </div>
 
-<p>The Wizard's Toolkit builds on a variety of Unix and Unix-like operating systems including Linux, Solaris, FreeBSD, Mac OS X, and others.  A compiler is required and fortunately almost all modern Unix systems have one.  Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.tar.gz">WizardsToolkit.tar.gz</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit" target="1540646771">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/digest.rdf">message digest</a>.</p>
+<p>The Wizard's Toolkit builds on a variety of Unix and Unix-like operating systems including Linux, Solaris, FreeBSD, Mac OS X, and others.  A compiler is required and fortunately almost all modern Unix systems have one.  Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.tar.gz">WizardsToolkit.tar.gz</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit" target="886867874">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/digest.rdf">message digest</a>.</p>
 
 <p>Unpack the distribution with this command:</p>
 
@@ -120,13 +124,13 @@
 
 <p>Building the Wizard's Toolkit source for Windows requires a modern version of Microsoft Visual Studio IDE.  Users have reported success with the Borland C++ compiler as well.  If you don't have a compiler you can still install a self-installing <a href="../www/binary-releases.html">binary release</a>.</p>
 
-<p>Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.zip">WizardsToolkit.zip</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/windows" target="1514043833">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/windows/digest.rdf">message digest</a>.  You can unpack the distribution with <a href="http://www.winzip.com" target="1906061737">WinZip</a> or type the following from any MS-DOS Command Prompt window:</p>
+<p>Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.zip">WizardsToolkit.zip</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/windows" target="1367371425">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/windows/digest.rdf">message digest</a>.  You can unpack the distribution with <a href="http://www.winzip.com" target="611161057">WinZip</a> or type the following from any MS-DOS Command Prompt window:</p>
 
 <pre class="text">
   unzip WizardsToolkit.zip
 </pre>
 
-<p>The Wizard's Toolkit requires <a href="http://gnuwin32.sourceforge.net/packages/bzip2.htm" target="983588109">BZip2 for Windows</a> and <a href="http://gnuwin32.sourceforge.net/packages/zlib.htm" target="1086581839">ZLib for Windows</a>.  Be sure to install the development headers along with the DLL's.  Edit <kbd>zconf.h</kbd> and exclude the <kbd>unistd.h</kbd> include statement since this file is not available under Windows.</p>
+<p>The Wizard's Toolkit requires <a href="http://gnuwin32.sourceforge.net/packages/bzip2.htm" target="192562077">BZip2 for Windows</a> and <a href="http://gnuwin32.sourceforge.net/packages/zlib.htm" target="1296457618">ZLib for Windows</a>.  Be sure to install the development headers along with the DLL's.  Edit <kbd>zconf.h</kbd> and exclude the <kbd>unistd.h</kbd> include statement since this file is not available under Windows.</p>
 
 <p>Next, launch your Visual Studio IDE and choose <kbd>Open->Project</kbd>.  Select the workspace from the <kbd>WizardsToolkit-1.?.?/windows</kbd> folder and press Open.  Choose <kbd>Build->Build Solution</kbd> to compile the program and on completion run the program.</p>
 
@@ -137,7 +141,7 @@
   </tbody>
   </table>
   <div id="linkbar">
-    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="886394011">Discourse Server</a> |
+    <a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17" target="1104570248">Discourse Server</a> |
     <a href="../www/license.html">License</a> |
     <a href="../www/notice.html">Notice</a>
   </div>
