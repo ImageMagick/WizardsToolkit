@@ -184,7 +184,7 @@ WizardExport void ClearWizardException(ExceptionInfo *exception)
   assert(exception->signature == WizardSignature);
   if (exception->exceptions == (void *) NULL)
     return;
-  (void) LockSemaphoreInfo(exception->semaphore);
+  LockSemaphoreInfo(exception->semaphore);
   p=(ExceptionInfo *) RemoveLastElementFromLinkedList((LinkedListInfo *)
     exception->exceptions);
   while (p != (ExceptionInfo *) NULL)
@@ -196,7 +196,7 @@ WizardExport void ClearWizardException(ExceptionInfo *exception)
   exception->severity=UndefinedException;
   exception->reason=(char *) NULL;
   exception->description=(char *) NULL;
-  (void) UnlockSemaphoreInfo(exception->semaphore);
+  UnlockSemaphoreInfo(exception->semaphore);
   errno=0;
 }
 
@@ -232,7 +232,7 @@ WizardExport void CatchException(ExceptionInfo *exception)
   assert(exception->signature == WizardSignature);
   if (exception->exceptions == (void *) NULL)
     return;
-  (void) LockSemaphoreInfo(exception->semaphore);
+  LockSemaphoreInfo(exception->semaphore);
   ResetLinkedListIterator((LinkedListInfo *) exception->exceptions);
   p=(const ExceptionInfo *) GetNextValueInLinkedList((LinkedListInfo *)
     exception->exceptions);
@@ -247,7 +247,7 @@ WizardExport void CatchException(ExceptionInfo *exception)
     p=(const ExceptionInfo *) GetNextValueInLinkedList((LinkedListInfo *)
       exception->exceptions);
   }
-  (void) UnlockSemaphoreInfo(exception->semaphore);
+  UnlockSemaphoreInfo(exception->semaphore);
   ClearWizardException(exception);
 }
 
@@ -400,13 +400,13 @@ WizardExport ExceptionInfo *DestroyExceptionInfo(ExceptionInfo *exception)
 {
   assert(exception != (ExceptionInfo *) NULL);
   assert(exception->signature == WizardSignature);
-  (void) LockSemaphoreInfo(exception->semaphore);
+  LockSemaphoreInfo(exception->semaphore);
   exception->severity=UndefinedException;
   if (exception->exceptions != (void *) NULL)
     exception->exceptions=(void *) DestroyLinkedList((LinkedListInfo *)
       exception->exceptions,DestroyExceptionElement);
   exception->signature=(~WizardSignature);
-  (void) UnlockSemaphoreInfo(exception->semaphore);
+  UnlockSemaphoreInfo(exception->semaphore);
   DestroySemaphoreInfo(&exception->semaphore);
   if (exception->relinquish != WizardFalse)
     exception=(ExceptionInfo *) RelinquishWizardMemory(exception);
@@ -662,7 +662,7 @@ WizardExport void InheritException(ExceptionInfo *exception,
   assert(relative->signature == WizardSignature);
   if (relative->exceptions == (void *) NULL)
     return;
-  (void) LockSemaphoreInfo(exception->semaphore);
+  LockSemaphoreInfo(exception->semaphore);
   ResetLinkedListIterator((LinkedListInfo *) relative->exceptions);
   p=(const ExceptionInfo *) GetNextValueInLinkedList((LinkedListInfo *)
     relative->exceptions);
@@ -672,7 +672,7 @@ WizardExport void InheritException(ExceptionInfo *exception,
     p=(const ExceptionInfo *) GetNextValueInLinkedList((LinkedListInfo *)
       relative->exceptions);
   }
-  (void) UnlockSemaphoreInfo(exception->semaphore);
+  UnlockSemaphoreInfo(exception->semaphore);
 }
 
 /*

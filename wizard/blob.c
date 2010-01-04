@@ -330,11 +330,11 @@ WizardExport BlobInfo *DestroyBlob(BlobInfo *blob_info)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",
       blob_info->filename);
   destroy=WizardFalse;
-  (void) LockSemaphoreInfo(blob_info->semaphore);
+  LockSemaphoreInfo(blob_info->semaphore);
   blob_info->reference_count--;
   if (blob_info->reference_count == 0)
     destroy=WizardTrue;
-  (void) UnlockSemaphoreInfo(blob_info->semaphore);
+  UnlockSemaphoreInfo(blob_info->semaphore);
   if (destroy == WizardFalse)
     return(blob_info);
   (void) CloseBlob(blob_info);

@@ -169,7 +169,7 @@ WizardExport WizardBooleanType AppendValueToLinkedList(
     return(WizardFalse);
   next->value=(void *) value;
   next->next=(ElementInfo *) NULL;
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   if (list_info->next == (ElementInfo *) NULL)
     list_info->next=next;
   if (list_info->elements == 0)
@@ -178,7 +178,7 @@ WizardExport WizardBooleanType AppendValueToLinkedList(
     list_info->tail->next=next;
   list_info->tail=next;
   list_info->elements++;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return(WizardTrue);
 }
 
@@ -221,7 +221,7 @@ WizardExport void ClearLinkedList(LinkedListInfo *list_info,
   assert(list_info->signature == WizardSignature);
   if (list_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   next=list_info->head;
   while (next != (ElementInfo *) NULL)
   {
@@ -235,7 +235,7 @@ WizardExport void ClearLinkedList(LinkedListInfo *list_info,
   list_info->tail=(ElementInfo *) NULL;
   list_info->next=(ElementInfo *) NULL;
   list_info->elements=0;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
 }
 
 /*
@@ -351,7 +351,7 @@ WizardExport HashmapInfo *DestroyHashmap(HashmapInfo *hashmap_info)
   assert(hashmap_info->signature == WizardSignature);
   if (hashmap_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(hashmap_info->semaphore);
+  LockSemaphoreInfo(hashmap_info->semaphore);
   for (i=0; i < (long) hashmap_info->capacity; i++)
   {
     list_info=hashmap_info->map[i];
@@ -374,7 +374,7 @@ WizardExport HashmapInfo *DestroyHashmap(HashmapInfo *hashmap_info)
   hashmap_info->map=(LinkedListInfo **) RelinquishWizardMemory(
     hashmap_info->map);
   hashmap_info->signature=(~WizardSignature);
-  (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+  UnlockSemaphoreInfo(hashmap_info->semaphore);
   DestroySemaphoreInfo(&hashmap_info->semaphore);
   hashmap_info=(HashmapInfo *) RelinquishWizardMemory(hashmap_info);
   return(hashmap_info);
@@ -419,7 +419,7 @@ WizardExport LinkedListInfo *DestroyLinkedList(LinkedListInfo *list_info,
   assert(list_info->signature == WizardSignature);
   if (list_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   for (next=list_info->head; next != (ElementInfo *) NULL; )
   {
     if (relinquish_value != (void *(*)(void *)) NULL)
@@ -429,7 +429,7 @@ WizardExport LinkedListInfo *DestroyLinkedList(LinkedListInfo *list_info,
     entry=(ElementInfo *) RelinquishWizardMemory(entry);
   }
   list_info->signature=(~WizardSignature);
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   DestroySemaphoreInfo(&list_info->semaphore);
   list_info=(LinkedListInfo *) RelinquishWizardMemory(list_info);
   return(list_info);
@@ -468,9 +468,9 @@ WizardExport void *GetLastValueInLinkedList(LinkedListInfo *list_info)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (list_info->elements == 0)
     return((void *) NULL);
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   value=list_info->tail->value;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return(value);
 }
 
@@ -511,7 +511,7 @@ WizardExport void *GetNextKeyInHashmap(HashmapInfo *hashmap_info)
   assert(hashmap_info->signature == WizardSignature);
   if (hashmap_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(hashmap_info->semaphore);
+  LockSemaphoreInfo(hashmap_info->semaphore);
   while (hashmap_info->next < hashmap_info->capacity)
   {
     list_info=hashmap_info->map[hashmap_info->next];
@@ -526,14 +526,14 @@ WizardExport void *GetNextKeyInHashmap(HashmapInfo *hashmap_info)
         if (entry != (EntryInfo *) NULL)
           {
             key=entry->key;
-            (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+            UnlockSemaphoreInfo(hashmap_info->semaphore);
             return(key);
           }
         hashmap_info->head_of_list=WizardFalse;
       }
     hashmap_info->next++;
   }
-  (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+  UnlockSemaphoreInfo(hashmap_info->semaphore);
   return((void *) NULL);
 }
 
@@ -574,7 +574,7 @@ WizardExport void *GetNextValueInHashmap(HashmapInfo *hashmap_info)
   assert(hashmap_info->signature == WizardSignature);
   if (hashmap_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(hashmap_info->semaphore);
+  LockSemaphoreInfo(hashmap_info->semaphore);
   while (hashmap_info->next < hashmap_info->capacity)
   {
     list_info=hashmap_info->map[hashmap_info->next];
@@ -589,14 +589,14 @@ WizardExport void *GetNextValueInHashmap(HashmapInfo *hashmap_info)
         if (entry != (EntryInfo *) NULL)
           {
             value=entry->value;
-            (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+            UnlockSemaphoreInfo(hashmap_info->semaphore);
             return(value);
           }
         hashmap_info->head_of_list=WizardFalse;
       }
     hashmap_info->next++;
   }
-  (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+  UnlockSemaphoreInfo(hashmap_info->semaphore);
   return((void *) NULL);
 }
 
@@ -631,15 +631,15 @@ WizardExport void *GetNextValueInLinkedList(LinkedListInfo *list_info)
   assert(list_info->signature == WizardSignature);
   if (list_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   if (list_info->next == (ElementInfo *) NULL)
     {
-      (void) UnlockSemaphoreInfo(list_info->semaphore);
+      UnlockSemaphoreInfo(list_info->semaphore);
       return((void *) NULL);
     }
   value=list_info->next->value;
   list_info->next=list_info->next->next;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return(value);
 }
 
@@ -754,7 +754,7 @@ WizardExport void *GetValueFromHashmap(HashmapInfo *hashmap_info,
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (key == NULL)
     return((void *) NULL);
-  (void) LockSemaphoreInfo(hashmap_info->semaphore);
+  LockSemaphoreInfo(hashmap_info->semaphore);
   hash=hashmap_info->hash(key);
   list_info=hashmap_info->map[hash % hashmap_info->capacity];
   if (list_info != (LinkedListInfo *) NULL)
@@ -775,14 +775,14 @@ WizardExport void *GetValueFromHashmap(HashmapInfo *hashmap_info,
             if (compare == WizardTrue)
               {
                 value=entry->value;
-                (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+                UnlockSemaphoreInfo(hashmap_info->semaphore);
                 return(value);
               }
           }
         entry=(EntryInfo *) GetNextValueInLinkedList(list_info);
       }
     }
-  (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+  UnlockSemaphoreInfo(hashmap_info->semaphore);
   return((void *) NULL);
 }
 
@@ -830,24 +830,24 @@ WizardExport void *GetValueFromLinkedList(LinkedListInfo *list_info,
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (index >= list_info->elements)
     return((void *) NULL);
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   if (index == 0)
     {
       value=list_info->head->value;
-      (void) UnlockSemaphoreInfo(list_info->semaphore);
+      UnlockSemaphoreInfo(list_info->semaphore);
       return(value);
     }
   if (index == (list_info->elements-1))
     {
       value=list_info->tail->value;
-      (void) UnlockSemaphoreInfo(list_info->semaphore);
+      UnlockSemaphoreInfo(list_info->semaphore);
       return(value);
     }
   next=list_info->head;
   for (i=0; i < (long) index; i++)
     next=next->next;
   value=next->value;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return(value);
 }
 
@@ -1042,7 +1042,7 @@ WizardExport WizardBooleanType InsertValueInLinkedList(
     return(WizardFalse);
   next->value=(void *) value;
   next->next=(ElementInfo *) NULL;
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   if (list_info->elements == 0)
     {
       if (list_info->next == (ElementInfo *) NULL)
@@ -1086,7 +1086,7 @@ WizardExport WizardBooleanType InsertValueInLinkedList(
           }
     }
   list_info->elements++;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return(WizardTrue);
 }
 
@@ -1149,7 +1149,7 @@ WizardExport WizardBooleanType InsertValueInSortedLinkedList(
     return(WizardFalse);
   next->value=(void *) value;
   element=(ElementInfo *) NULL;
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   next->next=list_info->head;
   while (next->next != (ElementInfo *) NULL)
   {
@@ -1183,7 +1183,7 @@ WizardExport WizardBooleanType InsertValueInSortedLinkedList(
       list_info->tail=next;
     }
   list_info->elements++;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return(WizardTrue);
 }
 
@@ -1290,14 +1290,14 @@ WizardExport WizardBooleanType LinkedListToArray(LinkedListInfo *list_info,
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (array == (void **) NULL)
     return(WizardFalse);
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   next=list_info->head;
   for (i=0; next != (ElementInfo *) NULL; i++)
   {
     array[i]=next->value;
     next=next->next;
   }
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return(WizardTrue);
 }
 
@@ -1503,7 +1503,7 @@ static WizardBooleanType IncreaseHashmapCapacity(HashmapInfo *hashmap_info)
     list_info=hashmap_info->map[i];
     if (list_info == (LinkedListInfo *) NULL)
       continue;
-    (void) LockSemaphoreInfo(list_info->semaphore);
+    LockSemaphoreInfo(list_info->semaphore);
     for (next=list_info->head; next != (ElementInfo *) NULL; )
     {
       element=next;
@@ -1521,7 +1521,7 @@ static WizardBooleanType IncreaseHashmapCapacity(HashmapInfo *hashmap_info)
       map_info->elements++;
     }
     list_info->signature=(~WizardSignature);
-    (void) UnlockSemaphoreInfo(list_info->semaphore);
+    UnlockSemaphoreInfo(list_info->semaphore);
     DestroySemaphoreInfo(&list_info->semaphore);
     list_info=(LinkedListInfo *) RelinquishWizardMemory(list_info);
   }
@@ -1553,7 +1553,7 @@ WizardExport WizardBooleanType PutEntryInHashmap(HashmapInfo *hashmap_info,
   next=(EntryInfo *) AcquireAlignedMemory(1,sizeof(*next));
   if (next == (EntryInfo *) NULL)
     return(WizardFalse);
-  (void) LockSemaphoreInfo(hashmap_info->semaphore);
+  LockSemaphoreInfo(hashmap_info->semaphore);
   next->hash=hashmap_info->hash(key);
   next->key=(void *) key;
   next->value=(void *) value;
@@ -1595,17 +1595,17 @@ WizardExport WizardBooleanType PutEntryInHashmap(HashmapInfo *hashmap_info,
   if (InsertValueInLinkedList(list_info,0,next) == WizardFalse)
     {
       next=(EntryInfo *) RelinquishWizardMemory(next);
-      (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+      UnlockSemaphoreInfo(hashmap_info->semaphore);
       return(WizardFalse);
     }
   if (list_info->elements >= (hashmap_info->capacity-1))
     if (IncreaseHashmapCapacity(hashmap_info) == WizardFalse)
       {
-        (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+        UnlockSemaphoreInfo(hashmap_info->semaphore);
         return(WizardFalse);
       }
   hashmap_info->entries++;
-  (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+  UnlockSemaphoreInfo(hashmap_info->semaphore);
   return(WizardTrue);
 }
 
@@ -1647,7 +1647,7 @@ WizardExport void *RemoveElementByValueFromLinkedList(LinkedListInfo *list_info,
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if ((list_info->elements == 0) || (value == NULL))
     return((void *) NULL);
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   if (value == list_info->head->value)
     {
       if (list_info->next == list_info->head)
@@ -1667,7 +1667,7 @@ WizardExport void *RemoveElementByValueFromLinkedList(LinkedListInfo *list_info,
         next=next->next;
       if (next->next == (ElementInfo *) NULL)
         {
-          (void) UnlockSemaphoreInfo(list_info->semaphore);
+          UnlockSemaphoreInfo(list_info->semaphore);
           return((void *) NULL);
         }
       element=next->next;
@@ -1679,7 +1679,7 @@ WizardExport void *RemoveElementByValueFromLinkedList(LinkedListInfo *list_info,
       element=(ElementInfo *) RelinquishWizardMemory(element);
     }
   list_info->elements--;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return((void *) value);
 }
 
@@ -1727,7 +1727,7 @@ WizardExport void *RemoveElementFromLinkedList(LinkedListInfo *list_info,
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (index >= list_info->elements)
     return((void *) NULL);
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   if (index == 0)
     {
       if (list_info->next == list_info->head)
@@ -1755,7 +1755,7 @@ WizardExport void *RemoveElementFromLinkedList(LinkedListInfo *list_info,
       element=(ElementInfo *) RelinquishWizardMemory(element);
     }
   list_info->elements--;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return(value);
 }
 
@@ -1807,7 +1807,7 @@ WizardExport void *RemoveEntryFromHashmap(HashmapInfo *hashmap_info,
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (key == NULL)
     return((void *) NULL);
-  (void) LockSemaphoreInfo(hashmap_info->semaphore);
+  LockSemaphoreInfo(hashmap_info->semaphore);
   hash=hashmap_info->hash(key);
   list_info=hashmap_info->map[hash % hashmap_info->capacity];
   if (list_info != (LinkedListInfo *) NULL)
@@ -1830,7 +1830,7 @@ WizardExport void *RemoveEntryFromHashmap(HashmapInfo *hashmap_info,
                 entry=(EntryInfo *) RemoveElementFromLinkedList(list_info,i);
                 if (entry == (EntryInfo *) NULL)
                   {
-                    (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+                    UnlockSemaphoreInfo(hashmap_info->semaphore);
                     return((void *) NULL);
                   }
                 if (hashmap_info->relinquish_key != (void *(*)(void *)) NULL)
@@ -1838,14 +1838,14 @@ WizardExport void *RemoveEntryFromHashmap(HashmapInfo *hashmap_info,
                 value=entry->value;
                 entry=(EntryInfo *) RelinquishWizardMemory(entry);
                 hashmap_info->entries--;
-                (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+                UnlockSemaphoreInfo(hashmap_info->semaphore);
                 return(value);
               }
           }
         entry=(EntryInfo *) GetNextValueInLinkedList(list_info);
       }
     }
-  (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+  UnlockSemaphoreInfo(hashmap_info->semaphore);
   return((void *) NULL);
 }
 
@@ -1883,7 +1883,7 @@ WizardExport void *RemoveLastElementFromLinkedList(LinkedListInfo *list_info)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (list_info->elements == 0)
     return((void *) NULL);
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   if (list_info->next == list_info->tail)
     list_info->next=(ElementInfo *) NULL;
   if (list_info->elements == 1UL)
@@ -1906,7 +1906,7 @@ WizardExport void *RemoveLastElementFromLinkedList(LinkedListInfo *list_info)
       next->next=(ElementInfo *) NULL;
     }
   list_info->elements--;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
   return(value);
 }
 
@@ -1939,10 +1939,10 @@ WizardExport void ResetHashmapIterator(HashmapInfo *hashmap_info)
   assert(hashmap_info->signature == WizardSignature);
   if (hashmap_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(hashmap_info->semaphore);
+  LockSemaphoreInfo(hashmap_info->semaphore);
   hashmap_info->next=0;
   hashmap_info->head_of_list=WizardFalse;
-  (void) UnlockSemaphoreInfo(hashmap_info->semaphore);
+  UnlockSemaphoreInfo(hashmap_info->semaphore);
 }
 
 /*
@@ -1975,7 +1975,7 @@ WizardExport void ResetLinkedListIterator(LinkedListInfo *list_info)
   assert(list_info->signature == WizardSignature);
   if (list_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(list_info->semaphore);
+  LockSemaphoreInfo(list_info->semaphore);
   list_info->next=list_info->head;
-  (void) UnlockSemaphoreInfo(list_info->semaphore);
+  UnlockSemaphoreInfo(list_info->semaphore);
 }

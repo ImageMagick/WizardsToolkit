@@ -220,17 +220,14 @@ AC_EXEEXT
 AC_OBJEXT
 
 GDI32_LIBS=''
-StaticCplusPlusLibraries='no'
 native_win32_build='no'
 cygwin_build='no'
 case "${host_os}" in
   cygwin* )
-    StaticCplusPlusLibraries='yes'
     cygwin_build='yes'
     GDI32_LIBS='-lgdi32'
     ;;
   mingw* )
-    StaticCplusPlusLibraries='yes'
     native_win32_build='yes'
     GDI32_LIBS='-lgdi32'
     ;;
@@ -400,11 +397,7 @@ if test "$enable_static" = 'yes'; then
   libtool_build_static_libs='yes'
 fi
 
-# MinGW and Cygwin can't build C++ DLLs which support exceptions.
-if test "${StaticCplusPlusLibraries}" = 'yes'; then
-  LTCXXLIBOPTS='--static'
-  AC_SUBST(LTCXXLIBOPTS)
-fi
+AM_CONDITIONAL(WITH_SHARED_LIBS, test "${libtool_build_shared_libs}" = 'yes')
 
 # Enable build using delegate libraries built in subdirectories rather than installed
 # delegate libraries (bzlib fpx jasper jbig jpeg lcms png tiff ttf wmf xml zlib)

@@ -285,7 +285,7 @@ WizardExport RandomInfo *DestroyRandomInfo(RandomInfo *random_info)
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(CipherDomain,random_info != (RandomInfo *) NULL);
   WizardAssert(CipherDomain,random_info->signature == WizardSignature);
-  (void) LockSemaphoreInfo(random_info->semaphore);
+  LockSemaphoreInfo(random_info->semaphore);
   if (random_info->reservoir != (StringInfo *) NULL)
     random_info->reservoir=DestroyStringInfo(random_info->reservoir);
   if (random_info->nonce != (StringInfo *) NULL)
@@ -294,7 +294,7 @@ WizardExport RandomInfo *DestroyRandomInfo(RandomInfo *random_info)
     random_info->hmac_info=DestroyHMACInfo(random_info->hmac_info);
   (void) ResetWizardMemory(random_info->seed,0,sizeof(*random_info->seed));
   random_info->signature=(~WizardSignature);
-  (void) UnlockSemaphoreInfo(random_info->semaphore);
+  UnlockSemaphoreInfo(random_info->semaphore);
   DestroySemaphoreInfo(&random_info->semaphore);
   random_info=(RandomInfo *) RelinquishWizardMemory(random_info);
   return(random_info);
@@ -378,7 +378,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
   entropy=GetEntropyFromReservoir(random_info,exception);
   if (entropy == (StringInfo *) NULL)
     entropy=AcquireStringInfo(0);
-  (void) LockSemaphoreInfo(random_info->semaphore);
+  LockSemaphoreInfo(random_info->semaphore);
   chaos=AcquireStringInfo(sizeof(unsigned char *));
   SetStringInfoDatum(chaos,(unsigned char *) &entropy);
   ConcatenateStringInfo(entropy,chaos);
@@ -613,7 +613,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
         "`%s'");
     entropy_info=DestroyEntropyInfo(entropy_info);
   }
-  (void) UnlockSemaphoreInfo(random_info->semaphore);
+  UnlockSemaphoreInfo(random_info->semaphore);
   return(entropy);
 }
 
@@ -667,12 +667,12 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
   WizardAssert(CipherDomain,random_info != (RandomInfo *) NULL);
   WizardAssert(CipherDomain,random_info->signature == WizardSignature);
   WizardAssert(CipherDomain,exception != (ExceptionInfo *) NULL);
-  (void) LockSemaphoreInfo(random_info->semaphore);
+  LockSemaphoreInfo(random_info->semaphore);
   file_info=AcquireFileInfo((const char *) NULL,RandomFilename,ReadFileMode,
     exception);
   if (file_info == (FileInfo *) NULL)
     {
-      (void) UnlockSemaphoreInfo(random_info->semaphore);
+      UnlockSemaphoreInfo(random_info->semaphore);
       return((StringInfo *) NULL);
     }
   magick=GetWizardMagick(WizardMagick,sizeof(WizardMagick));
@@ -684,7 +684,7 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
       file_info=DestroyFileInfo(file_info,exception);
       (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
         "corrupt random reservoir file `%s'",GetFilePath(file_info));
-      (void) UnlockSemaphoreInfo(random_info->semaphore);
+      UnlockSemaphoreInfo(random_info->semaphore);
       return((StringInfo *) NULL);
     }
   magick=DestroyStringInfo(magick);
@@ -701,7 +701,7 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
       file_info=DestroyFileInfo(file_info,exception);
       (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
         "corrupt random reservoir file `%s'",GetFilePath(file_info));
-      (void) UnlockSemaphoreInfo(random_info->semaphore);
+      UnlockSemaphoreInfo(random_info->semaphore);
       return((StringInfo *) NULL);
     }
   filetype=DestroyStringInfo(filetype);
@@ -722,7 +722,7 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
       file_info=DestroyFileInfo(file_info,exception);
       (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
         "corrupt random reservoir file `%s'",GetFilePath(file_info));
-      (void) UnlockSemaphoreInfo(random_info->semaphore);
+      UnlockSemaphoreInfo(random_info->semaphore);
       return((StringInfo *) NULL);
     }
   entropy=AcquireStringInfo(length);
@@ -736,11 +736,11 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
       (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
         "corrupt random reservoir file `%s'",GetFilePath(file_info));
       file_info=DestroyFileInfo(file_info,exception);
-      (void) UnlockSemaphoreInfo(random_info->semaphore);
+      UnlockSemaphoreInfo(random_info->semaphore);
       return((StringInfo *) NULL);
     }
   file_info=DestroyFileInfo(file_info,exception);
-  (void) UnlockSemaphoreInfo(random_info->semaphore);
+  UnlockSemaphoreInfo(random_info->semaphore);
   return(entropy);
 }
 
@@ -951,12 +951,12 @@ static WizardBooleanType SaveEntropyToReservoir(RandomInfo *random_info,
   WizardAssert(CipherDomain,random_info != (RandomInfo *) NULL);
   WizardAssert(CipherDomain,random_info->signature == WizardSignature);
   WizardAssert(CipherDomain,exception != (ExceptionInfo *) NULL);
-  (void) LockSemaphoreInfo(random_info->semaphore);
+  LockSemaphoreInfo(random_info->semaphore);
   file_info=AcquireFileInfo((const char *) NULL,RandomFilename,WriteFileMode,
     exception);
   if (file_info == (FileInfo *) NULL)
     {
-      (void) UnlockSemaphoreInfo(random_info->semaphore);
+      UnlockSemaphoreInfo(random_info->semaphore);
       return(WizardFalse);
     }
   magick=GetWizardMagick(WizardMagick,sizeof(WizardMagick));
@@ -982,7 +982,7 @@ static WizardBooleanType SaveEntropyToReservoir(RandomInfo *random_info,
       "unable to write random reservior `%s': %s",GetFilePath(file_info),
       strerror(errno));
   file_info=DestroyFileInfo(file_info,exception);
-  (void) UnlockSemaphoreInfo(random_info->semaphore);
+  UnlockSemaphoreInfo(random_info->semaphore);
   return(WizardTrue);
 }
 
@@ -1078,7 +1078,7 @@ WizardExport void SetRandomKey(RandomInfo *random_info,const size_t length,
   WizardAssert(CipherDomain,random_info != (RandomInfo *) NULL);
   if (length == 0)
     return;
-  (void) LockSemaphoreInfo(random_info->semaphore);
+  LockSemaphoreInfo(random_info->semaphore);
   i=length;
   hmac_info=random_info->hmac_info;
   datum=GetStringInfoDatum(random_info->reservoir);
@@ -1112,7 +1112,7 @@ WizardExport void SetRandomKey(RandomInfo *random_info,const size_t length,
       while (i-- != 0)
         p[i]=datum[i];
     }
-  (void) UnlockSemaphoreInfo(random_info->semaphore);
+  UnlockSemaphoreInfo(random_info->semaphore);
 }
 
 /*

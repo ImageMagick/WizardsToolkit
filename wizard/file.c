@@ -146,7 +146,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
   assert(file_info != (FileInfo *) NULL);
   assert(file_info->signature == WizardSignature);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",file_info->path);
-  (void) LockSemaphoreInfo(file_info->semaphore);
+  LockSemaphoreInfo(file_info->semaphore);
   path=AcquireString(file_info->path);
   AppendFileExtension("lck",path);
   for (i=0; i < 10; i++)
@@ -175,7 +175,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
             if ((pid == (long) getpid()) && (tid == GetWizardThreadId()))
               {
                 path=DestroyString(path);
-                (void) UnlockSemaphoreInfo(file_info->semaphore);
+                UnlockSemaphoreInfo(file_info->semaphore);
                 return(WizardTrue);
               }
 #if defined(__WINDOWS__)
@@ -219,7 +219,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
     i--;
   }
   path=DestroyString(path);
-  (void) UnlockSemaphoreInfo(file_info->semaphore);
+  UnlockSemaphoreInfo(file_info->semaphore);
   return(WizardFalse);
 }
 
@@ -432,7 +432,7 @@ WizardExport FileInfo *DestroyFileInfo(FileInfo *file_info,
   assert(file_info != (FileInfo *) NULL);
   assert(file_info->signature == WizardSignature);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",file_info->path);
-  (void) LockSemaphoreInfo(file_info->semaphore);
+  LockSemaphoreInfo(file_info->semaphore);
   if (file_info->file >= 0)
     if (close(file_info->file) == -1)
       (void) ThrowWizardException(exception,GetWizardModule(),FileError,
@@ -442,7 +442,7 @@ WizardExport FileInfo *DestroyFileInfo(FileInfo *file_info,
   if (file_info->path != (char *) NULL)
     file_info->path=DestroyString(file_info->path);
   file_info->signature=(~WizardSignature);
-  (void) UnlockSemaphoreInfo(file_info->semaphore);
+  UnlockSemaphoreInfo(file_info->semaphore);
   DestroySemaphoreInfo(&file_info->semaphore);
   file_info=(FileInfo *) RelinquishWizardMemory(file_info);
   return(file_info);

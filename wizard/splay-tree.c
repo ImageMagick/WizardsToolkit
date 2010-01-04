@@ -156,7 +156,7 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
   register NodeInfo
     *node;
 
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   SplaySplayTree(splay_tree,key);
   compare=0;
   if (splay_tree->root != (NodeInfo *) NULL)
@@ -178,14 +178,14 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
             splay_tree->root->value=splay_tree->relinquish_value(
               splay_tree->root->value);
           splay_tree->root->value=(void *) value;
-          (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+          UnlockSemaphoreInfo(splay_tree->semaphore);
           return(WizardTrue);
         }
     }
   node=(NodeInfo *) AcquireAlignedMemory(1,sizeof(*node));
   if (node == (NodeInfo *) NULL)
     {
-      (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+      UnlockSemaphoreInfo(splay_tree->semaphore);
       return(WizardFalse);
     }
   node->key=(void *) key;
@@ -211,7 +211,7 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
   splay_tree->root=node;
   splay_tree->key=(void *) NULL;
   splay_tree->nodes++;
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   return(WizardTrue);
 }
 
@@ -337,7 +337,7 @@ WizardExport SplayTreeInfo *CloneSplayTree(SplayTreeInfo *splay_tree,
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   clone_tree=NewSplayTree(splay_tree->compare,splay_tree->relinquish_key,
     splay_tree->relinquish_value);
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   if (splay_tree->root != (NodeInfo *) NULL)
     {
       register NodeInfo
@@ -394,7 +394,7 @@ WizardExport SplayTreeInfo *CloneSplayTree(SplayTreeInfo *splay_tree,
         }
       }
     }
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   return(clone_tree);
 }
 
@@ -522,10 +522,10 @@ WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
   WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
   if (splay_tree->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   if (splay_tree->root == (NodeInfo *) NULL)
     {
-      (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+      UnlockSemaphoreInfo(splay_tree->semaphore);
       return(WizardFalse);
     }
   next=(NodeInfo *) GetFirstSplayTreeNode(splay_tree);
@@ -565,7 +565,7 @@ WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
             ((splay_tree->root->key < key) ? -1 : 0);
         if (compare != 0)
           {
-            (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+            UnlockSemaphoreInfo(splay_tree->semaphore);
             return(WizardFalse);
           }
         left=splay_tree->root->left;
@@ -583,7 +583,7 @@ WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
         if (left == (NodeInfo *) NULL)
           {
             splay_tree->root=right;
-            (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+            UnlockSemaphoreInfo(splay_tree->semaphore);
             return(WizardTrue);
           }
         splay_tree->root=left;
@@ -593,11 +593,11 @@ WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
               left=left->right;
             left->right=right;
           }
-        (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+        UnlockSemaphoreInfo(splay_tree->semaphore);
         return(WizardTrue);
       }
   }
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   return(WizardFalse);
 }
 
@@ -642,7 +642,7 @@ WizardExport WizardBooleanType DeleteNodeFromSplayTree(
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (splay_tree->root == (NodeInfo *) NULL)
     return(WizardFalse);
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   SplaySplayTree(splay_tree,key);
   splay_tree->key=(void *) NULL;
   if (splay_tree->compare != (int (*)(const void *,const void *)) NULL)
@@ -652,7 +652,7 @@ WizardExport WizardBooleanType DeleteNodeFromSplayTree(
       ((splay_tree->root->key < key) ? -1 : 0);
   if (compare != 0)
     {
-      (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+      UnlockSemaphoreInfo(splay_tree->semaphore);
       return(WizardFalse);
     }
   left=splay_tree->root->left;
@@ -669,7 +669,7 @@ WizardExport WizardBooleanType DeleteNodeFromSplayTree(
   if (left == (NodeInfo *) NULL)
     {
       splay_tree->root=right;
-      (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+      UnlockSemaphoreInfo(splay_tree->semaphore);
       return(WizardTrue);
     }
   splay_tree->root=left;
@@ -679,7 +679,7 @@ WizardExport WizardBooleanType DeleteNodeFromSplayTree(
         left=left->right;
       left->right=right;
     }
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   return(WizardTrue);
 }
 
@@ -714,7 +714,7 @@ WizardExport SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
     *active,
     *pend;
 
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   if (splay_tree->root != (NodeInfo *) NULL)
     {
       if ((splay_tree->relinquish_key != (void *(*)(void *)) NULL) &&
@@ -762,7 +762,7 @@ WizardExport SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
       }
     }
   splay_tree->signature=(~WizardSignature);
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   DestroySemaphoreInfo(&splay_tree->semaphore);
   splay_tree=(SplayTreeInfo *) RelinquishWizardMemory(splay_tree);
   return(splay_tree);
@@ -807,7 +807,7 @@ WizardExport void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
   if ((splay_tree->root == (NodeInfo *) NULL) ||
       (splay_tree->next == (void *) NULL))
     return((void *) NULL);
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   SplaySplayTree(splay_tree,splay_tree->next);
   splay_tree->next=(void *) NULL;
   node=splay_tree->root->right;
@@ -818,7 +818,7 @@ WizardExport void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
       splay_tree->next=node->key;
     }
   key=splay_tree->root->key;
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   return(key);
 }
 
@@ -861,7 +861,7 @@ WizardExport void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
   if ((splay_tree->root == (NodeInfo *) NULL) ||
       (splay_tree->next == (void *) NULL))
     return((void *) NULL);
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   SplaySplayTree(splay_tree,splay_tree->next);
   splay_tree->next=(void *) NULL;
   node=splay_tree->root->right;
@@ -872,7 +872,7 @@ WizardExport void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
       splay_tree->next=node->key;
     }
   value=splay_tree->root->value;
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   return(value);
 }
 
@@ -915,7 +915,7 @@ WizardExport void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (splay_tree->root == (NodeInfo *) NULL)
     return((void *) NULL);
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   SplaySplayTree(splay_tree,key);
   if (splay_tree->compare != (int (*)(const void *,const void *)) NULL)
     compare=splay_tree->compare(splay_tree->root->key,key);
@@ -924,11 +924,11 @@ WizardExport void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
       ((splay_tree->root->key < key) ? -1 : 0);
   if (compare != 0)
     {
-      (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+      UnlockSemaphoreInfo(splay_tree->semaphore);
       return((void *) NULL);
     }
   value=splay_tree->root->value;
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   return(value);
 }
 
@@ -1188,7 +1188,7 @@ WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
   key=(void *) NULL;
   if (splay_tree->root == (NodeInfo *) NULL)
     return(key);
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   next=(NodeInfo *) GetFirstSplayTreeNode(splay_tree);
   while (next != (NodeInfo *) NULL)
   {
@@ -1223,7 +1223,7 @@ WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
             ((splay_tree->root->key < key) ? -1 : 0);
         if (compare != 0)
           {
-            (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+            UnlockSemaphoreInfo(splay_tree->semaphore);
             return(key);
           }
         left=splay_tree->root->left;
@@ -1237,7 +1237,7 @@ WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
         if (left == (NodeInfo *) NULL)
           {
             splay_tree->root=right;
-            (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+            UnlockSemaphoreInfo(splay_tree->semaphore);
             return(key);
           }
         splay_tree->root=left;
@@ -1247,11 +1247,11 @@ WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
               left=left->right;
             left->right=right;
           }
-        (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+        UnlockSemaphoreInfo(splay_tree->semaphore);
         return(key);
       }
   }
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   return(key);
 }
 
@@ -1300,7 +1300,7 @@ WizardExport void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,
   value=(void *) NULL;
   if (splay_tree->root == (NodeInfo *) NULL)
     return(value);
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   SplaySplayTree(splay_tree,key);
   splay_tree->key=(void *) NULL;
   if (splay_tree->compare != (int (*)(const void *,const void *)) NULL)
@@ -1310,7 +1310,7 @@ WizardExport void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,
       ((splay_tree->root->key < key) ? -1 : 0);
   if (compare != 0)
     {
-      (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+      UnlockSemaphoreInfo(splay_tree->semaphore);
       return(value);
     }
   left=splay_tree->root->left;
@@ -1324,7 +1324,7 @@ WizardExport void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,
   if (left == (NodeInfo *) NULL)
     {
       splay_tree->root=right;
-      (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+      UnlockSemaphoreInfo(splay_tree->semaphore);
       return(value);
     }
   splay_tree->root=left;
@@ -1334,7 +1334,7 @@ WizardExport void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,
         left=left->right;
       left->right=right;
     }
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
   return(value);
 }
 
@@ -1374,7 +1374,7 @@ WizardExport void ResetSplayTree(SplayTreeInfo *splay_tree)
   WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
   if (splay_tree->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   if (splay_tree->root != (NodeInfo *) NULL)
     {
       if ((splay_tree->relinquish_key != (void *(*)(void *)) NULL) &&
@@ -1426,7 +1426,7 @@ WizardExport void ResetSplayTree(SplayTreeInfo *splay_tree)
   splay_tree->next=(void *) NULL;
   splay_tree->nodes=0;
   splay_tree->balance=WizardFalse;
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
 }
 
 /*
@@ -1459,9 +1459,9 @@ WizardExport void ResetSplayTreeIterator(SplayTreeInfo *splay_tree)
   WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
   if (splay_tree->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  (void) LockSemaphoreInfo(splay_tree->semaphore);
+  LockSemaphoreInfo(splay_tree->semaphore);
   splay_tree->next=GetFirstSplayTreeNode(splay_tree);
-  (void) UnlockSemaphoreInfo(splay_tree->semaphore);
+  UnlockSemaphoreInfo(splay_tree->semaphore);
 }
 
 /*

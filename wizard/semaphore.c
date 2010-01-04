@@ -168,17 +168,21 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
     status=pthread_mutexattr_init(&mutex_info);
     if (status != 0)
       {
-        semaphore_info=(SemaphoreInfo *) RelinquishAlignedMemory(
-          semaphore_info);
+        errno=status;
         ThrowFatalException(ResourceFatalError,
           "unable to instantiate semaphore `%s'");
       }
     status=pthread_mutex_init(&semaphore_info->mutex,&mutex_info);
-    (void) pthread_mutexattr_destroy(&mutex_info);
     if (status != 0)
       {
-        semaphore_info=(SemaphoreInfo *) RelinquishAlignedMemory(
-          semaphore_info);
+        errno=status;
+        ThrowFatalException(ResourceFatalError,
+          "unable to instantiate semaphore `%s'");
+      }
+    status=pthread_mutexattr_destroy(&mutex_info);
+    if (status != 0)
+      {
+        errno=status;
         ThrowFatalException(ResourceFatalError,
           "unable to instantiate semaphore `%s'");
       }
@@ -221,7 +225,18 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
   assert((*semaphore_info)->signature == WizardSignature);
   LockWizardMutex();
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
-  (void) pthread_mutex_destroy(&(*semaphore_info)->mutex);
+  {
+    int
+      status;
+
+    status=pthread_mutex_destroy(&(*semaphore_info)->mutex);
+    if (status != 0)
+      {
+        errno=status;
+        ThrowFatalException(ResourceFatalError,
+          "unable to destroy semaphore `%s'");
+      }
+  }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
   DeleteCriticalSection(&(*semaphore_info)->mutex);
 #endif
@@ -252,9 +267,18 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
 static void LockWizardMutex(void)
 {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
-  if (pthread_mutex_lock(&semaphore_mutex) != 0)
-    (void) fprintf(stderr,"pthread_mutex_lock failed %s\n",
-      GetExceptionMessage(errno));
+  {
+    int
+      status;
+
+    status=pthread_mutex_lock(&semaphore_mutex);
+    if (status != 0)
+      { 
+        errno=status;
+        ThrowFatalException(ResourceFatalError,
+          "unable to lock semaphore `%s'");
+      }
+  }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
   while (InterlockedCompareExchange(&semaphore_mutex,1L,0L) != 0)
     Sleep(10);
@@ -276,15 +300,16 @@ static void LockWizardMutex(void)
 %
 %  The format of the LockSemaphoreInfo method is:
 %
-%      WizardBooleanType LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
+%      void LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 %
 %  A description of each parameter follows:
 %
 %    o semaphore_info: Specifies a pointer to an SemaphoreInfo structure.
 %
 */
-WizardExport WizardBooleanType LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
+WizardExport void LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 {
+  assert(semaphore_info != (SemaphoreInfo *) NULL);
   assert(semaphore_info->signature == WizardSignature);
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   {
@@ -293,36 +318,25 @@ WizardExport WizardBooleanType LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 
     status=pthread_mutex_lock(&semaphore_info->mutex);
     if (status != 0)
-      return(WizardFalse);
-#if defined(WIZARDSTOOLKIT_DEBUG)
-    {
-      if ((semaphore_info->reference_count > 0) &&
-          (IsWizardThreadEqual(semaphore_info->id) != WizardFalse))
-        {
-          (void) fprintf(stderr,"Warning: unexpected recursive lock!\n");
-          (void) fflush(stderr);
-        }
-    }
-#endif
+      {
+        errno=status;
+        ThrowFatalException(ResourceFatalError,
+          "unable to lock semaphore `%s'");
+      }
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-  {
-    EnterCriticalSection(&semaphore_info->mutex);
-#if defined(WIZARDSTOOLKIT_DEBUG)
-    {
-      if ((semaphore_info->reference_count > 0) &&
-          (IsWizardThreadEqual(semaphore_info->id) != WizardFalse))
-        {
-          (void) fprintf(stderr,"Warning: unexpected recursive lock!\n");
-          (void) fflush(stderr);
-        }
-    }
+  EnterCriticalSection(&semaphore_info->mutex);
 #endif
-  }
+#if defined(WIZARDSTOOLKIT_DEBUG)
+  if ((semaphore_info->reference_count > 0) &&
+      (IsWizardThreadEqual(semaphore_info->id) != WizardFalse))
+    {
+      (void) fprintf(stderr,"Warning: unexpected recursive lock!\n");
+      (void) fflush(stderr);
+    }
 #endif
   semaphore_info->id=GetWizardThreadId();
   semaphore_info->reference_count++;
-  return(WizardTrue);
 }
 
 /*
@@ -351,7 +365,7 @@ WizardExport void RelinquishSemaphoreInfo(SemaphoreInfo *semaphore_info)
 {
   assert(semaphore_info != (SemaphoreInfo *) NULL);
   assert(semaphore_info->signature == WizardSignature);
-  (void) UnlockSemaphoreInfo(semaphore_info);
+  UnlockSemaphoreInfo(semaphore_info);
 }
 
 /*
@@ -422,9 +436,18 @@ WizardExport void SemaphoreComponentTerminus(void)
 static void UnlockWizardMutex(void)
 {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
-  if (pthread_mutex_unlock(&semaphore_mutex) != 0)
-    (void) fprintf(stderr,"pthread_mutex_unlock failed %s\n",
-      GetExceptionMessage(errno));
+  {
+    int
+      status;
+
+    status=pthread_mutex_unlock(&semaphore_mutex);
+    if (status != 0)
+      {
+        errno=status;
+        ThrowFatalException(ResourceFatalError,
+          "unable to unlock semaphore `%s'");
+      }
+  }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
   InterlockedExchange(&semaphore_mutex,0L);
 #endif
@@ -445,24 +468,24 @@ static void UnlockWizardMutex(void)
 %
 %  The format of the UnlockSemaphoreInfo method is:
 %
-%      WizardBooleanType UnlockSemaphoreInfo(SemaphoreInfo *semaphore_info)
+%      void UnlockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 %
 %  A description of each parameter follows:
 %
 %    o semaphore_info: Specifies a pointer to an SemaphoreInfo structure.
 %
 */
-WizardExport WizardBooleanType UnlockSemaphoreInfo(
-  SemaphoreInfo *semaphore_info)
+WizardExport void UnlockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 {
   assert(semaphore_info != (SemaphoreInfo *) NULL);
+  assert(semaphore_info->signature == MagickSignature); 
 #if defined(WIZARDSTOOLKIT_DEBUG)
   assert(IsWizardThreadEqual(semaphore_info->id) != WizardFalse);
   if (semaphore_info->reference_count == 0)
     {
       (void) fprintf(stderr,"Warning: semaphore lock already unlocked!\n");
       (void) fflush(stderr);
-      return(WizardFalse);
+      return;
     }
   semaphore_info->reference_count--;
 #endif
@@ -474,12 +497,12 @@ WizardExport WizardBooleanType UnlockSemaphoreInfo(
     status=pthread_mutex_unlock(&semaphore_info->mutex);
     if (status != 0)
       {
-        semaphore_info->reference_count++;
-        return(WizardFalse);
+        errno=status;
+        ThrowFatalException(ResourceFatalError,
+          "unable to unlock semaphore `%s'");
       }
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
   LeaveCriticalSection(&semaphore_info->mutex);
 #endif
-  return(WizardTrue);
 }

@@ -35,8 +35,10 @@ extern WizardExport void
   SemaphoreComponentTerminus(void);
 
 extern WizardExport WizardBooleanType
+  SemaphoreComponentGenesis(void);
+
+extern WizardExport void
   LockSemaphoreInfo(SemaphoreInfo *),
-  SemaphoreComponentGenesis(void),
   UnlockSemaphoreInfo(SemaphoreInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
