@@ -2146,8 +2146,8 @@ WizardExport XMLTreeInfo *NewXMLTreeTag(const char *tag)
   (void) CopyWizardMemory(root->entities,predefined_entities,
     sizeof(predefined_entities));
   root->root.attributes=sentinel;
-  root->attributes=(char ***) sentinel;
-  root->processing_instructions=(char ***) sentinel;
+  root->attributes=(char ***) root->root.attributes;
+  root->processing_instructions=(char ***) root->root.attributes;
   root->debug=IsEventLogging();
   root->signature=WizardSignature;
   return(&root->root);
