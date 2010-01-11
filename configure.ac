@@ -815,7 +815,7 @@ AC_FUNC_MEMCMP
 AC_FUNC_MKTIME
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_STAT
-AC_CHECK_FUNCS([atexit clock ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii localtime_r lstat madvise memmove memset mkdir munmap mkstemp _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readdir_r readlink realpath sbrk select strerror_r setvbuf sysconf sigemptyset sigaction strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times usleep utime vsprintf vsnprintf _wfopen])
+AC_CHECK_FUNCS([atexit clock ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii localtime_r lstat madvise memmove memset mkdir munmap mkstemp _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readdir_r readlink realpath sbrk select strerror_r setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times usleep utime vsprintf vsnprintf _wfopen])
 
 #
 # Check for clock_gettime().
