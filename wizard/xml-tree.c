@@ -1619,7 +1619,8 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
             while ((root->attributes[i] != (char **) NULL) &&
                     (strcmp(n,root->attributes[i][0]) != 0))
               i++;
-            while (*(n=(++xml)+strspn(xml,XMLWhitespace)) && (*n != '>'))
+            while ((*(n=xml+strspn(xml+1,XMLWhitespace)+1) != '\0') && 
+                   (*n != '>'))
             {
               xml=n+strcspn(n,XMLWhitespace);
               if (*xml != '\0')

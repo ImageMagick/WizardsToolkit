@@ -17337,7 +17337,7 @@ fi
 
 
 # Check additional headers
-for ac_header in argz.h arm/limits.h fcntl.h limits.h linux/unistd.h locale.h mach-o/dyld.h machine/param.h malloc.h stdarg.h sys/syslimits.h sys/resource.h sys/time.h sys/timeb.h sys/times.h sys/types.h sys/utime.h termios.h unistd.h utime.h
+for ac_header in argz.h arm/limits.h fcntl.h limits.h linux/unistd.h locale.h mach-o/dyld.h machine/param.h malloc.h process.h stdarg.h sys/syslimits.h sys/resource.h sys/time.h sys/timeb.h sys/times.h sys/types.h sys/utime.h termios.h unistd.h utime.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"

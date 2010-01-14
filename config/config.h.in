@@ -203,6 +203,9 @@
 /* Define to 1 if you have the `pread' function. */
 #undef HAVE_PREAD
 
+/* Define to 1 if you have the <process.h> header file. */
+#undef HAVE_PROCESS_H
+
 /* Define if you have POSIX threads libraries and header files. */
 #undef HAVE_PTHREAD
 
