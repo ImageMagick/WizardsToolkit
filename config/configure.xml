@@ -5,12 +5,12 @@
   <configure name="PREFIX" value="/usr/local" />
   <configure name="EXEC-PREFIX" value="/usr/local" />
   <configure name="CC" value="gcc" />
-  <configure name="CFLAGS" value="-fopenmp -g -O2 -Wall -W -ansi -pedantic -pthread" />
+  <configure name="CFLAGS" value="-fopenmp -g -O2 -Wall -W -pthread" />
   <configure name="CPPFLAGS" value="-I/usr/local/include/WizardsToolkit" />
   <configure name="LDFLAGS" value="-L/usr/local/lib " />
   <configure name="LIBS" value="-lWizardsToolkit -lbz2 -lz -lm -lgomp -lpthread" />
   <configure name="CXX" value="g++" />
-  <configure name="CXXFLAGS" value="-g -O2 -Wall -W -ansi -pedantic -pthread" />
+  <configure name="CXXFLAGS" value="-g -O2 -Wall -W -pthread" />
   <configure name="DISTCHECK_CONFIG_FLAGS" value=" --with-umem=no " />
   <configure name="CVS_BRANCH_TAG" value="" />
   <configure name="NAME" value="WizardsToolkit" />
