@@ -12,7 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-#  Configure script for building the Wizard Executable Environment.
+#  Configure script for building the Wizard Toolkit.
 
 AC_PREREQ(2.63)
 AC_INIT([WizardsToolkit],[1.0.7],[http://www.wizards-toolkit.org],[WizardsToolkit])
@@ -102,11 +102,11 @@ fi
 WIZARD_LIB_VERSION=${WIZARD_LIB_VERSION}${WIZARD_LIBRARY_REVISION}
 AC_SUBST(WIZARD_LIB_VERSION)
 
-# Definition used to define MagickLibVersionText in version.h
+# Definition used to define WizardLibVersionText in version.h
 WIZARD_LIB_VERSION_TEXT="${PACKAGE_VERSION}"
 AC_SUBST(WIZARD_LIB_VERSION_TEXT)
 
-# Definition used to define MagickLibVersionNumber in version.h
+# Definition used to define WizardLibVersionNumber in version.h
 WIZARD_LIB_VERSION_NUMBER="${WIZARD_LIBRARY_CURRENT},${WIZARD_LIBRARY_AGE},${WIZARD_LIBRARY_REVISION}"
 AC_SUBST(WIZARD_LIB_VERSION_NUMBER)
 
@@ -896,8 +896,8 @@ AM_CONDITIONAL(WITH_WIZARD_PLUS_PLUS, test "$have_wizard_plus_plus" = 'yes')
 # Only check for delegate libraries in subdirectories if requested.
 if test "$with_delegate_build" != 'no'; then
   # Check for delegate sub-directories and add -I & -L options as required.
-  # This presumes that delegates are installed as detailed in the ImageMagick
-  # README. If delegates are installed in a standard location where the
+  # This presumes that delegates are installed as detailed in the Wizard's
+  # Toolkit README. If delegates are installed in a standard location where the
   # compiler will automatically find them then these options should not be
   # required.
 
