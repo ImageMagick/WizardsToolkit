@@ -1,9 +1,9 @@
 #!/bin/sh
-# Copyright (C) 1999-2008 ImageMagick Studio LLC
+# Copyright (C) 1999-2010 ImageMagick Studio LLC
 #
 # This program is covered by multiple licenses, which are described in
 # LICENSE. You should have received a copy of LICENSE with this
-# package; otherwise see http://www.imagemagick.org/script/license.php.
+# package; otherwise see http://www.wizards-toolkit.org/script/license.php.
 #
 #  Test for '${DIGEST}' utility.
 #
