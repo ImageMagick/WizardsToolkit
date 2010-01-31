@@ -1,5 +1,5 @@
 #
-# Package name and versioning information for Magick
+# Package name and versioning information for the Wizard's Toolkit.
 #
 # This file is sourced by a Bourne shell (/bin/sh) script so it must
 # observe Bourne shell syntax.
