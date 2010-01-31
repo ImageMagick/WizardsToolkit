@@ -26,17 +26,17 @@ extern "C" {
   Define declarations.
 */
 #define WizardPackageName "@PACKAGE_NAME@"
-#define WizardCopyright  "Copyright (C) 2004-2009 ImageMagick Studio LLC"
+#define WizardCopyright  "Copyright (C) 2004-2010 ImageMagick Studio LLC"
 #define WizardLibVersion  @PACKAGE_LIB_VERSION@
 #define WizardLibVersionText  "@WIZARD_LIB_VERSION_TEXT@"
 #define WizardLibVersionNumber  @WIZARD_LIB_VERSION_NUMBER@
-#define WizardLibSubversion  "@PACKAGE_LIB_SUBVERSION@"
+#define WizardLibAddendum  "@PACKAGE_VERSION_ADDENDUM@"
 #define WizardLibInterface  @WIZARD_LIBRARY_CURRENT@
 #define WizardReleaseDate  "@PACKAGE_RELEASE_DATE@"
 #define WizardChangeDate   "@PACKAGE_CHANGE_DATE@"
 #define WizardAuthoritativeURL  "http://www.wizards-toolkit.org"
 #define WizardVersion WizardPackageName " " WizardLibVersionText \
-  WizardLibSubversion " " WizardReleaseDate " " WizardAuthoritativeURL
+  WizardLibAddendum " " WizardReleaseDate " " WizardAuthoritativeURL
 
 /*
   Method declarations.

@@ -11,4 +11,6 @@
 set -e # Exit on any error
 . ${srcdir}/utilities/tests/common.sh
 
+CIPHERTEXT="README.cip"
+MYKEYRING="keyring.xdm"
 ${ENCIPHER} -verbose -keyring ${MYKEYRING} -passphrase ${PASSPHRASE} ${PLAINTEXT} ${CIPHERTEXT}

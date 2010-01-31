@@ -11,5 +11,7 @@
 set -e # Exit on any error
 . ${srcdir}/utilities/tests/common.sh
 
+PLANETEXT="README.txt~"
+DIGESTRDF="digest.rdf"
 ${DIGEST} ${PLAINTEXT} ${PLANETEXT} ${DIGESTRDF}
 ${DIGEST} -authenticate ${DIGESTRDF} -

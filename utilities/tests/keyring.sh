@@ -11,5 +11,7 @@
 set -e # Exit on any error
 . ${srcdir}/utilities/tests/common.sh
 
+KEYRINGRDF="keyring.rdf"
+MYKEYRING="keyring.xdm"
 ${KEYRING} ${MYKEYRING} ${KEYRINGRDF}
 cat ${KEYRINGRDF}

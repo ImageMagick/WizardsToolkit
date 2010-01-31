@@ -16,8 +16,8 @@
   Wizard's Toolkit Interface declarations.
 */
 
-#ifndef _WIZARDSTOOLKIT_API_H
-#define _WIZARDSTOOLKIT_API_H
+#ifndef _WIZARDSTOOLKIT_H
+#define _WIZARDSTOOLKIT_H
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {

@@ -11,4 +11,5 @@
 set -e # Exit on any error
 . ${srcdir}/utilities/tests/common.sh
 
+CIPHERTEXT="README.cip"
 ${CIPHERINFO} ${CIPHERTEXT}
