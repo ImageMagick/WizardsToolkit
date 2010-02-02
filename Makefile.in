@@ -1115,7 +1115,7 @@ HTML_UNINSTALL_DATA_TARGETS = uninstall-data-html
 #
 # RPM build support
 #
-@RPM_DELEGATE_TRUE@DIST_ARCHIVE_SRPM = $(distdir)-$(PACKAGE_RELEASE).src.rpm
+@RPM_DELEGATE_TRUE@DIST_ARCHIVE_SRPM = $(distdir).src.rpm
 @RPM_DELEGATE_TRUE@RPMDIR = redhat
 @RPM_DELEGATE_TRUE@RPMARCH = i386
 @RPM_DELEGATE_FALSE@DIST_ARCHIVE_RPM = 
@@ -2485,7 +2485,7 @@ html:
 snapshot: distcheck
 	$(MAKE) $(DIST_ARCHIVE_SRPM)
 	$(MAKE) $(DIST_WINDOWS_SRC_ZIP)
-	mv $(DIST_ARCHIVES) $(DIST_WINDOWS_SRC_ZIP) $(DIST_ARCHIVE_SRPM) /var/ftp/pub/WizardsToolkit/beta/
+	mv -f $(DIST_ARCHIVES) $(DIST_WINDOWS_SRC_ZIP) $(DIST_ARCHIVE_SRPM) /var/ftp/pub/WizardsToolkit/beta/
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

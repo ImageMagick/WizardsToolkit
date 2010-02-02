@@ -245,7 +245,7 @@ html:
 #
 if RPM_DELEGATE
 
-DIST_ARCHIVE_SRPM=$(distdir)-$(PACKAGE_RELEASE).src.rpm
+DIST_ARCHIVE_SRPM=$(distdir).src.rpm
 .PHONY: srpm
 $(DIST_ARCHIVE_SRPM) srpm: dist
 	rm -f $(DIST_ARCHIVE_SRPM)
@@ -284,4 +284,4 @@ endif # RPM_DELEGATE
 snapshot: distcheck
 	$(MAKE) $(DIST_ARCHIVE_SRPM)
 	$(MAKE) $(DIST_WINDOWS_SRC_ZIP)
-	mv $(DIST_ARCHIVES) $(DIST_WINDOWS_SRC_ZIP) $(DIST_ARCHIVE_SRPM) /var/ftp/pub/WizardsToolkit/beta/
+	mv -f $(DIST_ARCHIVES) $(DIST_WINDOWS_SRC_ZIP) $(DIST_ARCHIVE_SRPM) /var/ftp/pub/WizardsToolkit/beta/
