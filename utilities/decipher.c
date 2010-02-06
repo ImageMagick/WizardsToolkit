@@ -632,6 +632,7 @@ static WizardBooleanType DecipherContent(ContentInfo *content_info,
     entropy;
 
   size_t
+    blocksize,
     length,
     pad;
 
@@ -644,7 +645,6 @@ static WizardBooleanType DecipherContent(ContentInfo *content_info,
     *plaintext;
 
   unsigned long
-    blocksize,
     chunk;
 
   WizardBooleanType
@@ -653,8 +653,8 @@ static WizardBooleanType DecipherContent(ContentInfo *content_info,
   /*
     Open plaintext and ciphertext content files.
   */
-  content_info->cipherblob=OpenBlob(cipher_filename,ReadBinaryBlobMode,compress,
-    exception);
+  content_info->cipherblob=OpenBlob(cipher_filename,ReadBinaryBlobMode,
+    compress,exception);
   if (content_info->cipherblob == (BlobInfo *) NULL)
     return(WizardFalse);
   content_info->plainblob=OpenBlob(plain_filename,WriteBinaryBlobMode,compress,
