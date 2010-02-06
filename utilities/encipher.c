@@ -642,6 +642,7 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
     *hash_info;
 
   size_t
+    blocksize,
     length,
     pad;
 
@@ -651,9 +652,6 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
   StringInfo
     *ciphertext,
     *plaintext;
-
-  unsigned long
-    blocksize;
 
   WizardBooleanType
     status;
@@ -808,8 +806,8 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
     }
   cipher_packet=DestroyString(cipher_packet);
   if (count != (ssize_t) length)
-    ThrowEncipherContentException(FileError,"unable to write cipher properties "
-      "`%s': `%s'",cipher_filename);
+    ThrowEncipherContentException(FileError,
+      "unable to write cipher properties `%s': `%s'",cipher_filename);
   /*
     Encipher plaintext.
   */
