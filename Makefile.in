@@ -652,13 +652,12 @@ ACLOCAL_AMFLAGS = -I m4
 # We want to preserve user-provided option variables so the same
 # compiler, headers, and libraries are used as for a normal build.
 DISTCHECK_CONFIGURE_FLAGS = $(DISTCHECK_CONFIG_FLAGS)
+DISTCLEANFILES = _configs.sed wizard/wizard-config.h
 CLEANFILES = \
 	$(BZIP_CLEANFILES) \
 	$(ZIP_CLEANFILES) \
 	$(TESTS_CLEANFILES) \
-	$(UTILITIES_CLEANFILES) \
-  wizard/wizard-config.h \
-  _configs.sed
+	$(UTILITIES_CLEANFILES)
 
 
 # Binary scripts
@@ -2259,6 +2258,7 @@ distclean-generic:
 	-rm -f utilities/$(am__dirstamp)
 	-rm -f wizard/$(DEPDIR)/$(am__dirstamp)
 	-rm -f wizard/$(am__dirstamp)
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"

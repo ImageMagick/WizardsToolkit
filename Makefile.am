@@ -28,14 +28,14 @@ ACLOCAL_AMFLAGS = -I m4
 # compiler, headers, and libraries are used as for a normal build.
 DISTCHECK_CONFIGURE_FLAGS=$(DISTCHECK_CONFIG_FLAGS)
 
+DISTCLEANFILES = _configs.sed wizard/wizard-config.h
+
 ## Make sure these will be cleaned even when they're not built by default.
 CLEANFILES = \
 	$(BZIP_CLEANFILES) \
 	$(ZIP_CLEANFILES) \
 	$(TESTS_CLEANFILES) \
-	$(UTILITIES_CLEANFILES) \
-  wizard/wizard-config.h \
-  _configs.sed
+	$(UTILITIES_CLEANFILES)
 
 bin_PROGRAMS = \
 	$(UTILITIES_PGMS)
