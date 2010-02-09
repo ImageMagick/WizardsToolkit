@@ -32,6 +32,7 @@ extern "C" {
 #define WizardLibVersionNumber  @WIZARD_LIB_VERSION_NUMBER@
 #define WizardLibAddendum  "@PACKAGE_VERSION_ADDENDUM@"
 #define WizardLibInterface  @WIZARD_LIBRARY_CURRENT@
+#define WizardLibMinInterface  @WIZARD_LIBRARY_CURRENT_MIN@
 #define WizardReleaseDate  "@PACKAGE_RELEASE_DATE@"
 #define WizardChangeDate   "@PACKAGE_CHANGE_DATE@"
 #define WizardAuthoritativeURL  "http://www.wizards-toolkit.org"
