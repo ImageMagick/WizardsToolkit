@@ -44,7 +44,9 @@ extern WizardExport const char
   *GetStringInfoPath(const StringInfo *);
 
 extern WizardExport int
-  CompareStringInfo(const StringInfo *,const StringInfo *);
+  CompareStringInfo(const StringInfo *,const StringInfo *),
+  LocaleCompare(const char *,const char *),
+  LocaleNCompare(const char *,const char *,const size_t);
 
 extern WizardExport size_t
   ConcatenateWizardString(char *,const char *,const size_t)
@@ -59,9 +61,7 @@ extern WizardExport long
   FormatWizardStringList(char *,const size_t,const char *,va_list),
   PrintWizardString(FILE *,const char *,...)
     wizard_attribute((format (printf,2,3))),
-  FormatWizardTime(const time_t,const size_t,char *),
-  LocaleCompare(const char *,const char *),
-  LocaleNCompare(const char *,const char *,const size_t);
+  FormatWizardTime(const time_t,const size_t,char *);
 
 extern WizardExport size_t
   GetStringInfoLength(const StringInfo *);

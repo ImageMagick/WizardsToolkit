@@ -1405,7 +1405,7 @@ WizardExport StringInfo *HexStringToStringInfo(const char *string)
 %
 %  The format of the LocaleCompare method is:
 %
-%      long LocaleCompare(const char *p,const char *q)
+%      int LocaleCompare(const char *p,const char *q)
 %
 %  A description of each parameter follows:
 %
@@ -1414,7 +1414,7 @@ WizardExport StringInfo *HexStringToStringInfo(const char *string)
 %    o q: A pointer to a character string to compare to p.
 %
 */
-WizardExport long LocaleCompare(const char *p,const char *q)
+WizardExport int LocaleCompare(const char *p,const char *q)
 {
   if ((p == (char *) NULL) && (q == (char *) NULL))
     return(0);
@@ -1426,20 +1426,20 @@ WizardExport long LocaleCompare(const char *p,const char *q)
   return((long) strcasecmp(p,q));
 #else
   {
-    register unsigned int
+    register int
       c,
       d;
 
     for ( ; ; )
     {
-      c=(unsigned int) *((unsigned char *) p);
-      d=(unsigned int) *((unsigned char *) q);
-      if ((c == 0U) || (AsciiMap[c] != AsciiMap[d]))
+      c=(int) *((unsigned char *) p);
+      d=(int) *((unsigned char *) q);
+      if ((c == 0) || (AsciiMap[c] != AsciiMap[d]))
         break;
       p++;
       q++;
     }
-    return((long) AsciiMap[c]-AsciiMap[d]);
+    return((int) AsciiMap[c]-AsciiMap[d]);
   }
 #endif
 }
@@ -1501,7 +1501,7 @@ WizardExport void LocaleLower(char *string)
 %
 %  The format of the LocaleNCompare method is:
 %
-%      long LocaleNCompare(const char *p,const char *q,const size_t n)
+%      int LocaleNCompare(const char *p,const char *q,const size_t n)
 %
 %  A description of each parameter follows:
 %
@@ -1512,8 +1512,7 @@ WizardExport void LocaleLower(char *string)
 %    o length: The number of characters to compare in strings p & q.
 %
 */
-WizardExport long LocaleNCompare(const char *p,const char *q,
-  const size_t length)
+WizardExport int LocaleNCompare(const char *p,const char *q,const size_t length)
 {
   if (p == (char *) NULL)
     return(-1);
@@ -1523,7 +1522,7 @@ WizardExport long LocaleNCompare(const char *p,const char *q,
   return((long) strncasecmp(p,q,length));
 #else
   {
-    register unsigned int
+    register int
       c,
       d;
 
@@ -1532,16 +1531,16 @@ WizardExport long LocaleNCompare(const char *p,const char *q,
 
     for (n=length; n != 0; n--)
     {
-      c=(unsigned int) *((unsigned char *) p);
-      d=(unsigned int) *((unsigned char *) q);
+      c=(int) *((unsigned char *) p);
+      d=(int) *((unsigned char *) q);
       if (AsciiMap[c] != AsciiMap[d])
         return(AsciiMap[c]-AsciiMap[d]);
-      if (c == 0U)
-        return(0L);
+      if (c == 0)
+        return(0);
       p++;
       q++;
     }
-    return(0L);
+    return(0);
   }
 #endif
 }
