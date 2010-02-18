@@ -1439,7 +1439,7 @@ WizardExport int LocaleCompare(const char *p,const char *q)
       p++;
       q++;
     }
-    return((int) AsciiMap[c]-AsciiMap[d]);
+    return(AsciiMap[c]-(int) AsciiMap[d]);
   }
 #endif
 }
@@ -1534,7 +1534,7 @@ WizardExport int LocaleNCompare(const char *p,const char *q,const size_t length)
       c=(int) *((unsigned char *) p);
       d=(int) *((unsigned char *) q);
       if (AsciiMap[c] != AsciiMap[d])
-        return(AsciiMap[c]-AsciiMap[d]);
+        return(AsciiMap[c]-(int) AsciiMap[d]);
       if (c == 0)
         return(0);
       p++;
@@ -2243,7 +2243,7 @@ WizardExport WizardBooleanType SubstituteString(char **string,
         /*
           Make room for the replacement string.
         */
-        offset=p-(*string);
+        offset=(ssize_t) (p-(*string));
         extent=strlen(*string)+replace_extent-search_extent+1;
         *string=(char *) ResizeQuantumMemory(*string,extent+MaxTextExtent,
           sizeof(*p));
