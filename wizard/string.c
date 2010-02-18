@@ -1423,7 +1423,7 @@ WizardExport int LocaleCompare(const char *p,const char *q)
   if (q == (char *) NULL)
     return(1);
 #if defined(WIZARDSTOOLKIT_HAVE_STRCASECMP)
-  return((long) strcasecmp(p,q));
+  return(strcasecmp(p,q));
 #else
   {
     register int
@@ -1519,7 +1519,7 @@ WizardExport int LocaleNCompare(const char *p,const char *q,const size_t length)
   if (q == (char *) NULL)
     return(1);
 #if defined(WIZARDSTOOLKIT_HAVE_STRNCASECMP)
-  return((long) strncasecmp(p,q,length));
+  return(strncasecmp(p,q,length));
 #else
   {
     register int
