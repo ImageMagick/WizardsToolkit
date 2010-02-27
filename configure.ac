@@ -58,6 +58,7 @@ AC_SUBST(CONFIGURE_ARGS)
 . ${srcdir}/version.sh
 
 echo "configuring ${PACKAGE_NAME} ${PACKAGE_VERSION}${PACKAGE_VERSION_ADDENDUM}"
+AC_CANONICAL_SYSTEM
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET([])
@@ -208,6 +209,7 @@ AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_LD
 AC_SUBST(LD)
+AC_PROG_CC_C99
 AM_PROG_CC_C_O
 AC_INCLUDES_DEFAULT
 AC_COMPILE_WARNINGS
@@ -817,7 +819,7 @@ AC_FUNC_MEMCMP
 AC_FUNC_MKTIME
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_STAT
-AC_CHECK_FUNCS([atexit clock ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii localtime_r lstat madvise memmove memset mkdir munmap mkstemp _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readdir_r readlink realpath sbrk select strerror_r setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times usleep utime vsprintf vsnprintf _wfopen])
+AC_CHECK_FUNCS([atexit clock fchmod ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii localtime_r lstat madvise memmove memset mkdir munmap mkstemp _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readdir_r readlink realpath sbrk select strerror_r setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times usleep utime vsprintf vsnprintf _wfopen])
 
 #
 # Check for clock_gettime().
