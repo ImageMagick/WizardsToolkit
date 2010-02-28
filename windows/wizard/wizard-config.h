@@ -89,44 +89,45 @@
 #define __func__  __FUNCTION__
 
 /* Define to 1 if you have the `ftruncate' function. */
-#define WIZARDSTOOLKIT_HAVE_FTRUNCATE 1
+#define WIZARDSTOOLKIT_HAVE_FTRUNCATE  1
 
 // Define to support memory mapping files for improved performance
-#define WIZARDSTOOLKIT_HAVE_MMAP_FILEIO 1
+#define WIZARDSTOOLKIT_HAVE_MMAP_FILEIO  1
 
 /* Define to 1 if you have the `raise' function. */
-#define WIZARDSTOOLKIT_HAVE_RAISE 1
+#define WIZARDSTOOLKIT_HAVE_RAISE  1
 
 /* Define to 1 if you have the `memmove' function. */
-#define WIZARDSTOOLKIT_HAVE_MEMMOVE 1
+#define WIZARDSTOOLKIT_HAVE_MEMMOVE  1
 
 /* Define to 1 if you have the `sysconf' function. */
-#define WIZARDSTOOLKIT_HAVE_SYSCONF 1
+#define WIZARDSTOOLKIT_HAVE_SYSCONF  1
 
 /* Define to 1 if you have the `vsnprintf' function. */
-#define WIZARDSTOOLKIT_HAVE_VSNPRINTF 1
+#define WIZARDSTOOLKIT_HAVE_VSNPRINTF  1
 
 /* Define to 1 if you have the `popen' function. */
-#define WIZARDSTOOLKIT_HAVE_POPEN 1
+#define WIZARDSTOOLKIT_HAVE_POPEN  1
 
 /* Define to   if you have the `strcasecmp' function. */
-#define WIZARDSTOOLKIT_HAVE_STRCASECMP 1
+#define WIZARDSTOOLKIT_HAVE_STRCASECMP  1
 
 /* Define to 1 if you have the `strncasecmp' function. */
-#define WIZARDSTOOLKIT_HAVE_STRNCASECMP 1
+#define WIZARDSTOOLKIT_HAVE_STRNCASECMP  1
 
 /* Define to 1 if you have the `tempnam' function. */
-#define WIZARDSTOOLKIT_HAVE_TEMPNAM 1
+#define WIZARDSTOOLKIT_HAVE_TEMPNAM  1
 
 // Define to include the <sys/types.h> header file
-#define WIZARDSTOOLKIT_HAVE_SYS_TYPES_H 1
+#define WIZARDSTOOLKIT_HAVE_SYS_TYPES_H  1
 
 /* Define to 1 if you have the `_wfopen' function. */
-#define WIZARDSTOOLKIT_HAVE__WFOPEN 1
+#define WIZARDSTOOLKIT_HAVE__WFOPEN   1
 
-#define WIZARDSTOOLKIT_HAVE_VSNPRINTF 1
-#define WIZARDSTOOLKIT_HAVE_TEMPNAM 1
-#define WIZARDSTOOLKIT_HAVE_RAISE 1
-#define WIZARDSTOOLKIT_HAVE_UTIME 1
-#define WIZARDSTOOLKIT_STDC_HEADERS 1
-#define WIZARDSTOOLKIT_HAVE_STRING_H
+#define WIZARDSTOOLKIT_HAVE_VSNPRINTF  1
+#define WIZARDSTOOLKIT_HAVE_GETTIMEOFDAY  1 
+#define WIZARDSTOOLKIT_HAVE_TEMPNAM  1
+#define WIZARDSTOOLKIT_HAVE_RAISE  1
+#define WIZARDSTOOLKIT_HAVE_UTIME  1
+#define WIZARDSTOOLKIT_STDC_HEADERS  1
+#define WIZARDSTOOLKIT_HAVE_STRING_H 1
