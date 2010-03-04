@@ -240,13 +240,6 @@ typedef struct _NTMEMORYSTATUSEX
     ullAvailExtendedVirtual;
 } NTMEMORYSTATUSEX;
 
-struct timeval
-{
-  long
-    tv_sec,
-    tv_usec;
-};
-
 struct timezone
 {
   int
