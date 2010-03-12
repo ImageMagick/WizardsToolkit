@@ -940,7 +940,7 @@ WizardExport StringInfo *FileToStringInfo(const char *filename,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %  FormatWizardSize() converts a size to a human readable format, for example,
-%  14kb, 234mb, 2.7gb, or 3.0tb.  Scaling is done by repetitively dividing by
+%  14k, 234m, 2.7g, or 3.0t.  Scaling is done by repetitively dividing by
 %  1000.
 %
 %  The format of the FormatWizardSize method is:
@@ -976,11 +976,11 @@ WizardExport long FormatWizardSize(const WizardSizeType size,
   static const char
     *bi_units[] =
     {
-      "b", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB", (char *) NULL
+      "", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi", "Yi", (char *) NULL
     },
     *traditional_units[] =
     {
-      "b", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", (char *) NULL
+      "", "K", "M", "G", "T", "P", "E", "Z", "Y", (char *) NULL
     };
 
   bytes=1000.0;

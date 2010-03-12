@@ -651,14 +651,14 @@ WizardExport WizardBooleanType PrintCipherProperties(
   (void) fprintf(file,"    type: %s\n",WizardOptionToMnemonic(
     WizardEntropyOptions,content_info->entropy));
   (void) fprintf(file,"    level: %lu\n",1UL*content_info->level);
-  (void) FormatWizardSize(content_info->chunksize,WizardFalse,chunksize);
   (void) fprintf(file,"  Keyed-Hashed Message Authentication Code:\n");
   (void) fprintf(file,"    hash: %s\n",WizardOptionToMnemonic(WizardHashOptions,
     content_info->hmac));
   (void) fprintf(file,"  Random Generator:\n");
   (void) fprintf(file,"    hash: %s\n",WizardOptionToMnemonic(WizardHashOptions,
     content_info->random_hash));
-  (void) fprintf(file,"  Chunksize: %s\n",chunksize);
+  (void) FormatWizardSize(content_info->chunksize,WizardFalse,chunksize);
+  (void) fprintf(file,"  Chunksize: %sB\n",chunksize);
   (void) fprintf(file,"  Dates:\n");
   (void) fprintf(file,"    modify: %s\n",timestamp);
   (void) FormatWizardTime(content_info->create_date,MaxTextExtent,timestamp);

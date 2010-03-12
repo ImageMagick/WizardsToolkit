@@ -389,7 +389,7 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
       (void) FormatWizardSize((WizardSizeType) resource_info.area,WizardFalse,
         resource_current);
       (void) FormatWizardSize(resource_info.area_limit,WizardFalse,
-           resource_limit);
+        resource_limit);
       break;
     }
     case MemoryResource:
@@ -448,7 +448,7 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
       break;
   }
   UnlockSemaphoreInfo(resource_semaphore);
-  (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %s/%s/%s",
+  (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %sB/%sB/%sB",
     WizardOptionToMnemonic(WizardResourceOptions,(long) type),resource_request,
     resource_current,resource_limit);
   return(status);
@@ -670,7 +670,7 @@ WizardExport WizardBooleanType ListWizardResourceInfo(FILE *file,
   (void) FormatWizardSize(resource_info.disk_limit,WizardFalse,disk_limit);
   (void) fprintf(file,"File        Area      Memory         Map        Disk\n");
   (void) fprintf(file,"----------------------------------------------------\n");
-  (void) fprintf(file,"%4lu  %10s  %10s  %10s  %10s\n",(unsigned long)
+  (void) fprintf(file,"%4lu  %9sB  %9sB  %9sB  %9sB\n",(unsigned long)
     resource_info.file_limit,area_limit,memory_limit,map_limit,disk_limit);
   (void) fflush(file);
   UnlockSemaphoreInfo(resource_semaphore);
@@ -765,7 +765,7 @@ WizardExport void RelinquishWizardResource(const ResourceType type,
       break;
   }
   UnlockSemaphoreInfo(resource_semaphore);
-  (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %s/%s/%s",
+  (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %sB/%sB/%sB",
     WizardOptionToMnemonic(WizardResourceOptions,(long) type),resource_request,
     resource_current,resource_limit);
 }
