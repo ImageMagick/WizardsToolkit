@@ -473,6 +473,7 @@ WizardExport char *GetExceptionMessage(const int error)
  char
    exception[MaxTextExtent];
 
+  *exception='\0';
 #if defined(WIZARDSTOOLKIT_HAVE_STRERROR_R)
   (void) strerror_r(error,exception,sizeof(exception));
 #else
