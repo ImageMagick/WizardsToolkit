@@ -2474,10 +2474,9 @@ html:
 @RPM_DELEGATE_TRUE@.PHONY: rpm
 @RPM_DELEGATE_TRUE@rpm:
 @RPM_DELEGATE_TRUE@	rm -rf $(RPMDIR)
-@RPM_DELEGATE_TRUE@	mkdir $(RPMDIR)
-@RPM_DELEGATE_TRUE@	mkdir $(RPMDIR)/BUILD
-@RPM_DELEGATE_TRUE@	mkdir $(RPMDIR)/RPMS
-@RPM_DELEGATE_TRUE@	$(MAKE) distcheck
+@RPM_DELEGATE_TRUE@	$(MKDIR_P) $(RPMDIR)
+@RPM_DELEGATE_TRUE@	$(MKDIR_P) $(RPMDIR)/BUILD
+@RPM_DELEGATE_TRUE@	$(MKDIR_P) $(RPMDIR)/RPMS
 @RPM_DELEGATE_TRUE@	$(RPM) --define="_sourcedir `pwd`" --define="_rpmdir `pwd`/$(RPMDIR)/RPMS" --define="_builddir `pwd`/$(RPMDIR)/BUILD" --nodeps -bb WizardsToolkit.spec
 @RPM_DELEGATE_TRUE@	rm -rf rpmbuild
 @RPM_DELEGATE_TRUE@	@echo ==============================================================
