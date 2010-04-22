@@ -269,13 +269,6 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
         break;
     switch (*pattern)
     {
-      case '\\':
-      {
-        pattern++;
-        if (*pattern != '\0')
-          pattern++;
-        break;
-      }
       case '*':
       {
         WizardBooleanType
@@ -427,6 +420,12 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
               pattern++;
           }
         break;
+      }
+      case '\\':
+      {
+        pattern++;
+        if (*pattern != '\0')
+          pattern++;
       }
       default:
       {
