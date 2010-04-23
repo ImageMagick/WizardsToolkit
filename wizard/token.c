@@ -424,8 +424,8 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
       case '\\':
       {
         pattern++;
-        if (*pattern != '\0')
-          pattern++;
+        if (*pattern == '\0')
+          break;
       }
       default:
       {
