@@ -49,7 +49,8 @@ extern "C" {
 #    define __CYGWIN__ __CYGWIN32__
 #  endif
 #endif
-#if defined(_WIN32) || defined(WIN32)
+
+#if defined(WIN32)
 #  if !defined(__WINDOWS__)
 #    if !defined(_WIN32)
 #      define __WINDOWS__ _WIN32
@@ -61,7 +62,7 @@ extern "C" {
 #  endif
 #endif
 
-#if defined(_WIN64) || defined(WIN64)
+#if defined(WIN64)
 #  if !defined(__WINDOWS__)
 #    if defined(_WIN64)
 #      define __WINDOWS__ _WIN64
