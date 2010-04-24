@@ -463,7 +463,7 @@ static char **ListFiles(const char *directory,const char *pattern,
     if (*entry->d_name == '.')
       continue;
     if ((IsDirectory(entry->d_name) > 0) ||
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
         (GlobExpression(entry->d_name,pattern,WizardTrue) != WizardFalse))
 #else
         (GlobExpression(entry->d_name,pattern,WizardFalse) != WizardFalse))

@@ -530,7 +530,7 @@ WizardExport LinkedListInfo *GetConfigureOptions(const char *filename,
       }
       paths=DestroyLinkedList(paths,RelinquishWizardMemory);
     }
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   {
     char
       *blob;
@@ -641,7 +641,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
   (void) AppendValueToLinkedList(paths,AcquireString(
     WIZARDSTOOLKIT_SHARE_PATH));
 #endif
-#if defined(__WINDOWS__) && !(defined(WIZARDSTOOLKIT_CONFIGURE_PATH) || defined(WIZARDSTOOLKIT_SHARE_CONFIGURE_PATH))
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !(defined(WIZARDSTOOLKIT_CONFIGURE_PATH) || defined(WIZARDSTOOLKIT_SHARE_CONFIGURE_PATH))
   {
     char
       *registry_key;
@@ -731,7 +731,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
         home=(char *) RelinquishWizardMemory(home);
       }
   }
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   {
     char
       module_path[MaxTextExtent];

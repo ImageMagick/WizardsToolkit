@@ -171,7 +171,7 @@ static void WizardSignalHandler(int signal_number)
   if (signal_number == SIGBREAK)
     exit(signal_number);
 #endif
-#if defined(SIGINT) && !defined(__WINDOWS__)
+#if defined(SIGINT) && !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   if (signal_number == SIGINT)
     exit(signal_number);
 #endif
@@ -224,7 +224,7 @@ WizardExport void WizardsToolkitGenesis(const char *path)
       (void) SetLogEventMask(events);
       events=(char *) RelinquishWizardMemory(events);
     }
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #if defined(_DEBUG) && !defined(__BORLANDC__)
   if (IsEventLogging() != WizardFalse)
     {
@@ -271,7 +271,7 @@ WizardExport void WizardsToolkitGenesis(const char *path)
   if (signal_handlers[SIGHUP] == (SignalHandler *) NULL)
     signal_handlers[SIGHUP]=RegisterWizardSignalHandler(SIGHUP);
 #endif
-#if defined(SIGINT) && !defined(__WINDOWS__)
+#if defined(SIGINT) && !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   if (signal_handlers[SIGINT] == (SignalHandler *) NULL)
     signal_handlers[SIGINT]=RegisterWizardSignalHandler(SIGINT);
 #endif

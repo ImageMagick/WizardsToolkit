@@ -205,7 +205,7 @@ static WizardBooleanType GetPathTemplate(const char *path,char *filename)
       directory=GetEnvironmentValue("WIZARD_TMPDIR");
       if (directory == (char *) NULL)
         directory=GetEnvironmentValue("TMPDIR");
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
       if (directory == (char *) NULL)
         directory=GetEnvironmentValue("TMP");
       if (directory == (char *) NULL)

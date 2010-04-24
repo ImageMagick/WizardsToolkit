@@ -694,7 +694,7 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
       }
   }
 #endif
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   NTGetExecutionPath(path,extent);
 #endif
 #if defined(__GNU__)

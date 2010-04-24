@@ -1162,13 +1162,13 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
     }
   if ((log_info->handler_mask & DebugHandler) != 0)
     {
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
       OutputDebugString(text);
 #endif
     }
   if ((log_info->handler_mask & EventHandler) != 0)
     {
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
       (void) NTReportEvent(text,WizardFalse);
 #endif
     }

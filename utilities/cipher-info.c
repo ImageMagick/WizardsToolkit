@@ -55,7 +55,7 @@
 #include "wizard/blob-private.h"
 #include "wizard/exception-private.h"
 #include "wizard/string-private.h"
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #include <windows.h>
 #endif
 #include "content.h"

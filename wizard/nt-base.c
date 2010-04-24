@@ -39,7 +39,7 @@
   Include declarations.
 */
 #include "wizard/studio.h"
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #include "wizard/client.h"
 #include "wizard/log.h"
 #include "wizard/memory_.h"
@@ -74,7 +74,7 @@ static char
 /*
   External declarations.
 */
-#if !defined(__WINDOWS__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 extern "C" BOOL WINAPI
   DllMain(HINSTANCE handle,DWORD reason,LPVOID lpvReserved);
 #endif
@@ -215,6 +215,7 @@ WizardExport int Exit(int status)
   return(0);
 }
 
+#if !defined(__MINGW32__)
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                             %
@@ -279,6 +280,7 @@ WizardExport int gettimeofday (struct timeval *time_value,
     }
   return(0);
 }
+#endif
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

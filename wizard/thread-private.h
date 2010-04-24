@@ -33,7 +33,7 @@ extern "C" {
 
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   typedef pthread_mutex_t WizardMutexType;
-#elif defined(__WINDOWS__)
+#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   typedef CRITICAL_SECTION WizardMutexType;
 #else
   typedef unsigned long WizardMutexType;
@@ -43,7 +43,7 @@ static inline WizardThreadType GetWizardThreadId(void)
 {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   return(pthread_self());
-#elif defined(__WINDOWS__)
+#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   return(GetCurrentThreadId());
 #else
   return(getpid());
@@ -67,7 +67,7 @@ static inline unsigned long GetWizardThreadSignature(void)
     wizard_thread.id=pthread_self();
     return(wizard_thread.signature);
   }
-#elif defined(__WINDOWS__)
+#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   return((unsigned long) GetCurrentThreadId());
 #else
   return((unsigned long) getpid());
@@ -79,7 +79,7 @@ static inline WizardBooleanType IsWizardThreadEqual(const WizardThreadType id)
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   if (pthread_equal(id,pthread_self()) != 0)
     return(WizardTrue);
-#elif defined(__WINDOWS__)
+#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   if (id == GetCurrentThreadId())
     return(WizardTrue);
 #else

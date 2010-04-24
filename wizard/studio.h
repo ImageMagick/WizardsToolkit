@@ -22,38 +22,10 @@
 extern "C" {
 #endif
 
-#if defined(__CYGWIN32__)
-#  if !defined(__CYGWIN__)
-#    define __CYGWIN__ __CYGWIN32__
-#  endif
-#endif
-
-#if defined(_WIN32) || defined(WIN32)
-#  if !defined(__WINDOWS__)
-#    if !defined(_WIN32)
-#      define __WINDOWS__ _WIN32
-#    else
-#      if defined(WIN32)
-#        define __WINDOWS__ WIN32
-#      endif
-#    endif
-#  endif
-#endif
-
-#if defined(_WIN64) || defined(WIN64)
-#  if !defined(__WINDOWS__)
-#    if defined(_WIN64)
-#      define __WINDOWS__ _WIN64
-#    else
-#      if defined(WIN64)
-#        define __WINDOWS__ WIN64
-#      endif
-#    endif
-#  endif
-#endif
-
-#if !defined(__WINDOWS__)
-# define WIZARDSTOOLKIT_POSIX_SUPPORT
+#if defined(WIN32) || defined(WIN64)
+#  define WIZARDSTOOLKIT_WINDOWS_SUPPORT
+#else
+#  define WIZARDSTOOLKIT_POSIX_SUPPORT
 #endif
 
 #if !defined(_WIZARDSTOOLKIT_CONFIG_H)
@@ -84,7 +56,7 @@ extern "C" {
 #  define STDC
 #endif
 
-#if defined(__WINDOWS__) && !defined(__CYGWIN__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(__CYGWIN__) && !defined(__MINGW32__)
 # if defined(_MT) && defined(_DLL) && !defined(_WIZARDDLL_) && !defined(_LIB)
 #  define _WIZARDDLL_
 # endif
@@ -173,20 +145,20 @@ extern "C" {
 #if defined(WIZARDSTOOLKIT_HAVE_UNISTD_H)
 # include <unistd.h>
 #endif
-#if defined(__WINDOWS__) && defined(_DEBUG)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && defined(_DEBUG)
 #define _CRTDBG_MAP_ALLOC
 #endif
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 # include <direct.h>
 # if !defined(WIZARDSTOOLKIT_HAVE_STRERROR)
 #  define HAVE_STRERROR
 # endif
 #endif
 
-#if defined(__WINDOWS__) && defined(_DEBUG)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && defined(_DEBUG)
 #define _CRTDBG_MAP_ALLOC
 #endif
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 # include <direct.h>
 # if !defined(WIZARDSTOOLKIT_HAVE_STRERROR)
 #  define HAVE_STRERROR
@@ -205,7 +177,7 @@ extern "C" {
 
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
 #  include <pthread.h>
-#elif defined(__WINDOWS__)
+#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #  define MAGICKORE_HAVE_WINTHREADS  1
 #include <windows.h>
 #endif
@@ -236,7 +208,7 @@ extern size_t strlcpy(char *,const char *,size_t);
 extern int vsnprintf(char *,size_t,const char *,va_list);
 #endif
 
-#if defined(__WINDOWS__) || defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
 # include <sys/types.h>
 # include <sys/stat.h>
 # if defined(WIZARDSTOOLKIT_HAVE_FTIME)
@@ -268,7 +240,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 #  define S_ISREG(mode) (((mode) & S_IFMT) == S_IFREG)
 # endif
 # include "wizard/wizard-type.h"
-# if !defined(__WINDOWS__)
+# if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #  include <sys/time.h>
 #if defined(WIZARDSTOOLKIT_HAVE_SYS_TIMES_H)
 #  include <sys/times.h>
@@ -306,10 +278,10 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 #  endif
 #endif
 
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 # include "wizard/nt-base.h"
 #endif
-#if defined(__WINDOWS__) || defined(__CYGWIN__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__)
 #endif
 #if defined(macintosh)
 # include "mac.h"
@@ -369,7 +341,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
     SetWarningHandler(MACWarningHandler)
 # endif
 
-# if defined(__WINDOWS__)
+# if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #  define DirectorySeparator  "\\"
 #  define DirectoryListSeparator  ';'
 #  define IsBasenameSeparator(c) \
@@ -421,7 +393,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 
 #if defined(S_IRUSR) && defined(S_IWUSR)
 # define S_MODE (S_IRUSR | S_IWUSR)
-#elif defined (__WINDOWS__)
+#elif defined (WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 # define S_MODE (_S_IREAD | _S_IWRITE)
 #else
 # define S_MODE  0600
@@ -434,7 +406,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 /*
   I/O defines.
 */
-#if defined(__WINDOWS__) && !defined(Windows95) && defined(_VISUALC_)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && defined(_VISUALC_)
 #define WizardSeek(file,offset,whence)  _lseeki64(file,offset,whence)
 #else
 #define WizardSeek(file,offset,whence)  lseek(file,offset,whence)

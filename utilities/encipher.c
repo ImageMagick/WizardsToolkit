@@ -55,7 +55,7 @@
 #include <sys/utime.h>
 #endif
 #endif
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #include <windows.h>
 #endif
 #include "content.h"

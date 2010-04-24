@@ -1356,7 +1356,7 @@ int main(int argc,char **argv)
     pass=WizardFalse;
   if (TestLogEvent() == WizardFalse)
     pass=WizardFalse;
-#if !defined(__WINDOWS__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   if (TestMime() == WizardFalse)
     pass=WizardFalse;
 #endif

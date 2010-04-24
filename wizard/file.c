@@ -51,7 +51,7 @@
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
 #include <pthread.h>
 #endif
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #include <windows.h>
 #endif
 
@@ -116,7 +116,7 @@ static unsigned long GetWizardThreadId(void)
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   return((unsigned long) pthread_self());
 #endif
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   return((unsigned long) GetCurrentThreadId());
 #endif
   return((unsigned long) getpid());
@@ -178,7 +178,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
                 UnlockSemaphoreInfo(file_info->semaphore);
                 return(WizardTrue);
               }
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
             {
               HANDLE
                 handle;
@@ -308,7 +308,7 @@ WizardExport FileInfo *AcquireFileInfo(const char *path,
                 DirectorySeparator,MaxTextExtent);
               (void) ConcatenateWizardString(file_info->path,".wizard",
                 MaxTextExtent);
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
               (void) mkdir(file_info->path);
 #else
               (void) mkdir(file_info->path,0700);

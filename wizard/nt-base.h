@@ -182,7 +182,7 @@ extern "C" {
 #  define write  _write
 #endif
 
-#if defined(_MT) && defined(__WINDOWS__)
+#if defined(_MT) && defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #  define SAFE_GLOBAL  __declspec(thread)
 #else
 #  define SAFE_GLOBAL
@@ -240,12 +240,14 @@ typedef struct _NTMEMORYSTATUSEX
     ullAvailExtendedVirtual;
 } NTMEMORYSTATUSEX;
 
+#if !defined(__MINGW32__)
 struct timezone
 {
   int
     tz_minuteswest,
     tz_dsttime;
 };
+#endif
 
 typedef UINT
   (CALLBACK *LPFNDLLFUNC1)(DWORD,UINT);
@@ -286,7 +288,9 @@ extern WizardExport double
 
 extern WizardExport int
   Exit(int),
+#if !defined(__MINGW32__)
   gettimeofday(struct timeval *,struct timezone *),
+#endif
   IsWindows95(),
   NTCloseDirectory(DIR *),
   NTCloseLibrary(void *),

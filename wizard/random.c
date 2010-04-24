@@ -475,7 +475,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
     filename=DestroyString(filename);
   }
 #endif
-#if defined(__WINDOWS__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   {
     double
       seconds;

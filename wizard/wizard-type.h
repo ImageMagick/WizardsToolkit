@@ -28,7 +28,7 @@ typedef enum
   WizardTrue = 1
 } WizardBooleanType;
 
-#if defined(__WINDOWS__) && !defined(__MINGW32__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(__MINGW32__)
 #  define WizardLLConstant(c)  (WizardOffsetType) (c ## i64)
 #  define WizardULLConstant(c)  (WizardSizeType) (c ## ui64)
 #else
@@ -40,7 +40,7 @@ typedef enum
   Typedef declarations.
 */
 typedef unsigned int WizardStatusType;
-#if !defined(__WINDOWS__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #if (WIZARDSTOOLKIT_SIZEOF_UNSIGNED_LONG_LONG == 8)
 typedef long long WizardOffsetType;
 typedef unsigned long long WizardSizeType;
