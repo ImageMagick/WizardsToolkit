@@ -127,8 +127,6 @@ AC_SUBST(WIZARD_LIB_VERSION_NUMBER)
 # Regenerate config.status if ChangeLog or version.sh is updated.
 AC_SUBST([CONFIG_STATUS_DEPENDENCIES],['$(top_srcdir)/version.sh'])
 
-PERLMAINCC=$CC
-
 WIZARD_CFLAGS=''
 WIZARD_CPPFLAGS=$CPPFLAGS_USER
 WIZARD_PCFLAGS=$CPPFLAGS_USER
@@ -221,12 +219,13 @@ AC_SUBST(LD)
 AC_PROG_CC_C99
 AM_PROG_CC_C_O
 AC_INCLUDES_DEFAULT
-AC_COMPILE_WARNINGS
+AX_CFLAGS_WARN_ALL
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 AC_PROG_LN_S
 AM_WITH_DMALLOC
+AX_C___ATTRIBUTE__
 PKG_PROG_PKG_CONFIG
 
 #
@@ -234,6 +233,7 @@ PKG_PROG_PKG_CONFIG
 #
 AC_EXEEXT
 AC_OBJEXT
+AX_LANG_COMPILER_MS
 
 GDI32_LIBS=''
 native_win32_build='no'
@@ -343,8 +343,8 @@ AC_ARG_WITH([threads],
 
 have_threads=no
 if test "$with_threads" != 'no'; then
-    ACX_PTHREAD()
-    if test "$acx_pthread_ok" = yes; then
+    AX_PTHREAD()
+    if test "$ax_pthread_ok" = yes; then
         have_threads=yes
         DEF_THREAD="$PTHREAD_CFLAGS"
         CFLAGS="$CFLAGS $DEF_THREAD"
@@ -1159,13 +1159,6 @@ fi
 AC_SUBST(LIB_DL)
 
 #
-# Find per;.
-#
-AC_CACHE_CHECK(for perl,ac_cv_path_PERL,ac_cv_path_PERL="$with_perl");
-PERL=$ac_cv_path_PERL
-AC_SUBST(PERL)dnl
-
-#
 # Configure install Paths
 #
 
@@ -1301,7 +1294,6 @@ esac
 #
 RPM=''
 AC_CHECK_PROGS(TAR,gnutar gtar tar)
-AC_CHECK_PROGS(PERL,perl)
 AC_CHECK_PROGS(RPM,rpmbuild rpm)
 AM_MISSING_PROG(ACLOCAL, aclocal, $missing_dir)
 AM_MISSING_PROG(AUTOCONF, autoconf, $missing_dir)

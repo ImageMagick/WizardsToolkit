@@ -392,6 +392,9 @@
 /* Define to 1 if you have the `_wfopen' function. */
 #undef HAVE__WFOPEN
 
+/* define if your compiler has __attribute__ */
+#undef HAVE___ATTRIBUTE__
+
 /* Define if you have umem memory allocation library */
 #undef HasUMEM
 

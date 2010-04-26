@@ -145,10 +145,12 @@ DIST_COMMON = $(am__configure_deps) $(include_HEADERS) \
 	config/missing config/mkinstalldirs
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/ac_compile_warnings.m4 \
-	$(top_srcdir)/m4/ac_func_fseeko.m4 \
-	$(top_srcdir)/m4/acx_pthread.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/ac_func_fseeko.m4 \
+	$(top_srcdir)/m4/ax_c___attribute__.m4 \
+	$(top_srcdir)/m4/ax_cflags_warn_all.m4 \
+	$(top_srcdir)/m4/ax_lang_compiler_ms.m4 \
 	$(top_srcdir)/m4/ax_prefix_config_h.m4 \
+	$(top_srcdir)/m4/ax_pthread.m4 \
 	$(top_srcdir)/m4/cxx_have_bool.m4 \
 	$(top_srcdir)/m4/cxx_have_lstring.m4 \
 	$(top_srcdir)/m4/cxx_have_namespaces.m4 \
@@ -533,7 +535,6 @@ PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PACKAGE_VERSION_ADDENDUM = @PACKAGE_VERSION_ADDENDUM@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-PERL = @PERL@
 PKG_CONFIG = @PKG_CONFIG@
 POW_LIB = @POW_LIB@
 PREFIX_DIR = @PREFIX_DIR@
@@ -593,12 +594,12 @@ abs_top_srcdir = @abs_top_srcdir@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
-acx_pthread_config = @acx_pthread_config@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
+ax_pthread_config = @ax_pthread_config@
 bindir = @bindir@
 build = @build@
 build_alias = @build_alias@
@@ -733,22 +734,27 @@ EXTRA_DIST = \
 
 lib_LTLIBRARIES = $(WIZARD_LIBS) $(BZIP_LIBS) $(ZIP_LIBS)
 M4_EXTRA_DIST = \
-  ac_compile_warnings.m4 \
-  ac_func_fseeko.m4 \
-  ac_libtools_tags.m4 \
-  ac_prog_perl_version.m4 \
-  acx_pthread.m4 \
-  ax_prefix_config_h.m4 \
-  cxx_have_bool.m4 \
-  cxx_have_lstring.m4 \
-  cxx_have_namespaces.m4 \
-  cxx_have_std_libs.m4 \
-  cxx_have_std_namespace.m4 \
-  libtool.m4 \
-  ltdl.m4 \
-  magick_check_pthread_lib.m4 \
-  magick_func_mmap_fileio.m4 \
-  Makefile.am
+	ac_func_fseeko.m4 \
+	argz.m4 \
+	ax_c___attribute__.m4 \
+  ax_lang_compiler_ms.m4 \
+	ax_cflags_warn_all.m4 \
+	ax_prefix_config_h.m4 \
+	ax_pthread.m4 \
+	cxx_have_bool.m4 \
+	cxx_have_lstring.m4 \
+	cxx_have_namespaces.m4 \
+	cxx_have_std_libs.m4 \
+	cxx_have_std_namespace.m4 \
+	libtool.m4 \
+	ltdl.m4 \
+	lt~obsolete.m4 \
+	ltoptions.m4 \
+	ltsugar.m4 \
+	ltversion.m4 \
+	pkg.m4 \
+	wizard_check_pthread_lib.m4 \
+	wizard_func_mmap_fileio.m4 
 
 
 # Where architecture-independent configuration files get installed
