@@ -25,10 +25,10 @@ extern "C" {
 typedef struct _SplayTreeInfo
   SplayTreeInfo;
 
-extern WizardExport WizardBooleanType
-  AddValueToSplayTree(SplayTreeInfo *,const void *,const void *),
-  DeleteNodeByValueFromSplayTree(SplayTreeInfo *,const void *),
-  DeleteNodeFromSplayTree(SplayTreeInfo *,const void *);
+extern WizardExport const void
+  *GetNextKeyInSplayTree(SplayTreeInfo *),
+  *GetNextValueInSplayTree(SplayTreeInfo *),
+  *GetValueFromSplayTree(SplayTreeInfo *,const void *);
 
 extern WizardExport int
   CompareSplayTreeString(const void *,const void *),
@@ -44,13 +44,15 @@ extern WizardExport unsigned long
   GetNumberOfNodesInSplayTree(const SplayTreeInfo *);
 
 extern WizardExport void
-  *GetNextKeyInSplayTree(SplayTreeInfo *),
-  *GetNextValueInSplayTree(SplayTreeInfo *),
-  *GetValueFromSplayTree(SplayTreeInfo *,const void *),
   *RemoveNodeByValueFromSplayTree(SplayTreeInfo *,const void *),
   *RemoveNodeFromSplayTree(SplayTreeInfo *,const void *),
   ResetSplayTree(SplayTreeInfo *),
   ResetSplayTreeIterator(SplayTreeInfo *);
+
+extern WizardExport WizardBooleanType
+  AddValueToSplayTree(SplayTreeInfo *,const void *,const void *),
+  DeleteNodeByValueFromSplayTree(SplayTreeInfo *,const void *),
+  DeleteNodeFromSplayTree(SplayTreeInfo *,const void *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

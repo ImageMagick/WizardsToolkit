@@ -751,7 +751,7 @@ WizardExport SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
 %
 %  The format of the GetNextKeyInSplayTree method is:
 %
-%      void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
+%      const void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
 %
 %  A description of each parameter follows:
 %
@@ -760,7 +760,7 @@ WizardExport SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
 %    o key: The key.
 %
 */
-WizardExport void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
+WizardExport const void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
 {
   register NodeInfo
     *node;
@@ -805,7 +805,7 @@ WizardExport void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
 %
 %  The format of the GetNextValueInSplayTree method is:
 %
-%      void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
+%      const void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 %
 %  A description of each parameter follows:
 %
@@ -814,7 +814,7 @@ WizardExport void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
 %    o key: The key.
 %
 */
-WizardExport void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
+WizardExport const void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 {
   register NodeInfo
     *node;
@@ -859,7 +859,8 @@ WizardExport void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 %
 %  The format of the GetValueFromSplayTree method is:
 %
-%      void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,const void *key)
+%      const void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
+%        const void *key)
 %
 %  A description of each parameter follows:
 %
@@ -868,7 +869,7 @@ WizardExport void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 %    o key: The key.
 %
 */
-WizardExport void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
+WizardExport const void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
   const void *key)
 {
   int

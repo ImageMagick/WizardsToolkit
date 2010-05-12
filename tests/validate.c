@@ -254,8 +254,9 @@ static WizardBooleanType TestAuthenticate(const char *passphrase)
     SetAuthenticatePassphrase(authenticate_info,passphrase);
   clone=AuthenticateKey(authenticate_info,exception);
   exception=DestroyExceptionInfo(exception);
-  clone&=CompareStringInfo(GetAuthenticateKey(authenticate_info),key) == 0 ?
-    WizardTrue : WizardFalse;
+  if (clone != WizardFalse)
+    clone=CompareStringInfo(GetAuthenticateKey(authenticate_info),key) == 0 ?
+      WizardTrue : WizardFalse;
   if (clone == WizardFalse)
     pass=WizardFalse;
   (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
