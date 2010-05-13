@@ -22,6 +22,8 @@
 extern "C" {
 #endif
 
+#include "wizard/exception-private.h"
+
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
 static pthread_mutex_t
   semaphore_mutex = PTHREAD_MUTEX_INITIALIZER;

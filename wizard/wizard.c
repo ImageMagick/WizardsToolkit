@@ -49,6 +49,7 @@
 #include "wizard/random_.h"
 #include "wizard/resource_.h"
 #include "wizard/semaphore.h"
+#include "wizard/semaphore-private.h"
 #include "wizard/string_.h"
 #include "wizard/utility.h"
 #include "wizard/wizard.h"
@@ -78,14 +79,12 @@ typedef WIZARDSTOOLKIT_RETSIGTYPE
 /*
   Global declarations.
 */
-static SemaphoreInfo
-  *wizard_semaphore = (SemaphoreInfo *) NULL;
-
 static SignalHandler
   *signal_handlers[SIGMAX] = { (SignalHandler *) NULL };
 
 static volatile WizardBooleanType
-  instantiate_wizard = WizardFalse;  /* double-checked locking pattern */
+  instantiate_wizard = WizardFalse,
+  instantiate_wizardstoolkit = WizardFalse;
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -212,6 +211,12 @@ WizardExport void WizardsToolkitGenesis(const char *path)
   /*
     Initialize the Wizard environment.
   */
+  LockWizardMutex();
+  if (instantiate_wizardstoolkit != WizardFalse)
+    {
+      UnlockWizardMutex();
+      return;
+    }
   (void) setlocale(LC_ALL,"");
   (void) setlocale(LC_NUMERIC,"C");
   seconds=time((time_t *) NULL);
@@ -297,6 +302,8 @@ WizardExport void WizardsToolkitGenesis(const char *path)
   (void) ConfigureComponentGenesis();
   (void) ResourceComponentGenesis();
   (void) MimeComponentGenesis();
+  instantiate_wizardstoolkit=WizardTrue;
+  UnlockWizardMutex();
 }
 
 /*
@@ -319,9 +326,17 @@ WizardExport void WizardsToolkitGenesis(const char *path)
 */
 WizardExport void WizardsToolkitTerminus(void)
 {
+  LockWizardMutex();
+  if (instantiate_wizardstoolkit == WizardFalse)
+    {
+      UnlockWizardMutex();
+      return;
+    }
   MimeComponentTerminus();
   ResourceComponentTerminus();
   RandomComponentTerminus();
   LogComponentTerminus();
   SemaphoreComponentTerminus();
+  instantiate_wizardstoolkit=WizardFalse;
+  UnlockWizardMutex();
 }
