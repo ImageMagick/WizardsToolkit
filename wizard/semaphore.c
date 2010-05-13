@@ -46,6 +46,7 @@
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
 #include "wizard/semaphore.h"
+#include "wizard/semaphore-private.h"
 #include "wizard/string_.h"
 #include "wizard/thread_.h"
 #include "wizard/thread-private.h"
@@ -67,27 +68,6 @@ struct SemaphoreInfo
   unsigned long
     signature;
 };
-
-/*
-  Static declaractions.
-*/
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
-static pthread_mutex_t
-  semaphore_mutex = PTHREAD_MUTEX_INITIALIZER;
-#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-static LONG
-  semaphore_mutex = 0;
-#else
-static long
-  semaphore_mutex = 0;
-#endif
-
-/*
-  Forward declaractions.
-*/
-static void
-  LockWizardMutex(void),
-  UnlockWizardMutex(void);
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -250,46 +230,6 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   L o c k W i z a r d M u t e x                                             %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  LockWizardMutex() locks a global mutex.  If it is already locked, the
-%  calling thread blocks until the mutex becomes available.
-%
-%  The format of the LockWizardMutex method is:
-%
-%      void LockWizardMutex(void)
-%
-*/
-static void LockWizardMutex(void)
-{
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
-  {
-    int
-      status;
-
-    status=pthread_mutex_lock(&semaphore_mutex);
-    if (status != 0)
-      { 
-        errno=status;
-        ThrowFatalException(ResourceFatalError,
-          "unable to lock semaphore `%s'");
-      }
-  }
-#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-  while (InterlockedCompareExchange(&semaphore_mutex,1L,0L) != 0)
-    Sleep(10);
-#endif
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 %   L o c k S e m a p h o r e I n f o                                         %
 %                                                                             %
 %                                                                             %
@@ -413,44 +353,6 @@ WizardExport WizardBooleanType SemaphoreComponentGenesis(void)
 */
 WizardExport void SemaphoreComponentTerminus(void)
 {
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-+   U n l o c k W i z a r d M u t e x                                         %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  UnlockWizardMutex() releases a global mutex.
-%
-%  The format of the LockWizardMutex method is:
-%
-%      void UnlockWizardMutex(void)
-%
-*/
-static void UnlockWizardMutex(void)
-{
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
-  {
-    int
-      status;
-
-    status=pthread_mutex_unlock(&semaphore_mutex);
-    if (status != 0)
-      {
-        errno=status;
-        ThrowFatalException(ResourceFatalError,
-          "unable to unlock semaphore `%s'");
-      }
-  }
-#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-  InterlockedExchange(&semaphore_mutex,0L);
-#endif
 }
 
 /*

@@ -101,6 +101,7 @@ WIZARD_BASE_SRCS = \
   wizard/secret.h \
   wizard/semaphore.c \
   wizard/semaphore.h \
+  wizard/semaphore-private.h \
   wizard/serpent.c \
   wizard/serpent.h \
   wizard/signature.c \
@@ -204,6 +205,7 @@ WIZARD_NOINST_HDRS = \
   wizard/crc64.h \
   wizard/exception-private.h \
   wizard/mime-private.h \
+  wizard/semaphore-private.h \
   wizard/serpent.h \
   wizard/sha1.h \
   wizard/sha224.h \
