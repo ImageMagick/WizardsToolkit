@@ -261,6 +261,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 #endif
 
 #if defined(WIZARDSTOOLKIT_HAVE___ATTRIBUTE__)
+#  define wizard_aligned(x)  __attribute__((aligned(x)))
 #  define wizard_attribute  __attribute__
 #  define wizard_unused(x)  wizard_unused_ ## x __attribute__((unused))
 #else
