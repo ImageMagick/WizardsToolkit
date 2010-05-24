@@ -164,21 +164,23 @@ check-local:
 
 # drd: valgrind's newer thread error detector
 drd:
-  $(MAKE) MEMCHECK='valgrind --tool=drd --check-stack-var=yes --var-info=yes \
-    --quiet $(VALGRIND_EXTRA_OPTS)' check
+	$(MAKE) MEMCHECK='valgrind --tool=drd --check-stack-var=yes --var-info=yes \
+	  --quiet $(VALGRIND_EXTRA_OPTS)' check
 
 # helgrind: valgrind's older thread error detector
 helgrind:
-  $(MAKE) MEMCHECK='valgrind --tool=helgrind --quiet $(VALGRIND_EXTRA_OPTS)' check
+	$(MAKE) MEMCHECK='valgrind --tool=helgrind --error-exitcode=2 --quiet \
+	$(VALGRIND_EXTRA_OPTS)' check
 
 # memcheck: valgrind's memory access checker
 memcheck:
-  $(MAKE) MEMCHECK='valgrind --tool=memcheck --leak-check=full --read-var-info=yes \
-    --track-origins=yes --num-callers=12 --quiet $(VALGRIND_EXTRA_OPTS)' check
+	$(MAKE) MEMCHECK='valgrind --tool=memcheck --leak-check=full --read-var-info=yes \
+	--error-exitcode=2 --track-origins=yes --num-callers=12 \
+	--quiet $(VALGRIND_EXTRA_OPTS)' check
 
 # ptrcheck: valgrind's experimental pointer checking tool.
 ptrcheck:
-  $(MAKE) MEMCHECK='valgrind --tool=exp-ptrcheck --quiet $(VALGRIND_EXTRA_OPTS)' check
+	$(MAKE) MEMCHECK='valgrind --tool=exp-ptrcheck --quiet $(VALGRIND_EXTRA_OPTS)' check
 
 # Non-Automake subdirectories to distribute
 DISTDIRS = images scripts windows www
