@@ -77,7 +77,7 @@ struct _SHA256Info
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -197,7 +197,7 @@ WizardExport SHA256Info *DestroySHA256Info(SHA256Info *sha_info)
 */
 WizardExport void FinalizeSHA256(SHA256Info *sha_info)
 {
-  register long
+  register ssize_t
     i;
 
   register unsigned char
@@ -443,10 +443,10 @@ static void TransformSHA256(SHA256Info *sha_info)
 #define Suma0(x)  (RotateRight(x,2) ^ RotateRight(x,13) ^ RotateRight(x,22))
 #define Suma1(x)  (RotateRight(x,6) ^ RotateRight(x,11) ^ RotateRight(x,25))
 
-  long
+  ssize_t
     j;
 
-  register long
+  register ssize_t
     i;
 
   register unsigned char

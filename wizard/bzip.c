@@ -58,13 +58,13 @@ struct _BZIPInfo
   StringInfo
     *chaos;
 
-  unsigned long
+  size_t
     level;
 
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -83,14 +83,14 @@ struct _BZIPInfo
 %
 %  The format of the AcquireBZIPInfo method is:
 %
-%      BZIPInfo *AcquireBZIPInfo(const unsigned long level)
+%      BZIPInfo *AcquireBZIPInfo(const size_t level)
 %
 %  A description of each parameter follows:
 %
 %    o level: entropy level: 1 is best speed, 9 is more entropy.
 %
 */
-WizardExport BZIPInfo *AcquireBZIPInfo(const unsigned long level)
+WizardExport BZIPInfo *AcquireBZIPInfo(const size_t level)
 {
   BZIPInfo
     *bzip_info;

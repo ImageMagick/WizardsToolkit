@@ -71,7 +71,7 @@ struct _MD5Info
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -185,10 +185,10 @@ WizardExport MD5Info *DestroyMD5Info(MD5Info *md5_info)
 */
 WizardExport void FinalizeMD5(MD5Info *md5_info)
 {
-  long
+  ssize_t
     number_bytes;
 
-  register long
+  register ssize_t
     i;
 
   register unsigned char
@@ -214,7 +214,7 @@ WizardExport void FinalizeMD5(MD5Info *md5_info)
   /*
     Final number of bytes mod 64.
   */
-  number_bytes=(long) ((md5_info->low_order >> 3) & 0x3F);
+  number_bytes=(ssize_t) ((md5_info->low_order >> 3) & 0x3F);
   /*
     Pad message to 56 mod 64.
   */
@@ -222,7 +222,7 @@ WizardExport void FinalizeMD5(MD5Info *md5_info)
     (120-number_bytes)));
   datum=GetStringInfoDatum(pad);
   datum[0]=(unsigned char) 0x80;
-  for (i=1; i < (long) GetStringInfoLength(pad); i++)
+  for (i=1; i < (ssize_t) GetStringInfoLength(pad); i++)
     datum[i]=(unsigned char) 0x0;
   UpdateMD5(md5_info,pad);
   pad=DestroyStringInfo(pad);
@@ -441,7 +441,7 @@ static inline unsigned int RotateLeft(unsigned int x,unsigned int n)
 
 static void TransformMD5(MD5Info *md5_info,unsigned int *message)
 {
-  register long
+  register ssize_t
     i;
 
   register unsigned int
@@ -600,7 +600,7 @@ WizardExport void UpdateMD5(MD5Info *md5_info,const StringInfo *message)
   register unsigned char
     *p;
 
-  register long
+  register ssize_t
     i,
     j;
 
@@ -625,7 +625,7 @@ WizardExport void UpdateMD5(MD5Info *md5_info,const StringInfo *message)
   md5_info->low_order+=(unsigned int) (GetStringInfoLength(message) << 3);
   md5_info->high_order+=(unsigned int) (GetStringInfoLength(message) >> 29);
   datum=GetStringInfoDatum(message);
-  for (i=0; i < (long) GetStringInfoLength(message); i++)
+  for (i=0; i < (ssize_t) GetStringInfoLength(message); i++)
   {
     p=GetStringInfoDatum(md5_info->message);
     p[number_bytes++]=datum[i];

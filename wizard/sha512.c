@@ -77,7 +77,7 @@ struct _SHA512Info
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -201,7 +201,7 @@ WizardExport void FinalizeSHA512(SHA512Info *sha_info)
   WizardOffsetType
     count;
 
-  register long
+  register ssize_t
     i;
 
   register unsigned char
@@ -459,10 +459,10 @@ static void TransformSHA512(SHA512Info *sha_info)
 #define Suma0(x)  (RotateRight(x,28) ^ RotateRight(x,34) ^ RotateRight(x,39))
 #define Suma1(x)  (RotateRight(x,14) ^ RotateRight(x,18) ^ RotateRight(x,41))
 
-  long
+  ssize_t
     j;
 
-  register long
+  register ssize_t
     i;
 
   register unsigned char

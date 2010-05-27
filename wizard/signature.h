@@ -26,12 +26,12 @@ extern "C" {
 
 typedef struct _SignatureInfo
 {
-  unsigned long
+  size_t
     digest[8],
     low_order,
     high_order;
 
-  long
+  ssize_t
     offset;
 
   unsigned char
@@ -40,7 +40,7 @@ typedef struct _SignatureInfo
   WizardBooleanType
     lsb_first;
 
-  unsigned long
+  size_t
     signature;
 } SignatureInfo;
 

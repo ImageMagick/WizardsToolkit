@@ -40,7 +40,7 @@ extern WizardExport const StringInfo
   *GetSecretKey(const SecretInfo *);
 
 extern WizardExport SecretInfo
-  *AcquireSecretInfo(const char *,const HashType,const unsigned long),
+  *AcquireSecretInfo(const char *,const HashType,const size_t),
   *DestroySecretInfo(SecretInfo *);
 
 extern WizardExport size_t
@@ -48,7 +48,7 @@ extern WizardExport size_t
 
 extern WizardExport void
   SetSecretId(SecretInfo *,const StringInfo *),
-  SetSecretKeyLength(SecretInfo *,const unsigned long),
+  SetSecretKeyLength(SecretInfo *,const size_t),
   SetSecretPassphrase(SecretInfo *,const char *);
 
 extern WizardExport WizardBooleanType

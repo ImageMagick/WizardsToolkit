@@ -59,7 +59,7 @@ struct _TimerInfo
   TimerState
     state;
 
-  unsigned long
+  size_t
     signature;
 };
 

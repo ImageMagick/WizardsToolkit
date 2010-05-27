@@ -54,7 +54,7 @@ extern WizardExport size_t
   CopyWizardString(char *,const char *,const size_t)
     wizard_attribute((nonnull));
 
-extern WizardExport long
+extern WizardExport ssize_t
   FormatWizardSize(const WizardSizeType,const WizardBooleanType,char *),
   FormatWizardString(char *,const size_t,const char *,...)
     wizard_attribute((format (printf,3,4))),

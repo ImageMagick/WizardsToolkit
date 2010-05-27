@@ -129,7 +129,7 @@ static void EncipherUsage()
     **p;
 
   (void) fprintf(stdout,"Version: %s\n",GetWizardVersion(
-    (unsigned long *) NULL));
+    (size_t *) NULL));
   (void) fprintf(stdout,"Copyright: %s\n\n",GetWizardCopyright());
   (void) fprintf(stdout,"Usage: %s [options ...] plaintext ciphertext\n",
     GetClientName());
@@ -145,7 +145,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
 #define DestroyCipher() \
 { \
   content_info=DestroyContentInfo(content_info); \
-  for (i=0; i < (long) argc; i++) \
+  for (i=0; i < (ssize_t) argc; i++) \
     argv[i]=DestroyString(argv[i]); \
   argv=(char **) RelinquishWizardMemory(argv); \
 }
@@ -172,10 +172,10 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
   ContentInfo
     *content_info;
 
-  long
+  ssize_t
     type;
 
-  register long
+  register ssize_t
     i;
 
   WizardBooleanType
@@ -193,7 +193,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
           (LocaleCompare("-version",option+1) == 0))
         {
           (void) fprintf(stdout,"Version: %s\n",GetWizardVersion(
-            (unsigned long *) NULL));
+            (size_t *) NULL));
           (void) fprintf(stdout,"Copyright: %s\n\n",GetWizardCopyright());
           return(WizardTrue);
         }
@@ -209,7 +209,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
   cipher_filename=(const char *) NULL;
   compress=WizardTrue;
   verbose=WizardFalse;
-  for (i=1; i < (long) argc; i++)
+  for (i=1; i < (ssize_t) argc; i++)
   {
     option=argv[i];
     if (IsWizardOption(option) == WizardFalse)
@@ -240,13 +240,13 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
       {
         if (LocaleCompare("authenticate",option+1) == 0)
           {
-            long
+            ssize_t
                method;
 
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing authentication method: "
                 "`%s'",option);
             method=ParseWizardOption(WizardAuthenticateOptions,WizardFalse,
@@ -271,7 +271,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing cipher type: `%s'",
                 option);
             type=ParseWizardOption(WizardCipherOptions,WizardFalse,argv[i]);
@@ -289,7 +289,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing chunk size: `%s'",
                 option);
             (void) strtod(argv[i],&p);
@@ -310,7 +310,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
               event_mask;
 
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing log event mask: `%s'",
                 option);
             event_mask=SetLogEventMask(argv[i]);
@@ -330,7 +330,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing entropy type: `%s'",
                 option);
             type=ParseWizardOption(WizardEntropyOptions,WizardFalse,argv[i]);
@@ -348,13 +348,13 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
       {
         if (LocaleCompare("hmac",option+1) == 0)
           {
-            long
+            ssize_t
               type;
 
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing HMAC hash: `%s'",
                 option);
             type=ParseWizardOption(WizardHashOptions,WizardFalse,argv[i]);
@@ -375,13 +375,13 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
       {
         if (LocaleCompare("key",option+1) == 0)
           {
-            long
+            ssize_t
               type;
 
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing key hash: `%s'",option);
             type=ParseWizardOption(WizardHashOptions,WizardFalse,argv[i]);
             if (type < 0)
@@ -395,7 +395,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing key length: `%s'",
                 option);
             content_info->key_length=(unsigned int) strtod(option,(char **)
@@ -407,7 +407,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing keyring filename: `%s'",
                 option);
             content_info->keyring=ConstantString(argv[i]);
@@ -424,7 +424,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing entropy level: `%s'",
                 option);
             type=ParseWizardOption(WizardEntropyLevelOptions,WizardFalse,
@@ -437,13 +437,13 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
           }
         if (LocaleCompare(option,"-list") == 0)
           {
-            long
+            ssize_t
               list;
 
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing list type: `%s'",
                 option);
             if (LocaleCompare(argv[i],"configure") == 0)
@@ -464,7 +464,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (*option == '+')
               break;
             i++;
-            if ((i == (long) argc) ||
+            if ((i == (ssize_t) argc) ||
                 (strchr(argv[i],'%') == (char *) NULL))
               ThrowCipherException(OptionFatalError,"missing argument: `%s'",
                 option);
@@ -478,13 +478,13 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
       {
         if (LocaleCompare("mode",option+1) == 0)
           {
-            long
+            ssize_t
               type;
 
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing cipher mode: `%s'",
                 option);
             type=ParseWizardOption(WizardModeOptions,WizardFalse,argv[i]);
@@ -505,7 +505,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing passphrase filename: "
                 "`%s'",option);
             content_info->passphrase=ConstantString(argv[i]);
@@ -516,7 +516,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (*option == '+')
               break;
             i++;
-            if (i == (long) argc)
+            if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing properties filename: "
                 "`%s'",option);
             content_info->properties=ConstantString(argv[i]);
@@ -547,7 +547,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
         if (LocaleCompare(option,"-version") == 0)
           {
             (void) fprintf(stdout,"Version: %s\n",GetWizardVersion(
-              (unsigned long *) NULL));
+              (size_t *) NULL));
             (void) fprintf(stdout,"Copyright: %s\n\n",GetWizardCopyright());
             exit(0);
           }
@@ -922,7 +922,7 @@ int main(int argc,char **argv)
   ExceptionInfo
     *exception;
 
-  register long
+  register ssize_t
     i;
 
   TimerInfo
@@ -940,7 +940,7 @@ int main(int argc,char **argv)
   iterations=1;
   status=WizardTrue;
   regard_warnings=WizardFalse;
-  for (i=1; i < (long) (argc-1); i++)
+  for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
     if ((strlen(option) == 1) || ((*option != '-') && (*option != '+')))
@@ -955,7 +955,7 @@ int main(int argc,char **argv)
   timer=(TimerInfo *) NULL;
   if (iterations > 1)
     timer=AcquireTimerInfo();
-  for (i=0; i < (long) iterations; i++)
+  for (i=0; i < (ssize_t) iterations; i++)
   {
     status=EncipherCommand(argc,argv,exception);
     if ((status == WizardFalse) ||
@@ -972,9 +972,9 @@ int main(int argc,char **argv)
       elapsed_time=GetElapsedTime(timer);
       user_time=GetUserTime(timer);
       (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %ld:%02ld.%03ld\n",
-        iterations,1.0*iterations/elapsed_time,user_time,(long)
-        (elapsed_time/60.0+0.5),(long) floor(fmod(elapsed_time,60.0)),
-        (long) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
+        iterations,1.0*iterations/elapsed_time,user_time,(ssize_t)
+        (elapsed_time/60.0+0.5),(ssize_t) floor(fmod(elapsed_time,60.0)),
+        (ssize_t) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
       timer=DestroyTimerInfo(timer);
     }
   exception=DestroyExceptionInfo(exception);

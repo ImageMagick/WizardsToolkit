@@ -35,19 +35,19 @@ typedef struct _ConfigureInfo
     exempt,
     stealth;
                                                                                 
-  unsigned long
+  size_t
     signature;
 } ConfigureInfo;
 
 extern WizardExport char
-  **GetConfigureList(const char *,unsigned long *,ExceptionInfo *);
+  **GetConfigureList(const char *,size_t *,ExceptionInfo *);
 
 extern WizardExport const char
   *GetConfigureValue(const ConfigureInfo *);
 
 extern WizardExport const ConfigureInfo
   *GetConfigureInfo(const char *,ExceptionInfo *),
-  **GetConfigureInfoList(const char *,unsigned long *,ExceptionInfo *);
+  **GetConfigureInfoList(const char *,size_t *,ExceptionInfo *);
 
 extern WizardExport LinkedListInfo
   *DestroyConfigureOptions(LinkedListInfo *),

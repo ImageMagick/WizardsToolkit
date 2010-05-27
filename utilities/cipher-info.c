@@ -106,7 +106,7 @@ static void CipherInfoUsage(void)
     **p;
 
   (void) fprintf(stdout,"Version: %s\n",GetWizardVersion(
-    (unsigned long *) NULL));
+    (size_t *) NULL));
   (void) fprintf(stdout,"Copyright: %s\n\n",GetWizardCopyright());
   (void) fprintf(stdout,"Usage: %s [options ...] ciphertext [ ciphertext ... "
     "]\n",GetClientName());
@@ -122,7 +122,7 @@ WizardExport WizardBooleanType CipherInfoCommand(int argc,char **argv,
 #define DestroyCipherInfo() \
 { \
   content_info=DestroyContentInfo(content_info); \
-  for (i=0; i < (long) argc; i++) \
+  for (i=0; i < (ssize_t) argc; i++) \
     argv[i]=DestroyString(argv[i]); \
   argv=(char **) RelinquishWizardMemory(argv); \
 }
@@ -147,7 +147,7 @@ WizardExport WizardBooleanType CipherInfoCommand(int argc,char **argv,
   ContentInfo
     *content_info;
 
-  register long
+  register ssize_t
     i;
 
   WizardBooleanType
@@ -204,13 +204,13 @@ WizardExport WizardBooleanType CipherInfoCommand(int argc,char **argv,
           {
             if (LocaleCompare(option,"-list") == 0)
               {
-                long
+                ssize_t
                   list;
 
                 if (*option == '+')
                   break;
                 i++;
-                if (i == (long) argc)
+                if (i == (ssize_t) argc)
                   ThrowCipherException(OptionError,"missing list type: `%s'",
                     option);
                 if (LocaleCompare(argv[i],"configure") == 0)
@@ -231,7 +231,7 @@ WizardExport WizardBooleanType CipherInfoCommand(int argc,char **argv,
                 if (*option == '+')
                   break;
                 i++;
-                if ((i == (long) argc) ||
+                if ((i == (ssize_t) argc) ||
                     (strchr(argv[i],'%') == (char *) NULL))
                   ThrowCipherException(OptionFatalError,"missing argument: "
                     "`%s'",option);
@@ -246,7 +246,7 @@ WizardExport WizardBooleanType CipherInfoCommand(int argc,char **argv,
             if (strcasecmp(option,"-version") == 0)
               {
                 (void) fprintf(stdout,"Version: %s\n",GetWizardVersion(
-                  (unsigned long *) NULL));
+                  (size_t *) NULL));
                 (void) fprintf(stdout,"Copyright: %s\n\n",GetWizardCopyright());
                 exit(0);
               }
@@ -310,7 +310,7 @@ int main(int argc,char **argv)
   ExceptionInfo
     *exception;
 
-  register long
+  register ssize_t
     i;
 
   TimerInfo
@@ -328,7 +328,7 @@ int main(int argc,char **argv)
   iterations=1;
   status=WizardTrue;
   regard_warnings=WizardFalse;
-  for (i=1; i < (long) (argc-1); i++)
+  for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
     if ((strlen(option) == 1) || ((*option != '-') && (*option != '+')))
@@ -343,7 +343,7 @@ int main(int argc,char **argv)
   timer=(TimerInfo *) NULL;
   if (iterations > 1)
     timer=AcquireTimerInfo();
-  for (i=0; i < (long) iterations; i++)
+  for (i=0; i < (ssize_t) iterations; i++)
   {
     status=CipherInfoCommand(argc,argv,exception);
     if ((status == WizardFalse) ||
@@ -360,9 +360,9 @@ int main(int argc,char **argv)
       elapsed_time=GetElapsedTime(timer);
       user_time=GetUserTime(timer);
       (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %ld:%02ld.%03ld\n",
-        iterations,1.0*iterations/elapsed_time,user_time,(long)
-        (elapsed_time/60.0+0.5),(long) floor(fmod(elapsed_time,60.0)),
-        (long) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
+        iterations,1.0*iterations/elapsed_time,user_time,(ssize_t)
+        (elapsed_time/60.0+0.5),(ssize_t) floor(fmod(elapsed_time,60.0)),
+        (ssize_t) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
       timer=DestroyTimerInfo(timer);
     }
   exception=DestroyExceptionInfo(exception);

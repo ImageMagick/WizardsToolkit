@@ -79,7 +79,7 @@ struct _KeyInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 

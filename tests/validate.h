@@ -26,7 +26,7 @@
 
 struct AESTestVector
 {
-  unsigned long
+  size_t
     key_length,
     length,
     result_length;
@@ -122,7 +122,7 @@ struct BZipTestVector
     plaintext[128],
     chaos[128];
 
-  unsigned long
+  size_t
     chaossize;
 };
 
@@ -233,7 +233,7 @@ struct CRC64TestVector
 
 struct EllipticCurveTestVector
 {
-  unsigned long
+  size_t
     key_length,
     length,
     result_length;
@@ -697,7 +697,7 @@ struct MD5TestVector
 
 struct SerpentTestVector
 {
-  unsigned long
+  size_t
     key_length;
 
   int
@@ -953,7 +953,7 @@ struct SHA512TestVector
 #define TwofishDecipherTestVectors    4
 
 struct TwofishTestVector {
-  unsigned long
+  size_t
     key_length,
     length,
     result_length;
@@ -1090,7 +1090,7 @@ struct ZipTestVector
     plaintext[128],
     chaos[128];
 
-  unsigned long
+  size_t
     chaossize;
 };
 

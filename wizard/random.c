@@ -80,7 +80,7 @@ struct _RandomInfo
   size_t
     i;
 
-  unsigned long
+  size_t
     seed[4];
 
   double
@@ -96,7 +96,7 @@ struct _RandomInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -117,7 +117,7 @@ extern char
 static SemaphoreInfo
   *random_semaphore = (SemaphoreInfo *) NULL;
 
-static unsigned long
+static size_t
   random_seed = ~0UL;
 
 static WizardBooleanType
@@ -358,14 +358,14 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
 {
 #define MaxEntropyExtent  64
 
-  long
+  ssize_t
     pid;
 
   StringInfo
     *chaos,
     *entropy;
 
-  unsigned long
+  size_t
     nanoseconds,
     seconds;
 
@@ -384,7 +384,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
   ConcatenateStringInfo(entropy,chaos);
   SetStringInfoDatum(chaos,(unsigned char *) entropy);
   ConcatenateStringInfo(entropy,chaos);
-  pid=(long) getpid();
+  pid=(ssize_t) getpid();
   SetStringInfoLength(chaos,sizeof(pid));
   SetStringInfoDatum(chaos,(unsigned char *) &pid);
   ConcatenateStringInfo(entropy,chaos);
@@ -528,7 +528,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
     */
     if (environ != (char **) NULL)
       {
-        register long
+        register ssize_t
           i;
 
         /*
@@ -657,7 +657,7 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
     *magick,
     *target;
 
-  unsigned long
+  size_t
     length;
 
   WizardSizeType
@@ -755,7 +755,7 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetPseudoRandomValue() return a non-negative unsigned long value uniformly
+%  GetPseudoRandomValue() return a non-negative size_t value uniformly
 %  distributed over the interval [0.0, 1.0) with a 2 to the 128th-1 period.
 %
 %  The format of the GetPseudoRandomValue method is:
@@ -769,16 +769,16 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
 */
 WizardExport double GetPseudoRandomValue(RandomInfo *random_info)
 {
-  register unsigned long
+  register size_t
     *seed;
 
-  unsigned long
+  size_t
     alpha;
 
   seed=random_info->seed;
   do
   {
-    alpha=(unsigned long) (seed[1] ^ (seed[1] << 11));
+    alpha=(size_t) (seed[1] ^ (seed[1] << 11));
     seed[1]=seed[2];
     seed[2]=seed[3];
     seed[3]=seed[0];
@@ -845,7 +845,7 @@ WizardExport StringInfo *GetRandomKey(RandomInfo *random_info,
 */
 WizardExport double GetRandomValue(RandomInfo *random_info)
 {
-  unsigned long
+  size_t
     key,
     range;
 
@@ -1002,14 +1002,14 @@ static WizardBooleanType SaveEntropyToReservoir(RandomInfo *random_info,
 %
 %  The format of the SeedPseudoRandomGenerator method is:
 %
-%      void SeedPseudoRandomGenerator(const unsigned long seed)
+%      void SeedPseudoRandomGenerator(const size_t seed)
 %
 %  A description of each parameter follows:
 %
 %    o seed: the seed.
 %
 */
-WizardExport void SeedPseudoRandomGenerator(const unsigned long seed)
+WizardExport void SeedPseudoRandomGenerator(const size_t seed)
 {
   random_seed=seed;
 }
@@ -1044,14 +1044,14 @@ WizardExport void SeedPseudoRandomGenerator(const unsigned long seed)
 
 static inline void IncrementRandomNonce(StringInfo *nonce)
 {
-  register long
+  register ssize_t
     i;
 
   unsigned char
     *datum;
 
   datum=GetStringInfoDatum(nonce);
-  for (i=(long) (GetStringInfoLength(nonce)-1); i != 0; i--)
+  for (i=(ssize_t) (GetStringInfoLength(nonce)-1); i != 0; i--)
   {
     datum[i]++;
     if (datum[i] != 0)

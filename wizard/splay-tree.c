@@ -97,7 +97,7 @@ struct _SplayTreeInfo
     *key,
     *next;
 
-  unsigned long
+  size_t
     nodes;
 
   WizardBooleanType
@@ -106,7 +106,7 @@ struct _SplayTreeInfo
   SemaphoreInfo
     *semaphore;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -240,13 +240,13 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
 %
 */
 
-static NodeInfo *LinkSplayTreeNodes(NodeInfo **nodes,const unsigned long low,
-  const unsigned long high)
+static NodeInfo *LinkSplayTreeNodes(NodeInfo **nodes,const size_t low,
+  const size_t high)
 {
   register NodeInfo
     *node;
 
-  unsigned long
+  size_t
     bisect;
 
   bisect=low+(high-low)/2;
@@ -916,7 +916,7 @@ WizardExport const void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
 %
 %  The format of the GetNumberOfNodesInSplayTree method is:
 %
-%      unsigned long GetNumberOfNodesInSplayTree(
+%      size_t GetNumberOfNodesInSplayTree(
 %        const SplayTreeInfo *splay_tree)
 %
 %  A description of each parameter follows:
@@ -924,7 +924,7 @@ WizardExport const void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
 %    o splay_tree: The splay tree.
 %
 */
-WizardExport unsigned long GetNumberOfNodesInSplayTree(
+WizardExport size_t GetNumberOfNodesInSplayTree(
   const SplayTreeInfo *splay_tree)
 {
   WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
@@ -981,7 +981,7 @@ static int IterateOverSplayTree(SplayTreeInfo *splay_tree,
   NodeInfo
     **nodes;
 
-  register long
+  register ssize_t
     i;
 
   register NodeInfo
@@ -1465,7 +1465,7 @@ WizardExport void ResetSplayTreeIterator(SplayTreeInfo *splay_tree)
 %
 */
 
-static NodeInfo *Splay(SplayTreeInfo *splay_tree,const unsigned long depth,
+static NodeInfo *Splay(SplayTreeInfo *splay_tree,const size_t depth,
   const void *key,NodeInfo **node,NodeInfo **parent,NodeInfo **grandparent)
 {
   int

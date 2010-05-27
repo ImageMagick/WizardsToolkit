@@ -56,7 +56,7 @@ struct _SerpentInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 

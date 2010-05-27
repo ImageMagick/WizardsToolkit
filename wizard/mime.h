@@ -26,7 +26,7 @@ typedef struct _MimeInfo
   MimeInfo;
 
 extern WizardExport char
-  **GetMimeList(const char *,unsigned long *,ExceptionInfo *),
+  **GetMimeList(const char *,size_t *,ExceptionInfo *),
   *WizardToMime(const char *);
 
 extern WizardExport const char
@@ -40,7 +40,7 @@ extern WizardExport WizardBooleanType
 
 extern WizardExport const MimeInfo
   *GetMimeInfo(const char *,const unsigned char *,const size_t,ExceptionInfo *),
-  **GetMimeInfoList(const char *,unsigned long *,ExceptionInfo *);
+  **GetMimeInfoList(const char *,size_t *,ExceptionInfo *);
 
 extern WizardExport void
   MimeComponentTerminus(void);

@@ -320,7 +320,7 @@ WizardExport char *Base64Encode(const unsigned char *blob,
   remainder=blob_length % 3;
   if (remainder != 0)
     {
-      long
+      ssize_t
         j;
 
       unsigned char
@@ -329,7 +329,7 @@ WizardExport char *Base64Encode(const unsigned char *blob,
       code[0]='\0';
       code[1]='\0';
       code[2]='\0';
-      for (j=0; j < (long) remainder; j++)
+      for (j=0; j < (ssize_t) remainder; j++)
         code[j]=(*p++);
       encode[i++]=Base64[(int) (code[0] >> 2)];
       encode[i++]=Base64[(int) (((code[0] & 0x03) << 4)+(code[1] >> 4))];
@@ -361,7 +361,7 @@ WizardExport char *Base64Encode(const unsigned char *blob,
 %
 %  The format of the ChopPathComponents method is:
 %
-%      ChopPathComponents(char *path,unsigned long components)
+%      ChopPathComponents(char *path,size_t components)
 %
 %  A description of each parameter follows:
 %
@@ -370,12 +370,12 @@ WizardExport char *Base64Encode(const unsigned char *blob,
 %    o components:  The number of components to chop.
 %
 */
-WizardExport void ChopPathComponents(char *path,const unsigned long components)
+WizardExport void ChopPathComponents(char *path,const size_t components)
 {
-  register long
+  register ssize_t
     i;
 
-  for (i=0; i < (long) components; i++)
+  for (i=0; i < (ssize_t) components; i++)
     GetPathComponent(path,HeadPath,path);
 }
 
@@ -559,7 +559,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
 %  The format of the GetPathComponents method is:
 %
 %      char **GetPathComponents(const char *path,
-%        unsigned long *number_componenets)
+%        size_t *number_componenets)
 %
 %  A description of each parameter follows:
 %
@@ -569,7 +569,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
 %
 */
 WizardExport char **GetPathComponents(const char *path,
-  unsigned long *number_components)
+  size_t *number_components)
 {
   char
     **components;
@@ -580,7 +580,7 @@ WizardExport char **GetPathComponents(const char *path,
   register const char
     *p;
 
-  register long
+  register ssize_t
     i;
 
   if (path == (char *) NULL)
@@ -594,7 +594,7 @@ WizardExport char **GetPathComponents(const char *path,
   if (components == (char **) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   p=path;
-  for (i=0; i < (long) *number_components; i++)
+  for (i=0; i < (ssize_t) *number_components; i++)
   {
     for (q=(char *) p; *q != '\0'; q++)
       if (IsBasenameSeparator(*q))
@@ -638,7 +638,7 @@ WizardExport char **GetPathComponents(const char *path,
 WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
 {
   *path='\0';
-  (void) getcwd(path,(unsigned long) extent);
+  (void) getcwd(path,(size_t) extent);
 #if defined(WIZARDSTOOLKIT_HAVE_GETPID) && defined(WIZARDSTOOLKIT_HAVE_READLINK) && defined(PATH_MAX)
   {
     char
@@ -649,12 +649,12 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
       length;
 
     (void) FormatWizardString(link_path,MaxTextExtent,"/proc/%ld/exe",
-      (long) getpid());
+      (ssize_t) getpid());
     length=readlink(link_path,real_path,PATH_MAX);
     if (length == -1)
       {
         (void) FormatWizardString(link_path,MaxTextExtent,"/proc/%ld/file",
-          (long) getpid());
+          (ssize_t) getpid());
         length=readlink(link_path,real_path,PATH_MAX);
       }
     if ((length > 0) && ((size_t) length <= PATH_MAX))
@@ -703,7 +703,7 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
       *program_name,
       *execution_path;
 
-    long
+    ssize_t
       count;
 
     count=0;
@@ -902,13 +902,13 @@ WizardExport const char *ParseWizardTime(const char *timestamp,time_t *target)
   double
     value;
 
-  long
+  ssize_t
     timezone;
 
   register const char
     *p;
 
-  register long
+  register ssize_t
     i;
 
   static char
@@ -930,7 +930,7 @@ WizardExport const char *ParseWizardTime(const char *timestamp,time_t *target)
 #else
   (void) memcpy(&gm_time,gmtime(target),sizeof(gm_time));
 #endif
-  timezone=(long) ((local_time.tm_min-gm_time.tm_min)/60+local_time.tm_hour-
+  timezone=(ssize_t) ((local_time.tm_min-gm_time.tm_min)/60+local_time.tm_hour-
     gm_time.tm_hour+24*((local_time.tm_year-gm_time.tm_year) != 0 ?
     (local_time.tm_year-gm_time.tm_year) : (local_time.tm_yday-
     gm_time.tm_yday)));
@@ -1082,7 +1082,7 @@ static wchar_t *ConvertUTF8ToUTF16(const unsigned char *source)
   length=UTF8ToUTF16(source,(wchar_t *) NULL);
   if (length == 0)
     {
-      register long
+      register ssize_t
         i;
 
       /*
@@ -1092,7 +1092,7 @@ static wchar_t *ConvertUTF8ToUTF16(const unsigned char *source)
       utf16=(wchar_t *) AcquireQuantumMemory(length+1,sizeof(*utf16));
       if (utf16 == (wchar_t *) NULL)
         return((wchar_t *) NULL);
-      for (i=0; i <= (long) length; i++)
+      for (i=0; i <= (ssize_t) length; i++)
         utf16[i]=source[i];
       return(utf16);
     }

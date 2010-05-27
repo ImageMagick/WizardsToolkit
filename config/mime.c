@@ -37,7 +37,7 @@ int main(int argc, char **argv)
       "  <!ATTLIST mime description CDATA #IMPLIED>\n"
       "  <!ATTLIST mime pattern CDATA #IMPLIED>\n"
       "  <!ATTLIST mime offset CDATA #IMPLIED>\n"
-      "  <!ATTLIST mime data-type (string|byte|short|long) #IMPLIED>\n"
+      "  <!ATTLIST mime data-type (string|byte|short|ssize_t) #IMPLIED>\n"
       "  <!ATTLIST mime endian (lsb|msb) #IMPLIED>\n"
       "  <!ATTLIST mime magic CDATA #IMPLIED>\n"
       "  <!ATTLIST mime mask CDATA #IMPLIED>\n"
@@ -121,7 +121,7 @@ int main(int argc, char **argv)
           if (strcmp(match_type+strlen(match_type)-2,"16") == 0)
             data_type="short";
           if (strcmp(match_type+strlen(match_type)-2,"32") == 0)
-            data_type="long";
+            data_type="ssize_t";
           (void) printf(" data-type=\"%s\"",data_type);
           if (strcmp(endian,"undefined") != 0)
             (void) printf(" endian=\"%s\"",endian);

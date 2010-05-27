@@ -26,7 +26,7 @@ typedef struct _BZIPInfo
   BZIPInfo;
 
 extern WizardExport BZIPInfo
-  *AcquireBZIPInfo(const unsigned long),
+  *AcquireBZIPInfo(const size_t),
   *DestroyBZIPInfo(BZIPInfo *);
 
 extern WizardExport const StringInfo

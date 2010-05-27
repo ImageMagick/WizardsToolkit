@@ -34,7 +34,7 @@ extern WizardExport HMACInfo
 extern WizardExport const StringInfo
   *GetHMACDigest(const HMACInfo *);
 
-extern WizardExport unsigned long
+extern WizardExport size_t
   GetHMACDigestsize(const HMACInfo *);
 
 extern WizardExport void

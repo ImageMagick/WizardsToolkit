@@ -58,13 +58,13 @@ struct _ZIPInfo
   StringInfo
     *chaos;
 
-  unsigned long
+  size_t
     level;
 
-  long
+  ssize_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -83,14 +83,14 @@ struct _ZIPInfo
 %
 %  The format of the AcquireZIPInfo method is:
 %
-%      ZIPInfo *AcquireZIPInfo(const unsigned long level)
+%      ZIPInfo *AcquireZIPInfo(const size_t level)
 %
 %  A description of each parameter follows:
 %
 %    o level: entropy level: 1 is best speed, 9 is more entropy.
 %
 */
-WizardExport ZIPInfo *AcquireZIPInfo(const unsigned long level)
+WizardExport ZIPInfo *AcquireZIPInfo(const size_t level)
 {
   ZIPInfo
     *zip_info;
@@ -101,7 +101,7 @@ WizardExport ZIPInfo *AcquireZIPInfo(const unsigned long level)
   (void) ResetWizardMemory(zip_info,0,sizeof(*zip_info));
   zip_info->chaos=AcquireStringInfo(1);
   zip_info->level=level;
-  zip_info->timestamp=(long) (time((time_t *) NULL)-WizardEpoch);
+  zip_info->timestamp=(ssize_t) (time((time_t *) NULL)-WizardEpoch);
   zip_info->signature=WizardSignature;
   return(zip_info);
 }
@@ -236,7 +236,7 @@ WizardExport WizardBooleanType IncreaseZIP(ZIPInfo *zip_info,
   stream.next_in=(Bytef *) GetStringInfoDatum(message);
   stream.avail_in=(uInt) GetStringInfoLength(message);
   SetStringInfoLength(zip_info->chaos,(size_t) deflateBound(&stream,
-    (unsigned long) GetStringInfoLength(message)));
+    (size_t) GetStringInfoLength(message)));
   stream.next_out=(Bytef *) GetStringInfoDatum(zip_info->chaos);
   stream.avail_out=(uInt) GetStringInfoLength(zip_info->chaos);
   status=deflate(&stream,Z_FINISH);

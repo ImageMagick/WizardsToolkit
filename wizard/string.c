@@ -66,7 +66,7 @@ struct _StringInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -832,7 +832,7 @@ WizardExport StringInfo *DestroyStringInfo(StringInfo *string_info)
 */
 WizardExport char **DestroyStringList(char **list)
 {
-  register long
+  register ssize_t
     i;
 
   assert(list != (char **) NULL);
@@ -945,7 +945,7 @@ WizardExport StringInfo *FileToStringInfo(const char *filename,
 %
 %  The format of the FormatWizardSize method is:
 %
-%      long FormatWizardSize(const WizardSizeType size,char *format)
+%      ssize_t FormatWizardSize(const WizardSizeType size,char *format)
 %
 %  A description of each parameter follows:
 %
@@ -956,7 +956,7 @@ WizardExport StringInfo *FileToStringInfo(const char *filename,
 %    o format:  human readable format.
 %
 */
-WizardExport long FormatWizardSize(const WizardSizeType size,
+WizardExport ssize_t FormatWizardSize(const WizardSizeType size,
   const WizardBooleanType bi,char *format)
 {
   const char
@@ -966,10 +966,10 @@ WizardExport long FormatWizardSize(const WizardSizeType size,
     bytes,
     length;
 
-  long
+  ssize_t
     count;
 
-  register long
+  register ssize_t
     i,
     j;
 
@@ -1022,7 +1022,7 @@ WizardExport long FormatWizardSize(const WizardSizeType size,
 %
 %  The format of the FormatWizardString method is:
 %
-%      long FormatWizardString(char *string,const size_t length,
+%      ssize_t FormatWizardString(char *string,const size_t length,
 %        const char *format,...)
 %
 %  A description of each parameter follows.
@@ -1037,7 +1037,7 @@ WizardExport long FormatWizardSize(const WizardSizeType size,
 %
 */
 
-WizardExport long FormatWizardStringList(char *string,const size_t length,
+WizardExport ssize_t FormatWizardStringList(char *string,const size_t length,
   const char *format,va_list operands)
 {
   int
@@ -1053,10 +1053,10 @@ WizardExport long FormatWizardStringList(char *string,const size_t length,
   return(n);
 }
 
-WizardExport long FormatWizardString(char *string,const size_t length,
+WizardExport ssize_t FormatWizardString(char *string,const size_t length,
   const char *format,...)
 {
-  long
+  ssize_t
     n;
 
   va_list
@@ -1084,7 +1084,7 @@ WizardExport long FormatWizardString(char *string,const size_t length,
 %
 %  The format of the FormatWizardTime method is:
 %
-%      long FormatWizardTime(const time_t time,const size_t length,
+%      ssize_t FormatWizardTime(const time_t time,const size_t length,
 %        char *timestamp)
 %
 %  A description of each parameter follows.
@@ -1097,10 +1097,10 @@ WizardExport long FormatWizardString(char *string,const size_t length,
 %   o timestamp:  Return the Internet date/time here.
 %
 */
-WizardExport long FormatWizardTime(const time_t time,const size_t length,
+WizardExport ssize_t FormatWizardTime(const time_t time,const size_t length,
   char *timestamp)
 {
-  long
+  ssize_t
     count;
 
   struct tm
@@ -1142,7 +1142,7 @@ WizardExport long FormatWizardTime(const time_t time,const size_t length,
   count=FormatWizardString(timestamp,length,
     "%04d-%02d-%02dT%02d:%02d:%02d%+03ld:00",local_time.tm_year+1900,
     local_time.tm_mon+1,local_time.tm_mday,local_time.tm_hour,
-    local_time.tm_min,local_time.tm_sec,(long) timezone);
+    local_time.tm_min,local_time.tm_sec,(ssize_t) timezone);
   return(count);
 }
 
@@ -1336,7 +1336,7 @@ WizardExport StringInfo *HexStringToStringInfo(const char *string)
   register const unsigned char
     *p;
 
-  register long
+  register ssize_t
     i;
 
   register unsigned char
@@ -1376,7 +1376,7 @@ WizardExport StringInfo *HexStringToStringInfo(const char *string)
   hex_digits[(int) 'F']=15;
   p=(unsigned char *) string;
   q=string_info->datum;
-  for (i=0; i < (long) string_info->length; i++)
+  for (i=0; i < (ssize_t) string_info->length; i++)
   {
     *q=hex_digits[*p++] << 4;
     *q|=hex_digits[*p++];
@@ -1560,7 +1560,7 @@ WizardExport int LocaleNCompare(const char *p,const char *q,const size_t length)
 %
 %  The format of the PrintWizardString method is:
 %
-%      long PrintWizardString(FILE *,const char *format,...)
+%      ssize_t PrintWizardString(FILE *,const char *format,...)
 %
 %  A description of each parameter follows:
 %
@@ -1570,12 +1570,12 @@ WizardExport int LocaleNCompare(const char *p,const char *q,const size_t length)
 %     arguments.
 %
 */
-WizardExport long PrintWizardString(FILE *file,const char *format,...)
+WizardExport ssize_t PrintWizardString(FILE *file,const char *format,...)
 {
   char
     string[MaxTextExtent];
 
-  long
+  ssize_t
     length;
 
   va_list
@@ -1586,7 +1586,7 @@ WizardExport long PrintWizardString(FILE *file,const char *format,...)
   va_end(operands);
   if (length < 0)
     return(-1);
-  return((long) fwrite(string,(size_t) length,1,file));
+  return((ssize_t) fwrite(string,(size_t) length,1,file));
 }
 
 /*
@@ -1632,14 +1632,14 @@ WizardExport void PrintStringInfo(FILE *file,const char *id,
     if (isascii((int) ((unsigned char) *p)) == 0)
       break;
   }
-  (void) PrintWizardString(file,"%s(%lu): ",id,(unsigned long)
+  (void) PrintWizardString(file,"%s(%lu): ",id,(size_t)
     string_info->length);
   if (p == q)
     for (p=string_info->datum; p < q; p++)
       (void) PrintWizardString(file,"%c",(int) *p);
   else
     for (p=string_info->datum; p < q; p++)
-      (void) PrintWizardString(file,"%02lx",(unsigned long) *p);
+      (void) PrintWizardString(file,"%02lx",(size_t) *p);
   (void) PrintWizardString(file,"\n");
 }
 
@@ -1895,7 +1895,7 @@ WizardExport char *StringInfoToHexString(const StringInfo *string_info)
   register const unsigned char
     *p;
 
-  register long
+  register ssize_t
     i;
 
   register unsigned char
@@ -1931,7 +1931,7 @@ WizardExport char *StringInfoToHexString(const StringInfo *string_info)
   hex_digits[15]='f';
   p=string_info->datum;
   q=(unsigned char *) string;
-  for (i=0; i < (long) string_info->length; i++)
+  for (i=0; i < (ssize_t) string_info->length; i++)
   {
     *q++=hex_digits[(*p >> 4) & 0x0f]; 
     *q++=hex_digits[*p & 0x0f]; 
@@ -2020,7 +2020,7 @@ WizardExport char **StringToArgv(const char *text,int *argc)
     *p,
     *q;
 
-  register long
+  register ssize_t
     i;
 
   *argc=0;
@@ -2048,7 +2048,7 @@ WizardExport char **StringToArgv(const char *text,int *argc)
     Convert string to an ASCII list.
   */
   p=(char *) text;
-  for (i=0; i < (long) *argc; i++)
+  for (i=0; i < (ssize_t) *argc; i++)
   {
     while (isspace((int) ((unsigned char) *p)) != 0)
       p++;

@@ -62,7 +62,7 @@ struct _EntropyInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -82,7 +82,7 @@ struct _EntropyInfo
 %  The format of the AcquireEntropyInfo method is:
 %
 %      EntropyInfo *AcquireEntropyInfo(const EntropyType entropy,
-%        const unsigned long level)
+%        const size_t level)
 %
 %  A description of each parameter follows:
 %
@@ -92,7 +92,7 @@ struct _EntropyInfo
 %
 */
 WizardExport EntropyInfo *AcquireEntropyInfo(const EntropyType entropy,
-  const unsigned long level)
+  const size_t level)
 {
   EntropyInfo
     *entropy_info;

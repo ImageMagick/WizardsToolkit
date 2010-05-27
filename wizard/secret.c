@@ -91,7 +91,7 @@ struct _SecretInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -111,7 +111,7 @@ struct _SecretInfo
 %  The format of the AcquireSecretInfo method is:
 %
 %      SecretInfo *AcquireSecretInfo(const char *path,const HashType hash,
-%        const unsigned long key_length)
+%        const size_t key_length)
 %
 %  A description of each parameter follows:
 %
@@ -122,7 +122,7 @@ struct _SecretInfo
 %    o key_length: The key length in bits.
 */
 WizardExport SecretInfo *AcquireSecretInfo(const char *path,const HashType hash,
-  const unsigned long key_length)
+  const size_t key_length)
 {
   SecretInfo
     *secret_info;
@@ -502,7 +502,7 @@ WizardExport void SetSecretId(SecretInfo *secret_info,const StringInfo *id)
 %  The format of the SetSecretKeyLength method is:
 %
 %      void SetSecretKeyLength(SecretInfo *secret_info,
-%        const unsigned long key_length)
+%        const size_t key_length)
 %
 %  A description of each parameter follows:
 %
@@ -512,7 +512,7 @@ WizardExport void SetSecretId(SecretInfo *secret_info,const StringInfo *id)
 %
 */
 WizardExport void SetSecretKeyLength(SecretInfo *secret_info,
-  const unsigned long key_length)
+  const size_t key_length)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(AuthenticateDomain,secret_info != (SecretInfo *) NULL);

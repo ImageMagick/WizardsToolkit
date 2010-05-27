@@ -36,7 +36,7 @@ extern "C" {
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   typedef CRITICAL_SECTION WizardMutexType;
 #else
-  typedef unsigned long WizardMutexType;
+  typedef size_t WizardMutexType;
 #endif
 
 static inline WizardThreadType GetWizardThreadId(void)
@@ -50,7 +50,7 @@ static inline WizardThreadType GetWizardThreadId(void)
 #endif
 }
 
-static inline unsigned long GetWizardThreadSignature(void)
+static inline size_t GetWizardThreadSignature(void)
 {
 #if defined(MAGICKCORE_HAVE_PTHREAD)
   {
@@ -59,7 +59,7 @@ static inline unsigned long GetWizardThreadSignature(void)
       pthread_t
         id;
 
-      unsigned long
+      size_t
         signature;
     } wizard_thread;
 
@@ -68,9 +68,9 @@ static inline unsigned long GetWizardThreadSignature(void)
     return(wizard_thread.signature);
   }
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
-  return((unsigned long) GetCurrentThreadId());
+  return((size_t) GetCurrentThreadId());
 #else
-  return((unsigned long) getpid());
+  return((size_t) getpid());
 #endif
 }
 
@@ -92,19 +92,19 @@ static inline WizardBooleanType IsWizardThreadEqual(const WizardThreadType id)
 /*
   Lightweight OpenMP methods.
 */
-static inline unsigned long GetOpenMPMaximumThreads(void)
+static inline size_t GetOpenMPMaximumThreads(void)
 {
-  static unsigned long
+  static size_t
     maximum_threads = 1;
 
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-  if (omp_get_max_threads() > (long) maximum_threads)
+  if (omp_get_max_threads() > (ssize_t) maximum_threads)
     maximum_threads=omp_get_max_threads();
 #endif
   return(maximum_threads);
 }
 
-static inline long GetOpenMPThreadId(void)
+static inline ssize_t GetOpenMPThreadId(void)
 {
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
   return(omp_get_thread_num());
@@ -113,7 +113,7 @@ static inline long GetOpenMPThreadId(void)
 #endif
 }
 
-static inline void SetOpenMPMaximumThreads(const unsigned long threads)
+static inline void SetOpenMPMaximumThreads(const size_t threads)
 {
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
   omp_set_num_threads(threads);

@@ -50,7 +50,7 @@ extern WizardExport HashInfo
   *DestroyHashInfo(HashInfo *),
   *AcquireHashInfo(const HashType);
 
-extern WizardExport unsigned long
+extern WizardExport size_t
   GetHashBlocksize(const HashInfo *),
   GetHashDigestsize(const HashInfo *);
 

@@ -35,7 +35,7 @@ typedef pthread_key_t WizardThreadKey;
 #elif defined(MAGICKORE_HAVE_WINTHREADS)
 typedef DWORD WizardThreadKey;
 #else
-typedef unsigned long *WizardThreadKey;
+typedef size_t *WizardThreadKey;
 #endif
 
 extern WizardExport WizardBooleanType

@@ -40,7 +40,7 @@ extern WizardExport const StringInfo
   *GetEntropyChaos(const EntropyInfo *);
 
 extern WizardExport EntropyInfo
-  *AcquireEntropyInfo(const EntropyType,const unsigned long),
+  *AcquireEntropyInfo(const EntropyType,const size_t),
   *DestroyEntropyInfo(EntropyInfo *);
 
 extern WizardExport WizardBooleanType

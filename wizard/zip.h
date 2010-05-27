@@ -33,7 +33,7 @@ extern WizardExport WizardBooleanType
   RestoreZIP(ZIPInfo *,const size_t,const StringInfo *,ExceptionInfo *);
 
 extern WizardExport ZIPInfo
-  *AcquireZIPInfo(const unsigned long),
+  *AcquireZIPInfo(const size_t),
   *DestroyZIPInfo(ZIPInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

@@ -175,7 +175,7 @@ WizardExport WizardBooleanType WizardSetThreadValue(WizardThreadKey key,
 #elif defined(MAGICKORE_HAVE_WINTHREADS)
   return(TlsSetValue(key,(void *) value) != 0 ? WizardTrue : WizardFalse);
 #else
-  *key=(unsigned long) value;
+  *key=(size_t) value;
   return(WizardTrue);
 #endif
 }

@@ -101,7 +101,7 @@ typedef struct _ContentInfo
     protocol_major,
     protocol_minor;
 
-  unsigned long
+  size_t
     signature;
 } ContentInfo;
 

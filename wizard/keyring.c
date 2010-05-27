@@ -78,7 +78,7 @@ struct _KeyringInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -208,7 +208,7 @@ WizardExport WizardBooleanType ExportKeyringKey(KeyringInfo *keyring_info,
     *nonce,
     *target;
 
-  unsigned long
+  size_t
     length,
     signature;
 
@@ -487,14 +487,14 @@ WizardExport WizardBooleanType ImportKeyringKey(KeyringInfo *keyring_info,
   status|=WriteFile16Bits(file_info,keyring_info->protocol_minor);
   status|=WriteFile64Bits(file_info,(WizardSizeType) keyring_info->timestamp);
   length=GetStringInfoLength(keyring_info->id);
-  status|=WriteFile32Bits(file_info,(unsigned long) length);
+  status|=WriteFile32Bits(file_info,(size_t) length);
   status|=WriteFileChunk(file_info,GetStringInfoDatum(keyring_info->id),length);
   length=GetStringInfoLength(keyring_info->key);
-  status|=WriteFile32Bits(file_info,(unsigned long) length);
+  status|=WriteFile32Bits(file_info,(size_t) length);
   status|=WriteFileChunk(file_info,GetStringInfoDatum(keyring_info->key),
     length);
   length=GetStringInfoLength(keyring_info->nonce);
-  status|=WriteFile32Bits(file_info,(unsigned long) length);
+  status|=WriteFile32Bits(file_info,(size_t) length);
   status|=WriteFileChunk(file_info,GetStringInfoDatum(keyring_info->nonce),
     length);
   if (status == WizardFalse)
@@ -562,7 +562,7 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
     *nonce,
     *target;
 
-  unsigned long
+  size_t
     length;
 
   WizardSizeType

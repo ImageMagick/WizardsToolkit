@@ -40,7 +40,7 @@ extern WizardExport SplayTreeInfo
   *NewSplayTree(int (*)(const void *,const void *),void *(*)(void *),
     void *(*)(void *));
 
-extern WizardExport unsigned long
+extern WizardExport size_t
   GetNumberOfNodesInSplayTree(const SplayTreeInfo *);
 
 extern WizardExport void

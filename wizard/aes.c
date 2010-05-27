@@ -58,13 +58,13 @@ struct _AESInfo
     *encipher_key,
     *decipher_key;
 
-  long
+  ssize_t
     rounds;
 
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -218,7 +218,7 @@ WizardExport AESInfo *AcquireAESInfo(void)
 static inline void AddRoundKey(const unsigned int *ciphertext,
   const unsigned int *key,unsigned int *plaintext)
 {
-  register long
+  register ssize_t
     i;
 
   /*
@@ -407,7 +407,7 @@ WizardExport void DecipherAESBlock(AESInfo *aes_info,
       0x4257b8d0U
     };
 
-  register long
+  register ssize_t
     i,
     j;
 
@@ -519,7 +519,7 @@ WizardExport AESInfo *DestroyAESInfo(AESInfo *aes_info)
 WizardExport void EncipherAESBlock(AESInfo *aes_info,
   const unsigned char *plaintext,unsigned char *ciphertext)
 {
-  register long
+  register ssize_t
     i,
     j;
 
@@ -719,11 +719,11 @@ static inline unsigned int RotateRight(const unsigned int x)
 
 WizardExport void SetAESKey(AESInfo *aes_info,const StringInfo *key)
 {
-  long
+  ssize_t
     bytes,
     n;
 
-  register long
+  register ssize_t
     i;
 
   unsigned char

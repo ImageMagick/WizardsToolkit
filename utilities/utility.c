@@ -52,7 +52,7 @@
   Forward declaration.
 */
 static char
-   **ListFiles(const char *,const char *,unsigned long *);
+   **ListFiles(const char *,const char *,size_t *);
 
 static int
   IsDirectory(const char *);
@@ -181,15 +181,15 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
     path[MaxTextExtent],
     **vector;
 
-  long
+  ssize_t
     count,
     parameters;
 
-  register long
+  register ssize_t
     i,
     j;
 
-  unsigned long
+  size_t
     number_files;
 
   /*
@@ -207,7 +207,7 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
   if (getcwd(home_directory,MaxTextExtent) == (char *) NULL)
     return(WizardFalse);
   count=0;
-  for (i=0; i < (long) *argc; i++)
+  for (i=0; i < (ssize_t) *argc; i++)
   {
     option=(*argv)[i];
     vector[count++]=ConstantString(option);
@@ -220,7 +220,7 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
         for (j=0; j < parameters; j++)
         {
           i++;
-          if (i == (long) *argc)
+          if (i == (ssize_t) *argc)
             break;
           option=(*argv)[i];
           vector[count++]=ConstantString(option);
@@ -238,12 +238,12 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
       &number_files);
     if (filelist == (char **) NULL)
       continue;
-    for (j=0; j < (long) number_files; j++)
+    for (j=0; j < (ssize_t) number_files; j++)
       if (IsDirectory(filelist[j]) <= 0)
         break;
-    if (j == (long) number_files)
+    if (j == (ssize_t) number_files)
       {
-        for (j=0; j < (long) number_files; j++)
+        for (j=0; j < (ssize_t) number_files; j++)
           filelist[j]=DestroyString(filelist[j]);
         filelist=(char **) RelinquishWizardMemory(filelist);
         continue;
@@ -256,7 +256,7 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
     if (vector == (char **) NULL)
       return(WizardFalse);
     count--;
-    for (j=0; j < (long) number_files; j++)
+    for (j=0; j < (ssize_t) number_files; j++)
     {
       (void) CopyWizardString(filename,path,MaxTextExtent);
       if (*path != '\0')
@@ -362,7 +362,7 @@ static int IsDirectory(const char *path)
 %  The format of the ListFiles function is:
 %
 %      char **ListFiles(const char *directory,const char *pattern,
-%        long *number_entries)
+%        ssize_t *number_entries)
 %
 %  A description of each parameter follows:
 %
@@ -413,7 +413,7 @@ static inline int WizardReadDirectory(DIR *directory,struct dirent *entry,
 }
 
 static char **ListFiles(const char *directory,const char *pattern,
-  unsigned long *number_entries)
+  size_t *number_entries)
 {
   char
     **filelist;
@@ -425,7 +425,7 @@ static char **ListFiles(const char *directory,const char *pattern,
     *buffer,
     *entry;
 
-  unsigned long
+  size_t
     max_entries;
 
   /*
@@ -434,7 +434,7 @@ static char **ListFiles(const char *directory,const char *pattern,
   assert(directory != (const char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",directory);
   assert(pattern != (const char *) NULL);
-  assert(number_entries != (unsigned long *) NULL);
+  assert(number_entries != (size_t *) NULL);
   *number_entries=0;
   current_directory=opendir(directory);
   if (current_directory == (DIR *) NULL)

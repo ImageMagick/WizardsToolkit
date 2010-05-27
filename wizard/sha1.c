@@ -78,7 +78,7 @@ struct _SHA1Info
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -430,7 +430,7 @@ static unsigned int RotateLeft(unsigned int x,unsigned int n)
 
 static void TransformSHA1(SHA1Info *sha_info)
 {
-  register long
+  register ssize_t
     i;
 
   register unsigned char

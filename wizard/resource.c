@@ -263,7 +263,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
   register char
     *p;
 
-  register long
+  register ssize_t
     i;
 
   static const char
@@ -282,7 +282,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
   if (random_info == (RandomInfo *) NULL)
     random_info=AcquireRandomInfo(SHA256Hash);
   file=(-1);
-  for (i=0; i < (long) TMP_MAX; i++)
+  for (i=0; i < (ssize_t) TMP_MAX; i++)
   {
     /*
       Get temporary pathname.
@@ -296,7 +296,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
     key=GetRandomKey(random_info,8);
     p=filename+strlen(filename)-8;
     datum=GetStringInfoDatum(key);
-    for (i=0; i < (long) GetStringInfoLength(key); i++)
+    for (i=0; i < (ssize_t) GetStringInfoLength(key); i++)
     {
       c=(int) (datum[i] & 0x3f);
       *p++=portable_filename[c];
@@ -449,7 +449,7 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
   }
   UnlockSemaphoreInfo(resource_semaphore);
   (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %sB/%sB/%sB",
-    WizardOptionToMnemonic(WizardResourceOptions,(long) type),resource_request,
+    WizardOptionToMnemonic(WizardResourceOptions,(ssize_t) type),resource_request,
     resource_current,resource_limit);
   return(status);
 }
@@ -575,7 +575,7 @@ WizardExport WizardSizeType GetWizardResource(const ResourceType type)
 %
 %  The format of the GetWizardResourceLimit() method is:
 %
-%      unsigned long GetWizardResourceLimit(const ResourceType type)
+%      size_t GetWizardResourceLimit(const ResourceType type)
 %
 %  A description of each parameter follows:
 %
@@ -670,7 +670,7 @@ WizardExport WizardBooleanType ListWizardResourceInfo(FILE *file,
   (void) FormatWizardSize(resource_info.disk_limit,WizardFalse,disk_limit);
   (void) fprintf(file,"File        Area      Memory         Map        Disk\n");
   (void) fprintf(file,"----------------------------------------------------\n");
-  (void) fprintf(file,"%4lu  %9sB  %9sB  %9sB  %9sB\n",(unsigned long)
+  (void) fprintf(file,"%4lu  %9sB  %9sB  %9sB  %9sB\n",(size_t)
     resource_info.file_limit,area_limit,memory_limit,map_limit,disk_limit);
   (void) fflush(file);
   UnlockSemaphoreInfo(resource_semaphore);
@@ -766,7 +766,7 @@ WizardExport void RelinquishWizardResource(const ResourceType type,
   }
   UnlockSemaphoreInfo(resource_semaphore);
   (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %sB/%sB/%sB",
-    WizardOptionToMnemonic(WizardResourceOptions,(long) type),resource_request,
+    WizardOptionToMnemonic(WizardResourceOptions,(ssize_t) type),resource_request,
     resource_current,resource_limit);
 }
 
@@ -840,7 +840,7 @@ WizardExport WizardBooleanType RelinquishUniqueFileResource(const char *path,
 %
 */
 
-static inline long WizardMax(const long x,const long y)
+static inline ssize_t WizardMax(const ssize_t x,const ssize_t y)
 {
   if (x > y)
     return(x);
@@ -852,12 +852,12 @@ WizardExport WizardBooleanType ResourceComponentGenesis(void)
   char
     *limit;
 
-  long
+  ssize_t
     files,
     pages,
     pagesize;
 
-  unsigned long
+  size_t
     memory;
 
   /*
@@ -874,7 +874,7 @@ WizardExport WizardBooleanType ResourceComponentGenesis(void)
 #if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_PHYS_PAGES)
   pages=sysconf(_SC_PHYS_PAGES);
 #endif
-  memory=(unsigned long) ((pages+512)/1024)*((pagesize+512)/1024);
+  memory=(size_t) ((pages+512)/1024)*((pagesize+512)/1024);
   if ((pagesize <= 0) || (pages <= 0))
     memory=2048UL;
 #if defined(PixelCacheThreshold)
@@ -913,7 +913,7 @@ WizardExport WizardBooleanType ResourceComponentGenesis(void)
 #elif defined(WIZARDSTOOLKIT_HAVE_GETDTABLESIZE) && defined(POSIX)
   files=getdtablesize();
 #endif
-  (void) SetWizardResourceLimit(FileResource,(unsigned long)
+  (void) SetWizardResourceLimit(FileResource,(size_t)
     WizardMax(3L*files/4L,64L));
   limit=GetEnvironmentValue("WIZARD_FILE_LIMIT");
   if (limit != (char *) NULL)

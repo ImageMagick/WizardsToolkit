@@ -58,7 +58,7 @@ struct _TokenInfo
   WizardStatusType
     flag;
 
-  long
+  ssize_t
     offset;
 
   char
@@ -99,7 +99,7 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
   register const char
     *p;
 
-  register long
+  register ssize_t
     i;
 
   i=0;
@@ -194,13 +194,13 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
   token[i]='\0';
   if (LocaleNCompare(token,"url(#",5) == 0)
     {
-      i=(long) strlen(token);
+      i=(ssize_t) strlen(token);
       (void) CopyWizardString(token,token+5,MaxTextExtent);
       token[i-6]='\0';
     }
   if (LocaleNCompare(token,"url(",4) == 0)
     {
-      i=(long) strlen(token);
+      i=(ssize_t) strlen(token);
       (void) CopyWizardString(token,token+4,MaxTextExtent);
       token[i-5]='\0';
     }

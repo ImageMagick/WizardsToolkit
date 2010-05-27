@@ -66,7 +66,7 @@ struct _AuthenticateInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -562,7 +562,7 @@ WizardExport void SetAuthenticateId(AuthenticateInfo *authenticate_info,
 %  The format of the SetAuthenticateKeyLength method is:
 %
 %      void SetAuthenticateKeyLength(AuthenticateInfo *authenticate_info,
-%        const unsigned long key_length)
+%        const size_t key_length)
 %
 %  A description of each parameter follows:
 %
@@ -572,7 +572,7 @@ WizardExport void SetAuthenticateId(AuthenticateInfo *authenticate_info,
 %
 */
 WizardExport void SetAuthenticateKeyLength(AuthenticateInfo *authenticate_info,
-  const unsigned long key_length)
+  const size_t key_length)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(AuthenticateDomain,

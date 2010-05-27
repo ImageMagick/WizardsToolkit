@@ -80,7 +80,7 @@
 
 // Visual C++ does not define ssize_t by default.
 #if !defined(ssize_t)
-#  define ssize_t  long
+#  define ssize_t  ssize_t
 #endif
 
 #if !defined(__FUNCTION__)

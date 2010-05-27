@@ -17,7 +17,7 @@
   <configure name="VERSION" value="1.0.7" />
   <configure name="LIB_VERSION" value="0x107" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,7,3" />
-  <configure name="RELEASE_DATE" value="2010-05-23" />
+  <configure name="RELEASE_DATE" value="2010-05-27" />
   <configure name="COPYRIGHT" value="Copyright (C) 1999-2010 ImageMagick Studio LLC" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
 </configuremap>

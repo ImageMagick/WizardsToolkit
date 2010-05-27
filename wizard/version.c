@@ -81,16 +81,16 @@ WizardExport const char *GetWizardCopyright(void)
 %
 %  The format of the GetWizardVersion method is:
 %
-%      const char *GetWizardVersion(unsigned long *version)
+%      const char *GetWizardVersion(size_t *version)
 %
 %  A description of each parameter follows:
 %
 %    o version: The Wizard version is returned as a number.
 %
 */
-WizardExport const char *GetWizardVersion(unsigned long *version)
+WizardExport const char *GetWizardVersion(size_t *version)
 {
-  if (version != (unsigned long *) NULL)
+  if (version != (size_t *) NULL)
     *version=WizardLibVersion;
   return(WizardVersion);
 }

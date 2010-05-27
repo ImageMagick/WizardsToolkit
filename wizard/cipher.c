@@ -90,7 +90,7 @@ struct _CipherInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -468,10 +468,10 @@ WizardExport StringInfo *DecipherCipher(CipherInfo *cipher_info,
 static inline void IncrementCipherNonce(const size_t length,
   unsigned char *nonce)
 {
-  register long
+  register ssize_t
     i;
 
-  for (i=(long) (length-1); i >= 0; i--)
+  for (i=(ssize_t) (length-1); i >= 0; i--)
   {
     nonce[i]++;
     if (nonce[i] != 0)

@@ -81,7 +81,7 @@ struct _FileInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -111,15 +111,15 @@ struct _FileInfo
 %
 */
 
-static unsigned long GetWizardThreadId(void)
+static size_t GetWizardThreadId(void)
 {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
-  return((unsigned long) pthread_self());
+  return((size_t) pthread_self());
 #endif
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
-  return((unsigned long) GetCurrentThreadId());
+  return((size_t) GetCurrentThreadId());
 #endif
-  return((unsigned long) getpid());
+  return((size_t) getpid());
 }
 
 static WizardBooleanType AcquireFileLock(FileInfo *file_info,
@@ -128,13 +128,13 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
   char
     *path;
 
-  long
+  ssize_t
     pid;
 
-  register long
+  register ssize_t
     i;
 
-  unsigned long
+  size_t
     tid;
 
   WizardStatusType
@@ -172,7 +172,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
             WizardBooleanType
               active_process;
 
-            if ((pid == (long) getpid()) && (tid == GetWizardThreadId()))
+            if ((pid == (ssize_t) getpid()) && (tid == GetWizardThreadId()))
               {
                 path=DestroyString(path);
                 UnlockSemaphoreInfo(file_info->semaphore);
@@ -206,7 +206,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
         (void) sleep(1);
         continue;
       }
-    pid=(long) getpid();
+    pid=(ssize_t) getpid();
     status=WriteFileChunk(file_info,&pid,sizeof(pid));
     tid=GetWizardThreadId();
     status=WriteFileChunk(file_info,&tid,sizeof(tid));
@@ -692,7 +692,7 @@ WizardExport WizardBooleanType ReadFile16Bits(FileInfo *file_info,
 %  The format of the ReadFile32Bits method is:
 %
 %      WizardBooleanType ReadFile32Bits(FileInfo *file_info,
-%        unsigned long *value)
+%        size_t *value)
 %
 %  A description of each parameter follows.
 %
@@ -702,7 +702,7 @@ WizardExport WizardBooleanType ReadFile16Bits(FileInfo *file_info,
 %
 */
 WizardExport WizardBooleanType ReadFile32Bits(FileInfo *file_info,
-  unsigned long *value)
+  size_t *value)
 {
   WizardBooleanType
     status;
@@ -716,10 +716,10 @@ WizardExport WizardBooleanType ReadFile32Bits(FileInfo *file_info,
   status=ReadFileChunk(file_info,buffer,sizeof(buffer));
   if (status == WizardFalse)
     return(status);
-  *value=((unsigned long) buffer[3]) << 24;
-  *value|=((unsigned long) buffer[2]) << 16;
-  *value|=((unsigned long) buffer[1]) << 8;
-  *value|=((unsigned long) buffer[0]);
+  *value=((size_t) buffer[3]) << 24;
+  *value|=((size_t) buffer[2]) << 16;
+  *value|=((size_t) buffer[1]) << 8;
+  *value|=((size_t) buffer[0]);
   return(status);
 }
 
@@ -884,7 +884,7 @@ WizardExport WizardBooleanType WriteFileChunk(FileInfo *file_info,
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  WriteFile16Bits() writes a long value as a 16-bit quantity in
+%  WriteFile16Bits() writes a ssize_t value as a 16-bit quantity in
 %  least-significant byte first order.
 %
 %  The format of the WriteFile16Bits method is:
@@ -923,13 +923,13 @@ WizardExport WizardBooleanType WriteFile16Bits(FileInfo *file_info,
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  WriteFile32Bits() writes a long value as a 32-bit quantity in
+%  WriteFile32Bits() writes a ssize_t value as a 32-bit quantity in
 %  least-significant byte first order.
 %
 %  The format of the WriteFile32Bits method is:
 %
 %      WizardBooleanType WriteFile32Bits(FileInfo *file_info,
-%        const unsigned long value)
+%        const size_t value)
 %
 %  A description of each parameter follows.
 %
@@ -939,7 +939,7 @@ WizardExport WizardBooleanType WriteFile16Bits(FileInfo *file_info,
 %
 */
 WizardExport WizardBooleanType WriteFile32Bits(FileInfo *file_info,
-  const unsigned long value)
+  const size_t value)
 {
   unsigned char
     buffer[4];
@@ -964,7 +964,7 @@ WizardExport WizardBooleanType WriteFile32Bits(FileInfo *file_info,
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  WriteFile64Bits() writes a long value as a 64-bit quantity in
+%  WriteFile64Bits() writes a ssize_t value as a 64-bit quantity in
 %  least-significant byte first order.
 %
 %  The format of the WriteFile64Bits method is:

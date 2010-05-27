@@ -69,7 +69,7 @@ struct _CRC64Info
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -338,7 +338,7 @@ WizardExport unsigned int GetCRC64Digestsize(const CRC64Info *crc64_info)
 */
 WizardExport void InitializeCRC64(CRC64Info *crc_info)
 {
-  register long
+  register ssize_t
     i,
     j;
 

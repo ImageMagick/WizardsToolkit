@@ -82,10 +82,10 @@ static void
 */
 WizardExport void FinalizeSignature(SignatureInfo *signature_info)
 {
-  long
+  ssize_t
     count;
 
-  unsigned long
+  size_t
     high_order,
     low_order;
 
@@ -96,7 +96,7 @@ WizardExport void FinalizeSignature(SignatureInfo *signature_info)
   assert(signature_info->signature == WizardSignature);
   low_order=signature_info->low_order;
   high_order=signature_info->high_order;
-  count=(long) ((low_order >> 3) & 0x3f);
+  count=(ssize_t) ((low_order >> 3) & 0x3f);
   signature_info->message[count++]=(unsigned char) 0x80;
   if (count <= (WizardSignatureSize-8))
     (void) ResetWizardMemory(signature_info->message+count,0,(size_t)
@@ -144,7 +144,7 @@ WizardExport void FinalizeSignature(SignatureInfo *signature_info)
 */
 WizardExport void GetSignatureInfo(SignatureInfo *signature_info)
 {
-  unsigned long
+  size_t
     lsb_first;
 
   assert(signature_info != (SignatureInfo *) NULL);
@@ -196,16 +196,16 @@ static void TransformSignature(SignatureInfo *signature_info)
 #define Suma0(x)  (RotateRight(x,2) ^ RotateRight(x,13) ^ RotateRight(x,22))
 #define Suma1(x)  (RotateRight(x,6) ^ RotateRight(x,11) ^ RotateRight(x,25))
 
-  long
+  ssize_t
     j;
 
-  register long
+  register ssize_t
     i;
 
   register unsigned char
     *p;
 
-  static unsigned long
+  static size_t
     K[64] =
     {
       0x428a2f98UL, 0x71374491UL, 0xb5c0fbcfUL, 0xe9b5dba5UL, 0x3956c25bUL,
@@ -223,7 +223,7 @@ static void TransformSignature(SignatureInfo *signature_info)
       0x90befffaUL, 0xa4506cebUL, 0xbef9a3f7UL, 0xc67178f2UL
     };  /* 32-bit fractional part of the cube root of the first 64 primes */
 
-  unsigned long
+  size_t
     A,
     B,
     C,
@@ -242,27 +242,27 @@ static void TransformSignature(SignatureInfo *signature_info)
   p=signature_info->message;
   if (signature_info->lsb_first == WizardFalse)
     {
-      if (sizeof(unsigned long) <= 4)
+      if (sizeof(size_t) <= 4)
         for (i=0; i < 16; i++)
         {
-          T=(*((unsigned long *) p));
+          T=(*((size_t *) p));
           p+=4;
           W[i]=Trunc32(T);
         }
       else
         for (i=0; i < 16; i+=2)
         {
-          T=(*((unsigned long *) p));
+          T=(*((size_t *) p));
           p+=8;
           W[i]=Trunc32(T >> shift);
           W[i+1]=Trunc32(T);
         }
     }
   else
-    if (sizeof(unsigned long) <= 4)
+    if (sizeof(size_t) <= 4)
       for (i=0; i < 16; i++)
       {
-        T=(*((unsigned long *) p));
+        T=(*((size_t *) p));
         p+=4;
         W[i]=((T << 24) & 0xff000000) | ((T << 8) & 0x00ff0000) |
           ((T >> 8) & 0x0000ff00) | ((T >> 24) & 0x000000ff);
@@ -270,7 +270,7 @@ static void TransformSignature(SignatureInfo *signature_info)
     else
       for (i=0; i < 16; i+=2)
       {
-        T=(*((unsigned long *) p));
+        T=(*((size_t *) p));
         p+=8;
         W[i]=((T << 24) & 0xff000000) | ((T << 8) & 0x00ff0000) |
           ((T >> 8) & 0x0000ff00) | ((T >> 24) & 0x000000ff);
@@ -348,10 +348,10 @@ static void TransformSignature(SignatureInfo *signature_info)
 WizardExport void UpdateSignature(SignatureInfo *signature_info,
   const unsigned char *message,const size_t length)
 {
-  register long
+  register ssize_t
     i;
 
-  unsigned long
+  size_t
     count,
     n;
 
@@ -360,7 +360,7 @@ WizardExport void UpdateSignature(SignatureInfo *signature_info,
   */
   assert(signature_info != (SignatureInfo *) NULL);
   assert(signature_info->signature == WizardSignature);
-  n=(unsigned long) length;
+  n=(size_t) length;
   count=Trunc32(signature_info->low_order+(n << 3));
   if (count < signature_info->low_order)
     signature_info->high_order++;
@@ -369,8 +369,8 @@ WizardExport void UpdateSignature(SignatureInfo *signature_info,
   if (signature_info->offset != 0)
     {
       i=WizardSignatureSize-signature_info->offset;
-      if (i > (long) n)
-        i=(long) n;
+      if (i > (ssize_t) n)
+        i=(ssize_t) n;
       (void) CopyWizardMemory(signature_info->message+signature_info->offset,
         message,(size_t) i);
       n-=i;
@@ -389,5 +389,5 @@ WizardExport void UpdateSignature(SignatureInfo *signature_info,
     TransformSignature(signature_info);
   }
   (void) CopyWizardMemory(signature_info->message,message,(size_t) n);
-  signature_info->offset=(long) n;
+  signature_info->offset=(ssize_t) n;
 }

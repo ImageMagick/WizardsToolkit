@@ -302,7 +302,7 @@ extern WizardExport int
   NTUnmapMemory(void *,size_t),
   NTSystemCommand(const char *);
 
-extern WizardExport long
+extern WizardExport ssize_t
   NTSystemConfiguration(int),
   NTTellDirectory(DIR *);
 
@@ -324,7 +324,7 @@ extern WizardExport void
   *NTGetLibrarySymbol(void *,const char *),
   *NTMapMemory(char *,size_t,int,int,int,WizardOffsetType),
   *NTOpenLibrary(const char *),
-  NTSeekDirectory(DIR *,long),
+  NTSeekDirectory(DIR *,ssize_t),
   NTWarningHandler(const ExceptionType,const char *,const char *);
 
 #endif /* !XS_VERSION */

@@ -108,7 +108,7 @@ static void KeyringUsage()
     **p;
 
   (void) fprintf(stdout,"Version: %s\n",GetWizardVersion(
-    (unsigned long *) NULL));
+    (size_t *) NULL));
   (void) fprintf(stdout,"Copyright: %s\n\n",GetWizardCopyright());
   (void) fprintf(stdout,"Usage: %s [options ...] [ keyring ...] keyring.rdf\n",
     GetClientName());
@@ -125,7 +125,7 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
 {
 #define DestroyKeyring() \
 { \
-  for (i=0; i < (long) argc; i++) \
+  for (i=0; i < (ssize_t) argc; i++) \
     argv[i]=DestroyString(argv[i]); \
   argv=(char **) RelinquishWizardMemory(argv); \
 }
@@ -152,7 +152,7 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
   KeyringInfo
     *keyring_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -168,7 +168,7 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
   keyring=(const char *) NULL;
   id=(StringInfo *) NULL;
   filename=argv[argc-1];
-  for (i=1; i < (long) (argc-1); i++)
+  for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
     if (IsWizardOption(option) != WizardFalse)
@@ -182,7 +182,7 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
                 event_mask;
 
               i++;
-              if (i == (long) argc)
+              if (i == (ssize_t) argc)
                 ThrowKeyringException(OptionError,"missing log event mask: "
                   "`%s'",option);
               event_mask=SetLogEventMask(argv[i]);
@@ -202,7 +202,7 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
               if (*option == '+')
                 break;
               i++;
-              if (i == (long) argc)
+              if (i == (ssize_t) argc)
                 ThrowKeyringException(OptionError,"missing key id: `%s'",
                   option);
               id=HexStringToStringInfo(argv[i]);
@@ -225,13 +225,13 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
         {
           if (LocaleCompare(option,"-list") == 0)
             {
-              long
+              ssize_t
                 list;
 
               if (*option == '+')
                 break;
               i++;
-              if (i == (long) argc)
+              if (i == (ssize_t) argc)
                 ThrowKeyringException(OptionError,"missing list type: `%s'",
                   option);
               if (LocaleCompare(argv[i],"configure") == 0)
@@ -253,7 +253,7 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
               if (*option == '+')
                 break;
               i++;
-              if ((i == (long) argc) ||
+              if ((i == (ssize_t) argc) ||
                   (strchr(argv[i],'%') == (char *) NULL))
                 ThrowKeyringException(OptionFatalError,"missing argument: `%s'",
                   option);
@@ -268,7 +268,7 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
           if (LocaleCompare(option,"-version") == 0)
             {
               (void) fprintf(stdout,"Version: %s\n",GetWizardVersion(
-                (unsigned long *) NULL));
+                (size_t *) NULL));
               (void) fprintf(stdout,"Copyright: %s\n\n",GetWizardCopyright());
               exit(0);
             }
@@ -318,7 +318,7 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
 {
 #define DestroyKeyring() \
 { \
-  for (i=0; i < (long) argc; i++) \
+  for (i=0; i < (ssize_t) argc; i++) \
     argv[i]=DestroyString(argv[i]); \
   argv=(char **) RelinquishWizardMemory(argv); \
 }
@@ -343,7 +343,7 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
   const char
     *option;
 
-  register long
+  register ssize_t
     i;
 
   WizardBooleanType
@@ -359,7 +359,7 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
           (LocaleCompare("-version",option+1) == 0))
         {
           (void) fprintf(stdout,"Version: %s\n",GetWizardVersion(
-            (unsigned long *) NULL));
+            (size_t *) NULL));
           (void) fprintf(stdout,"Copyright: %s\n\n",GetWizardCopyright());
           return(WizardTrue);
         }
@@ -388,7 +388,7 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n");
   (void) WriteBlobString(keyring_blob,"         xmlns:keyring=\""
     "http://www.wizards-toolkit.org/keyring/1.0/\">\n");
-  for (i=1; i < (long) (argc-1); i++)
+  for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
     if (IsWizardOption(option) != WizardFalse)
@@ -402,7 +402,7 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
                 event_mask;
 
               i++;
-              if (i == (long) argc)
+              if (i == (ssize_t) argc)
                 ThrowKeyringException(OptionError,"missing log event mask: "
                   "`%s'",option);
               event_mask=SetLogEventMask(argv[i]);
@@ -428,13 +428,13 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
         {
           if (LocaleCompare(option,"-list") == 0)
             {
-              long
+              ssize_t
                 list;
 
               if (*option == '+')
                 break;
               i++;
-              if (i == (long) argc)
+              if (i == (ssize_t) argc)
                 ThrowKeyringException(OptionError,"missing list type: `%s'",
                   option);
               if (LocaleCompare(argv[i],"configure") == 0)
@@ -456,7 +456,7 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
               if (*option == '+')
                 break;
               i++;
-              if ((i == (long) argc) ||
+              if ((i == (ssize_t) argc) ||
                   (strchr(argv[i],'%') == (char *) NULL))
                 ThrowKeyringException(OptionFatalError,"missing argument: `%s'",
                   option);
@@ -471,7 +471,7 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
           if (LocaleCompare(option,"-version") == 0)
             {
               (void) fprintf(stdout,"Version: %s\n",GetWizardVersion(
-                (unsigned long *) NULL));
+                (size_t *) NULL));
               (void) fprintf(stdout,"Copyright: %s\n\n",GetWizardCopyright());
               exit(0);
             }
@@ -524,7 +524,7 @@ int main(int argc,char **argv)
   ExceptionInfo
     *exception;
 
-  register long
+  register ssize_t
     i;
 
   TimerInfo
@@ -542,7 +542,7 @@ int main(int argc,char **argv)
   iterations=1;
   status=WizardTrue;
   regard_warnings=WizardFalse;
-  for (i=1; i < (long) (argc-1); i++)
+  for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
     if ((strlen(option) == 1) || ((*option != '-') && (*option != '+')))
@@ -557,7 +557,7 @@ int main(int argc,char **argv)
   timer=(TimerInfo *) NULL;
   if (iterations > 1)
     timer=AcquireTimerInfo();
-  for (i=0; i < (long) iterations; i++)
+  for (i=0; i < (ssize_t) iterations; i++)
   {
     status=KeyringCommand(argc,argv,exception);
     if ((status == WizardFalse) ||
@@ -574,9 +574,9 @@ int main(int argc,char **argv)
       elapsed_time=GetElapsedTime(timer);
       user_time=GetUserTime(timer);
       (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %ld:%02ld.%03ld\n",
-        iterations,1.0*iterations/elapsed_time,user_time,(long)
-        (elapsed_time/60.0+0.5),(long) floor(fmod(elapsed_time,60.0)),
-        (long) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
+        iterations,1.0*iterations/elapsed_time,user_time,(ssize_t)
+        (elapsed_time/60.0+0.5),(ssize_t) floor(fmod(elapsed_time,60.0)),
+        (ssize_t) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
       timer=DestroyTimerInfo(timer);
     }
   exception=DestroyExceptionInfo(exception);

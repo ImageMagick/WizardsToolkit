@@ -69,7 +69,7 @@ struct _HashInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -100,7 +100,7 @@ WizardExport HashInfo *AcquireHashInfo(const HashType hash)
   HashInfo
     *hash_info;
 
-  unsigned long
+  size_t
     digestsize;
 
   hash_info=(HashInfo *) AcquireAlignedMemory(1,sizeof(*hash_info));
@@ -394,16 +394,16 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
 %
 %  The format of the GetHashBlocksize method is:
 %
-%      unsigned long *GetHashBlocksize(const HashInfo *hash_info)
+%      size_t *GetHashBlocksize(const HashInfo *hash_info)
 %
 %  A description of each parameter follows:
 %
 %    o hash_info: The hash info.
 %
 */
-WizardExport unsigned long GetHashBlocksize(const HashInfo *hash_info)
+WizardExport size_t GetHashBlocksize(const HashInfo *hash_info)
 {
-  unsigned long
+  size_t
     blocksize;
 
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
@@ -532,9 +532,9 @@ WizardExport const StringInfo *GetHashDigest(const HashInfo *hash_info)
 %    o hash_info: The hash info.
 %
 */
-WizardExport unsigned long GetHashDigestsize(const HashInfo *hash_info)
+WizardExport size_t GetHashDigestsize(const HashInfo *hash_info)
 {
-  unsigned long
+  size_t
     digestsize;
 
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
@@ -641,7 +641,7 @@ WizardExport char *GetHashHexDigest(const HashInfo *hash_info)
   register const unsigned char
     *p;
 
-  register long
+  register ssize_t
     i;
 
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
@@ -652,7 +652,7 @@ WizardExport char *GetHashHexDigest(const HashInfo *hash_info)
   if (digest == (char *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
   p=GetStringInfoDatum(hash_info->digest);
-  for (i=0; i < (long) GetHashDigestsize(hash_info); i++)
+  for (i=0; i < (ssize_t) GetHashDigestsize(hash_info); i++)
     (void) FormatWizardString(digest+2*i,MaxTextExtent,"%02x",*p++);
   digest[2*i]='\0';
   return(digest);

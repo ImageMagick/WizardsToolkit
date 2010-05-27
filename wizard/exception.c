@@ -72,7 +72,7 @@ struct _ExceptionInfo
   SemaphoreInfo
     *semaphore;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -962,7 +962,7 @@ WizardExport WizardBooleanType ThrowException(ExceptionInfo *exception,
 %  The format of the ThrowWizardException method is:
 %
 %      WizardBooleanType ThrowWizardException(ExceptionInfo *exception,
-%        const char *module,const char *function,const unsigned long line,
+%        const char *module,const char *function,const size_t line,
 %        const ExceptionType severity,const char *format,...)
 %
 %  A description of each parameter follows:
@@ -983,7 +983,7 @@ WizardExport WizardBooleanType ThrowException(ExceptionInfo *exception,
 
 WizardExport WizardBooleanType ThrowWizardExceptionList(
   ExceptionInfo *exception,const char *module,const char *function,
-  const unsigned long line,const ExceptionType severity,const char *format,
+  const size_t line,const ExceptionType severity,const char *format,
   va_list operands)
 {
   char
@@ -1014,7 +1014,7 @@ WizardExport WizardBooleanType ThrowWizardExceptionList(
 }
 
 WizardExport WizardBooleanType ThrowWizardException(ExceptionInfo *exception,
-  const char *module,const char *function,const unsigned long line,
+  const char *module,const char *function,const size_t line,
   const ExceptionType severity,const char *format,...)
 {
   WizardBooleanType

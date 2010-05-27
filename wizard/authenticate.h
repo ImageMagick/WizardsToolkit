@@ -56,7 +56,7 @@ extern WizardExport size_t
 
 extern WizardExport void
   SetAuthenticateId(AuthenticateInfo *,const StringInfo *),
-  SetAuthenticateKeyLength(AuthenticateInfo *,const unsigned long),
+  SetAuthenticateKeyLength(AuthenticateInfo *,const size_t),
   SetAuthenticatePassphrase(AuthenticateInfo *,const char *);
 
 extern WizardExport WizardBooleanType

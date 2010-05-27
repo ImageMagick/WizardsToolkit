@@ -46,8 +46,8 @@ typedef long long WizardOffsetType;
 typedef unsigned long long WizardSizeType;
 #define WizardSizeFormat  "%llu"
 #else
-typedef long WizardOffsetType;
-typedef unsigned long WizardSizeType;
+typedef ssize_t WizardOffsetType;
+typedef size_t WizardSizeType;
 #define WizardSizeFormat  "%lu"
 #endif
 #else

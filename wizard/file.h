@@ -51,12 +51,12 @@ extern WizardExport int
 extern WizardExport WizardBooleanType
   DestroyFile(FileInfo *,ExceptionInfo *),
   ReadFile16Bits(FileInfo *,unsigned short *),
-  ReadFile32Bits(FileInfo *,unsigned long *),
+  ReadFile32Bits(FileInfo *,size_t *),
   ReadFile64Bits(FileInfo *,WizardSizeType *),
   ReadFileChunk(FileInfo *,void *,const size_t),
   WriteFileChunk(FileInfo *,const void *,const size_t),
   WriteFile16Bits(FileInfo *,const unsigned short),
-  WriteFile32Bits(FileInfo *,const unsigned long),
+  WriteFile32Bits(FileInfo *,const size_t),
   WriteFile64Bits(FileInfo *,const WizardSizeType);
 
 #if defined(__cplusplus) || defined(c_plusplus)

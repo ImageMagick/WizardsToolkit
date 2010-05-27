@@ -58,7 +58,7 @@ struct _TwofishInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -847,7 +847,7 @@ WizardExport void SetTwofishKey(TwofishInfo *twofish_info,const StringInfo *key)
       }
     };
 
-  long
+  ssize_t
     j,
     k;
 

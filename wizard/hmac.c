@@ -62,7 +62,7 @@ struct _HMACInfo
   time_t
     timestamp;
 
-  unsigned long
+  size_t
     signature;
 };
 
@@ -277,7 +277,7 @@ WizardExport const StringInfo *GetHMACDigest(const HMACInfo *hmac_info)
 %    o hmac_info: The hmac info.
 %
 */
-WizardExport unsigned long GetHMACDigestsize(const HMACInfo *hmac_info)
+WizardExport size_t GetHMACDigestsize(const HMACInfo *hmac_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(CipherDomain,hmac_info != (HMACInfo *) NULL);

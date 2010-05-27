@@ -290,7 +290,7 @@ WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
 %  The format of the GetConfigureInfoList function is:
 %
 %      const ConfigureInfo **GetConfigureInfoList(const char *pattern,
-%        unsigned long *number_options,ExceptionInfo *exception)
+%        size_t *number_options,ExceptionInfo *exception)
 %
 %  A description of each parameter follows:
 %
@@ -325,7 +325,7 @@ static int ConfigureInfoCompare(const void *x,const void *y)
 #endif
 
 WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
-  unsigned long *number_options,ExceptionInfo *exception)
+  size_t *number_options,ExceptionInfo *exception)
 {
   const ConfigureInfo
     **options;
@@ -333,7 +333,7 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
   register const ConfigureInfo
     *p;
 
-  register long
+  register ssize_t
     i;
 
   /*
@@ -341,7 +341,7 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
   */
   assert(pattern != (char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",pattern);
-  assert(number_options != (unsigned long *) NULL);
+  assert(number_options != (size_t *) NULL);
   *number_options=0;
   p=GetConfigureInfo("*",exception);
   if (p == (const ConfigureInfo *) NULL)
@@ -366,7 +366,7 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
   UnlockSemaphoreInfo(configure_semaphore);
   qsort((void *) options,(size_t) i,sizeof(*options),ConfigureInfoCompare);
   options[i]=(ConfigureInfo *) NULL;
-  *number_options=(unsigned long) i;
+  *number_options=(size_t) i;
   return(options);
 }
 
@@ -387,7 +387,7 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
 %  The format of the GetConfigureList function is:
 %
 %      char **GetConfigureList(const char *pattern,
-%        unsigned long *number_options,ExceptionInfo *exception)
+%        size_t *number_options,ExceptionInfo *exception)
 %
 %  A description of each parameter follows:
 %
@@ -419,7 +419,7 @@ static int ConfigureCompare(const void *x,const void *y)
 #endif
 
 WizardExport char **GetConfigureList(const char *pattern,
-  unsigned long *number_options,ExceptionInfo *exception)
+  size_t *number_options,ExceptionInfo *exception)
 {
   char
     **options;
@@ -427,7 +427,7 @@ WizardExport char **GetConfigureList(const char *pattern,
   register const ConfigureInfo
     *p;
 
-  register long
+  register ssize_t
     i;
 
   /*
@@ -435,7 +435,7 @@ WizardExport char **GetConfigureList(const char *pattern,
   */
   assert(pattern != (char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",pattern);
-  assert(number_options != (unsigned long *) NULL);
+  assert(number_options != (size_t *) NULL);
   *number_options=0;
   p=GetConfigureInfo("*",exception);
   if (p == (const ConfigureInfo *) NULL)
@@ -459,7 +459,7 @@ WizardExport char **GetConfigureList(const char *pattern,
   UnlockSemaphoreInfo(configure_semaphore);
   qsort((void *) options,(size_t) i,sizeof(*options),ConfigureCompare);
   options[i]=(char *) NULL;
-  *number_options=(unsigned long) i;
+  *number_options=(size_t) i;
   return(options);
 }
 
@@ -866,13 +866,13 @@ WizardExport WizardBooleanType ListConfigureInfo(FILE *file,
   const ConfigureInfo
     **configure_info;
 
-  long
+  ssize_t
     j;
 
-  register long
+  register ssize_t
     i;
 
-  unsigned long
+  size_t
     number_options;
 
   if (file == (FILE *) NULL)
@@ -881,7 +881,7 @@ WizardExport WizardBooleanType ListConfigureInfo(FILE *file,
   if (configure_info == (const ConfigureInfo **) NULL)
     return(WizardFalse);
   path=(const char *) NULL;
-  for (i=0; i < (long) number_options; i++)
+  for (i=0; i < (ssize_t) number_options; i++)
   {
     if (configure_info[i]->stealth != WizardFalse)
       continue;
@@ -899,7 +899,7 @@ WizardExport WizardBooleanType ListConfigureInfo(FILE *file,
     if (configure_info[i]->name != (char *) NULL)
       name=configure_info[i]->name;
     (void) fprintf(file,"%s",name);
-    for (j=(long) strlen(name); j <= 12; j++)
+    for (j=(ssize_t) strlen(name); j <= 12; j++)
       (void) fprintf(file," ");
     (void) fprintf(file," ");
     value="unknown";
@@ -931,7 +931,7 @@ WizardExport WizardBooleanType ListConfigureInfo(FILE *file,
 %  The format of the LoadConfigureList method is:
 %
 %      WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
-%        const unsigned long depth,ExceptionInfo *exception)
+%        const size_t depth,ExceptionInfo *exception)
 %
 %  A description of each parameter follows:
 %
@@ -945,7 +945,7 @@ WizardExport WizardBooleanType ListConfigureInfo(FILE *file,
 %
 */
 static WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
-  const unsigned long depth,ExceptionInfo *exception)
+  const size_t depth,ExceptionInfo *exception)
 {
   const char
     *attribute;
@@ -1087,7 +1087,7 @@ static WizardBooleanType LoadConfigureLists(const char *filename,
   LinkedListInfo
     *options;
 
-  register long
+  register ssize_t
     i;
 
   WizardStatusType
@@ -1106,7 +1106,7 @@ static WizardBooleanType LoadConfigureLists(const char *filename,
           return(WizardFalse);
         }
     }
-  for (i=0; i < (long) (sizeof(ConfigureMap)/sizeof(*ConfigureMap)); i++)
+  for (i=0; i < (ssize_t) (sizeof(ConfigureMap)/sizeof(*ConfigureMap)); i++)
   {
     ConfigureInfo
       *configure_info;

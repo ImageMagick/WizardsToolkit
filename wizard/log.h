@@ -27,7 +27,7 @@ extern "C" {
 #include "wizard/timer.h"
 
 #if !defined(GetWizardModule)
-# define GetWizardModule()  __FILE__,__func__,(unsigned long) __LINE__
+# define GetWizardModule()  __FILE__,__func__,(size_t) __LINE__
 #endif
 
 #define WizardLogFilename  "log.xml"
@@ -57,11 +57,11 @@ typedef struct _LogInfo
   LogInfo;
 
 extern WizardExport char
-  **GetLogList(const char *,unsigned long *,ExceptionInfo *);
+  **GetLogList(const char *,size_t *,ExceptionInfo *);
 
 extern WizardExport const LogInfo
   *GetLogInfo(const char *,ExceptionInfo *),
-  **GetLogInfoList(const char *,unsigned long *,ExceptionInfo *);
+  **GetLogInfoList(const char *,size_t *,ExceptionInfo *);
 
 extern WizardExport LogEventType
   SetLogEventMask(const char *);
@@ -71,10 +71,10 @@ extern WizardExport WizardBooleanType
   ListLogInfo(FILE *,ExceptionInfo *),
   LogComponentGenesis(void),
   LogWizardEvent(const LogEventType,const char *,const char *,
-    const unsigned long,const char *,...) 
+    const size_t,const char *,...) 
     wizard_attribute((format (printf,5,6))),
   LogWizardEventList(const LogEventType,const char *,const char *,
-    const unsigned long,const char *,va_list) 
+    const size_t,const char *,va_list) 
     wizard_attribute((format (printf,5,0)));
 
 extern WizardExport void

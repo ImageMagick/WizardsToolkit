@@ -265,8 +265,8 @@ WizardExport int gettimeofday (struct timeval *time_value,
       time=date_time.QuadPart;
       time-=EpochFiletime;
       time/=10;
-      time_value->tv_sec=(long) (time / 1000000);
-      time_value->tv_usec=(long) (time % 1000000);
+      time_value->tv_sec=(ssize_t) (time / 1000000);
+      time_value->tv_usec=(ssize_t) (time % 1000000);
     }
   if (time_zone != (struct timezone *) NULL)
     {
@@ -557,7 +557,7 @@ WizardExport int NTFileTruncate(int file,off_t length)
   DWORD
     file_pointer;
 
-  long
+  ssize_t
     file_handle,
     high,
     low;
@@ -565,8 +565,8 @@ WizardExport int NTFileTruncate(int file,off_t length)
   file_handle=_get_osfhandle(file);
   if (file_handle == -1L)
     return(-1);
-  low=(long) (length & 0xffffffffUL);
-  high=(long) ((((WizardOffsetType) length) >> 32) & 0xffffffffUL);
+  low=(ssize_t) (length & 0xffffffffUL);
+  high=(ssize_t) ((((WizardOffsetType) length) >> 32) & 0xffffffffUL);
   file_pointer=SetFilePointer((HANDLE) file_handle,low,&high,FILE_BEGIN);
   if ((file_pointer == 0xFFFFFFFF) && (GetLastError() != NO_ERROR))
     return(-1);
@@ -752,7 +752,7 @@ WizardExport WizardBooleanType NTGetModulePath(const char *module,char *path)
   HMODULE
     handle;
 
-  long
+  ssize_t
     length;
 
   *path='\0';
@@ -1362,7 +1362,7 @@ WizardExport unsigned char *NTResourceToBlob(const char *id)
 %
 %  The format of the NTSeekDirectory method is:
 %
-%      void NTSeekDirectory(DIR *entry,long position)
+%      void NTSeekDirectory(DIR *entry,ssize_t position)
 %
 %  A description of each parameter follows:
 %
@@ -1372,7 +1372,7 @@ WizardExport unsigned char *NTResourceToBlob(const char *id)
 %      stream.
 %
 */
-WizardExport void NTSeekDirectory(DIR *entry,long position)
+WizardExport void NTSeekDirectory(DIR *entry,ssize_t position)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   assert(entry != (DIR *) NULL);
@@ -1539,14 +1539,14 @@ WizardExport int NTSystemCommand(const char *command)
 %
 %  The format of the exit method is:
 %
-%      long NTSystemConfiguration(int name)
+%      ssize_t NTSystemConfiguration(int name)
 %
 %  A description of each parameter follows:
 %
 %    o name: _SC_PAGE_SIZE or _SC_PHYS_PAGES.
 %
 */
-WizardExport long NTSystemConfiguration(int name)
+WizardExport ssize_t NTSystemConfiguration(int name)
 {
   switch (name)
   {
@@ -1583,12 +1583,12 @@ WizardExport long NTSystemConfiguration(int name)
             status;
 
           GlobalMemoryStatus(&status);
-          return((long) status.dwAvailPhys/system_info.dwPageSize);
+          return((ssize_t) status.dwAvailPhys/system_info.dwPageSize);
         }
       status.dwLength=sizeof(status);
       if (module(&status) == 0)
         return(0L);
-      return((long) status.ullAvailPhys/system_info.dwPageSize);
+      return((ssize_t) status.ullAvailPhys/system_info.dwPageSize);
     }
     case _SC_OPEN_MAX:
       return(2048);
@@ -1614,14 +1614,14 @@ WizardExport long NTSystemConfiguration(int name)
 %
 %  The format of the NTTellDirectory method is:
 %
-%      long NTTellDirectory(DIR *entry)
+%      ssize_t NTTellDirectory(DIR *entry)
 %
 %  A description of each parameter follows:
 %
 %    o entry: Specifies a pointer to a DIR structure.
 %
 */
-WizardExport long NTTellDirectory(DIR *entry)
+WizardExport ssize_t NTTellDirectory(DIR *entry)
 {
   assert(entry != (DIR *) NULL);
   return(0);

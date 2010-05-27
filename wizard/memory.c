@@ -395,7 +395,7 @@ WizardExport void *AcquireWizardMemory(const size_t size)
       LockSemaphoreInfo(memory_semaphore);
       if (free_segments == (DataSegmentInfo *) NULL)
         {
-          register long
+          register ssize_t
             i;
 
           assert(2*sizeof(size_t) > (size_t) (~SizeMask));
@@ -544,14 +544,14 @@ WizardExport void *CopyWizardMemory(void *destination,const void *source,
 WizardExport void DestroyWizardMemory(void)
 {
 #if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
-  register long
+  register ssize_t
     i;
 
   if (memory_semaphore == (SemaphoreInfo *) NULL)
     AcquireSemaphoreInfo(&memory_semaphore);
   LockSemaphoreInfo(memory_semaphore);
   UnlockSemaphoreInfo(memory_semaphore);
-  for (i=0; i < (long) memory_info.number_segments; i++)
+  for (i=0; i < (ssize_t) memory_info.number_segments; i++)
     if (memory_info.segments[i]->mapped == WizardFalse)
       memory_methods.destroy_memory_handler(
         memory_info.segments[i]->allocation);
@@ -596,7 +596,7 @@ static WizardBooleanType ExpandHeap(size_t size)
   WizardBooleanType
     mapped;
 
-  register long
+  register ssize_t
     i;
 
   register void
@@ -622,7 +622,7 @@ static WizardBooleanType ExpandHeap(size_t size)
   segment_info->length=blocksize;
   segment_info->allocation=segment;
   segment_info->bound=(char *) segment+blocksize;
-  i=(long) memory_info.number_segments-1;
+  i=(ssize_t) memory_info.number_segments-1;
   for ( ; (i >= 0) && (memory_info.segments[i]->allocation > segment); i--)
     memory_info.segments[i+1]=memory_info.segments[i];
   memory_info.segments[i+1]=segment_info;

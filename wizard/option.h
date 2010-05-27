@@ -30,7 +30,7 @@ typedef struct _OptionInfo
   const char
     *mnemonic;
 
-  long
+  ssize_t
     type;
 } OptionInfo;
 
@@ -57,9 +57,9 @@ extern WizardExport char
   **GetWizardOptions(const WizardOption);
 
 extern WizardExport const char
-  *WizardOptionToMnemonic(const WizardOption,const long);
+  *WizardOptionToMnemonic(const WizardOption,const ssize_t);
 
-extern WizardExport long
+extern WizardExport ssize_t
   ParseWizardOption(const WizardOption,const WizardBooleanType,const char *);
 
 extern WizardExport WizardBooleanType

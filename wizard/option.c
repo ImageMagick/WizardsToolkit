@@ -57,18 +57,18 @@
 static const OptionInfo
   AuthenticateOptions[] =
   {
-    { "Undefined", (long) UndefinedAuthenticate },
-    { "Public", (long) PublicAuthenticateMethod },
-    { "Secret", (long) SecretAuthenticateMethod },
+    { "Undefined", (ssize_t) UndefinedAuthenticate },
+    { "Public", (ssize_t) PublicAuthenticateMethod },
+    { "Secret", (ssize_t) SecretAuthenticateMethod },
     { (char *) NULL, UndefinedAuthenticate }
   },
   CipherOptions[] =
   {
-    { "Undefined", (long) UndefinedCipher },
-    { "AES", (long) AESCipher },
-    { "None", (long) NoCipher },
-    { "Serpent", (long) SerpentCipher },
-    { "Twofish", (long) TwofishCipher },
+    { "Undefined", (ssize_t) UndefinedCipher },
+    { "AES", (ssize_t) AESCipher },
+    { "None", (ssize_t) NoCipher },
+    { "Serpent", (ssize_t) SerpentCipher },
+    { "Twofish", (ssize_t) TwofishCipher },
     { (char *) NULL, UndefinedCipher }
   },
   CommandOptions[] =
@@ -113,19 +113,19 @@ static const OptionInfo
   },
   DataTypeOptions[] =
   {
-    { "Undefined", (long) UndefinedData },
-    { "Byte", (long) ByteData },
-    { "Long", (long) LongData },
-    { "Short", (long) ShortData },
-    { "String", (long) StringData },
-    { (char *) NULL, (long) UndefinedData }
+    { "Undefined", (ssize_t) UndefinedData },
+    { "Byte", (ssize_t) ByteData },
+    { "Long", (ssize_t) LongData },
+    { "Short", (ssize_t) ShortData },
+    { "String", (ssize_t) StringData },
+    { (char *) NULL, (ssize_t) UndefinedData }
   },
   EndianOptions[] =
   {
-    { "Undefined", (long) UndefinedEndian },
-    { "LSB", (long) LSBEndian },
-    { "MSB", (long) MSBEndian },
-    { (char *) NULL, (long) UndefinedEndian }
+    { "Undefined", (ssize_t) UndefinedEndian },
+    { "LSB", (ssize_t) LSBEndian },
+    { "MSB", (ssize_t) MSBEndian },
+    { (char *) NULL, (ssize_t) UndefinedEndian }
   },
   EntropyLevelOptions[] =
   {
@@ -143,10 +143,10 @@ static const OptionInfo
   },
   EntropyOptions[] =
   {
-    { "Undefined", (long) UndefinedEntropy },
-    { "None", (long) NoEntropy },
-    { "BZip", (long) BZIPEntropy },
-    { "Zip", (long) ZIPEntropy },
+    { "Undefined", (ssize_t) UndefinedEntropy },
+    { "None", (ssize_t) NoEntropy },
+    { "BZip", (ssize_t) BZIPEntropy },
+    { "Zip", (ssize_t) ZIPEntropy },
     { (char *) NULL, UndefinedEntropy }
   },
   KeyLengthOptions[] =
@@ -159,67 +159,67 @@ static const OptionInfo
   },
   HashOptions[] =
   {
-    { "Undefined", (long) UndefinedHash },
-    { "CRC64", (long) CRC64Hash },
-    { "MD5", (long) MD5Hash },
-    { "None", (long) NoHash },
-    { "SHA1", (long) SHA1Hash },
-    { "SHA224", (long) SHA224Hash },
-    { "SHA256", (long) SHA256Hash },
-    { "SHA384", (long) SHA384Hash },
-    { "SHA512", (long) SHA512Hash },
+    { "Undefined", (ssize_t) UndefinedHash },
+    { "CRC64", (ssize_t) CRC64Hash },
+    { "MD5", (ssize_t) MD5Hash },
+    { "None", (ssize_t) NoHash },
+    { "SHA1", (ssize_t) SHA1Hash },
+    { "SHA224", (ssize_t) SHA224Hash },
+    { "SHA256", (ssize_t) SHA256Hash },
+    { "SHA384", (ssize_t) SHA384Hash },
+    { "SHA512", (ssize_t) SHA512Hash },
     { (char *) NULL, UndefinedHash }
   },
   ListOptions[] =
   {
-    { "Authenticate", (long) WizardAuthenticateOptions },
-    { "Cipher", (long) WizardCipherOptions },
-    { "Command", (long) WizardCommandOptions },
-    { "DataType", (long) WizardDataTypeOptions },
-    { "Debug", (long) WizardDebugOptions },
-    { "Endian", (long) WizardEndianOptions },
-    { "Entropy", (long) WizardEntropyOptions },
-    { "EntropyLevel", (long) WizardEntropyLevelOptions },
-    { "Hash", (long) WizardHashOptions },
-    { "KeyLength", (long) WizardKeyLengthOptions },
-    { "List", (long) WizardListOptions },
-    { "Mode", (long) WizardModeOptions },
-    { (char *) NULL, (long) WizardUndefinedOptions }
+    { "Authenticate", (ssize_t) WizardAuthenticateOptions },
+    { "Cipher", (ssize_t) WizardCipherOptions },
+    { "Command", (ssize_t) WizardCommandOptions },
+    { "DataType", (ssize_t) WizardDataTypeOptions },
+    { "Debug", (ssize_t) WizardDebugOptions },
+    { "Endian", (ssize_t) WizardEndianOptions },
+    { "Entropy", (ssize_t) WizardEntropyOptions },
+    { "EntropyLevel", (ssize_t) WizardEntropyLevelOptions },
+    { "Hash", (ssize_t) WizardHashOptions },
+    { "KeyLength", (ssize_t) WizardKeyLengthOptions },
+    { "List", (ssize_t) WizardListOptions },
+    { "Mode", (ssize_t) WizardModeOptions },
+    { (char *) NULL, (ssize_t) WizardUndefinedOptions }
   },
   LogWizardEventOptions[] =
   {
-    { "All", (long) (AllEvents &~ TraceEvent) },
-    { "Blob", (long) BlobEvent },
-    { "Deprecate", (long) DeprecateEvent },
-    { "Configure", (long) ConfigureEvent },
-    { "Exception", (long) ExceptionEvent },
-    { "Locale", (long) LocaleEvent },
-    { "None", (long) NoEvents },
-    { "Resource", (long) ResourceEvent },
-    { "Trace", (long) TraceEvent },
-    { "User", (long) UserEvent },
-    { "Warning", (long) WarningEvent },
+    { "All", (ssize_t) (AllEvents &~ TraceEvent) },
+    { "Blob", (ssize_t) BlobEvent },
+    { "Deprecate", (ssize_t) DeprecateEvent },
+    { "Configure", (ssize_t) ConfigureEvent },
+    { "Exception", (ssize_t) ExceptionEvent },
+    { "Locale", (ssize_t) LocaleEvent },
+    { "None", (ssize_t) NoEvents },
+    { "Resource", (ssize_t) ResourceEvent },
+    { "Trace", (ssize_t) TraceEvent },
+    { "User", (ssize_t) UserEvent },
+    { "Warning", (ssize_t) WarningEvent },
     { (char *) NULL, UndefinedEvents }
   },
   ModeOptions[] =
   {
-    { "Undefined", (long) UndefinedMode },
-    { "CBC", (long) CBCMode },
-    { "CFB", (long) CFBMode },
-    { "CTR", (long) CTRMode },
-    { "ECB", (long) ECBMode },
-    { "OFB", (long) OFBMode },
+    { "Undefined", (ssize_t) UndefinedMode },
+    { "CBC", (ssize_t) CBCMode },
+    { "CFB", (ssize_t) CFBMode },
+    { "CTR", (ssize_t) CTRMode },
+    { "ECB", (ssize_t) ECBMode },
+    { "OFB", (ssize_t) OFBMode },
     { (char *) NULL, UndefinedMode }
   },
   ResourceOptions[] =
   {
-    { "Undefined", (long) UndefinedResource },
-    { "Area", (long) AreaResource },
-    { "Disk", (long) DiskResource },
-    { "File", (long) FileResource },
-    { "Map", (long) MapResource },
-    { "Memory", (long) MemoryResource },
-    { (char *) NULL, (long) UndefinedResource }
+    { "Undefined", (ssize_t) UndefinedResource },
+    { "Area", (ssize_t) AreaResource },
+    { "Disk", (ssize_t) DiskResource },
+    { "File", (ssize_t) FileResource },
+    { "Map", (ssize_t) MapResource },
+    { "Memory", (ssize_t) MemoryResource },
+    { (char *) NULL, (ssize_t) UndefinedResource }
   };
 
 /*
@@ -276,7 +276,7 @@ WizardExport char **GetWizardOptions(const WizardOption option)
   const OptionInfo
     *option_info;
 
-  register long
+  register ssize_t
     i;
 
   option_info=GetOptionInfo(option);
@@ -361,7 +361,7 @@ WizardExport WizardBooleanType ListWizardOptions(FILE *file,
   const OptionInfo
     *option_info;
 
-  register long
+  register ssize_t
     i;
 
   if (file == (FILE *) NULL)
@@ -394,7 +394,7 @@ WizardExport WizardBooleanType ListWizardOptions(FILE *file,
 %
 %  The format of the ParseWizardOption method is:
 %
-%      long ParseWizardOption(const WizardOption option,
+%      ssize_t ParseWizardOption(const WizardOption option,
 %        const WizardBooleanType list,const char *options)
 %
 %  A description of each parameter follows:
@@ -407,7 +407,7 @@ WizardExport WizardBooleanType ListWizardOptions(FILE *file,
 %    o options: One or more options separated by commas.
 %
 */
-WizardExport long ParseWizardOption(const WizardOption option,
+WizardExport ssize_t ParseWizardOption(const WizardOption option,
   const WizardBooleanType list,const char *options)
 {
   char
@@ -416,7 +416,7 @@ WizardExport long ParseWizardOption(const WizardOption option,
   const OptionInfo
     *option_info;
 
-  long
+  ssize_t
     option_types;
 
   register char
@@ -425,7 +425,7 @@ WizardExport long ParseWizardOption(const WizardOption option,
   register const char
     *p;
 
-  register long
+  register ssize_t
     i;
 
   WizardBooleanType
@@ -507,7 +507,7 @@ WizardExport long ParseWizardOption(const WizardOption option,
 %  The format of the WizardOptionToMnemonic method is:
 %
 %      const char *WizardOptionToMnemonic(const WizardOption option,
-%        const long type)
+%        const ssize_t type)
 %
 %  A description of each parameter follows:
 %
@@ -517,12 +517,12 @@ WizardExport long ParseWizardOption(const WizardOption option,
 %
 */
 WizardExport const char *WizardOptionToMnemonic(const WizardOption option,
-  const long type)
+  const ssize_t type)
 {
   const OptionInfo
     *option_info;
 
-  register long
+  register ssize_t
     i;
 
   option_info=GetOptionInfo(option);

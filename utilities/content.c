@@ -71,7 +71,7 @@ WizardExport ContentInfo *AcquireContentInfo(void)
   ContentInfo
     *content_info;
 
-  unsigned long
+  size_t
     version;
 
   content_info=(ContentInfo *) AcquireAlignedMemory(1,sizeof(*content_info));
@@ -206,7 +206,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
   int
     c;
 
-  long
+  ssize_t
     type;
 
   ssize_t
@@ -397,7 +397,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
       {
         if (strcmp(tag,"authenticate") == 0)
           {
-            long
+            ssize_t
               method;
 
             method=ParseWizardOption(WizardAuthenticateOptions,WizardFalse,

@@ -68,7 +68,7 @@
 %
 %  The format of the PrintValidateString method is:
 %
-%      long PrintValidateString(FILE *,const char *format,...)
+%      ssize_t PrintValidateString(FILE *,const char *format,...)
 %
 %  A description of each parameter follows:
 %
@@ -78,12 +78,12 @@
 %     arguments.
 %
 */
-static long PrintValidateString(FILE *file,const char *format,...)
+static ssize_t PrintValidateString(FILE *file,const char *format,...)
 {
   char
     string[MaxTextExtent];
 
-  long
+  ssize_t
     length;
 
   va_list
@@ -94,7 +94,7 @@ static long PrintValidateString(FILE *file,const char *format,...)
   va_end(operands);
   if (length < 0)
     return(-1);
-  return((long) fwrite(string,(size_t) length,1,file));
+  return((ssize_t) fwrite(string,(size_t) length,1,file));
 }
 
 static WizardBooleanType TestAES(void)
@@ -102,7 +102,7 @@ static WizardBooleanType TestAES(void)
   CipherInfo
     *cipher_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -120,7 +120,7 @@ static WizardBooleanType TestAES(void)
   cipher_info=AcquireCipherInfo(AESCipher,CBCMode);
   for (i=0; i < AESEncipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(long)
+    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
       (8*aes_encipher_test_vector[i].key_length));
     key=AcquireStringInfo(aes_encipher_test_vector[i].key_length);
     SetStringInfoDatum(key,aes_encipher_test_vector[i].key);
@@ -145,7 +145,7 @@ static WizardBooleanType TestAES(void)
   cipher_info=AcquireCipherInfo(AESCipher,CBCMode);
   for (i=0; i < AESDecipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(long)
+    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
       (8*aes_decipher_test_vector[i].key_length));
     key=AcquireStringInfo(aes_decipher_test_vector[i].key_length);
     SetStringInfoDatum(key,aes_decipher_test_vector[i].key);
@@ -274,7 +274,7 @@ static WizardBooleanType TestBZIPEntropy(void)
   ExceptionInfo
     *exception;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -337,7 +337,7 @@ static WizardBooleanType TestCRC64(void)
   HashInfo
     *hash_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -396,7 +396,7 @@ static WizardBooleanType TestCRC64(void)
 
 static WizardBooleanType TestHMACMD5(void)
 {
-  register long
+  register ssize_t
     i;
 
   HMACInfo
@@ -438,7 +438,7 @@ static WizardBooleanType TestHMACMD5(void)
 
 static WizardBooleanType TestHMACSHA1(void)
 {
-  register long
+  register ssize_t
     i;
 
   HMACInfo
@@ -481,7 +481,7 @@ static WizardBooleanType TestHMACSHA1(void)
 
 static WizardBooleanType TestHMACSHA256(void)
 {
-  register long
+  register ssize_t
     i;
 
   HMACInfo
@@ -579,7 +579,7 @@ static WizardBooleanType TestMD5(void)
   HashInfo
     *hash_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -638,7 +638,7 @@ static WizardBooleanType TestMD5(void)
 
 static WizardBooleanType TestMemory(void)
 {
-  register long
+  register ssize_t
     i;
 
   WizardBooleanType
@@ -701,7 +701,7 @@ static WizardBooleanType TestRandomKey(void)
   RandomInfo
     *random_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -738,7 +738,7 @@ static WizardBooleanType TestSerpent(void)
   CipherInfo
     *cipher_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -756,7 +756,7 @@ static WizardBooleanType TestSerpent(void)
   cipher_info=AcquireCipherInfo(SerpentCipher,CBCMode);
   for (i=0; i < SerpentEncipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(long)
+    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
       (8*serpent_encipher_test_vector[i].key_length));
     key=AcquireStringInfo(serpent_encipher_test_vector[i].key_length);
     SetStringInfoDatum(key,serpent_encipher_test_vector[i].key);
@@ -782,7 +782,7 @@ static WizardBooleanType TestSerpent(void)
   cipher_info=AcquireCipherInfo(SerpentCipher,CBCMode);
   for (i=0; i < SerpentDecipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(long)
+    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
       (8*serpent_decipher_test_vector[i].key_length));
     key=AcquireStringInfo(serpent_decipher_test_vector[i].key_length);
     SetStringInfoDatum(key,serpent_decipher_test_vector[i].key);
@@ -866,7 +866,7 @@ static WizardBooleanType TestSHA1(void)
   HashInfo
     *hash_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -928,7 +928,7 @@ static WizardBooleanType TestSHA256(void)
   HashInfo
     *hash_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -990,7 +990,7 @@ static WizardBooleanType TestSHA384(void)
   HashInfo
     *hash_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -1052,7 +1052,7 @@ static WizardBooleanType TestSHA512(void)
   HashInfo
     *hash_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -1136,7 +1136,7 @@ static WizardBooleanType TestTwofish(void)
   CipherInfo
     *cipher_info;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -1155,7 +1155,7 @@ static WizardBooleanType TestTwofish(void)
   cipher_info=AcquireCipherInfo(TwofishCipher,CBCMode);
   for (i=0; i < TwofishEncipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(long)
+    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
       (8*twofish_encipher_test_vector[i].key_length));
     key=AcquireStringInfo(twofish_encipher_test_vector[i].key_length);
     SetStringInfoDatum(key,twofish_encipher_test_vector[i].key);
@@ -1184,7 +1184,7 @@ static WizardBooleanType TestTwofish(void)
   cipher_info=AcquireCipherInfo(TwofishCipher,CBCMode);
   for (i=0; i < TwofishDecipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(long)
+    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
       (8*twofish_decipher_test_vector[i].key_length));
     key=AcquireStringInfo(twofish_decipher_test_vector[i].key_length);
     SetStringInfoDatum(key,twofish_decipher_test_vector[i].key);
@@ -1274,7 +1274,7 @@ static WizardBooleanType TestZIPEntropy(void)
   ExceptionInfo
     *exception;
 
-  register long
+  register ssize_t
     i;
 
   StringInfo
@@ -1348,7 +1348,7 @@ int main(int argc,char **argv)
     passphrase=argv[1];
   WizardsToolkitGenesis(*argv);
   (void) PrintValidateString(stdout,"Version: %s\n",
-    GetWizardVersion((unsigned long *) NULL));
+    GetWizardVersion((size_t *) NULL));
   (void) PrintValidateString(stdout,"Copyright: %s\n\n",
     GetWizardCopyright());
   (void) PrintValidateString(stdout,"Wizard Validation Suite\n\n");

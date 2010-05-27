@@ -31,7 +31,7 @@ static pthread_mutex_t
 static LONG
   semaphore_mutex = 0;
 #else
-static long
+static ssize_t
   semaphore_mutex = 0;
 #endif
 
