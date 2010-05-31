@@ -988,7 +988,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 
       *mode=(*type);
       mode[1]='\0';
-      blob_info->file=fdopen(StringToLong(filename+3),mode);
+      blob_info->file=fdopen((long) StringToLong(filename+3),mode);
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
       if (strchr(type,'b') != (char *) NULL)
         setmode(_fileno(blob_info->file),_O_BINARY);
