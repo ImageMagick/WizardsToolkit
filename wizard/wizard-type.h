@@ -44,16 +44,19 @@ typedef unsigned int WizardStatusType;
 #if (WIZARDSTOOLKIT_SIZEOF_UNSIGNED_LONG_LONG == 8)
 typedef long long WizardOffsetType;
 typedef unsigned long long WizardSizeType;
-#define WizardSizeFormat  "%llu"
+#define WizardOffsetFormat  "lld"
+#define WizardSizeFormat  "llu"
 #else
 typedef ssize_t WizardOffsetType;
 typedef size_t WizardSizeType;
-#define WizardSizeFormat  "%lu"
+#define WizardOffsetFormat  "lu"
+#define WizardSizeFormat  "lu"
 #endif
 #else
 typedef __int64 WizardOffsetType;
 typedef unsigned __int64 WizardSizeType;
-#define WizardSizeFormat  "%llu"
+#define WizardOffsetFormat  "I64i"
+#define WizardSizeFormat  "I64u"
 #endif
 
 #if defined(macintosh)
