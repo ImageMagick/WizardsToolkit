@@ -1632,14 +1632,14 @@ WizardExport void PrintStringInfo(FILE *file,const char *id,
     if (isascii((int) ((unsigned char) *p)) == 0)
       break;
   }
-  (void) PrintWizardString(file,"%s(%lu): ",id,(size_t)
+  (void) PrintWizardString(file,"%s(%lu): ",id,(unsigned long)
     string_info->length);
   if (p == q)
     for (p=string_info->datum; p < q; p++)
       (void) PrintWizardString(file,"%c",(int) *p);
   else
     for (p=string_info->datum; p < q; p++)
-      (void) PrintWizardString(file,"%02lx",(size_t) *p);
+      (void) PrintWizardString(file,"%02lx",(unsigned long) *p);
   (void) PrintWizardString(file,"\n");
 }
 

@@ -846,9 +846,9 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
         "  <line>%lu</line>\n"
         "  <domain>%s</domain>\n"
         "  <event>%s</event>\n"
-        "</entry>",timestamp,(ssize_t) (elapsed_time/60.0),(ssize_t)
-        floor(fmod(elapsed_time,60.0)),(ssize_t) (1000.0*(elapsed_time-
-        floor(elapsed_time))+0.5),user_time,(ssize_t) getpid(),
+        "</entry>",timestamp,(long) (elapsed_time/60.0),(long)
+        floor(fmod(elapsed_time,60.0)),(long) (1000.0*(elapsed_time-
+        floor(elapsed_time))+0.5),user_time,(long) getpid(),
         GetWizardThreadSignature(),module,function,line,domain,event);
       return(text);
     }
@@ -936,13 +936,13 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
             q++;
             break;
           }
-        q+=FormatWizardString(q,extent,"%lu",log_info->generation %
-          log_info->generations);
+        q+=FormatWizardString(q,extent,"%lu",(unsigned long)
+          (log_info->generation % log_info->generations));
         break;
       }
       case 'l':
       {
-        q+=FormatWizardString(q,extent,"%lu",line);
+        q+=FormatWizardString(q,extent,"%lu",(unsigned long) line);
         break;
       }
       case 'm':
@@ -966,14 +966,14 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
       }
       case 'p':
       {
-        q+=FormatWizardString(q,extent,"%ld",(ssize_t) getpid());
+        q+=FormatWizardString(q,extent,"%ld",(long) getpid());
         break;
       }
       case 'r':
       {
-        q+=FormatWizardString(q,extent,"%ld:%02ld.%03ld",(ssize_t)
-          (elapsed_time/60.0),(ssize_t) floor(fmod(elapsed_time,60.0)),
-          (ssize_t) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
+        q+=FormatWizardString(q,extent,"%ld:%02ld.%03ld",(long)
+          (elapsed_time/60.0),(long) floor(fmod(elapsed_time,60.0)),
+          (long) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
         break;
       }
       case 't':
@@ -1073,8 +1073,8 @@ static char *TranslateFilename(const LogInfo *log_info)
             q++;
             break;
           }
-        q+=FormatWizardString(q,extent,"%lu",log_info->generation %
-          log_info->generations);
+        q+=FormatWizardString(q,extent,"%lu",(unsigned long)
+          (log_info->generation % log_info->generations));
         break;
       }
       case 'n':
@@ -1084,7 +1084,7 @@ static char *TranslateFilename(const LogInfo *log_info)
       }
       case 'p':
       {
-        q+=FormatWizardString(q,extent,"%ld",(ssize_t) getpid());
+        q+=FormatWizardString(q,extent,"%ld",(long) getpid());
         break;
       }
       case 'v':
