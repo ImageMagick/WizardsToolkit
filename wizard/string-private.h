@@ -67,7 +67,7 @@ static inline long StringToLong(const char *value)
   return(strtol(value,(char **) NULL,10));
 }
 
-static inline unsigned logn StringToUnsignedLong(const char *value)
+static inline unsigned long StringToUnsignedLong(const char *value)
 {
   return(strtoul(value,(char **) NULL,10));
 }
