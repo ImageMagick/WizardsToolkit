@@ -837,7 +837,7 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
       (void) FormatWizardString(text,extent,
         "<entry>\n"
         "  <timestamp>%s</timestamp>\n"
-        "  <elapsed-time>%.20g:%02g.%03g</elapsed-time>\n"
+        "  <elapsed-time>%lu:%02lu.%03lu</elapsed-time>\n"
         "  <user-time>%0.3f</user-time>\n"
         "  <process-id>%.20g</process-id>\n"
         "  <thread-id>%.20g</thread-id>\n"
@@ -846,8 +846,8 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
         "  <line>%.20g</line>\n"
         "  <domain>%s</domain>\n"
         "  <event>%s</event>\n"
-        "</entry>",timestamp,(double) (elapsed_time/60.0),(double)
-        floor(fmod(elapsed_time,60.0)),(double) (1000.0*(elapsed_time-
+        "</entry>",timestamp,(unsigned long) (elapsed_time/60.0),(unsigned long)
+        floor(fmod(elapsed_time,60.0)),(unsigned long) (1000.0*(elapsed_time-
         floor(elapsed_time))+0.5),user_time,(double) getpid(),(double)
         GetWizardThreadSignature(),module,function,(double) line,domain,event);
       return(text);
@@ -971,9 +971,9 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
       }
       case 'r':
       {
-        q+=FormatWizardString(q,extent,"%.20g:%02g.%03g",(double)
-          (elapsed_time/60.0),floor(fmod(elapsed_time,60.0)),(double)
-          (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
+        q+=FormatWizardString(q,extent,"%lu:%02lu.%03lu",(unsigned long)
+          (elapsed_time/60.0),(unsigned long) floor(fmod(elapsed_time,60.0)),
+          (unsigned long) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
         break;
       }
       case 't':
