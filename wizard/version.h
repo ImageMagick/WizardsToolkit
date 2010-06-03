@@ -44,7 +44,7 @@ extern "C" {
 */
 extern WizardExport const char
   *GetWizardCopyright(void),
-  *GetWizardVersion(unsigned long *);
+  *GetWizardVersion(size_t *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

@@ -120,8 +120,8 @@ static WizardBooleanType TestAES(void)
   cipher_info=AcquireCipherInfo(AESCipher,CBCMode);
   for (i=0; i < AESEncipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
-      (8*aes_encipher_test_vector[i].key_length));
+    (void) PrintValidateString(stdout,"  test %.20g (%.20g bit key) ",
+      (double) i+1,(double) (8*aes_encipher_test_vector[i].key_length));
     key=AcquireStringInfo(aes_encipher_test_vector[i].key_length);
     SetStringInfoDatum(key,aes_encipher_test_vector[i].key);
     SetCipherKey(cipher_info,key);
@@ -145,8 +145,8 @@ static WizardBooleanType TestAES(void)
   cipher_info=AcquireCipherInfo(AESCipher,CBCMode);
   for (i=0; i < AESDecipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
-      (8*aes_decipher_test_vector[i].key_length));
+    (void) PrintValidateString(stdout,"  test %.20g (%.20g bit key) ",(double)
+      i+1,(double) (8*aes_decipher_test_vector[i].key_length));
     key=AcquireStringInfo(aes_decipher_test_vector[i].key_length);
     SetStringInfoDatum(key,aes_decipher_test_vector[i].key);
     SetCipherKey(cipher_info,key);
@@ -292,7 +292,7 @@ static WizardBooleanType TestBZIPEntropy(void)
   entropy_info=AcquireEntropyInfo(BZIPEntropy,6);
   for (i=0; i < ZipTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     plaintext=StringToStringInfo((char *) bzip_test_vector[i].plaintext);
     status=IncreaseEntropy(entropy_info,plaintext,exception);
     chaos=AcquireStringInfo(bzip_test_vector[i].chaossize);
@@ -312,7 +312,7 @@ static WizardBooleanType TestBZIPEntropy(void)
   entropy_info=AcquireEntropyInfo(BZIPEntropy,6);
   for (i=0; i < ZipTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     chaos=AcquireStringInfo(bzip_test_vector[i].chaossize);
     SetStringInfoDatum(chaos,bzip_test_vector[i].chaos);
     status=RestoreEntropy(entropy_info,
@@ -353,7 +353,7 @@ static WizardBooleanType TestCRC64(void)
   hash_info=AcquireHashInfo(CRC64Hash);
   for (i=0; i < CRC64TestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     InitializeHash(hash_info);
     plaintext=StringToStringInfo((char *) crc64_test_vector[i].plaintext);
     UpdateHash(hash_info,plaintext);
@@ -372,7 +372,7 @@ static WizardBooleanType TestCRC64(void)
   /*
     Multiple update test.
   */
-  (void) PrintValidateString(stdout,"  test %ld ",i);
+  (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
   InitializeHash(hash_info);
   plaintext=StringToStringInfo("ABCDEFGHIJKLMNOPQRSTUVWXYZabcde");
   UpdateHash(hash_info,plaintext);
@@ -416,7 +416,7 @@ static WizardBooleanType TestHMACMD5(void)
   hmac_info=AcquireHMACInfo(MD5Hash);
   for (i=0; i < HMACMD5TestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     key=StringToStringInfo((char *) hmac_md5_test_vector[i].key);
     message=StringToStringInfo((char *) hmac_md5_test_vector[i].plaintext);
     ConstructHMAC(hmac_info,key,message);
@@ -458,7 +458,7 @@ static WizardBooleanType TestHMACSHA1(void)
   hmac_info=AcquireHMACInfo(SHA1Hash);
   for (i=0; i < HMACSHA1TestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     key=StringToStringInfo((char *) hmac_sha1_test_vector[i].key);
     message=StringToStringInfo((char *) hmac_sha1_test_vector[i].plaintext);
     SetStringInfoDatum(message,hmac_sha1_test_vector[i].plaintext);
@@ -501,7 +501,7 @@ static WizardBooleanType TestHMACSHA256(void)
   hmac_info=AcquireHMACInfo(SHA256Hash);
   for (i=0; i < HMACSHA256TestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     key=StringToStringInfo((char *) hmac_sha256_test_vector[i].key);
     message=StringToStringInfo((char *) hmac_sha256_test_vector[i].plaintext);
     ConstructHMAC(hmac_info,key,message);
@@ -595,7 +595,7 @@ static WizardBooleanType TestMD5(void)
   hash_info=AcquireHashInfo(MD5Hash);
   for (i=0; i < MD5TestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     InitializeHash(hash_info);
     plaintext=StringToStringInfo((char *) md5_test_vector[i].plaintext);
     UpdateHash(hash_info,plaintext);
@@ -614,7 +614,7 @@ static WizardBooleanType TestMD5(void)
   /*
     Multiple update test.
   */
-  (void) PrintValidateString(stdout,"  test %ld ",i);
+  (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
   InitializeHash(hash_info);
   plaintext=StringToStringInfo("ABCDEFGHIJKLMNOPQRSTUVWXYZabcde");
   UpdateHash(hash_info,plaintext);
@@ -651,7 +651,7 @@ static WizardBooleanType TestMemory(void)
   pass=WizardTrue;
   for (i=1; i < 8; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     memory=AcquireQuantumMemory((size_t) (i << i << i),sizeof(unsigned char));
     (void) PrintValidateString(stdout,"%s.\n",memory != (void *) NULL ? "pass" :
       "fail");
@@ -756,8 +756,8 @@ static WizardBooleanType TestSerpent(void)
   cipher_info=AcquireCipherInfo(SerpentCipher,CBCMode);
   for (i=0; i < SerpentEncipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
-      (8*serpent_encipher_test_vector[i].key_length));
+    (void) PrintValidateString(stdout,"  test %.20g (%.20g bit key) ",(double)
+      i+1,(double) (8*serpent_encipher_test_vector[i].key_length));
     key=AcquireStringInfo(serpent_encipher_test_vector[i].key_length);
     SetStringInfoDatum(key,serpent_encipher_test_vector[i].key);
     SetCipherKey(cipher_info,key);
@@ -782,8 +782,8 @@ static WizardBooleanType TestSerpent(void)
   cipher_info=AcquireCipherInfo(SerpentCipher,CBCMode);
   for (i=0; i < SerpentDecipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
-      (8*serpent_decipher_test_vector[i].key_length));
+    (void) PrintValidateString(stdout,"  test %.20g (%.20g bit key) ",(double)
+      i+1,(double) (8*serpent_decipher_test_vector[i].key_length));
     key=AcquireStringInfo(serpent_decipher_test_vector[i].key_length);
     SetStringInfoDatum(key,serpent_decipher_test_vector[i].key);
     SetCipherKey(cipher_info,key);
@@ -882,7 +882,7 @@ static WizardBooleanType TestSHA1(void)
   hash_info=AcquireHashInfo(SHA1Hash);
   for (i=0; i < SHA1TestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     InitializeHash(hash_info);
     plaintext=StringToStringInfo((char *) sha1_test_vector[i].plaintext);
     UpdateHash(hash_info,plaintext);
@@ -901,7 +901,7 @@ static WizardBooleanType TestSHA1(void)
   /*
     Multiple update test.
   */
-  (void) PrintValidateString(stdout,"  test %ld ",i);
+  (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
   InitializeHash(hash_info);
   plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
   UpdateHash(hash_info,plaintext);
@@ -944,7 +944,7 @@ static WizardBooleanType TestSHA256(void)
   hash_info=AcquireHashInfo(SHA256Hash);
   for (i=0; i < SHA256TestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     InitializeHash(hash_info);
     plaintext=StringToStringInfo((char *) sha256_test_vector[i].plaintext);
     UpdateHash(hash_info,plaintext);
@@ -963,7 +963,7 @@ static WizardBooleanType TestSHA256(void)
   /*
     Multiple update test.
   */
-  (void) PrintValidateString(stdout,"  test %ld ",i);
+  (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
   InitializeHash(hash_info);
   plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
   UpdateHash(hash_info,plaintext);
@@ -1006,7 +1006,7 @@ static WizardBooleanType TestSHA384(void)
   hash_info=AcquireHashInfo(SHA384Hash);
   for (i=0; i < SHA384TestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     InitializeHash(hash_info);
     plaintext=StringToStringInfo((char *) sha384_test_vector[i].plaintext);
     UpdateHash(hash_info,plaintext);
@@ -1025,7 +1025,7 @@ static WizardBooleanType TestSHA384(void)
   /*
     Multiple update test.
   */
-  (void) PrintValidateString(stdout,"  test %ld ",i);
+  (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
   InitializeHash(hash_info);
   plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
   UpdateHash(hash_info,plaintext);
@@ -1068,7 +1068,7 @@ static WizardBooleanType TestSHA512(void)
   hash_info=AcquireHashInfo(SHA512Hash);
   for (i=0; i < SHA512TestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     InitializeHash(hash_info);
     plaintext=StringToStringInfo((char *) sha512_test_vector[i].plaintext);
     UpdateHash(hash_info,plaintext);
@@ -1087,7 +1087,7 @@ static WizardBooleanType TestSHA512(void)
   /*
     Multiple update test.
   */
-  (void) PrintValidateString(stdout,"  test %ld ",i);
+  (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
   InitializeHash(hash_info);
   plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
   UpdateHash(hash_info,plaintext);
@@ -1155,8 +1155,8 @@ static WizardBooleanType TestTwofish(void)
   cipher_info=AcquireCipherInfo(TwofishCipher,CBCMode);
   for (i=0; i < TwofishEncipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
-      (8*twofish_encipher_test_vector[i].key_length));
+    (void) PrintValidateString(stdout,"  test %.20g (%.20g bit key) ",(double)
+      i+1,(double) (8*twofish_encipher_test_vector[i].key_length));
     key=AcquireStringInfo(twofish_encipher_test_vector[i].key_length);
     SetStringInfoDatum(key,twofish_encipher_test_vector[i].key);
     SetCipherKey(cipher_info,key);
@@ -1184,8 +1184,8 @@ static WizardBooleanType TestTwofish(void)
   cipher_info=AcquireCipherInfo(TwofishCipher,CBCMode);
   for (i=0; i < TwofishDecipherTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld (%ld bit key) ",i+1,(ssize_t)
-      (8*twofish_decipher_test_vector[i].key_length));
+    (void) PrintValidateString(stdout,"  test %.20g (%.20g bit key) ",(double)
+      i+1,(double) (8*twofish_decipher_test_vector[i].key_length));
     key=AcquireStringInfo(twofish_decipher_test_vector[i].key_length);
     SetStringInfoDatum(key,twofish_decipher_test_vector[i].key);
     SetCipherKey(cipher_info,key);
@@ -1292,7 +1292,7 @@ static WizardBooleanType TestZIPEntropy(void)
   entropy_info=AcquireEntropyInfo(ZIPEntropy,6);
   for (i=0; i < ZipTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     plaintext=StringToStringInfo((char *) zip_test_vector[i].plaintext);
     status=IncreaseEntropy(entropy_info,plaintext,exception);
     chaos=AcquireStringInfo(zip_test_vector[i].chaossize);
@@ -1312,7 +1312,7 @@ static WizardBooleanType TestZIPEntropy(void)
   entropy_info=AcquireEntropyInfo(ZIPEntropy,6);
   for (i=0; i < ZipTestVectors; i++)
   {
-    (void) PrintValidateString(stdout,"  test %ld ",i);
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     chaos=AcquireStringInfo(zip_test_vector[i].chaossize);
     SetStringInfoDatum(chaos,zip_test_vector[i].chaos);
     status=RestoreEntropy(entropy_info,

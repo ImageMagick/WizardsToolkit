@@ -739,7 +739,7 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
     WizardHashOptions,content_info->hmac));
   (void) ConcatenateString(&cipher_rdf,message);
   (void) FormatWizardString(message,MaxTextExtent,
-    "    <cipher:chunksize>%lu</cipher:chunksize>\n",1UL*
+    "    <cipher:chunksize>%.20g</cipher:chunksize>\n",(double)
     content_info->chunksize);
   (void) ConcatenateString(&cipher_rdf,message);
   (void) FormatWizardTime(content_info->modify_date,MaxTextExtent,timestamp);
@@ -971,10 +971,10 @@ int main(int argc,char **argv)
     {
       elapsed_time=GetElapsedTime(timer);
       user_time=GetUserTime(timer);
-      (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %ld:%02ld.%03ld\n",
-        iterations,1.0*iterations/elapsed_time,user_time,(ssize_t)
-        (elapsed_time/60.0+0.5),(ssize_t) floor(fmod(elapsed_time,60.0)),
-        (ssize_t) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
+      (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %.20g:%02g.%03g\n",
+        iterations,1.0*iterations/elapsed_time,user_time,(double)
+        (elapsed_time/60.0+0.5),floor(fmod(elapsed_time,60.0)),(double)
+        (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
       timer=DestroyTimerInfo(timer);
     }
   exception=DestroyExceptionInfo(exception);

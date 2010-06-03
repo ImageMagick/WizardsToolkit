@@ -1007,8 +1007,8 @@ WizardExport WizardBooleanType ThrowWizardExceptionList(
     reason[MaxTextExtent-1]='\0';
   status=LogWizardEvent(exception->severity >= ErrorException ?
     ExceptionEvent : WarningEvent,module,function,line,"%s",reason);
-  (void) FormatWizardString(message,MaxTextExtent,"%s @ %s/%s/%ld",reason,
-    module,function,line);
+  (void) FormatWizardString(message,MaxTextExtent,"%s @ %s/%s/%.20g",reason,
+    module,function,(double) line);
   (void) ThrowException(exception,severity,message,(char *) NULL);
   return(status);
 }

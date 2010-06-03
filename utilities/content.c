@@ -645,12 +645,12 @@ WizardExport WizardBooleanType PrintCipherProperties(
   (void) fprintf(file,"  Key:\n");
   (void) fprintf(file,"    hash: %s\n",WizardOptionToMnemonic(WizardHashOptions,
     content_info->key_hash));
-  (void) fprintf(file,"    length: %lu\n",1UL*content_info->key_length);
+  (void) fprintf(file,"    length: %.20g\n",(double) content_info->key_length);
   (void) fprintf(file,"    id: %s\n",content_info->id);
   (void) fprintf(file,"  Entropy Generator:\n");
   (void) fprintf(file,"    type: %s\n",WizardOptionToMnemonic(
     WizardEntropyOptions,content_info->entropy));
-  (void) fprintf(file,"    level: %lu\n",1UL*content_info->level);
+  (void) fprintf(file,"    level: %.20g\n",(double) content_info->level);
   (void) fprintf(file,"  Keyed-Hashed Message Authentication Code:\n");
   (void) fprintf(file,"    hash: %s\n",WizardOptionToMnemonic(WizardHashOptions,
     content_info->hmac));

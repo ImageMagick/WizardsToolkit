@@ -1089,7 +1089,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
                 count=fread(magick,1,sizeof(magick),blob_info->file);
                 (void) rewind(blob_info->file);
                 (void) LogWizardEvent(BlobEvent,GetWizardModule(),
-                  "  read %ld magic header bytes",(ssize_t) count);
+                  "  read %.20g magic header bytes",(double) count);
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
                 if ((compress != WizardFalse) && ((int) magick[0] == 0x1F) &&
                     ((int) magick[1] == 0x8B) && ((int) magick[2] == 0x08))

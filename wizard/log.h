@@ -27,7 +27,7 @@ extern "C" {
 #include "wizard/timer.h"
 
 #if !defined(GetWizardModule)
-# define GetWizardModule()  __FILE__,__func__,(unsigned long) __LINE__
+# define GetWizardModule()  __FILE__,__func__,(size_t) __LINE__
 #endif
 
 #define WizardLogFilename  "log.xml"

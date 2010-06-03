@@ -783,7 +783,7 @@ static WizardBooleanType DecipherContent(ContentInfo *content_info,
         if (CompareStringInfo(hmac,GetHMACDigest(content_info->hmac_info)) != 0)
           {
             (void) FormatWizardString(message,MaxTextExtent,"corrupt cipher "
-              "chunk #%lu `%s'",chunk,cipher_filename);
+              "chunk #%.20g `%s'",(double) chunk,cipher_filename);
             ThrowDecipherContentException(FileError,"%s: `%s'",message);
           }
       }
@@ -888,10 +888,10 @@ int main(int argc,char **argv)
     {
       elapsed_time=GetElapsedTime(timer);
       user_time=GetUserTime(timer);
-      (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %ld:%02ld.%03ld\n",
-        iterations,1.0*iterations/elapsed_time,user_time,(ssize_t)
-        (elapsed_time/60.0+0.5),(ssize_t) floor(fmod(elapsed_time,60.0)),
-        (ssize_t) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
+      (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %.20g:%02g.%03g\n",
+        iterations,1.0*iterations/elapsed_time,user_time,(double)
+        (elapsed_time/60.0+0.5),floor(fmod(elapsed_time,60.0)),(double)
+        (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
       timer=DestroyTimerInfo(timer);
     }
   exception=DestroyExceptionInfo(exception);

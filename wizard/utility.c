@@ -648,13 +648,13 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
     int
       length;
 
-    (void) FormatWizardString(link_path,MaxTextExtent,"/proc/%ld/exe",
-      (ssize_t) getpid());
+    (void) FormatWizardString(link_path,MaxTextExtent,"/proc/%.20g/exe",
+      (double) getpid());
     length=readlink(link_path,real_path,PATH_MAX);
     if (length == -1)
       {
-        (void) FormatWizardString(link_path,MaxTextExtent,"/proc/%ld/file",
-          (ssize_t) getpid());
+        (void) FormatWizardString(link_path,MaxTextExtent,"/proc/%.20g/file",
+          (double) getpid());
         length=readlink(link_path,real_path,PATH_MAX);
       }
     if ((length > 0) && ((size_t) length <= PATH_MAX))
