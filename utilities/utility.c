@@ -402,7 +402,7 @@ static int FileCompare(const void *x,const void *y)
 static inline int WizardReadDirectory(DIR *directory,struct dirent *entry,
   struct dirent **result)
 {
-#if defined(MAGICKCORE_HAVE_READDIR_R)
+#if defined(WIZARDSTOOLKIT_HAVE_READDIR_R)
   return(readdir_r(directory,entry,result));
 #else
   (void) entry;

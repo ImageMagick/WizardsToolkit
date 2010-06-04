@@ -24,7 +24,7 @@ extern "C" {
 
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
 typedef pthread_t WizardThreadType;
-#elif defined(MAGICKORE_HAVE_WINTHREADS)
+#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
 typedef DWORD WizardThreadType;
 #else
 typedef pid_t WizardThreadType;

@@ -25,6 +25,11 @@ extern "C" {
 
 #if defined(WIN32) || defined(WIN64)
 #  define WIZARDSTOOLKIT_WINDOWS_SUPPORT
+#if defined(_WIN64) 
+ typedef __int64 ssize_t;
+#else
+ typedef int ssize_t;
+#endif
 #else
 #  define WIZARDSTOOLKIT_POSIX_SUPPORT
 #endif

@@ -257,10 +257,6 @@ typedef UINT
 
 #endif
 
-#if !defined(ssize_t) && !defined(__MINGW32__)
-typedef long ssize_t;
-#endif
-
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
 #  if defined(_WIN32)
 #    define BZ_IMPORT 1

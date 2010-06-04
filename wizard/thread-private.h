@@ -52,7 +52,7 @@ static inline WizardThreadType GetWizardThreadId(void)
 
 static inline size_t GetWizardThreadSignature(void)
 {
-#if defined(MAGICKCORE_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
   {
     union
     {
@@ -124,7 +124,7 @@ static inline void SetOpenMPMaximumThreads(const size_t threads)
 
 static inline void SetOpenMPNested(const int value)
 {
-#if defined(MAGICKCORE_OPENMP_SUPPORT) && (_OPENMP >= 200203)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT) && (_OPENMP >= 200203)
   omp_set_nested(value);
 #else
   (void) value;

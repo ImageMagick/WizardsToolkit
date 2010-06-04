@@ -24,6 +24,11 @@ extern "C" {
 
 #if defined(WIN32) || defined(WIN64)
 #  define WIZARDSTOOLKIT_WINDOWS_SUPPORT
+#if defined(_WIN64) 
+ typedef __int64 ssize_t; 
+#else 
+ typedef int ssize_t;
+#endif
 #else
 #  define WIZARDSTOOLKIT_POSIX_SUPPORT
 #endif
@@ -178,7 +183,7 @@ extern "C" {
 #if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
 #  include <pthread.h>
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
-#  define MAGICKORE_HAVE_WINTHREADS  1
+#  define WIZARDSTOOLKIT_HAVE_WINTHREADS  1
 #include <windows.h>
 #endif
 #if defined(WIZARDSTOOLKIT_HAVE_SYS_SYSLIMITS_H)
