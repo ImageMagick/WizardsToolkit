@@ -60,8 +60,8 @@ extern "C" {
     context[MaxTextExtent], \
     tag[MaxTextExtent]; \
  \
-  (void) FormatWizardString(tag,MaxTextExtent,"%ld\n",(ssize_t) domain); \
-  (void) FormatWizardString(context,MaxTextExtent,"%ld\n",(ssize_t) error); \
+  (void) FormatWizardString(tag,MaxTextExtent,"%ld\n",(long) domain); \
+  (void) FormatWizardString(context,MaxTextExtent,"%ld\n",(long) error); \
   CatchWizardException(UndefinedException,tag,context); \
   _exit((domain << 3) | error); \
 }
