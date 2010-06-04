@@ -21,15 +21,164 @@ a:hover {
   font-weight: bold;
 }
 
-div.group
-{
-  border:2px solid #666;
-  padding:0;
-  margin:0.8em 8px;
+div.cmd {
+  color: black;
+  background: #d2ddf6;
+  font-family: monospace;
+  margin: 1.33em 40px;
+  padding: 1.33em 1.33em 1.33em 2.66em;
+  text-indent:-1.33em;
+}
+
+div.crt {
+  border-style: ridge;
+  border-width: 7px;
+  border-color: blue;
+  color: white;
+  background: #000044;
+  font-family: monospace;
+  margin: 1.33em 0em; 
+  padding: .66em 1.33em .66em 1.33em;
+}
+
+div.cmdout {
+  color: black;
+  background: #d0d0dd;
+  font-family: Times, serif;
+  margin: 1.33em 40px;
+  padding: .66em 1.33em .66em 1.33em;
+}
+
+div.doc-section > p {
+  margin: 1.33em 0px;
+}
+
+div.doc-section {
+margin: 1.33em 40px;
+}
+
+div.eastbar {
+  width: 13.5%; 
+  left: 0em; 
+  position: absolute; 
+  /* height: 100%; */
+  font-size: 12px;
+  border-right-style: solid;
+  border-right-color: #d0d0d0; 
+  border-right-width: 1px;
+
+}
+
+div.eqn {
+  text-align: center;
+  }
+
+div.footer {
+  margin-left: 13.5%; 
+  background: white;
+}
+
+div.group {
+  border: 2px solid #666;
+  padding: 0;
+  margin: 0.8em 8px;
+}
+
+div.image {
+  text-align: center;
 }
 
 div.info {
   clear: both;
+}
+
+div.main {
+  background: white;
+  color: black;
+  border-left-style: solid;
+  border-left-color: #d0d0d0;
+  border-left-width: 1px;
+  padding-left: .75em;
+  padding-bottom: .75em;
+  padding-top: 0px;
+  padding-right: .75em;
+  margin-left:13.5%;
+}
+
+div.menu {
+  background: #f5f5f5;
+  color: black;
+  padding-left: .66em;
+  padding-right: .66em;
+  padding-top: .75em;
+  font-weight: bold;
+  vertical-align: top;
+  left: 0px;
+}
+
+
+div.sep {
+  background: #f5f5f5;
+  color: black;
+  padding-left: 1.33em;
+  padding-top: .75em;
+  font-weight: bold;
+  vertical-align: top;
+  left: 0px;
+  font-size: 66%;
+}
+
+
+div.sponsor {
+  padding-left: .5em;
+  padding-top: .25em;
+  font-size: 83.333%;
+}
+
+div.sponsbox {
+  background: #ffffff;
+  border-style: solid;
+  border-color: #d0d0d0;
+  border-width: 1px;
+/* 
+  border-spacing: 0px;
+  font-size: 90%;
+  padding-top: .5em;
+*/
+  padding-left: .66em;
+  font-weight: bold;
+  vertical-align: top;
+  left: 0px;
+}
+
+
+div.sub {
+  background: #f5f5f5; 
+  color: black;
+  padding-left: 1.66em;
+  padding-top: .15em;
+  font-weight: bold;
+  vertical-align: top;
+  left: 0px;
+  font-size: 90%;
+}
+
+div.text {
+  color: black;
+  background: #d2ddf6;
+  font-family: monospace;
+  margin: 1.33em 40px;
+  padding: 1.33em;
+}
+
+div.titlebar {
+  background-image: url("../images/background.jpg");
+  background-repeat: repeat-x;
+  height: 118px;
+  width: 100%;
+  background-color: white; /* #f5f5f5;  */
+  border:0px;
+  padding-bottom:0px;
 }
 
 acronym, .help {
@@ -38,8 +187,30 @@ acronym, .help {
 }
 
 div.info img {
-    float: left;
-    padding: 0em 1em 0em 0em;
+  float: left;
+  padding: 0em 1em 0em 0em;
+}
+
+dl.doc { 
+  padding: .833em 1.33em 1.33em 1.33em;
+  border-spacing: 0px;
+  width: 85%;
+  text-align: left;
+  margin: 1.33em 40px; 
+  border-style: solid;
+  border-color: #d0d0d0;
+  border-width: 1px;
+}
+
+dt.doc {
+  font-weight: bolder;
+  font-size: 110%;
+  padding-top: .5em;
+  }
+  
+em.arg {
+  color: #8b0000; /* darkred; */
+  font-weight: normal;
 }
 
 em.caution {
@@ -53,7 +224,12 @@ em.emergency {
 }
 
 em.option {
-  color: darkred;
+  color:  #8b0000; 
+  font-weight: normal;
+}
+
+em.QR {
+  color: #00008b;
   font-weight: normal;
 }
 
@@ -113,6 +289,12 @@ h3 {
   font-size: 100%;
 }
 
+h4 {
+  font-weight: bolder;
+  clear: both;
+  font-size: 95%;
+}
+
 h5 {
   margin: 1.33em 0px;
   margin-left: 40px;
@@ -142,7 +324,7 @@ img.map {
 }
 
 kbd {
-  font-weight: bold;
+  font-weight: bold; 
 }
 
 li {
@@ -159,9 +341,61 @@ li {
 }
 
 p {
+  /*
   margin: 1.33em 0px;
   margin-left: 40px;
   margin-right: 40px;
+  */
+  margin: 1.33em 40px;
+}
+
+
+p.code {
+  color: black;
+  background: #f5f5f5;
+  border: 1pt dashed #2f6fab;
+  font-family: monospace;
+  font-size: 8pt;
+  white-space: pre;
+  margin: 1.33em 40px; 
+  padding: .66em 1.33em;
+}
+
+
+p.crt {
+  white-space: nowrap;
+  border-style: ridge;
+  border-width: 7px;
+  border-color: blue;
+  color: white;
+  background: #000044;
+  font-family: monospace;
+  margin: 1.33em 40px; 
+  padding: .66em 1.33em;
+}
+
+p.crtsnip {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.33em; 
+  margin-bottom: 1.33em;
+  width: 50%;
+  white-space: nowrap;
+  border-top-style: ridge;
+  border-bottom-style: ridge;
+  border-top-width: 7px;
+  border-bottom-width: 7px;
+  border-color: blue;
+  color: white;
+  font-weight: bolder;
+  background: #000044;
+  font-family: monospace;
+  padding: .66em 1.33em;
+}
+
+p.crtsnip em.arg {
+  color: #ffbbbb; /* brighter red; */
 }
 
 p.info {
@@ -190,22 +424,75 @@ p.image-slices img {
   margin-right: auto;
 }
 
+
 p.navigation-index {
+  padding: 10px;
+  margin-top: 1px;
+  margin-bottom: 0px;
+  margin-left: 0;
+  margin-right: 0;
+  background: white;
   text-align: center;
   font-size: 80%;
+  white-space: normal;
+}
+
+p.options {
+  padding: 0 3em;
+/*  text-align:justify; */
+}
+
+p.pre {
+  white-space: pre;
+  color: black;
+  background: #d2ddf6;
+  font-family: monospace;
+  padding: 0em;
+  margin: 0em;
+}
+
+p.text {
+  color: black;
+  background: #d2ddf6;
+  font-family: monospace;
+  margin: 1.33em 40px;
+  padding: 1.33em;
+}
+
+
+p.warn {
+  padding: .66em 3em; 
+  background: #ffeedd;
+}
+
+
+pre {
+  padding-top: 0pt;
+  padding-bottom: 0pt;
+  margin: 0pt;
 }
 
 pre.code {
   color: black;
   background: #f5f5f5;
   border: 1pt dashed #2f6fab;
+  font-family: monospace;
   font-size: 8pt;
   white-space: pre;
+  /*
   margin: 1.33em 0px;
   margin-left: 40px;
   margin-right: 40px;
-  padding: 1.33em;
+  */
+  margin: 1.33em 40px;
+  padding: .66em 1.33em;
+  
 }
+
+pre.crt {
+  padding: 0;
+  margin: 0;
+  }
 
 pre.debug {
   color: black;
@@ -224,11 +511,45 @@ pre.text {
   background: #d2ddf6;
   font-family: monospace;
   white-space: pre;
-  margin: 1.33em 0px;
+  margin: 1.33em 40px;
+/*
   margin-left: 40px;
   margin-right: 40px;
+*/
   padding: 1.33em;
 }
+
+span.bull {
+/*   padding: 0 .25em 0 0; */
+  color: #d0d0d0;
+}
+
+span.crtin {
+  color: white;
+  font-weight: bolder;
+  padding: .67em 1.33em .67em 0;
+}
+
+span.crtout, .crtprompt {
+  color: #ffff77;
+/*   font-family: Times, serif; */
+/*  margin: 1.33em 40px; */
+  padding-top: .67em;
+  padding-bottom: .67em;
+}
+
+span.crtout {
+  padding-left: 1.33em;
+  padding-right: 1.33em;
+  display: block;
+}
+
+span.crtprompt {
+/*  padding-left: .66em; */
+  padding-right: 0;
+  text-indent:-1.33em; 
+}
+
 
 span.different {
   font-weight: bold;
@@ -248,11 +569,30 @@ span.info-west {
   float: left;
 }
 
+span.option {
+  white-space: normal;
+}
+
 span.path {
   font-weight: bold;
 }
 
 span.size-mod-title { }
+
+table.doc { 
+  padding: 1.33em;
+  border-spacing: 0px;
+  width: 91%;
+  text-align: left;
+  margin: 1.33em 40px; 
+  border-style: solid;
+  border-color: #d0d0d0;
+  border-width: 1px;
+}
+
+table.doc td,th {
+  padding: .3em .5em;
+}
 
 td.map {
   margin: 0px;
@@ -272,6 +612,10 @@ th.size-norm, tr.size-norm, td.size-norm {
   background-color: #f7f7f7;
 }
 
+#footer {
+  margin-left:0px;
+}
+
 #footer-west {
   float: left;
   padding: 20px;
@@ -282,16 +626,44 @@ th.size-norm, tr.size-norm, td.size-norm {
   padding: 20px;
 }
 
+#header { 
+  background-color: #ADD8E6; /* lightblue; */
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 4em;
+  border-bottom: solid 1px;
+  z-index: 10;
+} 
+
+
 #linkbar, #navigation-bar {
   clear: both;
   background: #f5f5f5;
   color: black;
   border: solid #d0d0d0;
   border-width: 1px 0px 1px 0px;
-  padding: 5px 5px 5px 5px;
+  padding: 5px 5px 5px 13.5%;
   font-weight: bold;
   text-align: center;
+  margin-left:0px; 
 }
+
+
+#linkbar-east {
+  float: right;
+}
+
+#linkbar-center {
+  padding: 0px 80px;
+}
+
+#linkbar-west {
+  float: left;
+}
+
+
 
 #margin {
   padding: 10px;
@@ -374,6 +746,8 @@ th.size-norm, tr.size-norm, td.size-norm {
   border-width: 1px;
 }
 
+/* These were being used per id but there were two duplicate id's each.
+   These individual properties have been moved to the images to which they were applied in titlebar.php.
 #titlebar-east {
   float: right;
 }
@@ -381,6 +755,12 @@ th.size-norm, tr.size-norm, td.size-norm {
 #titlebar-west {
   float: left;
 }
+*/
+
+#www-wizardstoolkit-org {
+  background: #f5f5f5;
+}
+
 
 @media print {
   #titlebar, #navigation-bar, #linkbar, #menu, #margin { display: none }
@@ -417,9 +797,7 @@ th.size-norm, tr.size-norm, td.size-norm {
   border: solid 2px black;
   font-family: monospace;
   white-space: pre;
-  margin: 1.33em 0px;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin: 1.33em 40px;
   padding: 1.33em;
   height: 480px;
   overflow: auto;
