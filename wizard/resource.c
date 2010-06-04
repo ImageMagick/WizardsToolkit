@@ -670,7 +670,7 @@ WizardExport WizardBooleanType ListWizardResourceInfo(FILE *file,
   (void) FormatWizardSize(resource_info.disk_limit,WizardFalse,disk_limit);
   (void) fprintf(file,"File        Area      Memory         Map        Disk\n");
   (void) fprintf(file,"----------------------------------------------------\n");
-  (void) fprintf(file,"%4lu  %9sB  %9sB  %9sB  %9sB\n",(size_t)
+  (void) fprintf(file,"%4g  %9sB  %9sB  %9sB  %9sB\n",(double)
     resource_info.file_limit,area_limit,memory_limit,map_limit,disk_limit);
   (void) fflush(file);
   UnlockSemaphoreInfo(resource_semaphore);
