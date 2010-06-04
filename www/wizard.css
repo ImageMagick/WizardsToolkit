@@ -741,7 +741,7 @@ th.size-norm, tr.size-norm, td.size-norm {
 }
 
 /* These were being used per id but there were two duplicate id's each.
-   These individual properties have been moved to the images to which they were applied in titlebar.php.
+   These individual properties have been moved to the image to which they were applied in titlebar.php.
 #titlebar-east {
   float: right;
 }
