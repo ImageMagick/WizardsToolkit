@@ -30,7 +30,7 @@ extern "C" {
 #define WizardLibVersion  0x107
 #define WizardLibVersionText  "1.0.7"
 #define WizardLibVersionNumber  1,0,1
-#define WizardLibAddendum  "-3"
+#define WizardLibAddendum  "-4"
 #define WizardLibInterface  1
 #define WizardLibMinInterface  1
 #define WizardReleaseDate  "2010-06-04"
