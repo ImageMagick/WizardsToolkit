@@ -236,7 +236,7 @@ WizardExport WizardBooleanType IncreaseZIP(ZIPInfo *zip_info,
   stream.next_in=(Bytef *) GetStringInfoDatum(message);
   stream.avail_in=(uInt) GetStringInfoLength(message);
   SetStringInfoLength(zip_info->chaos,(size_t) deflateBound(&stream,
-    (size_t) GetStringInfoLength(message)));
+    (unsigned long) GetStringInfoLength(message)));
   stream.next_out=(Bytef *) GetStringInfoDatum(zip_info->chaos);
   stream.avail_out=(uInt) GetStringInfoLength(zip_info->chaos);
   status=deflate(&stream,Z_FINISH);
