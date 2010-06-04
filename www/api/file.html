@@ -322,7 +322,7 @@ _8c.html" target="source" name="ReadFile32Bits">ReadFile32Bits</a></h2>
 
 <pre class="code">
   WizardBooleanType ReadFile32Bits(FileInfo *file_info,
-    unsigned long *value)
+    size_t *value)
 </pre>
 
 <p>A description of each parameter follows.</p></ol>
@@ -407,7 +407,7 @@ _8c.html" target="source" name="WriteFileChunk">WriteFileChunk</a></h2>
 _8c.html" target="source" name="WriteFile16Bits">WriteFile16Bits</a></h2>
 <div class="doc-section">
 
-<p>WriteFile16Bits() writes a long value as a 16-bit quantity in least-significant byte first order.</p></ol>
+<p>WriteFile16Bits() writes a ssize_t value as a 16-bit quantity in least-significant byte first order.</p></ol>
 
 <p>The format of the WriteFile16Bits method is:</p>
 
@@ -429,13 +429,13 @@ _8c.html" target="source" name="WriteFile16Bits">WriteFile16Bits</a></h2>
 _8c.html" target="source" name="WriteFile32Bits">WriteFile32Bits</a></h2>
 <div class="doc-section">
 
-<p>WriteFile32Bits() writes a long value as a 32-bit quantity in least-significant byte first order.</p></ol>
+<p>WriteFile32Bits() writes a ssize_t value as a 32-bit quantity in least-significant byte first order.</p></ol>
 
 <p>The format of the WriteFile32Bits method is:</p>
 
 <pre class="code">
   WizardBooleanType WriteFile32Bits(FileInfo *file_info,
-    const unsigned long value)
+    const size_t value)
 </pre>
 
 <p>A description of each parameter follows.</p></ol>
@@ -451,7 +451,7 @@ _8c.html" target="source" name="WriteFile32Bits">WriteFile32Bits</a></h2>
 _8c.html" target="source" name="WriteFile64Bits">WriteFile64Bits</a></h2>
 <div class="doc-section">
 
-<p>WriteFile64Bits() writes a long value as a 64-bit quantity in least-significant byte first order.</p></ol>
+<p>WriteFile64Bits() writes a ssize_t value as a 64-bit quantity in least-significant byte first order.</p></ol>
 
 <p>The format of the WriteFile64Bits method is:</p>
 

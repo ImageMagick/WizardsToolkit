@@ -147,7 +147,7 @@ _8c.html" target="source" name="GetEntropyFromReservoir">GetEntropyFromReservoir
 _8c.html" target="source" name="GetPseudoRandomValue">GetPseudoRandomValue</a></h2>
 <div class="doc-section">
 
-<p>GetPseudoRandomValue() return a non-negative unsigned long value uniformly distributed over the interval [0.0, 1.0) with a 2 to the 128th-1 period.</p></ol>
+<p>GetPseudoRandomValue() return a non-negative size_t value uniformly distributed over the interval [0.0, 1.0) with a 2 to the 128th-1 period.</p></ol>
 
 <p>The format of the GetPseudoRandomValue method is:</p>
 
@@ -226,7 +226,7 @@ _8c.html" target="source" name="SeedPseudoRandomGenerator">SeedPseudoRandomGener
 <p>The format of the SeedPseudoRandomGenerator method is:</p>
 
 <pre class="code">
-  void SeedPseudoRandomGenerator(const unsigned long seed)
+  void SeedPseudoRandomGenerator(const size_t seed)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>

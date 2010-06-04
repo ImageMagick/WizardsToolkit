@@ -173,7 +173,7 @@ _8c.html" target="source" name="ParseWizardOption">ParseWizardOption</a></h2>
 <p>The format of the ParseWizardOption method is:</p>
 
 <pre class="code">
-  long ParseWizardOption(const WizardOption option,
+  ssize_t ParseWizardOption(const WizardOption option,
     const WizardBooleanType list,const char *options)
 </pre>
 
@@ -199,7 +199,7 @@ _8c.html" target="source" name="WizardOptionToMnemonic">WizardOptionToMnemonic</
 
 <pre class="code">
   const char *WizardOptionToMnemonic(const WizardOption option,
-    const long type)
+    const ssize_t type)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>

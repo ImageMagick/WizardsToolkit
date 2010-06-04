@@ -312,7 +312,7 @@ _8c.html" target="source" name="GetNumberOfEntriesInHashmap">GetNumberOfEntriesI
 <p>The format of the GetNumberOfEntriesInHashmap method is:</p>
 
 <pre class="code">
-  unsigned long GetNumberOfEntriesInHashmap(const HashmapInfo *hashmap_info)
+  size_t GetNumberOfEntriesInHashmap(const HashmapInfo *hashmap_info)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
@@ -330,7 +330,7 @@ _8c.html" target="source" name="GetNumberOfElementsInLinkedList">GetNumberOfElem
 <p>The format of the GetNumberOfElementsInLinkedList method is:</p>
 
 <pre class="code">
-  unsigned long GetNumberOfElementsInLinkedList(
+  size_t GetNumberOfElementsInLinkedList(
     const LinkedListInfo *list_info)
 </pre>
 
@@ -371,7 +371,7 @@ _8c.html" target="source" name="GetValueFromLinkedList">GetValueFromLinkedList</
 
 <pre class="code">
   void *GetValueFromLinkedList(LinkedListInfo *list_info,
-    const unsigned long index)
+    const size_t index)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
@@ -447,7 +447,7 @@ _8c.html" target="source" name="InsertValueInLinkedList">InsertValueInLinkedList
 
 <pre class="code">
   WizardBooleanType InsertValueInLinkedList(ListInfo *list_info,
-    const unsigned long index,const void *value)
+    const size_t index,const void *value)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
@@ -561,7 +561,7 @@ _8c.html" target="source" name="NewHashmap">NewHashmap</a></h2>
 <p>The format of the NewHashmap method is:</p>
 
 <pre class="code">
-  HashmapInfo *NewHashmap(const unsigned long capacity,
+  HashmapInfo *NewHashmap(const size_t capacity,
     size_t (*hash)(const void *),
     WizardBooleanType (*compare)(const void *,const void *),
     void *(*relinquish_key)(void *),void *(*relinquish_value)(void *))
@@ -594,7 +594,7 @@ _8c.html" target="source" name="NewLinkedList">NewLinkedList</a></h2>
 <p>The format of the Acquirestruct LinkedListInfomethod is:</p>
 
 <pre class="code">
-  LinkedListInfo *NewLinkedList(const unsigned long capacity)
+  LinkedListInfo *NewLinkedList(const size_t capacity)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
@@ -660,7 +660,7 @@ _8c.html" target="source" name="RemoveElementFromLinkedList">RemoveElementFromLi
 
 <pre class="code">
   void *RemoveElementFromLinkedList(LinkedListInfo *list_info,
-    const unsigned long index)
+    const size_t index)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>

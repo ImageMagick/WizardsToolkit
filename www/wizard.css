@@ -116,7 +116,6 @@ div.menu {
   left: 0px;
 }
 
-
 div.sep {
   background: #f5f5f5;
   color: black;
@@ -127,7 +126,6 @@ div.sep {
   left: 0px;
   font-size: 66%;
 }
-
 
 div.sponsor {
   padding-left: .5em;
@@ -315,7 +313,7 @@ img {
 
 img.icon {
   float: left;
-  margin: 7px;
+  margin: 5px;
 }
 
 img.map {
@@ -637,7 +635,6 @@ th.size-norm, tr.size-norm, td.size-norm {
   z-index: 10;
 } 
 
-
 #linkbar, #navigation-bar {
   clear: both;
   background: #f5f5f5;
@@ -650,7 +647,6 @@ th.size-norm, tr.size-norm, td.size-norm {
   margin-left:0px; 
 }
 
-
 #linkbar-east {
   float: right;
 }
@@ -662,8 +658,6 @@ th.size-norm, tr.size-norm, td.size-norm {
 #linkbar-west {
   float: left;
 }
-
-
 
 #margin {
   padding: 10px;
@@ -757,10 +751,9 @@ th.size-norm, tr.size-norm, td.size-norm {
 }
 */
 
-#www-wizardstoolkit-org {
+#www-wizards-toolkit-org {
   background: #f5f5f5;
 }
-
 
 @media print {
   #titlebar, #navigation-bar, #linkbar, #menu, #margin { display: none }

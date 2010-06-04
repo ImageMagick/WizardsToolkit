@@ -287,7 +287,7 @@ _8c.html" target="source" name="GetNextKeyInSplayTree">GetNextKeyInSplayTree</a>
 <p>The format of the GetNextKeyInSplayTree method is:</p>
 
 <pre class="code">
-  void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
+  const void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
@@ -308,7 +308,7 @@ _8c.html" target="source" name="GetNextValueInSplayTree">GetNextValueInSplayTree
 <p>The format of the GetNextValueInSplayTree method is:</p>
 
 <pre class="code">
-  void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
+  const void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
@@ -329,7 +329,8 @@ _8c.html" target="source" name="GetValueFromSplayTree">GetValueFromSplayTree</a>
 <p>The format of the GetValueFromSplayTree method is:</p>
 
 <pre class="code">
-  void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,const void *key)
+  const void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
+    const void *key)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
@@ -350,7 +351,7 @@ _8c.html" target="source" name="GetNumberOfNodesInSplayTree">GetNumberOfNodesInS
 <p>The format of the GetNumberOfNodesInSplayTree method is:</p>
 
 <pre class="code">
-  unsigned long GetNumberOfNodesInSplayTree(
+  size_t GetNumberOfNodesInSplayTree(
     const SplayTreeInfo *splay_tree)
 </pre>
 

@@ -441,12 +441,12 @@ _8c.html" target="source" name="FileToStringInfo">FileToStringInfo</a></h2>
 _8c.html" target="source" name="FormatWizardSize">FormatWizardSize</a></h2>
 <div class="doc-section">
 
-<p>FormatWizardSize() converts a size to a human readable format, for example, 14kb, 234mb, 2.7gb, or 3.0tb.  Scaling is done by repetitively dividing by 1000.</p></ol>
+<p>FormatWizardSize() converts a size to a human readable format, for example, 14k, 234m, 2.7g, or 3.0t.  Scaling is done by repetitively dividing by 1000.</p></ol>
 
 <p>The format of the FormatWizardSize method is:</p>
 
 <pre class="code">
-  long FormatWizardSize(const WizardSizeType size,char *format)
+  ssize_t FormatWizardSize(const WizardSizeType size,char *format)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
@@ -470,7 +470,7 @@ _8c.html" target="source" name="FormatWizardString">FormatWizardString</a></h2>
 <p>The format of the FormatWizardString method is:</p>
 
 <pre class="code">
-  long FormatWizardString(char *string,const size_t length,
+  ssize_t FormatWizardString(char *string,const size_t length,
     const char *format,...)
 </pre>
 
@@ -495,7 +495,7 @@ _8c.html" target="source" name="FormatWizardTime">FormatWizardTime</a></h2>
 <p>The format of the FormatWizardTime method is:</p>
 
 <pre class="code">
-  long FormatWizardTime(const time_t time,const size_t length,
+  ssize_t FormatWizardTime(const time_t time,const size_t length,
     char *timestamp)
 </pre>
 
@@ -691,7 +691,7 @@ _8c.html" target="source" name="PrintWizardString">PrintWizardString</a></h2>
 <p>The format of the PrintWizardString method is:</p>
 
 <pre class="code">
-  long PrintWizardString(FILE *,const char *format,...)
+  ssize_t PrintWizardString(FILE *,const char *format,...)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>

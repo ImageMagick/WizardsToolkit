@@ -126,7 +126,7 @@ _8c.html" target="source" name="GetLogInfoList">GetLogInfoList</a></h2>
 
 <pre class="text">
   const LogInfo **GetLogInfoList(const char *pattern,
-    unsigned long *number_preferences,ExceptionInfo *exception)
+    size_t *number_preferences,ExceptionInfo *exception)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
@@ -150,7 +150,7 @@ _8c.html" target="source" name="GetLogList">GetLogList</a></h2>
 <p>The format of the GetLogList function is:</p>
 
 <pre class="text">
-  char **GetLogList(const char *pattern,unsigned long *number_preferences,
+  char **GetLogList(const char *pattern,size_t *number_preferences,
     ExceptionInfo *exception)
 </pre>
 
@@ -223,7 +223,7 @@ _8c.html" target="source" name="LogWizardEvent">LogWizardEvent</a></h2>
 
 <pre class="code">
   WizardBooleanType LogWizardEvent(const LogEventType type,
-    const char *module,const char *function,const unsigned long line,
+    const char *module,const char *function,const size_t line,
     const char *format,...)
 </pre>
 
