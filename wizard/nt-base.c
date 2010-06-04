@@ -243,7 +243,7 @@ WizardExport int Exit(int status)
 WizardExport int gettimeofday (struct timeval *time_value,
   struct timezone *time_zone)
 {
-#define EpochFiletime  MagickLLConstant(116444736000000000)
+#define EpochFiletime  WizardLLConstant(116444736000000000)
 
   static int
     is_tz_set;
