@@ -941,9 +941,6 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
   const char
     *type;
 
-  struct stat
-    *properties;
-
   WizardBooleanType
     status;
 
@@ -1042,100 +1039,111 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
       return(blob_info);
     }
 #endif
-#if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-  if ((compress != WizardFalse) &&
-      (((strlen(filename) > 2) &&
-        (LocaleCompare(filename+strlen(filename)-2,".Z") == 0)) ||
-       ((strlen(filename) > 3) &&
-        (LocaleCompare(filename+strlen(filename)-3,".gz") == 0)) ||
-       ((strlen(filename) > 4) &&
-        (LocaleCompare(filename+strlen(filename)-4,".wmz") == 0)) ||
-       ((strlen(filename) > 5) &&
-        (LocaleCompare(filename+strlen(filename)-5,".svgz") == 0))))
+  if (*type == 'r')
     {
-      blob_info->file=(FILE *) gzopen(filename,type);
+      blob_info->file=WizardOpenStream(filename,type);
       if (blob_info->file != (FILE *) NULL)
-        blob_info->type=ZipStream;
+        {
+          size_t
+            count;
+
+          unsigned char
+            magick[3];
+
+          blob_info->type=FileStream;
+#if defined(WIZARDSTOOLKIT_HAVE_SETVBUF)
+          (void) setvbuf(blob_info->file,(char *) NULL,(int) _IOFBF,16384);
+#endif
+          (void) ResetWizardMemory(magick,0,sizeof(magick));
+          count=fread(magick,1,sizeof(magick),blob_info->file);
+          (void) rewind(blob_info->file);
+          (void) LogWizardEvent(BlobEvent,GetWizardModule(),
+            "  read %.20g magic header bytes",(double) count);
+#if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
+          if ((compress != WizardFalse) && ((int) magick[0] == 0x1F) &&
+              ((int) magick[1] == 0x8B) && ((int) magick[2] == 0x08))
+            {
+              (void) fclose(blob_info->file);
+              blob_info->file=(FILE *) gzopen(filename,type);
+              if (blob_info->file != (FILE *) NULL)
+                blob_info->type=ZipStream;
+            }
+#endif
+#if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
+          if ((compress != WizardFalse) &&
+              (strncmp((char *) magick,"BZh",3) == 0))
+            {
+              (void) fclose(blob_info->file);
+              blob_info->file=(FILE *) BZ2_bzopen(filename,type);
+              if (blob_info->file != (FILE *) NULL)
+                blob_info->type=BZipStream;
+            }
+#endif
+          if (blob_info->type == FileStream)
+            {
+              size_t
+                length;
+
+              struct stat
+                *properties;
+
+              void
+                *blob;
+
+              properties=(&blob_info->properties);
+              length=(size_t) properties->st_size;
+              blob=MapBlob(fileno(blob_info->file),ReadMode,0,length);
+              if (blob != (void *) NULL)
+                {
+                  /*
+                    Use memory-mapped I/O.
+                  */
+                  (void) fclose(blob_info->file);
+                  blob_info->file=(FILE *) NULL;
+                  AttachBlob(blob_info,blob,length);
+                  blob_info->mapped=WizardTrue;
+                }
+            }
+        }
     }
   else
-#endif
-#if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
-    if ((compress != WizardFalse) && (strlen(filename) > 4) &&
-        (LocaleCompare(filename+strlen(filename)-4,".bz2") == 0))
-      {
-        blob_info->file=(FILE *) BZ2_bzopen(filename,type);
-        if (blob_info->file != (FILE *) NULL)
-          blob_info->type=BZipStream;
-      }
-    else
-#endif
-      {
-        blob_info->file=WizardOpenStream(filename,type);
-        if (blob_info->file != (FILE *) NULL)
-          {
-            blob_info->type=FileStream;
-#if defined(WIZARDSTOOLKIT_HAVE_SETVBUF)
-            (void) setvbuf(blob_info->file,(char *) NULL,(int) _IOFBF,16384);
-#endif
-            if (*type == 'r')
-              {
-                size_t
-                  count;
+    {
+      char
+        extension[MaxTextExtent];
 
-                unsigned char
-                  magick[3];
-
-                (void) ResetWizardMemory(magick,0,sizeof(magick));
-                count=fread(magick,1,sizeof(magick),blob_info->file);
-                (void) rewind(blob_info->file);
-                (void) LogWizardEvent(BlobEvent,GetWizardModule(),
-                  "  read %.20g magic header bytes",(double) count);
+      GetPathComponent(filename,ExtensionPath,extension);
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-                if ((compress != WizardFalse) && ((int) magick[0] == 0x1F) &&
-                    ((int) magick[1] == 0x8B) && ((int) magick[2] == 0x08))
-                  {
-                    (void) fclose(blob_info->file);
-                    blob_info->file=(FILE *) gzopen(filename,type);
-                    if (blob_info->file != (FILE *) NULL)
-                      blob_info->type=ZipStream;
-                  }
+      if ((compress != WizardFalse) &&
+          ((LocaleCompare(extension,"Z") == 0) ||
+           (LocaleCompare(extension,"gz") == 0)))
+        {
+          blob_info->file=(FILE *) gzopen(filename,type);
+          if (blob_info->file != (FILE *) NULL)
+            blob_info->type=ZipStream;
+        }
+      else
 #endif
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
-                if ((compress != WizardFalse) &&
-                    (strncmp((char *) magick,"BZh",3) == 0))
-                  {
-                    (void) fclose(blob_info->file);
-                    blob_info->file=(FILE *) BZ2_bzopen(filename,type);
-                    if (blob_info->file != (FILE *) NULL)
-                      blob_info->type=BZipStream;
-                  }
+        if ((compress != WizardFalse) && (LocaleCompare(extension,".bz2") == 0))
+          {
+            blob_info->file=(FILE *) BZ2_bzopen(filename,type);
+            if (blob_info->file != (FILE *) NULL)
+              blob_info->type=BZipStream;
+          }
+        else
+#endif
+          {
+            blob_info->file=WizardOpenStream(filename,type);
+            if (blob_info->file != (FILE *) NULL)
+              {
+                blob_info->type=FileStream;
+#if defined(WIZARDSTOOLKIT_HAVE_SETVBUF)
+                (void) setvbuf(blob_info->file,(char *) NULL,(int) _IOFBF,
+                  16384);
 #endif
               }
           }
-        }
-    properties=(&blob_info->properties);
-    if ((blob_info->type == FileStream) && (*type == 'r') &&
-        (properties->st_size <= WizardMaxBufferExtent))
-      {
-        size_t
-          length;
-
-        void
-          *blob;
-
-        length=(size_t) properties->st_size;
-        blob=MapBlob(fileno(blob_info->file),ReadMode,0,length);
-        if (blob != (void *) NULL)
-          {
-            /*
-              Use memory-mapped I/O.
-            */
-            (void) fclose(blob_info->file);
-            blob_info->file=(FILE *) NULL;
-            AttachBlob(blob_info,blob,length);
-            blob_info->mapped=WizardTrue;
-          }
-      }
+    }
   blob_info->status=WizardFalse;
   if (blob_info->type != UndefinedStream)
     blob_info->size=GetBlobSize(blob_info);
