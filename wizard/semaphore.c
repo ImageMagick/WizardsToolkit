@@ -168,13 +168,18 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
       }
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-  status=InitializeCriticalSectionAndSpinCount(&semaphore_info->mutex,0x400);
-  if (status == 0)
-    {
-      errno=status;
-      ThrowFatalException(ResourceFatalError,
-        "unable to instantiate semaphore `%s'");
-    }
+  {
+    int
+      status;
+
+    status=InitializeCriticalSectionAndSpinCount(&semaphore_info->mutex,0x400);
+    if (status == 0)
+      {
+        errno=status;
+        ThrowFatalException(ResourceFatalError,
+          "unable to instantiate semaphore `%s'");
+      }
+  }
 #endif
   semaphore_info->id=GetWizardThreadId();
   semaphore_info->reference_count=0;
