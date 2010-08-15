@@ -185,6 +185,14 @@ static WizardBooleanType
 %    o quantum: the number of bytes in each quantum.
 %
 */
+
+static inline size_t WizardMax(const size_t x,const size_t y)
+{
+  if (x > y)
+    return(x);
+  return(y);
+}
+
 WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
 {
   size_t
@@ -201,7 +209,7 @@ WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
     void
       *memory;
 
-    if (posix_memalign(&memory,AlignedSize,size) == 0)
+    if (posix_memalign(&memory,AlignedSize,WizardMax(size,AlignedSize)) == 0)
       return(memory);
   }
 #endif
