@@ -591,7 +591,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
   map=MapBlob(file,ReadMode,0,*length);
   if (map != (void *) NULL)
     {
-      (void) CopyWizardMemory(blob,map,*length);
+      (void) memcpy(blob,map,*length);
       if (UnmapBlob(map,*length) == WizardFalse)
         (void) ThrowWizardException(exception,GetWizardModule(),BlobError,
           "unable to unmap blob `%s': %s",filename,strerror(errno));
@@ -1305,7 +1305,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
       blob_info->offset+=count;
       if (count != (ssize_t) length)
         blob_info->eof=WizardTrue;
-      (void) CopyWizardMemory(q,p,(size_t) count);
+      (void) memcpy(q,p,(size_t) count);
       break;
     }
   }
@@ -1867,7 +1867,7 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
             }
         }
       q=blob_info->data+blob_info->offset;
-      (void) CopyWizardMemory(q,p,length);
+      (void) memcpy(q,p,length);
       blob_info->offset+=length;
       if (blob_info->offset >= (WizardOffsetType) blob_info->length)
         blob_info->length=(size_t) blob_info->offset;
@@ -1926,7 +1926,7 @@ static inline ssize_t WriteBlobStream(BlobInfo *blob_info,const size_t length,
         return(0);
     }
   q=blob_info->data+blob_info->offset;
-  (void) CopyWizardMemory(q,data,length);
+  (void) memcpy(q,data,length);
   blob_info->offset+=length;
   if (blob_info->offset >= (WizardOffsetType) blob_info->length)
     blob_info->length=(size_t) blob_info->offset;

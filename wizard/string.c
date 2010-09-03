@@ -139,18 +139,16 @@ WizardExport char *AcquireString(const char *source)
   length=0;
   if (source != (char *) NULL)
     length+=strlen(source);
-  destination=(char *) NULL;
-  if (~length >= MaxTextExtent)
-    destination=(char *) AcquireQuantumMemory(length+MaxTextExtent,
-      sizeof(*destination));
+  if (~length < MaxTextExtent)
+    ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
+  destination=(char *) AcquireQuantumMemory(length+MaxTextExtent,
+    sizeof(*destination));
   if (destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   *destination='\0';
   if (source != (char *) NULL)
-    {
-      (void) CopyWizardMemory(destination,source,length*sizeof(*destination));
-      destination[length]='\0';
-    }
+    (void) memcpy(destination,source,length*sizeof(*destination));
+  destination[length]='\0';
   return(destination);
 }
 
@@ -250,7 +248,8 @@ WizardExport char *CloneString(char **destination,const char *source)
     sizeof(*destination));
   if (*destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  (void) CopyWizardMemory(*destination,source,length*sizeof(*destination));
+  if (length != 0)
+    (void) memcpy(*destination,source,length*sizeof(*destination));
   (*destination)[length]='\0';
   return(*destination);
 }
@@ -287,8 +286,8 @@ WizardExport StringInfo *CloneStringInfo(const StringInfo *string_info)
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   clone_info=AcquireStringInfo(string_info->length);
   if (string_info->length != 0)
-    (void) CopyWizardMemory(clone_info->datum,string_info->datum,
-      string_info->length+MaxCipherBlocksize);
+    (void) memcpy(clone_info->datum,string_info->datum,string_info->length+
+      MaxCipherBlocksize);
   return(clone_info);
 }
 
@@ -376,6 +375,7 @@ WizardExport WizardBooleanType ConcatenateString(char **destination,
   const char *source)
 {
   size_t
+    destination_length,
     length,
     source_length;
 
@@ -387,8 +387,9 @@ WizardExport WizardBooleanType ConcatenateString(char **destination,
       *destination=AcquireString(source);
       return(WizardTrue);
     }
-  length=strlen(*destination);
+  destination_length=strlen(*destination);
   source_length=strlen(source);
+  length=destination_length;
   if (~length < source_length)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   length+=source_length;
@@ -398,8 +399,9 @@ WizardExport WizardBooleanType ConcatenateString(char **destination,
     sizeof(*destination));
   if (*destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  (void) ConcatenateWizardString(*destination,source,
-    (length+1)*sizeof(*destination));
+  if (source_length != 0)
+    (void) memcpy((*destination)+destination_length,source,source_length);
+  (*destination)[length]='\0';
   return(WizardTrue);
 }
 
@@ -543,7 +545,7 @@ WizardExport StringInfo *ConfigureFileToStringInfo(const char *filename)
   map=MapBlob(file,ReadMode,0,length);
   if (map != (void *) NULL)
     {
-      (void) CopyWizardMemory(string,map,length);
+      (void) memcpy(string,map,length);
       (void) UnmapBlob(map,length);
     }
   else
@@ -624,10 +626,8 @@ WizardExport char *ConstantString(const char *source)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   *destination='\0';
   if (source != (char *) NULL)
-     {
-       (void) CopyWizardMemory(destination,source,length*sizeof(*destination));
-       destination[length]='\0';
-     }
+    (void) memcpy(destination,source,length*sizeof(*destination));
+  destination[length]='\0';
   return(destination);
 }
 
@@ -671,8 +671,7 @@ WizardExport void ConcatenateStringInfo(StringInfo *string_info,
   if (~length < source->length)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   SetStringInfoLength(string_info,string_info->length+source->length);
-  (void) CopyWizardMemory(string_info->datum+length,source->datum,
-    source->length);
+  (void) memcpy(string_info->datum+length,source->datum,source->length);
 }
 
 /*
@@ -1712,7 +1711,7 @@ WizardExport void SetStringInfo(StringInfo *string_info,
   if (string_info->length == 0)
     return;
   (void) ResetWizardMemory(string_info->datum,0,string_info->length);
-  (void) CopyWizardMemory(string_info->datum,source->datum,
+  (void) memcpy(string_info->datum,source->datum,
     WizardMin(string_info->length,source->length));
 }
 
@@ -1749,7 +1748,7 @@ WizardExport void SetStringInfoDatum(StringInfo *string_info,
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   if (string_info->length != 0)
-    (void) CopyWizardMemory(string_info->datum,source,string_info->length);
+    (void) memcpy(string_info->datum,source,string_info->length);
 }
 
 /*
@@ -1863,7 +1862,7 @@ WizardExport StringInfo *SplitStringInfo(StringInfo *string_info,
     return((StringInfo *) NULL);
   split_info=AcquireStringInfo(offset);
   SetStringInfo(split_info,string_info);
-  (void) CopyWizardMemory(string_info->datum,string_info->datum+offset,
+  (void) memcpy(string_info->datum,string_info->datum+offset,
     string_info->length-offset+MaxCipherBlocksize);
   SetStringInfoLength(string_info,string_info->length-offset);
   return(split_info);
@@ -1982,8 +1981,7 @@ WizardExport char *StringInfoToString(const StringInfo *string_info)
   string=(char *) AcquireQuantumMemory(length+MaxTextExtent,sizeof(*string));
   if (string == (char *) NULL)
     return((char *) NULL);
-  (void) CopyWizardMemory(string,(char *) string_info->datum,length*
-    sizeof(*string));
+  (void) memcpy(string,(char *) string_info->datum,length*sizeof(*string));
   string[length]='\0';
   return(string);
 }
@@ -2081,7 +2079,7 @@ WizardExport char **StringToArgv(const char *text,int *argc)
         argv=(char **) RelinquishWizardMemory(argv);
         ThrowFatalException(StringFatalError,"memory allocation failed `%s'");
       }
-    (void) CopyWizardMemory(argv[i],p,(size_t) (q-p));
+    (void) memcpy(argv[i],p,(size_t) (q-p));
     argv[i][q-p]='\0';
     p=q;
     while ((isspace((int) ((unsigned char) *p)) == 0) && (*p != '\0'))
@@ -2174,7 +2172,7 @@ WizardExport void StripString(char *message)
   if (q > p)
     if ((*q == '\'') || (*q == '"'))
       q--;
-  (void) CopyWizardMemory(message,p,(size_t) (q-p+1));
+  (void) memcpy(message,p,(size_t) (q-p+1));
   message[q-p+1]='\0';
   for (p=message; *p != '\0'; p++)
     if (*p == '\n')
@@ -2262,9 +2260,8 @@ WizardExport WizardBooleanType SubstituteString(char **string,
       Replace string.
     */
     if (search_extent != replace_extent)
-      (void) CopyWizardMemory(p+replace_extent,p+search_extent,
-        strlen(p+search_extent)+1);
-    (void) CopyWizardMemory(p,replace,replace_extent);
+      (void) memcpy(p+replace_extent,p+search_extent,strlen(p+search_extent)+1);
+    (void) memcpy(p,replace,replace_extent);
     p+=replace_extent-1;
   }
   return(status);
