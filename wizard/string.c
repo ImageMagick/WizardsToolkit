@@ -147,8 +147,10 @@ WizardExport char *AcquireString(const char *source)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   *destination='\0';
   if (source != (char *) NULL)
-    (void) CopyWizardString(destination,source,(length+1UL)*
-      sizeof(*destination));
+    {
+      (void) CopyWizardMemory(destination,source,length*sizeof(*destination));
+      destination[length]='\0';
+    }
   return(destination);
 }
 
@@ -248,7 +250,8 @@ WizardExport char *CloneString(char **destination,const char *source)
     sizeof(*destination));
   if (*destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  (void) CopyWizardString(*destination,source,(length+1)*sizeof(*destination));
+  (void) CopyWizardMemory(*destination,source,length*sizeof(*destination));
+  (*destination)[length]='\0';
   return(*destination);
 }
 
@@ -284,8 +287,8 @@ WizardExport StringInfo *CloneStringInfo(const StringInfo *string_info)
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   clone_info=AcquireStringInfo(string_info->length);
   if (string_info->length != 0)
-    (void) CopyWizardMemory(clone_info->datum,string_info->datum,string_info->length+
-      MaxCipherBlocksize);
+    (void) CopyWizardMemory(clone_info->datum,string_info->datum,
+      string_info->length+MaxCipherBlocksize);
   return(clone_info);
 }
 
@@ -621,8 +624,10 @@ WizardExport char *ConstantString(const char *source)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   *destination='\0';
   if (source != (char *) NULL)
-    (void) CopyWizardString(destination,source,(length+1UL)*
-      sizeof(*destination));
+     {
+       (void) CopyWizardMemory(destination,source,length*sizeof(*destination));
+       destination[length]='\0';
+     }
   return(destination);
 }
 
@@ -1977,8 +1982,9 @@ WizardExport char *StringInfoToString(const StringInfo *string_info)
   string=(char *) AcquireQuantumMemory(length+MaxTextExtent,sizeof(*string));
   if (string == (char *) NULL)
     return((char *) NULL);
-  (void) CopyWizardString(string,(char *) string_info->datum,(length+1)*
+  (void) CopyWizardMemory(string,(char *) string_info->datum,length*
     sizeof(*string));
+  string[length]='\0';
   return(string);
 }
 
@@ -2075,7 +2081,8 @@ WizardExport char **StringToArgv(const char *text,int *argc)
         argv=(char **) RelinquishWizardMemory(argv);
         ThrowFatalException(StringFatalError,"memory allocation failed `%s'");
       }
-    (void) CopyWizardString(argv[i],p,(size_t) (q-p+1));
+    (void) CopyWizardMemory(argv[i],p,(size_t) (q-p));
+    argv[i][q-p]='\0';
     p=q;
     while ((isspace((int) ((unsigned char) *p)) == 0) && (*p != '\0'))
       p++;
