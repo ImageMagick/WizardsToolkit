@@ -6426,7 +6426,6 @@ if test "$am_t" != yes; then
 fi
 
 
-$ac_includes_default
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking CFLAGS for maximum warnings" >&5
 $as_echo_n "checking CFLAGS for maximum warnings... " >&6; }
 if test "${ac_cv_cflags_warn_all+set}" = set; then :
