@@ -48,7 +48,7 @@
 #include "wizard/semaphore.h"
 #include "wizard/string_.h"
 #include "wizard/utility.h"
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
 #include <pthread.h>
 #endif
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
@@ -113,7 +113,7 @@ struct _FileInfo
 
 static size_t GetWizardThreadId(void)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   return((size_t) pthread_self());
 #endif
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)

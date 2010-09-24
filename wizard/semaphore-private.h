@@ -24,7 +24,7 @@ extern "C" {
 
 #include "wizard/exception-private.h"
 
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
 static pthread_mutex_t
   semaphore_mutex = PTHREAD_MUTEX_INITIALIZER;
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
@@ -37,7 +37,7 @@ static ssize_t
 
 static inline void LockWizardMutex(void)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   {
     int
       status;
@@ -58,7 +58,7 @@ static inline void LockWizardMutex(void)
 
 static inline void UnlockWizardMutex(void)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   {
     int
       status;

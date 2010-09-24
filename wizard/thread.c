@@ -63,7 +63,7 @@
 */
 WizardExport WizardBooleanType WizardCreateThreadKey(WizardThreadKey *key)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   return(pthread_key_create(key,NULL) == 0 ? WizardTrue : WizardFalse);
 #elif defined(MAGICKORE_HAVE_WINTHREADS)
   *key=TlsAlloc();
@@ -98,7 +98,7 @@ WizardExport WizardBooleanType WizardCreateThreadKey(WizardThreadKey *key)
 */
 WizardExport WizardBooleanType WizardDeleteThreadKey(WizardThreadKey key)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   return(pthread_key_delete(key) == 0 ? WizardTrue : WizardFalse);
 #elif defined(MAGICKORE_HAVE_WINTHREADS)
   return(TlsFree(key) != 0 ? WizardTrue : WizardFalse);
@@ -133,7 +133,7 @@ WizardExport WizardBooleanType WizardDeleteThreadKey(WizardThreadKey key)
 */
 WizardExport void *WizardGetThreadValue(WizardThreadKey key)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   return(pthread_getspecific(key));
 #elif defined(MAGICKORE_HAVE_WINTHREADS)
   return(TlsGetValue(key));
@@ -170,7 +170,7 @@ WizardExport void *WizardGetThreadValue(WizardThreadKey key)
 WizardExport WizardBooleanType WizardSetThreadValue(WizardThreadKey key,
   const void *value)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   return(pthread_setspecific(key,value) == 0 ? WizardTrue : WizardFalse);
 #elif defined(MAGICKORE_HAVE_WINTHREADS)
   return(TlsSetValue(key,(void *) value) != 0 ? WizardTrue : WizardFalse);

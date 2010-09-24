@@ -175,7 +175,7 @@ extern "C" {
 #include <signal.h>
 #include <assert.h>
 
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
 #  include <pthread.h>
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #  define WIZARDSTOOLKIT_HAVE_WINTHREADS  1

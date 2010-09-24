@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
 typedef pthread_t WizardThreadType;
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
 typedef DWORD WizardThreadType;
@@ -30,7 +30,7 @@ typedef DWORD WizardThreadType;
 typedef pid_t WizardThreadType;
 #endif
 
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
 typedef pthread_key_t WizardThreadKey;
 #elif defined(MAGICKORE_HAVE_WINTHREADS)
 typedef DWORD WizardThreadKey;

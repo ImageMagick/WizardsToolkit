@@ -31,7 +31,7 @@ extern "C" {
 #define WizardCachePrefetch(address,mode,locality)
 #endif
 
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   typedef pthread_mutex_t WizardMutexType;
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   typedef CRITICAL_SECTION WizardMutexType;
@@ -41,7 +41,7 @@ extern "C" {
 
 static inline WizardThreadType GetWizardThreadId(void)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   return(pthread_self());
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   return(GetCurrentThreadId());
@@ -52,7 +52,7 @@ static inline WizardThreadType GetWizardThreadId(void)
 
 static inline size_t GetWizardThreadSignature(void)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   {
     union
     {
@@ -76,7 +76,7 @@ static inline size_t GetWizardThreadSignature(void)
 
 static inline WizardBooleanType IsWizardThreadEqual(const WizardThreadType id)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_PTHREAD)
+#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   if (pthread_equal(id,pthread_self()) != 0)
     return(WizardTrue);
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
