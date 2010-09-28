@@ -180,6 +180,7 @@ WizardExport WizardBooleanType AcquireUniqueFilename(char *path,
 static void *DestroyTemporaryResources(void *temporary_resource)
 {
   remove((char *) temporary_resource);
+  temporary_resource=DestroyString((char *) temporary_resource);
   return((void *) NULL);
 }
 
@@ -253,9 +254,6 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
 # define TMP_MAX  238328
 #endif
 
-  char
-    *resource;
-
   int
     c,
     file;
@@ -325,10 +323,10 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
   LockSemaphoreInfo(resource_semaphore);
   if (temporary_resources == (SplayTreeInfo *) NULL)
     temporary_resources=NewSplayTree(CompareSplayTreeString,
-      RelinquishWizardMemory,DestroyTemporaryResources);
+      DestroyTemporaryResources,(void *(*)(void *)) NULL);
   UnlockSemaphoreInfo(resource_semaphore);
-  resource=ConstantString(filename);
-  (void) AddValueToSplayTree(temporary_resources,resource,resource);
+  (void) AddValueToSplayTree(temporary_resources,ConstantString(filename),
+    (const void *) NULL);
   return(file);
 }
 
