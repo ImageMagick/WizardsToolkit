@@ -17,10 +17,8 @@
 ; Compiler-dependent DLLs
 #ifdef Wizard64BitArchitecture
 Source: "tools\amd64\*.dll"; DestDir: {#WizardLibDirectory}; Flags: ignoreversion
-Source: "tools\amd64\*.manifest"; DestDir: {#WizardLibDirectory}; Flags: ignoreversion
 #else
 Source: "tools\x86\*.dll"; DestDir: {#WizardLibDirectory}; Flags: ignoreversion
-Source: "tools\x86\*.manifest"; DestDir: {#WizardLibDirectory}; Flags: ignoreversion
 #endif
 
 ; DLLs
