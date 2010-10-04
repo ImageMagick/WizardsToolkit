@@ -182,7 +182,7 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
           return(WizardTrue);
         }
     }
-  node=(NodeInfo *) AcquireAlignedMemory(1,sizeof(*node));
+  node=(NodeInfo *) AcquireQuantumMemory(1,sizeof(*node));
   if (node == (NodeInfo *) NULL)
     {
       UnlockSemaphoreInfo(splay_tree->semaphore);
@@ -1096,7 +1096,7 @@ WizardExport SplayTreeInfo *NewSplayTree(
   SplayTreeInfo
     *splay_tree;
 
-  splay_tree=(SplayTreeInfo *) AcquireAlignedMemory(1,sizeof(*splay_tree));
+  splay_tree=(SplayTreeInfo *) AcquireQuantumMemory(1,sizeof(*splay_tree));
   if (splay_tree == (SplayTreeInfo *) NULL)
     ThrowWizardFatalError(CacheDomain,MemoryError);
   (void) ResetWizardMemory(splay_tree,0,sizeof(*splay_tree));

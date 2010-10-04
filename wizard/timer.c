@@ -106,7 +106,7 @@ WizardExport TimerInfo *AcquireTimerInfo(void)
   TimerInfo
     *timer_info;
 
-  timer_info=(TimerInfo *) AcquireAlignedMemory(1,sizeof(*timer_info));
+  timer_info=(TimerInfo *) AcquireQuantumMemory(1,sizeof(*timer_info));
   if (timer_info == (TimerInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
   (void) ResetWizardMemory(timer_info,0,sizeof(*timer_info));

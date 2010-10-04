@@ -213,7 +213,7 @@ WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
       return(memory);
   }
 #endif
-  return(malloc(size));
+  return(malloc(WizardMax(size,AlignedSize)));
 }
 
 #if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)

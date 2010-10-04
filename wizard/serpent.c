@@ -102,7 +102,7 @@ WizardExport SerpentInfo *AcquireSerpentInfo(void)
   SerpentInfo
     *serpent_info;
 
-  serpent_info=(SerpentInfo *) AcquireAlignedMemory(1,sizeof(*serpent_info));
+  serpent_info=(SerpentInfo *) AcquireQuantumMemory(1,sizeof(*serpent_info));
   if (serpent_info == (SerpentInfo *) NULL)
     ThrowWizardFatalError(CipherError,MemoryError);
   (void) ResetWizardMemory(serpent_info,0,sizeof(*serpent_info));

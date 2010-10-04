@@ -947,7 +947,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
   assert(filename != (const char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",filename);
   assert(exception != (ExceptionInfo *) NULL);
-  blob_info=(BlobInfo *) AcquireAlignedMemory(1,sizeof(*blob_info));
+  blob_info=(BlobInfo *) AcquireQuantumMemory(1,sizeof(*blob_info));
   if (blob_info == (BlobInfo *) NULL)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,

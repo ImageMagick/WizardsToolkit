@@ -93,7 +93,7 @@ WizardExport HMACInfo *AcquireHMACInfo(const HashType hash)
   HMACInfo
     *hmac_info;
 
-  hmac_info=(HMACInfo *) AcquireAlignedMemory(1,sizeof(*hmac_info));
+  hmac_info=(HMACInfo *) AcquireQuantumMemory(1,sizeof(*hmac_info));
   if (hmac_info == (HMACInfo *) NULL)
     ThrowWizardFatalError(MACDomain,MemoryError);
   (void) ResetWizardMemory(hmac_info,0,sizeof(*hmac_info));

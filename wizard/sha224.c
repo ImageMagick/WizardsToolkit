@@ -113,7 +113,7 @@ WizardExport SHA224Info *AcquireSHA224Info(void)
   unsigned int
     lsb_first;
 
-  sha_info=(SHA224Info *) AcquireAlignedMemory(1,sizeof(*sha_info));
+  sha_info=(SHA224Info *) AcquireQuantumMemory(1,sizeof(*sha_info));
   if (sha_info == (SHA224Info *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
   (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));

@@ -164,7 +164,7 @@ WizardExport WizardBooleanType AppendValueToLinkedList(
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (list_info->elements == list_info->capacity)
     return(WizardFalse);
-  next=(ElementInfo *) AcquireAlignedMemory(1,sizeof(*next));
+  next=(ElementInfo *) AcquireQuantumMemory(1,sizeof(*next));
   if (next == (ElementInfo *) NULL)
     return(WizardFalse);
   next->value=(void *) value;
@@ -1037,7 +1037,7 @@ WizardExport WizardBooleanType InsertValueInLinkedList(
   if ((index > list_info->elements) ||
       (list_info->elements == list_info->capacity))
     return(WizardFalse);
-  next=(ElementInfo *) AcquireAlignedMemory(1,sizeof(*next));
+  next=(ElementInfo *) AcquireQuantumMemory(1,sizeof(*next));
   if (next == (ElementInfo *) NULL)
     return(WizardFalse);
   next->value=(void *) value;
@@ -1144,7 +1144,7 @@ WizardExport WizardBooleanType InsertValueInSortedLinkedList(
     return(WizardFalse);
   if (list_info->elements == list_info->capacity)
     return(WizardFalse);
-  next=(ElementInfo *) AcquireAlignedMemory(1,sizeof(*next));
+  next=(ElementInfo *) AcquireQuantumMemory(1,sizeof(*next));
   if (next == (ElementInfo *) NULL)
     return(WizardFalse);
   next->value=(void *) value;
@@ -1352,7 +1352,7 @@ WizardExport HashmapInfo *NewHashmap(const size_t capacity,
   HashmapInfo
     *hashmap_info;
 
-  hashmap_info=(HashmapInfo *) AcquireAlignedMemory(1,sizeof(*hashmap_info));
+  hashmap_info=(HashmapInfo *) AcquireQuantumMemory(1,sizeof(*hashmap_info));
   if (hashmap_info == (HashmapInfo *) NULL)
     ThrowWizardFatalError(CacheDomain,MemoryError);
   (void) ResetWizardMemory(hashmap_info,0,sizeof(*hashmap_info));
@@ -1406,7 +1406,7 @@ WizardExport LinkedListInfo *NewLinkedList(const size_t capacity)
   LinkedListInfo
     *list_info;
 
-  list_info=(LinkedListInfo *) AcquireAlignedMemory(1,sizeof(*list_info));
+  list_info=(LinkedListInfo *) AcquireQuantumMemory(1,sizeof(*list_info));
   if (list_info == (LinkedListInfo *) NULL)
     ThrowWizardFatalError(CacheDomain,MemoryError);
   (void) ResetWizardMemory(list_info,0,sizeof(*list_info));
@@ -1550,7 +1550,7 @@ WizardExport WizardBooleanType PutEntryInHashmap(HashmapInfo *hashmap_info,
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if ((key == (void *) NULL) || (value == (void *) NULL))
     return(WizardFalse);
-  next=(EntryInfo *) AcquireAlignedMemory(1,sizeof(*next));
+  next=(EntryInfo *) AcquireQuantumMemory(1,sizeof(*next));
   if (next == (EntryInfo *) NULL)
     return(WizardFalse);
   LockSemaphoreInfo(hashmap_info->semaphore);

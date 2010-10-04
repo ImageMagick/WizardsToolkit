@@ -96,7 +96,7 @@ WizardExport CRC64Info *AcquireCRC64Info(void)
   CRC64Info
     *crc_info;
 
-  crc_info=(CRC64Info *) AcquireAlignedMemory(1,sizeof(*crc_info));
+  crc_info=(CRC64Info *) AcquireQuantumMemory(1,sizeof(*crc_info));
   if (crc_info == (CRC64Info *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
   (void) ResetWizardMemory(crc_info,0,sizeof(*crc_info));

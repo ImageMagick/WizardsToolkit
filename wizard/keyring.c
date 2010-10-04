@@ -109,7 +109,7 @@ WizardExport KeyringInfo *AcquireKeyringInfo(const char *path)
   KeyringInfo
     *keyring_info;
 
-  keyring_info=(KeyringInfo *) AcquireAlignedMemory(1,sizeof(*keyring_info));
+  keyring_info=(KeyringInfo *) AcquireQuantumMemory(1,sizeof(*keyring_info));
   if (keyring_info == (KeyringInfo *) NULL)
     ThrowWizardFatalError(KeyringDomain,MemoryError);
   (void) ResetWizardMemory(keyring_info,0,sizeof(*keyring_info));
