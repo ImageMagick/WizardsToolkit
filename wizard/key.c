@@ -113,7 +113,7 @@ WizardExport KeyInfo *AcquireKeyInfo(void)
   KeyInfo
     *key_info;
 
-  key_info=(KeyInfo *) AcquireQuantumMemory(1,sizeof(*key_info));
+  key_info=(KeyInfo *) AcquireWizardMemory(sizeof(*key_info));
   if (key_info == (KeyInfo *) NULL)
     ThrowWizardFatalError(KeymapDomain,MemoryError);
   (void) ResetWizardMemory(key_info,0,sizeof(*key_info));

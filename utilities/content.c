@@ -74,7 +74,7 @@ WizardExport ContentInfo *AcquireContentInfo(void)
   size_t
     version;
 
-  content_info=(ContentInfo *) AcquireQuantumMemory(1,sizeof(*content_info));
+  content_info=(ContentInfo *) AcquireWizardMemory(sizeof(*content_info));
   if (content_info == (ContentInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
   (void) ResetWizardMemory(content_info,0,sizeof(*content_info));

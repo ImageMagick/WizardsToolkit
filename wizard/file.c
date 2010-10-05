@@ -267,7 +267,7 @@ WizardExport FileInfo *AcquireFileInfo(const char *path,
   assert(relative_path != (char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",relative_path);
   assert(exception != (ExceptionInfo *) NULL);
-  file_info=(FileInfo *) AcquireQuantumMemory(1,sizeof(*file_info));
+  file_info=(FileInfo *) AcquireWizardMemory(sizeof(*file_info));
   if (file_info == (FileInfo *) NULL)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),FileError,

@@ -69,7 +69,7 @@ WizardExport WizardBooleanType WizardCreateThreadKey(WizardThreadKey *key)
   *key=TlsAlloc();
   return(*key != TLS_OUT_OF_INDEXES ? WizardTrue : WizardFalse);
 #else
-  *key=AcquireQuantumMemory(1,sizeof(key));
+  *key=AcquireWizardMemory(sizeof(key));
   return(*key != (void *) NULL ? WizardTrue : WizardFalse);
 #endif
 }

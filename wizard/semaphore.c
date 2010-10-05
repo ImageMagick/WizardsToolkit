@@ -129,8 +129,7 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
   /*
     Allocate semaphore.
   */
-  semaphore_info=(SemaphoreInfo *) AcquireAlignedMemory(1,
-    sizeof(SemaphoreInfo));
+  semaphore_info=(SemaphoreInfo *) malloc(sizeof(SemaphoreInfo));
   if (semaphore_info == (SemaphoreInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   (void) ResetWizardMemory(semaphore_info,0,sizeof(SemaphoreInfo));
@@ -232,7 +231,8 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
   DeleteCriticalSection(&(*semaphore_info)->mutex);
 #endif
   (*semaphore_info)->signature=(~WizardSignature);
-  *semaphore_info=(SemaphoreInfo *) RelinquishAlignedMemory(*semaphore_info);
+  free(*semaphore_info);
+  *semaphore_info=(SemaphoreInfo *) NULL;
   UnlockWizardMutex();
 }
 

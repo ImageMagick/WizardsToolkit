@@ -453,7 +453,7 @@ static char **ListFiles(const char *directory,const char *pattern,
   /*
     Save the current and change to the new directory.
   */
-  buffer=(struct dirent *) AcquireQuantumMemory(1,sizeof(*buffer)+FILENAME_MAX+
+  buffer=(struct dirent *) AcquireWizardMemory(sizeof(*buffer)+FILENAME_MAX+
     MaxTextExtent);
   if (buffer == (struct dirent *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");

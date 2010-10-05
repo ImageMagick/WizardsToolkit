@@ -167,7 +167,7 @@ WizardExport AESInfo *AcquireAESInfo(void)
   AESInfo
     *aes_info;
 
-  aes_info=(AESInfo *) AcquireQuantumMemory(1,sizeof(*aes_info));
+  aes_info=(AESInfo *) AcquireWizardMemory(sizeof(*aes_info));
   if (aes_info == (AESInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
   (void) ResetWizardMemory(aes_info,0,sizeof(*aes_info));

@@ -179,7 +179,7 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
     *key,
     *nonce;
 
-  random_info=(RandomInfo *) AcquireQuantumMemory(1,sizeof(*random_info));
+  random_info=(RandomInfo *) AcquireWizardMemory(sizeof(*random_info));
   if (random_info == (RandomInfo *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
   (void) ResetWizardMemory(random_info,0,sizeof(*random_info));
