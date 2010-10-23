@@ -446,9 +446,9 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
       break;
   }
   UnlockSemaphoreInfo(resource_semaphore);
-  (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %sB/%sB/%sB",
-    WizardOptionToMnemonic(WizardResourceOptions,(ssize_t) type),resource_request,
-    resource_current,resource_limit);
+  (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %s/%s/%s",
+    WizardOptionToMnemonic(WizardResourceOptions,(ssize_t) type),
+    resource_request,resource_current,resource_limit);
   return(status);
 }
 
@@ -665,10 +665,12 @@ WizardExport WizardBooleanType ListWizardResourceInfo(FILE *file,
   (void) FormatWizardSize(resource_info.area_limit,WizardFalse,area_limit);
   (void) FormatWizardSize(resource_info.map_limit,WizardTrue,map_limit);
   (void) FormatWizardSize(resource_info.memory_limit,WizardTrue,memory_limit);
-  (void) FormatWizardSize(resource_info.disk_limit,WizardFalse,disk_limit);
+  (void) CopyWizardString(disk_limit,"unlimited",MaxTextExtent);
+  if (resource_info.disk_limit != WizardResourceInfinity)
+    (void) FormatWizardSize(resource_info.disk_limit,WizardFalse,disk_limit);
   (void) fprintf(file,"File        Area      Memory         Map        Disk\n");
   (void) fprintf(file,"----------------------------------------------------\n");
-  (void) fprintf(file,"%4g  %9sB  %9sB  %9sB  %9sB\n",(double)
+  (void) fprintf(file,"%4g   %9s   %9s   %9s   %9s\n",(double)
     resource_info.file_limit,area_limit,memory_limit,map_limit,disk_limit);
   (void) fflush(file);
   UnlockSemaphoreInfo(resource_semaphore);
@@ -763,9 +765,9 @@ WizardExport void RelinquishWizardResource(const ResourceType type,
       break;
   }
   UnlockSemaphoreInfo(resource_semaphore);
-  (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %sB/%sB/%sB",
-    WizardOptionToMnemonic(WizardResourceOptions,(ssize_t) type),resource_request,
-    resource_current,resource_limit);
+  (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s: %s/%s/%s",
+    WizardOptionToMnemonic(WizardResourceOptions,(ssize_t) type),
+    resource_request,resource_current,resource_limit);
 }
 
 /*

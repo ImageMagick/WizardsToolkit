@@ -1003,7 +1003,7 @@ WizardExport ssize_t FormatWizardSize(const WizardSizeType size,
     length/=bytes;
   for (j=2; j < 12; j++)
   {
-    count=FormatWizardString(format,MaxTextExtent,"%.*g%s",(int) (i+j),length,
+    count=FormatWizardString(format,MaxTextExtent,"%.*g%sB",(int) (i+j),length,
       units[i]);
     if (strchr(format,'+') == (char *) NULL)
       break;
