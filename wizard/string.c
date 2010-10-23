@@ -2260,8 +2260,9 @@ WizardExport WizardBooleanType SubstituteString(char **string,
       Replace string.
     */
     if (search_extent != replace_extent)
-      (void) memcpy(p+replace_extent,p+search_extent,strlen(p+search_extent)+1);
-    (void) memcpy(p,replace,replace_extent);
+      (void) CopyWizardMemory(p+replace_extent,p+search_extent,
+        strlen(p+search_extent)+1);
+    (void) CopyWizardMemory(p,replace,replace_extent);
     p+=replace_extent-1;
   }
   return(status);
