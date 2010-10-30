@@ -712,6 +712,10 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
       (void) AppendValueToLinkedList(paths,AcquireString(path));
 #endif
     }
+  /*
+    Search current directory.
+  */
+  (void) AppendValueToLinkedList(paths,AcquireString(""));
 #endif
   {
     char
@@ -753,10 +757,6 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
       }
   }
 #endif
-  /*
-    Search current directory.
-  */
-  (void) AppendValueToLinkedList(paths,AcquireString(""));
   return(paths);
 }
 
