@@ -18,6 +18,6 @@
   <configure name="LIB_VERSION" value="@PACKAGE_LIB_VERSION@" />
   <configure name="LIB_VERSION_NUMBER" value="@PACKAGE_LIB_VERSION_NUMBER@" />
   <configure name="RELEASE_DATE" value="@PACKAGE_RELEASE_DATE@" />
-  <configure name="COPYRIGHT" value="Copyright (C) 1999-2010 ImageMagick Studio LLC" />
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2011 ImageMagick Studio LLC" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
 </configuremap>
