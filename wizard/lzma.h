@@ -13,40 +13,28 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 
-  Wizard's Toolkit Environment entropy methods.
+  Wizard's Toolkit LZMA entropy methods.
 */
-#ifndef _WIZARDSTOOLKIT_ENTROPY_H_
-#define _WIZARDSTOOLKIT_ENTROPY_H_
+#ifndef _WIZARDSTOOLKIT_LZMA_H_
+#define _WIZARDSTOOLKIT_LZMA_H_
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
 
-/*
-  Enum declarations.
-*/
-typedef enum
-{
-  UndefinedEntropy,
-  NoEntropy,
-  ZIPEntropy,
-  BZIPEntropy,
-  LZMAEntropy
-} EntropyType;
-
-typedef struct _EntropyInfo
-  EntropyInfo;
+typedef struct _LZMAInfo
+  LZMAInfo;
 
 extern WizardExport const StringInfo
-  *GetEntropyChaos(const EntropyInfo *);
-
-extern WizardExport EntropyInfo
-  *AcquireEntropyInfo(const EntropyType,const size_t),
-  *DestroyEntropyInfo(EntropyInfo *);
+  *GetLZMAChaos(const LZMAInfo *);
 
 extern WizardExport WizardBooleanType
-  IncreaseEntropy(EntropyInfo *,const StringInfo *,ExceptionInfo *),
-  RestoreEntropy(EntropyInfo *,const size_t,const StringInfo *,ExceptionInfo *);
+  IncreaseLZMA(LZMAInfo *,const StringInfo *,ExceptionInfo *),
+  RestoreLZMA(LZMAInfo *,const size_t,const StringInfo *,ExceptionInfo *);
+
+extern WizardExport LZMAInfo
+  *AcquireLZMAInfo(const size_t),
+  *DestroyLZMAInfo(LZMAInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

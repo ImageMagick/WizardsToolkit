@@ -416,7 +416,7 @@ fi
 AM_CONDITIONAL(WITH_SHARED_LIBS, test "${libtool_build_shared_libs}" = 'yes')
 
 # Enable build using delegate libraries built in subdirectories rather than installed
-# delegate libraries (bzlib fpx jasper jbig jpeg lcms png tiff ttf wmf xml zlib)
+# delegate libraries (bzlib lzma zlib)
 AC_ARG_ENABLE([delegate-build],
     [AC_HELP_STRING([--enable-delegate-build],
                     [look for delegate libraries in build directory])],
@@ -521,22 +521,12 @@ fi
 # Wizard API method prefix
 AC_ARG_WITH([method-prefix],
     [AC_HELP_STRING([--with-method-prefix=PREFIX],
-                    [prefix Wizard's Toolkit API methods])],
+                    [prefix WizardsToolkit API methods])],
     [with_method_prefix=$enableval],
     [with_method_prefix=''])
 
 if test "$with_method_prefix" != ''; then
   AC_DEFINE_UNQUOTED(WizardMethodPrefix,$with_method_prefix,[Wizard API method prefix])
-fi
-
-# Disable BZLIB (bzip2 library)
-AC_ARG_WITH([bzlib],
-    [AC_HELP_STRING([--without-bzlib],                    [disable BZLIB support])],
-    [with_bzlib=$withval],
-    [with_bzlib='yes'])
-
-if test "$with_bzlib" != 'yes'; then
-    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-bzlib=$with_bzlib "
 fi
 
 # Enable umem, object-caching memory allocation library.
@@ -546,16 +536,6 @@ AC_ARG_WITH(umem,
         [with_umem='no'])
 if test "$with_umem" != 'yes' ; then
     DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-umem=$with_umem "
-fi
-
-AC_ARG_WITH([zlib],
-    [AC_HELP_STRING([--without-zlib],
-                    [disable ZLIB support])],
-    [with_zlib=$withval],
-    [with_zlib='yes'])
-
-if test "$with_zlib" != 'yes'; then
-    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-zlib=$with_zlib "
 fi
 
 #
@@ -920,7 +900,7 @@ if test "$with_delegate_build" != 'no'; then
   # Most delegates have includes in the same directory as the library, but not all ...
   #
   # Includes
-  for dir in bzlib zlib
+  for dir in bzlib lcms zlib
   do
     if test -d "$builddir/$dir"; then
       CPPFLAGS="$CPPFLAGS -I$builddir/$dir"
@@ -932,7 +912,7 @@ if test "$with_delegate_build" != 'no'; then
   done
 
   # Libraries
-  for dir in bzlib zlib
+  for dir in bzlib lcms zlib
   do
     if test -d "$builddir/$dir/.libs"; then
       LDFLAGS="$LDFLAGS -L$builddir/$dir/.libs"
@@ -1067,49 +1047,21 @@ AC_CHECK_LIB(m,sqrt,MATH_LIBS="-lm",,)
 LIBS="$MATH_LIBS $LIBS"
 AC_SUBST(MATH_LIBS)
 
-#
-# Check for ZLIB
-#
-have_zlib='no'
-ZLIB_LIBS=''
-dnl PNG requires zlib so enable zlib check if PNG is requested
-if test "$with_zlib" != 'no' || test "$with_png" != 'no'; then
-  AC_MSG_RESULT([-------------------------------------------------------------])
-  AC_MSG_CHECKING(for ZLIB)
-  AC_MSG_RESULT([])
-  failed=0
-  passed=0
-  AC_CHECK_HEADER(zconf.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-  AC_CHECK_HEADER(zlib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-  AC_CHECK_LIB(z,compress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,uncompress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,deflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,deflateBound,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,inflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,gzseek,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_MSG_CHECKING([if ZLIB package is complete])
-  if test $passed -gt 0; then
-    if test $failed -gt 0; then
-      AC_MSG_RESULT([no -- some components failed test])
-      have_zlib='no (failed tests)'
-    else
-      ZLIB_LIBS='-lz'
-      LIBS="$ZLIB_LIBS $LIBS"
-      AC_DEFINE(ZLIB_DELEGATE,1,Define if you have zlib compression library)
-      AC_MSG_RESULT([yes])
-      have_zlib='yes'
-    fi
-  else
-    AC_MSG_RESULT([no])
-  fi
-fi
-AM_CONDITIONAL(ZLIB_DELEGATE, test "$have_zlib" = 'yes')
-AC_SUBST(ZLIB_LIBS)
+dnl ===========================================================================
 
 #
 # Check for BZLIB
 #
+
+AC_ARG_WITH([bzlib],
+    [AC_HELP_STRING([--without-bzlib],                    [disable BZLIB support])],
+    [with_bzlib=$withval],
+    [with_bzlib='yes'])
+
+if test "$with_bzlib" != 'yes'; then
+    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-bzlib=$with_bzlib "
+fi
+
 have_bzlib='no'
 if test "$with_bzlib" != 'no'; then
     BZLIB_LIBS=''
@@ -1147,6 +1099,101 @@ if test "$with_bzlib" != 'no'; then
 fi
 AM_CONDITIONAL(BZLIB_DELEGATE, test "$have_bzlib" = 'yes')
 AC_SUBST(BZLIB_LIBS)
+
+dnl ===========================================================================
+
+#
+# Check for LZMA
+#
+AC_ARG_WITH(lzma,
+	      [  --without-lzma          disable LZMA support],
+	      [with_lzma=$withval],
+	      [with_lzma='yes'])
+if test "$with_lzma" != 'yes' ; then
+    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-lzma=$with_lzma "
+fi
+
+have_lzma='no'
+LZMA_LIBS=''
+if test "$with_lzma" != 'no' || test "$with_tiff" != 'no'; then
+    AC_MSG_RESULT([-------------------------------------------------------------])
+  AC_MSG_CHECKING(for LZMA)
+  AC_MSG_RESULT()
+  failed=0
+  passed=0
+  AC_CHECK_HEADER(lzma.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+  AC_CHECK_LIB(lzma,lzma_code,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_MSG_CHECKING(if LZMA package is complete)
+  if test $passed -gt 0; then
+    if test $failed -gt 0; then
+      AC_MSG_RESULT(no -- some components failed test)
+      have_lzma='no (failed tests)'
+    else
+      LZMA_LIBS='-llzma'
+      LIBS="$LZMA_LIBS $LIBS"
+      AC_DEFINE(LZMA_DELEGATE,1,Define if you have lzma compression library)
+      AC_MSG_RESULT(yes)
+      have_lzma='yes'
+    fi
+  else
+    AC_MSG_RESULT(no)
+  fi
+fi
+AM_CONDITIONAL(LZMA_DELEGATE, test "$have_lzma" = 'yes')
+AC_SUBST(LZMA_LIBS)
+
+dnl ===========================================================================
+
+#
+# Check for ZLIB
+#
+
+AC_ARG_WITH([zlib],
+    [AC_HELP_STRING([--without-zlib],
+                    [disable ZLIB support])],
+    [with_zlib=$withval],
+    [with_zlib='yes'])
+
+if test "$with_zlib" != 'yes'; then
+    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-zlib=$with_zlib "
+fi
+
+have_zlib='no'
+ZLIB_LIBS=''
+dnl PNG requires zlib so enable zlib check if PNG is requested
+if test "$with_zlib" != 'no' || test "$with_png" != 'no'; then
+  AC_MSG_RESULT([-------------------------------------------------------------])
+  AC_MSG_CHECKING(for ZLIB)
+  AC_MSG_RESULT([])
+  failed=0
+  passed=0
+  AC_CHECK_HEADER(zconf.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+  AC_CHECK_HEADER(zlib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+  AC_CHECK_LIB(z,compress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_CHECK_LIB(z,uncompress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_CHECK_LIB(z,deflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_CHECK_LIB(z,deflateBound,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_CHECK_LIB(z,inflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_CHECK_LIB(z,gzseek,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_MSG_CHECKING([if ZLIB package is complete])
+  if test $passed -gt 0; then
+    if test $failed -gt 0; then
+      AC_MSG_RESULT([no -- some components failed test])
+      have_zlib='no (failed tests)'
+    else
+      ZLIB_LIBS='-lz'
+      LIBS="$ZLIB_LIBS $LIBS"
+      AC_DEFINE(ZLIB_DELEGATE,1,Define if you have zlib compression library)
+      AC_MSG_RESULT([yes])
+      have_zlib='yes'
+    fi
+  else
+    AC_MSG_RESULT([no])
+  fi
+fi
+AM_CONDITIONAL(ZLIB_DELEGATE, test "$have_zlib" = 'yes')
+AC_SUBST(ZLIB_LIBS)
 
 #
 # If profiling, then check for -ldl and dlopen (required for Solaris & gcc)
@@ -1349,9 +1396,9 @@ fi
 #
 
 if test "$with_modules" != 'no'; then
-  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
+  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
 else
-  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
+  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
 fi
 AC_SUBST(WIZARD_DEP_LIBS)
 
@@ -1402,7 +1449,7 @@ AC_OUTPUT
 rm -f wizard-version
 
 AC_MSG_RESULT([
-The Wizard's Toolkit is configured as follows. Please verify that
+The Wizards Toolkit is configured as follows. Please verify that
 this configuration matches your expectations.
 
 Host system type: $host
@@ -1413,6 +1460,11 @@ Build system type: $build
 Shared libraries  --enable-shared=$enable_shared		$libtool_build_shared_libs
 Static libraries  --enable-static=$enable_static		$libtool_build_static_libs
 GNU ld            --with-gnu-ld=$with_gnu_ld		$lt_cv_prog_gnu_ld
+
+Delegate Configuration:
+BZLIB             --with-bzlib=$with_bzlib               $have_bzlib
+LZMA              --with-lzma=$with_lzma                $have_lzma
+ZLIB              --with-zlib=$with_zlib                $have_zlib
 
 Options used to compile and link:
   PREFIX      = $PREFIX_DIR

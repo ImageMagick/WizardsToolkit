@@ -45,6 +45,7 @@
 #include "wizard/entropy.h"
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
+#include "wizard/lzma.h"
 #include "wizard/memory_.h"
 #include "wizard/zip.h"
 
@@ -109,6 +110,11 @@ WizardExport EntropyInfo *AcquireEntropyInfo(const EntropyType entropy,
       entropy_info->handle=(EntropyInfo *) AcquireBZIPInfo(level);
       break;
     }
+    case LZMAEntropy:
+    {
+      entropy_info->handle=(EntropyInfo *) AcquireLZMAInfo(level);
+      break;
+    }
     case ZIPEntropy:
     {
       entropy_info->handle=(EntropyInfo *) AcquireZIPInfo(level);
@@ -156,6 +162,12 @@ WizardExport EntropyInfo *DestroyEntropyInfo(EntropyInfo *entropy_info)
       case BZIPEntropy:
       {
         entropy_info->handle=(void *) DestroyBZIPInfo((BZIPInfo *)
+          entropy_info->handle);
+        break;
+      }
+      case LZMAEntropy:
+      {
+        entropy_info->handle=(void *) DestroyLZMAInfo((LZMAInfo *)
           entropy_info->handle);
         break;
       }
@@ -215,6 +227,15 @@ WizardExport const StringInfo *GetEntropyChaos(const EntropyInfo *entropy_info)
 
       bzip_info=(BZIPInfo *) entropy_info->handle;
       chaos=GetBZIPChaos(bzip_info);
+      break;
+    }
+    case LZMAEntropy:
+    {
+      LZMAInfo
+        *lzma_info;
+
+      lzma_info=(LZMAInfo *) entropy_info->handle;
+      chaos=GetLZMAChaos(lzma_info);
       break;
     }
     case ZIPEntropy:
@@ -282,6 +303,15 @@ WizardExport WizardBooleanType IncreaseEntropy(EntropyInfo *entropy_info,
 
       bzip_info=(BZIPInfo *) entropy_info->handle;
       status=IncreaseBZIP(bzip_info,message,exception);
+      break;
+    }
+    case LZMAEntropy:
+    {
+      LZMAInfo
+        *lzma_info;
+
+      lzma_info=(LZMAInfo *) entropy_info->handle;
+      status=IncreaseLZMA(lzma_info,message,exception);
       break;
     }
     case ZIPEntropy:
@@ -352,6 +382,15 @@ WizardExport WizardBooleanType RestoreEntropy(EntropyInfo *entropy_info,
 
       bzip_info=(BZIPInfo *) entropy_info->handle;
       status=RestoreBZIP(bzip_info,length,message,exception);
+      break;
+    }
+    case LZMAEntropy:
+    {
+      LZMAInfo
+        *lzma_info;
+
+      lzma_info=(LZMAInfo *) entropy_info->handle;
+      status=RestoreLZMA(lzma_info,length,message,exception);
       break;
     }
     case ZIPEntropy:

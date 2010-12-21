@@ -635,12 +635,15 @@ CONFIGURE_PATH
 LIBRARY_PATH
 EXECUTABLE_PATH
 LIB_DL
-BZLIB_LIBS
-BZLIB_DELEGATE_FALSE
-BZLIB_DELEGATE_TRUE
 ZLIB_LIBS
 ZLIB_DELEGATE_FALSE
 ZLIB_DELEGATE_TRUE
+LZMA_LIBS
+LZMA_DELEGATE_FALSE
+LZMA_DELEGATE_TRUE
+BZLIB_LIBS
+BZLIB_DELEGATE_FALSE
+BZLIB_DELEGATE_TRUE
 MATH_LIBS
 CCMALLOCDelegate
 UMEM_LIBS
@@ -875,10 +878,11 @@ enable_prof
 enable_gprof
 enable_gcov
 with_method_prefix
-with_bzlib
 with_umem
-with_zlib
 with_libstdc
+with_bzlib
+with_lzma
+with_zlib
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1552,11 +1556,12 @@ Optional Packages:
   --with-pic              try to use only PIC/non-PIC objects [default=use
                           both]
   --with-method-prefix=PREFIX
-                          prefix Wizard's Toolkit API methods
-  --without-bzlib         disable BZLIB support
+                          prefix WizardsToolkit API methods
   --with-umem             enable umem memory allocation library support
-  --without-zlib          disable ZLIB support
   --with-libstdc=DIR      use libstdc++ in DIR (for GNU C++)
+  --without-bzlib         disable BZLIB support
+  --without-lzma          disable LZMA support
+  --without-zlib          disable ZLIB support
 
 Some influential environment variables:
   CC          C compiler command
@@ -17553,7 +17558,7 @@ fi
 
 
 # Enable build using delegate libraries built in subdirectories rather than installed
-# delegate libraries (bzlib fpx jasper jbig jpeg lcms png tiff ttf wmf xml zlib)
+# delegate libraries (bzlib lzma zlib)
 # Check whether --enable-delegate-build was given.
 if test "${enable_delegate_build+set}" = set; then :
   enableval=$enable_delegate_build; enable_delegate_build=$enableval
@@ -17724,20 +17729,6 @@ _ACEOF
 
 fi
 
-# Disable BZLIB (bzip2 library)
-
-# Check whether --with-bzlib was given.
-if test "${with_bzlib+set}" = set; then :
-  withval=$with_bzlib; with_bzlib=$withval
-else
-  with_bzlib='yes'
-fi
-
-
-if test "$with_bzlib" != 'yes'; then
-    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-bzlib=$with_bzlib "
-fi
-
 # Enable umem, object-caching memory allocation library.
 
 # Check whether --with-umem was given.
@@ -17749,19 +17740,6 @@ fi
 
 if test "$with_umem" != 'yes' ; then
     DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-umem=$with_umem "
-fi
-
-
-# Check whether --with-zlib was given.
-if test "${with_zlib+set}" = set; then :
-  withval=$with_zlib; with_zlib=$withval
-else
-  with_zlib='yes'
-fi
-
-
-if test "$with_zlib" != 'yes'; then
-    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-zlib=$with_zlib "
 fi
 
 #
@@ -21333,7 +21311,7 @@ if test "$with_delegate_build" != 'no'; then
   # Most delegates have includes in the same directory as the library, but not all ...
   #
   # Includes
-  for dir in bzlib zlib
+  for dir in bzlib lcms zlib
   do
     if test -d "$builddir/$dir"; then
       CPPFLAGS="$CPPFLAGS -I$builddir/$dir"
@@ -21345,7 +21323,7 @@ if test "$with_delegate_build" != 'no'; then
   done
 
   # Libraries
-  for dir in bzlib zlib
+  for dir in bzlib lcms zlib
   do
     if test -d "$builddir/$dir/.libs"; then
       LDFLAGS="$LDFLAGS -L$builddir/$dir/.libs"
@@ -21973,9 +21951,290 @@ fi
 LIBS="$MATH_LIBS $LIBS"
 
 
+
+#
+# Check for BZLIB
+#
+
+
+# Check whether --with-bzlib was given.
+if test "${with_bzlib+set}" = set; then :
+  withval=$with_bzlib; with_bzlib=$withval
+else
+  with_bzlib='yes'
+fi
+
+
+if test "$with_bzlib" != 'yes'; then
+    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-bzlib=$with_bzlib "
+fi
+
+have_bzlib='no'
+if test "$with_bzlib" != 'no'; then
+    BZLIB_LIBS=''
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: -------------------------------------------------------------" >&5
+$as_echo "-------------------------------------------------------------" >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for BZLIB" >&5
+$as_echo_n "checking for BZLIB... " >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: " >&5
+$as_echo "" >&6; }
+    failed=0
+    passed=0
+    found_libbz=0
+    ac_fn_c_check_header_mongrel "$LINENO" "bzlib.h" "ac_cv_header_bzlib_h" "$ac_includes_default"
+if test "x$ac_cv_header_bzlib_h" = x""yes; then :
+  passed=`expr $passed + 1`
+else
+  failed=`expr $failed + 1`
+fi
+
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for BZ2_bzDecompress in -lbz2" >&5
+$as_echo_n "checking for BZ2_bzDecompress in -lbz2... " >&6; }
+if test "${ac_cv_lib_bz2_BZ2_bzDecompress+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lbz2  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char BZ2_bzDecompress ();
+int
+main ()
+{
+return BZ2_bzDecompress ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_bz2_BZ2_bzDecompress=yes
+else
+  ac_cv_lib_bz2_BZ2_bzDecompress=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_bz2_BZ2_bzDecompress" >&5
+$as_echo "$ac_cv_lib_bz2_BZ2_bzDecompress" >&6; }
+if test "x$ac_cv_lib_bz2_BZ2_bzDecompress" = x""yes; then :
+  found_libbz=`expr $found_libbz + 1`
+fi
+
+    if test "$native_win32_build" = 'yes'; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for _imp__BZ2_decompress in -lbz2" >&5
+$as_echo_n "checking for _imp__BZ2_decompress in -lbz2... " >&6; }
+if test "${ac_cv_lib_bz2__imp__BZ2_decompress+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lbz2  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char _imp__BZ2_decompress ();
+int
+main ()
+{
+return _imp__BZ2_decompress ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_bz2__imp__BZ2_decompress=yes
+else
+  ac_cv_lib_bz2__imp__BZ2_decompress=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_bz2__imp__BZ2_decompress" >&5
+$as_echo "$ac_cv_lib_bz2__imp__BZ2_decompress" >&6; }
+if test "x$ac_cv_lib_bz2__imp__BZ2_decompress" = x""yes; then :
+  found_libbz=`expr $found_libbz + 1`
+fi
+
+    fi
+    if test $found_libbz -gt 0; then
+      passed=`expr $passed + 1`
+    else
+      failed=`expr $failed + 1`
+    fi
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking if BZLIB package is complete" >&5
+$as_echo_n "checking if BZLIB package is complete... " >&6; }
+    if test $passed -gt 0; then
+      if test $failed -gt 0; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no -- some components failed test" >&5
+$as_echo "no -- some components failed test" >&6; }
+        have_bzlib='no (failed tests)'
+      else
+        BZLIB_LIBS='-lbz2'
+        LIBS="$BZLIB_LIBS $LIBS"
+
+$as_echo "#define BZLIB_DELEGATE 1" >>confdefs.h
+
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+        have_bzlib='yes'
+      fi
+    else
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+    fi
+fi
+ if test "$have_bzlib" = 'yes'; then
+  BZLIB_DELEGATE_TRUE=
+  BZLIB_DELEGATE_FALSE='#'
+else
+  BZLIB_DELEGATE_TRUE='#'
+  BZLIB_DELEGATE_FALSE=
+fi
+
+
+
+
+#
+# Check for LZMA
+#
+
+# Check whether --with-lzma was given.
+if test "${with_lzma+set}" = set; then :
+  withval=$with_lzma; with_lzma=$withval
+else
+  with_lzma='yes'
+fi
+
+if test "$with_lzma" != 'yes' ; then
+    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-lzma=$with_lzma "
+fi
+
+have_lzma='no'
+LZMA_LIBS=''
+if test "$with_lzma" != 'no' || test "$with_tiff" != 'no'; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: -------------------------------------------------------------" >&5
+$as_echo "-------------------------------------------------------------" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for LZMA" >&5
+$as_echo_n "checking for LZMA... " >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: " >&5
+$as_echo "" >&6; }
+  failed=0
+  passed=0
+  ac_fn_c_check_header_mongrel "$LINENO" "lzma.h" "ac_cv_header_lzma_h" "$ac_includes_default"
+if test "x$ac_cv_header_lzma_h" = x""yes; then :
+  passed=`expr $passed + 1`
+else
+  failed=`expr $failed + 1`
+fi
+
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for lzma_code in -llzma" >&5
+$as_echo_n "checking for lzma_code in -llzma... " >&6; }
+if test "${ac_cv_lib_lzma_lzma_code+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-llzma  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char lzma_code ();
+int
+main ()
+{
+return lzma_code ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_lzma_lzma_code=yes
+else
+  ac_cv_lib_lzma_lzma_code=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_lzma_lzma_code" >&5
+$as_echo "$ac_cv_lib_lzma_lzma_code" >&6; }
+if test "x$ac_cv_lib_lzma_lzma_code" = x""yes; then :
+  passed=`expr $passed + 1`
+else
+  failed=`expr $failed + 1`
+fi
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking if LZMA package is complete" >&5
+$as_echo_n "checking if LZMA package is complete... " >&6; }
+  if test $passed -gt 0; then
+    if test $failed -gt 0; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no -- some components failed test" >&5
+$as_echo "no -- some components failed test" >&6; }
+      have_lzma='no (failed tests)'
+    else
+      LZMA_LIBS='-llzma'
+      LIBS="$LZMA_LIBS $LIBS"
+
+$as_echo "#define LZMA_DELEGATE 1" >>confdefs.h
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+      have_lzma='yes'
+    fi
+  else
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+  fi
+fi
+ if test "$have_lzma" = 'yes'; then
+  LZMA_DELEGATE_TRUE=
+  LZMA_DELEGATE_FALSE='#'
+else
+  LZMA_DELEGATE_TRUE='#'
+  LZMA_DELEGATE_FALSE=
+fi
+
+
+
+
 #
 # Check for ZLIB
 #
+
+
+# Check whether --with-zlib was given.
+if test "${with_zlib+set}" = set; then :
+  withval=$with_zlib; with_zlib=$withval
+else
+  with_zlib='yes'
+fi
+
+
+if test "$with_zlib" != 'yes'; then
+    DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-zlib=$with_zlib "
+fi
+
 have_zlib='no'
 ZLIB_LIBS=''
 if test "$with_zlib" != 'no' || test "$with_png" != 'no'; then
@@ -22325,148 +22584,6 @@ fi
 else
   ZLIB_DELEGATE_TRUE='#'
   ZLIB_DELEGATE_FALSE=
-fi
-
-
-
-#
-# Check for BZLIB
-#
-have_bzlib='no'
-if test "$with_bzlib" != 'no'; then
-    BZLIB_LIBS=''
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: -------------------------------------------------------------" >&5
-$as_echo "-------------------------------------------------------------" >&6; }
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for BZLIB" >&5
-$as_echo_n "checking for BZLIB... " >&6; }
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: " >&5
-$as_echo "" >&6; }
-    failed=0
-    passed=0
-    found_libbz=0
-    ac_fn_c_check_header_mongrel "$LINENO" "bzlib.h" "ac_cv_header_bzlib_h" "$ac_includes_default"
-if test "x$ac_cv_header_bzlib_h" = x""yes; then :
-  passed=`expr $passed + 1`
-else
-  failed=`expr $failed + 1`
-fi
-
-
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for BZ2_bzDecompress in -lbz2" >&5
-$as_echo_n "checking for BZ2_bzDecompress in -lbz2... " >&6; }
-if test "${ac_cv_lib_bz2_BZ2_bzDecompress+set}" = set; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lbz2  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char BZ2_bzDecompress ();
-int
-main ()
-{
-return BZ2_bzDecompress ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_bz2_BZ2_bzDecompress=yes
-else
-  ac_cv_lib_bz2_BZ2_bzDecompress=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_bz2_BZ2_bzDecompress" >&5
-$as_echo "$ac_cv_lib_bz2_BZ2_bzDecompress" >&6; }
-if test "x$ac_cv_lib_bz2_BZ2_bzDecompress" = x""yes; then :
-  found_libbz=`expr $found_libbz + 1`
-fi
-
-    if test "$native_win32_build" = 'yes'; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for _imp__BZ2_decompress in -lbz2" >&5
-$as_echo_n "checking for _imp__BZ2_decompress in -lbz2... " >&6; }
-if test "${ac_cv_lib_bz2__imp__BZ2_decompress+set}" = set; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lbz2  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char _imp__BZ2_decompress ();
-int
-main ()
-{
-return _imp__BZ2_decompress ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_bz2__imp__BZ2_decompress=yes
-else
-  ac_cv_lib_bz2__imp__BZ2_decompress=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_bz2__imp__BZ2_decompress" >&5
-$as_echo "$ac_cv_lib_bz2__imp__BZ2_decompress" >&6; }
-if test "x$ac_cv_lib_bz2__imp__BZ2_decompress" = x""yes; then :
-  found_libbz=`expr $found_libbz + 1`
-fi
-
-    fi
-    if test $found_libbz -gt 0; then
-      passed=`expr $passed + 1`
-    else
-      failed=`expr $failed + 1`
-    fi
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking if BZLIB package is complete" >&5
-$as_echo_n "checking if BZLIB package is complete... " >&6; }
-    if test $passed -gt 0; then
-      if test $failed -gt 0; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no -- some components failed test" >&5
-$as_echo "no -- some components failed test" >&6; }
-        have_bzlib='no (failed tests)'
-      else
-        BZLIB_LIBS='-lbz2'
-        LIBS="$BZLIB_LIBS $LIBS"
-
-$as_echo "#define BZLIB_DELEGATE 1" >>confdefs.h
-
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-        have_bzlib='yes'
-      fi
-    else
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-    fi
-fi
- if test "$have_bzlib" = 'yes'; then
-  BZLIB_DELEGATE_TRUE=
-  BZLIB_DELEGATE_FALSE='#'
-else
-  BZLIB_DELEGATE_TRUE='#'
-  BZLIB_DELEGATE_FALSE=
 fi
 
 
@@ -22940,9 +23057,9 @@ fi
 #
 
 if test "$with_modules" != 'no'; then
-  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
+  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
 else
-  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
+  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
 fi
 
 
@@ -23148,12 +23265,16 @@ if test -z "${HasUMEM_TRUE}" && test -z "${HasUMEM_FALSE}"; then
   as_fn_error $? "conditional \"HasUMEM\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${ZLIB_DELEGATE_TRUE}" && test -z "${ZLIB_DELEGATE_FALSE}"; then
-  as_fn_error $? "conditional \"ZLIB_DELEGATE\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
 if test -z "${BZLIB_DELEGATE_TRUE}" && test -z "${BZLIB_DELEGATE_FALSE}"; then
   as_fn_error $? "conditional \"BZLIB_DELEGATE\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${LZMA_DELEGATE_TRUE}" && test -z "${LZMA_DELEGATE_FALSE}"; then
+  as_fn_error $? "conditional \"LZMA_DELEGATE\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${ZLIB_DELEGATE_TRUE}" && test -z "${ZLIB_DELEGATE_FALSE}"; then
+  as_fn_error $? "conditional \"ZLIB_DELEGATE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${RPM_DELEGATE_TRUE}" && test -z "${RPM_DELEGATE_FALSE}"; then
@@ -25786,7 +25907,7 @@ fi
 rm -f wizard-version
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: result:
-The Wizard's Toolkit is configured as follows. Please verify that
+The Wizards Toolkit is configured as follows. Please verify that
 this configuration matches your expectations.
 
 Host system type: $host
@@ -25797,6 +25918,11 @@ Build system type: $build
 Shared libraries  --enable-shared=$enable_shared		$libtool_build_shared_libs
 Static libraries  --enable-static=$enable_static		$libtool_build_static_libs
 GNU ld            --with-gnu-ld=$with_gnu_ld		$lt_cv_prog_gnu_ld
+
+Delegate Configuration:
+BZLIB             --with-bzlib=$with_bzlib               $have_bzlib
+LZMA              --with-lzma=$with_lzma                $have_lzma
+ZLIB              --with-zlib=$with_zlib                $have_zlib
 
 Options used to compile and link:
   PREFIX      = $PREFIX_DIR
@@ -25813,7 +25939,7 @@ Options used to compile and link:
   CXXFLAGS    = $CXXFLAGS
 " >&5
 $as_echo "
-The Wizard's Toolkit is configured as follows. Please verify that
+The Wizards Toolkit is configured as follows. Please verify that
 this configuration matches your expectations.
 
 Host system type: $host
@@ -25824,6 +25950,11 @@ Build system type: $build
 Shared libraries  --enable-shared=$enable_shared		$libtool_build_shared_libs
 Static libraries  --enable-static=$enable_static		$libtool_build_static_libs
 GNU ld            --with-gnu-ld=$with_gnu_ld		$lt_cv_prog_gnu_ld
+
+Delegate Configuration:
+BZLIB             --with-bzlib=$with_bzlib               $have_bzlib
+LZMA              --with-lzma=$with_lzma                $have_lzma
+ZLIB              --with-zlib=$with_zlib                $have_zlib
 
 Options used to compile and link:
   PREFIX      = $PREFIX_DIR

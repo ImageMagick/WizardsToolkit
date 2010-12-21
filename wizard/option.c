@@ -146,6 +146,7 @@ static const OptionInfo
     { "Undefined", (ssize_t) UndefinedEntropy },
     { "None", (ssize_t) NoEntropy },
     { "BZip", (ssize_t) BZIPEntropy },
+    { "LZMA", (ssize_t) LZMAEntropy },
     { "Zip", (ssize_t) ZIPEntropy },
     { (char *) NULL, UndefinedEntropy }
   },

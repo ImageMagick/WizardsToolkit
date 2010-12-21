@@ -419,6 +419,9 @@
    */
 #undef LT_OBJDIR
 
+/* Define if you have lzma compression library */
+#undef LZMA_DELEGATE
+
 /* Define to 1 if assertions should be disabled. */
 #undef NDEBUG
 
