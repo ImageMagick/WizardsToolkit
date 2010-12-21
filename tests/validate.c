@@ -18,7 +18,7 @@
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %
-%  Copyright 1999-2011 ImageMagick Studio LLC, a non-profit organization      %
+%  Copyright 1999-2010 ImageMagick Studio LLC, a non-profit organization      %
 %  dedicated to making software imaging solutions freely available.           %
 %                                                                             %
 %  You may not use this file except in compliance with the License.  You may  %
@@ -571,6 +571,72 @@ static WizardBooleanType TestLogEvent(void)
   (void) PrintValidateString(stdout,"  test 0 ");
   (void) PrintValidateString(stdout,"%s.\n",pass != WizardFalse ? "pass" :
     "fail");
+  return(pass);
+}
+
+static WizardBooleanType TestLZMAEntropy(void)
+{
+  EntropyInfo
+    *entropy_info;
+
+  ExceptionInfo
+    *exception;
+
+  register ssize_t
+    i;
+
+  StringInfo
+    *chaos,
+    *plaintext;
+
+  WizardBooleanType
+    clone,
+    pass,
+    status;
+
+  (void) PrintValidateString(stdout,"testing lzma entropy:\n");
+  pass=WizardTrue;
+  exception=AcquireExceptionInfo();
+  entropy_info=AcquireEntropyInfo(LZMAEntropy,6);
+  for (i=0; i < ZipTestVectors; i++)
+  {
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
+    plaintext=StringToStringInfo((char *) lzma_test_vector[i].plaintext);
+    status=IncreaseEntropy(entropy_info,plaintext,exception);
+    chaos=AcquireStringInfo(lzma_test_vector[i].chaossize);
+    SetStringInfoDatum(chaos,lzma_test_vector[i].chaos);
+    clone=CompareStringInfo(GetEntropyChaos(entropy_info),chaos) == 0 ?
+      WizardTrue : WizardFalse;
+    (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
+      "fail");
+    if (clone == WizardFalse)
+      pass=WizardFalse;
+    plaintext=DestroyStringInfo(plaintext);
+    chaos=DestroyStringInfo(chaos);
+  }
+  entropy_info=DestroyEntropyInfo(entropy_info);
+  (void) PrintValidateString(stdout,"testing lzma restore entropy:\n");
+  pass=WizardTrue;
+  entropy_info=AcquireEntropyInfo(LZMAEntropy,6);
+  for (i=0; i < ZipTestVectors; i++)
+  {
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
+    chaos=AcquireStringInfo(lzma_test_vector[i].chaossize);
+    SetStringInfoDatum(chaos,lzma_test_vector[i].chaos);
+    status=RestoreEntropy(entropy_info,
+      strlen((char *) lzma_test_vector[i].plaintext),chaos,exception);
+    plaintext=StringToStringInfo((char *) lzma_test_vector[i].plaintext);
+    clone=CompareStringInfo(GetEntropyChaos(entropy_info),plaintext) == 0 ?
+      WizardTrue : WizardFalse;
+    (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
+      "fail");
+    if (clone == WizardFalse)
+      pass=WizardFalse;
+    plaintext=DestroyStringInfo(plaintext);
+    chaos=DestroyStringInfo(chaos);
+  }
+  entropy_info=DestroyEntropyInfo(entropy_info);
+  exception=DestroyExceptionInfo(exception);
   return(pass);
 }
 
@@ -1385,9 +1451,11 @@ int main(int argc,char **argv)
     pass=WizardFalse;
   if (TestTwofish() == WizardFalse)
     pass=WizardFalse;
-  if (TestZIPEntropy() == WizardFalse)
-    pass=WizardFalse;
   if (TestBZIPEntropy() == WizardFalse)
+    pass=WizardFalse;
+  if (TestLZMAEntropy() == WizardFalse)
+    pass=WizardFalse;
+  if (TestZIPEntropy() == WizardFalse)
     pass=WizardFalse;
   if (TestRandomKey() == WizardFalse)
     pass=WizardFalse;
