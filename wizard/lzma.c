@@ -228,17 +228,10 @@ WizardExport WizardBooleanType IncreaseLZMA(LZMAInfo *lzma_info,
   WizardAssert(EntropyDomain,lzma_info != (LZMAInfo *) NULL);
   WizardAssert(EntropyDomain,lzma_info->signature == WizardSignature);
   WizardAssert(EntropyDomain,message != (const StringInfo *) NULL);
-  stream=initialize_lzma;
-  status=lzma_easy_encoder(&stream,lzma_info->level,LZMA_CHECK_SHA256);
-  if (status != LZMA_OK)
-    {
-      (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
-        "unable to increase entropy `%s'",strerror(errno));
-      return(WizardFalse);
-    }
   (void) ResetWizardMemory(&allocator,0,sizeof(allocator));
   allocator.alloc=AcquireLZMAMemory;
   allocator.free=RelinquishLZMAMemory;
+  stream=initialize_lzma;
   stream.allocator=&allocator;
   stream.next_in=GetStringInfoDatum(message);
   stream.avail_in=GetStringInfoLength(message);
@@ -246,21 +239,31 @@ WizardExport WizardBooleanType IncreaseLZMA(LZMAInfo *lzma_info,
     GetStringInfoLength(message)));
   stream.next_out=GetStringInfoDatum(lzma_info->chaos);
   stream.avail_out=GetStringInfoLength(lzma_info->chaos);
-  status=lzma_code(&stream,LZMA_RUN);
-  if (status != LZMA_STREAM_END)
-    {
-      (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
-        "unable to increase entropy `%s'",strerror(errno));
-      return(WizardFalse);
-    }
-  SetStringInfoLength(lzma_info->chaos,(size_t) stream.total_out);
-  status=lzma_code(&stream,LZMA_FINISH);
+  status=lzma_easy_encoder(&stream,lzma_info->level,LZMA_CHECK_SHA256);
   if (status != LZMA_OK)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
-        "unable to restore entropy `%s'",strerror(errno));
+        "unable to increase entropy `%s'",strerror(errno));
+      lzma_end(&stream);
       return(WizardFalse);
     }
+  status=lzma_code(&stream,LZMA_RUN);
+  if (status != LZMA_OK)
+    {
+      (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
+        "unable to increase entropy `%s'",strerror(errno));
+      lzma_end(&stream);
+      return(WizardFalse);
+    }
+  status=lzma_code(&stream,LZMA_FINISH);
+  if ((status != LZMA_STREAM_END) && (status != LZMA_OK))
+    {
+      (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
+        "unable to restore entropy `%s'",strerror(errno));
+      lzma_end(&stream);
+      return(WizardFalse);
+    }
+  SetStringInfoLength(lzma_info->chaos,(size_t) stream.total_out);
   lzma_end(&stream);
   return(WizardTrue);
 }
@@ -315,38 +318,41 @@ WizardExport WizardBooleanType RestoreLZMA(LZMAInfo *lzma_info,
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(EntropyDomain,lzma_info->signature == WizardSignature);
   WizardAssert(EntropyDomain,message != (const StringInfo *) NULL);
-  stream=initialize_lzma;
-  status=lzma_auto_decoder(&stream,-1,0);
-  if (status != LZMA_OK)
-    {
-      (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
-        "unable to restore entropy `%s'",strerror(errno));
-      return(WizardFalse);
-    }
   (void) ResetWizardMemory(&allocator,0,sizeof(allocator));
   allocator.alloc=AcquireLZMAMemory;
   allocator.free=RelinquishLZMAMemory;
+  stream=initialize_lzma;
   stream.allocator=&allocator;
   stream.next_in=GetStringInfoDatum(message);
   stream.avail_in=GetStringInfoLength(message);
   SetStringInfoLength(lzma_info->chaos,length);
   stream.next_out=GetStringInfoDatum(lzma_info->chaos);
   stream.avail_out=GetStringInfoLength(lzma_info->chaos);
-  status=lzma_code(&stream,LZMA_RUN);
-  if (status != LZMA_STREAM_END)
-    {
-      (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
-        "unable to restore entropy `%s'",strerror(errno));
-      return(WizardFalse);
-    }
-  SetStringInfoLength(lzma_info->chaos,(size_t) stream.total_out);
-  status=lzma_code(&stream,LZMA_FINISH);
+  status=lzma_auto_decoder(&stream,-1,0);
   if (status != LZMA_OK)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
         "unable to restore entropy `%s'",strerror(errno));
+      lzma_end(&stream);
       return(WizardFalse);
     }
+  status=lzma_code(&stream,LZMA_RUN);
+  if (status != LZMA_OK)
+    {
+      (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
+        "unable to restore entropy `%s'",strerror(errno));
+      lzma_end(&stream);
+      return(WizardFalse);
+    }
+  status=lzma_code(&stream,LZMA_FINISH);
+  if ((status != LZMA_STREAM_END) && (status != LZMA_OK))
+    {
+      (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
+        "unable to restore entropy `%s'",strerror(errno));
+      lzma_end(&stream);
+      return(WizardFalse);
+    }
+  SetStringInfoLength(lzma_info->chaos,(size_t) stream.total_out);
   lzma_end(&stream);
   return(WizardTrue);
 }
