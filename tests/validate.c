@@ -598,7 +598,7 @@ static WizardBooleanType TestLZMAEntropy(void)
   pass=WizardTrue;
   exception=AcquireExceptionInfo();
   entropy_info=AcquireEntropyInfo(LZMAEntropy,6);
-  for (i=0; i < ZipTestVectors; i++)
+  for (i=0; i < LZMATestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     plaintext=StringToStringInfo((char *) lzma_test_vector[i].plaintext);
