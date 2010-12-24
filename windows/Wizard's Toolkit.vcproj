@@ -193,6 +193,9 @@
 				RelativePath="..\wizard\log.c">
 			</File>
 			<File
+				RelativePath="..\wizard\lzma.c">
+			</File>
+			<File
 				RelativePath="..\wizard\magick.c">
 			</File>
 			<File
