@@ -95,7 +95,7 @@ static ResourceInfo
     WizardULLConstant(0),
     WizardULLConstant(0),
     WizardULLConstant(0),
-    WizardULLConstant(1536)*1024*1024/sizeof(void),
+    WizardULLConstant(1536)*1024*1024/sizeof(void *),
     WizardULLConstant(1536)*1024*1024,
     WizardULLConstant(3072)*1024*1024,
     WizardResourceInfinity,
@@ -880,7 +880,7 @@ WizardExport WizardBooleanType ResourceComponentGenesis(void)
 #if defined(PixelCacheThreshold)
   memory=PixelCacheThreshold;
 #endif
-  (void) SetWizardResourceLimit(AreaResource,memory/sizeof(void));
+  (void) SetWizardResourceLimit(AreaResource,memory/sizeof(void *));
   (void) SetWizardResourceLimit(MemoryResource,memory);
   (void) SetWizardResourceLimit(MapResource,2*memory);
   limit=GetEnvironmentValue("WIZARD_AREA_LIMIT");
