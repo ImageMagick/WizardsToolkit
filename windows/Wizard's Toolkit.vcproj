@@ -341,6 +341,9 @@
 				RelativePath="..\wizard\log.h">
 			</File>
 			<File
+				RelativePath="..\wizard\lzma.h">
+			</File>
+			<File
 				RelativePath="..\wizard\magick.h">
 			</File>
 			<File
