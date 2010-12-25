@@ -96,6 +96,9 @@ struct _TokenInfo
 */
 WizardExport void GetWizardToken(const char *start,const char **end,char *token)
 {
+  int
+    status;
+
   register const char
     *p;
 
@@ -153,7 +156,7 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
         char
           *q;
 
-        (void) strtod(p,&q);
+        status=strtod(p,&q);
         if ((p != q) && (*p != ','))
           {
             for ( ; (p < q) && (*p != ','); p++)

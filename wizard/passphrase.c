@@ -134,7 +134,8 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
 
   int
     input,
-    output;
+    output,
+    status;
 
   register unsigned char
     *p;
@@ -210,7 +211,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
       (void) tcsetattr(input,_T_FLUSH,&attributes);
     }
   if ((flags & StdinMode) == 0)
-    (void) write(output,prompt,strlen(prompt));
+    status=write(output,prompt,strlen(prompt));
   SetStringInfoLength(phrase,MaxTextExtent);
   p=GetStringInfoDatum(phrase);
   while (((count=read(input,&c,1)) == 1) && (c != '\n') && (c != '\r'))
@@ -233,7 +234,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
   *p=(unsigned char) '\0';
   SetStringInfoLength(phrase,(size_t) (p-GetStringInfoDatum(phrase)));
   if ((attributes.c_lflag & ECHO) == 0)
-    (void) write(output,"\n",1);
+    status=write(output,"\n",1);
   /*
     Restore old terminal settings and signals.
   */
@@ -307,7 +308,8 @@ WizardExport StringInfo *GetPassphrase(ExceptionInfo *exception)
   rephrase=AcquireStringInfo(MaxTextExtent);
   (void) FormatWizardString(prompt,MaxTextExtent,
     "Enter the passphrase (maximum of %d characters)\n",MaxTextExtent);
-  (void) write(STDERR_FILENO,prompt,strlen(prompt));
+  status=write(STDERR_FILENO,prompt,strlen(prompt)) < 0 ? WizardFalse :
+    WizardTrue;
   for ( ; ; )
   {
     status=GetPhrase("Enter passphrase: ",EchoOffMode,phrase);
