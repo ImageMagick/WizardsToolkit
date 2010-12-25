@@ -1,5 +1,5 @@
 #ifdef COPYRIGHT
-;  Copyright 1999-2010 ImageMagick Studio LLC, a non-profit organization
+;  Copyright 1999-2011 ImageMagick Studio LLC, a non-profit organization
 ;  dedicated to making software imaging solutions freely available.
 ;
 ;  You may not use this file except in compliance with the License.  You may
@@ -16,5 +16,5 @@
 
 #define public WizardPackageName "WizardsToolkit"
 #define public WizardPackageVersion "1.0.7"
-#define public WizardPackageVersionAddendum "-6"
-#define public WizardPackageReleaseDate "2010-11-01"
+#define public WizardPackageVersionAddendum "-7"
+#define public WizardPackageReleaseDate "2011-01-01"
