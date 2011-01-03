@@ -1,16 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
-  <title>Wizard's Toolkit: Install from Source</title>
+  <title>The Wizard's Toolkit: Install from Source</title>
   <meta http-equiv="Content-Language" content="en-US"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="install, from, source, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
   <meta name="Rating" content="INDEX, FOLLOW"/>
   <meta name="Robots" content="ALL"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
@@ -19,7 +19,7 @@
   <meta name="Resource-type" content="document"/>
   <meta name="Copyright" content="Copyright (c) 1999-2011 ImageMagick Studio LLC"/>
   <meta name="Distribution" content="Global"/>
-  <link rel="icon" href="../images/wand.png"  sizes="32x32"/>
+  <link rel="icon" href="../images/wand.png"/>
   <link rel="shortcut icon" href="../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
   <style type="text/css" media="all">
@@ -28,10 +28,9 @@
 </head>
 
 <body id="www-wizards-toolkit-org">
-
 <div class="titlebar">
 <a href="../index.html">
-  <img src="../images/script.png" alt="[ImageMagick]"
+  <img src="../images/script.png" alt="[The Wizard's Toolkit]"
   style="width: 400px; height: 60px; margin: 28px auto; float: left;" /></a>
 <a href="http://www.wizards-toolkit.org/">
   <img src="../images/sponsor.jpg" alt="[sponsor]"
@@ -121,6 +120,8 @@
 <h1>The Wizard's Toolkit Source Install</h1>
 <p class="navigation-index">[<a href="#unix">Install from Unix Source</a> &bull; <a href="#windows">Install from Windows Source</a>]</p>
 
+<div class="doc-section">
+
 <p>It's possible the Wizard's Toolkit is already installed on your computer.  Type</p>
 
 <pre class="text">
@@ -128,12 +129,14 @@
 </pre>
 
 <p>If the WizardsToolkit-config script executes and returns a version number, you may not need to install the Wizard's Toolkit from source unless you want to upgrade to a newer version.  You also have the option of installing a pre-compiled <a href="../www/binary-releases.html">binary release</a>.  However, if you still want to install from source, choose a platform, <a href="#Unix">Unix</a> or <a href="#Windows">Windows</a>.  Before installing from source, you may want to review recent <a href="../www/changelog.html">changes</a> to the the Wizard's Toolkit distribution.</p> 
-
-<div style="margin: auto;">
-  <h2><a name="unix"></a>Install from Unix Source</h2>
 </div>
 
-<p>The Wizard's Toolkit builds on a variety of Unix and Unix-like operating systems including Linux, Solaris, FreeBSD, Mac OS X, and others.  A compiler is required and fortunately almost all modern Unix systems have one.  Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.tar.gz">WizardsToolkit.tar.gz</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit" target="404213440">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/digest.rdf">message digest</a>.</p>
+<div style="margin: auto;">
+  <h2><a id="unix"></a>Install from Unix Source</h2>
+</div>
+<div class="doc-section">
+
+<p>The Wizard's Toolkit builds on a variety of Unix and Unix-like operating systems including Linux, Solaris, FreeBSD, Mac OS X, and others.  A compiler is required and fortunately almost all modern Unix systems have one.  Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.tar.gz">WizardsToolkit.tar.gz</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/digest.rdf">message digest</a>.</p>
 
 <p>Unpack the distribution with this command:</p>
 
@@ -162,24 +165,27 @@
 </pre>
 
 <p>Congratulations, you have a working Wizard's Toolkit distribution and you are ready to use the Wizard's Toolkit to use the <a href="../www/api.html">Application Program Interfaces</a> for C.</p>
+</div>
 
 <div style="margin: auto;">
-  <h2><a name="windows"></a>Install from Windows Source</h2>
+  <h2><a id="windows"></a>Install from Windows Source</h2>
 </div>
+<div class="doc-section">
 
 <p>Building the Wizard's Toolkit source for Windows requires a modern version of Microsoft Visual Studio IDE.  Users have reported success with the Borland C++ compiler as well.  If you don't have a compiler you can still install a self-installing <a href="../www/binary-releases.html">binary release</a>.</p>
 
-<p>Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.zip">WizardsToolkit.zip</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/windows" target="2080018459">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/windows/digest.rdf">message digest</a>.  You can unpack the distribution with <a href="http://www.winzip.com" target="1810757082">WinZip</a> or type the following from any MS-DOS Command Prompt window:</p>
+<p>Download <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/WizardsToolkit.zip">WizardsToolkit.zip</a> from <a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/windows">ftp.wizards-toolkit.org</a> or a <a href="../www/download.html">mirror</a> and verify its <a href="http://www.wizards-toolkit.org/download/windows/digest.rdf">message digest</a>.  You can unpack the distribution with <a href="http://www.winzip.com">WinZip</a> or type the following from any MS-DOS Command Prompt window:</p>
 
 <pre class="text">
   unzip WizardsToolkit.zip
 </pre>
 
-<p>The Wizard's Toolkit requires <a href="http://gnuwin32.sourceforge.net/packages/bzip2.htm" target="713201799">BZip2 for Windows</a> and <a href="http://gnuwin32.sourceforge.net/packages/zlib.htm" target="1696048430">ZLib for Windows</a>.  Be sure to install the development headers along with the DLL's.  Edit <kbd>zconf.h</kbd> and exclude the <kbd>unistd.h</kbd> include statement since this file is not available under Windows.</p>
+<p>The Wizard's Toolkit requires <a href="http://gnuwin32.sourceforge.net/packages/bzip2.htm">BZip2 for Windows</a> and <a href="http://gnuwin32.sourceforge.net/packages/zlib.htm">ZLib for Windows</a>.  Be sure to install the development headers along with the DLL's.  Edit <kbd>zconf.h</kbd> and exclude the <kbd>unistd.h</kbd> include statement since this file is not available under Windows.</p>
 
 <p>Next, launch your Visual Studio IDE and choose <kbd>Open->Project</kbd>.  Select the workspace from the <kbd>WizardsToolkit-1.?.?/windows</kbd> folder and press Open.  Choose <kbd>Build->Build Solution</kbd> to compile the program and on completion run the program.</p>
 
 <p>Congratulations, you have a working Wizard's Toolkit distribution under Windows and you are ready to use the Wizard's Toolkit <a href="../www/api.html">Application Program Interfaces</a> for C.</p>
+</div>
 
 </div>
 

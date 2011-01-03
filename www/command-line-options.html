@@ -2,19 +2,19 @@
 
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
-  <title>Wizard's Toolkit: Command-line Options</title>
+  <title>The Wizard's Toolkit: Command-line Options</title>
   <meta http-equiv="Content-Language" content="en-US"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="command-line, options, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
   <meta name="Rating" content="INDEX, FOLLOW"/>
   <meta name="Robots" content="ALL"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
@@ -23,7 +23,7 @@
   <meta name="Resource-type" content="document"/>
   <meta name="Copyright" content="Copyright (c) 1999-2011 ImageMagick Studio LLC"/>
   <meta name="Distribution" content="Global"/>
-  <link rel="icon" href="../images/wand.png"  sizes="32x32"/>
+  <link rel="icon" href="../images/wand.png"/>
   <link rel="shortcut icon" href="../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
   <style type="text/css" media="all">
@@ -32,10 +32,9 @@
 </head>
 
 <body id="www-wizards-toolkit-org">
-
 <div class="titlebar">
 <a href="../index.html">
-  <img src="../images/script.png" alt="[ImageMagick]"
+  <img src="../images/script.png" alt="[The Wizard's Toolkit]"
   style="width: 400px; height: 60px; margin: 28px auto; float: left;" /></a>
 <a href="http://www.wizards-toolkit.org/">
   <img src="../images/sponsor.jpg" alt="[sponsor]"
@@ -121,106 +120,108 @@
 
 <div class="main">
 
-<h1>The Wizard's Toolkit Command-line Options</h1>
+<h1>Convert Plaintext to Ciphertext and Back With These Command-line Options</h1>
 <p class="navigation-index">[<a href="#authenticate">-authenticate</a> &bull; <a href="#chunksize">-chunksize</a> &bull; <a href="#cipher">-cipher</a> &bull; <a href="#debug">-debug</a> &bull; <a href="#(de)compress">-(de)compress</a> &bull; <a href="#entropy">-entropy</a> &bull; <a href="#export">-export</a>  &bull; <a href="#help">-help</a> &bull; <a href="#hmac">-hmac</a> &bull; <a href="#key">-key</a> &bull; <a href="#key-length">-key-length</a> &bull; <a href="#keyring">-keyring</a> &bull; <a href="#level">-level</a> &bull; <a href="#list">-list</a> &bull; <a href="#log">-log</a> &bull; <a href="#mode">-mode</a> &bull; <a href="#passphrase">-passphrase</a> &bull; <a href="#properties">-properties</a> &bull; <a href="#random">-random</a> &bull; <a href="#true-random">-true-random</a> &bull; <a href="#verbose">-verbose</a> &bull; <a href="#version">-version</a>]</p>
+<div class="doc-section">
 
 <p>Below is list of command-line options recognized by the Wizard's Toolkit <a href="../www/command-line-tools.html">command-line tools</a>. If you want a description of a particular option, click on the option name in the navigation bar above and you will go right to it.</p>
 
 <div style="margin: auto;">
-  <h4><a name="authenticate" id="authenticate"></a>-authenticate <em class="option">method</em></h4>
+  <h4><a id="authenticate" id="authenticate"></a>-authenticate <em class="option">method</em></h4>
 </div>
 
-<p>authenticate with this method.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>authenticate with this method</td><td style='text-align:right;'></td></tr></table>
 
 <p>To print a complete list of authentication methods, use the <a href="#list">-list authenticate</a> option.</p>
 
 <div style="margin: auto;">
-  <h4><a name="chunksize" id="chunksize"></a>-chunksize <em class="option">bytes</em></h4>
+  <h4><a id="chunksize" id="chunksize"></a>-chunksize <em class="option">bytes</em></h4>
 </div>
 
-<p>number of bytes in a chunk.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>number of bytes in a chunk</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="cipher" id="cipher"></a>-cipher <em class="option">type</em></h4>
+  <h4><a id="cipher" id="cipher"></a>-cipher <em class="option">type</em></h4>
 </div>
 
-<p>cipher to encipher or decipher content.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>cipher to encipher or decipher content</td><td style='text-align:right;'></td></tr></table>
 
 <p>To print a complete list of cipher algorithms, use the <a href="#list">-list cipher</a> option.</p>
 
 <div style="margin: auto;">
-  <h4><a name="(de)compress" id="(de)compress"></a>-(de)compress</h4>
+  <h4><a id="(de)compress" id="(de)compress"></a>-(de)compress</h4>
 </div>
 
-<p>automagically (de)compress BZIP and ZIP files.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>automagically (de)compress BZIP and ZIP files</td><td style='text-align:right;'></td></tr></table>
 
 <p>By default, the <a href="../www/encipher.html">encipher</a> and <a href="../www/decipher.html">decipher</a> tools <em>automagically</em> expand the content of any BZIP or ZIP files on input or compresses any content on output if the filename extension is <kbd>.bz2</kbd> or <kbd>.gz</kbd>.  The <a href="../www/digest.html">digest</a> tool, by default, computes the message digest of the unexpanded content of BZIP and ZIP files.  Use this option to change this default behavior.  Use <a href="#(de)compress">+(de)compress</a>, for example, to encipher the compressed content of BZIP or ZIP files.</p>
 
 <div style="margin: auto;">
-  <h4><a name="debug" id="debug"></a>-debug <em class="option">events</em></h4>
+  <h4><a id="debug" id="debug"></a>-debug <em class="option">events</em></h4>
 </div>
 
-<p>display copious debugging information.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>display copious debugging information</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="entropy" id="entropy"></a>-entropy <em class="option">type</em></h4>
+  <h4><a id="entropy" id="entropy"></a>-entropy <em class="option">type</em></h4>
 </div>
 
-<p>increase content entropy.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>increase content entropy</td><td style='text-align:right;'></td></tr></table>
 
 <p>To print a complete list of entropy types, use the <a href="#list">-list entropy</a> option.</p>
 
 <div style="margin: auto;">
-  <h4><a name="export" id="export"></a>-export <em class="option">id</em></h4>
+  <h4><a id="export" id="export"></a>-export <em class="option">id</em></h4>
 </div>
 
-<p>export a key from your keyring.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>export a key from your keyring</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="help" id="help"></a>-help</h4>
+  <h4><a id="help" id="help"></a>-help</h4>
 </div>
 
-<p>print program options.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>print program options</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="hmac" id="hmac"></a>-hmac <em class="option">hash</em></h4>
+  <h4><a id="hmac" id="hmac"></a>-hmac <em class="option">hash</em></h4>
 </div>
 
-<p>ensure message integrity with this hash.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>ensure message integrity with this hash</td><td style='text-align:right;'></td></tr></table>
 
 <p>To print a complete list of hashes, use the <a href="#list">-list hash</a> option.</p>
 
 <div style="margin: auto;">
-  <h4><a name="key" id="key"></a>-key <em class="option">hash</em></h4>
+  <h4><a id="key" id="key"></a>-key <em class="option">hash</em></h4>
 </div>
 
-<p>strengthen the key with this hash.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>strengthen the key with this hash</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="key-length" id="key-length"></a>-key-length <em class="option">value</em></h4>
+  <h4><a id="key-length" id="key-length"></a>-key-length <em class="option">value</em></h4>
 </div>
 
-<p>cipher key length in bits: 256, 512, 1024, or 2048.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>cipher key length in bits: 256, 512, 1024, or 2048</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="keyring" id="keyring"></a>-keyring <em class="option">filename</em></h4>
+  <h4><a id="keyring" id="keyring"></a>-keyring <em class="option">filename</em></h4>
 </div>
 
-<p>get or add private keys to this file.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>get or add private keys to this file</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="level" id="level"></a>-level <em class="option">value</em></h4>
+  <h4><a id="level" id="level"></a>-level <em class="option">value</em></h4>
 </div>
 
-<p>entropy level: 1 (less entropy) to 9 (more entropy).</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>entropy level: 1 (less entropy) to 9 (more entropy)</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="list" id="list"></a>-list <em class="option">type</em></h4>
+  <h4><a id="list" id="list"></a>-list <em class="option">type</em></h4>
 </div>
 
 
-<p>print a list of supported option arguments.  Choose from these list types:</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>print a list of supported option arguments</td><td style='text-align:right;'></td></tr></table>
 
+<p>Choose from these list types:</p>
 <pre class="text">
 Authenticate
 Cipher
@@ -238,61 +239,62 @@ Mode
 </pre>
 
 <div style="margin: auto;">
-  <h4><a name="log" id="log"></a>-log <em class="option">format</em></h4>
+  <h4><a id="log" id="log"></a>-log <em class="option">format</em></h4>
 </div>
 
-<p>format of debugging information.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>format of debugging information</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="mode" id="mode"></a>-mode <em class="option">type</em></h4>
+  <h4><a id="mode" id="mode"></a>-mode <em class="option">type</em></h4>
 </div>
 
-<p>mode of encryption or decryption.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>mode of encryption or decryption</td><td style='text-align:right;'></td></tr></table>
 
 <p>To print a complete list of modes, use the <a href="#list">-list mode</a> option.</p>
 
 <div style="margin: auto;">
-  <h4><a name="passphrase" id="passphrase"></a>-passphrase <em class="option">filename</em></h4>
+  <h4><a id="passphrase" id="passphrase"></a>-passphrase <em class="option">filename</em></h4>
 </div>
 
-<p>get the passphrase from this file.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>get the passphrase from this file</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="properties" id="properties"></a>-properties <em class="option">filename</em></h4>
+  <h4><a id="properties" id="properties"></a>-properties <em class="option">filename</em></h4>
 </div>
 
-<p>cipher properties to/from this file.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>cipher properties to/from this file</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="random" id="random"></a>-random <em class="option">hash</em></h4>
+  <h4><a id="random" id="random"></a>-random <em class="option">hash</em></h4>
 </div>
 
-<p>strengthen random data with this hash.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>strengthen random data with this hash</td><td style='text-align:right;'></td></tr></table>
 
 <p>To print a complete list of hashes, use the <a href="#list">-list hash</a> option.</p>
 
 <div style="margin: auto;">
-  <h4><a name="true-random" id="true-random"></a>-true-random</h4>
+  <h4><a id="true-random" id="true-random"></a>-true-random</h4>
 </div>
 
-<p>strengthen enciphering or deciphering with true random numbers.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>strengthen enciphering or deciphering with true random numbers</td><td style='text-align:right;'></td></tr></table>
 
 <p>True random numbers are encouraged but may not always be practical because your application may block while entropy is gathered from your environment. If the application does block it may be waiting for your system to generate entropy.  Move your mouse or press keystrokes in another window.  Once enough entropy is generated, the application runs to completion.</p>
 
 <p>Use <a href="#true-random">+true-random</a> to force cryptographically strong pseudo-random numbers that do not block your application.</p>
 
 <div style="margin: auto;">
-  <h4><a name="verbose" id="verbose"></a>-verbose</h4>
+  <h4><a id="verbose" id="verbose"></a>-verbose</h4>
 </div>
 
-<p>print detailed information about the secure content.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>print detailed information about the secure content</td><td style='text-align:right;'></td></tr></table>
 
 <div style="margin: auto;">
-  <h4><a name="version" id="version"></a>-version</h4>
+  <h4><a id="version" id="version"></a>-version</h4>
 </div>
 
-<p>print version information.</p>
+<table style='background-color:#FFFFE0; margin-left:40px; margin-right:40px; width:88%'><tr><td style='width:75%'>print version information</td><td style='text-align:right;'></td></tr></table>
 
+</div>
 
 </div>
 

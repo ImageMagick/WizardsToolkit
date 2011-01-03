@@ -1,16 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
-  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Bzip Entropy Methods</title>
+  <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: LZMA Entropy Methods</title>
   <meta http-equiv="Content-Language" content="en-US"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
   <meta name="Generator" content="PHP"/>
-  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, bzip, entropy, methods, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit, version 1.0.2, is a free C API that includes a number of methods most developers will find useful in their projects."/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, lzma, entropy, methods, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
   <meta name="Rating" content="INDEX, FOLLOW"/>
   <meta name="Robots" content="ALL"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
@@ -19,19 +19,18 @@
   <meta name="Resource-type" content="document"/>
   <meta name="Copyright" content="Copyright (c) 1999-2011 ImageMagick Studio LLC"/>
   <meta name="Distribution" content="Global"/>
-  <link rel="icon" href="../../images/wand.png"  sizes="32x32"/>
+  <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
   <style type="text/css" media="all">
-    @import url("../../www/www/wizard.css");
+    @import url("../../www/wizard.css");
   </style>
 </head>
 
 <body id="www-wizards-toolkit-org">
-
 <div class="titlebar">
 <a href="../../index.html">
-  <img src="../../images/script.png" alt="[ImageMagick]"
+  <img src="../../images/script.png" alt="[The Wizard's Toolkit]"
   style="width: 400px; height: 60px; margin: 28px auto; float: left;" /></a>
 <a href="http://www.wizards-toolkit.org/">
   <img src="../../images/sponsor.jpg" alt="[sponsor]"
@@ -117,126 +116,115 @@
 
 <div class="main">
 
-<p class="navigation-index">[<a href="#AcquireAESInfo">AcquireAESInfo</a> &bull; <a href="#DecipherAESBlock">DecipherAESBlock</a> &bull; <a href="#DestroyAESInfo">DestroyAESInfo</a> &bull; <a href="#EncipherAESBlock">EncipherAESBlock</a> &bull; <a href="#GetAESBlocksize">GetAESBlocksize</a> &bull; <a href="#SetAESKey">SetAESKey</a>]</p>
+<h1>Module lzma
+ Methods</h1>
+<p class="navigation-index">[<a href="#AcquireLZMAInfo">AcquireLZMAInfo</a> &bull; <a href="#GetLZMAChaos">GetLZMAChaos</a> &bull; <a href="#DestroyLZMAInfo">DestroyLZMAInfo</a> &bull; <a href="#IncreaseLZMA">IncreaseLZMA</a> &bull; <a href="#RestoreLZMA">RestoreLZMA</a>]</p>
 
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/aes
-_8c.html" target="source" name="AcquireAESInfo">AcquireAESInfo</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
+_8c.html" target="source" name="AcquireLZMAInfo">AcquireLZMAInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireAESInfo() allocate the AESInfo structure.</p></ol>
+<p>AcquireLZMAInfo() allocates the LZMAInfo structure.</p></ol>
 
-<p>The format of the AcquireAESInfo method is:</p>
-
-<pre class="code">
-  AESInfo *AcquireAESInfo(void)
-</pre>
-
- </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/aes
-_8c.html" target="source" name="DecipherAESBlock">DecipherAESBlock</a></h2>
-<div class="doc-section">
-
-<p>DecipherAESBlock() deciphers a single block of ciphertext to produce a block of plaintext.</p></ol>
-
-<p>The format of the DecipherAESBlock method is:</p>
+<p>The format of the AcquireLZMAInfo method is:</p>
 
 <pre class="code">
-       void DecipherAES(AESInfo *aes_info,const unsigned char *ciphertext,
-   unsigned char *plaintext)
+  LZMAInfo *AcquireLZMAInfo(const size_t level)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
 
-<h5>aes_info</h5>
-<ol><p>The cipher context.</p></ol>
-
-<h5>ciphertext</h5>
-<ol><p>The cipher text.</p></ol>
-
-<h5>plainttext</h5>
-<ol><p>The plaint text.</p></ol>
+<h5>level</h5>
+<ol><p>entropy level: 1 is best speed, 9 is more entropy.</p></ol>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/aes
-_8c.html" target="source" name="DestroyAESInfo">DestroyAESInfo</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
+_8c.html" target="source" name="GetLZMAChaos">GetLZMAChaos</a></h2>
 <div class="doc-section">
 
-<p>DestroyAESInfo() zeros memory associated with the AESInfo structure.</p></ol>
+<p>GetLZMAChaos() returns LZMA chaos.</p></ol>
 
-<p>The format of the DestroyAESInfo method is:</p>
+<p>The format of the GetLZMAChaos method is:</p>
 
 <pre class="code">
-  AESInfo *DestroyAESInfo(AESInfo *aes_info)
+  const StringInfo *GetLZMAChaos(const LZMAInfo *lzma_info)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
 
-<h5>aes_info</h5>
-<ol><p>The cipher context.</p></ol>
+<h5>lzma_info</h5>
+<ol><p>The lzma info.</p></ol>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/aes
-_8c.html" target="source" name="EncipherAESBlock">EncipherAESBlock</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
+_8c.html" target="source" name="DestroyLZMAInfo">DestroyLZMAInfo</a></h2>
 <div class="doc-section">
 
-<p>EncipherAESBlock() enciphers a single block of plaintext to produce a block of ciphertext.</p></ol>
+<p>DestroyLZMAInfo() zeros memory associated with the LZMAInfo structure.</p></ol>
 
-<p>The format of the EncipherAESBlock method is:</p>
+<p>The format of the DestroyLZMAInfo method is:</p>
 
 <pre class="code">
-  void EncipherAES(AESInfo *aes_info,const unsigned char *plaintext,
-    unsigned char *ciphertext)
+  LZMAInfo *DestroyLZMAInfo(LZMAInfo *lzma_info)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
 
-<h5>aes_info</h5>
-<ol><p>The cipher context.</p></ol>
-
-<h5>plaintext</h5>
-<ol><p>The plain text.</p></ol>
-
-<h5>ciphertext</h5>
-<ol><p>The cipher text.</p></ol>
+<h5>lzma_info</h5>
+<ol><p>The lzma info.</p></ol>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/aes
-_8c.html" target="source" name="GetAESBlocksize">GetAESBlocksize</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
+_8c.html" target="source" name="IncreaseLZMA">IncreaseLZMA</a></h2>
 <div class="doc-section">
 
-<p>GetAESBlocksize() returns the AES blocksize.</p></ol>
+<p>IncreaseLZMA() compresses the message to increase its entropy.</p></ol>
 
-<p>The format of the GetAESBlocksize method is:</p>
+<p>The format of the IncreaseLZMA method is:</p>
 
 <pre class="code">
-  unsigned int *GetAESBlocksize(const AESInfo *aes_info)
+  WizardBooleanType IncreaseLZMA(LZMAInfo *lzma_info,
+    const StringInfo *message,ExceptionInfo *exception)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
 
-<h5>aes_info</h5>
-<ol><p>The aes info.</p></ol>
+<h5>lzma_info</h5>
+<ol><p>The address of a structure of type LZMAInfo.</p></ol>
+
+<h5>message</h5>
+<ol><p>The message.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/aes
-_8c.html" target="source" name="SetAESKey">SetAESKey</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
+_8c.html" target="source" name="RestoreLZMA">RestoreLZMA</a></h2>
 <div class="doc-section">
 
-<p>SetAESKey() sets the key for the AES cipher.  The key length is specified in bits.  Valid values are 128, 192, or 256 requiring a key buffer length in bytes of 16, 24, and 32 respectively.</p></ol>
+<p>RestoreLZMA() uncompresses the message to restore its original entropy.</p></ol>
 
-<p>The format of the SetAESKey method is:</p>
+<p>The format of the RestoreLZMA method is:</p>
 
 <pre class="code">
-  SetAESKey(AESInfo *aes_info,const StringInfo *key)
+  WizardBooleanType RestoreLZMA(LZMAInfo *lzma_info,const size_t length,
+    const StringInfo *message,ExceptionInfo *exception)
 </pre>
 
 <p>A description of each parameter follows:</p></ol>
 
-<h5>aes_info</h5>
-<ol><p>The cipher context.</p></ol>
+<h5>lzma_info</h5>
+<ol><p>The address of a structure of type LZMAInfo.</p></ol>
 
-<h5>key</h5>
-<ol><p>The key.</p></ol>
+<h5>length</h5>
+<ol><p>The total size of the destination buffer, which must be large enough to hold the entire uncompressed data.</p></ol>
+
+<h5>message</h5>
+<ol><p>The message.</p></ol>
+
+<h5>exception</h5>
+<ol><p>Return any errors or warnings in this structure.</p></ol>
 
  </div>
 
