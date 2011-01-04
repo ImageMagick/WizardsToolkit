@@ -423,9 +423,9 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
       status=(resource_info.disk_limit == WizardResourceInfinity) ||
         ((WizardSizeType) resource_info.disk < limit) ?
         WizardTrue : WizardFalse;
-      (void) FormatWizardSize((WizardSizeType) resource_info.disk,WizardFalse,
+      (void) FormatWizardSize((WizardSizeType) resource_info.disk,WizardTrue,
         resource_current);
-      (void) FormatWizardSize(resource_info.disk_limit,WizardFalse,
+      (void) FormatWizardSize(resource_info.disk_limit,WizardTrue,
         resource_limit);
       break;
     }
@@ -667,7 +667,7 @@ WizardExport WizardBooleanType ListWizardResourceInfo(FILE *file,
   (void) FormatWizardSize(resource_info.memory_limit,WizardTrue,memory_limit);
   (void) CopyWizardString(disk_limit,"unlimited",MaxTextExtent);
   if (resource_info.disk_limit != WizardResourceInfinity)
-    (void) FormatWizardSize(resource_info.disk_limit,WizardFalse,disk_limit);
+    (void) FormatWizardSize(resource_info.disk_limit,WizardTrue,disk_limit);
   (void) fprintf(file,"File        Area      Memory         Map        Disk\n");
   (void) fprintf(file,"----------------------------------------------------\n");
   (void) fprintf(file,"%4g   %9s   %9s   %9s   %9s\n",(double)
@@ -746,9 +746,9 @@ WizardExport void RelinquishWizardResource(const ResourceType type,
     case DiskResource:
     {
       resource_info.disk-=size;
-      (void) FormatWizardSize((WizardSizeType) resource_info.disk,WizardFalse,
+      (void) FormatWizardSize((WizardSizeType) resource_info.disk,WizardTrue,
         resource_current);
-      (void) FormatWizardSize(resource_info.disk_limit,WizardFalse,
+      (void) FormatWizardSize(resource_info.disk_limit,WizardTrue,
         resource_limit);
       break;
     }
