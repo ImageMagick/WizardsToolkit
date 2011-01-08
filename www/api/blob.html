@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Read or Write Binary Large OBjects</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, read, or, write, binary, large, objects, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#FileToBlob">FileToBlob</a> &bull; <a href="#GetBlobProperties">GetBlobProperties</a> &bull; <a href="#SyncBlob">SyncBlob</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/blob
-_8c.html" target="source" name="FileToBlob">FileToBlob</a></h2>
+_8c.html" id="FileToBlob">FileToBlob</a></h2>
 <div class="doc-section">
 
-<p>FileToBlob() returns the contents of a file as a blob.  It returns the file as a blob and its length.  If an error occurs, NULL is returned.</p></ol>
+<p>FileToBlob() returns the contents of a file as a blob.  It returns the file as a blob and its length.  If an error occurs, NULL is returned.</p>
 
 <p>The format of the FileToBlob method is:</p>
 
@@ -133,29 +149,29 @@ _8c.html" target="source" name="FileToBlob">FileToBlob</a></h2>
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>blob</h5>
-<ol><p>FileToBlob() returns the contents of a file as a blob.  If an error occurs NULL is returned.</p></ol>
+<p>FileToBlob() returns the contents of a file as a blob.  If an error occurs NULL is returned.</p>
 
 <h5>filename</h5>
-<ol><p>The filename.</p></ol>
+<p>The filename.</p>
 
 <h5>extent</h5>
-<ol><p>The maximum length of the blob.</p></ol>
+<p>The maximum length of the blob.</p>
 
 <h5>length</h5>
-<ol><p>On return, it reflects the actual length of the blob.</p></ol>
+<p>On return, it reflects the actual length of the blob.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/blob
-_8c.html" target="source" name="GetBlobProperties">GetBlobProperties</a></h2>
+_8c.html" id="GetBlobProperties">GetBlobProperties</a></h2>
 <div class="doc-section">
 
-<p>GetBlobProperties() returns information about a blob.</p></ol>
+<p>GetBlobProperties() returns information about a blob.</p>
 
 <p>The format of the GetBlobProperties method is:</p>
 
@@ -163,17 +179,17 @@ _8c.html" target="source" name="GetBlobProperties">GetBlobProperties</a></h2>
   const struct stat *GetBlobProperties(const BlobInfo *blob_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>blob_info</h5>
-<ol><p>the blob info.</p></ol>
+<p>the blob info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/blob
-_8c.html" target="source" name="SyncBlob">SyncBlob</a></h2>
+_8c.html" id="SyncBlob">SyncBlob</a></h2>
 <div class="doc-section">
 
-<p>SyncBlob() flushes the datastream if it is a file or synchonizes the data attributes if it is an blob.</p></ol>
+<p>SyncBlob() flushes the datastream if it is a file or synchonizes the data attributes if it is an blob.</p>
 
 <p>The format of the SyncBlob method is:</p>
 
@@ -181,10 +197,10 @@ _8c.html" target="source" name="SyncBlob">SyncBlob</a></h2>
   int SyncBlob(BlobInfo *blob_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>blob_info</h5>
-<ol><p>the blob info.</p></ol>
+<p>the blob info.</p>
 
  </div>
 

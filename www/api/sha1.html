@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Hash Algorithm-1</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, secure, hash, algorithm-1, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireSHA1Info">AcquireSHA1Info</a> &bull; <a href="#DestroySHA1Info">DestroySHA1Info</a> &bull; <a href="#FinalizeSHA1">FinalizeSHA1</a> &bull; <a href="#GetSHA1Blocksize">GetSHA1Blocksize</a> &bull; <a href="#GetSHA1Digest">GetSHA1Digest</a> &bull; <a href="#GetSHA1Digestsize">GetSHA1Digestsize</a> &bull; <a href="#IntializeSHA1">IntializeSHA1</a> &bull; <a href="#TransformSHA1">TransformSHA1</a> &bull; <a href="#UpdateSHA1">UpdateSHA1</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" target="source" name="AcquireSHA1Info">AcquireSHA1Info</a></h2>
+_8c.html" id="AcquireSHA1Info">AcquireSHA1Info</a></h2>
 <div class="doc-section">
 
-<p>AcquireSHA1Info() allocate the SHA1Info structure.</p></ol>
+<p>AcquireSHA1Info() allocate the SHA1Info structure.</p>
 
 <p>The format of the AcquireSHA1Info method is:</p>
 
@@ -134,10 +150,10 @@ _8c.html" target="source" name="AcquireSHA1Info">AcquireSHA1Info</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" target="source" name="DestroySHA1Info">DestroySHA1Info</a></h2>
+_8c.html" id="DestroySHA1Info">DestroySHA1Info</a></h2>
 <div class="doc-section">
 
-<p>DestroySHA1Info() zeros memory associated with the SHA1Info structure.</p></ol>
+<p>DestroySHA1Info() zeros memory associated with the SHA1Info structure.</p>
 
 <p>The format of the DestroySHA1Info method is:</p>
 
@@ -145,17 +161,17 @@ _8c.html" target="source" name="DestroySHA1Info">DestroySHA1Info</a></h2>
   SHA1Info *DestroySHA1Info(SHA1Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The cipher sha_info.</p></ol>
+<p>The cipher sha_info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" target="source" name="FinalizeSHA1">FinalizeSHA1</a></h2>
+_8c.html" id="FinalizeSHA1">FinalizeSHA1</a></h2>
 <div class="doc-section">
 
-<p>FinalizeSHA1() finalizes the SHA1 message accumulator computation.</p></ol>
+<p>FinalizeSHA1() finalizes the SHA1 message accumulator computation.</p>
 
 <p>The format of the FinalizeSHA1 method is:</p>
 
@@ -163,18 +179,18 @@ _8c.html" target="source" name="FinalizeSHA1">FinalizeSHA1</a></h2>
   FinalizeSHA1(SHA1Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The address of a structure of type SHA1Info.</p></ol>
+<p>The address of a structure of type SHA1Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" target="source" name="GetSHA1Blocksize">GetSHA1Blocksize</a></h2>
+_8c.html" id="GetSHA1Blocksize">GetSHA1Blocksize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA1Blocksize() returns the SHA1 blocksize.</p></ol>
+<p>GetSHA1Blocksize() returns the SHA1 blocksize.</p>
 
 <p>The format of the GetSHA1Blocksize method is:</p>
 
@@ -182,17 +198,17 @@ _8c.html" target="source" name="GetSHA1Blocksize">GetSHA1Blocksize</a></h2>
   unsigned int *GetSHA1Blocksize(const SHA1Info *sha1_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha1_info</h5>
-<ol><p>The sha1 info.</p></ol>
+<p>The sha1 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" target="source" name="GetSHA1Digest">GetSHA1Digest</a></h2>
+_8c.html" id="GetSHA1Digest">GetSHA1Digest</a></h2>
 <div class="doc-section">
 
-<p>GetSHA1Digest() returns the SHA1 digest.</p></ol>
+<p>GetSHA1Digest() returns the SHA1 digest.</p>
 
 <p>The format of the GetSHA1Digest method is:</p>
 
@@ -200,17 +216,17 @@ _8c.html" target="source" name="GetSHA1Digest">GetSHA1Digest</a></h2>
   const StringInfo *GetSHA1Digest(const SHA1Info *sha1_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha1_info</h5>
-<ol><p>The sha1 info.</p></ol>
+<p>The sha1 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" target="source" name="GetSHA1Digestsize">GetSHA1Digestsize</a></h2>
+_8c.html" id="GetSHA1Digestsize">GetSHA1Digestsize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA1Digestsize() returns the SHA1 digest size.</p></ol>
+<p>GetSHA1Digestsize() returns the SHA1 digest size.</p>
 
 <p>The format of the GetSHA1Digestsize method is:</p>
 
@@ -218,17 +234,17 @@ _8c.html" target="source" name="GetSHA1Digestsize">GetSHA1Digestsize</a></h2>
   unsigned int *GetSHA1Digestsize(const SHA1Info *sha1_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha1_info</h5>
-<ol><p>The sha1 info.</p></ol>
+<p>The sha1 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" target="source" name="IntializeSHA1">IntializeSHA1</a></h2>
+_8c.html" id="IntializeSHA1">IntializeSHA1</a></h2>
 <div class="doc-section">
 
-<p>IntializeSHA1() intializes the SHA1 accumulator.</p></ol>
+<p>IntializeSHA1() intializes the SHA1 accumulator.</p>
 
 <p>The format of the DestroySHA1Info method is:</p>
 
@@ -236,17 +252,17 @@ _8c.html" target="source" name="IntializeSHA1">IntializeSHA1</a></h2>
   void InitializeSHA1Info(SHA1Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The cipher sha_info.</p></ol>
+<p>The cipher sha_info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" target="source" name="TransformSHA1">TransformSHA1</a></h2>
+_8c.html" id="TransformSHA1">TransformSHA1</a></h2>
 <div class="doc-section">
 
-<p>TransformSHA1() transforms the SHA1 message accumulator.</p></ol>
+<p>TransformSHA1() transforms the SHA1 message accumulator.</p>
 
 <p>The format of the TransformSHA1 method is:</p>
 
@@ -254,18 +270,18 @@ _8c.html" target="source" name="TransformSHA1">TransformSHA1</a></h2>
   TransformSHA1(SHA1Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The address of a structure of type SHA1Info.</p></ol>
+<p>The address of a structure of type SHA1Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" target="source" name="UpdateSHA1">UpdateSHA1</a></h2>
+_8c.html" id="UpdateSHA1">UpdateSHA1</a></h2>
 <div class="doc-section">
 
-<p>UpdateSHA1() updates the SHA1 message accumulator.</p></ol>
+<p>UpdateSHA1() updates the SHA1 message accumulator.</p>
 
 <p>The format of the UpdateSHA1 method is:</p>
 
@@ -273,13 +289,13 @@ _8c.html" target="source" name="UpdateSHA1">UpdateSHA1</a></h2>
   UpdateSHA1(SHA1Info *sha_info,const StringInfo *message)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The address of a structure of type SHA1Info.</p></ol>
+<p>The address of a structure of type SHA1Info.</p>
 
 <h5>message</h5>
-<ol><p>The message</p></ol>
+<p>The message</p>
 
  </div>
 

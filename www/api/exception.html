@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Exception Handling</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, exception, handling, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireExceptionInfo">AcquireExceptionInfo</a> &bull; <a href="#ClearWizardException">ClearWizardException</a> &bull; <a href="#CatchException">CatchException</a> &bull; <a href="#DestroyExceptionInfo">DestroyExceptionInfo</a> &bull; <a href="#GetExceptionInfo">GetExceptionInfo</a> &bull; <a href="#GetExceptionMessage">GetExceptionMessage</a> &bull; <a href="#GetLocaleExceptionMessage">GetLocaleExceptionMessage</a> &bull; <a href="#GetExceptionSeverity">GetExceptionSeverity</a> &bull; <a href="#InheritException">InheritException</a> &bull; <a href="#WizardError">WizardError</a> &bull; <a href="#WizardFatalError">WizardFatalError</a> &bull; <a href="#WizardWarning">WizardWarning</a> &bull; <a href="#SetErrorHandler">SetErrorHandler</a> &bull; <a href="#SetFatalErrorHandler">SetFatalErrorHandler</a> &bull; <a href="#SetWarningHandler">SetWarningHandler</a> &bull; <a href="#ThrowException">ThrowException</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="AcquireExceptionInfo">AcquireExceptionInfo</a></h2>
+_8c.html" id="AcquireExceptionInfo">AcquireExceptionInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireExceptionInfo() allocates the ExceptionInfo structure.</p></ol>
+<p>AcquireExceptionInfo() allocates the ExceptionInfo structure.</p>
 
 <p>The format of the AcquireExceptionInfo method is:</p>
 
@@ -134,10 +150,10 @@ _8c.html" target="source" name="AcquireExceptionInfo">AcquireExceptionInfo</a></
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="ClearWizardException">ClearWizardException</a></h2>
+_8c.html" id="ClearWizardException">ClearWizardException</a></h2>
 <div class="doc-section">
 
-<p>ClearWizardException() clears any exception that may not have been caught yet.</p></ol>
+<p>ClearWizardException() clears any exception that may not have been caught yet.</p>
 
 <p>The format of the ClearWizardException method is:</p>
 
@@ -145,17 +161,17 @@ _8c.html" target="source" name="ClearWizardException">ClearWizardException</a></
   ClearWizardException(ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>exception</h5>
-<ol><p>The exception info.</p></ol>
+<p>The exception info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="CatchException">CatchException</a></h2>
+_8c.html" id="CatchException">CatchException</a></h2>
 <div class="doc-section">
 
-<p>CatchException() returns if no exceptions is found otherwise it reports the exception as a warning, error, or fatal depending on the severity.</p></ol>
+<p>CatchException() returns if no exceptions is found otherwise it reports the exception as a warning, error, or fatal depending on the severity.</p>
 
 <p>The format of the CatchException method is:</p>
 
@@ -163,17 +179,17 @@ _8c.html" target="source" name="CatchException">CatchException</a></h2>
   CatchException(ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>exception</h5>
-<ol><p>The exception info.</p></ol>
+<p>The exception info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="DestroyExceptionInfo">DestroyExceptionInfo</a></h2>
+_8c.html" id="DestroyExceptionInfo">DestroyExceptionInfo</a></h2>
 <div class="doc-section">
 
-<p>DestroyExceptionInfo() deallocates memory associated with an exception.</p></ol>
+<p>DestroyExceptionInfo() deallocates memory associated with an exception.</p>
 
 <p>The format of the DestroyExceptionInfo method is:</p>
 
@@ -181,17 +197,17 @@ _8c.html" target="source" name="DestroyExceptionInfo">DestroyExceptionInfo</a></
   ExceptionInfo *DestroyExceptionInfo(ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>exception</h5>
-<ol><p>The exception info.</p></ol>
+<p>The exception info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="GetExceptionInfo">GetExceptionInfo</a></h2>
+_8c.html" id="GetExceptionInfo">GetExceptionInfo</a></h2>
 <div class="doc-section">
 
-<p>GetExceptionInfo() initializes an exception to default values.</p></ol>
+<p>GetExceptionInfo() initializes an exception to default values.</p>
 
 <p>The format of the GetExceptionInfo method is:</p>
 
@@ -199,17 +215,17 @@ _8c.html" target="source" name="GetExceptionInfo">GetExceptionInfo</a></h2>
   GetExceptionInfo(ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>exception</h5>
-<ol><p>The exception info.</p></ol>
+<p>The exception info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="GetExceptionMessage">GetExceptionMessage</a></h2>
+_8c.html" id="GetExceptionMessage">GetExceptionMessage</a></h2>
 <div class="doc-section">
 
-<p>GetExceptionMessage() returns the error message defined by the specified error code.</p></ol>
+<p>GetExceptionMessage() returns the error message defined by the specified error code.</p>
 
 <p>The format of the GetExceptionMessage method is:</p>
 
@@ -217,17 +233,17 @@ _8c.html" target="source" name="GetExceptionMessage">GetExceptionMessage</a></h2
   char *GetExceptionMessage(const int error)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>error</h5>
-<ol><p>the error code.</p></ol>
+<p>the error code.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="GetLocaleExceptionMessage">GetLocaleExceptionMessage</a></h2>
+_8c.html" id="GetLocaleExceptionMessage">GetLocaleExceptionMessage</a></h2>
 <div class="doc-section">
 
-<p>GetLocaleExceptionMessage() converts a enumerated exception severity and tag to a message in the current locale.</p></ol>
+<p>GetLocaleExceptionMessage() converts a enumerated exception severity and tag to a message in the current locale.</p>
 
 <p>The format of the GetLocaleExceptionMessage method is:</p>
 
@@ -236,20 +252,20 @@ _8c.html" target="source" name="GetLocaleExceptionMessage">GetLocaleExceptionMes
     const char *tag)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>severity</h5>
-<ol><p>the severity of the exception.</p></ol>
+<p>the severity of the exception.</p>
 
 <h5>tag</h5>
-<ol><p>the message tag.</p></ol>
+<p>the message tag.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="GetExceptionSeverity">GetExceptionSeverity</a></h2>
+_8c.html" id="GetExceptionSeverity">GetExceptionSeverity</a></h2>
 <div class="doc-section">
 
-<p>GetExceptionSeverity() returns the exception severity.</p></ol>
+<p>GetExceptionSeverity() returns the exception severity.</p>
 
 <p>The format of the GetExceptionSeverity method is:</p>
 
@@ -257,17 +273,17 @@ _8c.html" target="source" name="GetExceptionSeverity">GetExceptionSeverity</a></
   ExceptionType GetExceptionSeverity(const ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>exception</h5>
-<ol><p>The exception.</p></ol>
+<p>The exception.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="InheritException">InheritException</a></h2>
+_8c.html" id="InheritException">InheritException</a></h2>
 <div class="doc-section">
 
-<p>InheritException() inherits an exception from a related exception.</p></ol>
+<p>InheritException() inherits an exception from a related exception.</p>
 
 <p>The format of the InheritException method is:</p>
 
@@ -275,21 +291,21 @@ _8c.html" target="source" name="InheritException">InheritException</a></h2>
   InheritException(ExceptionInfo *exception,const ExceptionInfo *relative)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>exception</h5>
-<ol><p>The exception info.</p></ol>
+<p>The exception info.</p>
 
 <h5>relative</h5>
-<ol><p>The related exception info.</p></ol>
+<p>The related exception info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="WizardError">WizardError</a></h2>
+_8c.html" id="WizardError">WizardError</a></h2>
 <div class="doc-section">
 
-<p>WizardError() calls the exception handler methods with an error reason.</p></ol>
+<p>WizardError() calls the exception handler methods with an error reason.</p>
 
 <p>The format of the WizardError method is:</p>
 
@@ -298,24 +314,24 @@ _8c.html" target="source" name="WizardError">WizardError</a></h2>
     const char *description)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>exception</h5>
-<ol><p>Specifies the numeric error category.</p></ol>
+<p>Specifies the numeric error category.</p>
 
 <h5>reason</h5>
-<ol><p>Specifies the reason to display before terminating the program.</p></ol>
+<p>Specifies the reason to display before terminating the program.</p>
 
 <h5>description</h5>
-<ol><p>Specifies any description to the reason.</p></ol>
+<p>Specifies any description to the reason.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="WizardFatalError">WizardFatalError</a></h2>
+_8c.html" id="WizardFatalError">WizardFatalError</a></h2>
 <div class="doc-section">
 
-<p>WizardFatalError() calls the fatal exception handler methods with an error reason.</p></ol>
+<p>WizardFatalError() calls the fatal exception handler methods with an error reason.</p>
 
 <p>The format of the WizardError method is:</p>
 
@@ -324,23 +340,23 @@ _8c.html" target="source" name="WizardFatalError">WizardFatalError</a></h2>
     const char *description)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>exception</h5>
-<ol><p>Specifies the numeric error category.</p></ol>
+<p>Specifies the numeric error category.</p>
 
 <h5>reason</h5>
-<ol><p>Specifies the reason to display before terminating the program.</p></ol>
+<p>Specifies the reason to display before terminating the program.</p>
 
 <h5>description</h5>
-<ol><p>Specifies any description to the reason.</p></ol>
+<p>Specifies any description to the reason.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="WizardWarning">WizardWarning</a></h2>
+_8c.html" id="WizardWarning">WizardWarning</a></h2>
 <div class="doc-section">
 
-<p>WizardWarning() calls the warning handler methods with a warning reason.</p></ol>
+<p>WizardWarning() calls the warning handler methods with a warning reason.</p>
 
 <p>The format of the WizardWarning method is:</p>
 
@@ -349,23 +365,23 @@ _8c.html" target="source" name="WizardWarning">WizardWarning</a></h2>
     const char *description)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>warning</h5>
-<ol><p>The warning severity.</p></ol>
+<p>The warning severity.</p>
 
 <h5>reason</h5>
-<ol><p>Define the reason for the warning.</p></ol>
+<p>Define the reason for the warning.</p>
 
 <h5>description</h5>
-<ol><p>Describe the warning.</p></ol>
+<p>Describe the warning.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="SetErrorHandler">SetErrorHandler</a></h2>
+_8c.html" id="SetErrorHandler">SetErrorHandler</a></h2>
 <div class="doc-section">
 
-<p>SetErrorHandler() sets the exception handler to the specified method and returns the previous exception handler.</p></ol>
+<p>SetErrorHandler() sets the exception handler to the specified method and returns the previous exception handler.</p>
 
 <p>The format of the SetErrorHandler method is:</p>
 
@@ -373,17 +389,17 @@ _8c.html" target="source" name="SetErrorHandler">SetErrorHandler</a></h2>
   ErrorHandler SetErrorHandler(ErrorHandler handler)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>handler</h5>
-<ol><p>The method to handle errors.</p></ol>
+<p>The method to handle errors.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="SetFatalErrorHandler">SetFatalErrorHandler</a></h2>
+_8c.html" id="SetFatalErrorHandler">SetFatalErrorHandler</a></h2>
 <div class="doc-section">
 
-<p>SetFatalErrorHandler() sets the fatal exception handler to the specified method and returns the previous fatal exception handler.</p></ol>
+<p>SetFatalErrorHandler() sets the fatal exception handler to the specified method and returns the previous fatal exception handler.</p>
 
 <p>The format of the SetErrorHandler method is:</p>
 
@@ -391,17 +407,17 @@ _8c.html" target="source" name="SetFatalErrorHandler">SetFatalErrorHandler</a></
   ErrorHandler SetErrorHandler(ErrorHandler handler)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>handler</h5>
-<ol><p>The method to handle errors.</p></ol>
+<p>The method to handle errors.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="SetWarningHandler">SetWarningHandler</a></h2>
+_8c.html" id="SetWarningHandler">SetWarningHandler</a></h2>
 <div class="doc-section">
 
-<p>SetWarningHandler() sets the warning handler to the specified method and returns the previous warning handler.</p></ol>
+<p>SetWarningHandler() sets the warning handler to the specified method and returns the previous warning handler.</p>
 
 <p>The format of the SetWarningHandler method is:</p>
 
@@ -409,17 +425,17 @@ _8c.html" target="source" name="SetWarningHandler">SetWarningHandler</a></h2>
   ErrorHandler SetWarningHandler(ErrorHandler handler)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>handler</h5>
-<ol><p>The method to handle warnings.</p></ol>
+<p>The method to handle warnings.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/exception
-_8c.html" target="source" name="ThrowException">ThrowException</a></h2>
+_8c.html" id="ThrowException">ThrowException</a></h2>
 <div class="doc-section">
 
-<p>ThrowException() throws an exception with the specified severity code, reason, and optional description.</p></ol>
+<p>ThrowException() throws an exception with the specified severity code, reason, and optional description.</p>
 
 <p>The format of the ThrowException method is:</p>
 
@@ -429,19 +445,19 @@ _8c.html" target="source" name="ThrowException">ThrowException</a></h2>
     const char *description)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>exception</h5>
-<ol><p>The exception info.</p></ol>
+<p>The exception info.</p>
 
 <h5>severity</h5>
-<ol><p>The severity of the exception.</p></ol>
+<p>The severity of the exception.</p>
 
 <h5>reason</h5>
-<ol><p>The reason for the exception.</p></ol>
+<p>The reason for the exception.</p>
 
 <h5>description</h5>
-<ol><p>The exception description.</p></ol>
+<p>The exception description.</p>
 
  </div>
 

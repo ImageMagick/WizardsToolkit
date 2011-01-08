@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Authenticate Methods</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, authenticate, methods, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -118,13 +134,13 @@
 
 <h1>Module authenticate
  Methods</h1>
-<p class="navigation-index">[<a href="#AcquireAuthenticateInfo">AcquireAuthenticateInfo</a> &bull; <a href="#AuthenticateKey">AuthenticateKey</a> &bull; <a href="#DestroyAuthenticateInfo">DestroyAuthenticateInfo</a> &bull; <a href="#GenerateAuthenticateKey">GenerateAuthenticateKey</a> &bull; <a href="#GetAuthenticateId">GetAuthenticateId</a> &bull; <a href="#GetAuthenticateKey">GetAuthenticateKey</a> &bull; <a href="#GetAuthenticateKeyLength">GetAuthenticateKeyLength</a> &bull; <a href="#GetAuthenticateId">GetAuthenticateId</a> &bull; <a href="#SetAuthenticateId">SetAuthenticateId</a> &bull; <a href="#SetAuthenticateKeyLength">SetAuthenticateKeyLength</a> &bull; <a href="#SetAuthenticatePassphrase">SetAuthenticatePassphrase</a>]</p>
+<p class="navigation-index">[<a href="#AcquireAuthenticateInfo">AcquireAuthenticateInfo</a> &bull; <a href="#AuthenticateKey">AuthenticateKey</a> &bull; <a href="#DestroyAuthenticateInfo">DestroyAuthenticateInfo</a> &bull; <a href="#GenerateAuthenticateKey">GenerateAuthenticateKey</a> &bull; <a href="#GetAuthenticateId">GetAuthenticateId</a> &bull; <a href="#GetAuthenticateKey">GetAuthenticateKey</a> &bull; <a href="#GetAuthenticateKeyLength">GetAuthenticateKeyLength</a> &bull; <a href="#GetAuthenticatePassphrase">GetAuthenticatePassphrase</a> &bull; <a href="#SetAuthenticateId">SetAuthenticateId</a> &bull; <a href="#SetAuthenticateKeyLength">SetAuthenticateKeyLength</a> &bull; <a href="#SetAuthenticatePassphrase">SetAuthenticatePassphrase</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="AcquireAuthenticateInfo">AcquireAuthenticateInfo</a></h2>
+_8c.html" id="AcquireAuthenticateInfo">AcquireAuthenticateInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireAuthenticateInfo() allocates the AuthenticateInfo structure.</p></ol>
+<p>AcquireAuthenticateInfo() allocates the AuthenticateInfo structure.</p>
 
 <p>The format of the AcquireAuthenticateInfo method is:</p>
 
@@ -133,23 +149,23 @@ _8c.html" target="source" name="AcquireAuthenticateInfo">AcquireAuthenticateInfo
     const AuthenticateMethod method,const char *path,const HashType hash)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate</h5>
-<ol><p>The authenticate type.</p></ol>
+<p>The authenticate type.</p>
 
 <h5>path</h5>
-<ol><p>The keyring path.</p></ol>
+<p>The keyring path.</p>
 
 <h5>hash</h5>
-<ol><p>The hash type.</p></ol>
+<p>The hash type.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="AuthenticateKey">AuthenticateKey</a></h2>
+_8c.html" id="AuthenticateKey">AuthenticateKey</a></h2>
 <div class="doc-section">
 
-<p>AuthenticateKey() returns WizardTrue if the caller is authenticated.</p></ol>
+<p>AuthenticateKey() returns WizardTrue if the caller is authenticated.</p>
 
 <p>The format of the AuthenticateKey method is:</p>
 
@@ -158,20 +174,20 @@ _8c.html" target="source" name="AuthenticateKey">AuthenticateKey</a></h2>
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authenticate info.</p></ol>
+<p>The authenticate info.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="DestroyAuthenticateInfo">DestroyAuthenticateInfo</a></h2>
+_8c.html" id="DestroyAuthenticateInfo">DestroyAuthenticateInfo</a></h2>
 <div class="doc-section">
 
-<p>DestroyAuthenticateInfo() zeros memory associated with the AuthenticateInfo structure.</p></ol>
+<p>DestroyAuthenticateInfo() zeros memory associated with the AuthenticateInfo structure.</p>
 
 <p>The format of the DestroyAuthenticateInfo method is:</p>
 
@@ -180,17 +196,17 @@ _8c.html" target="source" name="DestroyAuthenticateInfo">DestroyAuthenticateInfo
     AuthenticateInfo *authenticate_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authenticate info.</p></ol>
+<p>The authenticate info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="GenerateAuthenticateKey">GenerateAuthenticateKey</a></h2>
+_8c.html" id="GenerateAuthenticateKey">GenerateAuthenticateKey</a></h2>
 <div class="doc-section">
 
-<p>GenerateAuthenticateKey() returns WizardTrue if a secret key is generated and successfully added to the secret key ring.</p></ol>
+<p>GenerateAuthenticateKey() returns WizardTrue if a secret key is generated and successfully added to the secret key ring.</p>
 
 <p>The format of the GenerateAuthenticateKey method is:</p>
 
@@ -199,20 +215,20 @@ _8c.html" target="source" name="GenerateAuthenticateKey">GenerateAuthenticateKey
     AuthenticateInfo *authenticate_info,ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authenticate info.</p></ol>
+<p>The authenticate info.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="GetAuthenticateId">GetAuthenticateId</a></h2>
+_8c.html" id="GetAuthenticateId">GetAuthenticateId</a></h2>
 <div class="doc-section">
 
-<p>GetAuthenticateId() returns the authentication id.</p></ol>
+<p>GetAuthenticateId() returns the authentication id.</p>
 
 <p>The format of the GetAuthenticateId method is:</p>
 
@@ -221,17 +237,17 @@ _8c.html" target="source" name="GetAuthenticateId">GetAuthenticateId</a></h2>
     const AuthenticateInfo *authenticate_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authenticate info.</p></ol>
+<p>The authenticate info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="GetAuthenticateKey">GetAuthenticateKey</a></h2>
+_8c.html" id="GetAuthenticateKey">GetAuthenticateKey</a></h2>
 <div class="doc-section">
 
-<p>GetAuthenticateKey() returns the authenticate key.</p></ol>
+<p>GetAuthenticateKey() returns the authenticate key.</p>
 
 <p>The format of the GetAuthenticateKey method is:</p>
 
@@ -240,17 +256,17 @@ _8c.html" target="source" name="GetAuthenticateKey">GetAuthenticateKey</a></h2>
     const AuthenticateInfo *authenticate_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authenticate info.</p></ol>
+<p>The authenticate info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="GetAuthenticateKeyLength">GetAuthenticateKeyLength</a></h2>
+_8c.html" id="GetAuthenticateKeyLength">GetAuthenticateKeyLength</a></h2>
 <div class="doc-section">
 
-<p>GetAuthenticateKeyLength() returns the authenticate key length.</p></ol>
+<p>GetAuthenticateKeyLength() returns the authenticate key length.</p>
 
 <p>The format of the GetAuthenticateKeyLength method is:</p>
 
@@ -259,17 +275,17 @@ _8c.html" target="source" name="GetAuthenticateKeyLength">GetAuthenticateKeyLeng
     const AuthenticateInfo *authenticate_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authenticate info.</p></ol>
+<p>The authenticate info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="GetAuthenticateId">GetAuthenticateId</a></h2>
+_8c.html" id="GetAuthenticatePassphrase">GetAuthenticatePassphrase</a></h2>
 <div class="doc-section">
 
-<p>GetAuthenticateId() returns the authentication passphrase.</p></ol>
+<p>GetAuthenticatePassphrase() returns the authentication passphrase.</p>
 
 <p>The format of the GetAuthenticatePassphrase method is:</p>
 
@@ -278,17 +294,17 @@ _8c.html" target="source" name="GetAuthenticateId">GetAuthenticateId</a></h2>
     const AuthenticateInfo *authenticate_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authenticate info.</p></ol>
+<p>The authenticate info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="SetAuthenticateId">SetAuthenticateId</a></h2>
+_8c.html" id="SetAuthenticateId">SetAuthenticateId</a></h2>
 <div class="doc-section">
 
-<p>SetAuthenticateId() sets the authentication id.</p></ol>
+<p>SetAuthenticateId() sets the authentication id.</p>
 
 <p>The format of the SetAuthenticateId method is:</p>
 
@@ -297,20 +313,20 @@ _8c.html" target="source" name="SetAuthenticateId">SetAuthenticateId</a></h2>
     const StringInfo *id)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authentication info.</p></ol>
+<p>The authentication info.</p>
 
 <h5>id</h5>
-<ol><p>The id.</p></ol>
+<p>The id.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="SetAuthenticateKeyLength">SetAuthenticateKeyLength</a></h2>
+_8c.html" id="SetAuthenticateKeyLength">SetAuthenticateKeyLength</a></h2>
 <div class="doc-section">
 
-<p>SetAuthenticateKeyLength() sets the authentication method key length.</p></ol>
+<p>SetAuthenticateKeyLength() sets the authentication method key length.</p>
 
 <p>The format of the SetAuthenticateKeyLength method is:</p>
 
@@ -319,20 +335,20 @@ _8c.html" target="source" name="SetAuthenticateKeyLength">SetAuthenticateKeyLeng
     const size_t key_length)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authenticate info.</p></ol>
+<p>The authenticate info.</p>
 
 <h5>key_length</h5>
-<ol><p>The key length in bits.</p></ol>
+<p>The key length in bits.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/authenticate
-_8c.html" target="source" name="SetAuthenticatePassphrase">SetAuthenticatePassphrase</a></h2>
+_8c.html" id="SetAuthenticatePassphrase">SetAuthenticatePassphrase</a></h2>
 <div class="doc-section">
 
-<p>SetAuthenticatePassphrase() sets the authentication method key file.</p></ol>
+<p>SetAuthenticatePassphrase() sets the authentication method key file.</p>
 
 <p>The format of the SetAuthenticatePassphrase method is:</p>
 
@@ -341,13 +357,13 @@ _8c.html" target="source" name="SetAuthenticatePassphrase">SetAuthenticatePassph
     const char *passphrase)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>authenticate_info</h5>
-<ol><p>The authenticate info.</p></ol>
+<p>The authenticate info.</p>
 
 <h5>passphrase</h5>
-<ol><p>The passphrase.</p></ol>
+<p>The passphrase.</p>
 
  </div>
 

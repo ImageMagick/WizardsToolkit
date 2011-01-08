@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Keyring Methods</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, keyring, methods, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireKeyringInfo">AcquireKeyringInfo</a> &bull; <a href="#DestroyKeyringInfo">DestroyKeyringInfo</a> &bull; <a href="#ExportKeyringKey">ExportKeyringKey</a> &bull; <a href="#GetKeyringKey">GetKeyringKey</a> &bull; <a href="#GetKeyringNonce">GetKeyringNonce</a> &bull; <a href="#ImportKeyringKey">ImportKeyringKey</a> &bull; <a href="#PrintKeyringProperties">PrintKeyringProperties</a> &bull; <a href="#SetKeyringId">SetKeyringId</a> &bull; <a href="#SetKeyringKey">SetKeyringKey</a> &bull; <a href="#SetKeyringNonce">SetKeyringNonce</a> &bull; <a href="#SetKeyringPath">SetKeyringPath</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="AcquireKeyringInfo">AcquireKeyringInfo</a></h2>
+_8c.html" id="AcquireKeyringInfo">AcquireKeyringInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireKeyringInfo() allocates the KeyringInfo structure.</p></ol>
+<p>AcquireKeyringInfo() allocates the KeyringInfo structure.</p>
 
 <p>The format of the AcquireKeyringInfo method is:</p>
 
@@ -132,17 +148,17 @@ _8c.html" target="source" name="AcquireKeyringInfo">AcquireKeyringInfo</a></h2>
   KeyringInfo *AcquireKeyringInfo(const char *path)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>path</h5>
-<ol><p>The keyring path.</p></ol>
+<p>The keyring path.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="DestroyKeyringInfo">DestroyKeyringInfo</a></h2>
+_8c.html" id="DestroyKeyringInfo">DestroyKeyringInfo</a></h2>
 <div class="doc-section">
 
-<p>DestroyKeyringInfo() zeros memory associated with the KeyringInfo structure.</p></ol>
+<p>DestroyKeyringInfo() zeros memory associated with the KeyringInfo structure.</p>
 
 <p>The format of the DestroyKeyringInfo method is:</p>
 
@@ -150,17 +166,17 @@ _8c.html" target="source" name="DestroyKeyringInfo">DestroyKeyringInfo</a></h2>
   KeyringInfo *DestroyKeyringInfo(KeyringInfo *keyring_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>keyring_info</h5>
-<ol><p>The ring info.</p></ol>
+<p>The ring info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="ExportKeyringKey">ExportKeyringKey</a></h2>
+_8c.html" id="ExportKeyringKey">ExportKeyringKey</a></h2>
 <div class="doc-section">
 
-<p>ExportKeyringKey() exports a key from the keyring.</p></ol>
+<p>ExportKeyringKey() exports a key from the keyring.</p>
 
 <p>The format of the ExportKeyringKey method is:</p>
 
@@ -169,20 +185,20 @@ _8c.html" target="source" name="ExportKeyringKey">ExportKeyringKey</a></h2>
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>keyring_info</h5>
-<ol><p>The ring info.</p></ol>
+<p>The ring info.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="GetKeyringKey">GetKeyringKey</a></h2>
+_8c.html" id="GetKeyringKey">GetKeyringKey</a></h2>
 <div class="doc-section">
 
-<p>GetKeyringKey() returns the keyring key.</p></ol>
+<p>GetKeyringKey() returns the keyring key.</p>
 
 <p>The format of the GetKeyringKey method is:</p>
 
@@ -190,17 +206,17 @@ _8c.html" target="source" name="GetKeyringKey">GetKeyringKey</a></h2>
   const StringInfo *GetKeyringKey(const KeyringInfo *keyring_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>keyring_info</h5>
-<ol><p>The keyring info.</p></ol>
+<p>The keyring info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="GetKeyringNonce">GetKeyringNonce</a></h2>
+_8c.html" id="GetKeyringNonce">GetKeyringNonce</a></h2>
 <div class="doc-section">
 
-<p>GetKeyringNonce() returns the keyring nonce.</p></ol>
+<p>GetKeyringNonce() returns the keyring nonce.</p>
 
 <p>The format of the GetKeyringNonce method is:</p>
 
@@ -208,17 +224,17 @@ _8c.html" target="source" name="GetKeyringNonce">GetKeyringNonce</a></h2>
   const StringInfo *GetKeyringNonce(const KeyringInfo *keyring_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>keyring_info</h5>
-<ol><p>The keyring info.</p></ol>
+<p>The keyring info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="ImportKeyringKey">ImportKeyringKey</a></h2>
+_8c.html" id="ImportKeyringKey">ImportKeyringKey</a></h2>
 <div class="doc-section">
 
-<p>ImportKeyringKey() imports a key to the keyring.</p></ol>
+<p>ImportKeyringKey() imports a key to the keyring.</p>
 
 <p>The format of the ImportKeyringKey method is:</p>
 
@@ -227,20 +243,20 @@ _8c.html" target="source" name="ImportKeyringKey">ImportKeyringKey</a></h2>
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>keyring_info</h5>
-<ol><p>The ring info.</p></ol>
+<p>The ring info.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="PrintKeyringProperties">PrintKeyringProperties</a></h2>
+_8c.html" id="PrintKeyringProperties">PrintKeyringProperties</a></h2>
 <div class="doc-section">
 
-<p>PrintKeyringProperties() prints properties associated with each key in the keyring.</p></ol>
+<p>PrintKeyringProperties() prints properties associated with each key in the keyring.</p>
 
 <p>The format of the PrintKeyringProperties method is:</p>
 
@@ -249,23 +265,23 @@ _8c.html" target="source" name="PrintKeyringProperties">PrintKeyringProperties</
     BlobInfo *keyring_blob,ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>path</h5>
-<ol><p>the keyring path.</p></ol>
+<p>the keyring path.</p>
 
 <h5>blob_ibfo</h5>
-<ol><p>list the key properties to this blob.</p></ol>
+<p>list the key properties to this blob.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="SetKeyringId">SetKeyringId</a></h2>
+_8c.html" id="SetKeyringId">SetKeyringId</a></h2>
 <div class="doc-section">
 
-<p>SetKeyringId() sets the keyring id.</p></ol>
+<p>SetKeyringId() sets the keyring id.</p>
 
 <p>The format of the SetKeyringId method is:</p>
 
@@ -273,20 +289,20 @@ _8c.html" target="source" name="SetKeyringId">SetKeyringId</a></h2>
   void SetKeyringId(KeyringInfo *keyring_info,const StringInfo *id)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>keyring_info</h5>
-<ol><p>The keyring info.</p></ol>
+<p>The keyring info.</p>
 
 <h5>id</h5>
-<ol><p>The id.</p></ol>
+<p>The id.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="SetKeyringKey">SetKeyringKey</a></h2>
+_8c.html" id="SetKeyringKey">SetKeyringKey</a></h2>
 <div class="doc-section">
 
-<p>SetKeyringKey() sets the keyring key.</p></ol>
+<p>SetKeyringKey() sets the keyring key.</p>
 
 <p>The format of the SetKeyringKey method is:</p>
 
@@ -294,20 +310,20 @@ _8c.html" target="source" name="SetKeyringKey">SetKeyringKey</a></h2>
   void SetKeyringKey(KeyringInfo *keyring_info,const StringInfo *key)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>keyring_info</h5>
-<ol><p>The keyring info.</p></ol>
+<p>The keyring info.</p>
 
 <h5>key</h5>
-<ol><p>The key.</p></ol>
+<p>The key.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="SetKeyringNonce">SetKeyringNonce</a></h2>
+_8c.html" id="SetKeyringNonce">SetKeyringNonce</a></h2>
 <div class="doc-section">
 
-<p>SetKeyringNonce() sets the keyring nonce.</p></ol>
+<p>SetKeyringNonce() sets the keyring nonce.</p>
 
 <p>The format of the SetKeyringNonce method is:</p>
 
@@ -315,20 +331,20 @@ _8c.html" target="source" name="SetKeyringNonce">SetKeyringNonce</a></h2>
   void SetKeyringNonce(KeyringInfo *keyring_info,const StringInfo *nonce)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>keyring_info</h5>
-<ol><p>The keyring info.</p></ol>
+<p>The keyring info.</p>
 
 <h5>nonce</h5>
-<ol><p>The nonce.</p></ol>
+<p>The nonce.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/keyring
-_8c.html" target="source" name="SetKeyringPath">SetKeyringPath</a></h2>
+_8c.html" id="SetKeyringPath">SetKeyringPath</a></h2>
 <div class="doc-section">
 
-<p>SetKeyringPath() sets the keyring path.</p></ol>
+<p>SetKeyringPath() sets the keyring path.</p>
 
 <p>The format of the SetKeyringPath method is:</p>
 
@@ -336,13 +352,13 @@ _8c.html" target="source" name="SetKeyringPath">SetKeyringPath</a></h2>
   void SetKeyringPath(KeyringInfo *keyring_info,const char *path)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>keyring_info</h5>
-<ol><p>The keyring info.</p></ol>
+<p>The keyring info.</p>
 
 <h5>path</h5>
-<ol><p>The keyring path.</p></ol>
+<p>The keyring path.</p>
 
  </div>
 

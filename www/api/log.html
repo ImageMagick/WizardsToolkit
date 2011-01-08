@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Log Events</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, log, events, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#CloseWizardLog">CloseWizardLog</a> &bull; <a href="#GetLogInfoList">GetLogInfoList</a> &bull; <a href="#GetLogList">GetLogList</a> &bull; <a href="#GetLogName">GetLogName</a> &bull; <a href="#IsEventLogging">IsEventLogging</a> &bull; <a href="#ListLogInfo">ListLogInfo</a> &bull; <a href="#LogWizardEvent">LogWizardEvent</a> &bull; <a href="#LoadLogLists">LoadLogLists</a> &bull; <a href="#SetLogEventMask">SetLogEventMask</a> &bull; <a href="#SetLogFormat">SetLogFormat</a> &bull; <a href="#SetLogName">SetLogName</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="CloseWizardLog">CloseWizardLog</a></h2>
+_8c.html" id="CloseWizardLog">CloseWizardLog</a></h2>
 <div class="doc-section">
 
-<p>CloseWizardLog() closes the Wizard log.</p></ol>
+<p>CloseWizardLog() closes the Wizard log.</p>
 
 <p>The format of the CloseWizardLog method is:</p>
 
@@ -134,10 +150,10 @@ _8c.html" target="source" name="CloseWizardLog">CloseWizardLog</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="GetLogInfoList">GetLogInfoList</a></h2>
+_8c.html" id="GetLogInfoList">GetLogInfoList</a></h2>
 <div class="doc-section">
 
-<p>GetLogInfoList() returns any logs that match the specified pattern.</p></ol>
+<p>GetLogInfoList() returns any logs that match the specified pattern.</p>
 
 <p>The format of the GetLogInfoList function is:</p>
 
@@ -146,23 +162,23 @@ _8c.html" target="source" name="GetLogInfoList">GetLogInfoList</a></h2>
     size_t *number_preferences,ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>pattern</h5>
-<ol><p>Specifies a pointer to a text string containing a pattern.</p></ol>
+<p>Specifies a pointer to a text string containing a pattern.</p>
 
 <h5>number_preferences</h5>
-<ol><p>This integer returns the number of logs in the list.</p></ol>
+<p>This integer returns the number of logs in the list.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="GetLogList">GetLogList</a></h2>
+_8c.html" id="GetLogList">GetLogList</a></h2>
 <div class="doc-section">
 
-<p>GetLogList() returns any logs that match the specified pattern.</p></ol>
+<p>GetLogList() returns any logs that match the specified pattern.</p>
 
 <p>The format of the GetLogList function is:</p>
 
@@ -171,23 +187,23 @@ _8c.html" target="source" name="GetLogList">GetLogList</a></h2>
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>pattern</h5>
-<ol><p>Specifies a pointer to a text string containing a pattern.</p></ol>
+<p>Specifies a pointer to a text string containing a pattern.</p>
 
 <h5>number_preferences</h5>
-<ol><p>This integer returns the number of logs in the list.</p></ol>
+<p>This integer returns the number of logs in the list.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="GetLogName">GetLogName</a></h2>
+_8c.html" id="GetLogName">GetLogName</a></h2>
 <div class="doc-section">
 
-<p>GetLogName() returns the current log name.</p></ol>
+<p>GetLogName() returns the current log name.</p>
 
 <p>The format of the GetLogName method is:</p>
 
@@ -197,10 +213,10 @@ _8c.html" target="source" name="GetLogName">GetLogName</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="IsEventLogging">IsEventLogging</a></h2>
+_8c.html" id="IsEventLogging">IsEventLogging</a></h2>
 <div class="doc-section">
 
-<p>IsEventLogging() returns WizardTrue if debug of events is enabled otherwise WizardFalse.</p></ol>
+<p>IsEventLogging() returns WizardTrue if debug of events is enabled otherwise WizardFalse.</p>
 
 <p>The format of the IsEventLogging method is:</p>
 
@@ -210,10 +226,10 @@ _8c.html" target="source" name="IsEventLogging">IsEventLogging</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="ListLogInfo">ListLogInfo</a></h2>
+_8c.html" id="ListLogInfo">ListLogInfo</a></h2>
 <div class="doc-section">
 
-<p>ListLogInfo() lists the log info to a file.</p></ol>
+<p>ListLogInfo() lists the log info to a file.</p>
 
 <p>The format of the ListLogInfo method is:</p>
 
@@ -221,20 +237,20 @@ _8c.html" target="source" name="ListLogInfo">ListLogInfo</a></h2>
   WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows.</p></ol>
+<p>A description of each parameter follows.</p>
 
 <h5>file</h5>
-<ol><p>An pointer to a FILE.</p></ol>
+<p>An pointer to a FILE.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="LogWizardEvent">LogWizardEvent</a></h2>
+_8c.html" id="LogWizardEvent">LogWizardEvent</a></h2>
 <div class="doc-section">
 
-<p>LogWizardEvent() logs an event as determined by the log configuration file. If an error occurs, WizardFalse is returned otherwise WizardTrue.</p></ol>
+<p>LogWizardEvent() logs an event as determined by the log configuration file. If an error occurs, WizardFalse is returned otherwise WizardTrue.</p>
 
 <p>The format of the LogWizardEvent method is:</p>
 
@@ -244,29 +260,29 @@ _8c.html" target="source" name="LogWizardEvent">LogWizardEvent</a></h2>
     const char *format,...)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>type</h5>
-<ol><p>The event type.</p></ol>
+<p>The event type.</p>
 
 <h5>filename</h5>
-<ol><p>The source module filename.</p></ol>
+<p>The source module filename.</p>
 
 <h5>function</h5>
-<ol><p>The function name.</p></ol>
+<p>The function name.</p>
 
 <h5>line</h5>
-<ol><p>The line number of the source module.</p></ol>
+<p>The line number of the source module.</p>
 
 <h5>format</h5>
-<ol><p>The output format.</p></ol>
+<p>The output format.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="LoadLogLists">LoadLogLists</a></h2>
+_8c.html" id="LoadLogLists">LoadLogLists</a></h2>
 <div class="doc-section">
 
-<p>LoadLogLists() loads one or more log configuration file which provides a mapping between log attributes and log name.</p></ol>
+<p>LoadLogLists() loads one or more log configuration file which provides a mapping between log attributes and log name.</p>
 
 <p>The format of the LoadLogLists method is:</p>
 
@@ -275,20 +291,20 @@ _8c.html" target="source" name="LoadLogLists">LoadLogLists</a></h2>
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>filename</h5>
-<ol><p>The log configuration filename.</p></ol>
+<p>The log configuration filename.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="SetLogEventMask">SetLogEventMask</a></h2>
+_8c.html" id="SetLogEventMask">SetLogEventMask</a></h2>
 <div class="doc-section">
 
-<p>SetLogEventMask() accepts a list that determines which events to log.  All other events are ignored.  By default, no debug is enabled.  This method returns the previous log event mask.</p></ol>
+<p>SetLogEventMask() accepts a list that determines which events to log.  All other events are ignored.  By default, no debug is enabled.  This method returns the previous log event mask.</p>
 
 <p>The format of the SetLogEventMask method is:</p>
 
@@ -296,17 +312,17 @@ _8c.html" target="source" name="SetLogEventMask">SetLogEventMask</a></h2>
   LogEventType SetLogEventMask(const char *events)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>events</h5>
-<ol><p>log these events.</p></ol>
+<p>log these events.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="SetLogFormat">SetLogFormat</a></h2>
+_8c.html" id="SetLogFormat">SetLogFormat</a></h2>
 <div class="doc-section">
 
-<p>SetLogFormat() sets the format for the "human readable" log record.</p></ol>
+<p>SetLogFormat() sets the format for the "human readable" log record.</p>
 
 <p>The format of the LogWizardFormat method is:</p>
 
@@ -314,17 +330,17 @@ _8c.html" target="source" name="SetLogFormat">SetLogFormat</a></h2>
   SetLogFormat(const char *format)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>format</h5>
-<ol><p>The log record format.</p></ol>
+<p>The log record format.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/log
-_8c.html" target="source" name="SetLogName">SetLogName</a></h2>
+_8c.html" id="SetLogName">SetLogName</a></h2>
 <div class="doc-section">
 
-<p>SetLogName() sets the log name and returns it.</p></ol>
+<p>SetLogName() sets the log name and returns it.</p>
 
 <p>The format of the SetLogName method is:</p>
 
@@ -332,13 +348,13 @@ _8c.html" target="source" name="SetLogName">SetLogName</a></h2>
   const char *SetLogName(const char *name)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>log_name</h5>
-<ol><p>SetLogName() returns the current client name.</p></ol>
+<p>SetLogName() returns the current client name.</p>
 
 <h5>name</h5>
-<ol><p>Specifies the new client name.</p></ol>
+<p>Specifies the new client name.</p>
 
  </div>
 

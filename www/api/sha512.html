@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Hash Algorithm-512</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, secure, hash, algorithm-512, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireSHA512Info">AcquireSHA512Info</a> &bull; <a href="#DestroySHA512Info">DestroySHA512Info</a> &bull; <a href="#FinalizeSHA512">FinalizeSHA512</a> &bull; <a href="#GetSHA512Blocksize">GetSHA512Blocksize</a> &bull; <a href="#GetSHA512Digest">GetSHA512Digest</a> &bull; <a href="#GetSHA512Digestsize">GetSHA512Digestsize</a> &bull; <a href="#IntializeSHA512">IntializeSHA512</a> &bull; <a href="#TransformSHA512">TransformSHA512</a> &bull; <a href="#UpdateSHA512">UpdateSHA512</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" target="source" name="AcquireSHA512Info">AcquireSHA512Info</a></h2>
+_8c.html" id="AcquireSHA512Info">AcquireSHA512Info</a></h2>
 <div class="doc-section">
 
-<p>AcquireSHA512Info() allocate the SHA512Info structure.</p></ol>
+<p>AcquireSHA512Info() allocate the SHA512Info structure.</p>
 
 <p>The format of the AcquireSHA512Info method is:</p>
 
@@ -134,10 +150,10 @@ _8c.html" target="source" name="AcquireSHA512Info">AcquireSHA512Info</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" target="source" name="DestroySHA512Info">DestroySHA512Info</a></h2>
+_8c.html" id="DestroySHA512Info">DestroySHA512Info</a></h2>
 <div class="doc-section">
 
-<p>DestroySHA512Info() zeros memory associated with the SHA512Info structure.</p></ol>
+<p>DestroySHA512Info() zeros memory associated with the SHA512Info structure.</p>
 
 <p>The format of the DestroySHA512Info method is:</p>
 
@@ -145,17 +161,17 @@ _8c.html" target="source" name="DestroySHA512Info">DestroySHA512Info</a></h2>
   SHA512Info *DestroySHA512Info(SHA512Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The cipher sha_info.</p></ol>
+<p>The cipher sha_info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" target="source" name="FinalizeSHA512">FinalizeSHA512</a></h2>
+_8c.html" id="FinalizeSHA512">FinalizeSHA512</a></h2>
 <div class="doc-section">
 
-<p>FinalizeSHA512() finalizes the SHA512 message accumulator computation.</p></ol>
+<p>FinalizeSHA512() finalizes the SHA512 message accumulator computation.</p>
 
 <p>The format of the FinalizeSHA512 method is:</p>
 
@@ -163,18 +179,18 @@ _8c.html" target="source" name="FinalizeSHA512">FinalizeSHA512</a></h2>
   FinalizeSHA512(SHA512Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The address of a structure of type SHA512Info.</p></ol>
+<p>The address of a structure of type SHA512Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" target="source" name="GetSHA512Blocksize">GetSHA512Blocksize</a></h2>
+_8c.html" id="GetSHA512Blocksize">GetSHA512Blocksize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA512Blocksize() returns the SHA512 blocksize.</p></ol>
+<p>GetSHA512Blocksize() returns the SHA512 blocksize.</p>
 
 <p>The format of the GetSHA512Blocksize method is:</p>
 
@@ -182,17 +198,17 @@ _8c.html" target="source" name="GetSHA512Blocksize">GetSHA512Blocksize</a></h2>
   unsigned int *GetSHA512Blocksize(const SHA512Info *sha512_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha512_info</h5>
-<ol><p>The shaa info.</p></ol>
+<p>The shaa info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" target="source" name="GetSHA512Digest">GetSHA512Digest</a></h2>
+_8c.html" id="GetSHA512Digest">GetSHA512Digest</a></h2>
 <div class="doc-section">
 
-<p>GetSHA512Digest() returns the SHA512 digest.</p></ol>
+<p>GetSHA512Digest() returns the SHA512 digest.</p>
 
 <p>The format of the GetSHA512Digest method is:</p>
 
@@ -200,17 +216,17 @@ _8c.html" target="source" name="GetSHA512Digest">GetSHA512Digest</a></h2>
   const StringInfo *GetSHA512Digest(const SHA512Info *sha512_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha512_info</h5>
-<ol><p>The shaa info.</p></ol>
+<p>The shaa info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" target="source" name="GetSHA512Digestsize">GetSHA512Digestsize</a></h2>
+_8c.html" id="GetSHA512Digestsize">GetSHA512Digestsize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA512Digestsize() returns the SHA512 digest size.</p></ol>
+<p>GetSHA512Digestsize() returns the SHA512 digest size.</p>
 
 <p>The format of the GetSHA512Digestsize method is:</p>
 
@@ -218,17 +234,17 @@ _8c.html" target="source" name="GetSHA512Digestsize">GetSHA512Digestsize</a></h2
   unsigned int *GetSHA512Digestsize(const SHA512Info *sha512_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha512_info</h5>
-<ol><p>The shaa info.</p></ol>
+<p>The shaa info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" target="source" name="IntializeSHA512">IntializeSHA512</a></h2>
+_8c.html" id="IntializeSHA512">IntializeSHA512</a></h2>
 <div class="doc-section">
 
-<p>IntializeSHA512() intializes the SHA512 accumulator.</p></ol>
+<p>IntializeSHA512() intializes the SHA512 accumulator.</p>
 
 <p>The format of the DestroySHA512Info method is:</p>
 
@@ -236,17 +252,17 @@ _8c.html" target="source" name="IntializeSHA512">IntializeSHA512</a></h2>
   void InitializeSHA512Info(SHA512Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The cipher sha_info.</p></ol>
+<p>The cipher sha_info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" target="source" name="TransformSHA512">TransformSHA512</a></h2>
+_8c.html" id="TransformSHA512">TransformSHA512</a></h2>
 <div class="doc-section">
 
-<p>TransformSHA512() transforms the SHA512 message accumulator.</p></ol>
+<p>TransformSHA512() transforms the SHA512 message accumulator.</p>
 
 <p>The format of the TransformSHA512 method is:</p>
 
@@ -254,18 +270,18 @@ _8c.html" target="source" name="TransformSHA512">TransformSHA512</a></h2>
   TransformSHA512(SHA512Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The address of a structure of type SHA512Info.</p></ol>
+<p>The address of a structure of type SHA512Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" target="source" name="UpdateSHA512">UpdateSHA512</a></h2>
+_8c.html" id="UpdateSHA512">UpdateSHA512</a></h2>
 <div class="doc-section">
 
-<p>UpdateSHA512() updates the SHA512 message accumulator.</p></ol>
+<p>UpdateSHA512() updates the SHA512 message accumulator.</p>
 
 <p>The format of the UpdateSHA512 method is:</p>
 
@@ -273,13 +289,13 @@ _8c.html" target="source" name="UpdateSHA512">UpdateSHA512</a></h2>
   UpdateSHA512(SHA512Info *sha_info,const StringInfo *message)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The address of a structure of type SHA512Info.</p></ol>
+<p>The address of a structure of type SHA512Info.</p>
 
 <h5>message</h5>
-<ol><p>The message.</p></ol>
+<p>The message.</p>
 
  </div>
 

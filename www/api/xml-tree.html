@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: XML Parser</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, xml, parser, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AddChildToXMLTree">AddChildToXMLTree</a> &bull; <a href="#AddPathToXMLTree">AddPathToXMLTree</a> &bull; <a href="#CanonicalXMLContent">CanonicalXMLContent</a> &bull; <a href="#DestroyXMLTree">DestroyXMLTree</a> &bull; <a href="#GetNextXMLTreeTag">GetNextXMLTreeTag</a> &bull; <a href="#GetXMLTreeAttribute">GetXMLTreeAttribute</a> &bull; <a href="#GetXMLTreeAttributes">GetXMLTreeAttributes</a> &bull; <a href="#GetXMLTreeChild">GetXMLTreeChild</a> &bull; <a href="#GetXMLTreeContent">GetXMLTreeContent</a> &bull; <a href="#GetXMLTreeOrdered">GetXMLTreeOrdered</a> &bull; <a href="#GetXMLTreePath">GetXMLTreePath</a> &bull; <a href="#GetXMLTreeProcessingInstructions">GetXMLTreeProcessingInstructions</a> &bull; <a href="#GetXMLTreeSibling">GetXMLTreeSibling</a> &bull; <a href="#GetXMLTreeTag">GetXMLTreeTag</a> &bull; <a href="#InsertTagIntoXMLTree">InsertTagIntoXMLTree</a> &bull; <a href="#NewXMLTree">NewXMLTree</a> &bull; <a href="#NewXMLTreeTag">NewXMLTreeTag</a> &bull; <a href="#PruneTagFromXMLTree">PruneTagFromXMLTree</a> &bull; <a href="#SetXMLTreeAttribute">SetXMLTreeAttribute</a> &bull; <a href="#SetXMLTreeContent">SetXMLTreeContent</a> &bull; <a href="#XMLTreeInfoToXML">XMLTreeInfoToXML</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="AddChildToXMLTree">AddChildToXMLTree</a></h2>
+_8c.html" id="AddChildToXMLTree">AddChildToXMLTree</a></h2>
 <div class="doc-section">
 
-<p>AddChildToXMLTree() adds a child tag at an offset relative to the start of the parent tag's character content.  Return the child tag.</p></ol>
+<p>AddChildToXMLTree() adds a child tag at an offset relative to the start of the parent tag's character content.  Return the child tag.</p>
 
 <p>The format of the AddChildToXMLTree method is:</p>
 
@@ -133,23 +149,23 @@ _8c.html" target="source" name="AddChildToXMLTree">AddChildToXMLTree</a></h2>
     const size_t offset)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
 <h5>tag</h5>
-<ol><p>the tag.</p></ol>
+<p>the tag.</p>
 
 <h5>offset</h5>
-<ol><p>the tag offset.</p></ol>
+<p>the tag offset.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="AddPathToXMLTree">AddPathToXMLTree</a></h2>
+_8c.html" id="AddPathToXMLTree">AddPathToXMLTree</a></h2>
 <div class="doc-section">
 
-<p>AddPathToXMLTree() adds a child tag at an offset relative to the start of the parent tag's character content.  This method returns the child tag.</p></ol>
+<p>AddPathToXMLTree() adds a child tag at an offset relative to the start of the parent tag's character content.  This method returns the child tag.</p>
 
 <p>The format of the AddPathToXMLTree method is:</p>
 
@@ -158,23 +174,23 @@ _8c.html" target="source" name="AddPathToXMLTree">AddPathToXMLTree</a></h2>
     const size_t offset)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
 <h5>path</h5>
-<ol><p>the path.</p></ol>
+<p>the path.</p>
 
 <h5>offset</h5>
-<ol><p>the tag offset.</p></ol>
+<p>the tag offset.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="CanonicalXMLContent">CanonicalXMLContent</a></h2>
+_8c.html" id="CanonicalXMLContent">CanonicalXMLContent</a></h2>
 <div class="doc-section">
 
-<p>CanonicalXMLContent() converts text to canonical XML content by converting to UTF-8, substituting predefined entities, wrapping as CDATA, or encoding as base-64 as required.</p></ol>
+<p>CanonicalXMLContent() converts text to canonical XML content by converting to UTF-8, substituting predefined entities, wrapping as CDATA, or encoding as base-64 as required.</p>
 
 <p>The format of the CanonicalXMLContent method is:</p>
 
@@ -183,20 +199,20 @@ _8c.html" target="source" name="CanonicalXMLContent">CanonicalXMLContent</a></h2
     const WizardBooleanType pedantic)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>content</h5>
-<ol><p>the content.</p></ol>
+<p>the content.</p>
 
 <h5>pedantic</h5>
-<ol><p>if true, replace newlines and tabs with their respective entities.</p></ol>
+<p>if true, replace newlines and tabs with their respective entities.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="DestroyXMLTree">DestroyXMLTree</a></h2>
+_8c.html" id="DestroyXMLTree">DestroyXMLTree</a></h2>
 <div class="doc-section">
 
-<p>DestroyXMLTree() destroys the xml-tree.</p></ol>
+<p>DestroyXMLTree() destroys the xml-tree.</p>
 
 <p>The format of the DestroyXMLTree method is:</p>
 
@@ -204,17 +220,17 @@ _8c.html" target="source" name="DestroyXMLTree">DestroyXMLTree</a></h2>
   XMLTreeInfo *DestroyXMLTree(XMLTreeInfo *xml_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetNextXMLTreeTag">GetNextXMLTreeTag</a></h2>
+_8c.html" id="GetNextXMLTreeTag">GetNextXMLTreeTag</a></h2>
 <div class="doc-section">
 
-<p>GetNextXMLTreeTag() returns the next tag or NULL if not found.</p></ol>
+<p>GetNextXMLTreeTag() returns the next tag or NULL if not found.</p>
 
 <p>The format of the GetNextXMLTreeTag method is:</p>
 
@@ -222,17 +238,17 @@ _8c.html" target="source" name="GetNextXMLTreeTag">GetNextXMLTreeTag</a></h2>
   XMLTreeInfo *GetNextXMLTreeTag(XMLTreeInfo *xml_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetXMLTreeAttribute">GetXMLTreeAttribute</a></h2>
+_8c.html" id="GetXMLTreeAttribute">GetXMLTreeAttribute</a></h2>
 <div class="doc-section">
 
-<p>GetXMLTreeAttribute() returns the value of the attribute tag with the specified tag if found, otherwise NULL.</p></ol>
+<p>GetXMLTreeAttribute() returns the value of the attribute tag with the specified tag if found, otherwise NULL.</p>
 
 <p>The format of the GetXMLTreeAttribute method is:</p>
 
@@ -240,20 +256,20 @@ _8c.html" target="source" name="GetXMLTreeAttribute">GetXMLTreeAttribute</a></h2
   const char *GetXMLTreeAttribute(XMLTreeInfo *xml_info,const char *tag)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
 <h5>tag</h5>
-<ol><p>the attribute tag.</p></ol>
+<p>the attribute tag.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetXMLTreeAttributes">GetXMLTreeAttributes</a></h2>
+_8c.html" id="GetXMLTreeAttributes">GetXMLTreeAttributes</a></h2>
 <div class="doc-section">
 
-<p>GetXMLTreeAttributes() injects all attributes associated with the current tag in the specified splay-tree.</p></ol>
+<p>GetXMLTreeAttributes() injects all attributes associated with the current tag in the specified splay-tree.</p>
 
 <p>The format of the GetXMLTreeAttributes method is:</p>
 
@@ -262,20 +278,20 @@ _8c.html" target="source" name="GetXMLTreeAttributes">GetXMLTreeAttributes</a></
     SplayTreeInfo *attributes)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
 <h5>attributes</h5>
-<ol><p>the attribute splay-tree.</p></ol>
+<p>the attribute splay-tree.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetXMLTreeChild">GetXMLTreeChild</a></h2>
+_8c.html" id="GetXMLTreeChild">GetXMLTreeChild</a></h2>
 <div class="doc-section">
 
-<p>GetXMLTreeChild() returns the first child tag with the specified tag if found, otherwise NULL.</p></ol>
+<p>GetXMLTreeChild() returns the first child tag with the specified tag if found, otherwise NULL.</p>
 
 <p>The format of the GetXMLTreeChild method is:</p>
 
@@ -283,17 +299,17 @@ _8c.html" target="source" name="GetXMLTreeChild">GetXMLTreeChild</a></h2>
   XMLTreeInfo *GetXMLTreeChild(XMLTreeInfo *xml_info,const char *tag)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetXMLTreeContent">GetXMLTreeContent</a></h2>
+_8c.html" id="GetXMLTreeContent">GetXMLTreeContent</a></h2>
 <div class="doc-section">
 
-<p>GetXMLTreeContent() returns any content associated with specified xml-tree node.</p></ol>
+<p>GetXMLTreeContent() returns any content associated with specified xml-tree node.</p>
 
 <p>The format of the GetXMLTreeContent method is:</p>
 
@@ -301,17 +317,17 @@ _8c.html" target="source" name="GetXMLTreeContent">GetXMLTreeContent</a></h2>
   const char *GetXMLTreeContent(XMLTreeInfo *xml_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetXMLTreeOrdered">GetXMLTreeOrdered</a></h2>
+_8c.html" id="GetXMLTreeOrdered">GetXMLTreeOrdered</a></h2>
 <div class="doc-section">
 
-<p>GetXMLTreeOrdered() returns the next ordered node if found, otherwise NULL.</p></ol>
+<p>GetXMLTreeOrdered() returns the next ordered node if found, otherwise NULL.</p>
 
 <p>The format of the GetXMLTreeOrdered method is:</p>
 
@@ -319,17 +335,17 @@ _8c.html" target="source" name="GetXMLTreeOrdered">GetXMLTreeOrdered</a></h2>
   XMLTreeInfo *GetXMLTreeOrdered(XMLTreeInfo *xml_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetXMLTreePath">GetXMLTreePath</a></h2>
+_8c.html" id="GetXMLTreePath">GetXMLTreePath</a></h2>
 <div class="doc-section">
 
-<p>GetXMLTreePath() traverses the XML-tree as defined by the specified path and returns the node if found, otherwise NULL.</p></ol>
+<p>GetXMLTreePath() traverses the XML-tree as defined by the specified path and returns the node if found, otherwise NULL.</p>
 
 <p>The format of the GetXMLTreePath method is:</p>
 
@@ -337,20 +353,20 @@ _8c.html" target="source" name="GetXMLTreePath">GetXMLTreePath</a></h2>
   XMLTreeInfo *GetXMLTreePath(XMLTreeInfo *xml_info,const char *path)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
 <h5>path</h5>
-<ol><p>the path (e.g. property/elapsed-time).</p></ol>
+<p>the path (e.g. property/elapsed-time).</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetXMLTreeProcessingInstructions">GetXMLTreeProcessingInstructions</a></h2>
+_8c.html" id="GetXMLTreeProcessingInstructions">GetXMLTreeProcessingInstructions</a></h2>
 <div class="doc-section">
 
-<p>GetXMLTreeProcessingInstructions() returns a null terminated array of processing instructions for the given target.</p></ol>
+<p>GetXMLTreeProcessingInstructions() returns a null terminated array of processing instructions for the given target.</p>
 
 <p>The format of the GetXMLTreeProcessingInstructions method is:</p>
 
@@ -359,17 +375,17 @@ _8c.html" target="source" name="GetXMLTreeProcessingInstructions">GetXMLTreeProc
     const char *target)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetXMLTreeSibling">GetXMLTreeSibling</a></h2>
+_8c.html" id="GetXMLTreeSibling">GetXMLTreeSibling</a></h2>
 <div class="doc-section">
 
-<p>GetXMLTreeSibling() returns the node sibling if found, otherwise NULL.</p></ol>
+<p>GetXMLTreeSibling() returns the node sibling if found, otherwise NULL.</p>
 
 <p>The format of the GetXMLTreeSibling method is:</p>
 
@@ -377,17 +393,17 @@ _8c.html" target="source" name="GetXMLTreeSibling">GetXMLTreeSibling</a></h2>
   XMLTreeInfo *GetXMLTreeSibling(XMLTreeInfo *xml_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="GetXMLTreeTag">GetXMLTreeTag</a></h2>
+_8c.html" id="GetXMLTreeTag">GetXMLTreeTag</a></h2>
 <div class="doc-section">
 
-<p>GetXMLTreeTag() returns the tag associated with specified xml-tree node.</p></ol>
+<p>GetXMLTreeTag() returns the tag associated with specified xml-tree node.</p>
 
 <p>The format of the GetXMLTreeTag method is:</p>
 
@@ -395,17 +411,17 @@ _8c.html" target="source" name="GetXMLTreeTag">GetXMLTreeTag</a></h2>
   const char *GetXMLTreeTag(XMLTreeInfo *xml_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="InsertTagIntoXMLTree">InsertTagIntoXMLTree</a></h2>
+_8c.html" id="InsertTagIntoXMLTree">InsertTagIntoXMLTree</a></h2>
 <div class="doc-section">
 
-<p>InsertTagIntoXMLTree() inserts a tag at an offset relative to the start of the parent tag's character content.  This method returns the child tag.</p></ol>
+<p>InsertTagIntoXMLTree() inserts a tag at an offset relative to the start of the parent tag's character content.  This method returns the child tag.</p>
 
 <p>The format of the InsertTagIntoXMLTree method is:</p>
 
@@ -414,23 +430,23 @@ _8c.html" target="source" name="InsertTagIntoXMLTree">InsertTagIntoXMLTree</a></
     XMLTreeInfo *child,const size_t offset)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
 <h5>child</h5>
-<ol><p>the child tag.</p></ol>
+<p>the child tag.</p>
 
 <h5>offset</h5>
-<ol><p>the tag offset.</p></ol>
+<p>the tag offset.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="NewXMLTree">NewXMLTree</a></h2>
+_8c.html" id="NewXMLTree">NewXMLTree</a></h2>
 <div class="doc-section">
 
-<p>NewXMLTree() returns a XMLTreeInfo xml-tree as defined by the specified XML string.</p></ol>
+<p>NewXMLTree() returns a XMLTreeInfo xml-tree as defined by the specified XML string.</p>
 
 <p>The format of the NewXMLTree method is:</p>
 
@@ -438,20 +454,20 @@ _8c.html" target="source" name="NewXMLTree">NewXMLTree</a></h2>
   XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml</h5>
-<ol><p>The XML string.</p></ol>
+<p>The XML string.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="NewXMLTreeTag">NewXMLTreeTag</a></h2>
+_8c.html" id="NewXMLTreeTag">NewXMLTreeTag</a></h2>
 <div class="doc-section">
 
-<p>NewXMLTreeTag() returns a new empty xml structure for the xml-tree tag.</p></ol>
+<p>NewXMLTreeTag() returns a new empty xml structure for the xml-tree tag.</p>
 
 <p>The format of the NewXMLTreeTag method is:</p>
 
@@ -459,17 +475,17 @@ _8c.html" target="source" name="NewXMLTreeTag">NewXMLTreeTag</a></h2>
   XMLTreeInfo *NewXMLTreeTag(const char *tag)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>tag</h5>
-<ol><p>the tag.</p></ol>
+<p>the tag.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="PruneTagFromXMLTree">PruneTagFromXMLTree</a></h2>
+_8c.html" id="PruneTagFromXMLTree">PruneTagFromXMLTree</a></h2>
 <div class="doc-section">
 
-<p>PruneTagFromXMLTree() prunes a tag from the xml-tree assize_t with all its subtags.</p></ol>
+<p>PruneTagFromXMLTree() prunes a tag from the xml-tree assize_t with all its subtags.</p>
 
 <p>The format of the PruneTagFromXMLTree method is:</p>
 
@@ -477,17 +493,17 @@ _8c.html" target="source" name="PruneTagFromXMLTree">PruneTagFromXMLTree</a></h2
   XMLTreeInfo *PruneTagFromXMLTree(XMLTreeInfo *xml_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="SetXMLTreeAttribute">SetXMLTreeAttribute</a></h2>
+_8c.html" id="SetXMLTreeAttribute">SetXMLTreeAttribute</a></h2>
 <div class="doc-section">
 
-<p>SetXMLTreeAttribute() sets the tag attributes or adds a new attribute if not found.  A value of NULL removes the specified attribute.</p></ol>
+<p>SetXMLTreeAttribute() sets the tag attributes or adds a new attribute if not found.  A value of NULL removes the specified attribute.</p>
 
 <p>The format of the SetXMLTreeAttribute method is:</p>
 
@@ -496,23 +512,23 @@ _8c.html" target="source" name="SetXMLTreeAttribute">SetXMLTreeAttribute</a></h2
     const char *value)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
 <h5>tag</h5>
-<ol><p>The attribute tag.</p></ol>
+<p>The attribute tag.</p>
 
 <h5>value</h5>
-<ol><p>The attribute value.</p></ol>
+<p>The attribute value.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="SetXMLTreeContent">SetXMLTreeContent</a></h2>
+_8c.html" id="SetXMLTreeContent">SetXMLTreeContent</a></h2>
 <div class="doc-section">
 
-<p>SetXMLTreeContent() sets the character content for the given tag and returns the tag.</p></ol>
+<p>SetXMLTreeContent() sets the character content for the given tag and returns the tag.</p>
 
 <p>The format of the SetXMLTreeContent method is:</p>
 
@@ -521,20 +537,20 @@ _8c.html" target="source" name="SetXMLTreeContent">SetXMLTreeContent</a></h2>
     const char *content)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
 <h5>content</h5>
-<ol><p>The content.</p></ol>
+<p>The content.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/xml-tree
-_8c.html" target="source" name="XMLTreeInfoToXML">XMLTreeInfoToXML</a></h2>
+_8c.html" id="XMLTreeInfoToXML">XMLTreeInfoToXML</a></h2>
 <div class="doc-section">
 
-<p>XMLTreeInfoToXML() converts an xml-tree to an XML string.</p></ol>
+<p>XMLTreeInfoToXML() converts an xml-tree to an XML string.</p>
 
 <p>The format of the XMLTreeInfoToXML method is:</p>
 
@@ -542,10 +558,10 @@ _8c.html" target="source" name="XMLTreeInfoToXML">XMLTreeInfoToXML</a></h2>
   char *XMLTreeInfoToXML(XMLTreeInfo *xml_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>xml_info</h5>
-<ol><p>the xml info.</p></ol>
+<p>the xml info.</p>
 
  </div>
 

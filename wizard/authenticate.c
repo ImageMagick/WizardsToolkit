@@ -455,7 +455,7 @@ WizardExport size_t GetAuthenticateKeyLength(
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetAuthenticateId() returns the authentication passphrase.
+%  GetAuthenticatePassphrase() returns the authentication passphrase.
 %
 %  The format of the GetAuthenticatePassphrase method is:
 %

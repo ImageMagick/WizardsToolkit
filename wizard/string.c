@@ -1405,7 +1405,8 @@ WizardExport StringInfo *HexStringToStringInfo(const char *string)
 %  LocaleCompare returns an integer greater than, equal to, or less than 0,
 %  if the string pointed to by p is greater than, equal to, or less than the
 %  string pointed to by q respectively.  The sign of a non-zero return value
-%  is determined by the sign of the difference between the values of the first< %  pair of bytes that differ in the strings being compared.
+%  is determined by the sign of the difference between the values of the first
+%  pair of bytes that differ in the strings being compared.
 %
 %  The format of the LocaleCompare method is:
 %
@@ -1513,7 +1514,7 @@ WizardExport void LocaleLower(char *string)
 %
 %    o q: A pointer to a character string to compare to p.
 %
-%    o length: The number of characters to compare in strings p & q.
+%    o length: The number of characters to compare in strings p and q.
 %
 */
 WizardExport int LocaleNCompare(const char *p,const char *q,const size_t length)

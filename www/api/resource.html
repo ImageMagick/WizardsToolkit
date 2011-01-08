@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Get/Set Resources</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, get/set, resources, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -118,13 +134,13 @@
 
 <h1>Module resource
  Methods</h1>
-<p class="navigation-index">[<a href="#AcquireUniqueFilename">AcquireUniqueFilename</a> &bull; <a href="#AcquireUniqueFileResource">AcquireUniqueFileResource</a> &bull; <a href="#AcquireWizardResource">AcquireWizardResource</a> &bull; <a href="#GetWizardResource">GetWizardResource</a> &bull; <a href="#GetWizardResource">GetWizardResource</a> &bull; <a href="#ListWizardResourceInfo">ListWizardResourceInfo</a> &bull; <a href="#RelinquishWizardResource">RelinquishWizardResource</a> &bull; <a href="#RelinquishUniqueFileResource">RelinquishUniqueFileResource</a> &bull; <a href="#SetWizardResourceLimit">SetWizardResourceLimit</a>]</p>
+<p class="navigation-index">[<a href="#AcquireUniqueFilename">AcquireUniqueFilename</a> &bull; <a href="#AcquireUniqueFileResource">AcquireUniqueFileResource</a> &bull; <a href="#AcquireWizardResource">AcquireWizardResource</a> &bull; <a href="#GetWizardResource">GetWizardResource</a> &bull; <a href="#GetWizardResourceLimit">GetWizardResourceLimit</a> &bull; <a href="#ListWizardResourceInfo">ListWizardResourceInfo</a> &bull; <a href="#RelinquishWizardResource">RelinquishWizardResource</a> &bull; <a href="#RelinquishUniqueFileResource">RelinquishUniqueFileResource</a> &bull; <a href="#SetWizardResourceLimit">SetWizardResourceLimit</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/resource
-_8c.html" target="source" name="AcquireUniqueFilename">AcquireUniqueFilename</a></h2>
+_8c.html" id="AcquireUniqueFilename">AcquireUniqueFilename</a></h2>
 <div class="doc-section">
 
-<p>AcquireUniqueFilename() replaces the contents of path by a unique path name.</p></ol>
+<p>AcquireUniqueFilename() replaces the contents of path by a unique path name.</p>
 
 <p>The format of the AcquireUniqueFilename method is:</p>
 
@@ -132,20 +148,20 @@ _8c.html" target="source" name="AcquireUniqueFilename">AcquireUniqueFilename</a>
   WizardBooleanType AcquireUniqueFilename(char *path,Exception *exception)
 </pre>
 
-<p>A description of each parameter follows.</p></ol>
+<p>A description of each parameter follows.</p>
 
 <h5> path</h5>
-<ol><p>Specifies a pointer to an array of characters.  The unique path name is returned in this array.</p></ol>
+<p>Specifies a pointer to an array of characters.  The unique path name is returned in this array.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/resource
-_8c.html" target="source" name="AcquireUniqueFileResource">AcquireUniqueFileResource</a></h2>
+_8c.html" id="AcquireUniqueFileResource">AcquireUniqueFileResource</a></h2>
 <div class="doc-section">
 
-<p>AcquireUniqueFileResource() returns a unique file name, and returns a file descriptor for the file open for reading and writing.</p></ol>
+<p>AcquireUniqueFileResource() returns a unique file name, and returns a file descriptor for the file open for reading and writing.</p>
 
 <p>The format of the AcquireUniqueFileResource() method is:</p>
 
@@ -154,23 +170,23 @@ _8c.html" target="source" name="AcquireUniqueFileResource">AcquireUniqueFileReso
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5> path</h5>
-<ol><p>Open the file in this directory path.</p></ol>
+<p>Open the file in this directory path.</p>
 
 <h5> filename</h5>
-<ol><p>The unique filename is returned in this array.</p></ol>
+<p>The unique filename is returned in this array.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/resource
-_8c.html" target="source" name="AcquireWizardResource">AcquireWizardResource</a></h2>
+_8c.html" id="AcquireWizardResource">AcquireWizardResource</a></h2>
 <div class="doc-section">
 
-<p>AcquireWizardResource() acquires resources of the specified type. WizardFalse is returned if the specified resource is exhausted otherwise WizardTrue.</p></ol>
+<p>AcquireWizardResource() acquires resources of the specified type. WizardFalse is returned if the specified resource is exhausted otherwise WizardTrue.</p>
 
 <p>The format of the AcquireWizardResource() method is:</p>
 
@@ -179,20 +195,20 @@ _8c.html" target="source" name="AcquireWizardResource">AcquireWizardResource</a>
     const WizardSizeType size)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>type</h5>
-<ol><p>The type of resource.</p></ol>
+<p>The type of resource.</p>
 
 <h5>size</h5>
-<ol><p>The number of bytes needed from for this resource.</p></ol>
+<p>The number of bytes needed from for this resource.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/resource
-_8c.html" target="source" name="GetWizardResource">GetWizardResource</a></h2>
+_8c.html" id="GetWizardResource">GetWizardResource</a></h2>
 <div class="doc-section">
 
-<p>GetWizardResource() returns the the specified resource in megabytes.</p></ol>
+<p>GetWizardResource() returns the the specified resource in megabytes.</p>
 
 <p>The format of the GetWizardResource() method is:</p>
 
@@ -200,17 +216,17 @@ _8c.html" target="source" name="GetWizardResource">GetWizardResource</a></h2>
   WizardSizeType GetWizardResource(const ResourceType type)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>type</h5>
-<ol><p>The type of resource.</p></ol>
+<p>The type of resource.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/resource
-_8c.html" target="source" name="GetWizardResource">GetWizardResource</a></h2>
+_8c.html" id="GetWizardResourceLimit">GetWizardResourceLimit</a></h2>
 <div class="doc-section">
 
-<p>GetWizardResource() returns the the specified resource limit in megabytes.</p></ol>
+<p>GetWizardResourceLimit() returns the the specified resource limit in megabytes.</p>
 
 <p>The format of the GetWizardResourceLimit() method is:</p>
 
@@ -218,17 +234,17 @@ _8c.html" target="source" name="GetWizardResource">GetWizardResource</a></h2>
   size_t GetWizardResourceLimit(const ResourceType type)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>type</h5>
-<ol><p>The type of resource.</p></ol>
+<p>The type of resource.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/resource
-_8c.html" target="source" name="ListWizardResourceInfo">ListWizardResourceInfo</a></h2>
+_8c.html" id="ListWizardResourceInfo">ListWizardResourceInfo</a></h2>
 <div class="doc-section">
 
-<p>ListWizardResourceInfo() lists the resource info to a file.</p></ol>
+<p>ListWizardResourceInfo() lists the resource info to a file.</p>
 
 <p>The format of the ListWizardResourceInfo method is:</p>
 
@@ -237,20 +253,20 @@ _8c.html" target="source" name="ListWizardResourceInfo">ListWizardResourceInfo</
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows.</p></ol>
+<p>A description of each parameter follows.</p>
 
 <h5>file</h5>
-<ol><p>An pointer to a FILE.</p></ol>
+<p>An pointer to a FILE.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/resource
-_8c.html" target="source" name="RelinquishWizardResource">RelinquishWizardResource</a></h2>
+_8c.html" id="RelinquishWizardResource">RelinquishWizardResource</a></h2>
 <div class="doc-section">
 
-<p>RelinquishWizardResource() relinquishes resources of the specified type.</p></ol>
+<p>RelinquishWizardResource() relinquishes resources of the specified type.</p>
 
 <p>The format of the RelinquishWizardResource() method is:</p>
 
@@ -259,20 +275,20 @@ _8c.html" target="source" name="RelinquishWizardResource">RelinquishWizardResour
     const WizardSizeType size)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>type</h5>
-<ol><p>The type of resource.</p></ol>
+<p>The type of resource.</p>
 
 <h5>size</h5>
-<ol><p>The size of the resource.</p></ol>
+<p>The size of the resource.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/resource
-_8c.html" target="source" name="RelinquishUniqueFileResource">RelinquishUniqueFileResource</a></h2>
+_8c.html" id="RelinquishUniqueFileResource">RelinquishUniqueFileResource</a></h2>
 <div class="doc-section">
 
-<p>RelinquishUniqueFileResource() relinquishes a unique file resource.</p></ol>
+<p>RelinquishUniqueFileResource() relinquishes a unique file resource.</p>
 
 <p>The format of the RelinquishUniqueFileResource() method is:</p>
 
@@ -281,20 +297,20 @@ _8c.html" target="source" name="RelinquishUniqueFileResource">RelinquishUniqueFi
     const WizardBooleanType trash))
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>name</h5>
-<ol><p>the name of the temporary resource.</p></ol>
+<p>the name of the temporary resource.</p>
 
 <h5>trash</h5>
-<ol><p>a value other than 0 trashs the file at the specified path.</p></ol>
+<p>a value other than 0 trashs the file at the specified path.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/resource
-_8c.html" target="source" name="SetWizardResourceLimit">SetWizardResourceLimit</a></h2>
+_8c.html" id="SetWizardResourceLimit">SetWizardResourceLimit</a></h2>
 <div class="doc-section">
 
-<p>SetWizardResourceLimit() sets the limit for a particular resource in bytes.</p></ol>
+<p>SetWizardResourceLimit() sets the limit for a particular resource in bytes.</p>
 
 <p>The format of the SetWizardResourceLimit() method is:</p>
 
@@ -303,13 +319,13 @@ _8c.html" target="source" name="SetWizardResourceLimit">SetWizardResourceLimit</
     const WizardResourceType limit)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>type</h5>
-<ol><p>The type of resource.</p></ol>
+<p>The type of resource.</p>
 
 <h5>limit</h5>
-<ol><p>The maximum limit for the resource.</p></ol>
+<p>The maximum limit for the resource.</p>
 
  </div>
 

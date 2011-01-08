@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Random Numbers</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, random, numbers, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireRandomInfo">AcquireRandomInfo</a> &bull; <a href="#GetEntropyFromReservoir">GetEntropyFromReservoir</a> &bull; <a href="#GetPseudoRandomValue">GetPseudoRandomValue</a> &bull; <a href="#GetRandomKey">GetRandomKey</a> &bull; <a href="#GetRandomValue">GetRandomValue</a> &bull; <a href="#SaveEntropyToReservoir">SaveEntropyToReservoir</a> &bull; <a href="#SeedPseudoRandomGenerator">SeedPseudoRandomGenerator</a> &bull; <a href="#SetRandomKey">SetRandomKey</a> &bull; <a href="#SetRandomTrueRandom">SetRandomTrueRandom</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/random
-_8c.html" target="source" name="AcquireRandomInfo">AcquireRandomInfo</a></h2>
+_8c.html" id="AcquireRandomInfo">AcquireRandomInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireRandomInfo() allocates the RandomInfo structure.</p></ol>
+<p>AcquireRandomInfo() allocates the RandomInfo structure.</p>
 
 <p>The format of the AcquireRandomInfo method is:</p>
 
@@ -132,17 +148,17 @@ _8c.html" target="source" name="AcquireRandomInfo">AcquireRandomInfo</a></h2>
   RandomInfo *AcquireRandomInfo(const RandomType hash)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hash</h5>
-<ol><p>the hash type.</p></ol>
+<p>the hash type.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/random
-_8c.html" target="source" name="GetEntropyFromReservoir">GetEntropyFromReservoir</a></h2>
+_8c.html" id="GetEntropyFromReservoir">GetEntropyFromReservoir</a></h2>
 <div class="doc-section">
 
-<p>GetEntropyFromReservoir() gets entropy from the random reservoir on disk.</p></ol>
+<p>GetEntropyFromReservoir() gets entropy from the random reservoir on disk.</p>
 
 <p>The format of the GetEntropyFromReservoir method is:</p>
 
@@ -151,20 +167,20 @@ _8c.html" target="source" name="GetEntropyFromReservoir">GetEntropyFromReservoir
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>random_info</h5>
-<ol><p>the random reservoir info.</p></ol>
+<p>the random reservoir info.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/random
-_8c.html" target="source" name="GetPseudoRandomValue">GetPseudoRandomValue</a></h2>
+_8c.html" id="GetPseudoRandomValue">GetPseudoRandomValue</a></h2>
 <div class="doc-section">
 
-<p>GetPseudoRandomValue() return a non-negative size_t value uniformly distributed over the interval [0.0, 1.0) with a 2 to the 128th-1 period.</p></ol>
+<p>GetPseudoRandomValue() return a non-negative size_t value uniformly distributed over the interval [0.0, 1.0) with a 2 to the 128th-1 period.</p>
 
 <p>The format of the GetPseudoRandomValue method is:</p>
 
@@ -172,17 +188,17 @@ _8c.html" target="source" name="GetPseudoRandomValue">GetPseudoRandomValue</a></
   double GetPseudoRandomValue(RandomInfo *randon_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>random_info</h5>
-<ol><p>the random info.</p></ol>
+<p>the random info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/random
-_8c.html" target="source" name="GetRandomKey">GetRandomKey</a></h2>
+_8c.html" id="GetRandomKey">GetRandomKey</a></h2>
 <div class="doc-section">
 
-<p>GetRandomKey() gets a random key from the reservoir.</p></ol>
+<p>GetRandomKey() gets a random key from the reservoir.</p>
 
 <p>The format of the GetRandomKey method is:</p>
 
@@ -190,20 +206,20 @@ _8c.html" target="source" name="GetRandomKey">GetRandomKey</a></h2>
   StringInfo *GetRandomKey(RandomInfo *random_info,const size_t length)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>random_info</h5>
-<ol><p>the random info.</p></ol>
+<p>the random info.</p>
 
 <h5>length</h5>
-<ol><p>the key length.</p></ol>
+<p>the key length.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/random
-_8c.html" target="source" name="GetRandomValue">GetRandomValue</a></h2>
+_8c.html" id="GetRandomValue">GetRandomValue</a></h2>
 <div class="doc-section">
 
-<p>GetRandomValue() return a non-negative double-precision floating-point value uniformly distributed over the interval [0.0, 1.0) with a 2 to the 128th-1 period (not cryptographically strong).</p></ol>
+<p>GetRandomValue() return a non-negative double-precision floating-point value uniformly distributed over the interval [0.0, 1.0) with a 2 to the 128th-1 period (not cryptographically strong).</p>
 
 <p>The format of the GetRandomValue method is:</p>
 
@@ -213,10 +229,10 @@ _8c.html" target="source" name="GetRandomValue">GetRandomValue</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/random
-_8c.html" target="source" name="SaveEntropyToReservoir">SaveEntropyToReservoir</a></h2>
+_8c.html" id="SaveEntropyToReservoir">SaveEntropyToReservoir</a></h2>
 <div class="doc-section">
 
-<p>SaveEntropyToReservoir() saves entropy to the reservior on disk.</p></ol>
+<p>SaveEntropyToReservoir() saves entropy to the reservior on disk.</p>
 
 <p>The format of the SaveEntropyToReservoir method is:</p>
 
@@ -225,20 +241,20 @@ _8c.html" target="source" name="SaveEntropyToReservoir">SaveEntropyToReservoir</
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>random_info</h5>
-<ol><p>the random info.</p></ol>
+<p>the random info.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/random
-_8c.html" target="source" name="SeedPseudoRandomGenerator">SeedPseudoRandomGenerator</a></h2>
+_8c.html" id="SeedPseudoRandomGenerator">SeedPseudoRandomGenerator</a></h2>
 <div class="doc-section">
 
-<p>SeedPseudoRandomGenerator() initializes the pseudo-random number generator with a random seed.</p></ol>
+<p>SeedPseudoRandomGenerator() initializes the pseudo-random number generator with a random seed.</p>
 
 <p>The format of the SeedPseudoRandomGenerator method is:</p>
 
@@ -246,17 +262,17 @@ _8c.html" target="source" name="SeedPseudoRandomGenerator">SeedPseudoRandomGener
   void SeedPseudoRandomGenerator(const size_t seed)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>seed</h5>
-<ol><p>the seed.</p></ol>
+<p>the seed.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/random
-_8c.html" target="source" name="SetRandomKey">SetRandomKey</a></h2>
+_8c.html" id="SetRandomKey">SetRandomKey</a></h2>
 <div class="doc-section">
 
-<p>SetRandomKey() sets a random key from the reservoir.</p></ol>
+<p>SetRandomKey() sets a random key from the reservoir.</p>
 
 <p>The format of the SetRandomKey method is:</p>
 
@@ -265,23 +281,23 @@ _8c.html" target="source" name="SetRandomKey">SetRandomKey</a></h2>
     unsigned char *key)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>random_info</h5>
-<ol><p>the random info.</p></ol>
+<p>the random info.</p>
 
 <h5>length</h5>
-<ol><p>the key length.</p></ol>
+<p>the key length.</p>
 
 <h5>key</h5>
-<ol><p>the key.</p></ol>
+<p>the key.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/random
-_8c.html" target="source" name="SetRandomTrueRandom">SetRandomTrueRandom</a></h2>
+_8c.html" id="SetRandomTrueRandom">SetRandomTrueRandom</a></h2>
 <div class="doc-section">
 
-<p>SetRandomTrueRandom() declares your intentions to use true random numbers. True random numbers are encouraged but may not always be practical because your application may block while entropy is gathered from your environment.</p></ol>
+<p>SetRandomTrueRandom() declares your intentions to use true random numbers. True random numbers are encouraged but may not always be practical because your application may block while entropy is gathered from your environment.</p>
 
 <p>The format of the SetRandomTrueRandom method is:</p>
 
@@ -289,10 +305,10 @@ _8c.html" target="source" name="SetRandomTrueRandom">SetRandomTrueRandom</a></h2
   void SetRandomTrueRandom(const WizardBooleanType true_random)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>true_random</h5>
-<ol><p>declare your intentions to use true-random number.</p></ol>
+<p>declare your intentions to use true-random number.</p>
 
  </div>
 

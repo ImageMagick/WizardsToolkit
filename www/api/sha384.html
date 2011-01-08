@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Hash Algorithm-384</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, secure, hash, algorithm-384, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireSHA384Info">AcquireSHA384Info</a> &bull; <a href="#DestroySHA384Info">DestroySHA384Info</a> &bull; <a href="#FinalizeSHA384">FinalizeSHA384</a> &bull; <a href="#GetSHA384Blocksize">GetSHA384Blocksize</a> &bull; <a href="#GetSHA384Digest">GetSHA384Digest</a> &bull; <a href="#GetSHA384Digestsize">GetSHA384Digestsize</a> &bull; <a href="#IntializeSHA384">IntializeSHA384</a> &bull; <a href="#TransformSHA384">TransformSHA384</a> &bull; <a href="#UpdateSHA384">UpdateSHA384</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha384
-_8c.html" target="source" name="AcquireSHA384Info">AcquireSHA384Info</a></h2>
+_8c.html" id="AcquireSHA384Info">AcquireSHA384Info</a></h2>
 <div class="doc-section">
 
-<p>AcquireSHA384Info() allocate the SHA384Info structure.</p></ol>
+<p>AcquireSHA384Info() allocate the SHA384Info structure.</p>
 
 <p>The format of the AcquireSHA384Info method is:</p>
 
@@ -134,10 +150,10 @@ _8c.html" target="source" name="AcquireSHA384Info">AcquireSHA384Info</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha384
-_8c.html" target="source" name="DestroySHA384Info">DestroySHA384Info</a></h2>
+_8c.html" id="DestroySHA384Info">DestroySHA384Info</a></h2>
 <div class="doc-section">
 
-<p>DestroySHA384Info() zeros memory associated with the SHA384Info structure.</p></ol>
+<p>DestroySHA384Info() zeros memory associated with the SHA384Info structure.</p>
 
 <p>The format of the DestroySHA384Info method is:</p>
 
@@ -145,17 +161,17 @@ _8c.html" target="source" name="DestroySHA384Info">DestroySHA384Info</a></h2>
   SHA384Info *DestroySHA384Info(SHA384Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The cipher sha_info.</p></ol>
+<p>The cipher sha_info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha384
-_8c.html" target="source" name="FinalizeSHA384">FinalizeSHA384</a></h2>
+_8c.html" id="FinalizeSHA384">FinalizeSHA384</a></h2>
 <div class="doc-section">
 
-<p>FinalizeSHA384() finalizes the SHA384 message accumulator computation.</p></ol>
+<p>FinalizeSHA384() finalizes the SHA384 message accumulator computation.</p>
 
 <p>The format of the FinalizeSHA384 method is:</p>
 
@@ -163,18 +179,18 @@ _8c.html" target="source" name="FinalizeSHA384">FinalizeSHA384</a></h2>
   FinalizeSHA384(SHA384Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The address of a structure of type SHA384Info.</p></ol>
+<p>The address of a structure of type SHA384Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha384
-_8c.html" target="source" name="GetSHA384Blocksize">GetSHA384Blocksize</a></h2>
+_8c.html" id="GetSHA384Blocksize">GetSHA384Blocksize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA384Blocksize() returns the SHA384 blocksize.</p></ol>
+<p>GetSHA384Blocksize() returns the SHA384 blocksize.</p>
 
 <p>The format of the GetSHA384Blocksize method is:</p>
 
@@ -182,17 +198,17 @@ _8c.html" target="source" name="GetSHA384Blocksize">GetSHA384Blocksize</a></h2>
   unsigned int *GetSHA384Blocksize(const SHA384Info *sha384_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha384_info</h5>
-<ol><p>The sha384 info.</p></ol>
+<p>The sha384 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha384
-_8c.html" target="source" name="GetSHA384Digest">GetSHA384Digest</a></h2>
+_8c.html" id="GetSHA384Digest">GetSHA384Digest</a></h2>
 <div class="doc-section">
 
-<p>GetSHA384Digest() returns the SHA384 digest.</p></ol>
+<p>GetSHA384Digest() returns the SHA384 digest.</p>
 
 <p>The format of the GetSHA384Digest method is:</p>
 
@@ -200,17 +216,17 @@ _8c.html" target="source" name="GetSHA384Digest">GetSHA384Digest</a></h2>
   const StringInfo *GetSHA384Digest(const SHA384Info *sha384_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha384_info</h5>
-<ol><p>The sha384 info.</p></ol>
+<p>The sha384 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha384
-_8c.html" target="source" name="GetSHA384Digestsize">GetSHA384Digestsize</a></h2>
+_8c.html" id="GetSHA384Digestsize">GetSHA384Digestsize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA384Digestsize() returns the SHA384 digest size.</p></ol>
+<p>GetSHA384Digestsize() returns the SHA384 digest size.</p>
 
 <p>The format of the GetSHA384Digestsize method is:</p>
 
@@ -218,17 +234,17 @@ _8c.html" target="source" name="GetSHA384Digestsize">GetSHA384Digestsize</a></h2
   unsigned int *GetSHA384Digestsize(const SHA384Info *sha384_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha384_info</h5>
-<ol><p>The sha384 info.</p></ol>
+<p>The sha384 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha384
-_8c.html" target="source" name="IntializeSHA384">IntializeSHA384</a></h2>
+_8c.html" id="IntializeSHA384">IntializeSHA384</a></h2>
 <div class="doc-section">
 
-<p>IntializeSHA384() intializes the SHA384 accumulator.</p></ol>
+<p>IntializeSHA384() intializes the SHA384 accumulator.</p>
 
 <p>The format of the DestroySHA384Info method is:</p>
 
@@ -236,17 +252,17 @@ _8c.html" target="source" name="IntializeSHA384">IntializeSHA384</a></h2>
   void InitializeSHA384Info(SHA384Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The cipher sha_info.</p></ol>
+<p>The cipher sha_info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha384
-_8c.html" target="source" name="TransformSHA384">TransformSHA384</a></h2>
+_8c.html" id="TransformSHA384">TransformSHA384</a></h2>
 <div class="doc-section">
 
-<p>TransformSHA384() transforms the SHA384 message accumulator.</p></ol>
+<p>TransformSHA384() transforms the SHA384 message accumulator.</p>
 
 <p>The format of the TransformSHA384 method is:</p>
 
@@ -254,18 +270,18 @@ _8c.html" target="source" name="TransformSHA384">TransformSHA384</a></h2>
   TransformSHA384(SHA384Info *sha_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The address of a structure of type SHA384Info.</p></ol>
+<p>The address of a structure of type SHA384Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha384
-_8c.html" target="source" name="UpdateSHA384">UpdateSHA384</a></h2>
+_8c.html" id="UpdateSHA384">UpdateSHA384</a></h2>
 <div class="doc-section">
 
-<p>UpdateSHA384() updates the SHA384 message accumulator.</p></ol>
+<p>UpdateSHA384() updates the SHA384 message accumulator.</p>
 
 <p>The format of the UpdateSHA384 method is:</p>
 
@@ -273,13 +289,13 @@ _8c.html" target="source" name="UpdateSHA384">UpdateSHA384</a></h2>
   UpdateSHA384(SHA384Info *sha_info,const StringInfo *message)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<ol><p>The address of a structure of type SHA384Info.</p></ol>
+<p>The address of a structure of type SHA384Info.</p>
 
 <h5>message</h5>
-<ol><p>The message.</p></ol>
+<p>The message.</p>
 
  </div>
 

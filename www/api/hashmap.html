@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Hash-map and Linked-list</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, hash-map, linked-list, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -118,13 +134,13 @@
 
 <h1>Module hashmap
  Methods</h1>
-<p class="navigation-index">[<a href="#AppendValueToLinkedList">AppendValueToLinkedList</a> &bull; <a href="#ClearLinkedList">ClearLinkedList</a> &bull; <a href="#Specify the CompareHashmapString">Specify the CompareHashmapString</a> &bull; <a href="#Specify the CompareHashmapStringInfo">Specify the CompareHashmapStringInfo</a> &bull; <a href="#DestroyHashmap">DestroyHashmap</a> &bull; <a href="#DestroyLinkedList">DestroyLinkedList</a> &bull; <a href="#GetLastValueInLinkedList">GetLastValueInLinkedList</a> &bull; <a href="#GetNextKeyInHashmap">GetNextKeyInHashmap</a> &bull; <a href="#GetNextValueInHashmap">GetNextValueInHashmap</a> &bull; <a href="#GetNextValueInLinkedList">GetNextValueInLinkedList</a> &bull; <a href="#GetNumberOfEntriesInHashmap">GetNumberOfEntriesInHashmap</a> &bull; <a href="#GetNumberOfElementsInLinkedList">GetNumberOfElementsInLinkedList</a> &bull; <a href="#GetValueFromHashmap">GetValueFromHashmap</a> &bull; <a href="#GetValueFromLinkedList">GetValueFromLinkedList</a> &bull; <a href="#Specify the HashPointerType">Specify the HashPointerType</a> &bull; <a href="#Specify the HashStringType">Specify the HashStringType</a> &bull; <a href="#Specify the HashStringInfoType">Specify the HashStringInfoType</a> &bull; <a href="#InsertValueInLinkedList">InsertValueInLinkedList</a> &bull; <a href="#InsertValueInSortedLinkedList">InsertValueInSortedLinkedList</a> &bull; <a href="#IsHashmapEmpty">IsHashmapEmpty</a> &bull; <a href="#IsLinkedListEmpty">IsLinkedListEmpty</a> &bull; <a href="#LinkedListToArray">LinkedListToArray</a> &bull; <a href="#NewHashmap">NewHashmap</a> &bull; <a href="#NewLinkedList">NewLinkedList</a> &bull; <a href="#PutEntryInHashmap">PutEntryInHashmap</a> &bull; <a href="#RemoveElementByValueFromLinkedList">RemoveElementByValueFromLinkedList</a> &bull; <a href="#RemoveElementFromLinkedList">RemoveElementFromLinkedList</a> &bull; <a href="#RemoveEntryFromHashmap">RemoveEntryFromHashmap</a> &bull; <a href="#RemoveLastElementFromLinkedList">RemoveLastElementFromLinkedList</a> &bull; <a href="#ResetHashmapIterator">ResetHashmapIterator</a> &bull; <a href="#ResetLinkedListIterator">ResetLinkedListIterator</a>]</p>
+<p class="navigation-index">[<a href="#AppendValueToLinkedList">AppendValueToLinkedList</a> &bull; <a href="#ClearLinkedList">ClearLinkedList</a> &bull; <a href="#CompareHashmapString">CompareHashmapString</a> &bull; <a href="#CompareHashmapStringInfo">CompareHashmapStringInfo</a> &bull; <a href="#DestroyHashmap">DestroyHashmap</a> &bull; <a href="#DestroyLinkedList">DestroyLinkedList</a> &bull; <a href="#GetLastValueInLinkedList">GetLastValueInLinkedList</a> &bull; <a href="#GetNextKeyInHashmap">GetNextKeyInHashmap</a> &bull; <a href="#GetNextValueInHashmap">GetNextValueInHashmap</a> &bull; <a href="#GetNextValueInLinkedList">GetNextValueInLinkedList</a> &bull; <a href="#GetNumberOfEntriesInHashmap">GetNumberOfEntriesInHashmap</a> &bull; <a href="#GetNumberOfElementsInLinkedList">GetNumberOfElementsInLinkedList</a> &bull; <a href="#GetValueFromHashmap">GetValueFromHashmap</a> &bull; <a href="#GetValueFromLinkedList">GetValueFromLinkedList</a> &bull; <a href="#HashPointerType">HashPointerType</a> &bull; <a href="#HashStringType">HashStringType</a> &bull; <a href="#HashStringInfoType">HashStringInfoType</a> &bull; <a href="#InsertValueInLinkedList">InsertValueInLinkedList</a> &bull; <a href="#InsertValueInSortedLinkedList">InsertValueInSortedLinkedList</a> &bull; <a href="#IsHashmapEmpty">IsHashmapEmpty</a> &bull; <a href="#IsLinkedListEmpty">IsLinkedListEmpty</a> &bull; <a href="#LinkedListToArray">LinkedListToArray</a> &bull; <a href="#NewHashmap">NewHashmap</a> &bull; <a href="#NewLinkedList">NewLinkedList</a> &bull; <a href="#PutEntryInHashmap">PutEntryInHashmap</a> &bull; <a href="#RemoveElementByValueFromLinkedList">RemoveElementByValueFromLinkedList</a> &bull; <a href="#RemoveElementFromLinkedList">RemoveElementFromLinkedList</a> &bull; <a href="#RemoveEntryFromHashmap">RemoveEntryFromHashmap</a> &bull; <a href="#RemoveLastElementFromLinkedList">RemoveLastElementFromLinkedList</a> &bull; <a href="#ResetHashmapIterator">ResetHashmapIterator</a> &bull; <a href="#ResetLinkedListIterator">ResetLinkedListIterator</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="AppendValueToLinkedList">AppendValueToLinkedList</a></h2>
+_8c.html" id="AppendValueToLinkedList">AppendValueToLinkedList</a></h2>
 <div class="doc-section">
 
-<p>AppendValueToLinkedList() appends a value to the end of the linked-list.</p></ol>
+<p>AppendValueToLinkedList() appends a value to the end of the linked-list.</p>
 
 <p>The format of the AppendValueToLinkedList method is:</p>
 
@@ -133,20 +149,20 @@ _8c.html" target="source" name="AppendValueToLinkedList">AppendValueToLinkedList
     const void *value)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
 <h5>value</h5>
-<ol><p>The value.</p></ol>
+<p>The value.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="ClearLinkedList">ClearLinkedList</a></h2>
+_8c.html" id="ClearLinkedList">ClearLinkedList</a></h2>
 <div class="doc-section">
 
-<p>ClearLinkedList() clears all the elements from the linked-list.</p></ol>
+<p>ClearLinkedList() clears all the elements from the linked-list.</p>
 
 <p>The format of the ClearLinkedList method is:</p>
 
@@ -155,20 +171,20 @@ _8c.html" target="source" name="ClearLinkedList">ClearLinkedList</a></h2>
     void *(*relinquish_value)(void *))
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
 <h5>relinquish_value</h5>
-<ol><p>The value deallocation method; typically RelinquishWizardMemory().</p></ol>
+<p>The value deallocation method; typically RelinquishWizardMemory().</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="Specify the CompareHashmapString">Specify the CompareHashmapString</a></h2>
+_8c.html" id="CompareHashmapString">CompareHashmapString</a></h2>
 <div class="doc-section">
 
-<p>Specify the CompareHashmapString() method in NewHashmap() to find an entry in a hash-map based on the contents of a string.</p></ol>
+<p>CompareHashmapString() finds an entry in a hash-map based on the contents of a string.</p>
 
 <p>The format of the CompareHashmapString method is:</p>
 
@@ -177,20 +193,20 @@ _8c.html" target="source" name="Specify the CompareHashmapString">Specify the Co
     const void *source)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>target</h5>
-<ol><p>The target string.</p></ol>
+<p>The target string.</p>
 
 <h5>source</h5>
-<ol><p>The source string.</p></ol>
+<p>The source string.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="Specify the CompareHashmapStringInfo">Specify the CompareHashmapStringInfo</a></h2>
+_8c.html" id="CompareHashmapStringInfo">CompareHashmapStringInfo</a></h2>
 <div class="doc-section">
 
-<p>Specify the CompareHashmapStringInfo() method in NewHashmap() to find an entry in a hash-map based on the contents of a string.</p></ol>
+<p>CompareHashmapStringInfo() finds an entry in a hash-map based on the contents of a string.</p>
 
 <p>The format of the CompareHashmapStringInfo method is:</p>
 
@@ -199,20 +215,20 @@ _8c.html" target="source" name="Specify the CompareHashmapStringInfo">Specify th
     const void *source)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>target</h5>
-<ol><p>The target string.</p></ol>
+<p>The target string.</p>
 
 <h5>source</h5>
-<ol><p>The source string.</p></ol>
+<p>The source string.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="DestroyHashmap">DestroyHashmap</a></h2>
+_8c.html" id="DestroyHashmap">DestroyHashmap</a></h2>
 <div class="doc-section">
 
-<p>DestroyHashmap() frees the hash-map and all associated resources.</p></ol>
+<p>DestroyHashmap() frees the hash-map and all associated resources.</p>
 
 <p>The format of the DestroyHashmap method is:</p>
 
@@ -220,17 +236,17 @@ _8c.html" target="source" name="DestroyHashmap">DestroyHashmap</a></h2>
   HashmapInfo *DestroyHashmap(HashmapInfo *hashmap_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hashmap_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="DestroyLinkedList">DestroyLinkedList</a></h2>
+_8c.html" id="DestroyLinkedList">DestroyLinkedList</a></h2>
 <div class="doc-section">
 
-<p>DestroyLinkedList() frees the linked-list and all associated resources.</p></ol>
+<p>DestroyLinkedList() frees the linked-list and all associated resources.</p>
 
 <p>The format of the DestroyLinkedList method is:</p>
 
@@ -239,20 +255,20 @@ _8c.html" target="source" name="DestroyLinkedList">DestroyLinkedList</a></h2>
     void *(*relinquish_value)(void *))
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
 <h5>relinquish_value</h5>
-<ol><p>The value deallocation method;  typically RelinquishWizardMemory().</p></ol>
+<p>The value deallocation method;  typically RelinquishWizardMemory().</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="GetLastValueInLinkedList">GetLastValueInLinkedList</a></h2>
+_8c.html" id="GetLastValueInLinkedList">GetLastValueInLinkedList</a></h2>
 <div class="doc-section">
 
-<p>GetLastValueInLinkedList() gets the last value in the linked-list.</p></ol>
+<p>GetLastValueInLinkedList() gets the last value in the linked-list.</p>
 
 <p>The format of the GetLastValueInLinkedList method is:</p>
 
@@ -260,17 +276,17 @@ _8c.html" target="source" name="GetLastValueInLinkedList">GetLastValueInLinkedLi
   void *GetLastValueInLinkedList(LinkedListInfo *list_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked_list info.</p></ol>
+<p>The linked_list info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="GetNextKeyInHashmap">GetNextKeyInHashmap</a></h2>
+_8c.html" id="GetNextKeyInHashmap">GetNextKeyInHashmap</a></h2>
 <div class="doc-section">
 
-<p>GetNextKeyInHashmap() gets the next key in the hash-map.</p></ol>
+<p>GetNextKeyInHashmap() gets the next key in the hash-map.</p>
 
 <p>The format of the GetNextKeyInHashmap method is:</p>
 
@@ -278,17 +294,17 @@ _8c.html" target="source" name="GetNextKeyInHashmap">GetNextKeyInHashmap</a></h2
   void *GetNextKeyInHashmap(HashmapInfo *hashmap_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hashmap_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="GetNextValueInHashmap">GetNextValueInHashmap</a></h2>
+_8c.html" id="GetNextValueInHashmap">GetNextValueInHashmap</a></h2>
 <div class="doc-section">
 
-<p>GetNextValueInHashmap() gets the next value in the hash-map.</p></ol>
+<p>GetNextValueInHashmap() gets the next value in the hash-map.</p>
 
 <p>The format of the GetNextValueInHashmap method is:</p>
 
@@ -296,17 +312,17 @@ _8c.html" target="source" name="GetNextValueInHashmap">GetNextValueInHashmap</a>
   void *GetNextValueInHashmap(HashmapInfo *hashmap_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hashmap_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="GetNextValueInLinkedList">GetNextValueInLinkedList</a></h2>
+_8c.html" id="GetNextValueInLinkedList">GetNextValueInLinkedList</a></h2>
 <div class="doc-section">
 
-<p>GetNextValueInLinkedList() gets the next value in the linked-list.</p></ol>
+<p>GetNextValueInLinkedList() gets the next value in the linked-list.</p>
 
 <p>The format of the GetNextValueInLinkedList method is:</p>
 
@@ -314,17 +330,17 @@ _8c.html" target="source" name="GetNextValueInLinkedList">GetNextValueInLinkedLi
   void *GetNextValueInLinkedList(LinkedListInfo *list_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="GetNumberOfEntriesInHashmap">GetNumberOfEntriesInHashmap</a></h2>
+_8c.html" id="GetNumberOfEntriesInHashmap">GetNumberOfEntriesInHashmap</a></h2>
 <div class="doc-section">
 
-<p>GetNumberOfEntriesInHashmap() returns the number of entries in the hash-map.</p></ol>
+<p>GetNumberOfEntriesInHashmap() returns the number of entries in the hash-map.</p>
 
 <p>The format of the GetNumberOfEntriesInHashmap method is:</p>
 
@@ -332,17 +348,17 @@ _8c.html" target="source" name="GetNumberOfEntriesInHashmap">GetNumberOfEntriesI
   size_t GetNumberOfEntriesInHashmap(const HashmapInfo *hashmap_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hashmap_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="GetNumberOfElementsInLinkedList">GetNumberOfElementsInLinkedList</a></h2>
+_8c.html" id="GetNumberOfElementsInLinkedList">GetNumberOfElementsInLinkedList</a></h2>
 <div class="doc-section">
 
-<p>GetNumberOfElementsInLinkedList() returns the number of entries in the linked-list.</p></ol>
+<p>GetNumberOfElementsInLinkedList() returns the number of entries in the linked-list.</p>
 
 <p>The format of the GetNumberOfElementsInLinkedList method is:</p>
 
@@ -351,17 +367,17 @@ _8c.html" target="source" name="GetNumberOfElementsInLinkedList">GetNumberOfElem
     const LinkedListInfo *list_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="GetValueFromHashmap">GetValueFromHashmap</a></h2>
+_8c.html" id="GetValueFromHashmap">GetValueFromHashmap</a></h2>
 <div class="doc-section">
 
-<p>GetValueFromHashmap() gets a value from the hash-map by its key.</p></ol>
+<p>GetValueFromHashmap() gets a value from the hash-map by its key.</p>
 
 <p>The format of the GetValueFromHashmap method is:</p>
 
@@ -369,20 +385,20 @@ _8c.html" target="source" name="GetValueFromHashmap">GetValueFromHashmap</a></h2
   void *GetValueFromHashmap(HashmapInfo *hashmap_info,const void *key)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hashmap_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
 <h5>key</h5>
-<ol><p>The key.</p></ol>
+<p>The key.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="GetValueFromLinkedList">GetValueFromLinkedList</a></h2>
+_8c.html" id="GetValueFromLinkedList">GetValueFromLinkedList</a></h2>
 <div class="doc-section">
 
-<p>GetValueFromLinkedList() gets a vlaue from the linked-list by the specified location.</p></ol>
+<p>GetValueFromLinkedList() gets a vlaue from the linked-list by the specified location.</p>
 
 <p>The format of the GetValueFromLinkedList method is:</p>
 
@@ -391,20 +407,20 @@ _8c.html" target="source" name="GetValueFromLinkedList">GetValueFromLinkedList</
     const size_t index)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked_list info.</p></ol>
+<p>The linked_list info.</p>
 
 <h5>index</h5>
-<ol><p>The list index.</p></ol>
+<p>The list index.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="Specify the HashPointerType">Specify the HashPointerType</a></h2>
+_8c.html" id="HashPointerType">HashPointerType</a></h2>
 <div class="doc-section">
 
-<p>Specify the HashPointerType() method in NewHashmap() to find an entry in a hash-map based on the address of a pointer.</p></ol>
+<p>HashPointerType() finds an entry in a hash-map based on the address of a pointer.</p>
 
 <p>The format of the HashPointerType method is:</p>
 
@@ -412,17 +428,17 @@ _8c.html" target="source" name="Specify the HashPointerType">Specify the HashPoi
   size_t HashPointerType(const void *pointer)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>pointer</h5>
-<ol><p>compute the hash entry location from this pointer address.</p></ol>
+<p>compute the hash entry location from this pointer address.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="Specify the HashStringType">Specify the HashStringType</a></h2>
+_8c.html" id="HashStringType">HashStringType</a></h2>
 <div class="doc-section">
 
-<p>Specify the HashStringType() method in NewHashmap() to find an entry in a hash-map based on the contents of a string.</p></ol>
+<p>HashStringType() finds an entry in a hash-map based on the contents of a string.</p>
 
 <p>The format of the HashStringType method is:</p>
 
@@ -430,17 +446,17 @@ _8c.html" target="source" name="Specify the HashStringType">Specify the HashStri
   size_t HashStringType(const void *string)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>string</h5>
-<ol><p>compute the hash entry location from this string.</p></ol>
+<p>compute the hash entry location from this string.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="Specify the HashStringInfoType">Specify the HashStringInfoType</a></h2>
+_8c.html" id="HashStringInfoType">HashStringInfoType</a></h2>
 <div class="doc-section">
 
-<p>Specify the HashStringInfoType() method in NewHashmap() to find an entry in a hash-map based on the contents of a string.</p></ol>
+<p>HashStringInfoType() finds an entry in a hash-map based on the contents of a string.</p>
 
 <p>The format of the HashStringInfoType method is:</p>
 
@@ -448,17 +464,17 @@ _8c.html" target="source" name="Specify the HashStringInfoType">Specify the Hash
   size_t HashStringInfoType(const void *string)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>string</h5>
-<ol><p>compute the hash entry location from this string.</p></ol>
+<p>compute the hash entry location from this string.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="InsertValueInLinkedList">InsertValueInLinkedList</a></h2>
+_8c.html" id="InsertValueInLinkedList">InsertValueInLinkedList</a></h2>
 <div class="doc-section">
 
-<p>InsertValueInLinkedList() inserts an element in the linked-list at the specified location.</p></ol>
+<p>InsertValueInLinkedList() inserts an element in the linked-list at the specified location.</p>
 
 <p>The format of the InsertValueInLinkedList method is:</p>
 
@@ -467,23 +483,23 @@ _8c.html" target="source" name="InsertValueInLinkedList">InsertValueInLinkedList
     const size_t index,const void *value)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
 <h5>index</h5>
-<ol><p>The index.</p></ol>
+<p>The index.</p>
 
 <h5>value</h5>
-<ol><p>The value.</p></ol>
+<p>The value.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="InsertValueInSortedLinkedList">InsertValueInSortedLinkedList</a></h2>
+_8c.html" id="InsertValueInSortedLinkedList">InsertValueInSortedLinkedList</a></h2>
 <div class="doc-section">
 
-<p>InsertValueInSortedLinkedList() inserts a value in the sorted linked-list.</p></ol>
+<p>InsertValueInSortedLinkedList() inserts a value in the sorted linked-list.</p>
 
 <p>The format of the InsertValueInSortedLinkedList method is:</p>
 
@@ -493,29 +509,29 @@ _8c.html" target="source" name="InsertValueInSortedLinkedList">InsertValueInSort
     const void *value)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
 <h5>index</h5>
-<ol><p>The index.</p></ol>
+<p>The index.</p>
 
 <h5>compare</h5>
-<ol><p>The compare method.</p></ol>
+<p>The compare method.</p>
 
 <h5>replace</h5>
-<ol><p>return previous element here.</p></ol>
+<p>return previous element here.</p>
 
 <h5>value</h5>
-<ol><p>The value.</p></ol>
+<p>The value.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="IsHashmapEmpty">IsHashmapEmpty</a></h2>
+_8c.html" id="IsHashmapEmpty">IsHashmapEmpty</a></h2>
 <div class="doc-section">
 
-<p>IsHashmapEmpty() returns WizardTrue if the hash-map is empty.</p></ol>
+<p>IsHashmapEmpty() returns WizardTrue if the hash-map is empty.</p>
 
 <p>The format of the IsHashmapEmpty method is:</p>
 
@@ -523,17 +539,17 @@ _8c.html" target="source" name="IsHashmapEmpty">IsHashmapEmpty</a></h2>
   WizardBooleanType IsHashmapEmpty(const HashmapInfo *hashmap_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hashmap_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="IsLinkedListEmpty">IsLinkedListEmpty</a></h2>
+_8c.html" id="IsLinkedListEmpty">IsLinkedListEmpty</a></h2>
 <div class="doc-section">
 
-<p>IsLinkedListEmpty() returns WizardTrue if the linked-list is empty.</p></ol>
+<p>IsLinkedListEmpty() returns WizardTrue if the linked-list is empty.</p>
 
 <p>The format of the IsLinkedListEmpty method is:</p>
 
@@ -541,17 +557,17 @@ _8c.html" target="source" name="IsLinkedListEmpty">IsLinkedListEmpty</a></h2>
   WizardBooleanType IsLinkedListEmpty(LinkedListInfo *list_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="LinkedListToArray">LinkedListToArray</a></h2>
+_8c.html" id="LinkedListToArray">LinkedListToArray</a></h2>
 <div class="doc-section">
 
-<p>LinkedListToArray() converts the linked-list to an array.</p></ol>
+<p>LinkedListToArray() converts the linked-list to an array.</p>
 
 <p>The format of the LinkedListToArray method is:</p>
 
@@ -560,20 +576,20 @@ _8c.html" target="source" name="LinkedListToArray">LinkedListToArray</a></h2>
     void **array)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
 <h5>array</h5>
-<ol><p>The array.</p></ol>
+<p>The array.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="NewHashmap">NewHashmap</a></h2>
+_8c.html" id="NewHashmap">NewHashmap</a></h2>
 <div class="doc-section">
 
-<p>NewHashmap() returns a pointer to a HashmapInfo structure initialized to default values.  The capacity is an initial estimate.  The hashmap will increase capacity dynamically as the demand requires.</p></ol>
+<p>NewHashmap() returns a pointer to a HashmapInfo structure initialized to default values.  The capacity is an initial estimate.  The hashmap will increase capacity dynamically as the demand requires.</p>
 
 <p>The format of the NewHashmap method is:</p>
 
@@ -584,29 +600,29 @@ _8c.html" target="source" name="NewHashmap">NewHashmap</a></h2>
     void *(*relinquish_key)(void *),void *(*relinquish_value)(void *))
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>capacity</h5>
-<ol><p>The initial number entries in the hash-map: typically SmallHashmapSize, MediumHashmapSize, or LargeHashmapSize.  The hashmap will dynamically increase its capacity on demand.</p></ol>
+<p>The initial number entries in the hash-map: typically SmallHashmapSize, MediumHashmapSize, or LargeHashmapSize.  The hashmap will dynamically increase its capacity on demand.</p>
 
 <h5>hash</h5>
-<ol><p>The hash method, typically HashPointerType(), HashStringType(), or HashStringInfoType().</p></ol>
+<p>The hash method, typically HashPointerType(), HashStringType(), or HashStringInfoType().</p>
 
 <h5>compare</h5>
-<ol><p>The compare method, typically NULL, CompareHashmapString(), or CompareHashmapStringInfo().</p></ol>
+<p>The compare method, typically NULL, CompareHashmapString(), or CompareHashmapStringInfo().</p>
 
 <h5>relinquish_key</h5>
-<ol><p>The key deallocation method, typically RelinquishWizardMemory(), called whenever a key is removed from the hash-map.</p></ol>
+<p>The key deallocation method, typically RelinquishWizardMemory(), called whenever a key is removed from the hash-map.</p>
 
 <h5>relinquish_value</h5>
-<ol><p>The value deallocation method;  typically RelinquishWizardMemory(), called whenever a value object is removed from the hash-map.</p></ol>
+<p>The value deallocation method;  typically RelinquishWizardMemory(), called whenever a value object is removed from the hash-map.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="NewLinkedList">NewLinkedList</a></h2>
+_8c.html" id="NewLinkedList">NewLinkedList</a></h2>
 <div class="doc-section">
 
-<p>NewLinkedList() returns a pointer to a LinkedListInfo structure initialized to default values.</p></ol>
+<p>NewLinkedList() returns a pointer to a LinkedListInfo structure initialized to default values.</p>
 
 <p>The format of the Acquirestruct LinkedListInfomethod is:</p>
 
@@ -614,17 +630,17 @@ _8c.html" target="source" name="NewLinkedList">NewLinkedList</a></h2>
   LinkedListInfo *NewLinkedList(const size_t capacity)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>capacity</h5>
-<ol><p>The maximum number of elements in the list.</p></ol>
+<p>The maximum number of elements in the list.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="PutEntryInHashmap">PutEntryInHashmap</a></h2>
+_8c.html" id="PutEntryInHashmap">PutEntryInHashmap</a></h2>
 <div class="doc-section">
 
-<p>PutEntryInHashmap() puts an entry in the hash-map.  If the key already exists in the map it is first removed.</p></ol>
+<p>PutEntryInHashmap() puts an entry in the hash-map.  If the key already exists in the map it is first removed.</p>
 
 <p>The format of the PutEntryInHashmap method is:</p>
 
@@ -633,23 +649,23 @@ _8c.html" target="source" name="PutEntryInHashmap">PutEntryInHashmap</a></h2>
     const void *key,const void *value)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hashmap_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
 <h5>key</h5>
-<ol><p>The key.</p></ol>
+<p>The key.</p>
 
 <h5>value</h5>
-<ol><p>The value.</p></ol>
+<p>The value.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="RemoveElementByValueFromLinkedList">RemoveElementByValueFromLinkedList</a></h2>
+_8c.html" id="RemoveElementByValueFromLinkedList">RemoveElementByValueFromLinkedList</a></h2>
 <div class="doc-section">
 
-<p>RemoveElementByValueFromLinkedList() removes an element from the linked-list by value.</p></ol>
+<p>RemoveElementByValueFromLinkedList() removes an element from the linked-list by value.</p>
 
 <p>The format of the RemoveElementByValueFromLinkedList method is:</p>
 
@@ -658,20 +674,20 @@ _8c.html" target="source" name="RemoveElementByValueFromLinkedList">RemoveElemen
     const void *value)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The list info.</p></ol>
+<p>The list info.</p>
 
 <h5>value</h5>
-<ol><p>The value.</p></ol>
+<p>The value.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="RemoveElementFromLinkedList">RemoveElementFromLinkedList</a></h2>
+_8c.html" id="RemoveElementFromLinkedList">RemoveElementFromLinkedList</a></h2>
 <div class="doc-section">
 
-<p>RemoveElementFromLinkedList() removes an element from the linked-list at the specified location.</p></ol>
+<p>RemoveElementFromLinkedList() removes an element from the linked-list at the specified location.</p>
 
 <p>The format of the RemoveElementFromLinkedList method is:</p>
 
@@ -680,20 +696,20 @@ _8c.html" target="source" name="RemoveElementFromLinkedList">RemoveElementFromLi
     const size_t index)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
 <h5>index</h5>
-<ol><p>The index.</p></ol>
+<p>The index.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="RemoveEntryFromHashmap">RemoveEntryFromHashmap</a></h2>
+_8c.html" id="RemoveEntryFromHashmap">RemoveEntryFromHashmap</a></h2>
 <div class="doc-section">
 
-<p>RemoveEntryFromHashmap() removes an entry from the hash-map by its key.</p></ol>
+<p>RemoveEntryFromHashmap() removes an entry from the hash-map by its key.</p>
 
 <p>The format of the RemoveEntryFromHashmap method is:</p>
 
@@ -701,20 +717,20 @@ _8c.html" target="source" name="RemoveEntryFromHashmap">RemoveEntryFromHashmap</
   void *RemoveEntryFromHashmap(HashmapInfo *hashmap_info,void *key)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hashmap_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
 <h5>key</h5>
-<ol><p>The key.</p></ol>
+<p>The key.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="RemoveLastElementFromLinkedList">RemoveLastElementFromLinkedList</a></h2>
+_8c.html" id="RemoveLastElementFromLinkedList">RemoveLastElementFromLinkedList</a></h2>
 <div class="doc-section">
 
-<p>RemoveLastElementFromLinkedList() removes the last element from the linked-list.</p></ol>
+<p>RemoveLastElementFromLinkedList() removes the last element from the linked-list.</p>
 
 <p>The format of the RemoveLastElementFromLinkedList method is:</p>
 
@@ -722,17 +738,17 @@ _8c.html" target="source" name="RemoveLastElementFromLinkedList">RemoveLastEleme
   void *RemoveLastElementFromLinkedList(LinkedListInfo *list_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="ResetHashmapIterator">ResetHashmapIterator</a></h2>
+_8c.html" id="ResetHashmapIterator">ResetHashmapIterator</a></h2>
 <div class="doc-section">
 
-<p>ResetHashmapIterator() resets the hash-map iterator.  Use it in conjunction with GetNextKeyInHashmap() to iterate over all the keys in the hash-map.</p></ol>
+<p>ResetHashmapIterator() resets the hash-map iterator.  Use it in conjunction with GetNextKeyInHashmap() to iterate over all the keys in the hash-map.</p>
 
 <p>The format of the ResetHashmapIterator method is:</p>
 
@@ -740,17 +756,17 @@ _8c.html" target="source" name="ResetHashmapIterator">ResetHashmapIterator</a></
   ResetHashmapIterator(HashmapInfo *hashmap_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hashmap_info</h5>
-<ol><p>The hashmap info.</p></ol>
+<p>The hashmap info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hashmap
-_8c.html" target="source" name="ResetLinkedListIterator">ResetLinkedListIterator</a></h2>
+_8c.html" id="ResetLinkedListIterator">ResetLinkedListIterator</a></h2>
 <div class="doc-section">
 
-<p>ResetLinkedListIterator() resets the lined-list iterator.  Use it in conjunction with GetNextValueInLinkedList() to iterate over all the values in the linked-list.</p></ol>
+<p>ResetLinkedListIterator() resets the lined-list iterator.  Use it in conjunction with GetNextValueInLinkedList() to iterate over all the values in the linked-list.</p>
 
 <p>The format of the ResetLinkedListIterator method is:</p>
 
@@ -758,10 +774,10 @@ _8c.html" target="source" name="ResetLinkedListIterator">ResetLinkedListIterator
   ResetLinkedListIterator(LinkedListInfo *list_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>list_info</h5>
-<ol><p>The linked-list info.</p></ol>
+<p>The linked-list info.</p>
 
  </div>
 

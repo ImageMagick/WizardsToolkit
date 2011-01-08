@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Cyclic Redunancy Checksum</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, cyclic, redunancy, checksum, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireCRC64Info">AcquireCRC64Info</a> &bull; <a href="#DestroyCRC64Info">DestroyCRC64Info</a> &bull; <a href="#FinalizeCRC64">FinalizeCRC64</a> &bull; <a href="#GetCRC64Blocksize">GetCRC64Blocksize</a> &bull; <a href="#GetCRC64CyclicRedundancyCheck">GetCRC64CyclicRedundancyCheck</a> &bull; <a href="#GetCRC64Digest">GetCRC64Digest</a> &bull; <a href="#GetCRC64Digestsize">GetCRC64Digestsize</a> &bull; <a href="#IntializeCRC64">IntializeCRC64</a> &bull; <a href="#UpdateCRC64">UpdateCRC64</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/crc64
-_8c.html" target="source" name="AcquireCRC64Info">AcquireCRC64Info</a></h2>
+_8c.html" id="AcquireCRC64Info">AcquireCRC64Info</a></h2>
 <div class="doc-section">
 
-<p>AcquireCRC64Info() allocate the CRC64Info structure.</p></ol>
+<p>AcquireCRC64Info() allocate the CRC64Info structure.</p>
 
 <p>The format of the AcquireCRC64Info method is:</p>
 
@@ -134,10 +150,10 @@ _8c.html" target="source" name="AcquireCRC64Info">AcquireCRC64Info</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/crc64
-_8c.html" target="source" name="DestroyCRC64Info">DestroyCRC64Info</a></h2>
+_8c.html" id="DestroyCRC64Info">DestroyCRC64Info</a></h2>
 <div class="doc-section">
 
-<p>DestroyCRC64Info() zeros memory associated with the CRC64Info structure.</p></ol>
+<p>DestroyCRC64Info() zeros memory associated with the CRC64Info structure.</p>
 
 <p>The format of the DestroyCRC64Info method is:</p>
 
@@ -145,17 +161,17 @@ _8c.html" target="source" name="DestroyCRC64Info">DestroyCRC64Info</a></h2>
   CRC64Info *DestroyCRC64Info(CRC64Info *crc_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>crc_info</h5>
-<ol><p>The cipher crc_info.</p></ol>
+<p>The cipher crc_info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/crc64
-_8c.html" target="source" name="FinalizeCRC64">FinalizeCRC64</a></h2>
+_8c.html" id="FinalizeCRC64">FinalizeCRC64</a></h2>
 <div class="doc-section">
 
-<p>FinalizeCRC64() finalizes the CRC64 message digest computation.</p></ol>
+<p>FinalizeCRC64() finalizes the CRC64 message digest computation.</p>
 
 <p>The format of the FinalizeCRC64 method is:</p>
 
@@ -163,18 +179,18 @@ _8c.html" target="source" name="FinalizeCRC64">FinalizeCRC64</a></h2>
   void FinalizeCRC64(CRC64Info *crc_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>crc_info</h5>
-<ol><p>The address of a structure of type CRC64Info.</p></ol>
+<p>The address of a structure of type CRC64Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/crc64
-_8c.html" target="source" name="GetCRC64Blocksize">GetCRC64Blocksize</a></h2>
+_8c.html" id="GetCRC64Blocksize">GetCRC64Blocksize</a></h2>
 <div class="doc-section">
 
-<p>GetCRC64Blocksize() returns the CRC64 blocksize.</p></ol>
+<p>GetCRC64Blocksize() returns the CRC64 blocksize.</p>
 
 <p>The format of the GetCRC64Blocksize method is:</p>
 
@@ -182,17 +198,17 @@ _8c.html" target="source" name="GetCRC64Blocksize">GetCRC64Blocksize</a></h2>
   unsigned int *GetCRC64Blocksize(const CRC64Info *crc64_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>crc64_info</h5>
-<ol><p>The crc64 info.</p></ol>
+<p>The crc64 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/crc64
-_8c.html" target="source" name="GetCRC64CyclicRedundancyCheck">GetCRC64CyclicRedundancyCheck</a></h2>
+_8c.html" id="GetCRC64CyclicRedundancyCheck">GetCRC64CyclicRedundancyCheck</a></h2>
 <div class="doc-section">
 
-<p>GetCRC64CyclicRedundancyCheck() returns the CRC64 cyclic redunancy check.</p></ol>
+<p>GetCRC64CyclicRedundancyCheck() returns the CRC64 cyclic redunancy check.</p>
 
 <p>The format of the GetCRC64CyclicRedundancyCheck method is:</p>
 
@@ -201,17 +217,17 @@ _8c.html" target="source" name="GetCRC64CyclicRedundancyCheck">GetCRC64CyclicRed
     const CRC64Info *crc64_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>crc64_info</h5>
-<ol><p>The crc64 info.</p></ol>
+<p>The crc64 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/crc64
-_8c.html" target="source" name="GetCRC64Digest">GetCRC64Digest</a></h2>
+_8c.html" id="GetCRC64Digest">GetCRC64Digest</a></h2>
 <div class="doc-section">
 
-<p>GetCRC64Digest() returns the CRC64 digest.</p></ol>
+<p>GetCRC64Digest() returns the CRC64 digest.</p>
 
 <p>The format of the GetCRC64Digest method is:</p>
 
@@ -219,17 +235,17 @@ _8c.html" target="source" name="GetCRC64Digest">GetCRC64Digest</a></h2>
   const StringInfo *GetCRC64Digest(const CRC64Info *crc64_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>crc64_info</h5>
-<ol><p>The crc64 info.</p></ol>
+<p>The crc64 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/crc64
-_8c.html" target="source" name="GetCRC64Digestsize">GetCRC64Digestsize</a></h2>
+_8c.html" id="GetCRC64Digestsize">GetCRC64Digestsize</a></h2>
 <div class="doc-section">
 
-<p>GetCRC64Digestsize() returns the CRC64 digest size.</p></ol>
+<p>GetCRC64Digestsize() returns the CRC64 digest size.</p>
 
 <p>The format of the GetCRC64Digestsize method is:</p>
 
@@ -237,17 +253,17 @@ _8c.html" target="source" name="GetCRC64Digestsize">GetCRC64Digestsize</a></h2>
   unsigned int *GetCRC64Digestsize(const CRC64Info *crc64_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>crc64_info</h5>
-<ol><p>The crc64 info.</p></ol>
+<p>The crc64 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/crc64
-_8c.html" target="source" name="IntializeCRC64">IntializeCRC64</a></h2>
+_8c.html" id="IntializeCRC64">IntializeCRC64</a></h2>
 <div class="doc-section">
 
-<p>IntializeCRC64() intializes the CRC64 digest.</p></ol>
+<p>IntializeCRC64() intializes the CRC64 digest.</p>
 
 <p>The format of the InitializeCRC64 method is:</p>
 
@@ -255,18 +271,18 @@ _8c.html" target="source" name="IntializeCRC64">IntializeCRC64</a></h2>
   void InitializeCRC64(crc_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>crc_info</h5>
-<ol><p>The address of a structure of type CRC64Info.</p></ol>
+<p>The address of a structure of type CRC64Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/crc64
-_8c.html" target="source" name="UpdateCRC64">UpdateCRC64</a></h2>
+_8c.html" id="UpdateCRC64">UpdateCRC64</a></h2>
 <div class="doc-section">
 
-<p>UpdateCRC64() updates the CRC64 message digest</p></ol>
+<p>UpdateCRC64() updates the CRC64 message digest</p>
 
 <p>The format of the UpdateCRC64 method is:</p>
 
@@ -274,10 +290,10 @@ _8c.html" target="source" name="UpdateCRC64">UpdateCRC64</a></h2>
   UpdateCRC64(CRC64Info *crc_info,const StringInfo *message)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>crc_info</h5>
-<ol><p>The address of a structure of type CRC64Info.</p></ol>
+<p>The address of a structure of type CRC64Info.</p>
 
  </div>
 

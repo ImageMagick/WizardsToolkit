@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Memory Allocation/Deallocation</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, memory, allocation/deallocation, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireAlignedMemory">AcquireAlignedMemory</a> &bull; <a href="#AcquireWizardMemory">AcquireWizardMemory</a> &bull; <a href="#AcquireQuantumMemory">AcquireQuantumMemory</a> &bull; <a href="#CopyWizardMemory">CopyWizardMemory</a> &bull; <a href="#GetWizardMemoryMethods">GetWizardMemoryMethods</a> &bull; <a href="#RelinquishAlignedMemory">RelinquishAlignedMemory</a> &bull; <a href="#RelinquishWizardMemory">RelinquishWizardMemory</a> &bull; <a href="#ResetWizardMemory">ResetWizardMemory</a> &bull; <a href="#ResizeWizardMemory">ResizeWizardMemory</a> &bull; <a href="#ResizeQuantumMemory">ResizeQuantumMemory</a> &bull; <a href="#SetWizardMemoryMethods">SetWizardMemoryMethods</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="AcquireAlignedMemory">AcquireAlignedMemory</a></h2>
+_8c.html" id="AcquireAlignedMemory">AcquireAlignedMemory</a></h2>
 <div class="doc-section">
 
-<p>AcquireAlignedMemory() returns a pointer to a block of memory at least size bytes whose address is a multiple of 16*sizeof(void *).</p></ol>
+<p>AcquireAlignedMemory() returns a pointer to a block of memory at least size bytes whose address is a multiple of 16*sizeof(void *).</p>
 
 <p>The format of the AcquireAlignedMemory method is:</p>
 
@@ -132,20 +148,20 @@ _8c.html" target="source" name="AcquireAlignedMemory">AcquireAlignedMemory</a></
   void *AcquireAlignedMemory(const size_t count,const size_t quantum)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>count</h5>
-<ol><p>the number of quantum elements to allocate.</p></ol>
+<p>the number of quantum elements to allocate.</p>
 
 <h5>quantum</h5>
-<ol><p>the number of bytes in each quantum.</p></ol>
+<p>the number of bytes in each quantum.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="AcquireWizardMemory">AcquireWizardMemory</a></h2>
+_8c.html" id="AcquireWizardMemory">AcquireWizardMemory</a></h2>
 <div class="doc-section">
 
-<p>AcquireWizardMemory() returns a pointer to a block of memory at least size bytes suitably aligned for any use.</p></ol>
+<p>AcquireWizardMemory() returns a pointer to a block of memory at least size bytes suitably aligned for any use.</p>
 
 <p>The format of the AcquireWizardMemory method is:</p>
 
@@ -153,17 +169,17 @@ _8c.html" target="source" name="AcquireWizardMemory">AcquireWizardMemory</a></h2
   void *AcquireWizardMemory(const size_t size)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>size</h5>
-<ol><p>the size of the memory in bytes to allocate.</p></ol>
+<p>the size of the memory in bytes to allocate.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="AcquireQuantumMemory">AcquireQuantumMemory</a></h2>
+_8c.html" id="AcquireQuantumMemory">AcquireQuantumMemory</a></h2>
 <div class="doc-section">
 
-<p>AcquireQuantumMemory() returns a pointer to a block of memory at least count * quantum bytes suitably aligned for any use.</p></ol>
+<p>AcquireQuantumMemory() returns a pointer to a block of memory at least count * quantum bytes suitably aligned for any use.</p>
 
 <p>The format of the AcquireQuantumMemory method is:</p>
 
@@ -171,20 +187,20 @@ _8c.html" target="source" name="AcquireQuantumMemory">AcquireQuantumMemory</a></
   void *AcquireQuantumMemory(const size_t count,const size_t quantum)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>count</h5>
-<ol><p>the number of quantum elements to allocate.</p></ol>
+<p>the number of quantum elements to allocate.</p>
 
 <h5>quantum</h5>
-<ol><p>the number of bytes in each quantum.</p></ol>
+<p>the number of bytes in each quantum.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="CopyWizardMemory">CopyWizardMemory</a></h2>
+_8c.html" id="CopyWizardMemory">CopyWizardMemory</a></h2>
 <div class="doc-section">
 
-<p>CopyWizardMemory() copies size bytes from memory area source to the destination.  Copying between objects that overlap will take place correctly.  It returns destination.</p></ol>
+<p>CopyWizardMemory() copies size bytes from memory area source to the destination.  Copying between objects that overlap will take place correctly.  It returns destination.</p>
 
 <p>The format of the CopyWizardMemory method is:</p>
 
@@ -193,23 +209,23 @@ _8c.html" target="source" name="CopyWizardMemory">CopyWizardMemory</a></h2>
     const size_t size)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>destination</h5>
-<ol><p>the destination.</p></ol>
+<p>the destination.</p>
 
 <h5>source</h5>
-<ol><p>the source.</p></ol>
+<p>the source.</p>
 
 <h5>size</h5>
-<ol><p>the size of the memory in bytes to allocate.</p></ol>
+<p>the size of the memory in bytes to allocate.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="GetWizardMemoryMethods">GetWizardMemoryMethods</a></h2>
+_8c.html" id="GetWizardMemoryMethods">GetWizardMemoryMethods</a></h2>
 <div class="doc-section">
 
-<p>GetWizardMemoryMethods() gets the methods to acquire, resize, and destroy memory.</p></ol>
+<p>GetWizardMemoryMethods() gets the methods to acquire, resize, and destroy memory.</p>
 
 <p>The format of the GetWizardMemoryMethods() method is:</p>
 
@@ -219,23 +235,23 @@ _8c.html" target="source" name="GetWizardMemoryMethods">GetWizardMemoryMethods</
     DestroyMemoryHandler *destroy_memory_handler)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>acquire_memory_handler</h5>
-<ol><p>method to acquire memory (e.g. malloc).</p></ol>
+<p>method to acquire memory (e.g. malloc).</p>
 
 <h5>resize_memory_handler</h5>
-<ol><p>method to resize memory (e.g. realloc).</p></ol>
+<p>method to resize memory (e.g. realloc).</p>
 
 <h5>destroy_memory_handler</h5>
-<ol><p>method to destroy memory (e.g. free).</p></ol>
+<p>method to destroy memory (e.g. free).</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="RelinquishAlignedMemory">RelinquishAlignedMemory</a></h2>
+_8c.html" id="RelinquishAlignedMemory">RelinquishAlignedMemory</a></h2>
 <div class="doc-section">
 
-<p>RelinquishAlignedMemory() frees memory acquired with AcquireAlignedMemory() or reuse.</p></ol>
+<p>RelinquishAlignedMemory() frees memory acquired with AcquireAlignedMemory() or reuse.</p>
 
 <p>The format of the RelinquishAlignedMemory method is:</p>
 
@@ -243,17 +259,17 @@ _8c.html" target="source" name="RelinquishAlignedMemory">RelinquishAlignedMemory
   void *RelinquishAlignedMemory(void *memory)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>memory</h5>
-<ol><p>A pointer to a block of memory to free for reuse.</p></ol>
+<p>A pointer to a block of memory to free for reuse.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="RelinquishWizardMemory">RelinquishWizardMemory</a></h2>
+_8c.html" id="RelinquishWizardMemory">RelinquishWizardMemory</a></h2>
 <div class="doc-section">
 
-<p>RelinquishWizardMemory() zeros memory that has been allocated, frees it for reuse.</p></ol>
+<p>RelinquishWizardMemory() zeros memory that has been allocated, frees it for reuse.</p>
 
 <p>The format of the RelinquishWizardMemory method is:</p>
 
@@ -261,17 +277,17 @@ _8c.html" target="source" name="RelinquishWizardMemory">RelinquishWizardMemory</
   void *RelinquishWizardMemory(void *memory)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>memory</h5>
-<ol><p>A pointer to a block of memory to free for reuse.</p></ol>
+<p>A pointer to a block of memory to free for reuse.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="ResetWizardMemory">ResetWizardMemory</a></h2>
+_8c.html" id="ResetWizardMemory">ResetWizardMemory</a></h2>
 <div class="doc-section">
 
-<p>ResetWizardMemory() fills the first size bytes of the memory area pointed to by memory with the constant byte c.</p></ol>
+<p>ResetWizardMemory() fills the first size bytes of the memory area pointed to by memory with the constant byte c.</p>
 
 <p>The format of the ResetWizardMemory method is:</p>
 
@@ -279,23 +295,23 @@ _8c.html" target="source" name="ResetWizardMemory">ResetWizardMemory</a></h2>
   void *ResetWizardMemory(void *memory,int byte,const size_t size)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>memory</h5>
-<ol><p>A pointer to a memory allocation.</p></ol>
+<p>A pointer to a memory allocation.</p>
 
 <h5>byte</h5>
-<ol><p>Set the memory to this value.</p></ol>
+<p>Set the memory to this value.</p>
 
 <h5>size</h5>
-<ol><p>Size of the memory to reset.</p></ol>
+<p>Size of the memory to reset.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="ResizeWizardMemory">ResizeWizardMemory</a></h2>
+_8c.html" id="ResizeWizardMemory">ResizeWizardMemory</a></h2>
 <div class="doc-section">
 
-<p>ResizeWizardMemory() changes the size of the memory and returns a pointer to the (possibly moved) block.  The contents will be unchanged up to the lesser of the new and old sizes.</p></ol>
+<p>ResizeWizardMemory() changes the size of the memory and returns a pointer to the (possibly moved) block.  The contents will be unchanged up to the lesser of the new and old sizes.</p>
 
 <p>The format of the ResizeWizardMemory method is:</p>
 
@@ -303,20 +319,20 @@ _8c.html" target="source" name="ResizeWizardMemory">ResizeWizardMemory</a></h2>
   void *ResizeWizardMemory(void *memory,const size_t size)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>memory</h5>
-<ol><p>A pointer to a memory allocation.</p></ol>
+<p>A pointer to a memory allocation.</p>
 
 <h5>size</h5>
-<ol><p>the new size of the allocated memory.</p></ol>
+<p>the new size of the allocated memory.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="ResizeQuantumMemory">ResizeQuantumMemory</a></h2>
+_8c.html" id="ResizeQuantumMemory">ResizeQuantumMemory</a></h2>
 <div class="doc-section">
 
-<p>ResizeQuantumMemory() changes the size of the memory and returns a pointer to the (possibly moved) block.  The contents will be unchanged up to the lesser of the new and old sizes.</p></ol>
+<p>ResizeQuantumMemory() changes the size of the memory and returns a pointer to the (possibly moved) block.  The contents will be unchanged up to the lesser of the new and old sizes.</p>
 
 <p>The format of the ResizeQuantumMemory method is:</p>
 
@@ -325,23 +341,23 @@ _8c.html" target="source" name="ResizeQuantumMemory">ResizeQuantumMemory</a></h2
     const size_t quantum)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>memory</h5>
-<ol><p>A pointer to a memory allocation.</p></ol>
+<p>A pointer to a memory allocation.</p>
 
 <h5>count</h5>
-<ol><p>the number of quantum elements to allocate.</p></ol>
+<p>the number of quantum elements to allocate.</p>
 
 <h5>quantum</h5>
-<ol><p>the number of bytes in each quantum.</p></ol>
+<p>the number of bytes in each quantum.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/memory
-_8c.html" target="source" name="SetWizardMemoryMethods">SetWizardMemoryMethods</a></h2>
+_8c.html" id="SetWizardMemoryMethods">SetWizardMemoryMethods</a></h2>
 <div class="doc-section">
 
-<p>SetWizardMemoryMethods() sets the methods to acquire, resize, and destroy memory.</p></ol>
+<p>SetWizardMemoryMethods() sets the methods to acquire, resize, and destroy memory.</p>
 
 <p>The format of the SetWizardMemoryMethods() method is:</p>
 
@@ -351,16 +367,16 @@ _8c.html" target="source" name="SetWizardMemoryMethods">SetWizardMemoryMethods</
     DestroyMemoryHandler destroy_memory_handler)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>acquire_memory_handler</h5>
-<ol><p>method to acquire memory (e.g. malloc).</p></ol>
+<p>method to acquire memory (e.g. malloc).</p>
 
 <h5>resize_memory_handler</h5>
-<ol><p>method to resize memory (e.g. realloc).</p></ol>
+<p>method to resize memory (e.g. realloc).</p>
 
 <h5>destroy_memory_handler</h5>
-<ol><p>method to destroy memory (e.g. free).</p></ol>
+<p>method to destroy memory (e.g. free).</p>
 
  </div>
 

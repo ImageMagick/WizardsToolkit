@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Timing</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, timing, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireTimerInfo">AcquireTimerInfo</a> &bull; <a href="#ContinueTimer">ContinueTimer</a> &bull; <a href="#DestroyTimerInfo">DestroyTimerInfo</a> &bull; <a href="#GetElapsedTime">GetElapsedTime</a> &bull; <a href="#GetUserTime">GetUserTime</a> &bull; <a href="#ResetTimer">ResetTimer</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
-_8c.html" target="source" name="AcquireTimerInfo">AcquireTimerInfo</a></h2>
+_8c.html" id="AcquireTimerInfo">AcquireTimerInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireTimerInfo() initializes the TimerInfo structure.  It effectively creates a stopwatch and starts it.</p></ol>
+<p>AcquireTimerInfo() initializes the TimerInfo structure.  It effectively creates a stopwatch and starts it.</p>
 
 <p>The format of the AcquireTimerInfo method is:</p>
 
@@ -134,10 +150,10 @@ _8c.html" target="source" name="AcquireTimerInfo">AcquireTimerInfo</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
-_8c.html" target="source" name="ContinueTimer">ContinueTimer</a></h2>
+_8c.html" id="ContinueTimer">ContinueTimer</a></h2>
 <div class="doc-section">
 
-<p>ContinueTimer() resumes a stopped stopwatch. The stopwatch continues counting from the last StartTimer() onwards.</p></ol>
+<p>ContinueTimer() resumes a stopped stopwatch. The stopwatch continues counting from the last StartTimer() onwards.</p>
 
 <p>The format of the ContinueTimer method is:</p>
 
@@ -145,17 +161,17 @@ _8c.html" target="source" name="ContinueTimer">ContinueTimer</a></h2>
   WizardBooleanType ContinueTimer(TimerInfo *timer_info)
 </pre>
 
-<p>A description of each parameter follows.</p></ol>
+<p>A description of each parameter follows.</p>
 
 <h5> timer_info</h5>
-<ol><p>Time statistics structure.</p></ol>
+<p>Time statistics structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
-_8c.html" target="source" name="DestroyTimerInfo">DestroyTimerInfo</a></h2>
+_8c.html" id="DestroyTimerInfo">DestroyTimerInfo</a></h2>
 <div class="doc-section">
 
-<p>DestroyTimerInfo() zeros memory associated with the TimerInfo structure.</p></ol>
+<p>DestroyTimerInfo() zeros memory associated with the TimerInfo structure.</p>
 
 <p>The format of the DestroyTimerInfo method is:</p>
 
@@ -163,17 +179,17 @@ _8c.html" target="source" name="DestroyTimerInfo">DestroyTimerInfo</a></h2>
   TimerInfo *DestroyTimerInfo(TimerInfo *timer_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>timer_info</h5>
-<ol><p>The cipher context.</p></ol>
+<p>The cipher context.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
-_8c.html" target="source" name="GetElapsedTime">GetElapsedTime</a></h2>
+_8c.html" id="GetElapsedTime">GetElapsedTime</a></h2>
 <div class="doc-section">
 
-<p>GetElapsedTime() returns the elapsed time (in seconds) passed between the start and stop events. If the stopwatch is still running, it is stopped first.</p></ol>
+<p>GetElapsedTime() returns the elapsed time (in seconds) passed between the start and stop events. If the stopwatch is still running, it is stopped first.</p>
 
 <p>The format of the GetElapsedTime method is:</p>
 
@@ -181,17 +197,17 @@ _8c.html" target="source" name="GetElapsedTime">GetElapsedTime</a></h2>
   double GetElapsedTime(TimerInfo *timer_info)
 </pre>
 
-<p>A description of each parameter follows.</p></ol>
+<p>A description of each parameter follows.</p>
 
 <h5> timer_info</h5>
-<ol><p>Timer statistics structure.</p></ol>
+<p>Timer statistics structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
-_8c.html" target="source" name="GetUserTime">GetUserTime</a></h2>
+_8c.html" id="GetUserTime">GetUserTime</a></h2>
 <div class="doc-section">
 
-<p>GetUserTime() returns the User time (user and system) by the operating system (in seconds) between the start and stop events. If the stopwatch is still running, it is stopped first.</p></ol>
+<p>GetUserTime() returns the User time (user and system) by the operating system (in seconds) between the start and stop events. If the stopwatch is still running, it is stopped first.</p>
 
 <p>The format of the GetUserTime method is:</p>
 
@@ -199,17 +215,17 @@ _8c.html" target="source" name="GetUserTime">GetUserTime</a></h2>
   double GetUserTime(TimerInfo *timer_info)
 </pre>
 
-<p>A description of each parameter follows.</p></ol>
+<p>A description of each parameter follows.</p>
 
 <h5> timer_info</h5>
-<ol><p>Timer statistics structure.</p></ol>
+<p>Timer statistics structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/timer
-_8c.html" target="source" name="ResetTimer">ResetTimer</a></h2>
+_8c.html" id="ResetTimer">ResetTimer</a></h2>
 <div class="doc-section">
 
-<p>ResetTimer() resets the stopwatch.</p></ol>
+<p>ResetTimer() resets the stopwatch.</p>
 
 <p>The format of the ResetTimer method is:</p>
 
@@ -217,10 +233,10 @@ _8c.html" target="source" name="ResetTimer">ResetTimer</a></h2>
   void ResetTimer(TimerInfo *timer_info)
 </pre>
 
-<p>A description of each parameter follows.</p></ol>
+<p>A description of each parameter follows.</p>
 
 <h5> timer_info</h5>
-<ol><p>Timer statistics structure.</p></ol>
+<p>Timer statistics structure.</p>
 
  </div>
 

@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Keyed-Hashing for Message Authentication</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, keyed-hashing, for, message, authentication, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireHMACInfo">AcquireHMACInfo</a> &bull; <a href="#ConstructHMAC">ConstructHMAC</a> &bull; <a href="#DestroyHMACInfo">DestroyHMACInfo</a> &bull; <a href="#FinalizeHMAC">FinalizeHMAC</a> &bull; <a href="#GetHMACDigest">GetHMACDigest</a> &bull; <a href="#GetHMACDigestsize">GetHMACDigestsize</a> &bull; <a href="#IntializeHMAC">IntializeHMAC</a> &bull; <a href="#ResetHMAC">ResetHMAC</a> &bull; <a href="#UpdateHMAC">UpdateHMAC</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hmac
-_8c.html" target="source" name="AcquireHMACInfo">AcquireHMACInfo</a></h2>
+_8c.html" id="AcquireHMACInfo">AcquireHMACInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireHMACInfo() allocate the HMACInfo structure.</p></ol>
+<p>AcquireHMACInfo() allocate the HMACInfo structure.</p>
 
 <p>The format of the AcquireHMACInfo method is:</p>
 
@@ -132,17 +148,17 @@ _8c.html" target="source" name="AcquireHMACInfo">AcquireHMACInfo</a></h2>
   HMACInfo *AcquireHMACInfo(const HashType hash)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hash</h5>
-<ol><p>The hash type.</p></ol>
+<p>The hash type.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hmac
-_8c.html" target="source" name="ConstructHMAC">ConstructHMAC</a></h2>
+_8c.html" id="ConstructHMAC">ConstructHMAC</a></h2>
 <div class="doc-section">
 
-<p>ConstructHMAC() constructs the HMAC digest.</p></ol>
+<p>ConstructHMAC() constructs the HMAC digest.</p>
 
 <p>The format of the ConstructHMAC method is:</p>
 
@@ -151,23 +167,23 @@ _8c.html" target="source" name="ConstructHMAC">ConstructHMAC</a></h2>
     const StringInfo *message)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hmac_info</h5>
-<ol><p>The address of a structure of type HMACInfo.</p></ol>
+<p>The address of a structure of type HMACInfo.</p>
 
 <h5>key</h5>
-<ol><p>The key.</p></ol>
+<p>The key.</p>
 
 <h5>message</h5>
-<ol><p>The message.</p></ol>
+<p>The message.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hmac
-_8c.html" target="source" name="DestroyHMACInfo">DestroyHMACInfo</a></h2>
+_8c.html" id="DestroyHMACInfo">DestroyHMACInfo</a></h2>
 <div class="doc-section">
 
-<p>DestroyHMACInfo() zeros memory associated with the HMACInfo structure.</p></ol>
+<p>DestroyHMACInfo() zeros memory associated with the HMACInfo structure.</p>
 
 <p>The format of the DestroyHMACInfo method is:</p>
 
@@ -175,17 +191,17 @@ _8c.html" target="source" name="DestroyHMACInfo">DestroyHMACInfo</a></h2>
   HMACInfo *DestroyHMACInfo(HMACInfo *hmac_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hmac_info</h5>
-<ol><p>The cipher hmac_info.</p></ol>
+<p>The cipher hmac_info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hmac
-_8c.html" target="source" name="FinalizeHMAC">FinalizeHMAC</a></h2>
+_8c.html" id="FinalizeHMAC">FinalizeHMAC</a></h2>
 <div class="doc-section">
 
-<p>FinalizeHMAC() finalizes the HMAC message digest computation.</p></ol>
+<p>FinalizeHMAC() finalizes the HMAC message digest computation.</p>
 
 <p>The format of the FinalizeHMAC method is:</p>
 
@@ -193,17 +209,17 @@ _8c.html" target="source" name="FinalizeHMAC">FinalizeHMAC</a></h2>
   FinalizeHMAC(HMACInfo *hmac_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hmac_info</h5>
-<ol><p>The address of a structure of type HMACInfo.</p></ol>
+<p>The address of a structure of type HMACInfo.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hmac
-_8c.html" target="source" name="GetHMACDigest">GetHMACDigest</a></h2>
+_8c.html" id="GetHMACDigest">GetHMACDigest</a></h2>
 <div class="doc-section">
 
-<p>GetHMACDigest() returns the hmac digest.</p></ol>
+<p>GetHMACDigest() returns the hmac digest.</p>
 
 <p>The format of the GetHMACDigest method is:</p>
 
@@ -211,17 +227,17 @@ _8c.html" target="source" name="GetHMACDigest">GetHMACDigest</a></h2>
   const StringInfo *GetHMACDigest(const hmacInfo *hmac_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hmac_info</h5>
-<ol><p>The hmac info.</p></ol>
+<p>The hmac info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hmac
-_8c.html" target="source" name="GetHMACDigestsize">GetHMACDigestsize</a></h2>
+_8c.html" id="GetHMACDigestsize">GetHMACDigestsize</a></h2>
 <div class="doc-section">
 
-<p>GetHMACDigestsize() returns the HMAC digest size.</p></ol>
+<p>GetHMACDigestsize() returns the HMAC digest size.</p>
 
 <p>The format of the GetHMACDigestsize method is:</p>
 
@@ -229,17 +245,17 @@ _8c.html" target="source" name="GetHMACDigestsize">GetHMACDigestsize</a></h2>
   unsigned int *GetHMACDigestsize(const HMACInfo *hmac_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hmac_info</h5>
-<ol><p>The hmac info.</p></ol>
+<p>The hmac info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hmac
-_8c.html" target="source" name="IntializeHMAC">IntializeHMAC</a></h2>
+_8c.html" id="IntializeHMAC">IntializeHMAC</a></h2>
 <div class="doc-section">
 
-<p>IntializeHMAC() intializes the HMAC digest.</p></ol>
+<p>IntializeHMAC() intializes the HMAC digest.</p>
 
 <p>The format of the DestroyHMACInfo method is:</p>
 
@@ -247,20 +263,20 @@ _8c.html" target="source" name="IntializeHMAC">IntializeHMAC</a></h2>
   void InitializeHMACInfo(HMACInfo *hmac_info,const StringInfo *key)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hmac_info</h5>
-<ol><p>The message authentication info.</p></ol>
+<p>The message authentication info.</p>
 
 <h5>key</h5>
-<ol><p>The key.</p></ol>
+<p>The key.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hmac
-_8c.html" target="source" name="ResetHMAC">ResetHMAC</a></h2>
+_8c.html" id="ResetHMAC">ResetHMAC</a></h2>
 <div class="doc-section">
 
-<p>ResetHMAC() resets the HMAC message digest computation.</p></ol>
+<p>ResetHMAC() resets the HMAC message digest computation.</p>
 
 <p>The format of the ResetHMAC method is:</p>
 
@@ -268,17 +284,17 @@ _8c.html" target="source" name="ResetHMAC">ResetHMAC</a></h2>
   ResetHMAC(HMACInfo *hmac_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hmac_info</h5>
-<ol><p>The address of a structure of type HMACInfo.</p></ol>
+<p>The address of a structure of type HMACInfo.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/hmac
-_8c.html" target="source" name="UpdateHMAC">UpdateHMAC</a></h2>
+_8c.html" id="UpdateHMAC">UpdateHMAC</a></h2>
 <div class="doc-section">
 
-<p>UpdateHMAC() updates the HMAC message digest.</p></ol>
+<p>UpdateHMAC() updates the HMAC message digest.</p>
 
 <p>The format of the UpdateHMAC method is:</p>
 
@@ -286,13 +302,13 @@ _8c.html" target="source" name="UpdateHMAC">UpdateHMAC</a></h2>
   UpdateHMAC(HMACInfo *hmac_info,const StringInfo *message)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>hmac_info</h5>
-<ol><p>The address of a structure of type HMACInfo.</p></ol>
+<p>The address of a structure of type HMACInfo.</p>
 
 <h5>message</h5>
-<ol><p>The message</p></ol>
+<p>The message</p>
 
  </div>
 

@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Semaphores</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, semaphores, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireSemaphoreInfo">AcquireSemaphoreInfo</a> &bull; <a href="#AllocateSemaphoreInfo">AllocateSemaphoreInfo</a> &bull; <a href="#DestroySemaphoreInfo">DestroySemaphoreInfo</a> &bull; <a href="#LockSemaphoreInfo">LockSemaphoreInfo</a> &bull; <a href="#RelinquishSemaphoreInfo">RelinquishSemaphoreInfo</a> &bull; <a href="#SemaphoreComponentGenesis">SemaphoreComponentGenesis</a> &bull; <a href="#SemaphoreComponentTerminus">SemaphoreComponentTerminus</a> &bull; <a href="#UnlockSemaphoreInfo">UnlockSemaphoreInfo</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="AcquireSemaphoreInfo">AcquireSemaphoreInfo</a></h2>
+_8c.html" id="AcquireSemaphoreInfo">AcquireSemaphoreInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireSemaphoreInfo() acquires a semaphore.</p></ol>
+<p>AcquireSemaphoreInfo() acquires a semaphore.</p>
 
 <p>The format of the AcquireSemaphoreInfo method is:</p>
 
@@ -132,17 +148,17 @@ _8c.html" target="source" name="AcquireSemaphoreInfo">AcquireSemaphoreInfo</a></
   void AcquireSemaphoreInfo(SemaphoreInfo **semaphore_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>semaphore_info</h5>
-<ol><p>Specifies a pointer to an SemaphoreInfo structure.</p></ol>
+<p>Specifies a pointer to an SemaphoreInfo structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="AllocateSemaphoreInfo">AllocateSemaphoreInfo</a></h2>
+_8c.html" id="AllocateSemaphoreInfo">AllocateSemaphoreInfo</a></h2>
 <div class="doc-section">
 
-<p>AllocateSemaphoreInfo() initializes the SemaphoreInfo structure.</p></ol>
+<p>AllocateSemaphoreInfo() initializes the SemaphoreInfo structure.</p>
 
 <p>The format of the AllocateSemaphoreInfo method is:</p>
 
@@ -152,10 +168,10 @@ _8c.html" target="source" name="AllocateSemaphoreInfo">AllocateSemaphoreInfo</a>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="DestroySemaphoreInfo">DestroySemaphoreInfo</a></h2>
+_8c.html" id="DestroySemaphoreInfo">DestroySemaphoreInfo</a></h2>
 <div class="doc-section">
 
-<p>DestroySemaphoreInfo() destroys a semaphore.</p></ol>
+<p>DestroySemaphoreInfo() destroys a semaphore.</p>
 
 <p>The format of the DestroySemaphoreInfo method is:</p>
 
@@ -163,17 +179,17 @@ _8c.html" target="source" name="DestroySemaphoreInfo">DestroySemaphoreInfo</a></
   void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>semaphore_info</h5>
-<ol><p>Specifies a pointer to an SemaphoreInfo structure.</p></ol>
+<p>Specifies a pointer to an SemaphoreInfo structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="LockSemaphoreInfo">LockSemaphoreInfo</a></h2>
+_8c.html" id="LockSemaphoreInfo">LockSemaphoreInfo</a></h2>
 <div class="doc-section">
 
-<p>LockSemaphoreInfo() locks a semaphore.</p></ol>
+<p>LockSemaphoreInfo() locks a semaphore.</p>
 
 <p>The format of the LockSemaphoreInfo method is:</p>
 
@@ -181,17 +197,17 @@ _8c.html" target="source" name="LockSemaphoreInfo">LockSemaphoreInfo</a></h2>
   void LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>semaphore_info</h5>
-<ol><p>Specifies a pointer to an SemaphoreInfo structure.</p></ol>
+<p>Specifies a pointer to an SemaphoreInfo structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="RelinquishSemaphoreInfo">RelinquishSemaphoreInfo</a></h2>
+_8c.html" id="RelinquishSemaphoreInfo">RelinquishSemaphoreInfo</a></h2>
 <div class="doc-section">
 
-<p>RelinquishSemaphoreInfo() relinquishes a semaphore.</p></ol>
+<p>RelinquishSemaphoreInfo() relinquishes a semaphore.</p>
 
 <p>The format of the RelinquishSemaphoreInfo method is:</p>
 
@@ -199,17 +215,17 @@ _8c.html" target="source" name="RelinquishSemaphoreInfo">RelinquishSemaphoreInfo
   RelinquishSemaphoreInfo(SemaphoreInfo *semaphore_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>semaphore_info</h5>
-<ol><p>Specifies a pointer to an SemaphoreInfo structure.</p></ol>
+<p>Specifies a pointer to an SemaphoreInfo structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="SemaphoreComponentGenesis">SemaphoreComponentGenesis</a></h2>
+_8c.html" id="SemaphoreComponentGenesis">SemaphoreComponentGenesis</a></h2>
 <div class="doc-section">
 
-<p>SemaphoreComponentGenesis() instantiates the semaphore component.</p></ol>
+<p>SemaphoreComponentGenesis() instantiates the semaphore component.</p>
 
 <p>The format of the SemaphoreComponentGenesis method is:</p>
 
@@ -219,10 +235,10 @@ _8c.html" target="source" name="SemaphoreComponentGenesis">SemaphoreComponentGen
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="SemaphoreComponentTerminus">SemaphoreComponentTerminus</a></h2>
+_8c.html" id="SemaphoreComponentTerminus">SemaphoreComponentTerminus</a></h2>
 <div class="doc-section">
 
-<p>SemaphoreComponentTerminus() destroys the semaphore environment.</p></ol>
+<p>SemaphoreComponentTerminus() destroys the semaphore environment.</p>
 
 <p>The format of the SemaphoreComponentTerminus method is:</p>
 
@@ -232,10 +248,10 @@ _8c.html" target="source" name="SemaphoreComponentTerminus">SemaphoreComponentTe
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/semaphore
-_8c.html" target="source" name="UnlockSemaphoreInfo">UnlockSemaphoreInfo</a></h2>
+_8c.html" id="UnlockSemaphoreInfo">UnlockSemaphoreInfo</a></h2>
 <div class="doc-section">
 
-<p>UnlockSemaphoreInfo() unlocks a semaphore.</p></ol>
+<p>UnlockSemaphoreInfo() unlocks a semaphore.</p>
 
 <p>The format of the UnlockSemaphoreInfo method is:</p>
 
@@ -243,10 +259,10 @@ _8c.html" target="source" name="UnlockSemaphoreInfo">UnlockSemaphoreInfo</a></h2
   void UnlockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>semaphore_info</h5>
-<ol><p>Specifies a pointer to an SemaphoreInfo structure.</p></ol>
+<p>Specifies a pointer to an SemaphoreInfo structure.</p>
 
  </div>
 

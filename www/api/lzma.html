@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: LZMA Entropy Methods</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, lzma, entropy, methods, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireLZMAInfo">AcquireLZMAInfo</a> &bull; <a href="#GetLZMAChaos">GetLZMAChaos</a> &bull; <a href="#DestroyLZMAInfo">DestroyLZMAInfo</a> &bull; <a href="#IncreaseLZMA">IncreaseLZMA</a> &bull; <a href="#RestoreLZMA">RestoreLZMA</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
-_8c.html" target="source" name="AcquireLZMAInfo">AcquireLZMAInfo</a></h2>
+_8c.html" id="AcquireLZMAInfo">AcquireLZMAInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireLZMAInfo() allocates the LZMAInfo structure.</p></ol>
+<p>AcquireLZMAInfo() allocates the LZMAInfo structure.</p>
 
 <p>The format of the AcquireLZMAInfo method is:</p>
 
@@ -132,17 +148,17 @@ _8c.html" target="source" name="AcquireLZMAInfo">AcquireLZMAInfo</a></h2>
   LZMAInfo *AcquireLZMAInfo(const size_t level)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>level</h5>
-<ol><p>entropy level: 1 is best speed, 9 is more entropy.</p></ol>
+<p>entropy level: 1 is best speed, 9 is more entropy.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
-_8c.html" target="source" name="GetLZMAChaos">GetLZMAChaos</a></h2>
+_8c.html" id="GetLZMAChaos">GetLZMAChaos</a></h2>
 <div class="doc-section">
 
-<p>GetLZMAChaos() returns LZMA chaos.</p></ol>
+<p>GetLZMAChaos() returns LZMA chaos.</p>
 
 <p>The format of the GetLZMAChaos method is:</p>
 
@@ -150,17 +166,17 @@ _8c.html" target="source" name="GetLZMAChaos">GetLZMAChaos</a></h2>
   const StringInfo *GetLZMAChaos(const LZMAInfo *lzma_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>lzma_info</h5>
-<ol><p>The lzma info.</p></ol>
+<p>The lzma info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
-_8c.html" target="source" name="DestroyLZMAInfo">DestroyLZMAInfo</a></h2>
+_8c.html" id="DestroyLZMAInfo">DestroyLZMAInfo</a></h2>
 <div class="doc-section">
 
-<p>DestroyLZMAInfo() zeros memory associated with the LZMAInfo structure.</p></ol>
+<p>DestroyLZMAInfo() zeros memory associated with the LZMAInfo structure.</p>
 
 <p>The format of the DestroyLZMAInfo method is:</p>
 
@@ -168,17 +184,17 @@ _8c.html" target="source" name="DestroyLZMAInfo">DestroyLZMAInfo</a></h2>
   LZMAInfo *DestroyLZMAInfo(LZMAInfo *lzma_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>lzma_info</h5>
-<ol><p>The lzma info.</p></ol>
+<p>The lzma info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
-_8c.html" target="source" name="IncreaseLZMA">IncreaseLZMA</a></h2>
+_8c.html" id="IncreaseLZMA">IncreaseLZMA</a></h2>
 <div class="doc-section">
 
-<p>IncreaseLZMA() compresses the message to increase its entropy.</p></ol>
+<p>IncreaseLZMA() compresses the message to increase its entropy.</p>
 
 <p>The format of the IncreaseLZMA method is:</p>
 
@@ -187,23 +203,23 @@ _8c.html" target="source" name="IncreaseLZMA">IncreaseLZMA</a></h2>
     const StringInfo *message,ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>lzma_info</h5>
-<ol><p>The address of a structure of type LZMAInfo.</p></ol>
+<p>The address of a structure of type LZMAInfo.</p>
 
 <h5>message</h5>
-<ol><p>The message.</p></ol>
+<p>The message.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/lzma
-_8c.html" target="source" name="RestoreLZMA">RestoreLZMA</a></h2>
+_8c.html" id="RestoreLZMA">RestoreLZMA</a></h2>
 <div class="doc-section">
 
-<p>RestoreLZMA() uncompresses the message to restore its original entropy.</p></ol>
+<p>RestoreLZMA() uncompresses the message to restore its original entropy.</p>
 
 <p>The format of the RestoreLZMA method is:</p>
 
@@ -212,19 +228,19 @@ _8c.html" target="source" name="RestoreLZMA">RestoreLZMA</a></h2>
     const StringInfo *message,ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>lzma_info</h5>
-<ol><p>The address of a structure of type LZMAInfo.</p></ol>
+<p>The address of a structure of type LZMAInfo.</p>
 
 <h5>length</h5>
-<ol><p>The total size of the destination buffer, which must be large enough to hold the entire uncompressed data.</p></ol>
+<p>The total size of the destination buffer, which must be large enough to hold the entire uncompressed data.</p>
 
 <h5>message</h5>
-<ol><p>The message.</p></ol>
+<p>The message.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 

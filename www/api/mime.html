@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Mime Methods</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, mime, methods, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#GetMimeInfoList">GetMimeInfoList</a> &bull; <a href="#GetMimeList">GetMimeList</a> &bull; <a href="#GetMimeDescription">GetMimeDescription</a> &bull; <a href="#GetMimeType">GetMimeType</a> &bull; <a href="#ListMimeInfo">ListMimeInfo</a> &bull; <a href="#LoadMimeList">LoadMimeList</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/mime
-_8c.html" target="source" name="GetMimeInfoList">GetMimeInfoList</a></h2>
+_8c.html" id="GetMimeInfoList">GetMimeInfoList</a></h2>
 <div class="doc-section">
 
-<p>GetMimeInfoList() returns any image aliases that match the specified pattern.</p></ol>
+<p>GetMimeInfoList() returns any image aliases that match the specified pattern.</p>
 
 <p>The magic of the GetMimeInfoList function is:</p>
 
@@ -133,23 +149,23 @@ _8c.html" target="source" name="GetMimeInfoList">GetMimeInfoList</a></h2>
     size_t *number_aliases,ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>pattern</h5>
-<ol><p>Specifies a pointer to a text string containing a pattern.</p></ol>
+<p>Specifies a pointer to a text string containing a pattern.</p>
 
 <h5>number_aliases</h5>
-<ol><p>This integer returns the number of magics in the list.</p></ol>
+<p>This integer returns the number of magics in the list.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/mime
-_8c.html" target="source" name="GetMimeList">GetMimeList</a></h2>
+_8c.html" id="GetMimeList">GetMimeList</a></h2>
 <div class="doc-section">
 
-<p>GetMimeList() returns any image format aliases that match the specified pattern.</p></ol>
+<p>GetMimeList() returns any image format aliases that match the specified pattern.</p>
 
 <p>The format of the GetMimeList function is:</p>
 
@@ -158,23 +174,23 @@ _8c.html" target="source" name="GetMimeList">GetMimeList</a></h2>
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>pattern</h5>
-<ol><p>Specifies a pointer to a text string containing a pattern.</p></ol>
+<p>Specifies a pointer to a text string containing a pattern.</p>
 
 <h5>number_aliases</h5>
-<ol><p>This integer returns the number of image format aliases in the list.</p></ol>
+<p>This integer returns the number of image format aliases in the list.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/mime
-_8c.html" target="source" name="GetMimeDescription">GetMimeDescription</a></h2>
+_8c.html" id="GetMimeDescription">GetMimeDescription</a></h2>
 <div class="doc-section">
 
-<p>GetMimeDescription() returns the mime type description.</p></ol>
+<p>GetMimeDescription() returns the mime type description.</p>
 
 <p>The format of the GetMimeDescription method is:</p>
 
@@ -182,17 +198,17 @@ _8c.html" target="source" name="GetMimeDescription">GetMimeDescription</a></h2>
   const char *GetMimeDescription(const MimeInfo *mime_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>mime_info</h5>
-<ol><p>The magic info.</p></ol>
+<p>The magic info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/mime
-_8c.html" target="source" name="GetMimeType">GetMimeType</a></h2>
+_8c.html" id="GetMimeType">GetMimeType</a></h2>
 <div class="doc-section">
 
-<p>GetMimeType() returns the mime type.</p></ol>
+<p>GetMimeType() returns the mime type.</p>
 
 <p>The format of the GetMimeType method is:</p>
 
@@ -200,17 +216,17 @@ _8c.html" target="source" name="GetMimeType">GetMimeType</a></h2>
   const char *GetMimeType(const MimeInfo *mime_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>mime_info</h5>
-<ol><p>The magic info.</p></ol>
+<p>The magic info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/mime
-_8c.html" target="source" name="ListMimeInfo">ListMimeInfo</a></h2>
+_8c.html" id="ListMimeInfo">ListMimeInfo</a></h2>
 <div class="doc-section">
 
-<p>ListMimeInfo() lists the magic info to a file.</p></ol>
+<p>ListMimeInfo() lists the magic info to a file.</p>
 
 <p>The format of the ListMimeInfo method is:</p>
 
@@ -218,20 +234,20 @@ _8c.html" target="source" name="ListMimeInfo">ListMimeInfo</a></h2>
   WizardBooleanType ListMimeInfo(FILE *file,ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows.</p></ol>
+<p>A description of each parameter follows.</p>
 
 <h5>file</h5>
-<ol><p>An pointer to a FILE.</p></ol>
+<p>An pointer to a FILE.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/mime
-_8c.html" target="source" name="LoadMimeList">LoadMimeList</a></h2>
+_8c.html" id="LoadMimeList">LoadMimeList</a></h2>
 <div class="doc-section">
 
-<p>LoadMimeList() loads one or more magic configuration file which provides a mapping between magic attributes and a magic name.</p></ol>
+<p>LoadMimeList() loads one or more magic configuration file which provides a mapping between magic attributes and a magic name.</p>
 
 <p>The format of the LoadMimeLists method is:</p>
 
@@ -240,13 +256,13 @@ _8c.html" target="source" name="LoadMimeList">LoadMimeList</a></h2>
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>filename</h5>
-<ol><p>The font file name.</p></ol>
+<p>The font file name.</p>
 
 <h5>exception</h5>
-<ol><p>Return any errors or warnings in this structure.</p></ol>
+<p>Return any errors or warnings in this structure.</p>
 
  </div>
 

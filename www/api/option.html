@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Toolkit Options</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, toolkit, options, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#GetWizardOptions">GetWizardOptions</a> &bull; <a href="#IsWizardOption">IsWizardOption</a> &bull; <a href="#ListWizardOptions">ListWizardOptions</a> &bull; <a href="#ParseWizardOption">ParseWizardOption</a> &bull; <a href="#WizardOptionToMnemonic">WizardOptionToMnemonic</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/option
-_8c.html" target="source" name="GetWizardOptions">GetWizardOptions</a></h2>
+_8c.html" id="GetWizardOptions">GetWizardOptions</a></h2>
 <div class="doc-section">
 
-<p>GetWizardOptions() returns a list of options.</p></ol>
+<p>GetWizardOptions() returns a list of options.</p>
 
 <p>The format of the GetWizardOptions method is:</p>
 
@@ -132,17 +148,17 @@ _8c.html" target="source" name="GetWizardOptions">GetWizardOptions</a></h2>
   const char **GetWizardOptions(const WizardOption option)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>option</h5>
-<ol><p>The option.</p></ol>
+<p>The option.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/option
-_8c.html" target="source" name="IsWizardOption">IsWizardOption</a></h2>
+_8c.html" id="IsWizardOption">IsWizardOption</a></h2>
 <div class="doc-section">
 
-<p>IsWizardOption() returns WizardTrue if the option begins with a - or + and the first character that follows is alphanumeric.</p></ol>
+<p>IsWizardOption() returns WizardTrue if the option begins with a - or + and the first character that follows is alphanumeric.</p>
 
 <p>The format of the IsWizardOption method is:</p>
 
@@ -150,17 +166,17 @@ _8c.html" target="source" name="IsWizardOption">IsWizardOption</a></h2>
   WizardBooleanType IsWizardOption(const char *option)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>option</h5>
-<ol><p>The option.</p></ol>
+<p>The option.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/option
-_8c.html" target="source" name="ListWizardOptions">ListWizardOptions</a></h2>
+_8c.html" id="ListWizardOptions">ListWizardOptions</a></h2>
 <div class="doc-section">
 
-<p>ListWizardOptions() lists the contents of enumerated option type(s).</p></ol>
+<p>ListWizardOptions() lists the contents of enumerated option type(s).</p>
 
 <p>The format of the ListWizardOptions method is:</p>
 
@@ -169,23 +185,23 @@ _8c.html" target="source" name="ListWizardOptions">ListWizardOptions</a></h2>
     ExceptionInfo *exception)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>file</h5>
-<ol><p>list options to this file handle.</p></ol>
+<p>list options to this file handle.</p>
 
 <h5>option</h5>
-<ol><p>which option list to display.</p></ol>
+<p>which option list to display.</p>
 
 <h5>exception</h5>
-<ol><p>return any errors or warnings in this structure.</p></ol>
+<p>return any errors or warnings in this structure.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/option
-_8c.html" target="source" name="ParseWizardOption">ParseWizardOption</a></h2>
+_8c.html" id="ParseWizardOption">ParseWizardOption</a></h2>
 <div class="doc-section">
 
-<p>ParseWizardOption() parses an option string and returns an enumerated option type(s).</p></ol>
+<p>ParseWizardOption() parses an option string and returns an enumerated option type(s).</p>
 
 <p>The format of the ParseWizardOption method is:</p>
 
@@ -194,23 +210,23 @@ _8c.html" target="source" name="ParseWizardOption">ParseWizardOption</a></h2>
     const WizardBooleanType list,const char *options)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>option</h5>
-<ol><p>The option.</p></ol>
+<p>The option.</p>
 
 <h5>list</h5>
-<ol><p>A option other than zero permits more than one option separated by commas.</p></ol>
+<p>A option other than zero permits more than one option separated by commas.</p>
 
 <h5>options</h5>
-<ol><p>One or more options separated by commas.</p></ol>
+<p>One or more options separated by commas.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/option
-_8c.html" target="source" name="WizardOptionToMnemonic">WizardOptionToMnemonic</a></h2>
+_8c.html" id="WizardOptionToMnemonic">WizardOptionToMnemonic</a></h2>
 <div class="doc-section">
 
-<p>WizardOptionToMnemonic() returns an enumerated option as a mnemonic.</p></ol>
+<p>WizardOptionToMnemonic() returns an enumerated option as a mnemonic.</p>
 
 <p>The format of the WizardOptionToMnemonic method is:</p>
 
@@ -219,13 +235,13 @@ _8c.html" target="source" name="WizardOptionToMnemonic">WizardOptionToMnemonic</
     const ssize_t type)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>option</h5>
-<ol><p>the option.</p></ol>
+<p>the option.</p>
 
 <h5>type</h5>
-<ol><p>one or more options separated by commas.</p></ol>
+<p>one or more options separated by commas.</p>
 
  </div>
 

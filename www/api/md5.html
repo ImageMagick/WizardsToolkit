@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Message Digest Algorithm-5</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, message, digest, algorithm-5, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireMD5Info">AcquireMD5Info</a> &bull; <a href="#DestroyMD5Info">DestroyMD5Info</a> &bull; <a href="#FinalizeMD5">FinalizeMD5</a> &bull; <a href="#GetMD5Blocksize">GetMD5Blocksize</a> &bull; <a href="#GetMD5Digest">GetMD5Digest</a> &bull; <a href="#GetMD5Digestsize">GetMD5Digestsize</a> &bull; <a href="#IntializeMD5">IntializeMD5</a> &bull; <a href="#TransformMD5">TransformMD5</a> &bull; <a href="#UpdateMD5">UpdateMD5</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/md5
-_8c.html" target="source" name="AcquireMD5Info">AcquireMD5Info</a></h2>
+_8c.html" id="AcquireMD5Info">AcquireMD5Info</a></h2>
 <div class="doc-section">
 
-<p>AcquireMD5Info() allocate the MD5Info structure.</p></ol>
+<p>AcquireMD5Info() allocate the MD5Info structure.</p>
 
 <p>The format of the AcquireMD5Info method is:</p>
 
@@ -134,10 +150,10 @@ _8c.html" target="source" name="AcquireMD5Info">AcquireMD5Info</a></h2>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/md5
-_8c.html" target="source" name="DestroyMD5Info">DestroyMD5Info</a></h2>
+_8c.html" id="DestroyMD5Info">DestroyMD5Info</a></h2>
 <div class="doc-section">
 
-<p>DestroyMD5Info() zeros memory associated with the MD5Info structure.</p></ol>
+<p>DestroyMD5Info() zeros memory associated with the MD5Info structure.</p>
 
 <p>The format of the DestroyMD5Info method is:</p>
 
@@ -145,17 +161,17 @@ _8c.html" target="source" name="DestroyMD5Info">DestroyMD5Info</a></h2>
   MD5Info *DestroyMD5Info(MD5Info *md5_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>md5_info</h5>
-<ol><p>The cipher md5_info.</p></ol>
+<p>The cipher md5_info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/md5
-_8c.html" target="source" name="FinalizeMD5">FinalizeMD5</a></h2>
+_8c.html" id="FinalizeMD5">FinalizeMD5</a></h2>
 <div class="doc-section">
 
-<p>FinalizeMD5() finalizes the MD5 message digest computation.</p></ol>
+<p>FinalizeMD5() finalizes the MD5 message digest computation.</p>
 
 <p>The format of the FinalizeMD5 method is:</p>
 
@@ -163,18 +179,18 @@ _8c.html" target="source" name="FinalizeMD5">FinalizeMD5</a></h2>
   void FinalizeMD5(MD5Info *md5_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>md5_info</h5>
-<ol><p>The address of a structure of type MD5Info.</p></ol>
+<p>The address of a structure of type MD5Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/md5
-_8c.html" target="source" name="GetMD5Blocksize">GetMD5Blocksize</a></h2>
+_8c.html" id="GetMD5Blocksize">GetMD5Blocksize</a></h2>
 <div class="doc-section">
 
-<p>GetMD5Blocksize() returns the MD5 blocksize.</p></ol>
+<p>GetMD5Blocksize() returns the MD5 blocksize.</p>
 
 <p>The format of the GetMD5Blocksize method is:</p>
 
@@ -182,17 +198,17 @@ _8c.html" target="source" name="GetMD5Blocksize">GetMD5Blocksize</a></h2>
   unsigned int *GetMD5Blocksize(const MD5Info *md5_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>md5_info</h5>
-<ol><p>The md5 info.</p></ol>
+<p>The md5 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/md5
-_8c.html" target="source" name="GetMD5Digest">GetMD5Digest</a></h2>
+_8c.html" id="GetMD5Digest">GetMD5Digest</a></h2>
 <div class="doc-section">
 
-<p>GetMD5Digest() returns the MD5 digest.</p></ol>
+<p>GetMD5Digest() returns the MD5 digest.</p>
 
 <p>The format of the GetMD5Digest method is:</p>
 
@@ -200,17 +216,17 @@ _8c.html" target="source" name="GetMD5Digest">GetMD5Digest</a></h2>
   const StringInfo *GetMD5Digest(const MD5Info *md5_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>md5_info</h5>
-<ol><p>The md5 info.</p></ol>
+<p>The md5 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/md5
-_8c.html" target="source" name="GetMD5Digestsize">GetMD5Digestsize</a></h2>
+_8c.html" id="GetMD5Digestsize">GetMD5Digestsize</a></h2>
 <div class="doc-section">
 
-<p>GetMD5Digestsize() returns the MD5 digest size.</p></ol>
+<p>GetMD5Digestsize() returns the MD5 digest size.</p>
 
 <p>The format of the GetMD5Digestsize method is:</p>
 
@@ -218,17 +234,17 @@ _8c.html" target="source" name="GetMD5Digestsize">GetMD5Digestsize</a></h2>
   unsigned int *GetMD5Digestsize(const MD5Info *md5_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>md5_info</h5>
-<ol><p>The md5 info.</p></ol>
+<p>The md5 info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/md5
-_8c.html" target="source" name="IntializeMD5">IntializeMD5</a></h2>
+_8c.html" id="IntializeMD5">IntializeMD5</a></h2>
 <div class="doc-section">
 
-<p>IntializeMD5() intializes the MD5 digest.</p></ol>
+<p>IntializeMD5() intializes the MD5 digest.</p>
 
 <p>The format of the InitializeMD5 method is:</p>
 
@@ -236,18 +252,18 @@ _8c.html" target="source" name="IntializeMD5">IntializeMD5</a></h2>
   void InitializeMD5(md5_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>md5_info</h5>
-<ol><p>The address of a structure of type MD5Info.</p></ol>
+<p>The address of a structure of type MD5Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/md5
-_8c.html" target="source" name="TransformMD5">TransformMD5</a></h2>
+_8c.html" id="TransformMD5">TransformMD5</a></h2>
 <div class="doc-section">
 
-<p>TransformMD5() transforms the MD5 message digest.</p></ol>
+<p>TransformMD5() transforms the MD5 message digest.</p>
 
 <p>The format of the TransformMD5 method is:</p>
 
@@ -255,18 +271,18 @@ _8c.html" target="source" name="TransformMD5">TransformMD5</a></h2>
   TransformMD5(MD5Info *md5_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>md5_info</h5>
-<ol><p>The address of a structure of type MD5Info.</p></ol>
+<p>The address of a structure of type MD5Info.</p>
 
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/md5
-_8c.html" target="source" name="UpdateMD5">UpdateMD5</a></h2>
+_8c.html" id="UpdateMD5">UpdateMD5</a></h2>
 <div class="doc-section">
 
-<p>UpdateMD5() updates the MD5 message digest</p></ol>
+<p>UpdateMD5() updates the MD5 message digest</p>
 
 <p>The format of the UpdateMD5 method is:</p>
 
@@ -274,10 +290,10 @@ _8c.html" target="source" name="UpdateMD5">UpdateMD5</a></h2>
   UpdateMD5(MD5Info *md5_info,const unsigned char *message)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>md5_info</h5>
-<ol><p>The address of a structure of type MD5Info.</p></ol>
+<p>The address of a structure of type MD5Info.</p>
 
  </div>
 

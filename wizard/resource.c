@@ -569,7 +569,8 @@ WizardExport WizardSizeType GetWizardResource(const ResourceType type)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetWizardResource() returns the the specified resource limit in megabytes.
+%  GetWizardResourceLimit() returns the the specified resource limit in
+%  megabytes.
 %
 %  The format of the GetWizardResourceLimit() method is:
 %

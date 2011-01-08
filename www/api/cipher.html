@@ -6,13 +6,15 @@
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U=" />
   <title>The Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Cipher Algorithm Methods</title>
   <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="Application-name" content="The Wizard's Toolkit"/>
+  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
+  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
   <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, secure, cipher, algorithm, methods, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext, ciphertext to plaintext, reports properties associated with ciphertext, computes the message digest of a file, and reads message digests from a file and authenticate them."/>
-  <meta name="Rating" content="INDEX, FOLLOW"/>
-  <meta name="Robots" content="ALL"/>
+  <meta name="Rating" content="GENERAL"/>
+  <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
   <meta name="Author" content="ImageMagick Studio LLC"/>
   <meta name="Revisit-after" content="2 DAYS"/>
@@ -22,9 +24,23 @@
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf" />
+  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script> 
+  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" /> 
+  <script type="text/javascript"> 
+    $(document).ready(function() {
+      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
+        'transitionIn'  : 'elastic',
+        'transitionOut' : 'elastic',
+        'overlayShow'   : false,
+        'opacity'       : true
+      });
+    });
+  </script> 
 </head>
 
 <body id="www-wizards-toolkit-org">
@@ -121,10 +137,10 @@
 <p class="navigation-index">[<a href="#AcquireCipherInfo">AcquireCipherInfo</a> &bull; <a href="#DecipherCipher">DecipherCipher</a> &bull; <a href="#DestroyCipherInfo">DestroyCipherInfo</a> &bull; <a href="#EncipherCipher">EncipherCipher</a> &bull; <a href="#GetCipherBlocksize">GetCipherBlocksize</a> &bull; <a href="#GenerateCipherNonce">GenerateCipherNonce</a> &bull; <a href="#GetCipherNonce">GetCipherNonce</a> &bull; <a href="#ResetCipherNonce">ResetCipherNonce</a> &bull; <a href="#SetCipherNonce">SetCipherNonce</a> &bull; <a href="#SetCipherKey">SetCipherKey</a>]</p>
 
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="AcquireCipherInfo">AcquireCipherInfo</a></h2>
+_8c.html" id="AcquireCipherInfo">AcquireCipherInfo</a></h2>
 <div class="doc-section">
 
-<p>AcquireCipherInfo() allocates the CipherInfo structure.</p></ol>
+<p>AcquireCipherInfo() allocates the CipherInfo structure.</p>
 
 <p>The format of the AcquireCipherInfo method is:</p>
 
@@ -133,20 +149,20 @@ _8c.html" target="source" name="AcquireCipherInfo">AcquireCipherInfo</a></h2>
     const CipherMode mode)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher</h5>
-<ol><p>The cipher type.</p></ol>
+<p>The cipher type.</p>
 
 <h5>mode</h5>
-<ol><p>The cipher mode.</p></ol>
+<p>The cipher mode.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="DecipherCipher">DecipherCipher</a></h2>
+_8c.html" id="DecipherCipher">DecipherCipher</a></h2>
 <div class="doc-section">
 
-<p>DecipherCipher() deciphers ciphertext and returns plaintext. The deciphering is performed in-place and DecipherCipher() returns a pointer to the ciphertext string.</p></ol>
+<p>DecipherCipher() deciphers ciphertext and returns plaintext. The deciphering is performed in-place and DecipherCipher() returns a pointer to the ciphertext string.</p>
 
 <p>The format of the DecipherCipher method is:</p>
 
@@ -154,20 +170,20 @@ _8c.html" target="source" name="DecipherCipher">DecipherCipher</a></h2>
        StringInfo *DecipherCipher(CipherInfo *cipher_info,StringInfo *ciphertext)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher_info</h5>
-<ol><p>The cipher context.</p></ol>
+<p>The cipher context.</p>
 
 <h5>ciphertext</h5>
-<ol><p>The cipher text.</p></ol>
+<p>The cipher text.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="DestroyCipherInfo">DestroyCipherInfo</a></h2>
+_8c.html" id="DestroyCipherInfo">DestroyCipherInfo</a></h2>
 <div class="doc-section">
 
-<p>DestroyCipherInfo() zeros memory associated with the CipherInfo structure.</p></ol>
+<p>DestroyCipherInfo() zeros memory associated with the CipherInfo structure.</p>
 
 <p>The format of the DestroyCipherInfo method is:</p>
 
@@ -175,17 +191,17 @@ _8c.html" target="source" name="DestroyCipherInfo">DestroyCipherInfo</a></h2>
   CipherInfo *DestroyCipherInfo(CipherInfo *cipher_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher_info</h5>
-<ol><p>The cipher info.</p></ol>
+<p>The cipher info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="EncipherCipher">EncipherCipher</a></h2>
+_8c.html" id="EncipherCipher">EncipherCipher</a></h2>
 <div class="doc-section">
 
-<p>EncipherCipher() enciphers plaintext and returns ciphertext.  The enciphering is performed in-place and EncipherCipher() returns a pointer to the plaintext string.</p></ol>
+<p>EncipherCipher() enciphers plaintext and returns ciphertext.  The enciphering is performed in-place and EncipherCipher() returns a pointer to the plaintext string.</p>
 
 <p>The format of the EncipherCipher method is:</p>
 
@@ -193,20 +209,20 @@ _8c.html" target="source" name="EncipherCipher">EncipherCipher</a></h2>
        StringInfo *EncipherCipher(CipherInfo *cipher_info,StringInfo *plaintext)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher_info</h5>
-<ol><p>The cipher context.</p></ol>
+<p>The cipher context.</p>
 
 <h5>plaintext</h5>
-<ol><p>The plain text.</p></ol>
+<p>The plain text.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="GetCipherBlocksize">GetCipherBlocksize</a></h2>
+_8c.html" id="GetCipherBlocksize">GetCipherBlocksize</a></h2>
 <div class="doc-section">
 
-<p>GetCipherBlocksize() returns the cipher blocksize.</p></ol>
+<p>GetCipherBlocksize() returns the cipher blocksize.</p>
 
 <p>The format of the GetCipherBlocksize method is:</p>
 
@@ -214,17 +230,17 @@ _8c.html" target="source" name="GetCipherBlocksize">GetCipherBlocksize</a></h2>
   size_t GetCipherBlocksize(const CipherInfo *cipher_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher_info</h5>
-<ol><p>The cipher info.</p></ol>
+<p>The cipher info.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="GenerateCipherNonce">GenerateCipherNonce</a></h2>
+_8c.html" id="GenerateCipherNonce">GenerateCipherNonce</a></h2>
 <div class="doc-section">
 
-<p>GenerateCipherNonce() generate a nonce for the given cipher.</p></ol>
+<p>GenerateCipherNonce() generate a nonce for the given cipher.</p>
 
 <p>The format of the GenerateCipherNonce method is:</p>
 
@@ -232,17 +248,17 @@ _8c.html" target="source" name="GenerateCipherNonce">GenerateCipherNonce</a></h2
        StringInfo *GenerateCipherNonce(CipherInfo *cipher_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher_info</h5>
-<ol><p>The cipher context.</p></ol>
+<p>The cipher context.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="GetCipherNonce">GetCipherNonce</a></h2>
+_8c.html" id="GetCipherNonce">GetCipherNonce</a></h2>
 <div class="doc-section">
 
-<p>GetCipherNonce() returns a nonce of the cipher.</p></ol>
+<p>GetCipherNonce() returns a nonce of the cipher.</p>
 
 <p>The format of the GetCipherNonce method is:</p>
 
@@ -250,17 +266,17 @@ _8c.html" target="source" name="GetCipherNonce">GetCipherNonce</a></h2>
        const StringInfo *GetCipherNonce(CipherInfo *cipher_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher_info</h5>
-<ol><p>The cipher context.</p></ol>
+<p>The cipher context.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="ResetCipherNonce">ResetCipherNonce</a></h2>
+_8c.html" id="ResetCipherNonce">ResetCipherNonce</a></h2>
 <div class="doc-section">
 
-<p>ResetCipherNonce() resets the initialization vector for the cipher.</p></ol>
+<p>ResetCipherNonce() resets the initialization vector for the cipher.</p>
 
 <p>The format of the ResetCipherNonce method is:</p>
 
@@ -268,17 +284,17 @@ _8c.html" target="source" name="ResetCipherNonce">ResetCipherNonce</a></h2>
   ResetCipherNonce(CipherInfo *cipher_info)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher_info</h5>
-<ol><p>The cipher context.</p></ol>
+<p>The cipher context.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="SetCipherNonce">SetCipherNonce</a></h2>
+_8c.html" id="SetCipherNonce">SetCipherNonce</a></h2>
 <div class="doc-section">
 
-<p>SetCipherNonce() sets the initialization vector for the cipher.</p></ol>
+<p>SetCipherNonce() sets the initialization vector for the cipher.</p>
 
 <p>The format of the SetCipherNonce method is:</p>
 
@@ -286,20 +302,20 @@ _8c.html" target="source" name="SetCipherNonce">SetCipherNonce</a></h2>
   SetCipherNonce(CipherInfo *cipher_info,const StringInfo *nonce)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher_info</h5>
-<ol><p>The cipher context.</p></ol>
+<p>The cipher context.</p>
 
 <h5>nonce</h5>
-<ol><p>The initialization vector.</p></ol>
+<p>The initialization vector.</p>
 
  </div>
 <h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/cipher
-_8c.html" target="source" name="SetCipherKey">SetCipherKey</a></h2>
+_8c.html" id="SetCipherKey">SetCipherKey</a></h2>
 <div class="doc-section">
 
-<p>SetCipherKey() sets the key for the cipher.  The key length is specified in bits.  Valid values are 128, 192, or 256.</p></ol>
+<p>SetCipherKey() sets the key for the cipher.  The key length is specified in bits.  Valid values are 128, 192, or 256.</p>
 
 <p>The format of the SetCipherKey method is:</p>
 
@@ -307,13 +323,13 @@ _8c.html" target="source" name="SetCipherKey">SetCipherKey</a></h2>
   SetCipherKey(CipherInfo *cipher_info,const StringInfo *key)
 </pre>
 
-<p>A description of each parameter follows:</p></ol>
+<p>A description of each parameter follows:</p>
 
 <h5>cipher_info</h5>
-<ol><p>The cipher context.</p></ol>
+<p>The cipher context.</p>
 
 <h5>key</h5>
-<ol><p>The key.</p></ol>
+<p>The key.</p>
 
  </div>
 
