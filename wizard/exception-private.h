@@ -23,6 +23,7 @@ extern "C" {
 #endif
 
 #include "wizard/log.h"
+#include "wizard/string_.h"
 
 #define CatchWizardException(severity,tag,context) \
 { \
@@ -50,8 +51,13 @@ extern "C" {
 
 #define ThrowFileException(exception,severity,context) \
 { \
+  char \
+     *message; \
+ \
+  message=GetExceptionMessage(errno); \
   (void) ThrowWizardException(exception,GetWizardModule(),severity, \
-    "file exception `%s': %s",context,GetExceptionMessage(errno)); \
+    "file exception `%s': %s",context,message); \
+  message=DestroyString(message); \
 }
 
 #define ThrowWizardFatalError(domain,error) \
@@ -68,7 +74,12 @@ extern "C" {
 
 #define ThrowFatalException(severity,tag) \
 { \
-  CatchWizardException(severity,tag,GetExceptionMessage(errno)); \
+  char \
+     *message; \
+ \
+  message=GetExceptionMessage(errno); \
+  CatchWizardException(severity,tag,message); \
+  message=DestroyString(message); \
   _exit(127); \
 }
 
