@@ -286,13 +286,25 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
       Get temporary pathname.
     */
     (void) GetPathTemplate(path,filename);
+    key=GetRandomKey(random_info,2);
+    p=filename+strlen(filename)-8;
+    datum=GetStringInfoDatum(key);
+    for (i=0; i < (ssize_t) GetStringInfoLength(key); i++)
+    {
+      c=(int) (datum[i] & 0x3f);
+      *p++=portable_filename[c];
+    }
+    key=DestroyStringInfo(key);
 #if defined(WIZARDSTOOLKIT_HAVE_MKSTEMP)
     file=mkstemp(filename);
+#if defined(__OS2__)
+    setmode(file,O_BINARY);
+#endif
     if (file != -1)
       break;
 #endif
-    key=GetRandomKey(random_info,8);
-    p=filename+strlen(filename)-8;
+    key=GetRandomKey(random_info,6);
+    p=filename+strlen(filename)-6;
     datum=GetStringInfoDatum(key);
     for (i=0; i < (ssize_t) GetStringInfoLength(key); i++)
     {
@@ -302,7 +314,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
     key=DestroyStringInfo(key);
     file=open(filename,O_RDWR | O_CREAT | O_EXCL | O_BINARY | O_NOFOLLOW,
       S_MODE);
-    if ((file > 0) || (errno != EEXIST))
+    if ((file >= 0) || (errno != EEXIST))
       break;
   }
   (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s",filename);
