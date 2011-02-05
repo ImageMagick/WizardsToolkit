@@ -1453,8 +1453,10 @@ int main(int argc,char **argv)
     pass=WizardFalse;
   if (TestBZIPEntropy() == WizardFalse)
     pass=WizardFalse;
+#if defined(WIZARDSTOOLKIT_LZMA_DELEGATE)
   if (TestLZMAEntropy() == WizardFalse)
     pass=WizardFalse;
+#endif
   if (TestZIPEntropy() == WizardFalse)
     pass=WizardFalse;
   if (TestRandomKey() == WizardFalse)

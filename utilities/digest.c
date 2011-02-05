@@ -179,7 +179,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
     return(WizardFalse);
   hash=UndefinedHash;
   compress=WizardFalse;
-  for (i=1; i < (argc-1); i++)
+  for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
     if (*option == '-')
@@ -213,7 +213,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                   event_mask;
 
                 i++;
-                if (i == argc)
+                if (i == (ssize_t) argc)
                   ThrowDigestException(OptionError,"missing log event mask: "
                     "`%s'",option);
                 event_mask=SetLogEventMask(argv[i]);
@@ -229,29 +229,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
           case 'l':
           {
             if (LocaleCompare(option,"-list") == 0)
-              {
-                ssize_t
-                  list;
-
-                if (*option == '+')
-                  break;
-                i++;
-                if (i == (ssize_t) argc)
-                  ThrowDigestException(OptionError,"missing list type: `%s'",
-                    option);
-                if (LocaleCompare(argv[i],"configure") == 0)
-                  {
-                    (void) ListConfigureInfo((FILE *) NULL,exception);
-                    Exit(0);
-                  }
-                list=ParseWizardOption(WizardListOptions,WizardFalse,argv[i]);
-                if (list < 0)
-                  ThrowDigestException(OptionFatalError,"unrecognized list "
-                    "type: `%s'",argv[i]);
-                (void) ListWizardOptions((FILE *) NULL,(WizardOption) list,
-                  exception);
-                Exit(0);
-              }
+              break;
             if (LocaleCompare("log",option+1) == 0)
               {
                 if (*option == '+')
@@ -598,7 +576,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
   if (status == WizardFalse)
     ThrowDigestException(ResourceError,"memory allocation failed: `%s'",
       strerror(errno));
-  for (i=1; i < (argc-1); i++)
+  for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
     if (LocaleCompare(option+1,"authenticate") == 0)
@@ -618,7 +596,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
   (void) WriteBlobString(digest_blob,"         xmlns:digest=\""
      "http://www.wizards-toolkit.org/digest/1.0/\">\n");
   compress=WizardFalse;
-  for (i=1; i < (argc-1); i++)
+  for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
     if (*option == '-')
@@ -644,7 +622,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
                   event_mask;
 
                 i++;
-                if (i == argc)
+                if (i == (ssize_t) argc)
                   ThrowDigestException(OptionError,"missing log event mask: "
                     "`%s'",option);
                 event_mask=SetLogEventMask(argv[i]);
@@ -686,6 +664,30 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
           }
           case 'l':
           {
+            if (LocaleCompare("list",option+1) == 0)
+              {
+                ssize_t
+                  list;
+
+                if (*option == '+')
+                  break;
+                i++;
+                if (i == (ssize_t) argc)
+                  ThrowDigestException(OptionError,"missing list type: `%s'",
+                    option);
+                if (LocaleCompare(argv[i],"configure") == 0)
+                  {
+                    (void) ListConfigureInfo((FILE *) NULL,exception);
+                    Exit(0);
+                  }
+                list=ParseWizardOption(WizardListOptions,WizardFalse,argv[i]);
+                if (list < 0)
+                  ThrowDigestException(OptionFatalError,"unrecognized list "
+                    "type: `%s'",argv[i]);
+                (void) ListWizardOptions((FILE *) NULL,(WizardOption) list,
+                  exception);
+                Exit(0);
+              }
             if (LocaleCompare("log",option+1) == 0)
               {
                 if (*option == '+')
