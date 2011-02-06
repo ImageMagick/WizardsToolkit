@@ -44,15 +44,19 @@
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
 #include "wizard/lzma.h"
+#if defined(WIZARDSTOOLKIT_LZMA_DELEGATE)
 #include <lzma.h>
+#endif
 
 /*
   Typedef declarations.
 */
 struct _LZMAInfo
 {
+#if defined(WIZARDSTOOLKIT_LZMA_DELEGATE)
   lzma_stream
     stream;
+#endif
 
   StringInfo
     *chaos;
@@ -209,6 +213,7 @@ static void RelinquishLZMAMemory(void *context,void *memory)
 WizardExport WizardBooleanType IncreaseLZMA(LZMAInfo *lzma_info,
   const StringInfo *message,ExceptionInfo *exception)
 {
+#if defined(WIZARDSTOOLKIT_LZMA_DELEGATE)
 #define LZMAMaxExtent(x)  ((x)+((x)/3)+128)
 
   int
@@ -266,6 +271,11 @@ WizardExport WizardBooleanType IncreaseLZMA(LZMAInfo *lzma_info,
   SetStringInfoLength(lzma_info->chaos,(size_t) stream.total_out);
   lzma_end(&stream);
   return(WizardTrue);
+#else
+  (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
+    "unable to increase entropy `%s'","LZMA delegate support not builtin");
+  return(WizardFalse);
+#endif
 }
 
 /*
@@ -301,6 +311,7 @@ WizardExport WizardBooleanType IncreaseLZMA(LZMAInfo *lzma_info,
 WizardExport WizardBooleanType RestoreLZMA(LZMAInfo *lzma_info,
   const size_t length,const StringInfo *message,ExceptionInfo *exception)
 {
+#if defined(WIZARDSTOOLKIT_LZMA_DELEGATE)
   int
     status;
 
@@ -355,4 +366,9 @@ WizardExport WizardBooleanType RestoreLZMA(LZMAInfo *lzma_info,
   SetStringInfoLength(lzma_info->chaos,(size_t) stream.total_out);
   lzma_end(&stream);
   return(WizardTrue);
+#else
+  (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
+    "unable to restore entropy `%s'","LZMA delegate support not builtin");
+  return(WizardFalse);
+#endif
 }
