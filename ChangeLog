@@ -1,3 +1,6 @@
+2011-02-05  1.0.6-6 Cristy  <cristy@virgi...>
+  * Make LZMA entropy support optional.
+
 2010-12-21  1.0.6-6 Cristy  <cristy@virgi...>
   * Update autoconf / automake configuration files.
 
