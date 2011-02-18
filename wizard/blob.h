@@ -35,6 +35,9 @@ typedef enum
   IOMode
 } MapMode;
 
+#define WizardSeek(file,offset,whence)  lseek(file,offset,whence)
+#define WizardTell(file)  tell(file)
+
 typedef struct _BlobInfo
   BlobInfo;
 

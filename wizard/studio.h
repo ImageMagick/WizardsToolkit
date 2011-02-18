@@ -394,15 +394,6 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 #define PATH_MAX  4096
 #endif
 
-/*
-  I/O defines.
-*/
-#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && defined(_VISUALC_)
-#define WizardSeek(file,offset,whence)  _lseeki64(file,offset,whence)
-#else
-#define WizardSeek(file,offset,whence)  lseek(file,offset,whence)
-#endif
-
 extern unsigned char
   _wizard_info[1];
 

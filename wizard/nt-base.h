@@ -53,6 +53,16 @@ extern "C" {
 #define SSIZE_MAX  0x7fffffffL
 #endif
 
+/*
+  _MSC_VER values:
+    1100 MSVC 5.0
+    1200 MSVC 6.0
+    1300 MSVC 7.0 Visual C++ .NET 2002
+    1310 Visual c++ .NET 2003
+    1400 Visual C++ 2005
+    1500 Visual C++ 2008
+*/
+
 #if !defined(chsize)
 # if defined(__BORLANDC__)
 #   define chsize(file,length)  chsize(file,length)
@@ -79,11 +89,25 @@ extern "C" {
 #if !defined(fileno)
 #  define fileno  _fileno
 #endif
+#if !defined(fseek)
+#  define fseeko  _fseeki64
+#endif
+#if !defined(fstat) && !defined(__BORLANDC__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+#  define fstat  _fstati64
+#else
+#  define fstat  _fstat
+#endif
+#endif
 #if !defined(fsync)
 #  define fsync  _commit
 #endif
+#if !defined(ftell)
+#  define ftello  _ftelli64
+#endif
 #if !defined(ftruncate)
-#  define ftruncate(file,length)  NTFileTruncate(file,length)
+#  define ftruncate(file,length)  NTTruncateFile(file,length)
 #endif
 #if !defined(getcwd)
 #  define getcwd  _getcwd
@@ -91,12 +115,20 @@ extern "C" {
 #if !defined(getpid)
 #  define getpid  _getpid
 #endif
+#if !defined(hypot)
+#  define hypot  _hypot
+#endif
 #if !defined(inline)
 #  define inline __inline
 #endif
 #if !defined(isatty)
 #  define isatty _isatty
 #endif
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+#  define lseek  _lseeki64
+#endif
+#if !defined(WIZARDSTOOLKIT_LTDL_DELEGATE)
 #if !defined(lt_dlclose)
 #  define lt_dlclose(handle)  NTCloseLibrary(handle)
 #endif
@@ -117,6 +149,7 @@ extern "C" {
 #endif
 #if !defined(lt_dlsym)
 #  define lt_dlsym(handle,name)  NTGetLibrarySymbol(handle,name)
+#endif
 #endif
 #if !defined(mkdir)
 #  define mkdir  _mkdir
@@ -155,6 +188,17 @@ extern "C" {
 #if !defined(setmode)
 #  define setmode  _setmode
 #endif
+#if !defined(spawnvp)
+#  define spawnvp  _spawnvp
+#endif
+#if !defined(stat) && !defined(__BORLANDC__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+#  define stat  _stati64
+#else
+#  define stat  _stat
+#endif
+#endif
 #if !defined(strcasecmp)
 #  define strcasecmp  _strcmpi
 #endif
@@ -164,22 +208,31 @@ extern "C" {
 #if !defined(sysconf)
 #  define sysconf(name)  NTSystemConfiguration(name)
 #endif
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+#  define tell  _telli64
+#endif
 #if !defined(telldir)
 #  define telldir(directory)  NTTellDirectory(directory)
 #endif
 #if !defined(tempnam)
 #  define tempnam  _tempnam
 #endif
-#if !defined(unlink)
-#  define unlink  _unlink
-#endif
 #if !defined(vsnprintf)
-#if !defined(_MSC_VER) || (defined(_MSC_VER) && _MSC_VER < 1500)
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && (_MSC_VER < 1500))
 #define vsnprintf _vsnprintf 
 #endif
 #endif
 #if !defined(write)
 #  define write  _write
+#endif
+#if !defined(wstat) && !defined(__BORLANDC__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+#  define wstat  _wstati64
+#else
+#  define wstat  _wstat
+#endif
 #endif
 
 #if defined(_MT) && defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
