@@ -472,7 +472,7 @@ WizardExport WizardBooleanType ImportKeyringKey(KeyringInfo *keyring_info,
   status|=WriteFileChunk(file_info,GetStringInfoDatum(filetype),
     GetStringInfoLength(filetype));
   filetype=DestroyStringInfo(filetype);
-  offset=WizardSeek(GetFileDescriptor(file_info),0,SEEK_END);
+  offset=lseek(GetFileDescriptor(file_info),0,SEEK_END);
   if (offset == -1)
     {
       file_info=DestroyFileInfo(file_info,exception);

@@ -522,7 +522,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
         "unable to open file `%s': %s",filename,strerror(errno));
       return((unsigned char *) NULL);
     }
-  offset=WizardSeek(file,0,SEEK_END);
+  offset=lseek(file,0,SEEK_END);
   count=0;
   if ((offset < 0) || (offset != (off_t) ((ssize_t) offset)))
     {
@@ -604,7 +604,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
       ssize_t
         count;
 
-      if (WizardSeek(file,0,SEEK_SET) < 0)
+      if (lseek(file,0,SEEK_SET) < 0)
         (void) ThrowWizardException(exception,GetWizardModule(),BlobError,
           "unable to seek blob `%s': %s",filename,strerror(errno));
       for (i=0; i < *length; i+=count)
