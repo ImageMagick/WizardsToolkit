@@ -24,6 +24,11 @@ extern "C" {
 
 #include <wizard/blob.h>
 
+#if defined(WIZARDSTOOLKIT_HAVE_FSEEKO)
+# define fseek  fseeko
+# define ftell  ftello
+#endif
+
 typedef enum
 {
   UndefinedBlobMode,

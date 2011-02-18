@@ -90,7 +90,7 @@ extern "C" {
 #  define fileno  _fileno
 #endif
 #if !defined(fseek)
-#  define fseeko  _fseeki64
+#  define fseek  _fseeki64
 #endif
 #if !defined(fstat) && !defined(__BORLANDC__)
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
@@ -104,7 +104,7 @@ extern "C" {
 #  define fsync  _commit
 #endif
 #if !defined(ftell)
-#  define ftello  _ftelli64
+#  define ftell  _ftelli64
 #endif
 #if !defined(ftruncate)
 #  define ftruncate(file,length)  NTTruncateFile(file,length)
