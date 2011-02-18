@@ -423,9 +423,6 @@ WizardExport WizardBooleanType ImportKeyringKey(KeyringInfo *keyring_info,
   KeyringInfo
     *import_info;
 
-  off_t
-    offset;
-
   WizardStatusType
     status;
 
@@ -435,6 +432,9 @@ WizardExport WizardBooleanType ImportKeyringKey(KeyringInfo *keyring_info,
   StringInfo
     *filetype,
     *magick;
+
+  WizardOffsetType
+    offset;
 
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(KeymapDomain,keyring_info != (KeyringInfo *) NULL);

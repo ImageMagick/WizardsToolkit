@@ -494,9 +494,6 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
   int
     file;
 
-  off_t
-    offset;
-
   register size_t
     i;
 
@@ -505,6 +502,9 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
 
   unsigned char
     *blob;
+
+  WizardOffsetType
+    offset;
 
   void
     *map;
@@ -524,7 +524,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
     }
   offset=lseek(file,0,SEEK_END);
   count=0;
-  if ((offset < 0) || (offset != (off_t) ((ssize_t) offset)))
+  if ((offset < 0) || (offset != (WizardOffsetType) ((ssize_t) offset)))
     {
       size_t
         quantum;
