@@ -96,9 +96,6 @@ struct _TokenInfo
 */
 WizardExport void GetWizardToken(const char *start,const char **end,char *token)
 {
-  int
-    status;
-
   register const char
     *p;
 
@@ -156,7 +153,7 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
         char
           *q;
 
-        status=strtod(p,&q);
+        (void) strtod(p,&q);
         if ((p != q) && (*p != ','))
           {
             for ( ; (p < q) && (*p != ','); p++)
@@ -248,9 +245,6 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
     done,
     match;
 
-  register const char
-    *p;
-
   /*
     Return on empty pattern or '*'.
   */
@@ -260,7 +254,6 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
     return(WizardTrue);
   if (LocaleCompare(pattern,"*") == 0)
     return(WizardTrue);
-  p=pattern+strlen(pattern)-1;
   /*
     Evaluate glob expression.
   */

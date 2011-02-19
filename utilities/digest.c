@@ -169,7 +169,6 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
     *content;
 
   WizardBooleanType
-    compress,
     status;
 
   status=WizardFalse;
@@ -178,7 +177,6 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
   if (authenticate_blob == (BlobInfo *) NULL)
     return(WizardFalse);
   hash=UndefinedHash;
-  compress=WizardFalse;
   for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
@@ -189,10 +187,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
           case '(':
           {
             if (LocaleCompare(option+1,"(de)compress") == 0)
-              {
-                compress=(*option == '-') ? WizardTrue : WizardFalse;
-                break;
-              }
+              break;
             ThrowDigestException(OptionFatalError,"unrecognized option: `%s'",
               option);
             break;

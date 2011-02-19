@@ -221,6 +221,11 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
   status=SaveEntropyToReservoir(random_info,exception);
   entropy=DestroyStringInfo(entropy);
   exception=DestroyExceptionInfo(exception);
+  if (status == WizardFalse)
+    {
+      random_info=DestroyRandomInfo(random_info);
+      return((RandomInfo *) NULL);
+    }
   /*
     Seed pseudo random number generator.
   */

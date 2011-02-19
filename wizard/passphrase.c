@@ -134,8 +134,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
 
   int
     input,
-    output,
-    status;
+    output;
 
   register unsigned char
     *p;
@@ -211,7 +210,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
       (void) tcsetattr(input,_T_FLUSH,&attributes);
     }
   if ((flags & StdinMode) == 0)
-    status=write(output,prompt,strlen(prompt));
+    (void) write(output,prompt,strlen(prompt));
   SetStringInfoLength(phrase,MaxTextExtent);
   p=GetStringInfoDatum(phrase);
   while (((count=read(input,&c,1)) == 1) && (c != '\n') && (c != '\r'))
@@ -234,7 +233,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
   *p=(unsigned char) '\0';
   SetStringInfoLength(phrase,(size_t) (p-GetStringInfoDatum(phrase)));
   if ((attributes.c_lflag & ECHO) == 0)
-    status=write(output,"\n",1);
+    (void) write(output,"\n",1);
   /*
     Restore old terminal settings and signals.
   */

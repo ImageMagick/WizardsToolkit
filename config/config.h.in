@@ -140,9 +140,6 @@
 /* Define to 1 if you have the `lstat' function. */
 #undef HAVE_LSTAT
 
-/* define if the compiler implements L"widestring" */
-#undef HAVE_LSTRING
-
 /* Define to 1 if you have the <machine/param.h> header file. */
 #undef HAVE_MACHINE_PARAM_H
 

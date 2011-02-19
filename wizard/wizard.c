@@ -205,9 +205,6 @@ WizardExport void WizardsToolkitGenesis(const char *path)
     execution_path[MaxTextExtent],
     filename[MaxTextExtent];
 
-  time_t
-    seconds;
-
   /*
     Initialize the Wizard environment.
   */
@@ -219,7 +216,6 @@ WizardExport void WizardsToolkitGenesis(const char *path)
     }
   (void) setlocale(LC_ALL,"");
   (void) setlocale(LC_NUMERIC,"C");
-  seconds=time((time_t *) NULL);
   (void) SemaphoreComponentGenesis();
   (void) LogComponentGenesis();
   (void) RandomComponentGenesis();

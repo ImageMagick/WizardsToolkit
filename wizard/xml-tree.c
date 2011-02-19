@@ -2259,9 +2259,6 @@ WizardExport XMLTreeInfo *SetXMLTreeAttribute(XMLTreeInfo *xml_info,
   register ssize_t
     i;
 
-  size_t
-    length;
-
   WizardAssert(ResourceDomain,xml_info != (XMLTreeInfo *) NULL);
   WizardAssert(ResourceDomain,(xml_info->signature == WizardSignature) ||
          (((XMLTreeRoot *) xml_info)->signature == WizardSignature));
@@ -2292,7 +2289,7 @@ WizardExport XMLTreeInfo *SetXMLTreeAttribute(XMLTreeInfo *xml_info,
           "unable to acquire string `%s'");
       xml_info->attributes[i]=ConstantString(tag);
       xml_info->attributes[i+2]=(char *) NULL;
-      length=strlen(xml_info->attributes[i+1]);
+      (void) strlen(xml_info->attributes[i+1]);
     }
   /*
     Add new value to an existing attribute.
