@@ -198,7 +198,7 @@ static void WizardSignalHandler(int signal_number)
   if (signal_number == SIGTERM)
     exit(signal_number);
 #endif
-  _exit(signal_number);
+  _exit(signal_number);  /* do not invoke registered atexit() methods */
 #endif
 }
 
