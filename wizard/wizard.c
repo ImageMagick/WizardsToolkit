@@ -159,6 +159,26 @@ static void WizardSignalHandler(int signal_number)
   if (signal_handlers[signal_number] != WizardSignalHandler)
     raise(signal_number);
 #endif
+#if defined(SIGQUIT)
+  if (signal_number == SIGQUIT)
+    abort();
+#endif
+#if defined(SIGABRT)
+  if (signal_number == SIGABRT)
+    abort();
+#endif
+#if defined(SIGFPE)
+  if (signal_number == SIGFPE)
+    abort();
+#endif
+#if defined(SIGXCPU)
+  if (signal_number == SIGXCPU)
+    abort();
+#endif
+#if defined(SIGXFSZ)
+  if (signal_number == SIGXFSZ)
+    abort();
+#endif
 #if !defined(WIZARDSTOOLKIT_HAVE__EXIT)
   exit(signal_number);
 #else
