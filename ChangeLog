@@ -1,3 +1,6 @@
+2011-02-24  1.0.6-7 Cristy  <cristy@virgi...>
+  * Update automake / autoconf / libtool configuration scripts.
+
 2011-02-05  1.0.6-6 Cristy  <cristy@virgi...>
   * Make LZMA entropy support optional.
 
