@@ -80,7 +80,7 @@ struct _RandomInfo
   size_t
     i;
 
-  size_t
+  unsigned long
     seed[4];
 
   double
@@ -774,16 +774,16 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
 */
 WizardExport double GetPseudoRandomValue(RandomInfo *random_info)
 {
-  register size_t
+  register unsigned long
     *seed;
 
-  size_t
+  unsigned long
     alpha;
 
   seed=random_info->seed;
   do
   {
-    alpha=(size_t) (seed[1] ^ (seed[1] << 11));
+    alpha=(unsigned long) (seed[1] ^ (seed[1] << 11));
     seed[1]=seed[2];
     seed[2]=seed[3];
     seed[3]=seed[0];
@@ -1007,14 +1007,14 @@ static WizardBooleanType SaveEntropyToReservoir(RandomInfo *random_info,
 %
 %  The format of the SeedPseudoRandomGenerator method is:
 %
-%      void SeedPseudoRandomGenerator(const size_t seed)
+%      void SeedPseudoRandomGenerator(const unsigned long seed)
 %
 %  A description of each parameter follows:
 %
 %    o seed: the seed.
 %
 */
-WizardExport void SeedPseudoRandomGenerator(const size_t seed)
+WizardExport void SeedPseudoRandomGenerator(const unsigned long seed)
 {
   random_seed=seed;
 }

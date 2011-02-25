@@ -46,7 +46,7 @@ extern WizardExport StringInfo
 
 extern WizardExport void
   RandomComponentTerminus(void),
-  SeedPseudoRandomGenerator(const size_t),
+  SeedPseudoRandomGenerator(const unsigned long),
   SetRandomKey(RandomInfo *,const size_t,unsigned char *),
   SetRandomTrueRandom(const WizardBooleanType);
 
