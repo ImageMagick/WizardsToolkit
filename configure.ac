@@ -15,7 +15,7 @@
 #  Configure script for building the Wizard Toolkit.
 
 AC_PREREQ(2.63)
-AC_INIT([WizardsToolkit],[1.0.7],[http://www.wizards-toolkit.org],[WizardsToolkit])
+AC_INIT([WizardsToolkit],[1.0.8],[http://www.wizards-toolkit.org],[WizardsToolkit])
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_MACRO_DIR([m4])
