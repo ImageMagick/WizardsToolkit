@@ -14,8 +14,15 @@
 #
 #  Configure script for building the Wizard Toolkit.
 
-AC_PREREQ(2.63)
-AC_INIT([WizardsToolkit],[1.0.8],[http://www.wizards-toolkit.org],[WizardsToolkit])
+AC_PREREQ(2.59)
+
+m4_define([wizard_major_version], [1])
+m4_define([wizard_minor_version], [0])
+m4_define([wizard_micro_version], [8])
+m4_define([wizard_version],
+          [wizard_major_version.wizard_minor_version.wizard_micro_version])
+
+AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit])
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_MACRO_DIR([m4])
@@ -99,7 +106,7 @@ AM_SANITY_CHECK
 AM_INIT_AUTOMAKE($PACKAGE_NAME,"${PACKAGE_VERSION}${PACKAGE_VERSION_ADDENDUM}", ' ')
 
 # Enable support for silent build rules
-AM_SILENT_RULES([yes])
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
 WIZARD_LIB_VERSION="0x"
 if test ${WIZARD_LIBRARY_CURRENT} -lt 10 ; then
