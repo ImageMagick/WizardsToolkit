@@ -141,9 +141,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt
 %{_libdir}/libWizardsToolkit.so.*
 %{_bindir}/[a-z]*
-%{_libdir}/%{name}-%{VERSION}
+%{_sysconfdir}/%{name}-%{VERSION}
+%{_localstatedir}/lib/%{name}-%{VERSION}
 %{_datadir}/%{name}-%{VERSION}
-%{_mandir}/man[145]/[a-z]*
+%{_mandir}/man[145]/[a-zA-Z]*
+{_mandir}/man1/%{name}.*
 
 %files devel
 %defattr(-,root,root,-)

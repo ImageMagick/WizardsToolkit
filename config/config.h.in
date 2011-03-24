@@ -16,7 +16,7 @@
    */
 #undef CONFIGURE_RELATIVE_PATH
 
-/* Directory where the Wizard's Toolkit documents live. */
+/* "Directory where the Wizard's Toolkit documents live." */
 #undef DOCUMENTATION_PATH
 
 /* Enable Wizard Executable Environment debugging */
