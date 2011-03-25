@@ -145,7 +145,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_localstatedir}/lib/%{name}-%{VERSION}
 %{_datadir}/%{name}-%{VERSION}
 %{_mandir}/man[145]/[a-zA-Z]*
-%{_mandir}/man1/%{name}.*
 
 %files devel
 %defattr(-,root,root,-)
