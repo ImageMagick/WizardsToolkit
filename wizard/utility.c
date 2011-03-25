@@ -600,7 +600,7 @@ WizardExport char **GetPathComponents(const char *path,
       if (IsBasenameSeparator(*q))
         break;
     components[i]=(char *) AcquireQuantumMemory((size_t) (q-p)+MaxTextExtent,
-      sizeof(*components));
+      sizeof(**components));
     if (components[i] == (char *) NULL)
       ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
     (void) CopyWizardString(components[i],p,(size_t) (q-p+1));
