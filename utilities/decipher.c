@@ -286,13 +286,17 @@ WizardExport WizardBooleanType DecipherCommand(int argc,char **argv,
             char
               *p;
 
+            double
+              value;
+
             if (*option == '+')
               break;
             i++;
             if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing chunk size: `%s'",
                 option);
-            (void) strtod(argv[i],&p);
+            value=strtod(argv[i],&p);
+            (void) value;
             if (p == argv[i])
               ThrowInvalidArgumentException(option,argv[i]);
             content_info->chunksize=(size_t) SiPrefixToDouble(argv[i],100.0);

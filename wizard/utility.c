@@ -637,8 +637,12 @@ WizardExport char **GetPathComponents(const char *path,
 */
 WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
 {
+  char
+    *directory;
+
   *path='\0';
-  (void) getcwd(path,(unsigned long) extent);
+  directory=getcwd(path,(unsigned long) extent);
+  (void) directory;
 #if defined(WIZARDSTOOLKIT_HAVE_GETPID) && defined(WIZARDSTOOLKIT_HAVE_READLINK) && defined(PATH_MAX)
   {
     char

@@ -153,7 +153,10 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
         char
           *q;
 
-        (void) strtod(p,&q);
+        double
+          value;
+
+        value=strtod(p,&q);
         if ((p != q) && (*p != ','))
           {
             for ( ; (p < q) && (*p != ','); p++)

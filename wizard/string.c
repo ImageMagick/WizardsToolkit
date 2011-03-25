@@ -249,7 +249,7 @@ WizardExport char *CloneString(char **destination,const char *source)
   if (*destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   if (length != 0)
-    (void) memcpy(*destination,source,length*sizeof(*destination));
+    (void) memcpy(*destination,source,length*sizeof(**destination));
   (*destination)[length]='\0';
   return(*destination);
 }
