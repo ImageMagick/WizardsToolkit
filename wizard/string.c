@@ -2045,7 +2045,7 @@ WizardExport char **StringToArgv(const char *text,int *argc)
     while ((isspace((int) ((unsigned char) *p)) == 0) && (*p != '\0'))
       p++;
   }
-  argv=(char **) AcquireQuantumMemory((size_t) (*argc+1),sizeof(**argv));
+  argv=(char **) AcquireQuantumMemory((size_t) (*argc+1),sizeof(*argv));
   if (argv == (char **) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   /*
