@@ -396,7 +396,7 @@ WizardExport WizardBooleanType ConcatenateString(char **destination,
   if (~length < MaxTextExtent)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   *destination=(char *) ResizeQuantumMemory(*destination,length+MaxTextExtent,
-    sizeof(*destination));
+    sizeof(**destination));
   if (*destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   if (source_length != 0)
