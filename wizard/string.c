@@ -245,7 +245,7 @@ WizardExport char *CloneString(char **destination,const char *source)
   if (~length < MaxTextExtent)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   *destination=(char *) ResizeQuantumMemory(*destination,length+MaxTextExtent,
-    sizeof(*destination));
+    sizeof(**destination));
   if (*destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   if (length != 0)
