@@ -248,20 +248,23 @@ static WizardBooleanType TestAuthenticate(const char *passphrase)
   pass=GenerateAuthenticateKey(authenticate_info,exception);
   (void) PrintValidateString(stdout,"%s.\n",pass != WizardFalse ? "pass" :
     "fail");
-  key=CloneStringInfo(GetAuthenticateKey(authenticate_info));
-  (void) PrintValidateString(stdout,"  authenticate key:\n");
-  if (passphrase != (const char *) NULL)
-    SetAuthenticatePassphrase(authenticate_info,passphrase);
-  clone=AuthenticateKey(authenticate_info,exception);
-  exception=DestroyExceptionInfo(exception);
-  if (clone != WizardFalse)
-    clone=CompareStringInfo(GetAuthenticateKey(authenticate_info),key) == 0 ?
-      WizardTrue : WizardFalse;
-  if (clone == WizardFalse)
-    pass=WizardFalse;
-  (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
-    "fail");
-  key=DestroyStringInfo(key);
+  if (pass != WizardFalse)
+    {
+      key=CloneStringInfo(GetAuthenticateKey(authenticate_info));
+      (void) PrintValidateString(stdout,"  authenticate key:\n");
+      if (passphrase != (const char *) NULL)
+        SetAuthenticatePassphrase(authenticate_info,passphrase);
+      clone=AuthenticateKey(authenticate_info,exception);
+      exception=DestroyExceptionInfo(exception);
+      if (clone != WizardFalse)
+        clone=CompareStringInfo(GetAuthenticateKey(authenticate_info),key) == 0
+          ? WizardTrue : WizardFalse;
+      if (clone == WizardFalse)
+        pass=WizardFalse;
+      (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
+        "fail");
+      key=DestroyStringInfo(key);
+    }
   authenticate_info=DestroyAuthenticateInfo(authenticate_info);
   return(pass);
 }
@@ -329,6 +332,8 @@ static WizardBooleanType TestBZIPEntropy(void)
   }
   entropy_info=DestroyEntropyInfo(entropy_info);
   exception=DestroyExceptionInfo(exception);
+  if (status == WizardFalse)
+    return(WizardFalse);
   return(pass);
 }
 
@@ -637,6 +642,8 @@ static WizardBooleanType TestLZMAEntropy(void)
   }
   entropy_info=DestroyEntropyInfo(entropy_info);
   exception=DestroyExceptionInfo(exception);
+  if (status == WizardFalse)
+    return(WizardFalse);
   return(pass);
 }
 
@@ -1395,6 +1402,8 @@ static WizardBooleanType TestZIPEntropy(void)
   }
   entropy_info=DestroyEntropyInfo(entropy_info);
   exception=DestroyExceptionInfo(exception);
+  if (status == WizardFalse)
+    return(WizardFalse);
   return(pass);
 }
 
@@ -1427,6 +1436,8 @@ int main(int argc,char **argv)
   if (TestMime() == WizardFalse)
     pass=WizardFalse;
 #endif
+  if (TestAuthenticate(passphrase) == WizardFalse)
+    pass=WizardFalse;
   if (TestCRC64() == WizardFalse)
     pass=WizardFalse;
   if (TestMD5() == WizardFalse)
