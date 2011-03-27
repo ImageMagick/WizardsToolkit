@@ -332,8 +332,7 @@ static WizardBooleanType TestBZIPEntropy(void)
   }
   entropy_info=DestroyEntropyInfo(entropy_info);
   exception=DestroyExceptionInfo(exception);
-  if (status == WizardFalse)
-    return(WizardFalse);
+  (void) status;
   return(pass);
 }
 
@@ -642,8 +641,7 @@ static WizardBooleanType TestLZMAEntropy(void)
   }
   entropy_info=DestroyEntropyInfo(entropy_info);
   exception=DestroyExceptionInfo(exception);
-  if (status == WizardFalse)
-    return(WizardFalse);
+  (void) status;
   return(pass);
 }
 
@@ -1402,8 +1400,7 @@ static WizardBooleanType TestZIPEntropy(void)
   }
   entropy_info=DestroyEntropyInfo(entropy_info);
   exception=DestroyExceptionInfo(exception);
-  if (status == WizardFalse)
-    return(WizardFalse);
+  (void) status;
   return(pass);
 }
 
