@@ -21,6 +21,7 @@ m4_define([wizard_minor_version], [0])
 m4_define([wizard_micro_version], [8])
 m4_define([wizard_version],
           [wizard_major_version.wizard_minor_version.wizard_micro_version])
+m4_define([wizard_svn_revision], esyscmd([sh -c "svnversion | sed -r 's/([0-9]+).*/\1/'"]))
 
 AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit-wizard_version])
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
@@ -87,6 +88,7 @@ AC_SUBST([WIZARD_LIBRARY_CURRENT_MIN],
          [`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`])
 AC_SUBST([WIZARD_LIBRARY_VERSION_INFO],
          [$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE])
+AC_SUBST([WIZARD_SVN_REVISION],[wizard_svn_revision]) 
 
 AC_SUBST(PACKAGE_NAME)dnl
 AC_SUBST(PACKAGE_VERSION)dnl
@@ -874,10 +876,11 @@ if test "$with_wizard_plus_plus" = 'yes'; then
 # functional iomanip iosfwd iostream iterator list string strstream utility
  AC_LANG([C++])
  AC_PROG_CXX
- AC_CXX_HAVE_BOOL
- AC_CXX_HAVE_NAMESPACES
- AC_CXX_HAVE_STD_NAMESPACE
+ AX_CXX_BOOL
+ AX_CXX_NAMESPACES
+ AX_CXX_NAMESPACE_STD
  AC_CXX_HAVE_STD_LIBS
+ AC_OPENMP([C++])
  AC_LANG_POP
 
  AC_MSG_CHECKING([whether C++ compiler is sufficient for the Wizard's Toolkit])

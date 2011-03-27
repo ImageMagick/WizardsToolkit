@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <configuremap>
-  <configure name="HOST" value="x86_64-unknown-linux-gnu" />
+  <configure name="NAME" value="WizardsToolkit" />
+  <configure name="SVN_REVISION" value="4019" />
+  <configure name="VERSION" value="1.0.8" />
+  <configure name="LIB_VERSION" value="0x108" />
+  <configure name="LIB_VERSION_NUMBER" value="1,0,8,2" />
+  <configure name="RELEASE_DATE" value="2011-03-27" />
   <configure name="CONFIGURE" value="./configure " />
   <configure name="PREFIX" value="/usr/local" />
   <configure name="EXEC-PREFIX" value="/usr/local" />
@@ -20,12 +25,7 @@
   <configure name="CXX" value="g++" />
   <configure name="CXXFLAGS" value="-pthread" />
   <configure name="DISTCHECK_CONFIG_FLAGS" value=" --with-umem=no " />
-  <configure name="CVS_BRANCH_TAG" value="" />
-  <configure name="NAME" value="WizardsToolkit" />
-  <configure name="VERSION" value="1.0.8" />
-  <configure name="LIB_VERSION" value="0x108" />
-  <configure name="LIB_VERSION_NUMBER" value="1,0,8,2" />
-  <configure name="RELEASE_DATE" value="2011-03-27" />
+  <configure name="HOST" value="x86_64-unknown-linux-gnu" />
   <configure name="COPYRIGHT" value="Copyright (C) 1999-2011 ImageMagick Studio LLC" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
 </configuremap>
