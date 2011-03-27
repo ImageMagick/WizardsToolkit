@@ -1243,19 +1243,6 @@ esac
 AC_DEFINE_UNQUOTED(LIBRARY_PATH,"$DEFINE_LIBRARY_PATH",Directory where architecture-dependent files live.)
 AC_SUBST(LIBRARY_PATH)
 
-# Subdirectory under lib to place Wizard configuration files
-CONFIGURE_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}"
-AC_DEFINE_UNQUOTED(CONFIGURE_RELATIVE_PATH,"$CONFIGURE_RELATIVE_PATH",Subdirectory of lib where architecture-dependent configuration files live.)
-CONFIGURE_PATH="${DATA_DIR}/${CONFIGURE_RELATIVE_PATH}"
-DEFINE_CONFIGURE_PATH="${DATA_DIR}/${CONFIGURE_RELATIVE_PATH}/"
-case "${build_os}" in
-  mingw* )
-    DEFINE_CONFIGURE_PATH=`$WinPathScript "$DEFINE_CONFIGURE_PATH" 1`
-    ;;
-esac
-AC_DEFINE_UNQUOTED(CONFIGURE_PATH,"$DEFINE_CONFIGURE_PATH",Directory where architecture-dependent configuration files live.)
-AC_SUBST(CONFIGURE_PATH)
-
 #         
 # Path to Wizard document files
 DOCUMENTATION_RELATIVE_PATH=""
@@ -1281,11 +1268,24 @@ esac
 AC_DEFINE_UNQUOTED(SHARE_PATH,"$DEFINE_SHARE_PATH",Directory where architecture-independent files live.)
 AC_SUBST(SHARE_PATH)
 
+# Subdirectory under lib to place Wizard configuration files
+CONFIGURE_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}"
+AC_DEFINE_UNQUOTED(CONFIGURE_RELATIVE_PATH,"$CONFIGURE_RELATIVE_PATH",Subdirectory of lib where architecture-dependent configuration files live.)
+CONFIGURE_PATH="${SYSCONF_DIR}/${CONFIGURE_RELATIVE_PATH}"
+DEFINE_CONFIGURE_PATH="${SYSCONF_DIR}/${CONFIGURE_RELATIVE_PATH}/"
+case "${build_os}" in
+  mingw* )
+    DEFINE_CONFIGURE_PATH=`$WinPathScript "$DEFINE_CONFIGURE_PATH" 1`
+    ;;
+esac
+AC_DEFINE_UNQUOTED(CONFIGURE_PATH,"$DEFINE_CONFIGURE_PATH",Directory where architecture-dependent configuration files live.)
+AC_SUBST(CONFIGURE_PATH)
+
 # Subdirectory under share to place Wizard configuration files
 SHARE_CONFIGURE_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}/config"
 AC_DEFINE_UNQUOTED(SHARE_CONFIGURE_RELATIVE_PATH,"$SHARE_CONFIGURE_RELATIVE_PATH",Subdirectory of lib where architecture-independent configuration files live.)
-SHARE_CONFIGURE_PATH="${SYSCONF_DIR}/${SHARE_CONFIGURE_RELATIVE_PATH}"
-DEFINE_SHARE_CONFIGURE_PATH="${SYSCONF_DIR}/${SHARE_CONFIGURE_RELATIVE_PATH}/"
+SHARE_CONFIGURE_PATH="${DATA_DIR}/${SHARE_CONFIGURE_RELATIVE_PATH}"
+DEFINE_SHARE_CONFIGURE_PATH="${DATA_DIR}/${SHARE_CONFIGURE_RELATIVE_PATH}/"
 case "${build_os}" in
   mingw* )
     DEFINE_SHARE_CONFIGURE_PATH=`$WinPathScript "$DEFINE_SHARE_CONFIGURE_PATH" 1`
