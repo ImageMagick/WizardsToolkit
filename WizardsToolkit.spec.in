@@ -143,7 +143,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/[a-z]*
 %{_sysconfdir}/%{name}-%{VERSION}
 %{_datadir}/%{name}-%{VERSION}
-%{_docdir}/%{name}-%{VERSION}
 %{_mandir}/man[145]/[a-zA-Z]*
 
 %files devel
@@ -157,7 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(-,root,root,-)
-%doc %{_docdir}/%{name}-%{VERSION}
+%doc %{_datadir}/doc/%{name}-%{VERSION}
 
 %changelog
 * Sun May 01 2005 Cristy <cristy@mystic.es.dupont.com> 1.0-0
