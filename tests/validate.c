@@ -1436,8 +1436,6 @@ int main(int argc,char **argv)
   if (TestMime() == WizardFalse)
     pass=WizardFalse;
 #endif
-  if (TestAuthenticate(passphrase) == WizardFalse)
-    pass=WizardFalse;
   if (TestCRC64() == WizardFalse)
     pass=WizardFalse;
   if (TestMD5() == WizardFalse)
