@@ -22,7 +22,7 @@ m4_define([wizard_micro_version], [8])
 m4_define([wizard_version],
           [wizard_major_version.wizard_minor_version.wizard_micro_version])
 
-AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit])
+AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit-wizard_version])
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_MACRO_DIR([m4])
@@ -164,6 +164,8 @@ eval "eval LIBEXEC_DIR=$libexecdir"
 AC_SUBST(LIBEXEC_DIR)
 eval "eval DATA_DIR=$datadir"
 AC_SUBST(DATA_DIR)
+eval "eval DOC_DIR=$docdir"
+AC_SUBST(DOC_DIR)
 eval "eval SYSCONF_DIR=$sysconfdir"
 AC_SUBST(SYSCONF_DIR)
 eval "eval SHAREDSTATE_DIR=$sharedstatedir"
@@ -1242,10 +1244,10 @@ AC_DEFINE_UNQUOTED(LIBRARY_PATH,"$DEFINE_LIBRARY_PATH",Directory where architect
 AC_SUBST(LIBRARY_PATH)
 
 # Subdirectory under lib to place Wizard configuration files
-CONFIGURE_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}/config"
+CONFIGURE_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}"
 AC_DEFINE_UNQUOTED(CONFIGURE_RELATIVE_PATH,"$CONFIGURE_RELATIVE_PATH",Subdirectory of lib where architecture-dependent configuration files live.)
-CONFIGURE_PATH="${LOCALSTATE_DIR}/lib/${CONFIGURE_RELATIVE_PATH}"
-DEFINE_CONFIGURE_PATH="${LOCALSTATE_DIR}/lib/${CONFIGURE_RELATIVE_PATH}/"
+CONFIGURE_PATH="${DATA_DIR}/${CONFIGURE_RELATIVE_PATH}"
+DEFINE_CONFIGURE_PATH="${DATA_DIR}/${CONFIGURE_RELATIVE_PATH}/"
 case "${build_os}" in
   mingw* )
     DEFINE_CONFIGURE_PATH=`$WinPathScript "$DEFINE_CONFIGURE_PATH" 1`
@@ -1256,9 +1258,9 @@ AC_SUBST(CONFIGURE_PATH)
 
 #         
 # Path to Wizard document files
-DOCUMENTATION_RELATIVE_PATH="${PACKAGE_NAME}-${PACKAGE_VERSION}"
-DOCUMENTATION_PATH="${DATA_DIR}/doc/${DOCUMENTATION_RELATIVE_PATH}"
-DEFINE_DOCUMENTATION_PATH="${DATA_DIR}/doc/${DOCUMENTATION_RELATIVE_PATH}/"
+DOCUMENTATION_RELATIVE_PATH=""
+DOCUMENTATION_PATH="${DOC_DIR}/${DOCUMENTATION_RELATIVE_PATH}"
+DEFINE_DOCUMENTATION_PATH="${DOC_DIR}/${DOCUMENTATION_RELATIVE_PATH}/"
 case "${build_os}" in
   mingw* )
     DEFINE_DOCUMENTATION_PATH=`$WinPathScript "$DEFINE_DOCUMENTATION_PATH" 1`

@@ -142,8 +142,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libWizardsToolkit.so.*
 %{_bindir}/[a-z]*
 %{_sysconfdir}/%{name}-%{VERSION}
-%{_localstatedir}/lib/%{name}-%{VERSION}
 %{_datadir}/%{name}-%{VERSION}
+%{_docdir}/%{name}-%{VERSION}
 %{_mandir}/man[145]/[a-zA-Z]*
 
 %files devel
@@ -157,7 +157,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(-,root,root,-)
-%doc %{_datadir}/doc/%{name}-%{VERSION}
+%doc %{_docdir}/%{name}-%{VERSION}
 
 %changelog
 * Sun May 01 2005 Cristy <cristy@mystic.es.dupont.com> 1.0-0
