@@ -77,7 +77,6 @@ http://www.wizards-toolkit.org/
 
 %prep
 %setup -q -n %{name}-%{VERSION}-%{Patchlevel}
-sed -i 's/libltdl.la/libltdl.so/g' configure
 
 %build
 %configure --enable-shared \
