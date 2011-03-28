@@ -18,14 +18,14 @@
 # (share/ImageMagick-version)
 configsharedir = $(SHARE_CONFIGURE_PATH)
 configshare_DATA = \
-	config/log.xml \
+	config/configure.xml \
 	config/mime.xml
 
 # Where architecture-dependent configuration files get installed
 # (lib/ImageMagick-version)
 configlibdir =  $(CONFIGURE_PATH)
 configlib_DATA = \
-	config/configure.xml 
+	config/log.xml
 
 CONFIG_EXTRA_DIST = \
   config/configure.xml \
