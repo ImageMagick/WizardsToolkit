@@ -89,12 +89,13 @@ extern "C" {
 #if !defined(fileno)
 #  define fileno  _fileno
 #endif
-#if !defined(fseek)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define fseek  _fseeki64
 #endif
 #if !defined(fstat) && !defined(__BORLANDC__)
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
-  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define fstat  _fstati64
 #else
 #  define fstat  _fstat
@@ -103,7 +104,8 @@ extern "C" {
 #if !defined(fsync)
 #  define fsync  _commit
 #endif
-#if !defined(ftell)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define ftell  _ftelli64
 #endif
 #if !defined(ftruncate)
