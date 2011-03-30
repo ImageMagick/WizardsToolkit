@@ -179,8 +179,6 @@ extern "C" {
 #  include <pthread.h>
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #  define WIZARDSTOOLKIT_HAVE_WINTHREADS  1
-#  define WINVER 0x0501
-#  define _WIN32_WINNT 0x0501
 #include <windows.h>
 #endif
 #if defined(WIZARDSTOOLKIT_HAVE_SYS_SYSLIMITS_H)

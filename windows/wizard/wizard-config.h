@@ -81,10 +81,15 @@
 // Visual C++ does not define ssize_t by default.
 #if !defined(ssize_t)
 #if defined(_WIN64) 
-#  define ssize_t  __int64
+typedef __int64 ssize_t;
 #else
-#  define ssize_t  long
+typedef long ssize_t;
 #endif
+#endif
+
+// Required or InitializeCriticalSectionandSpinCount is undefined.
+#if !defined(_WIN32_WINNT)
+#  define _WIN32_WINNT  0x0501
 #endif
 
 #if !defined(__FUNCTION__)
