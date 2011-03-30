@@ -99,9 +99,6 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 cp -a www/source $RPM_BUILD_ROOT%{_datadir}/doc/%{name}-%{VERSION}
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
-# These don't belong here, we include them in %%doc
-rm $RPM_BUILD_ROOT%{_datadir}/%{name}-%{VERSION}/{ChangeLog,LICENSE,NEWS.txt}
-
 # fix multilib issues
 %ifarch x86_64 s390x ia64 ppc64 alpha sparc64
 %define wordsize 64

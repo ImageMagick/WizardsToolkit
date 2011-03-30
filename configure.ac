@@ -192,17 +192,13 @@ builddir="`pwd`"
 #
 # Compute variables useful for running uninstalled software.
 #
-WIZARD_CODER_MODULE_PATH="${builddir}/coders"
 WIZARD_CONFIGURE_SRC_PATH="${srcdirfull}/config"
 WIZARD_CONFIGURE_BUILD_PATH="${builddir}/config"
-WIZARD_FILTER_MODULE_PATH="${builddir}/filters"
 DIRSEP=':'
 case "${build_os}" in
   mingw* )
-    WIZARD_CODER_MODULE_PATH=`$WinPathScript "${WIZARD_CODER_MODULE_PATH}" 0`
     WIZARD_CONFIGURE_SRC_PATH=`$WinPathScript "${WIZARD_CONFIGURE_SRC_PATH}" 0`
     WIZARD_CONFIGURE_BUILD_PATH=`$WinPathScript "${WIZARD_CONFIGURE_BUILD_PATH}" 0`
-    WIZARD_FILTER_MODULE_PATH=`$WinPathScript "${WIZARD_FILTER_MODULE_PATH}" 0`
     DIRSEP=';'
     ;;
 esac
@@ -211,10 +207,8 @@ case "${host_os}" in
     DIRSEP=';'
     ;;
 esac
-AC_SUBST(WIZARD_CODER_MODULE_PATH)
 AC_SUBST(WIZARD_CONFIGURE_SRC_PATH)
 AC_SUBST(WIZARD_CONFIGURE_BUILD_PATH)
-AC_SUBST(WIZARD_FILTER_MODULE_PATH)
 AC_SUBST(DIRSEP)
 
 #
