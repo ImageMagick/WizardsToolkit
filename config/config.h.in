@@ -448,11 +448,11 @@
 #undef PTHREAD_CREATE_JOINABLE
 
 /* Directory where architecture-independent configuration files live. */
-#undef SHARE_CONFIGURE_PATH
+#undef SHARE_PATH
 
 /* Subdirectory of lib where architecture-independent configuration files
    live. */
-#undef SHARE_CONFIGURE_RELATIVE_PATH
+#undef SHARE_RELATIVE_PATH
 
 /* Directory where architecture-independent files live. */
 #undef SHARE_PATH

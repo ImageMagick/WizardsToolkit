@@ -629,9 +629,9 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
   (void) AppendValueToLinkedList(paths,AcquireString(
     WIZARDSTOOLKIT_CONFIGURE_PATH));
 #endif
-#if defined(WIZARDSTOOLKIT_SHARE_CONFIGURE_PATH)
+#if defined(WIZARDSTOOLKIT_SHARE_PATH)
   (void) AppendValueToLinkedList(paths,AcquireString(
-    WIZARDSTOOLKIT_SHARE_CONFIGURE_PATH));
+    WIZARDSTOOLKIT_SHARE_PATH));
 #endif
 #if defined(WIZARDSTOOLKIT_DOCUMENTATION_PATH)
   (void) AppendValueToLinkedList(paths,AcquireString(
@@ -641,7 +641,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
   (void) AppendValueToLinkedList(paths,AcquireString(
     WIZARDSTOOLKIT_SHARE_PATH));
 #endif
-#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !(defined(WIZARDSTOOLKIT_CONFIGURE_PATH) || defined(WIZARDSTOOLKIT_SHARE_CONFIGURE_PATH))
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !(defined(WIZARDSTOOLKIT_CONFIGURE_PATH) || defined(WIZARDSTOOLKIT_SHARE_PATH))
   {
     char
       *registry_key;
@@ -679,11 +679,11 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
           DirectorySeparator);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
 #else
-        (void) FormatWizardString(path,MaxTextExtent,"%s/lib/%s/",home,
+        (void) FormatWizardString(path,MaxTextExtent,"%s/etc/%s/",home,
           WIZARDSTOOLKIT_CONFIGURE_RELATIVE_PATH);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
         (void) FormatWizardString(path,MaxTextExtent,"%s/share/%s/",home,
-          WIZARDSTOOLKIT_SHARE_CONFIGURE_RELATIVE_PATH);
+          WIZARDSTOOLKIT_SHARE_RELATIVE_PATH);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
 #endif
         home=(char *) RelinquishWizardMemory(home);
@@ -704,11 +704,11 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
       */
       (void) CopyWizardString(prefix,GetClientPath(),MaxTextExtent);
       ChopPathComponents(prefix,1);
-      (void) FormatWizardString(path,MaxTextExtent,"%s/lib/%s/",prefix,
+      (void) FormatWizardString(path,MaxTextExtent,"%s/etc/%s/",prefix,
         WIZARDSTOOLKIT_CONFIGURE_RELATIVE_PATH);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
       (void) FormatWizardString(path,MaxTextExtent,"%s/share/%s/",prefix,
-        WIZARDSTOOLKIT_SHARE_CONFIGURE_RELATIVE_PATH);
+        WIZARDSTOOLKIT_SHARE_RELATIVE_PATH);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
 #endif
     }

@@ -1253,18 +1253,6 @@ esac
 AC_DEFINE_UNQUOTED(DOCUMENTATION_PATH,"$DEFINE_DOCUMENTATION_PATH","Directory where the Wizard's Toolkit documents live.") 
 AC_SUBST(DOCUMENTATION_PATH)
 
-# Path to Wizard share files
-SHARE_RELATIVE_PATH="${PACKAGE_NAME}-${PACKAGE_VERSION}"
-SHARE_PATH="${DATA_DIR}/${SHARE_RELATIVE_PATH}"
-DEFINE_SHARE_PATH="${DATA_DIR}/${SHARE_RELATIVE_PATH}/"
-case "${build_os}" in
-  mingw* )
-    DEFINE_SHARE_PATH=`$WinPathScript "$DEFINE_SHARE_PATH" 1`
-    ;;
-esac
-AC_DEFINE_UNQUOTED(SHARE_PATH,"$DEFINE_SHARE_PATH",Directory where architecture-independent files live.)
-AC_SUBST(SHARE_PATH)
-
 # Subdirectory under lib to place Wizard configuration files
 CONFIGURE_RELATIVE_PATH="${PACKAGE_NAME}"
 AC_DEFINE_UNQUOTED(CONFIGURE_RELATIVE_PATH,"$CONFIGURE_RELATIVE_PATH",Subdirectory of lib where architecture-dependent configuration files live.)
@@ -1279,17 +1267,17 @@ AC_DEFINE_UNQUOTED(CONFIGURE_PATH,"$DEFINE_CONFIGURE_PATH",Directory where archi
 AC_SUBST(CONFIGURE_PATH)
 
 # Subdirectory under share to place Wizard configuration files
-SHARE_CONFIGURE_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}/config"
-AC_DEFINE_UNQUOTED(SHARE_CONFIGURE_RELATIVE_PATH,"$SHARE_CONFIGURE_RELATIVE_PATH",Subdirectory of lib where architecture-independent configuration files live.)
-SHARE_CONFIGURE_PATH="${DATA_DIR}/${SHARE_CONFIGURE_RELATIVE_PATH}"
-DEFINE_SHARE_CONFIGURE_PATH="${DATA_DIR}/${SHARE_CONFIGURE_RELATIVE_PATH}/"
+SHARE_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}/config"
+AC_DEFINE_UNQUOTED(SHARE_RELATIVE_PATH,"$SHARE_RELATIVE_PATH",Subdirectory of lib where architecture-independent configuration files live.)
+SHARE_PATH="${DATA_DIR}/${SHARE_RELATIVE_PATH}"
+DEFINE_SHARE_PATH="${DATA_DIR}/${SHARE_RELATIVE_PATH}/"
 case "${build_os}" in
   mingw* )
-    DEFINE_SHARE_CONFIGURE_PATH=`$WinPathScript "$DEFINE_SHARE_CONFIGURE_PATH" 1`
+    DEFINE_SHARE_PATH=`$WinPathScript "$DEFINE_SHARE_PATH" 1`
     ;;
 esac
-AC_DEFINE_UNQUOTED(SHARE_CONFIGURE_PATH,"$DEFINE_SHARE_CONFIGURE_PATH",Directory where architecture-independent configuration files live.)
-AC_SUBST(SHARE_CONFIGURE_PATH)
+AC_DEFINE_UNQUOTED(SHARE_PATH,"$DEFINE_SHARE_PATH",Directory where architecture-independent configuration files live.)
+AC_SUBST(SHARE_PATH)
 
 #
 # program_transform_name is formed for use in a Makefile, so create a

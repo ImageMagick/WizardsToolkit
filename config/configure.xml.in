@@ -9,7 +9,7 @@
   <configure name="CONFIGURE" value="@CONFIGURE_ARGS@" />
   <configure name="PREFIX" value="@PREFIX_DIR@" />
   <configure name="EXEC-PREFIX" value="@EXEC_PREFIX_DIR@" />
-  <configure name="SHARE_CONFIGURE_PATH" value="@SHARE_CONFIGURE_PATH@"/>
+  <configure name="SHARE_PATH" value="@SHARE_PATH@"/>
   <configure name="CONFIGURE_PATH" value="@CONFIGURE_PATH@"/>
   <configure name="DOCUMENTATION_PATH" value="@DOCUMENTATION_PATH@"/>
   <configure name="EXECUTABLE_PATH" value="@EXECUTABLE_PATH@"/>
