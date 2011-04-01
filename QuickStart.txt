@@ -58,10 +58,10 @@ Unix/Linux/Darwin/Cygwin/MinGW Install:
       for configuration files in the following order, and loads them if found:
 
           $WIZARD_CONFIGURE_PATH
-          $WIZARD_HOME/etc/WizardsToolkit-1.0.8
+          $WIZARD_HOME/etc/WizardsToolkit
           $WIZARD_HOME/share/WizardsToolkit-1.0.8
           $HOME/.wizard/
-          <client path>/etc/WizardsToolkit-1.0.8
+          <client path>/etc/WizardsToolkit
           <current directory>/
 
 
