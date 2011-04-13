@@ -638,7 +638,6 @@ TAR
 windows_font_dir
 SHARE_PATH
 CONFIGURE_PATH
-SHARE_PATH
 DOCUMENTATION_PATH
 LIBRARY_PATH
 EXECUTABLE_PATH
@@ -2954,14 +2953,13 @@ test -n "$target_alias" &&
 
 
 
-
-WIZARD_TARGET_CPU=$target_cpu
-
-
-WIZARD_TARGET_VENDOR=$target_vendor
+WIZARD_TARGET_CPU=$host_cpu
 
 
-WIZARD_TARGET_OS=$target_os
+WIZARD_TARGET_VENDOR=$host_vendor
+
+
+WIZARD_TARGET_OS=$host_os
 
 
 # Substitute library versioning
@@ -23547,22 +23545,6 @@ esac
 
 cat >>confdefs.h <<_ACEOF
 #define DOCUMENTATION_PATH "$DEFINE_DOCUMENTATION_PATH"
-_ACEOF
-
-
-
-# Path to Wizard share files
-SHARE_RELATIVE_PATH="${PACKAGE_NAME}-${PACKAGE_VERSION}"
-SHARE_PATH="${DATA_DIR}/${SHARE_RELATIVE_PATH}"
-DEFINE_SHARE_PATH="${DATA_DIR}/${SHARE_RELATIVE_PATH}/"
-case "${build_os}" in
-  mingw* )
-    DEFINE_SHARE_PATH=`$WinPathScript "$DEFINE_SHARE_PATH" 1`
-    ;;
-esac
-
-cat >>confdefs.h <<_ACEOF
-#define SHARE_PATH "$DEFINE_SHARE_PATH"
 _ACEOF
 
 
