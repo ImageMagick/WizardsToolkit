@@ -178,8 +178,8 @@ static void WizardSignalHandler(int signal_number)
   if (signal_number == SIGTERM)
     exit(signal_number);
 #endif
-#if defined(SIGBUS)
-  if (signal_number == SIGBUS)
+#if defined(SIGSEGV)
+  if (signal_number == SIGSEGV)
     exit(signal_number);
 #endif
   _exit(signal_number);  /* do not invoke registered atexit() methods */
@@ -288,9 +288,9 @@ WizardExport void WizardsToolkitGenesis(const char *path)
   if (signal_handlers[SIGTERM] == (SignalHandler *) NULL)
     signal_handlers[SIGTERM]=RegisterWizardSignalHandler(SIGTERM);
 #endif
-#if defined(SIGBUS)
-  if (signal_handlers[SIGBUS] == (SignalHandler *) NULL)
-    signal_handlers[SIGBUS]=RegisterWizardSignalHandler(SIGBUS);
+#if defined(SIGSEGV)
+  if (signal_handlers[SIGSEGV] == (SignalHandler *) NULL)
+    signal_handlers[SIGSEGV]=RegisterWizardSignalHandler(SIGSEGV);
 #endif
 #if defined(SIGXCPU)
   if (signal_handlers[SIGXCPU] == (SignalHandler *) NULL)
