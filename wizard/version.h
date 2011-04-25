@@ -34,7 +34,7 @@ extern "C" {
 #define WizardLibAddendum  "-5"
 #define WizardLibInterface  1
 #define WizardLibMinInterface  1
-#define WizardReleaseDate  "2011-04-21"
+#define WizardReleaseDate  "2011-04-24"
 #define WizardChangeDate   "20110224"
 #define WizardAuthoritativeURL  "http://www.wizards-toolkit.org"
 #define WizardVersion WizardPackageName " " WizardLibVersionText \
