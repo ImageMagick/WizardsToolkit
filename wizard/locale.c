@@ -166,16 +166,16 @@ WizardExport ssize_t FormatLocaleFileList(FILE *file,const char *format,
   int
     n;
 
-#if defined(WIZARDSTOOLKIT_HAVE_FPRINTF_L)
+#if defined(WIZARDSTOOLKIT_HAVE_VFPRINTF_L)
   {
     locale_t
       locale;
 
     locale=AcquireCLocale();
     if (locale == (locale_t) NULL)
-      n=fprintf(file,format,operands);
+      n=vfprintf(file,format,operands);
     else
-      n=fprintf_l(file,format,locale,operands);
+      n=vfprintf_l(file,format,locale,operands);
   }
 #else
 #if defined(WIZARDSTOOLKIT_HAVE_USELOCALE)
@@ -186,16 +186,16 @@ WizardExport ssize_t FormatLocaleFileList(FILE *file,const char *format,
 
     locale=AcquireCLocale();
     if (locale == (locale_t) NULL)
-      n=fprintf(file,format,operands);
+      n=vfprintf(file,format,operands);
     else
       {
         previous_locale=uselocale(locale);
-        n=fprintf(file,format,operands);
+        n=vfprintf(file,format,operands);
         uselocale(previous_locale);
       }
   }
 #else
-  n=fprintf(file,format,operands);
+  n=vfprintf(file,format,operands);
 #endif
 #endif
   return((ssize_t) n);

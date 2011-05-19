@@ -109,14 +109,14 @@ typedef long ssize_t;
 /* Define to 1 if you have the `memmove' function. */
 #define WIZARDSTOOLKIT_HAVE_MEMMOVE  1
 
-/* Define to 1 if you have the `fprintf_l' function. */
-#define WIZARDSTOOLKIT_HAVE_FPRINTF_L 1
-
 /* Define to 1 if you have the `strtod_l' function. */
 #define WIZARDSTOOLKIT_HAVE_STRTOD_L 1
 
 /* Define to 1 if you have the `sysconf' function. */
 #define WIZARDSTOOLKIT_HAVE_SYSCONF 1
+
+/* Define to 1 if you have the `fprintf_l' function. */
+#define WIZARDSTOOLKIT_HAVE_VFPRINTF_L 1
 
 /* Define to 1 if you have the `vsnprintf' function. */
 #define WIZARDSTOOLKIT_HAVE_VSNPRINTF 1
