@@ -295,7 +295,7 @@ WizardExport WizardBooleanType DecipherCommand(int argc,char **argv,
             if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing chunk size: `%s'",
                 option);
-            value=LocaleToDouble(argv[i],&p);
+            value=InterpretLocaleValue(argv[i],&p);
             (void) value;
             if (p == argv[i])
               ThrowInvalidArgumentException(option,argv[i]);
@@ -402,8 +402,8 @@ WizardExport WizardBooleanType DecipherCommand(int argc,char **argv,
             if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing key length: `%s'",
                 option);
-            content_info->key_length=(unsigned int) LocaleToDouble(option,(char **)
-              NULL);
+            content_info->key_length=(unsigned int) InterpretLocaleValue(
+              option,(char **) NULL);
             break;
           }
         if (LocaleCompare("keyring",option+1) == 0)

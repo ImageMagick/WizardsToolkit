@@ -943,7 +943,7 @@ WizardExport const char *ParseWizardTime(const char *timestamp,time_t *target)
   p=timestamp;
   for (i=0; ; i++)
   {
-    value=LocaleToDouble(p,&q);
+    value=InterpretLocaleValue(p,&q);
     if (*q != separators[i])
       break;
     switch (i)

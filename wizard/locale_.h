@@ -25,7 +25,7 @@ extern "C" {
 #include "wizard/hashmap.h"
 
 extern WizardExport double
-  LocaleToDouble(const char *,char **);
+  InterpretLocaleValue(const char *,char **);
 
 extern WizardExport WizardBooleanType
   LocaleComponentGenesis(void);

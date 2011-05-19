@@ -302,6 +302,57 @@ WizardExport ssize_t FormatLocaleString(char *string,const size_t length,
 %                                                                             %
 %                                                                             %
 %                                                                             %
++   I n t e r p r e t L o c a l e V a l u e                                   %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  InterpretLocaleValue() interprets the string as a floating point number in
+%  the "C" locale and returns its value as a double. If sentinal is not a null
+%  pointer, the method also sets the value pointed by sentinal to point to the
+%  first character after the number.
+%
+%  The format of the InterpretLocaleValue method is:
+%
+%      double InterpretLocaleValue(const char *value,char **sentinal)
+%
+%  A description of each parameter follows:
+%
+%    o value: the string value.
+%
+%    o sentinal:  if sentinal is not NULL, a pointer to the character after the
+%      last character used in the conversion is stored in the location
+%      referenced by sentinal.
+%
+*/
+WizardExport double InterpretLocaleValue(const char *string,char **sentinal)
+{
+  double
+    value;
+
+#if defined(WIZARDSTOOLKIT_HAVE_STRTOD_L)
+  {
+    locale_t
+      locale;
+
+    locale=AcquireCLocale();
+    if (locale == (locale_t) NULL)
+      value=strtod(string,sentinal);
+    else
+      value=strtod_l(string,sentinal,locale);
+  }
+#else
+  value=strtod(string,sentinal);
+#endif
+  return(value);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
 +   L o c a l e C o m p o n e n t G e n e s i s                               %
 %                                                                             %
 %                                                                             %
@@ -348,55 +399,4 @@ WizardExport void LocaleComponentTerminus(void)
   instantiate_locale=WizardFalse;
   UnlockSemaphoreInfo(locale_semaphore);
   DestroySemaphoreInfo(&locale_semaphore);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-+   L o c a l e T o D o u b l e                                               %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  LocaleToDouble() interprets the string as a floating point number in the
-%  "C" locale and returns its value as a double. If sentinal is not a null
-%  pointer, the method also sets the value pointed by sentinal to point to the
-%  first character after the number.
-%
-%  The format of the LocaleToDouble method is:
-%
-%      double LocaleToDouble(const char *value,char **sentinal)
-%
-%  A description of each parameter follows:
-%
-%    o value: the string value.
-%
-%    o sentinal:  if sentinal is not NULL, a pointer to the character after the
-%      last character used in the conversion is stored in the location
-%      referenced by sentinal.
-%
-*/
-WizardExport double LocaleToDouble(const char *string,char **sentinal)
-{
-  double
-    value;
-
-#if defined(WIZARDSTOOLKIT_HAVE_STRTOD_L)
-  {
-    locale_t
-      locale;
-
-    locale=AcquireCLocale();
-    if (locale == (locale_t) NULL)
-      value=strtod(string,sentinal);
-    else
-      value=strtod_l(string,sentinal,locale);
-  }
-#else
-  value=strtod(string,sentinal);
-#endif
-  return(value);
 }

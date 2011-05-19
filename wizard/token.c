@@ -159,7 +159,7 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
         double
           value;
 
-        value=LocaleToDouble(p,&q);
+        value=InterpretLocaleValue(p,&q);
         (void) value;
         if ((p != q) && (*p != ','))
           {
