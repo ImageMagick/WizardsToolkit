@@ -65,11 +65,11 @@
 static SemaphoreInfo
   *locale_semaphore = (SemaphoreInfo *) NULL;
 
-static volatile WizardBooleanType
-  instantiate_locale = WizardFalse;
-
 static volatile locale_t
   c_locale = (locale_t) NULL;
+
+static volatile WizardBooleanType
+  instantiate_locale = WizardFalse;
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
