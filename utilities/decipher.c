@@ -295,7 +295,7 @@ WizardExport WizardBooleanType DecipherCommand(int argc,char **argv,
             if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing chunk size: `%s'",
                 option);
-            value=strtod(argv[i],&p);
+            value=LocaleToDouble(argv[i],&p);
             (void) value;
             if (p == argv[i])
               ThrowInvalidArgumentException(option,argv[i]);
@@ -402,7 +402,7 @@ WizardExport WizardBooleanType DecipherCommand(int argc,char **argv,
             if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing key length: `%s'",
                 option);
-            content_info->key_length=(unsigned int) strtod(option,(char **)
+            content_info->key_length=(unsigned int) LocaleToDouble(option,(char **)
               NULL);
             break;
           }
@@ -786,7 +786,7 @@ static WizardBooleanType DecipherContent(ContentInfo *content_info,
           content_info->authenticate_info),plaintext);
         if (CompareStringInfo(hmac,GetHMACDigest(content_info->hmac_info)) != 0)
           {
-            (void) FormatWizardString(message,MaxTextExtent,"corrupt cipher "
+            (void) FormatLocaleString(message,MaxTextExtent,"corrupt cipher "
               "chunk #%.20g `%s'",(double) chunk,cipher_filename);
             ThrowDecipherContentException(FileError,"%s: `%s'",message);
           }

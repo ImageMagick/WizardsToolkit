@@ -611,7 +611,7 @@ AC_HEADER_ASSERT
 AC_HEADER_DIRENT
 
 # Check additional headers
-AC_CHECK_HEADERS(argz.h arm/limits.h fcntl.h limits.h linux/unistd.h locale.h mach-o/dyld.h machine/param.h malloc.h process.h stdarg.h sys/syslimits.h sys/resource.h sys/time.h sys/timeb.h sys/times.h sys/utime.h termios.h utime.h)
+AC_CHECK_HEADERS(argz.h arm/limits.h fcntl.h limits.h linux/unistd.h locale.h mach-o/dyld.h machine/param.h malloc.h process.h stdarg.h sys/syslimits.h sys/resource.h sys/time.h sys/timeb.h sys/times.h sys/utime.h termios.h utime.h xlocale.h)
 
 ########
 #
@@ -848,7 +848,7 @@ AC_FUNC_MEMCMP
 AC_FUNC_MKTIME
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_STAT
-AC_CHECK_FUNCS([atexit clock fchmod ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii localtime_r lstat madvise memmove memset mkdir munmap mkstemp _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readdir_r readlink realpath sbrk select strerror_r setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times usleep utime vsprintf vsnprintf _wfopen])
+AC_CHECK_FUNCS([atexit clock fchmod fprintf_l ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii localtime_r lstat madvise memmove memset mkdir munmap mkstemp newloacle _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readdir_r readlink realpath sbrk select strerror_r strtod_l setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times uselocale usleep utime vsprintf vsnprintf vsnprintf_l _wfopen])
 
 #
 # Check for clock_gettime().

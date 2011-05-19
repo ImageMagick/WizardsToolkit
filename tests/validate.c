@@ -90,7 +90,7 @@ static ssize_t PrintValidateString(FILE *file,const char *format,...)
     operands;
 
   va_start(operands,format);
-  length=FormatWizardStringList(string,MaxTextExtent,format,operands);
+  length=FormatLocaleStringList(string,MaxTextExtent,format,operands);
   va_end(operands);
   if (length < 0)
     return(-1);

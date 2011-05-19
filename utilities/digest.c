@@ -760,12 +760,12 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     (void) ConcatenateString(&digest_rdf,timestamp);
     (void) ConcatenateString(&digest_rdf,"</digest:create-date>\n");
     (void) ConcatenateString(&digest_rdf,"    <digest:extent>");
-    (void) FormatWizardString(content_extent,MaxTextExtent,"%.20g",(double)
+    (void) FormatLocaleString(content_extent,MaxTextExtent,"%.20g",(double)
       extent);
     (void) ConcatenateString(&digest_rdf,content_extent);
     (void) ConcatenateString(&digest_rdf,"</digest:extent>\n");
     (void) ConcatenateString(&digest_rdf,"    <digest:");
-    (void) FormatWizardString(algorithm,MaxTextExtent,"%s",
+    (void) FormatLocaleString(algorithm,MaxTextExtent,"%s",
       WizardOptionToMnemonic(WizardHashOptions,hash));
     LocaleLower(algorithm);
     (void) ConcatenateString(&digest_rdf,algorithm);
@@ -774,7 +774,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     (void) ConcatenateString(&digest_rdf,digest);
     digest=DestroyString(digest);
     (void) ConcatenateString(&digest_rdf,"</digest:");
-    (void) FormatWizardString(algorithm,MaxTextExtent,"%s",
+    (void) FormatLocaleString(algorithm,MaxTextExtent,"%s",
       WizardOptionToMnemonic(WizardHashOptions,hash));
     LocaleLower(algorithm);
     (void) ConcatenateString(&digest_rdf,algorithm);

@@ -295,7 +295,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing chunk size: `%s'",
                 option);
-            value=strtod(argv[i],&p);
+            value=LocaleToDouble(argv[i],&p);
             (void) value;
             if (p == argv[i])
               ThrowInvalidArgumentException(option,argv[i]);
@@ -402,7 +402,7 @@ WizardExport WizardBooleanType EncipherCommand(int argc,char **argv,
             if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing key length: `%s'",
                 option);
-            content_info->key_length=(unsigned int) strtod(option,(char **)
+            content_info->key_length=(unsigned int) LocaleToDouble(option,(char **)
               NULL);
             break;
           }
@@ -705,64 +705,64 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
   (void) ConcatenateString(&cipher_rdf,"  <cipher:Content rdf:about=\"");
   (void) ConcatenateString(&cipher_rdf,plain_filename);
   (void) ConcatenateString(&cipher_rdf,"\">\n");
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:type>%s</cipher:type>\n",WizardOptionToMnemonic(
     WizardCipherOptions,content_info->cipher));
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:mode>%s</cipher:mode>\n",WizardOptionToMnemonic(
     WizardModeOptions,content_info->mode));
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:nonce>%s</cipher:nonce>\n",content_info->nonce);
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:authenticate>%s</cipher:authenticate>\n",
     WizardOptionToMnemonic(WizardAuthenticateOptions,
     content_info->authenticate_method));
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:id>%s</cipher:id>\n",content_info->id);
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:key-hash>%s</cipher:key-hash>\n",WizardOptionToMnemonic(
     WizardHashOptions,content_info->key_hash));
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:key-length>%u</cipher:key-length>\n",content_info->key_length);
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:entropy>%s</cipher:entropy>\n",WizardOptionToMnemonic(
     WizardEntropyOptions,content_info->entropy));
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:level>%u</cipher:level>\n",content_info->level);
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:hmac>%s</cipher:hmac>\n",WizardOptionToMnemonic(
     WizardHashOptions,content_info->hmac));
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:chunksize>%.20g</cipher:chunksize>\n",(double)
     content_info->chunksize);
   (void) ConcatenateString(&cipher_rdf,message);
   (void) FormatWizardTime(content_info->modify_date,MaxTextExtent,timestamp);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:modify-date>%s</cipher:modify-date>\n",timestamp);
   (void) ConcatenateString(&cipher_rdf,message);
   (void) FormatWizardTime(content_info->create_date,MaxTextExtent,timestamp);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:create-date>%s</cipher:create-date>\n",timestamp);
   (void) ConcatenateString(&cipher_rdf,message);
   (void) FormatWizardTime(content_info->timestamp,MaxTextExtent,timestamp);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:timestamp>%s</cipher:timestamp>\n",timestamp);
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:protocol>%u.%u</cipher:protocol>\n",
     content_info->protocol_major,content_info->protocol_minor);
   (void) ConcatenateString(&cipher_rdf,message);
-  (void) FormatWizardString(message,MaxTextExtent,
+  (void) FormatLocaleString(message,MaxTextExtent,
     "    <cipher:version>%s</cipher:version>\n",content_info->version);
   (void) ConcatenateString(&cipher_rdf,message);
   (void) ConcatenateString(&cipher_rdf,"  </cipher:Content>\n");
@@ -778,7 +778,7 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
   plaintext=DestroyStringInfo(plaintext);
   FinalizeHash(hash_info);
   digest=GetHashHexDigest(hash_info);
-  length=(size_t) FormatWizardString(message,MaxTextExtent,
+  length=(size_t) FormatLocaleString(message,MaxTextExtent,
     "<?cipherpacket digest=\"%s\" bytes=\"%u\"?>\n",digest,(unsigned int)
     length);
   digest=DestroyString(digest);

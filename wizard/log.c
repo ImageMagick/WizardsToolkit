@@ -834,7 +834,7 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
         Translate event in "XML" format.
       */
       (void) FormatWizardTime(seconds,extent,timestamp);
-      (void) FormatWizardString(text,extent,
+      (void) FormatLocaleString(text,extent,
         "<entry>\n"
         "  <timestamp>%s</timestamp>\n"
         "  <elapsed-time>%lu:%02lu.%03lu</elapsed-time>\n"
@@ -936,13 +936,13 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
             q++;
             break;
           }
-        q+=FormatWizardString(q,extent,"%.20g",(double) (log_info->generation %
+        q+=FormatLocaleString(q,extent,"%.20g",(double) (log_info->generation %
           log_info->generations));
         break;
       }
       case 'l':
       {
-        q+=FormatWizardString(q,extent,"%.20g",(double) line);
+        q+=FormatLocaleString(q,extent,"%.20g",(double) line);
         break;
       }
       case 'm':
@@ -966,12 +966,12 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
       }
       case 'p':
       {
-        q+=FormatWizardString(q,extent,"%.20g",(double) getpid());
+        q+=FormatLocaleString(q,extent,"%.20g",(double) getpid());
         break;
       }
       case 'r':
       {
-        q+=FormatWizardString(q,extent,"%lu:%02lu.%03lu",(unsigned long)
+        q+=FormatLocaleString(q,extent,"%lu:%02lu.%03lu",(unsigned long)
           (elapsed_time/60.0),(unsigned long) floor(fmod(elapsed_time,60.0)),
           (unsigned long) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
         break;
@@ -983,7 +983,7 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
       }
       case 'u':
       {
-        q+=FormatWizardString(q,extent,"%0.3fu",user_time);
+        q+=FormatLocaleString(q,extent,"%0.3fu",user_time);
         break;
       }
       case 'v':
@@ -1073,7 +1073,7 @@ static char *TranslateFilename(const LogInfo *log_info)
             q++;
             break;
           }
-        q+=FormatWizardString(q,extent,"%.20g",(double) (log_info->generation %
+        q+=FormatLocaleString(q,extent,"%.20g",(double) (log_info->generation %
           log_info->generations));
         break;
       }
@@ -1084,7 +1084,7 @@ static char *TranslateFilename(const LogInfo *log_info)
       }
       case 'p':
       {
-        q+=FormatWizardString(q,extent,"%.20g",(double) getpid());
+        q+=FormatLocaleString(q,extent,"%.20g",(double) getpid());
         break;
       }
       case 'v':

@@ -653,7 +653,7 @@ WizardExport char *GetHashHexDigest(const HashInfo *hash_info)
     ThrowWizardFatalError(HashDomain,MemoryError);
   p=GetStringInfoDatum(hash_info->digest);
   for (i=0; i < (ssize_t) GetHashDigestsize(hash_info); i++)
-    (void) FormatWizardString(digest+2*i,MaxTextExtent,"%02x",*p++);
+    (void) FormatLocaleString(digest+2*i,MaxTextExtent,"%02x",*p++);
   digest[2*i]='\0';
   return(digest);
 }

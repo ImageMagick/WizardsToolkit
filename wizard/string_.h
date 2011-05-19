@@ -56,9 +56,9 @@ extern WizardExport size_t
 
 extern WizardExport ssize_t
   FormatWizardSize(const WizardSizeType,const WizardBooleanType,char *),
-  FormatWizardString(char *,const size_t,const char *,...)
+  FormatLocaleString(char *,const size_t,const char *,...)
     wizard_attribute((format (printf,3,4))),
-  FormatWizardStringList(char *,const size_t,const char *,va_list),
+  FormatLocaleStringList(char *,const size_t,const char *,va_list),
   PrintWizardString(FILE *,const char *,...)
     wizard_attribute((format (printf,2,3))),
   FormatWizardTime(const time_t,const size_t,char *);

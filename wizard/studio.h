@@ -175,6 +175,9 @@ extern "C" {
 #include <signal.h>
 #include <assert.h>
 
+#if defined(WIZARDSTOOLKIT_HAVE_XLOCALE_H)
+# include <xlocale.h>
+#endif
 #if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
 #  include <pthread.h>
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)

@@ -42,6 +42,7 @@
 #include "wizard/studio.h"
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
+#include "wizard/locale_.h"
 #include "wizard/memory_.h"
 #include "wizard/resource_.h"
 #include "wizard/utility.h"
@@ -652,12 +653,12 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
     int
       length;
 
-    (void) FormatWizardString(link_path,MaxTextExtent,"/proc/%.20g/exe",
+    (void) FormatLocaleString(link_path,MaxTextExtent,"/proc/%.20g/exe",
       (double) getpid());
     length=readlink(link_path,real_path,PATH_MAX);
     if (length == -1)
       {
-        (void) FormatWizardString(link_path,MaxTextExtent,"/proc/%.20g/file",
+        (void) FormatLocaleString(link_path,MaxTextExtent,"/proc/%.20g/file",
           (double) getpid());
         length=readlink(link_path,real_path,PATH_MAX);
       }
@@ -723,7 +724,7 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
         if (program_name == (char *) NULL)
           program_name=program_invocation_name;
         else
-          count=FormatWizardString(program_name,extent,"%s/%s",cwd,
+          count=FormatLocaleString(program_name,extent,"%s/%s",cwd,
             program_invocation_name);
       }
     if (count != -1)
@@ -942,7 +943,7 @@ WizardExport const char *ParseWizardTime(const char *timestamp,time_t *target)
   p=timestamp;
   for (i=0; ; i++)
   {
-    value=strtod(p,&q);
+    value=LocaleToDouble(p,&q);
     if (*q != separators[i])
       break;
     switch (i)

@@ -305,7 +305,7 @@ WizardExport StringInfo *GetPassphrase(ExceptionInfo *exception)
 
   phrase=AcquireStringInfo(MaxTextExtent);
   rephrase=AcquireStringInfo(MaxTextExtent);
-  (void) FormatWizardString(prompt,MaxTextExtent,
+  (void) FormatLocaleString(prompt,MaxTextExtent,
     "Enter the passphrase (maximum of %d characters)\n",MaxTextExtent);
   status=write(STDERR_FILENO,prompt,strlen(prompt)) < 0 ? WizardFalse :
     WizardTrue;

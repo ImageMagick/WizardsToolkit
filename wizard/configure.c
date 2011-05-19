@@ -520,7 +520,7 @@ WizardExport LinkedListInfo *GetConfigureOptions(const char *filename,
       element=(const char *) GetNextValueInLinkedList(paths);
       while (element != (const char *) NULL)
       {
-        (void) FormatWizardString(path,MaxTextExtent,"%s%s",element,filename);
+        (void) FormatLocaleString(path,MaxTextExtent,"%s%s",element,filename);
         (void) LogWizardEvent(ConfigureEvent,GetWizardModule(),
           "Searching for configure file: \"%s\"",path);
         xml=ConfigureFileToStringInfo(path);
@@ -656,7 +656,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
     key_value=NTRegistryKeyLookup(registry_key);
     if (key_value != (unsigned char *) NULL)
       {
-        (void) FormatWizardString(path,MaxTextExtent,"%s%s",(char *) key_value,
+        (void) FormatLocaleString(path,MaxTextExtent,"%s%s",(char *) key_value,
           DirectorySeparator);
         (void) AppendValueToLinkedList(paths,ConstantString(path));
         key_value=(unsigned char *) RelinquishWizardMemory(key_value);
@@ -675,14 +675,14 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
 		if (home != (char *) NULL)
       {
 #if !defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
-        (void) FormatWizardString(path,MaxTextExtent,"%s%s",home,
+        (void) FormatLocaleString(path,MaxTextExtent,"%s%s",home,
           DirectorySeparator);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
 #else
-        (void) FormatWizardString(path,MaxTextExtent,"%s/etc/%s/",home,
+        (void) FormatLocaleString(path,MaxTextExtent,"%s/etc/%s/",home,
           WIZARDSTOOLKIT_CONFIGURE_RELATIVE_PATH);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
-        (void) FormatWizardString(path,MaxTextExtent,"%s/share/%s/",home,
+        (void) FormatLocaleString(path,MaxTextExtent,"%s/share/%s/",home,
           WIZARDSTOOLKIT_SHARE_RELATIVE_PATH);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
 #endif
@@ -692,7 +692,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
   if (*GetClientPath() != '\0')
     {
 #if !defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
-      (void) FormatWizardString(path,MaxTextExtent,"%s%s",GetClientPath(),
+      (void) FormatLocaleString(path,MaxTextExtent,"%s%s",GetClientPath(),
         DirectorySeparator);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
 #else
@@ -704,10 +704,10 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
       */
       (void) CopyWizardString(prefix,GetClientPath(),MaxTextExtent);
       ChopPathComponents(prefix,1);
-      (void) FormatWizardString(path,MaxTextExtent,"%s/etc/%s/",prefix,
+      (void) FormatLocaleString(path,MaxTextExtent,"%s/etc/%s/",prefix,
         WIZARDSTOOLKIT_CONFIGURE_RELATIVE_PATH);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
-      (void) FormatWizardString(path,MaxTextExtent,"%s/share/%s/",prefix,
+      (void) FormatLocaleString(path,MaxTextExtent,"%s/share/%s/",prefix,
         WIZARDSTOOLKIT_SHARE_RELATIVE_PATH);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
 #endif
@@ -729,7 +729,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
         /*
           Search $HOME/.wizard.
         */
-        (void) FormatWizardString(path,MaxTextExtent,"%s%s.wizard%s",home,
+        (void) FormatLocaleString(path,MaxTextExtent,"%s%s.wizard%s",home,
           DirectorySeparator,DirectorySeparator);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
         home=(char *) RelinquishWizardMemory(home);
@@ -748,7 +748,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
         /*
           Search module path.
         */
-        (void) FormatWizardString(path,MaxTextExtent,"%s%s",module_path,
+        (void) FormatLocaleString(path,MaxTextExtent,"%s%s",module_path,
           DirectorySeparator);
         element=(char *) RemoveElementByValueFromLinkedList(paths,path);
         if (element != (char *) NULL)

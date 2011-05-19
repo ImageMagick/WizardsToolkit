@@ -584,7 +584,7 @@ WizardExport const char *GetLocaleExceptionMessage(const ExceptionType severity,
     *locale_message;
 
   assert(tag != (const char *) NULL);
-  (void) FormatWizardString(message,MaxTextExtent,"Exception/%s%s",
+  (void) FormatLocaleString(message,MaxTextExtent,"Exception/%s%s",
     ExceptionSeverityToTag(severity),tag);
   locale_message=GetLocaleMessage(message);
   if (locale_message == (const char *) NULL)
@@ -1007,7 +1007,7 @@ WizardExport WizardBooleanType ThrowWizardExceptionList(
     reason[MaxTextExtent-1]='\0';
   status=LogWizardEvent(exception->severity >= ErrorException ?
     ExceptionEvent : WarningEvent,module,function,line,"%s",reason);
-  (void) FormatWizardString(message,MaxTextExtent,"%s @ %s/%s/%.20g",reason,
+  (void) FormatLocaleString(message,MaxTextExtent,"%s @ %s/%s/%.20g",reason,
     module,function,(double) line);
   (void) ThrowException(exception,severity,message,(char *) NULL);
   return(status);

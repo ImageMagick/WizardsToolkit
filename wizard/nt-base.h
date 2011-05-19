@@ -72,7 +72,7 @@ extern "C" {
 #endif
 
 #if !defined(access)
-#  define access(path,mode)  _access(path,mode)
+#  define access(path,mode)  _access_s(path,mode)
 #endif
 #if !defined(chdir)
 #  define chdir  _chdir
@@ -135,7 +135,7 @@ extern "C" {
 #  define isatty _isatty
 #endif
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
-  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define lseek  _lseeki64
 #else
 #  define lseek  _lseek
@@ -188,6 +188,16 @@ extern "C" {
 #if !defined(popen)
 #  define popen  _popen
 #endif
+#if !defined(fprintf)
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && (_MSC_VER < 1500))
+#define fprintf  _fprintf_s
+#endif
+#endif
+#if !defined(fprintf_l)
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && (_MSC_VER < 1500))
+#define fprintf_l  _fprintf_s_l
+#endif
+#endif
 #if !defined(read)
 #  define read  _read
 #endif
@@ -205,7 +215,7 @@ extern "C" {
 #endif
 #if !defined(stat) && !defined(__BORLANDC__)
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
-  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define stat  _stati64
 #else
 #  define stat  _stat
@@ -221,7 +231,7 @@ extern "C" {
 #  define sysconf(name)  NTSystemConfiguration(name)
 #endif
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
-  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define tell  _telli64
 #else
 #  define tell  _tell
@@ -230,11 +240,16 @@ extern "C" {
 #  define telldir(directory)  NTTellDirectory(directory)
 #endif
 #if !defined(tempnam)
-#  define tempnam  _tempnam
+#  define tempnam  _tempnam_s
 #endif
 #if !defined(vsnprintf)
 #if !defined(_MSC_VER) || (defined(_MSC_VER) && (_MSC_VER < 1500))
-#define vsnprintf _vsnprintf 
+#define vsnprintf  _vsnprintf_s
+#endif
+#endif
+#if !defined(vsnprintf_l)
+#if !defined(_MSC_VER) || (defined(_MSC_VER) && (_MSC_VER < 1500))
+#define vsnprintf_l  _vsnprintf_s_l
 #endif
 #endif
 #if !defined(write)
@@ -242,12 +257,13 @@ extern "C" {
 #endif
 #if !defined(wstat) && !defined(__BORLANDC__)
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
-  !(defined(_MSC_VER) && (_MSC_VER < 1400)) &&  (__MSVCRT_VERSION__ < 0x800)
+  !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define wstat  _wstati64
 #else
 #  define wstat  _wstat
 #endif
 #endif
+
 
 #if defined(_MT) && defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #  define SAFE_GLOBAL  __declspec(thread)

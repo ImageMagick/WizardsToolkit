@@ -698,7 +698,7 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
     (void) ConcatenateString(&keyring_rdf,message);
     (void) ConcatenateString(&keyring_rdf,"</keyring:timestamp>\n");
     (void) ConcatenateString(&keyring_rdf,"    <keyring:protocol>");
-    (void) FormatWizardString(message,MaxTextExtent,"%u.%u",
+    (void) FormatLocaleString(message,MaxTextExtent,"%u.%u",
       keyring_info.protocol_major,(unsigned int) keyring_info.protocol_minor);
     (void) ConcatenateString(&keyring_rdf,message);
     (void) ConcatenateString(&keyring_rdf,"</keyring:protocol>\n");

@@ -1091,14 +1091,14 @@ WizardExport char *WizardToMime(const char *wizard)
   ExceptionInfo
     *exception;
 
-  (void) FormatWizardString(filename,MaxTextExtent,"file.%s",wizard);
+  (void) FormatLocaleString(filename,MaxTextExtent,"file.%s",wizard);
   LocaleLower(filename);
   exception=AcquireExceptionInfo();
   mime_info=GetMimeInfo(filename,(unsigned char *) " ",1,exception);
   exception=DestroyExceptionInfo(exception);
   if (mime_info != (const MimeInfo *) NULL)
     return(ConstantString(GetMimeType(mime_info)));
-  (void) FormatWizardString(media,MaxTextExtent,"image/x-%s",wizard);
+  (void) FormatLocaleString(media,MaxTextExtent,"image/x-%s",wizard);
   LocaleLower(media+8);
   return(ConstantString(media));
 }

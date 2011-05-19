@@ -214,46 +214,47 @@ am__wizard_libWizardsToolkit_la_SOURCES_DIST = wizard/aes.c \
 	wizard/exception-private.h wizard/file.c wizard/file.h \
 	wizard/hash.c wizard/hash.h wizard/hashmap.c wizard/hmac.c \
 	wizard/hmac.h wizard/key.c wizard/key.h wizard/keyring.c \
-	wizard/keyring.h wizard/log.c wizard/log.h wizard/lzma.c \
-	wizard/lzma.h wizard/magick.c wizard/magick.h wizard/md5.c \
-	wizard/md5.h wizard/memory.c wizard/memory_.h wizard/mime.c \
-	wizard/mime.h wizard/mime-private.h wizard/nt-base.h \
-	wizard/option.c wizard/option.h wizard/passphrase.c \
-	wizard/passphrase.h wizard/random.c wizard/random_.h \
-	wizard/resource.c wizard/resource_.h wizard/sanitize.c \
-	wizard/sanitize.h wizard/secret.c wizard/secret.h \
-	wizard/semaphore.c wizard/semaphore.h \
-	wizard/semaphore-private.h wizard/serpent.c wizard/serpent.h \
-	wizard/signature.c wizard/signature.h wizard/sha1.c \
-	wizard/sha1.h wizard/sha224.c wizard/sha224.h wizard/sha256.c \
-	wizard/sha256.h wizard/sha384.c wizard/sha384.h \
-	wizard/sha512.c wizard/sha512.h wizard/splay-tree.c \
-	wizard/splay-tree.h wizard/string.c wizard/string_.h \
-	wizard/string-private.h wizard/studio.h wizard/thread.c \
-	wizard/thread_.h wizard/thread-private.h wizard/timer.c \
-	wizard/timer.h wizard/token.c wizard/token.h wizard/twofish.c \
-	wizard/twofish.h wizard/utility.c wizard/utility.h \
-	wizard/version.c wizard/version.h wizard/wizard.c \
-	wizard/wizard.h wizard/wizard-type.h wizard/wizard-config.h \
-	wizard/WizardsToolkit.h wizard/xml-tree.c wizard/xml-tree.h \
-	wizard/zip.c wizard/zip.h wizard/nt-base.c
+	wizard/keyring.h wizard/locale.c wizard/locale_.h wizard/log.c \
+	wizard/log.h wizard/lzma.c wizard/lzma.h wizard/magick.c \
+	wizard/magick.h wizard/md5.c wizard/md5.h wizard/memory.c \
+	wizard/memory_.h wizard/mime.c wizard/mime.h \
+	wizard/mime-private.h wizard/nt-base.h wizard/option.c \
+	wizard/option.h wizard/passphrase.c wizard/passphrase.h \
+	wizard/random.c wizard/random_.h wizard/resource.c \
+	wizard/resource_.h wizard/sanitize.c wizard/sanitize.h \
+	wizard/secret.c wizard/secret.h wizard/semaphore.c \
+	wizard/semaphore.h wizard/semaphore-private.h wizard/serpent.c \
+	wizard/serpent.h wizard/signature.c wizard/signature.h \
+	wizard/sha1.c wizard/sha1.h wizard/sha224.c wizard/sha224.h \
+	wizard/sha256.c wizard/sha256.h wizard/sha384.c \
+	wizard/sha384.h wizard/sha512.c wizard/sha512.h \
+	wizard/splay-tree.c wizard/splay-tree.h wizard/string.c \
+	wizard/string_.h wizard/string-private.h wizard/studio.h \
+	wizard/thread.c wizard/thread_.h wizard/thread-private.h \
+	wizard/timer.c wizard/timer.h wizard/token.c wizard/token.h \
+	wizard/twofish.c wizard/twofish.h wizard/utility.c \
+	wizard/utility.h wizard/version.c wizard/version.h \
+	wizard/wizard.c wizard/wizard.h wizard/wizard-type.h \
+	wizard/wizard-config.h wizard/WizardsToolkit.h \
+	wizard/xml-tree.c wizard/xml-tree.h wizard/zip.c wizard/zip.h \
+	wizard/nt-base.c
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = wizard/aes.lo wizard/authenticate.lo wizard/blob.lo \
 	wizard/bzip.lo wizard/cipher.lo wizard/client.lo \
 	wizard/configure.lo wizard/crc64.lo wizard/entropy.lo \
 	wizard/exception.lo wizard/file.lo wizard/hash.lo \
 	wizard/hashmap.lo wizard/hmac.lo wizard/key.lo \
-	wizard/keyring.lo wizard/log.lo wizard/lzma.lo \
-	wizard/magick.lo wizard/md5.lo wizard/memory.lo wizard/mime.lo \
-	wizard/option.lo wizard/passphrase.lo wizard/random.lo \
-	wizard/resource.lo wizard/sanitize.lo wizard/secret.lo \
-	wizard/semaphore.lo wizard/serpent.lo wizard/signature.lo \
-	wizard/sha1.lo wizard/sha224.lo wizard/sha256.lo \
-	wizard/sha384.lo wizard/sha512.lo wizard/splay-tree.lo \
-	wizard/string.lo wizard/thread.lo wizard/timer.lo \
-	wizard/token.lo wizard/twofish.lo wizard/utility.lo \
-	wizard/version.lo wizard/wizard.lo wizard/xml-tree.lo \
-	wizard/zip.lo
+	wizard/keyring.lo wizard/locale.lo wizard/log.lo \
+	wizard/lzma.lo wizard/magick.lo wizard/md5.lo wizard/memory.lo \
+	wizard/mime.lo wizard/option.lo wizard/passphrase.lo \
+	wizard/random.lo wizard/resource.lo wizard/sanitize.lo \
+	wizard/secret.lo wizard/semaphore.lo wizard/serpent.lo \
+	wizard/signature.lo wizard/sha1.lo wizard/sha224.lo \
+	wizard/sha256.lo wizard/sha384.lo wizard/sha512.lo \
+	wizard/splay-tree.lo wizard/string.lo wizard/thread.lo \
+	wizard/timer.lo wizard/token.lo wizard/twofish.lo \
+	wizard/utility.lo wizard/version.lo wizard/wizard.lo \
+	wizard/xml-tree.lo wizard/zip.lo
 @WIN32_NATIVE_BUILD_TRUE@am__objects_2 = wizard/nt-base.lo
 am_wizard_libWizardsToolkit_la_OBJECTS = $(am__objects_1) \
 	$(am__objects_2)
@@ -486,7 +487,9 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INT16_T = @INT16_T@
+INT32_F = @INT32_F@
 INT32_T = @INT32_T@
+INT64_F = @INT64_F@
 INT64_T = @INT64_T@
 INT8_T = @INT8_T@
 LD = @LD@
@@ -553,17 +556,20 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHAREDSTATE_DIR = @SHAREDSTATE_DIR@
 SHARE_PATH = @SHARE_PATH@
-SHARE_PATH = @SHARE_PATH@
 SHELL = @SHELL@
 STRIP = @STRIP@
 SYSCONF_DIR = @SYSCONF_DIR@
 TAR = @TAR@
 THREAD_LIBS = @THREAD_LIBS@
 UINT16_T = @UINT16_T@
+UINT32_F = @UINT32_F@
 UINT32_T = @UINT32_T@
+UINT64_F = @UINT64_F@
 UINT64_T = @UINT64_T@
 UINT8_T = @UINT8_T@
+UINTMAX_F = @UINTMAX_F@
 UINTMAX_T = @UINTMAX_T@
+UINTPTR_F = @UINTPTR_F@
 UINTPTR_T = @UINTPTR_T@
 UMEM_LIBS = @UMEM_LIBS@
 VERSION = @VERSION@
@@ -841,6 +847,8 @@ WIZARD_BASE_SRCS = \
   wizard/key.h \
   wizard/keyring.c \
   wizard/keyring.h \
+  wizard/locale.c \
+  wizard/locale_.h \
   wizard/log.c \
   wizard/log.h \
   wizard/lzma.c \
@@ -935,6 +943,7 @@ WIZARD_INCLUDE_HDRS = \
   wizard/hmac.h \
   wizard/key.h \
   wizard/keyring.h \
+  wizard/locale_.h \
   wizard/log.h \
   wizard/lzma.h \
   wizard/magick.h \
@@ -1290,6 +1299,8 @@ wizard/hmac.lo: wizard/$(am__dirstamp) \
 wizard/key.lo: wizard/$(am__dirstamp) wizard/$(DEPDIR)/$(am__dirstamp)
 wizard/keyring.lo: wizard/$(am__dirstamp) \
 	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/locale.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
 wizard/log.lo: wizard/$(am__dirstamp) wizard/$(DEPDIR)/$(am__dirstamp)
 wizard/lzma.lo: wizard/$(am__dirstamp) \
 	wizard/$(DEPDIR)/$(am__dirstamp)
@@ -1528,6 +1539,8 @@ mostlyclean-compile:
 	-rm -f wizard/key.lo
 	-rm -f wizard/keyring.$(OBJEXT)
 	-rm -f wizard/keyring.lo
+	-rm -f wizard/locale.$(OBJEXT)
+	-rm -f wizard/locale.lo
 	-rm -f wizard/log.$(OBJEXT)
 	-rm -f wizard/log.lo
 	-rm -f wizard/lzma.$(OBJEXT)
@@ -1620,6 +1633,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/hmac.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/key.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/keyring.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/locale.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/log.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/lzma.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/magick.Plo@am__quote@

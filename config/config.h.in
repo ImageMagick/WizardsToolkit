@@ -85,6 +85,9 @@
 /* Define to 1 if you have the <fcntl.h> header file. */
 #undef HAVE_FCNTL_H
 
+/* Define to 1 if you have the `fprintf_l' function. */
+#undef HAVE_FPRINTF_L
+
 /* Define to 1 if fseeko (and presumably ftello) exists and is declared. */
 #undef HAVE_FSEEKO
 
@@ -184,6 +187,9 @@
 
 /* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
 #undef HAVE_NDIR_H
+
+/* Define to 1 if you have the `newloacle' function. */
+#undef HAVE_NEWLOACLE
 
 /* Define to 1 if you have the `pclose' function. */
 #undef HAVE_PCLOSE
@@ -309,6 +315,9 @@
 /* Define to 1 if you have the `strstr' function. */
 #undef HAVE_STRSTR
 
+/* Define to 1 if you have the `strtod_l' function. */
+#undef HAVE_STRTOD_L
+
 /* Define to 1 if you have the `strtol' function. */
 #undef HAVE_STRTOL
 
@@ -362,6 +371,9 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
+/* Define to 1 if you have the `uselocale' function. */
+#undef HAVE_USELOCALE
+
 /* Define to 1 if you have the `usleep' function. */
 #undef HAVE_USLEEP
 
@@ -377,8 +389,14 @@
 /* Define to 1 if you have the `vsnprintf' function. */
 #undef HAVE_VSNPRINTF
 
+/* Define to 1 if you have the `vsnprintf_l' function. */
+#undef HAVE_VSNPRINTF_L
+
 /* Define to 1 if you have the `vsprintf' function. */
 #undef HAVE_VSPRINTF
+
+/* Define to 1 if you have the <xlocale.h> header file. */
+#undef HAVE_XLOCALE_H
 
 /* Define to 1 if the system has the type `_Bool'. */
 #undef HAVE__BOOL
@@ -453,9 +471,6 @@
 /* Subdirectory of lib where architecture-independent configuration files
    live. */
 #undef SHARE_RELATIVE_PATH
-
-/* Directory where architecture-independent files live. */
-#undef SHARE_PATH
 
 /* The size of `off_t', as computed by sizeof. */
 #undef SIZEOF_OFF_T

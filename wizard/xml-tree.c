@@ -393,22 +393,22 @@ WizardExport char *CanonicalXMLContent(const char *content,
     {
       case '&':
       {
-        i+=FormatWizardString(canonical_content+i,extent,"&amp;");
+        i+=FormatLocaleString(canonical_content+i,extent,"&amp;");
         break;
       }
       case '<':
       {
-        i+=FormatWizardString(canonical_content+i,extent,"&lt;");
+        i+=FormatLocaleString(canonical_content+i,extent,"&lt;");
         break;
       }
       case '>':
       {
-        i+=FormatWizardString(canonical_content+i,extent,"&gt;");
+        i+=FormatLocaleString(canonical_content+i,extent,"&gt;");
         break;
       }
       case '"':
       {
-        i+=FormatWizardString(canonical_content+i,extent,"&quot;");
+        i+=FormatLocaleString(canonical_content+i,extent,"&quot;");
         break;
       }
       case '\n':
@@ -418,7 +418,7 @@ WizardExport char *CanonicalXMLContent(const char *content,
             canonical_content[i++]=(char) (*p);
             break;
           }
-        i+=FormatWizardString(canonical_content+i,extent,"&#xA;");
+        i+=FormatLocaleString(canonical_content+i,extent,"&#xA;");
         break;
       }
       case '\t':
@@ -428,12 +428,12 @@ WizardExport char *CanonicalXMLContent(const char *content,
             canonical_content[i++]=(char) (*p);
             break;
           }
-        i+=FormatWizardString(canonical_content+i,extent,"&#x9;");
+        i+=FormatLocaleString(canonical_content+i,extent,"&#x9;");
         break;
       }
       case '\r':
       {
-        i+=FormatWizardString(canonical_content+i,extent,"&#xD;");
+        i+=FormatLocaleString(canonical_content+i,extent,"&#xD;");
         break;
       }
       default:
@@ -2407,7 +2407,7 @@ static char *EncodePredefinedEntities(const char *source,ssize_t offset,
       if (*destination == (char *) NULL)
         return(*destination);
     }
-  *length+=FormatWizardString(*destination+(*length),*extent,"%s",
+  *length+=FormatLocaleString(*destination+(*length),*extent,"%s",
     canonical_content);
   canonical_content=DestroyString(canonical_content);
   return(*destination);
@@ -2444,7 +2444,7 @@ static char *XMLTreeTagToXML(XMLTreeInfo *xml_info,char **source,size_t *length,
       if (*source == (char *) NULL)
         return(*source);
     }
-  *length+=FormatWizardString(*source+(*length),*extent,"<%s",xml_info->tag);
+  *length+=FormatLocaleString(*source+(*length),*extent,"<%s",xml_info->tag);
   for (i=0; xml_info->attributes[i]; i+=2)
   {
     attribute=GetXMLTreeAttribute(xml_info,xml_info->attributes[i]);
@@ -2457,11 +2457,11 @@ static char *XMLTreeTagToXML(XMLTreeInfo *xml_info,char **source,size_t *length,
         if (*source == (char *) NULL)
           return((char *) NULL);
       }
-    *length+=FormatWizardString(*source+(*length),*extent," %s=\"",
+    *length+=FormatLocaleString(*source+(*length),*extent," %s=\"",
       xml_info->attributes[i]);
     (void) EncodePredefinedEntities(xml_info->attributes[i+1],-1,source,length,
       extent,WizardTrue);
-    *length+=FormatWizardString(*source+(*length),*extent,"\"");
+    *length+=FormatLocaleString(*source+(*length),*extent,"\"");
   }
   i=0;
   while ((attributes[i] != (char **) NULL) &&
@@ -2484,14 +2484,14 @@ static char *XMLTreeTagToXML(XMLTreeInfo *xml_info,char **source,size_t *length,
         if (*source == (char *) NULL)
           return((char *) NULL);
       }
-    *length+=FormatWizardString(*source+(*length),*extent," %s=\"",
+    *length+=FormatLocaleString(*source+(*length),*extent," %s=\"",
       attributes[i][j]);
     (void) EncodePredefinedEntities(attributes[i][j+1],-1,source,length,extent,
       WizardTrue);
-    *length+=FormatWizardString(*source+(*length),*extent,"\"");
+    *length+=FormatLocaleString(*source+(*length),*extent,"\"");
     j+=3;
   }
-  *length+=FormatWizardString(*source+(*length),*extent,*xml_info->content ?
+  *length+=FormatLocaleString(*source+(*length),*extent,*xml_info->content ?
     ">" : "/>");
   if (xml_info->child != (XMLTreeInfo *) NULL)
     *source=XMLTreeTagToXML(xml_info->child,source,length,extent,0,attributes);
@@ -2506,7 +2506,7 @@ static char *XMLTreeTagToXML(XMLTreeInfo *xml_info,char **source,size_t *length,
         return((char *) NULL);
     }
   if (*xml_info->content != '\0')
-    *length+=FormatWizardString(*source+(*length),*extent,"</%s>",
+    *length+=FormatLocaleString(*source+(*length),*extent,"</%s>",
       xml_info->tag);
   while ((content[offset] != '\0') && (offset < xml_info->offset))
     offset++;
@@ -2584,7 +2584,7 @@ WizardExport char *XMLTreeInfoToXML(XMLTreeInfo *xml_info)
             if (xml == (char *) NULL)
               return(xml);
           }
-        length+=FormatWizardString(xml+length,extent,"<?%s%s%s?>\n",q,
+        length+=FormatLocaleString(xml+length,extent,"<?%s%s%s?>\n",q,
           *p != '\0' ? " " : "",p);
         p=root->processing_instructions[i][j];
       }
@@ -2620,7 +2620,7 @@ WizardExport char *XMLTreeInfoToXML(XMLTreeInfo *xml_info)
             if (xml == (char *) NULL)
               return(xml);
           }
-        length+=FormatWizardString(xml+length,extent,"\n<?%s%s%s?>",q,
+        length+=FormatLocaleString(xml+length,extent,"\n<?%s%s%s?>",q,
           *p != '\0' ? " " : "",p);
         p=root->processing_instructions[i][j];
       }

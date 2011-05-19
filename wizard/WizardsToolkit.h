@@ -133,6 +133,7 @@ extern "C" {
 #include "wizard/hashmap.h"
 #include "wizard/key.h"
 #include "wizard/keyring.h"
+#include "wizard/locale_.h"
 #include "wizard/log.h"
 #include "wizard/magick.h"
 #include "wizard/memory_.h"

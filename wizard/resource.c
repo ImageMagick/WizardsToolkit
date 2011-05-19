@@ -231,10 +231,10 @@ static WizardBooleanType GetPathTemplate(const char *path,char *filename)
       return(WizardTrue);
     }
   if (directory[strlen(directory)-1] == *DirectorySeparator)
-    (void) FormatWizardString(filename,MaxTextExtent,"%swizard-XXXXXXXX",
+    (void) FormatLocaleString(filename,MaxTextExtent,"%swizard-XXXXXXXX",
       directory);
   else
-    (void) FormatWizardString(filename,MaxTextExtent,"%s%swizard-XXXXXXXX",
+    (void) FormatLocaleString(filename,MaxTextExtent,"%s%swizard-XXXXXXXX",
       directory,DirectorySeparator);
   directory=(char *) RelinquishWizardMemory(directory);
   if (*DirectorySeparator != '/')

@@ -1003,73 +1003,12 @@ WizardExport ssize_t FormatWizardSize(const WizardSizeType size,
     length/=bytes;
   for (j=2; j < 12; j++)
   {
-    count=FormatWizardString(format,MaxTextExtent,"%.*g%sB",(int) (i+j),length,
+    count=FormatLocaleString(format,MaxTextExtent,"%.*g%sB",(int) (i+j),length,
       units[i]);
     if (strchr(format,'+') == (char *) NULL)
       break;
   }
   return(count);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%  F o r m a t W i z a r d S t r i n g                                        %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  FormatWizardString() prints formatted output of a variable argument list.
-%
-%  The format of the FormatWizardString method is:
-%
-%      ssize_t FormatWizardString(char *string,const size_t length,
-%        const char *format,...)
-%
-%  A description of each parameter follows.
-%
-%   o string:  FormatWizardString() returns the formatted string in this
-%     character buffer.
-%
-%   o length: The maximum length of the string.
-%
-%   o format:  A string describing the format to use to write the remaining
-%     arguments.
-%
-*/
-
-WizardExport ssize_t FormatWizardStringList(char *string,const size_t length,
-  const char *format,va_list operands)
-{
-  int
-    n;
-
-#if defined(WIZARDSTOOLKIT_HAVE_VSNPRINTF)
-  n=vsnprintf(string,length,format,operands);
-#else
-  n=vsprintf(string,format,operands);
-#endif
-  if (n < 0)
-    string[length-1]='\0';
-  return(n);
-}
-
-WizardExport ssize_t FormatWizardString(char *string,const size_t length,
-  const char *format,...)
-{
-  ssize_t
-    n;
-
-  va_list
-    operands;
-
-  va_start(operands,format);
-  n=FormatWizardStringList(string,length,format,operands);
-  va_end(operands);
-  return(n);
 }
 
 /*
@@ -1143,7 +1082,7 @@ WizardExport ssize_t FormatWizardTime(const time_t time,const size_t length,
     local_time.tm_hour-gm_time.tm_hour+24*((local_time.tm_year-
     gm_time.tm_year) != 0 ? (local_time.tm_year-gm_time.tm_year) :
     (local_time.tm_yday-gm_time.tm_yday)));
-  count=FormatWizardString(timestamp,length,
+  count=FormatLocaleString(timestamp,length,
     "%04d-%02d-%02dT%02d:%02d:%02d%+03ld:00",local_time.tm_year+1900,
     local_time.tm_mon+1,local_time.tm_mday,local_time.tm_hour,
     local_time.tm_min,local_time.tm_sec,(long) timezone);
@@ -1587,7 +1526,7 @@ WizardExport ssize_t PrintWizardString(FILE *file,const char *format,...)
     operands;
 
   va_start(operands,format);
-  length=FormatWizardStringList(string,MaxTextExtent,format,operands);
+  length=FormatLocaleStringList(string,MaxTextExtent,format,operands);
   va_end(operands);
   if (length < 0)
     return(-1);

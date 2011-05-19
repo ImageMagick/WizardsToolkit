@@ -74,6 +74,8 @@ WIZARD_BASE_SRCS = \
   wizard/key.h \
   wizard/keyring.c \
   wizard/keyring.h \
+  wizard/locale.c \
+  wizard/locale_.h \
   wizard/log.c \
   wizard/log.h \
   wizard/lzma.c \
@@ -174,6 +176,7 @@ WIZARD_INCLUDE_HDRS = \
   wizard/hmac.h \
   wizard/key.h \
   wizard/keyring.h \
+  wizard/locale_.h \
   wizard/log.h \
   wizard/lzma.h \
   wizard/magick.h \

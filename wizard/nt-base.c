@@ -160,7 +160,7 @@ BOOL WINAPI DllMain(HINSTANCE handle,DWORD reason,LPVOID lpvReserved)
             {
               if ((strlen(module_path)+count+1) < (16*MaxTextExtent-1))
                 {
-                  (void) FormatWizardString(new_path,16*MaxTextExtent,
+                  (void) FormatLocaleString(new_path,16*MaxTextExtent,
                     "%s;%s",module_path,path);
                   SetEnvironmentVariable("PATH",new_path);
                 }
@@ -485,18 +485,18 @@ WizardExport void NTErrorHandler(const ExceptionType error,const char *reason,
     }
   message=GetExceptionMessage(errno);
   if ((description != (char *) NULL) && errno)
-    (void) FormatWizardString(buffer,MaxTextExtent,"%s: %s (%s) [%s].\n",
+    (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s (%s) [%s].\n",
       GetClientName(),reason,description,message);
   else
     if (description != (char *) NULL)
-      (void) FormatWizardString(buffer,MaxTextExtent,"%s: %s (%s).\n",
+      (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s (%s).\n",
         GetClientName(),reason,description);
     else
       if (errno)
-        (void) FormatWizardString(buffer,MaxTextExtent,"%s: %s [%s].\n",
+        (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s [%s].\n",
           GetClientName(),reason,message);
       else
-        (void) FormatWizardString(buffer,MaxTextExtent,"%s: %s.\n",
+        (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s.\n",
           GetClientName(),reason);
   message=(char *) RelinquishWizardMemory(message);
   (void) MessageBox(NULL,buffer,"Wizard's Toolkit Exception",MB_OK |
@@ -1180,7 +1180,7 @@ WizardExport unsigned char *NTRegistryKeyLookup(const char *subkey)
   /*
     Look-up base key.
   */
-  (void) FormatWizardString(package_key,MaxTextExtent,"SOFTWARE\\%s\\%s",
+  (void) FormatLocaleString(package_key,MaxTextExtent,"SOFTWARE\\%s\\%s",
     WizardPackageName,WizardLibVersionText);
   (void) LogWizardEvent(ConfigureEvent,GetWizardModule(),"%s",package_key);
   registry_key=(HKEY) INVALID_HANDLE_VALUE;
@@ -1313,7 +1313,7 @@ WizardExport unsigned char *NTResourceToBlob(const char *id)
 
   assert(id != (const char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",id);
-  (void) FormatWizardString(path,MaxTextExtent,"%s%s%s",GetClientPath(),
+  (void) FormatLocaleString(path,MaxTextExtent,"%s%s%s",GetClientPath(),
     DirectorySeparator,GetClientName());
   if (IsAccessible(path) != WizardFalse)
     handle=GetModuleHandle(path);
@@ -1755,10 +1755,10 @@ WizardExport void NTWarningHandler(const ExceptionType warning,
   if (reason == (char *) NULL)
     return;
   if (description == (char *) NULL)
-    (void) FormatWizardString(buffer,MaxTextExtent,"%s: %s.\n",GetClientName(),
+    (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s.\n",GetClientName(),
       reason);
   else
-    (void) FormatWizardString(buffer,MaxTextExtent,"%s: %s (%s).\n",
+    (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s (%s).\n",
       GetClientName(),reason,description);
   (void) MessageBox(NULL,buffer,"Wizard's Toolkit Warning",MB_OK |
     MB_TASKMODAL | MB_SETFOREGROUND | MB_ICONINFORMATION);
