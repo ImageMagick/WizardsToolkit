@@ -41,6 +41,7 @@
 #include "wizard/studio.h"
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #include "wizard/client.h"
+#include "wizard/locale_.h"
 #include "wizard/log.h"
 #include "wizard/memory_.h"
 #include "wizard/resource_.h"

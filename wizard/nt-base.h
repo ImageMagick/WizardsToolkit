@@ -340,6 +340,8 @@ struct timezone
     tz_minuteswest,
     tz_dsttime;
 };
+
+typedef _locale_t locale_t;
 #endif
 
 typedef UINT
