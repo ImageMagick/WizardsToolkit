@@ -25,20 +25,20 @@ extern "C" {
 #include "wizard/hashmap.h"
 
 extern WizardExport double
-  InterpretLocaleValue(const char *,char **);
+  InterpretLocaleValue(const char *restrict,char **restrict);
 
 extern WizardExport WizardBooleanType
   LocaleComponentGenesis(void);
 
 extern WizardExport ssize_t
-  FormatLocaleFile(FILE *,const char *,...)
+  FormatLocaleFile(FILE *,const char *restrict,...)
     wizard_attribute((format (printf,2,3))),
-  FormatLocaleFileList(FILE *,const char *,va_list)
+  FormatLocaleFileList(FILE *,const char *restrict,va_list)
     wizard_attribute((format (printf,2,0))),
-  FormatLocaleString(char *,const size_t,const char *,...)
+  FormatLocaleString(char *restrict,const size_t,const char *restrict,...)
     wizard_attribute((format (printf,3,4))),
-  FormatLocaleStringList(char *,const size_t,const char *,va_list)
-    wizard_attribute((format (printf,3,0)));
+  FormatLocaleStringList(char *restrict,const size_t,const char *restrict,
+    va_list) wizard_attribute((format (printf,3,0)));
 
 extern WizardExport void
   LocaleComponentTerminus(void);
