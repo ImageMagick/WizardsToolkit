@@ -160,8 +160,8 @@ static void DestroyCLocale(void)
 %
 */
 
-WizardExport ssize_t FormatLocaleFileList(FILE *file,
-  const char *restrict format,va_list operands)
+WizardExport ssize_t FormatLocaleFileList(FILE *file,const char *format,
+  va_list operands)
 {
   int
     n;
@@ -201,8 +201,7 @@ WizardExport ssize_t FormatLocaleFileList(FILE *file,
   return((ssize_t) n);
 }
 
-WizardExport ssize_t FormatLocaleFile(FILE *file,const char *restrict format,
-  ...)
+WizardExport ssize_t FormatLocaleFile(FILE *file,const char *format,...)
 {
   ssize_t
     n;
@@ -247,8 +246,8 @@ WizardExport ssize_t FormatLocaleFile(FILE *file,const char *restrict format,
 %
 */
 
-WizardExport ssize_t FormatLocaleStringList(char *restrict string,
-  const size_t length,const char *restrict format,va_list operands)
+WizardExport ssize_t FormatLocaleStringList(char *string,const size_t length,
+  const char *format,va_list operands)
 {
   int
     n;
@@ -283,8 +282,8 @@ WizardExport ssize_t FormatLocaleStringList(char *restrict string,
   return((ssize_t) n);
 }
 
-WizardExport ssize_t FormatLocaleString(char *restrict string,
-  const size_t length,const char *restrict format,...)
+WizardExport ssize_t FormatLocaleString(char *string,const size_t length,
+  const char *format,...)
 {
   ssize_t
     n;
@@ -327,8 +326,7 @@ WizardExport ssize_t FormatLocaleString(char *restrict string,
 %      referenced by sentinal.
 %
 */
-WizardExport double InterpretLocaleValue(const char *restrict string,
-  char **restrict sentinal)
+WizardExport double InterpretLocaleValue(const char *string,char **sentinal)
 {
   double
     value;
