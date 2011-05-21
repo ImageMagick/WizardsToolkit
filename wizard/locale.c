@@ -167,7 +167,7 @@ WizardExport ssize_t FormatLocaleFileList(FILE *file,
     n;
 
 #if defined(WIZARDSTOOLKIT_HAVE_VFPRINTF_L)
-  {
+ {
     locale_t
       locale;
 
@@ -175,7 +175,11 @@ WizardExport ssize_t FormatLocaleFileList(FILE *file,
     if (locale == (locale_t) NULL)
       n=vfprintf(file,format,operands);
     else
+#if defined(__APPLE__)
+      n=vfprintf_l(file,locale,format,operands);
+#else
       n=vfprintf_l(file,format,locale,operands);
+#endif
   }
 #else
 #if defined(WIZARDSTOOLKIT_HAVE_USELOCALE)
@@ -254,7 +258,20 @@ WizardExport ssize_t FormatLocaleStringList(char *restrict string,
     n;
 
 #if defined(WIZARDSTOOLKIT_HAVE_VSNPRINTF_L)
-  n=vsnprintf_l(string,length,format,(locale_t) NULL,operands);
+  {
+    locale_t
+      locale;
+
+    locale=AcquireCLocale();
+    if (locale == (locale_t) NULL)
+      n=vsnprintf(string,length,format,operands);
+    else
+#if defined(__APPLE__)
+      n=vsnprintf_l(string,length,locale,format,operands);
+#else
+      n=vsnprintf_l(string,length,format,locale,operands);
+#endif
+  }
 #elif defined(WIZARDSTOOLKIT_HAVE_VSNPRINTF)
 #if defined(WIZARDSTOOLKIT_HAVE_USELOCALE)
   {
