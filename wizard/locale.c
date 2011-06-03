@@ -175,7 +175,7 @@ WizardExport ssize_t FormatLocaleFileList(FILE *file,
     if (locale == (locale_t) NULL)
       n=(ssize_t) vfprintf(file,format,operands);
     else
-#if defined(MAGICKCORE_WINDOWS_SUPPORT)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
       n=(ssize_t) vfprintf_l(file,format,locale,operands);
 #else
       n=(ssize_t) vfprintf_l(file,locale,format,operands);
@@ -266,7 +266,7 @@ WizardExport ssize_t FormatLocaleStringList(char *restrict string,
     if (locale == (locale_t) NULL)
       n=(ssize_t) vsnprintf(string,length,format,operands);
     else
-#if defined(MAGICKCORE_WINDOWS_SUPPORT)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
       n=(ssize_t) vsnprintf_l(string,length,format,locale,operands);
 #else
       n=(ssize_t) vsnprintf_l(string,length,locale,format,operands);

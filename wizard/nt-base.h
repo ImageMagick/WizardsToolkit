@@ -197,9 +197,7 @@ extern "C" {
 #endif
 #endif
 #if !defined(fprintf_l)
-#if !defined(_MSC_VER) || (defined(_MSC_VER) && (_MSC_VER < 1500))
 #define fprintf_l  _fprintf_s_l
-#endif
 #endif
 #if !defined(read)
 #  define read  _read
@@ -255,9 +253,7 @@ extern "C" {
 #define vsnprintf _vsnprintf 
 #endif
 #if !defined(vsnprintf_l)
-#if !defined(_MSC_VER) || (defined(_MSC_VER) && _MSC_VER < 1500)
 #define vsnprintf_l  _vsnprintf_l
-#endif
 #endif
 #if !defined(write)
 #  define write  _write

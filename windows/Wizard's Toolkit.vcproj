@@ -190,6 +190,9 @@
 				RelativePath="..\wizard\keyring.c">
 			</File>
 			<File
+				RelativePath="..\wizard\locale.c">
+			</File>
+			<File
 				RelativePath="..\wizard\log.c">
 			</File>
 			<File
@@ -336,6 +339,9 @@
 			</File>
 			<File
 				RelativePath="..\wizard\keyring.h">
+			</File>
+			<File
+				RelativePath="..\wizard\locale_.h">
 			</File>
 			<File
 				RelativePath="..\wizard\log.h">
