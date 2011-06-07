@@ -189,7 +189,7 @@ WizardExport StringInfo *AcquireStringInfo(const size_t length)
   if (string_info->length != 0)
     {
       string_info->datum=(unsigned char *) NULL;
-      if (~string_info->length >= MaxCipherBlocksize)
+      if (~string_info->length >= (MaxCipherBlocksize-1))
         string_info->datum=(unsigned char *) AcquireQuantumMemory(
           string_info->length+MaxCipherBlocksize,sizeof(*string_info->datum));
       if (string_info->datum == (unsigned char *) NULL)
@@ -534,7 +534,7 @@ WizardExport StringInfo *ConfigureFileToStringInfo(const char *filename)
     }
   length=(size_t) offset;
   string=(char *) NULL;
-  if (~length > MaxCipherBlocksize)
+  if (~length >= (MaxCipherBlocksize-1))
     string=(char *) AcquireQuantumMemory(length+MaxCipherBlocksize,
       sizeof(*string));
   if (string == (char *) NULL)

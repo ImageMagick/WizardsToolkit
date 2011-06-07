@@ -959,11 +959,11 @@ WizardExport DIR *NTOpenDirectory(const char *path)
 
   assert(path != (const char *) NULL);
   length=CopyWizardString(file_specification,path,MaxTextExtent);
-  if (length >= MaxTextExtent)
+  if (length >= (MaxTextExtent-1))
     return((DIR *) NULL);
   length=ConcatenateWizardString(file_specification,DirectorySeparator,
     MaxTextExtent);
-  if (length >= MaxTextExtent)
+  if (length >= (MaxTextExtent-1))
     return((DIR *) NULL);
   entry=(DIR *) AcquireWizardMemory(sizeof(DIR));
   if (entry != (DIR *) NULL)
@@ -974,7 +974,7 @@ WizardExport DIR *NTOpenDirectory(const char *path)
   if (entry->hSearch == INVALID_HANDLE_VALUE)
     {
       length=ConcatenateWizardString(file_specification,"\\*.*",MaxTextExtent);
-      if (length >= MaxTextExtent)
+      if (length >= (MaxTextExtent-1))
         {
           entry=(DIR *) RelinquishWizardMemory(entry);
           return((DIR *) NULL);

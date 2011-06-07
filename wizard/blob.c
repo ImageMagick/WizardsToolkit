@@ -573,7 +573,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
     }
   *length=Min((size_t) offset,extent);
   blob=(unsigned char *) NULL;
-  if (~(*length) >= MaxCipherBlocksize)
+  if (~(*length) >= (MaxCipherBlocksize-1))
     blob=(unsigned char *) AcquireQuantumMemory(*length+MaxCipherBlocksize,
       sizeof(*blob));
   if (blob == (unsigned char *) NULL)

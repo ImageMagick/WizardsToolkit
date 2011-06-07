@@ -450,7 +450,7 @@ WizardExport ssize_t ParseWizardOption(const WizardOption option,
     while (((isspace((int) ((unsigned char) *p)) == 0) && (*p != ',')) &&
            (*p != '\0'))
     {
-      if ((q-token) >= MaxTextExtent)
+      if ((q-token) >= (MaxTextExtent-1))
         break;
       *q++=(*p++);
     }
