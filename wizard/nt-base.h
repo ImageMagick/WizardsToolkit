@@ -72,7 +72,9 @@ extern "C" {
 #endif
 
 #if !defined(access)
+#if defined(_VISUALC_) && (_MSC_VER >= 1400)
 #  define access(path,mode)  _access_s(path,mode)
+#endif
 #endif
 #if !defined(chdir)
 #  define chdir  _chdir
@@ -93,8 +95,6 @@ extern "C" {
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
   !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define fseek  _fseeki64
-#else
-#  define fseek  _fseek
 #endif
 #endif
 #if !defined(fstat) && !defined(__BORLANDC__)
@@ -112,8 +112,6 @@ extern "C" {
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
   !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define ftell  _ftelli64
-#else
-#  define ftell  _ftell
 #endif
 #endif
 #if !defined(ftruncate)
