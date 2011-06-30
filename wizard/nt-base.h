@@ -189,11 +189,6 @@ extern "C" {
 #if !defined(popen)
 #  define popen  _popen
 #endif
-#if !defined(fprintf)
-#if !defined(_MSC_VER) || (defined(_MSC_VER) && (_MSC_VER < 1500))
-#define fprintf  _fprintf_s
-#endif
-#endif
 #if !defined(fprintf_l)
 #define fprintf_l  _fprintf_s_l
 #endif
