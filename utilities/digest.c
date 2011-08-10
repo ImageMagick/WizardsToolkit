@@ -727,7 +727,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     if (content_blob == (BlobInfo *) NULL)
       continue;
     properties=GetBlobProperties(content_blob);
-    hash_info=AcquireHashInfo(SHA256Hash);
+    hash_info=AcquireHashInfo(hash);
     InitializeHash(hash_info);
     extent=0;
     for (content=AcquireStringInfo(WizardMaxBufferExtent); ; )
