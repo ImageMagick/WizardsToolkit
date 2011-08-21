@@ -1263,7 +1263,7 @@ WizardExport const char *GetStringInfoPath(const StringInfo *string_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  HexStringToStringInfo() returns the contents of a file as a string.
+%  HexStringToStringInfo() converts a string to a StringInfo type.
 %
 %  The format of the HexStringToStringInfo method is:
 %
@@ -2040,7 +2040,7 @@ WizardExport char **StringToArgv(const char *text,int *argc)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  StringToStringInfo() returns the contents of a file as a string.
+%  StringToStringInfo() converts a string to a StringInfo type.
 %
 %  The format of the StringToStringInfo method is:
 %
