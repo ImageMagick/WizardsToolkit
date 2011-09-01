@@ -68,6 +68,7 @@ extern WizardExport size_t
 
 extern WizardExport StringInfo
   *AcquireStringInfo(const size_t),
+  *BlobToStringInfo(const void *,const size_t),
   *CloneStringInfo(const StringInfo *),
   *ConfigureFileToStringInfo(const char *),
   *DestroyStringInfo(StringInfo *),
