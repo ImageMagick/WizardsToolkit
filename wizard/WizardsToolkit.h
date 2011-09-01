@@ -53,7 +53,8 @@ extern "C" {
 #include <stdio.h>
 #include <sys/types.h>
 
-#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(__CYGWIN__) && !defined(__MINGW32__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+# define WizardPrivate
 # if defined(_MT) && defined(_DLL) && !defined(_WIZARDDLL_) && !defined(_LIB)
 #  define _WIZARDDLL_
 # endif
@@ -62,12 +63,20 @@ extern "C" {
 #   pragma warning( disable: 4273 )  /* Disable the dll linkage warnings */
 #  endif
 #  if !defined(_WIZARDLIB_)
-#   define WizardExport  __declspec(dllimport)
+#   if defined(__GNUC__)
+#    define WizardExport __attribute__ ((dllimport))
+#   else
+#    define WizardExport __declspec(dllimport)
+#   endif
 #   if defined(_VISUALC_)
 #    pragma message( "Wizard lib DLL import interface" )
 #   endif
 #  else
-#   define WizardExport  __declspec(dllexport)
+#   if defined(__GNUC__)
+#    define WizardExport __attribute__ ((dllexport))
+#   else
+#    define WizardExport __declspec(dllexport)
+#   endif
 #   if defined(_VISUALC_)
 #    pragma message( "Wizard lib DLL export interface" )
 #   endif
@@ -100,8 +109,14 @@ extern "C" {
 #  pragma warning(disable : 4786)
 # endif
 #else
-# define WizardExport
-# define ModuleExport
+# if __GNUC__ >= 4
+#  define WizardExport __attribute__ ((visibility ("default")))
+#  define WizardPrivate  __attribute__ ((visibility ("hidden")))
+# else
+#   define WizardExport
+#   define WizardPrivate
+# endif
+# define ModuleExport  WizardExport
 # define WizardGlobal
 #endif
 
