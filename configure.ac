@@ -378,24 +378,30 @@ AC_SYS_LARGEFILE
 AC_FUNC_FSEEKO
 LFS_CPPFLAGS=''
 if test "$enable_largefile" != no; then
-  if test "$ac_cv_sys_file_offset_bits" != 'no'; then
-    LFS_CPPFLAGS="$LFS_CPPFLAGS -D_FILE_OFFSET_BITS=$ac_cv_sys_file_offset_bits"
-  else
-    AC_MSG_CHECKING([for native large file support])
+    case $ac_cv_sys_file_offset_bits in
+    no)
+        # nothing to do here as the host supports LFS fine
+        ;;
+    unknown)
+        AC_MSG_CHECKING([for native large file support])
         AC_RUN_IFELSE([AC_LANG_PROGRAM([#include <unistd.h>
           main () {
           exit(!(sizeof(off_t) == 8));
         }])],
-    [ac_cv_sys_file_offset_bits=64; AC_DEFINE(_FILE_OFFSET_BITS,64)
-     AC_MSG_RESULT([yes])],
-    [AC_MSG_RESULT([no])])
-  fi
-  if test "$ac_cv_sys_large_files" != 'no'; then
-    LFS_CPPFLAGS="$LFS_CPPFLAGS -D_LARGE_FILES=1"
-  fi
-  if test "$ac_cv_sys_largefile_source" != 'no'; then
-    LFS_CPPFLAGS="$LFS_CPPFLAGS -D_LARGEFILE_SOURCE=1"
-  fi
+        [ac_cv_sys_file_offset_bits=64; AC_DEFINE(_FILE_OFFSET_BITS,64)
+         AC_MSG_RESULT([yes])],
+        [AC_MSG_RESULT([no])])
+        ;;
+    *)
+        LFS_CPPFLAGS="$LFS_CPPFLAGS -D_FILE_OFFSET_BITS=$ac_cv_sys_file_offset_bits"
+        ;;
+    esac
+    if test "$ac_cv_sys_large_files" != 'no'; then
+        LFS_CPPFLAGS="$LFS_CPPFLAGS -D_LARGE_FILES=1"
+    fi
+    if test "$ac_cv_sys_largefile_source" != 'no'; then
+        LFS_CPPFLAGS="$LFS_CPPFLAGS -D_LARGEFILE_SOURCE=1"
+    fi
 fi
 AC_SUBST(LFS_CPPFLAGS)
 

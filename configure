@@ -7858,10 +7858,12 @@ fi
 
 LFS_CPPFLAGS=''
 if test "$enable_largefile" != no; then
-  if test "$ac_cv_sys_file_offset_bits" != 'no'; then
-    LFS_CPPFLAGS="$LFS_CPPFLAGS -D_FILE_OFFSET_BITS=$ac_cv_sys_file_offset_bits"
-  else
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for native large file support" >&5
+    case $ac_cv_sys_file_offset_bits in
+    no)
+        # nothing to do here as the host supports LFS fine
+        ;;
+    unknown)
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for native large file support" >&5
 $as_echo_n "checking for native large file support... " >&6; }
         if test "$cross_compiling" = yes; then :
   { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
@@ -7886,7 +7888,7 @@ _ACEOF
 if ac_fn_c_try_run "$LINENO"; then :
   ac_cv_sys_file_offset_bits=64; $as_echo "#define _FILE_OFFSET_BITS 64" >>confdefs.h
 
-     { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
@@ -7896,13 +7898,17 @@ rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
   conftest.$ac_objext conftest.beam conftest.$ac_ext
 fi
 
-  fi
-  if test "$ac_cv_sys_large_files" != 'no'; then
-    LFS_CPPFLAGS="$LFS_CPPFLAGS -D_LARGE_FILES=1"
-  fi
-  if test "$ac_cv_sys_largefile_source" != 'no'; then
-    LFS_CPPFLAGS="$LFS_CPPFLAGS -D_LARGEFILE_SOURCE=1"
-  fi
+        ;;
+    *)
+        LFS_CPPFLAGS="$LFS_CPPFLAGS -D_FILE_OFFSET_BITS=$ac_cv_sys_file_offset_bits"
+        ;;
+    esac
+    if test "$ac_cv_sys_large_files" != 'no'; then
+        LFS_CPPFLAGS="$LFS_CPPFLAGS -D_LARGE_FILES=1"
+    fi
+    if test "$ac_cv_sys_largefile_source" != 'no'; then
+        LFS_CPPFLAGS="$LFS_CPPFLAGS -D_LARGEFILE_SOURCE=1"
+    fi
 fi
 
 
