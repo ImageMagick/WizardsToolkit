@@ -1010,7 +1010,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 #endif
       *mode=(*type);
       mode[1]='\0';
-      blob_info->file=(FILE *) popen(filename+1,mode);
+      blob_info->file=(FILE *) popen_utf8(filename+1,mode);
       if (blob_info->file == (FILE *) NULL)
         {
           (void) ThrowWizardException(exception,GetWizardModule(),BlobError,

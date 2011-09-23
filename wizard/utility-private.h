@@ -45,7 +45,7 @@ static inline int access_utf8(const char *path,int mode)
      return(-1);
    count=MultiByteToWideChar(CP_UTF8,0,path,-1,path_wide,count);
    status=_waccess(path_wide,mode);
-   path_wide=RelinquishMagickMemory(path_wide);
+   path_wide=RelinquishWizardMemory(path_wide);
    return(status);
 #endif
 }
@@ -75,13 +75,13 @@ static inline FILE *fopen_utf8(const char *path,const char *mode)
    mode_wide=(WCHAR *) AcquireQuantumMemory(count,sizeof(*mode_wide));
    if (mode_wide == (WCHAR *) NULL)
      {
-       path_wide=RelinquishMagickMemory(path_wide);
+       path_wide=RelinquishWizardMemory(path_wide);
        return(-1);
      }
    count=MultiByteToWideChar(CP_UTF8,0,mode,-1,mode_wide,count);
    file=_wfopen(path_wide,mode_width);
-   mode_wide=RelinquishMagickMemory(mode_wide);
-   path_wide=RelinquishMagickMemory(path_wide);
+   mode_wide=RelinquishWizardMemory(mode_wide);
+   path_wide=RelinquishWizardMemory(path_wide);
    return(file);
 #endif
 }
@@ -105,8 +105,44 @@ static inline int open_utf8(const char *path,int flags,int mode)
      return(-1);
    count=MultiByteToWideChar(CP_UTF8,0,path,-1,path_wide,count);
    status=_wopen(path_wide,flags,mode);
-   path_wide=RelinquishMagickMemory(path_wide);
+   path_wide=RelinquishWizardMemory(path_wide);
    return(status);
+#endif
+}
+
+static inline FILE *popen_utf8(const char *command,const char *type)
+{
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+  return(fopen(command,type));
+#else
+   FILE
+     *file;
+
+   int
+     status;
+
+   WCHAR
+     *type_wide,
+     *command_wide;
+
+   command_wide=(WCHAR *) NULL;
+   count=MultiByteToWideChar(CP_UTF8,0,command,-1,NULL,0);
+   command_wide=(WCHAR *) AcquireQuantumMemory(count,sizeof(*command_wide));
+   if (command_wide == (WCHAR *) NULL)
+     return(-1);
+   count=MultiByteToWideChar(CP_UTF8,0,command,-1,command_wide,count);
+   count=MultiByteToWideChar(CP_UTF8,0,type,-1,NULL,0);
+   type_wide=(WCHAR *) AcquireQuantumMemory(count,sizeof(*type_wide));
+   if (type_wide == (WCHAR *) NULL)
+     {
+       command_wide=RelinquishWizardMemory(command_wide);
+       return(-1);
+     }
+   count=MultiByteToWideChar(CP_UTF8,0,type,-1,type_wide,count);
+   file=_wpopen(path_wide,type_width);
+   type_wide=RelinquishWizardMemory(type_wide);
+   path_wide=RelinquishWizardMemory(path_wide);
+   return(file);
 #endif
 }
 
@@ -129,7 +165,7 @@ static inline int remove_utf8(const char *path)
      return(-1);
    count=MultiByteToWideChar(CP_UTF8,0,path,-1,path_wide,count);
    status=_wremove(path_wide);
-   path_wide=RelinquishMagickMemory(path_wide);
+   path_wide=RelinquishWizardMemory(path_wide);
    return(status);
 #endif
 }
@@ -153,7 +189,7 @@ static inline int stat_utf8(const char *path,struct stat *attributes)
      return(-1);
    count=MultiByteToWideChar(CP_UTF8,0,path,-1,path_wide,count);
    status=_wstat(path_wide,attributes);
-   path_wide=RelinquishMagickMemory(path_wide);
+   path_wide=RelinquishWizardMemory(path_wide);
    return(status);
 #endif
 }
