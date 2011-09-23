@@ -478,7 +478,7 @@ WizardExport char *GetExceptionMessage(const int error)
 #if !defined(_GNU_SOURCE)
   (void) strerror_r(error,exception,sizeof(exception));
 #else
-  (void) CopyMagickString(exception,strerror_r(error,exception,
+  (void) CopyWizardString(exception,strerror_r(error,exception,
     sizeof(exception)),sizeof(exception));
 #endif
 #else

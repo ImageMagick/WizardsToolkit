@@ -54,6 +54,7 @@
 #include "wizard/thread_.h"
 #include "wizard/thread-private.h"
 #include "wizard/semaphore.h"
+#include "wizard/utility-private.h"
 
 /*
   Define declarations.
@@ -471,7 +472,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
       if (close(file) == -1)
         (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
           "unable to close file `%s': %s",filename,strerror(errno));
-    if (remove(filename) == -1)
+    if (remove_utf8(filename) == -1)
       (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
         "unable to remove file `%s': %s",filename,strerror(errno));
     SetStringInfoLength(chaos,strlen(filename));
@@ -551,7 +552,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
     if (GetStringInfoCRC(device) != (WizardSizeType) 0xf9f0014228f2264fll)
       ThrowFatalException(RandomFatalError,"random device error `%s'");
     device=DestroyStringInfo(device);
-    file=open(filename,O_RDONLY | O_BINARY);
+    file=open_utf8(filename,O_RDONLY | O_BINARY,0);
     filename=DestroyString(filename);
     if (file != -1)
       {
@@ -573,7 +574,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
         if (GetStringInfoCRC(device) != (WizardSizeType) 0xc36e1cc17bf25fd4ll)
           ThrowFatalException(RandomFatalError,"random device error `%s'");
         device=DestroyStringInfo(device);
-        file=open(filename,O_RDONLY | O_BINARY);
+        file=open_utf8(filename,O_RDONLY | O_BINARY,0);
         filename=DestroyString(filename);
         if (file == -1)
           {
@@ -583,7 +584,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
                 0xf9f0014228f223efll)
               ThrowFatalException(RandomFatalError,"random device error `%s'");
             device=DestroyStringInfo(device);
-            file=open(filename,O_RDONLY | O_BINARY);
+            file=open_utf8(filename,O_RDONLY | O_BINARY,0);
           }
         if (file != -1)
           {

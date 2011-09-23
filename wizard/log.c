@@ -57,6 +57,7 @@
 #include "wizard/timer.h"
 #include "wizard/token.h"
 #include "wizard/utility.h"
+#include "wizard/utility-private.h"
 #include "wizard/version.h"
 #include "wizard/xml-tree.h"
 
@@ -1199,7 +1200,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
               return(WizardFalse);
             }
           log_info->append=IsAccessible(filename);
-          log_info->file=WizardOpenStream(filename,"ab");
+          log_info->file=fopen_utf8(filename,"ab");
           filename=(char  *) RelinquishWizardMemory(filename);
           if (log_info->file == (FILE *) NULL)
             {

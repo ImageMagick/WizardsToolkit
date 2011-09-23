@@ -46,6 +46,7 @@
 #include "wizard/studio.h"
 #include "wizard/WizardsToolkit.h"
 #include "wizard/exception-private.h"
+#include "wizard/utility-private.h"
 #include "utility_.h"
 
 /*
@@ -335,7 +336,7 @@ static int IsDirectory(const char *path)
 
   if ((path == (const char *) NULL) || (*path == '\0'))
     return(WizardFalse);
-  status=stat(path,&file_info);
+  status=stat_utf8(path,&file_info);
   if (status != 0)
     return(-1);
   if (S_ISDIR(file_info.st_mode) == 0)

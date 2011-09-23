@@ -41,6 +41,7 @@
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
 #include "wizard/passphrase.h"
+#include "wizard/utility-private.h"
 #if defined(WIZARDSTOOLKIT_HAVE_TERMIOS_H)
 #include <termios.h>
 #endif
@@ -163,7 +164,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
   output=STDERR_FILENO;
   if ((flags & StdinMode) == 0)
     {
-      input=open(_PATH_TTY,O_RDWR);
+      input=open_utf8(_PATH_TTY,O_RDWR,0);
       output=input;
     }
   if (((flags & StdinMode) != 0) || (input == -1) || (output == -1))

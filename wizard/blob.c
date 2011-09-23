@@ -51,6 +51,7 @@
 #include "wizard/semaphore.h"
 #include "wizard/string-private.h"
 #include "wizard/utility.h"
+#include "wizard/utility-private.h"
 #include "blob.h"
 #if defined(WIZARDSTOOLKIT_HAVE_MMAP_FILEIO) && !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 # include <sys/mman.h>
@@ -515,7 +516,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
   *length=0;
   file=fileno(stdin);
   if (strcmp(filename,"-") != 0)
-    file=open(filename,O_RDONLY | O_BINARY);
+    file=open_utf8(filename,O_RDONLY | O_BINARY,0);
   if (file == -1)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),BlobError,
@@ -1022,11 +1023,12 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
       return(blob_info);
     }
 #endif
-  status=stat(filename,&blob_info->properties) == 0 ? WizardTrue : WizardFalse;
+  status=stat_utf8(filename,&blob_info->properties) == 0 ? WizardTrue :
+    WizardFalse;
 #if defined(S_ISFIFO)
   if ((status == WizardTrue) && S_ISFIFO(blob_info->properties.st_mode))
     {
-      blob_info->file=WizardOpenStream(filename,type);
+      blob_info->file=fopen_utf8(filename,type);
       if (blob_info->file == (FILE *) NULL)
         {
           (void) ThrowWizardException(exception,GetWizardModule(),BlobError,
@@ -1041,7 +1043,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 #endif
   if (*type == 'r')
     {
-      blob_info->file=WizardOpenStream(filename,type);
+      blob_info->file=fopen_utf8(filename,type);
       if (blob_info->file != (FILE *) NULL)
         {
           size_t
@@ -1133,7 +1135,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
         else
 #endif
           {
-            blob_info->file=WizardOpenStream(filename,type);
+            blob_info->file=fopen_utf8(filename,type);
             if (blob_info->file != (FILE *) NULL)
               {
                 blob_info->type=FileStream;

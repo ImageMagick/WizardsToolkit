@@ -55,6 +55,7 @@
 #include "wizard/string-private.h"
 #include "wizard/token.h"
 #include "wizard/utility.h"
+#include "wizard/utility-private.h"
 
 /*
   Define  declarations.
@@ -179,7 +180,7 @@ WizardExport WizardBooleanType AcquireUniqueFilename(char *path,
 
 static void *DestroyTemporaryResources(void *temporary_resource)
 {
-  remove((char *) temporary_resource);
+  remove_utf8((char *) temporary_resource);
   temporary_resource=DestroyString((char *) temporary_resource);
   return((void *) NULL);
 }
@@ -224,7 +225,7 @@ static WizardBooleanType GetPathTemplate(const char *path,char *filename)
       directory=(char *) RelinquishWizardMemory(directory);
       return(WizardTrue);
     }
-  status=stat(directory,&file_info);
+  status=stat_utf8(directory,&file_info);
   if ((status != 0) || !S_ISDIR(file_info.st_mode))
     {
       directory=(char *) RelinquishWizardMemory(directory);
@@ -312,7 +313,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
       *p++=portable_filename[c];
     }
     key=DestroyStringInfo(key);
-    file=open(filename,O_RDWR | O_CREAT | O_EXCL | O_BINARY | O_NOFOLLOW,
+    file=open_utf8(filename,O_RDWR | O_CREAT | O_EXCL | O_BINARY | O_NOFOLLOW,
       S_MODE);
     if ((file >= 0) || (errno != EEXIST))
       break;
@@ -325,7 +326,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
       if (close(file) == -1)
         (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
           "unable to close file `%s': %s",filename,strerror(errno));
-      if (remove(path) == -1)
+      if (remove_utf8(path) == -1)
         (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
           "unable to remove file `%s': %s",filename,strerror(errno));
       return(-1);
@@ -498,7 +499,7 @@ WizardExport void AsynchronousResourceComponentTerminus(void)
   path=(const char *) GetNextKeyInSplayTree(temporary_resources);
   while (path != (const char *) NULL)
   {
-    (void) remove(path);
+    (void) remove_utf8(path);
     path=(const char *) GetNextKeyInSplayTree(temporary_resources);
   }
   if (random_info != (RandomInfo *) NULL)
@@ -831,7 +832,7 @@ WizardExport WizardBooleanType RelinquishUniqueFileResource(const char *path,
     }
   if (trash == WizardFalse)
     return(WizardTrue);
-  return(remove(path) == 0 ? WizardTrue : WizardFalse);
+  return(remove_utf8(path) == 0 ? WizardTrue : WizardFalse);
 }
 
 /*

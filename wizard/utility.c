@@ -46,6 +46,7 @@
 #include "wizard/memory_.h"
 #include "wizard/resource_.h"
 #include "wizard/utility.h"
+#include "wizard/utility-private.h"
 #if defined(WIZARDSTOOLKIT_HAVE_MACH_O_DYLD_H)
 #include <mach-o/dyld.h>
 #endif
@@ -774,7 +775,7 @@ WizardExport WizardBooleanType IsAccessible(const char *path)
 
   if ((path == (const char *) NULL) || (*path == '\0'))
     return(WizardFalse);
-  status=stat(path,&file_info);
+  status=stat_utf8(path,&file_info);
   if (status != 0)
     return(WizardFalse);
   if (S_ISREG(file_info.st_mode) == 0)
@@ -822,7 +823,7 @@ static int IsDirectory(const char *path)
 
   if ((path == (const char *) NULL) || (*path == '\0'))
     return(WizardFalse);
-  status=stat(path,&file_info);
+  status=stat_utf8(path,&file_info);
   if (status != 0)
     return(-1);
   if (S_ISDIR(file_info.st_mode) == 0)
@@ -964,183 +965,4 @@ WizardExport const char *ParseWizardTime(const char *timestamp,time_t *target)
   }
   *target=mktime(&target_time)-3600*timezone;
   return(p);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%   W i z a r d O p e n S t r e a m                                           %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  WizardOpenStream() opens the file whose name is the string pointed to by
-%  path and associates a stream with it.
-%
-%  The path of the WizardOpenStream method is:
-%
-%      FILE *WizardOpenStream(const char *path,const char *mode)
-%
-%  A description of each parameter follows.
-%
-%   o  path: the file path.
-%
-%   o  mode: the file mode.
-%
-*/
-
-#if defined(WIZARDSTOOLKIT_HAVE__WFOPEN)
-static size_t UTF8ToUTF16(const unsigned char *utf8,wchar_t *utf16)
-{
-  register const unsigned char
-    *p;
-
-  if (utf16 != (wchar_t *) NULL)
-    {
-      register wchar_t
-        *q;
-
-      wchar_t
-        c;
-
-      /*
-        Convert UTF-8 to UTF-16.
-      */
-      q=utf16;
-      for (p=utf8; *p != '\0'; p++)
-      {
-        if ((*p & 0x80) == 0)
-          *q=(*p);
-        else
-          if ((*p & 0xE0) == 0xC0)
-            {
-              c=(*p);
-              *q=(c & 0x1F) << 6;
-              p++;
-              if ((*p & 0xC0) != 0x80)
-                return(0);
-              *q|=(*p & 0x3F);
-            }
-          else
-            if ((*p & 0xF0) == 0xE0)
-              {
-                c=(*p);
-                *q=c << 12;
-                p++;
-                if ((*p & 0xC0) != 0x80)
-                  return(0);
-                c=(*p);
-                *q|=(c & 0x3F) << 6;
-                p++;
-                if ((*p & 0xC0) != 0x80)
-                  return(0);
-                *q|=(*p & 0x3F);
-              }
-            else
-              return(0);
-        q++;
-      }
-      *q++='\0';
-      return(q-utf16);
-    }
-  /*
-    Compute UTF-16 string length.
-  */
-  for (p=utf8; *p != '\0'; p++)
-  {
-    if ((*p & 0x80) == 0)
-      ;
-    else
-      if ((*p & 0xE0) == 0xC0)
-        {
-          p++;
-          if ((*p & 0xC0) != 0x80)
-            return(0);
-        }
-      else
-        if ((*p & 0xF0) == 0xE0)
-          {
-            p++;
-            if ((*p & 0xC0) != 0x80)
-              return(0);
-            p++;
-            if ((*p & 0xC0) != 0x80)
-              return(0);
-         }
-       else
-         return(0);
-  }
-  return(p-utf8);
-}
-
-static wchar_t *ConvertUTF8ToUTF16(const unsigned char *source)
-{
-  size_t
-    length;
-
-  wchar_t
-    *utf16;
-
-  length=UTF8ToUTF16(source,(wchar_t *) NULL);
-  if (length == 0)
-    {
-      register ssize_t
-        i;
-
-      /*
-        Not UTF-8, just copy.
-      */
-      length=strlen(source);
-      utf16=(wchar_t *) AcquireQuantumMemory(length+1,sizeof(*utf16));
-      if (utf16 == (wchar_t *) NULL)
-        return((wchar_t *) NULL);
-      for (i=0; i <= (ssize_t) length; i++)
-        utf16[i]=source[i];
-      return(utf16);
-    }
-  utf16=(wchar_t *) AcquireQuantumMemory(length+1,sizeof(*utf16));
-  if (utf16 == (wchar_t *) NULL)
-    return((wchar_t *) NULL);
-  length=UTF8ToUTF16(source,utf16);
-  return(utf16);
-}
-#endif
-
-WizardExport FILE *WizardOpenStream(const char *path,const char *mode)
-{
-  FILE
-    *file;
-
-  if ((path == (const char *) NULL) || (mode == (const char *) NULL))
-    {
-      errno=EINVAL;
-      return((FILE *) NULL);
-    }
-  file=(FILE *) NULL;
-#if defined(WIZARDSTOOLKIT_HAVE__WFOPEN)
-  {
-    wchar_t
-      *unicode_mode,
-      *unicode_path;
-
-    unicode_path=ConvertUTF8ToUTF16(path);
-    if (unicode_path == (wchar_t *) NULL)
-      return((FILE *) NULL);
-    unicode_mode=ConvertUTF8ToUTF16(mode);
-    if (unicode_path == (wchar_t *) NULL)
-      {
-        unicode_path=(wchar_t *) RelinquishWizardMemory(unicode_path);
-        return((FILE *) NULL);
-      }
-    file=_wfopen(unicode_path,unicode_mode);
-    unicode_mode=(wchar_t *) RelinquishWizardMemory(unicode_mode);
-    unicode_path=(wchar_t *) RelinquishWizardMemory(unicode_path);
-  }
-#endif
-  if (file == (FILE *) NULL)
-    file=fopen(path,mode);
-  return(file);
 }

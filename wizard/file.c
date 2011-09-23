@@ -48,6 +48,7 @@
 #include "wizard/semaphore.h"
 #include "wizard/string_.h"
 #include "wizard/utility.h"
+#include "wizard/utility-private.h"
 #if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
 #include <pthread.h>
 #endif
@@ -151,12 +152,12 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
   AppendFileExtension("lck",path);
   for (i=0; i < 10; i++)
   {
-    file_info->file=open(path,O_WRONLY | O_CREAT | O_EXCL,S_MODE);
+    file_info->file=open_utf8(path,O_WRONLY | O_CREAT | O_EXCL,S_MODE);
     if (file_info->file == -1)
       {
         if (errno != EEXIST)
           break;
-        file_info->file=open(path,O_RDONLY);
+        file_info->file=open_utf8(path,O_RDONLY,0);
         if (file_info->file == -1)
           break;
         pid=(-1);
@@ -196,7 +197,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
                 if (errno != ESRCH)
                   break;
                 i--;
-                if (remove(path) == -1)
+                if (remove_utf8(path) == -1)
                   (void) ThrowWizardException(exception,GetWizardModule(),
                     FileError,"unable to remove file `%s': %s",path,
                     strerror(errno));
@@ -333,12 +334,12 @@ WizardExport FileInfo *AcquireFileInfo(const char *path,
   {
     case ReadFileMode:
     {
-      file_info->file=open(file_info->path,O_RDONLY | O_BINARY);
+      file_info->file=open_utf8(file_info->path,O_RDONLY | O_BINARY,0);
       break;
     }
     case WriteFileMode:
     {
-      file_info->file=open(file_info->path,O_RDWR | O_CREAT | O_BINARY,
+      file_info->file=open_utf8(file_info->path,O_RDWR | O_CREAT | O_BINARY,
         S_MODE);
       break;
     }
@@ -395,7 +396,7 @@ WizardExport WizardBooleanType DestroyFile(FileInfo *file_info,
         return(WizardFalse);
       }
   file_info->file=(-1);
-  if (remove(file_info->path) == -1)
+  if (remove_utf8(file_info->path) == -1)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),FileError,
         "unable to close file `%s': %s",file_info->path,strerror(errno));
@@ -808,7 +809,7 @@ static WizardBooleanType RelinquishFileLock(FileInfo *file_info,
 
   path=AcquireString(file_info->path);
   AppendFileExtension("lck",path);
-  if (remove(path) == -1)
+  if (remove_utf8(path) == -1)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),FileError,
         "unable to remove file `%s': %s",path,strerror(errno));

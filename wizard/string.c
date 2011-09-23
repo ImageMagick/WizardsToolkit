@@ -48,6 +48,7 @@
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
 #include "wizard/string_.h"
+#include "wizard/utility-private.h"
 
 /*
   Structure declarations.
@@ -567,7 +568,7 @@ WizardExport StringInfo *ConfigureFileToStringInfo(const char *filename)
     *map;
 
   WizardAssert(StringDomain,filename != (const char *) NULL);
-  file=open(filename,O_RDONLY | O_BINARY);
+  file=open_utf8(filename,O_RDONLY | O_BINARY,0);
   if (file == -1)
     return((StringInfo *) NULL);
   offset=(WizardOffsetType) lseek(file,0,SEEK_END);

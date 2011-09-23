@@ -42,9 +42,6 @@ extern WizardExport char
 extern WizardExport const char
   *ParseWizardTime(const char *,time_t *);
 
-extern WizardExport FILE
-  *WizardOpenStream(const char *,const char *);
-
 extern WizardExport unsigned char
   *Base64Decode(const char *, size_t *);
 

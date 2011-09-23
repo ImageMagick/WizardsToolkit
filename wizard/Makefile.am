@@ -137,6 +137,7 @@ WIZARD_BASE_SRCS = \
   wizard/twofish.h \
   wizard/utility.c \
   wizard/utility.h \
+  wizard/utility-private.h \
   wizard/version.c \
   wizard/version.h \
   wizard/wizard.c \
@@ -221,7 +222,8 @@ WIZARD_NOINST_HDRS = \
   wizard/string-private.h \
   wizard/studio.h \
   wizard/thread-private.h \
-  wizard/twofish.h
+  wizard/twofish.h \
+  wizard/utility-private.h 
 
 WIZARD_EXTRA_DIST = \
 	wizard/WizardsToolkit-config.in \
