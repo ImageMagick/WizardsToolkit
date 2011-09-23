@@ -59,7 +59,7 @@ static inline FILE *fopen_utf8(const char *path,const char *mode)
      *file;
 
    int
-     status;
+     count;
 
    WCHAR
      *mode_wide,
@@ -69,17 +69,17 @@ static inline FILE *fopen_utf8(const char *path,const char *mode)
    count=MultiByteToWideChar(CP_UTF8,0,path,-1,NULL,0);
    path_wide=(WCHAR *) AcquireQuantumMemory(count,sizeof(*path_wide));
    if (path_wide == (WCHAR *) NULL)
-     return(-1);
+     return((FILE *) NULL);
    count=MultiByteToWideChar(CP_UTF8,0,path,-1,path_wide,count);
    count=MultiByteToWideChar(CP_UTF8,0,mode,-1,NULL,0);
    mode_wide=(WCHAR *) AcquireQuantumMemory(count,sizeof(*mode_wide));
    if (mode_wide == (WCHAR *) NULL)
      {
        path_wide=RelinquishWizardMemory(path_wide);
-       return(-1);
+       return((FILE *) NULL);
      }
    count=MultiByteToWideChar(CP_UTF8,0,mode,-1,mode_wide,count);
-   file=_wfopen(path_wide,mode_width);
+   file=_wfopen(path_wide,mode_wide);
    mode_wide=RelinquishWizardMemory(mode_wide);
    path_wide=RelinquishWizardMemory(path_wide);
    return(file);
@@ -113,13 +113,13 @@ static inline int open_utf8(const char *path,int flags,int mode)
 static inline FILE *popen_utf8(const char *command,const char *type)
 {
 #if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
-  return(fopen(command,type));
+  return(popen(command,type));
 #else
    FILE
      *file;
 
    int
-     status;
+     count;
 
    WCHAR
      *type_wide,
@@ -129,19 +129,19 @@ static inline FILE *popen_utf8(const char *command,const char *type)
    count=MultiByteToWideChar(CP_UTF8,0,command,-1,NULL,0);
    command_wide=(WCHAR *) AcquireQuantumMemory(count,sizeof(*command_wide));
    if (command_wide == (WCHAR *) NULL)
-     return(-1);
+     return((FILE *) NULL);
    count=MultiByteToWideChar(CP_UTF8,0,command,-1,command_wide,count);
    count=MultiByteToWideChar(CP_UTF8,0,type,-1,NULL,0);
    type_wide=(WCHAR *) AcquireQuantumMemory(count,sizeof(*type_wide));
    if (type_wide == (WCHAR *) NULL)
      {
        command_wide=RelinquishWizardMemory(command_wide);
-       return(-1);
+       return((FILE *) NULL);
      }
    count=MultiByteToWideChar(CP_UTF8,0,type,-1,type_wide,count);
-   file=_wpopen(path_wide,type_width);
+   file=_wpopen(command_wide,type_wide);
    type_wide=RelinquishWizardMemory(type_wide);
-   path_wide=RelinquishWizardMemory(path_wide);
+   command_wide=RelinquishWizardMemory(command_wide);
    return(file);
 #endif
 }
@@ -170,6 +170,41 @@ static inline int remove_utf8(const char *path)
 #endif
 }
 
+static inline int rename_utf8(const char *source,const char *destination)
+{
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+  return(rename(source,destination));
+#else
+   int
+     count,
+     status;
+
+   WCHAR
+     *destination_wide,
+     *source_wide;
+
+   source_wide=(WCHAR *) NULL;
+   count=MultiByteToWideChar(CP_UTF8,0,source,-1,NULL,0);
+   source_wide=(WCHAR *) AcquireQuantumMemory(count,sizeof(*source_wide));
+   if (source_wide == (WCHAR *) NULL)
+     return(-1);
+   count=MultiByteToWideChar(CP_UTF8,0,source,-1,source_wide,count);
+   count=MultiByteToWideChar(CP_UTF8,0,destination,-1,NULL,0);
+   destination_wide=(WCHAR *) AcquireQuantumMemory(count,
+     sizeof(*destination_wide));
+   if (destination_wide == (WCHAR *) NULL)
+     {
+       source_wide=RelinquishWizardMemory(source_wide);
+       return(-1);
+     }
+   count=MultiByteToWideChar(CP_UTF8,0,destination,-1,destination_wide,count);
+   status=_wrename(source_wide,destination_wide);
+   destination_wide=RelinquishWizardMemory(destination_wide);
+   source_wide=RelinquishWizardMemory(source_wide);
+   return(status);
+#endif
+}
+
 static inline int stat_utf8(const char *path,struct stat *attributes)
 {
 #if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
@@ -188,7 +223,7 @@ static inline int stat_utf8(const char *path,struct stat *attributes)
    if (path_wide == (WCHAR *) NULL)
      return(-1);
    count=MultiByteToWideChar(CP_UTF8,0,path,-1,path_wide,count);
-   status=_wstat(path_wide,attributes);
+   status=wstat(path_wide,attributes);
    path_wide=RelinquishWizardMemory(path_wide);
    return(status);
 #endif
