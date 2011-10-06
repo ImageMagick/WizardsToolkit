@@ -1503,6 +1503,8 @@ WizardExport void LocaleLower(char *string)
 */
 WizardExport int LocaleNCompare(const char *p,const char *q,const size_t length)
 {
+  if ((p == (char *) NULL) && (q == (char *) NULL))
+    return(0);
   if (p == (char *) NULL)
     return(-1);
   if (q == (char *) NULL)
