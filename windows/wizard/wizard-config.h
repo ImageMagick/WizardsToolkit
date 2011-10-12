@@ -79,7 +79,7 @@
 #endif
 
 // Visual C++ does not define ssize_t by default.
-#if !defined(ssize_t)
+#if !defined(__MINGW32__)
 #if defined(_WIN64) 
 typedef __int64 ssize_t;
 #else
