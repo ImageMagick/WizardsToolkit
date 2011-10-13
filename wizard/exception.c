@@ -475,7 +475,7 @@ WizardExport char *GetExceptionMessage(const int error)
 
   *exception='\0';
 #if defined(WIZARDSTOOLKIT_HAVE_STRERROR_R)
-#if !defined(_GNU_SOURCE)
+#if !defined(WIZARDSTOOLKIT_STRERROR_R_CHAR_P)
   (void) strerror_r(error,exception,sizeof(exception));
 #else
   (void) CopyWizardString(exception,strerror_r(error,exception,

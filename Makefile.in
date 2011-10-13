@@ -158,6 +158,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ac_func_fseeko.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
 	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/pkg.m4 \
+	$(top_srcdir)/m4/strerror_r.m4 \
 	$(top_srcdir)/m4/wizard_check_pthread_lib.m4 \
 	$(top_srcdir)/m4/wizard_func_mmap_fileio.m4 \
 	$(top_srcdir)/configure.ac
@@ -233,11 +234,11 @@ am__wizard_libWizardsToolkit_la_SOURCES_DIST = wizard/aes.c \
 	wizard/thread.c wizard/thread_.h wizard/thread-private.h \
 	wizard/timer.c wizard/timer.h wizard/token.c wizard/token.h \
 	wizard/twofish.c wizard/twofish.h wizard/utility.c \
-	wizard/utility.h wizard/version.c wizard/version.h \
-	wizard/wizard.c wizard/wizard.h wizard/wizard-type.h \
-	wizard/wizard-config.h wizard/WizardsToolkit.h \
-	wizard/xml-tree.c wizard/xml-tree.h wizard/zip.c wizard/zip.h \
-	wizard/nt-base.c
+	wizard/utility.h wizard/utility-private.h wizard/version.c \
+	wizard/version.h wizard/wizard.c wizard/wizard.h \
+	wizard/wizard-type.h wizard/wizard-config.h \
+	wizard/WizardsToolkit.h wizard/xml-tree.c wizard/xml-tree.h \
+	wizard/zip.c wizard/zip.h wizard/nt-base.c
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = wizard/aes.lo wizard/authenticate.lo wizard/blob.lo \
 	wizard/bzip.lo wizard/cipher.lo wizard/client.lo \
@@ -910,6 +911,7 @@ WIZARD_BASE_SRCS = \
   wizard/twofish.h \
   wizard/utility.c \
   wizard/utility.h \
+  wizard/utility-private.h \
   wizard/version.c \
   wizard/version.h \
   wizard/wizard.c \
@@ -988,7 +990,8 @@ WIZARD_NOINST_HDRS = \
   wizard/string-private.h \
   wizard/studio.h \
   wizard/thread-private.h \
-  wizard/twofish.h
+  wizard/twofish.h \
+  wizard/utility-private.h 
 
 WIZARD_EXTRA_DIST = \
 	wizard/WizardsToolkit-config.in \
