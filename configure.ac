@@ -14,7 +14,7 @@
 #
 #  Configure script for building the Wizard Toolkit.
 
-AC_PREREQ(2.59)
+AC_PREREQ(2.67)
 
 m4_define([wizard_major_version], [1])
 m4_define([wizard_minor_version], [0])
@@ -23,7 +23,7 @@ m4_define([wizard_version],
           [wizard_major_version.wizard_minor_version.wizard_micro_version])
 m4_define([wizard_svn_revision], esyscmd([sh -c "svnversion | sed -r 's/([0-9]+).*/\1/'"]))
 
-AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit-wizard_version])
+AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit])
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_MACRO_DIR([m4])
@@ -104,7 +104,7 @@ AC_SUBST(CVS_BRANCH_TAG)dnl
 # Ensure that make can run correctly
 AM_SANITY_CHECK
 
-AM_INIT_AUTOMAKE($PACKAGE_NAME,"${PACKAGE_VERSION}${PACKAGE_VERSION_ADDENDUM}", ' ')
+AM_INIT_AUTOMAKE([color-tests foreign parallel-tests silent-rules subdir-objects dist-zip dist-bzip2 dist-xz])
 
 # Enable support for silent build rules
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
@@ -389,8 +389,8 @@ if test "$enable_largefile" != no; then
           exit(!(sizeof(off_t) == 8));
         }])],
         [ac_cv_sys_file_offset_bits=64; AC_DEFINE(_FILE_OFFSET_BITS,64)
-         AC_MSG_RESULT([yes])],
-        [AC_MSG_RESULT([no])])
+         AC_MSG_NOTICE([yes])],
+        [AC_MSG_NOTICE([no])])
         ;;
     *)
         LFS_CPPFLAGS="$LFS_CPPFLAGS -D_FILE_OFFSET_BITS=$ac_cv_sys_file_offset_bits"
@@ -717,22 +717,22 @@ AC_CHECK_SIZEOF(unsigned int*)
 #
 AC_MSG_CHECKING(for signed 8-bit type)
 INT8_T='signed char'
-AC_MSG_RESULT($INT8_T)
+AC_MSG_NOTICE($INT8_T)
 AC_SUBST(INT8_T)
 
 AC_MSG_CHECKING(for unsigned 8-bit type)
 UINT8_T='unsigned char'
-AC_MSG_RESULT($UINT8_T)
+AC_MSG_NOTICE($UINT8_T)
 AC_SUBST(UINT8_T)
 
 AC_MSG_CHECKING(for signed 16-bit type)
 INT16_T='signed short'
-AC_MSG_RESULT($INT16_T)
+AC_MSG_NOTICE($INT16_T)
 AC_SUBST(INT16_T)
 
 AC_MSG_CHECKING(for unsigned 16-bit type)
 UINT16_T='unsigned short'
-AC_MSG_RESULT($UINT16_T)
+AC_MSG_NOTICE($UINT16_T)
 AC_SUBST(UINT16_T)
 
 AC_MSG_CHECKING(for signed 32-bit type)
@@ -745,7 +745,7 @@ elif test $ac_cv_sizeof_signed_long -eq 4; then
   INT32_T='signed long'
   INT32_F='"l"'
 fi
-AC_MSG_RESULT($INT32_T)
+AC_MSG_NOTICE($INT32_T)
 AC_SUBST(INT32_T)
 AC_SUBST(INT32_F)
 
@@ -759,7 +759,7 @@ elif test $ac_cv_sizeof_unsigned_long -eq 4; then
   UINT32_T='unsigned long'
   UINT32_F='"l"'
 fi
-AC_MSG_RESULT($UINT32_T)
+AC_MSG_NOTICE($UINT32_T)
 AC_SUBST(UINT32_T)
 AC_SUBST(UINT32_F)
 
@@ -778,7 +778,7 @@ case "${build_os}" in
     INT64_F='"I64"'
     ;;
 esac
-AC_MSG_RESULT($INT64_T)
+AC_MSG_NOTICE($INT64_T)
 AC_SUBST(INT64_T)
 AC_SUBST(INT64_F)
 
@@ -797,7 +797,7 @@ case "${build_os}" in
     UINT64_F='"I64"'
     ;;
 esac
-AC_MSG_RESULT($UINT64_T)
+AC_MSG_NOTICE($UINT64_T)
 AC_SUBST(UINT64_T)
 AC_SUBST(UINT64_F)
 
@@ -811,7 +811,7 @@ elif test "$UINT32_T" != 'none'; then
   UINTMAX_T=$UINT32_T
   UINTMAX_F=$UINT32_F
 fi
-AC_MSG_RESULT($UINTMAX_T)
+AC_MSG_NOTICE($UINTMAX_T)
 AC_SUBST(UINTMAX_T)
 AC_SUBST(UINTMAX_F)
 
@@ -825,7 +825,7 @@ elif test $ac_cv_sizeof_unsigned_long_long -eq $ac_cv_sizeof_unsigned_intp; then
   UINTPTR_T='unsigned long long'
   UINTPTR_F='"ll"'
 fi
-AC_MSG_RESULT($UINTPTR_T)
+AC_MSG_NOTICE($UINTPTR_T)
 AC_SUBST(UINTPTR_T)
 AC_SUBST(UINTPTR_F)
 
@@ -835,15 +835,15 @@ AC_SUBST(UINTPTR_F)
 AC_MSG_CHECKING([whether our compiler supports __func__])
 AC_TRY_COMPILE([],
  [{ const char *func = __func__; return(func != 0 ? 0 : 1); }],
- AC_MSG_RESULT([yes]),
- AC_MSG_RESULT([no])
+ AC_MSG_NOTICE([yes]),
+ AC_MSG_NOTICE([no])
  AC_MSG_CHECKING([whether our compiler supports __FUNCTION__])
  AC_TRY_COMPILE([],
    [{ const char *func = __FUNCTION__; return(func != 0 ? 0 : 1); }],
-   AC_MSG_RESULT([yes])
+   AC_MSG_NOTICE([yes])
    AC_DEFINE(__func__, __FUNCTION__,
      [Define to appropriate substitue if compiler does not have __func__]),
-   AC_MSG_RESULT([no])
+   AC_MSG_NOTICE([no])
    AC_DEFINE(__func__, __FILE__,
      [Define to appropriate substitue if compiler does not have __func__])))
 
@@ -875,11 +875,11 @@ AC_SEARCH_LIBS(clock_gettime, rt,
       [[#include <time.h>]],
        [[clockid_t clockType = CLOCK_REALTIME;]]))],
       [
-        AC_MSG_RESULT(yes)
+        AC_MSG_NOTICE(yes)
       	AC_DEFINE([HAVE_CLOCK_REALTIME],[1],
           [Define to 1 if clock_gettime supports CLOCK_REALTIME.])
       ],
-      AC_MSG_RESULT(no)
+      AC_MSG_NOTICE(no)
     )
   ],
   [
@@ -936,7 +936,7 @@ if test "$with_wizard_plus_plus" = 'yes'; then
  else
     have_wizard_plus_plus='no (failed tests)'
  fi
- AC_MSG_RESULT([$have_wizard_plus_plus])
+ AC_MSG_NOTICE([$have_wizard_plus_plus])
  LIBS="$OLIBS"
 fi
 AM_CONDITIONAL(WITH_WIZARD_PLUS_PLUS, test "$have_wizard_plus_plus" = 'yes')
@@ -1036,7 +1036,7 @@ have_umem='no'
 UMEM_LIBS=''
 if test "$with_umem" != 'no'; then
   AC_MSG_CHECKING(for UMEM support )
-  AC_MSG_RESULT()
+  AC_MSG_NOTICE()
   failed=0
   passed=0
   AC_CHECK_HEADER(umem.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
@@ -1045,17 +1045,17 @@ if test "$with_umem" != 'no'; then
   AC_MSG_CHECKING(if umem memory allocation library is complete)
   if test $passed -gt 0; then
     if test $failed -gt 0; then
-      AC_MSG_RESULT(no -- some components failed test)
+      AC_MSG_NOTICE(no -- some components failed test)
       have_umem='no (failed tests)'
     else
       UMEM_LIBS='-lumem'
       LIBS="$UMEM_LIBS $LIBS"
       AC_DEFINE(HasUMEM,1,Define if you have umem memory allocation library)
-      AC_MSG_RESULT(yes)
+      AC_MSG_NOTICE(yes)
       have_umem='yes'
     fi
   else
-    AC_MSG_RESULT(no)
+    AC_MSG_NOTICE(no)
   fi
 fi
 AM_CONDITIONAL(HasUMEM, test "$have_umem" = 'yes')
@@ -1118,9 +1118,9 @@ fi
 have_bzlib='no'
 if test "$with_bzlib" != 'no'; then
     BZLIB_LIBS=''
-    AC_MSG_RESULT([-------------------------------------------------------------])
+    AC_MSG_NOTICE([-------------------------------------------------------------])
     AC_MSG_CHECKING(for BZLIB)
-    AC_MSG_RESULT([])
+    AC_MSG_NOTICE([])
     failed=0
     passed=0
     found_libbz=0
@@ -1137,17 +1137,17 @@ if test "$with_bzlib" != 'no'; then
     AC_MSG_CHECKING(if BZLIB package is complete)
     if test $passed -gt 0; then
       if test $failed -gt 0; then
-        AC_MSG_RESULT(no -- some components failed test)
+        AC_MSG_NOTICE(no -- some components failed test)
         have_bzlib='no (failed tests)'
       else
         BZLIB_LIBS='-lbz2'
         LIBS="$BZLIB_LIBS $LIBS"
         AC_DEFINE(BZLIB_DELEGATE,1,Define if you have the bzip2 library)
-        AC_MSG_RESULT(yes)
+        AC_MSG_NOTICE(yes)
         have_bzlib='yes'
       fi
     else
-      AC_MSG_RESULT(no)
+      AC_MSG_NOTICE(no)
     fi
 fi
 AM_CONDITIONAL(BZLIB_DELEGATE, test "$have_bzlib" = 'yes')
@@ -1169,9 +1169,9 @@ fi
 have_lzma='no'
 LZMA_LIBS=''
 if test "$with_lzma" != 'no' || test "$with_tiff" != 'no'; then
-    AC_MSG_RESULT([-------------------------------------------------------------])
+    AC_MSG_NOTICE([-------------------------------------------------------------])
   AC_MSG_CHECKING(for LZMA)
-  AC_MSG_RESULT()
+  AC_MSG_NOTICE()
   failed=0
   passed=0
   AC_CHECK_HEADER(lzma.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
@@ -1179,17 +1179,17 @@ if test "$with_lzma" != 'no' || test "$with_tiff" != 'no'; then
   AC_MSG_CHECKING(if LZMA package is complete)
   if test $passed -gt 0; then
     if test $failed -gt 0; then
-      AC_MSG_RESULT(no -- some components failed test)
+      AC_MSG_NOTICE(no -- some components failed test)
       have_lzma='no (failed tests)'
     else
       LZMA_LIBS='-llzma'
       LIBS="$LZMA_LIBS $LIBS"
       AC_DEFINE(LZMA_DELEGATE,1,Define if you have lzma compression library)
-      AC_MSG_RESULT(yes)
+      AC_MSG_NOTICE(yes)
       have_lzma='yes'
     fi
   else
-    AC_MSG_RESULT(no)
+    AC_MSG_NOTICE(no)
   fi
 fi
 AM_CONDITIONAL(LZMA_DELEGATE, test "$have_lzma" = 'yes')
@@ -1215,9 +1215,9 @@ have_zlib='no'
 ZLIB_LIBS=''
 dnl PNG requires zlib so enable zlib check if PNG is requested
 if test "$with_zlib" != 'no' || test "$with_png" != 'no'; then
-  AC_MSG_RESULT([-------------------------------------------------------------])
+  AC_MSG_NOTICE([-------------------------------------------------------------])
   AC_MSG_CHECKING(for ZLIB)
-  AC_MSG_RESULT([])
+  AC_MSG_NOTICE([])
   failed=0
   passed=0
   AC_CHECK_HEADER(zconf.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
@@ -1232,17 +1232,17 @@ if test "$with_zlib" != 'no' || test "$with_png" != 'no'; then
   AC_MSG_CHECKING([if ZLIB package is complete])
   if test $passed -gt 0; then
     if test $failed -gt 0; then
-      AC_MSG_RESULT([no -- some components failed test])
+      AC_MSG_NOTICE([no -- some components failed test])
       have_zlib='no (failed tests)'
     else
       ZLIB_LIBS='-lz'
       LIBS="$ZLIB_LIBS $LIBS"
       AC_DEFINE(ZLIB_DELEGATE,1,Define if you have zlib compression library)
-      AC_MSG_RESULT([yes])
+      AC_MSG_NOTICE([yes])
       have_zlib='yes'
     fi
   else
-    AC_MSG_RESULT([no])
+    AC_MSG_NOTICE([no])
   fi
 fi
 AM_CONDITIONAL(ZLIB_DELEGATE, test "$have_zlib" = 'yes')
@@ -1489,7 +1489,7 @@ AC_OUTPUT
 
 rm -f wizard-version
 
-AC_MSG_RESULT([
+AC_MSG_NOTICE([
 The Wizards Toolkit is configured as follows. Please verify that
 this configuration matches your expectations.
 

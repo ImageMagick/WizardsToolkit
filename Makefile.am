@@ -14,8 +14,6 @@
 #
 #  Top-Level Makefile for building the Wizard's Toolkit.
 
-AUTOMAKE_OPTIONS = 1.11 subdir-objects parallel-tests color-tests dist-zip dist-bzip2 dist-xz  foreign
-
 topincludedir = @includedir@
 
 AM_CPPFLAGS = -I$(top_builddir) -I$(top_srcdir)

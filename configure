@@ -569,7 +569,7 @@ MAKEFLAGS=
 
 # Identity of this package.
 PACKAGE_NAME='WizardsToolkit'
-PACKAGE_TARNAME='WizardsToolkit-1.0.8'
+PACKAGE_TARNAME='WizardsToolkit'
 PACKAGE_VERSION='1.0.8'
 PACKAGE_STRING='WizardsToolkit 1.0.8'
 PACKAGE_BUGREPORT='http://www.wizards-toolkit.org'
@@ -1505,8 +1505,7 @@ Fine tuning of the installation directories:
   --infodir=DIR           info documentation [DATAROOTDIR/info]
   --localedir=DIR         locale-dependent data [DATAROOTDIR/locale]
   --mandir=DIR            man documentation [DATAROOTDIR/man]
-  --docdir=DIR            documentation root
-                          [DATAROOTDIR/doc/WizardsToolkit-1.0.8]
+  --docdir=DIR            documentation root [DATAROOTDIR/doc/WizardsToolkit]
   --htmldir=DIR           html documentation [DOCDIR]
   --dvidir=DIR            dvi documentation [DOCDIR]
   --pdfdir=DIR            pdf documentation [DOCDIR]
@@ -3525,6 +3524,18 @@ else
 fi
 rmdir .tst 2>/dev/null
 
+# Check whether --enable-silent-rules was given.
+if test "${enable_silent_rules+set}" = set; then :
+  enableval=$enable_silent_rules;
+fi
+
+case $enable_silent_rules in
+yes) AM_DEFAULT_VERBOSITY=0;;
+no)  AM_DEFAULT_VERBOSITY=1;;
+*)   AM_DEFAULT_VERBOSITY=1;;
+esac
+AM_BACKSLASH='\'
+
 if test "`cd $srcdir && pwd`" != "`pwd`"; then
   # Use -I$(srcdir) only when $(srcdir) != ., so that make's output
   # is not polluted with repeated "-I."
@@ -3546,9 +3557,18 @@ fi
 
 
 # Define the identity of the package.
- PACKAGE=$PACKAGE_NAME
- VERSION="${PACKAGE_VERSION}${PACKAGE_VERSION_ADDENDUM}"
+ PACKAGE='WizardsToolkit'
+ VERSION='1.0.8'
 
+
+cat >>confdefs.h <<_ACEOF
+#define PACKAGE "$PACKAGE"
+_ACEOF
+
+
+cat >>confdefs.h <<_ACEOF
+#define VERSION "$VERSION"
+_ACEOF
 
 # Some tools Automake needs.
 
@@ -7888,11 +7908,11 @@ _ACEOF
 if ac_fn_c_try_run "$LINENO"; then :
   ac_cv_sys_file_offset_bits=64; $as_echo "#define _FILE_OFFSET_BITS 64" >>confdefs.h
 
-         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
+         { $as_echo "$as_me:${as_lineno-$LINENO}: yes" >&5
+$as_echo "$as_me: yes" >&6;}
 else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: no" >&5
+$as_echo "$as_me: no" >&6;}
 fi
 rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
   conftest.$ac_objext conftest.beam conftest.$ac_ext
@@ -20900,29 +20920,29 @@ _ACEOF
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for signed 8-bit type" >&5
 $as_echo_n "checking for signed 8-bit type... " >&6; }
 INT8_T='signed char'
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $INT8_T" >&5
-$as_echo "$INT8_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $INT8_T" >&5
+$as_echo "$as_me: $INT8_T" >&6;}
 
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for unsigned 8-bit type" >&5
 $as_echo_n "checking for unsigned 8-bit type... " >&6; }
 UINT8_T='unsigned char'
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $UINT8_T" >&5
-$as_echo "$UINT8_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $UINT8_T" >&5
+$as_echo "$as_me: $UINT8_T" >&6;}
 
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for signed 16-bit type" >&5
 $as_echo_n "checking for signed 16-bit type... " >&6; }
 INT16_T='signed short'
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $INT16_T" >&5
-$as_echo "$INT16_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $INT16_T" >&5
+$as_echo "$as_me: $INT16_T" >&6;}
 
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for unsigned 16-bit type" >&5
 $as_echo_n "checking for unsigned 16-bit type... " >&6; }
 UINT16_T='unsigned short'
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $UINT16_T" >&5
-$as_echo "$UINT16_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $UINT16_T" >&5
+$as_echo "$as_me: $UINT16_T" >&6;}
 
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for signed 32-bit type" >&5
@@ -20936,8 +20956,8 @@ elif test $ac_cv_sizeof_signed_long -eq 4; then
   INT32_T='signed long'
   INT32_F='"l"'
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $INT32_T" >&5
-$as_echo "$INT32_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $INT32_T" >&5
+$as_echo "$as_me: $INT32_T" >&6;}
 
 
 
@@ -20952,8 +20972,8 @@ elif test $ac_cv_sizeof_unsigned_long -eq 4; then
   UINT32_T='unsigned long'
   UINT32_F='"l"'
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $UINT32_T" >&5
-$as_echo "$UINT32_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $UINT32_T" >&5
+$as_echo "$as_me: $UINT32_T" >&6;}
 
 
 
@@ -20973,8 +20993,8 @@ case "${build_os}" in
     INT64_F='"I64"'
     ;;
 esac
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $INT64_T" >&5
-$as_echo "$INT64_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $INT64_T" >&5
+$as_echo "$as_me: $INT64_T" >&6;}
 
 
 
@@ -20994,8 +21014,8 @@ case "${build_os}" in
     UINT64_F='"I64"'
     ;;
 esac
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $UINT64_T" >&5
-$as_echo "$UINT64_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $UINT64_T" >&5
+$as_echo "$as_me: $UINT64_T" >&6;}
 
 
 
@@ -21010,8 +21030,8 @@ elif test "$UINT32_T" != 'none'; then
   UINTMAX_T=$UINT32_T
   UINTMAX_F=$UINT32_F
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $UINTMAX_T" >&5
-$as_echo "$UINTMAX_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $UINTMAX_T" >&5
+$as_echo "$as_me: $UINTMAX_T" >&6;}
 
 
 
@@ -21026,8 +21046,8 @@ elif test $ac_cv_sizeof_unsigned_long_long -eq $ac_cv_sizeof_unsigned_intp; then
   UINTPTR_T='unsigned long long'
   UINTPTR_F='"ll"'
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $UINTPTR_T" >&5
-$as_echo "$UINTPTR_T" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: $UINTPTR_T" >&5
+$as_echo "$as_me: $UINTPTR_T" >&6;}
 
 
 
@@ -21048,11 +21068,11 @@ main ()
 }
 _ACEOF
 if ac_fn_c_try_compile "$LINENO"; then :
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: yes" >&5
+$as_echo "$as_me: yes" >&6;}
 else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: no" >&5
+$as_echo "$as_me: no" >&6;}
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether our compiler supports __FUNCTION__" >&5
 $as_echo_n "checking whether our compiler supports __FUNCTION__... " >&6; }
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
@@ -21067,14 +21087,14 @@ main ()
 }
 _ACEOF
 if ac_fn_c_try_compile "$LINENO"; then :
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: yes" >&5
+$as_echo "$as_me: yes" >&6;}
 
 $as_echo "#define __func__ __FUNCTION__" >>confdefs.h
 
 else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: no" >&5
+$as_echo "$as_me: no" >&6;}
 
 $as_echo "#define __func__ __FILE__" >>confdefs.h
 
@@ -22220,15 +22240,15 @@ clockid_t clockType = CLOCK_REALTIME;
 _ACEOF
 if ac_fn_c_try_compile "$LINENO"; then :
 
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
+        { $as_echo "$as_me:${as_lineno-$LINENO}: yes" >&5
+$as_echo "$as_me: yes" >&6;}
 
 $as_echo "#define HAVE_CLOCK_REALTIME 1" >>confdefs.h
 
 
 else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: no" >&5
+$as_echo "$as_me: no" >&6;}
 
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
@@ -22998,8 +23018,8 @@ $as_echo_n "checking whether C++ compiler is sufficient for the Wizard's Toolkit
  else
     have_wizard_plus_plus='no (failed tests)'
  fi
- { $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_wizard_plus_plus" >&5
-$as_echo "$have_wizard_plus_plus" >&6; }
+ { $as_echo "$as_me:${as_lineno-$LINENO}: $have_wizard_plus_plus" >&5
+$as_echo "$as_me: $have_wizard_plus_plus" >&6;}
  LIBS="$OLIBS"
 fi
  if test "$have_wizard_plus_plus" = 'yes'; then
@@ -23379,8 +23399,8 @@ UMEM_LIBS=''
 if test "$with_umem" != 'no'; then
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for UMEM support " >&5
 $as_echo_n "checking for UMEM support ... " >&6; }
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: " >&5
-$as_echo "" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: " >&5
+$as_echo "$as_me: " >&6;}
   failed=0
   passed=0
   ac_fn_c_check_header_mongrel "$LINENO" "umem.h" "ac_cv_header_umem_h" "$ac_includes_default"
@@ -23479,8 +23499,8 @@ fi
 $as_echo_n "checking if umem memory allocation library is complete... " >&6; }
   if test $passed -gt 0; then
     if test $failed -gt 0; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no -- some components failed test" >&5
-$as_echo "no -- some components failed test" >&6; }
+      { $as_echo "$as_me:${as_lineno-$LINENO}: no -- some components failed test" >&5
+$as_echo "$as_me: no -- some components failed test" >&6;}
       have_umem='no (failed tests)'
     else
       UMEM_LIBS='-lumem'
@@ -23488,13 +23508,13 @@ $as_echo "no -- some components failed test" >&6; }
 
 $as_echo "#define HasUMEM 1" >>confdefs.h
 
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
+      { $as_echo "$as_me:${as_lineno-$LINENO}: yes" >&5
+$as_echo "$as_me: yes" >&6;}
       have_umem='yes'
     fi
   else
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: no" >&5
+$as_echo "$as_me: no" >&6;}
   fi
 fi
  if test "$have_umem" = 'yes'; then
@@ -23684,12 +23704,12 @@ fi
 have_bzlib='no'
 if test "$with_bzlib" != 'no'; then
     BZLIB_LIBS=''
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: -------------------------------------------------------------" >&5
-$as_echo "-------------------------------------------------------------" >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: -------------------------------------------------------------" >&5
+$as_echo "$as_me: -------------------------------------------------------------" >&6;}
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for BZLIB" >&5
 $as_echo_n "checking for BZLIB... " >&6; }
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: " >&5
-$as_echo "" >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: " >&5
+$as_echo "$as_me: " >&6;}
     failed=0
     passed=0
     found_libbz=0
@@ -23792,8 +23812,8 @@ fi
 $as_echo_n "checking if BZLIB package is complete... " >&6; }
     if test $passed -gt 0; then
       if test $failed -gt 0; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no -- some components failed test" >&5
-$as_echo "no -- some components failed test" >&6; }
+        { $as_echo "$as_me:${as_lineno-$LINENO}: no -- some components failed test" >&5
+$as_echo "$as_me: no -- some components failed test" >&6;}
         have_bzlib='no (failed tests)'
       else
         BZLIB_LIBS='-lbz2'
@@ -23801,13 +23821,13 @@ $as_echo "no -- some components failed test" >&6; }
 
 $as_echo "#define BZLIB_DELEGATE 1" >>confdefs.h
 
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
+        { $as_echo "$as_me:${as_lineno-$LINENO}: yes" >&5
+$as_echo "$as_me: yes" >&6;}
         have_bzlib='yes'
       fi
     else
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
+      { $as_echo "$as_me:${as_lineno-$LINENO}: no" >&5
+$as_echo "$as_me: no" >&6;}
     fi
 fi
  if test "$have_bzlib" = 'yes'; then
@@ -23839,12 +23859,12 @@ fi
 have_lzma='no'
 LZMA_LIBS=''
 if test "$with_lzma" != 'no' || test "$with_tiff" != 'no'; then
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: -------------------------------------------------------------" >&5
-$as_echo "-------------------------------------------------------------" >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: -------------------------------------------------------------" >&5
+$as_echo "$as_me: -------------------------------------------------------------" >&6;}
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for LZMA" >&5
 $as_echo_n "checking for LZMA... " >&6; }
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: " >&5
-$as_echo "" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: " >&5
+$as_echo "$as_me: " >&6;}
   failed=0
   passed=0
   ac_fn_c_check_header_mongrel "$LINENO" "lzma.h" "ac_cv_header_lzma_h" "$ac_includes_default"
@@ -23901,8 +23921,8 @@ fi
 $as_echo_n "checking if LZMA package is complete... " >&6; }
   if test $passed -gt 0; then
     if test $failed -gt 0; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no -- some components failed test" >&5
-$as_echo "no -- some components failed test" >&6; }
+      { $as_echo "$as_me:${as_lineno-$LINENO}: no -- some components failed test" >&5
+$as_echo "$as_me: no -- some components failed test" >&6;}
       have_lzma='no (failed tests)'
     else
       LZMA_LIBS='-llzma'
@@ -23910,13 +23930,13 @@ $as_echo "no -- some components failed test" >&6; }
 
 $as_echo "#define LZMA_DELEGATE 1" >>confdefs.h
 
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
+      { $as_echo "$as_me:${as_lineno-$LINENO}: yes" >&5
+$as_echo "$as_me: yes" >&6;}
       have_lzma='yes'
     fi
   else
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: no" >&5
+$as_echo "$as_me: no" >&6;}
   fi
 fi
  if test "$have_lzma" = 'yes'; then
@@ -23950,12 +23970,12 @@ fi
 have_zlib='no'
 ZLIB_LIBS=''
 if test "$with_zlib" != 'no' || test "$with_png" != 'no'; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: -------------------------------------------------------------" >&5
-$as_echo "-------------------------------------------------------------" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: -------------------------------------------------------------" >&5
+$as_echo "$as_me: -------------------------------------------------------------" >&6;}
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ZLIB" >&5
 $as_echo_n "checking for ZLIB... " >&6; }
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: " >&5
-$as_echo "" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: " >&5
+$as_echo "$as_me: " >&6;}
   failed=0
   passed=0
   ac_fn_c_check_header_mongrel "$LINENO" "zconf.h" "ac_cv_header_zconf_h" "$ac_includes_default"
@@ -24272,8 +24292,8 @@ fi
 $as_echo_n "checking if ZLIB package is complete... " >&6; }
   if test $passed -gt 0; then
     if test $failed -gt 0; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no -- some components failed test" >&5
-$as_echo "no -- some components failed test" >&6; }
+      { $as_echo "$as_me:${as_lineno-$LINENO}: no -- some components failed test" >&5
+$as_echo "$as_me: no -- some components failed test" >&6;}
       have_zlib='no (failed tests)'
     else
       ZLIB_LIBS='-lz'
@@ -24281,13 +24301,13 @@ $as_echo "no -- some components failed test" >&6; }
 
 $as_echo "#define ZLIB_DELEGATE 1" >>confdefs.h
 
-      { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
+      { $as_echo "$as_me:${as_lineno-$LINENO}: yes" >&5
+$as_echo "$as_me: yes" >&6;}
       have_zlib='yes'
     fi
   else
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
+    { $as_echo "$as_me:${as_lineno-$LINENO}: no" >&5
+$as_echo "$as_me: no" >&6;}
   fi
 fi
  if test "$have_zlib" = 'yes'; then
@@ -27626,7 +27646,7 @@ fi
 
 rm -f wizard-version
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result:
+{ $as_echo "$as_me:${as_lineno-$LINENO}:
 The Wizards Toolkit is configured as follows. Please verify that
 this configuration matches your expectations.
 
@@ -27658,7 +27678,7 @@ Options used to compile and link:
   CXX         = $CXX
   CXXFLAGS    = $CXXFLAGS
 " >&5
-$as_echo "
+$as_echo "$as_me:
 The Wizards Toolkit is configured as follows. Please verify that
 this configuration matches your expectations.
 
@@ -27689,4 +27709,4 @@ Options used to compile and link:
   LIBS        = $WIZARD_LIBS
   CXX         = $CXX
   CXXFLAGS    = $CXXFLAGS
-" >&6; }
+" >&6;}

@@ -658,7 +658,6 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 windows_font_dir = @windows_font_dir@
-AUTOMAKE_OPTIONS = 1.11 subdir-objects parallel-tests color-tests dist-zip dist-bzip2 dist-xz  foreign
 topincludedir = @includedir@
 AM_CPPFLAGS = -I$(top_builddir) -I$(top_srcdir)
 ACLOCAL_AMFLAGS = -I m4
