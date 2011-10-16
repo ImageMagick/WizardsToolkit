@@ -19,8 +19,9 @@ AC_PREREQ(2.67)
 m4_define([wizard_major_version], [1])
 m4_define([wizard_minor_version], [0])
 m4_define([wizard_micro_version], [8])
+m4_define([wizard_patchlevel_version], [7])
 m4_define([wizard_version],
-          [wizard_major_version.wizard_minor_version.wizard_micro_version])
+          [wizard_major_version.wizard_minor_version.wizard_micro_version-wizard_patchlevel_version])
 m4_define([wizard_svn_revision], esyscmd([sh -c "svnversion | sed -r 's/([0-9]+).*/\1/'"]))
 
 AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit])
