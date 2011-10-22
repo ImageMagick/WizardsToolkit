@@ -21,16 +21,16 @@ while test $# -gt 0; do
       echo @PACKAGE_VERSION@
       ;;
     --cflags)
-      echo '@CFLAGS@'
+      pkg-config --cflags WizardsToolkit
       ;;
     --cppflags)
-      echo '@WIZARD_CPPFLAGS@'
+      pkg-config --cflags WizardsToolkit
       ;;
     --ldflags)
-      echo '@WIZARD_LDFLAGS@'
+      pkg-config --libs WizardsToolkit
       ;;
     --libs)
-      echo '@WIZARD_LIBS@'
+      pkg-config --libs WizardsToolkit
       ;;
     *)
       echo "${usage}" 1>&2
