@@ -123,9 +123,6 @@ static const unsigned char
 %
 %  A description of each parameter follows:
 %
-%    o allocated_string:  Method AcquireString returns a copy of the source
-%      string.
-%
 %    o source: A character string.
 %
 */
@@ -278,7 +275,7 @@ WizardExport char *CloneString(char **destination,const char *source)
   if (source == (const char *) NULL)
     {
       if (*destination != (char *) NULL)
-        *destination=(char *) RelinquishWizardMemory(*destination);
+        *destination=DestroyString(*destination);
       return(*destination);
     }
   if (*destination == (char *) NULL)
@@ -624,7 +621,7 @@ WizardExport StringInfo *ConfigureFileToStringInfo(const char *filename)
   file=close(file)-1;
   string_info=AcquireStringInfo(0);
   (void) CopyWizardString(string_info->path,filename,MaxTextExtent);
-  string_info->length=strlen(string)+1;
+  string_info->length=length;
   string_info->datum=(unsigned char *) string;
   return(string_info);
 }
@@ -1166,7 +1163,7 @@ WizardExport char *GetEnvironmentValue(const char *name)
 
   environment=getenv(name);
   if (environment == (const char *) NULL)
-    return(0);
+    return((char *) NULL);
   return(ConstantString(environment));
 }
 
@@ -1965,9 +1962,8 @@ WizardExport char *StringInfoToString(const StringInfo *string_info)
 
   string=(char *) NULL;
   length=string_info->length;
-  if (~length < MaxTextExtent)
-    return((char *) NULL);
-  string=(char *) AcquireQuantumMemory(length+MaxTextExtent,sizeof(*string));
+  if (~length >= (MaxTextExtent-1))
+    string=(char *) AcquireQuantumMemory(length+MaxTextExtent,sizeof(*string));
   if (string == (char *) NULL)
     return((char *) NULL);
   (void) memcpy(string,(char *) string_info->datum,length*sizeof(*string));
@@ -2008,7 +2004,7 @@ WizardExport char **StringToArgv(const char *text,int *argc)
   char
     **argv;
 
-  register char
+  register const char
     *p,
     *q;
 
@@ -2021,10 +2017,12 @@ WizardExport char **StringToArgv(const char *text,int *argc)
   /*
     Determine the number of arguments.
   */
-  for (p=(char *) text; *p != '\0'; )
+  for (p=text; *p != '\0'; )
   {
     while (isspace((int) ((unsigned char) *p)) != 0)
       p++;
+    if (*p == '\0')
+      break;
     (*argc)++;
     if (*p == '"')
       for (p++; (*p != '"') && (*p != '\0'); p++) ;
@@ -2053,8 +2051,8 @@ WizardExport char **StringToArgv(const char *text,int *argc)
     else
       if (*q == '\'')
         {
+          p++;
           for (q++; (*q != '\'') && (*q != '\0'); q++) ;
-          q++;
         }
       else
         while ((isspace((int) ((unsigned char) *q)) == 0) && (*q != '\0'))
@@ -2148,8 +2146,6 @@ WizardExport void StripString(char *message)
   if (*message == '\0')
     return;
   length=strlen(message);
-  if (length == 1)
-    return;
   p=message;
   while (isspace((int) ((unsigned char) *p)) != 0)
     p++;
