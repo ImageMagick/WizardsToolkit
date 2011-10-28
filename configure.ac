@@ -338,6 +338,31 @@ Please re-run configure with these options:
   ;;
 esac
 
+#
+# ARCH specific include directory
+#
+AC_ARG_WITH([includedir-arch],
+    [AC_HELP_STRING([--includedir-arch=DIR],
+                    [ARCH specific include directory])],
+                    [includedir_arch=$withval],
+                    [includedir_arch=$INCLUDE_DIR])
+
+eval "eval INCLUDEDIR_ARCH=$includedir_arch"
+AC_SUBST(INCLUDEDIR_ARCH)
+
+#
+# ARCH specific configuration directory
+#
+AC_ARG_WITH([sharedir-arch],
+    [AC_HELP_STRING([--sharedir-arch=DIR],
+                    [ARCH specific config directory])],
+                    [sharedir_arch=$withval],
+                    [sharedir_arch="${LIB_DIR}/${PACKAGE_NAME}-${PACKAGE_VERSION}"])
+
+eval "eval SHAREDIR_ARCH=$sharedir_arch"
+SHAREDIR_ARCH="$sharedir_arch"
+AC_SUBST(SHAREDIR_ARCH)
+
 # Enable support for threads
 AC_ARG_WITH([threads],
     [AC_HELP_STRING([--without-threads],
@@ -1263,6 +1288,18 @@ AC_SUBST(LIB_DL)
 # Configure install Paths
 #
 
+# Path to ImageMagick header files
+INCLUDE_RELATIVE_PATH="ImageMagick"
+INCLUDE_PATH="${INCLUDEDIR_ARCH}/${INCLUDE_RELATIVE_PATH}"
+DEFINE_INCLUDE_PATH="${INCLUDEDIR_ARCH}/${INCLUDE_RELATIVE_PATH}/"
+case "${build_os}" in
+  mingw* )
+    DEFINE_INCLUDE_PATH=`$WinPathScript "$DEFINE_INCLUDE_PATH" 1`
+    ;;
+esac
+AC_DEFINE_UNQUOTED(INCLUDE_PATH,"$DEFINE_INCLUDE_PATH",Directory where ImageMagick headers live.)
+AC_SUBST(INCLUDE_PATH)
+
 # Subdirectory under lib to place Wizard lib files
 LIBRARY_RELATIVE_PATH="${PACKAGE_NAME}-${PACKAGE_VERSION}"
 AC_DEFINE_UNQUOTED(LIBRARY_RELATIVE_PATH,"$LIBRARY_RELATIVE_PATH",Subdirectory of lib where Wizard architecture dependent files are installed)
@@ -1318,7 +1355,7 @@ AC_SUBST(CONFIGURE_PATH)
 # Subdirectory under share to place Wizard configuration files
 SHARE_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}/config"
 AC_DEFINE_UNQUOTED(SHARE_RELATIVE_PATH,"$SHARE_RELATIVE_PATH",Subdirectory of lib where architecture-independent configuration files live.)
-SHARE_PATH="${DATA_DIR}/${SHARE_RELATIVE_PATH}"
+SHARE_PATH="${SHAREDIR_ARCH}/${SHARE_RELATIVE_PATH}"
 DEFINE_SHARE_PATH="${DATA_DIR}/${SHARE_RELATIVE_PATH}/"
 case "${build_os}" in
   mingw* )
