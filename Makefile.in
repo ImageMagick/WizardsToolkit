@@ -198,8 +198,9 @@ am__base_list = \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
 	"$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)" \
 	"$(DESTDIR)$(configlibdir)" "$(DESTDIR)$(configsharedir)" \
-	"$(DESTDIR)$(docdir)" "$(DESTDIR)$(pkgconfigdir)" \
-	"$(DESTDIR)$(includedir)" "$(DESTDIR)$(wizardincdir)"
+	"$(DESTDIR)$(configsharearchdir)" "$(DESTDIR)$(docdir)" \
+	"$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(includedir)" \
+	"$(DESTDIR)$(wizardincdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 wizard_libWizardsToolkit_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -353,8 +354,8 @@ DIST_SOURCES = $(am__wizard_libWizardsToolkit_la_SOURCES_DIST) \
 man1dir = $(mandir)/man1
 NROFF = nroff
 MANS = $(man_MANS)
-DATA = $(configlib_DATA) $(configshare_DATA) $(doc_DATA) \
-	$(pkgconfig_DATA)
+DATA = $(configlib_DATA) $(configshare_DATA) $(configsharearch_DATA) \
+	$(doc_DATA) $(pkgconfig_DATA)
 HEADERS = $(include_HEADERS) $(noinst_HEADERS) $(wizardinc_HEADERS)
 ETAGS = etags
 CTAGS = ctags
@@ -479,7 +480,7 @@ FGREP = @FGREP@
 GDI32_LIBS = @GDI32_LIBS@
 GOMP_LIBS = @GOMP_LIBS@
 GREP = @GREP@
-INCLUDEDIR_ARCH = @INCLUDEDIR_ARCH@
+INCLUDEARCH_DIR = @INCLUDEARCH_DIR@
 INCLUDE_DIR = @INCLUDE_DIR@
 INCLUDE_PATH = @INCLUDE_PATH@
 INFO_DIR = @INFO_DIR@
@@ -556,7 +557,8 @@ RPM = @RPM@
 SBIN_DIR = @SBIN_DIR@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
-SHAREDIR_ARCH = @SHAREDIR_ARCH@
+SHAREARCH_DIR = @SHAREARCH_DIR@
+SHAREARCH_PATH = @SHAREARCH_PATH@
 SHAREDSTATE_DIR = @SHAREDSTATE_DIR@
 SHARE_PATH = @SHARE_PATH@
 SHELL = @SHELL@
@@ -774,6 +776,13 @@ M4_EXTRA_DIST = \
 configsharedir = $(SHARE_PATH)
 configshare_DATA = \
 	config/configure.xml
+
+
+# Where architecture-independent configuration files get installed
+# (share/arch/WizardsToolkit-version)
+configsharearchdir = $(SHAREARCH_PATH)
+configsharearch_DATA = \
+  config/configure.xml 
 
 
 # Where architecture-dependent configuration files get installed
@@ -1803,6 +1812,26 @@ uninstall-configshareDATA:
 	test -n "$$files" || exit 0; \
 	echo " ( cd '$(DESTDIR)$(configsharedir)' && rm -f" $$files ")"; \
 	cd "$(DESTDIR)$(configsharedir)" && rm -f $$files
+install-configsharearchDATA: $(configsharearch_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(configsharearchdir)" || $(MKDIR_P) "$(DESTDIR)$(configsharearchdir)"
+	@list='$(configsharearch_DATA)'; test -n "$(configsharearchdir)" || list=; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(configsharearchdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(configsharearchdir)" || exit $$?; \
+	done
+
+uninstall-configsharearchDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(configsharearch_DATA)'; test -n "$(configsharearchdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	test -n "$$files" || exit 0; \
+	echo " ( cd '$(DESTDIR)$(configsharearchdir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(configsharearchdir)" && rm -f $$files
 install-docDATA: $(doc_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(docdir)" || $(MKDIR_P) "$(DESTDIR)$(docdir)"
@@ -2266,7 +2295,7 @@ all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(SCRIPTS) $(MANS) $(DATA) \
 install-binPROGRAMS: install-libLTLIBRARIES
 
 installdirs:
-	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(configlibdir)" "$(DESTDIR)$(configsharedir)" "$(DESTDIR)$(docdir)" "$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(includedir)" "$(DESTDIR)$(wizardincdir)"; do \
+	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(configlibdir)" "$(DESTDIR)$(configsharedir)" "$(DESTDIR)$(configsharearchdir)" "$(DESTDIR)$(docdir)" "$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(includedir)" "$(DESTDIR)$(wizardincdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -2329,8 +2358,9 @@ info: info-am
 info-am:
 
 install-data-am: install-configlibDATA install-configshareDATA \
-	install-data-local install-docDATA install-includeHEADERS \
-	install-man install-pkgconfigDATA install-wizardincHEADERS
+	install-configsharearchDATA install-data-local install-docDATA \
+	install-includeHEADERS install-man install-pkgconfigDATA \
+	install-wizardincHEADERS
 
 install-dvi: install-dvi-am
 
@@ -2382,9 +2412,10 @@ ps-am:
 
 uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 	uninstall-configlibDATA uninstall-configshareDATA \
-	uninstall-docDATA uninstall-includeHEADERS \
-	uninstall-libLTLIBRARIES uninstall-local uninstall-man \
-	uninstall-pkgconfigDATA uninstall-wizardincHEADERS
+	uninstall-configsharearchDATA uninstall-docDATA \
+	uninstall-includeHEADERS uninstall-libLTLIBRARIES \
+	uninstall-local uninstall-man uninstall-pkgconfigDATA \
+	uninstall-wizardincHEADERS
 
 uninstall-man: uninstall-man1
 
@@ -2401,13 +2432,14 @@ uninstall-man: uninstall-man1
 	distclean-local distclean-tags distcleancheck distdir \
 	distuninstallcheck dvi dvi-am html html-am info info-am \
 	install install-am install-binPROGRAMS install-binSCRIPTS \
-	install-configlibDATA install-configshareDATA install-data \
-	install-data-am install-data-local install-docDATA install-dvi \
-	install-dvi-am install-exec install-exec-am install-exec-local \
-	install-html install-html-am install-includeHEADERS \
-	install-info install-info-am install-libLTLIBRARIES \
-	install-man install-man1 install-pdf install-pdf-am \
-	install-pkgconfigDATA install-ps install-ps-am install-strip \
+	install-configlibDATA install-configshareDATA \
+	install-configsharearchDATA install-data install-data-am \
+	install-data-local install-docDATA install-dvi install-dvi-am \
+	install-exec install-exec-am install-exec-local install-html \
+	install-html-am install-includeHEADERS install-info \
+	install-info-am install-libLTLIBRARIES install-man \
+	install-man1 install-pdf install-pdf-am install-pkgconfigDATA \
+	install-ps install-ps-am install-strip \
 	install-wizardincHEADERS installcheck installcheck-am \
 	installdirs maintainer-clean maintainer-clean-generic \
 	maintainer-clean-local mostlyclean mostlyclean-compile \
@@ -2415,10 +2447,10 @@ uninstall-man: uninstall-man1
 	recheck recheck-html tags uninstall uninstall-am \
 	uninstall-binPROGRAMS uninstall-binSCRIPTS \
 	uninstall-configlibDATA uninstall-configshareDATA \
-	uninstall-docDATA uninstall-includeHEADERS \
-	uninstall-libLTLIBRARIES uninstall-local uninstall-man \
-	uninstall-man1 uninstall-pkgconfigDATA \
-	uninstall-wizardincHEADERS
+	uninstall-configsharearchDATA uninstall-docDATA \
+	uninstall-includeHEADERS uninstall-libLTLIBRARIES \
+	uninstall-local uninstall-man uninstall-man1 \
+	uninstall-pkgconfigDATA uninstall-wizardincHEADERS
 
 wizard-install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(wizardincdir)

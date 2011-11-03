@@ -509,6 +509,13 @@
 #undef PTHREAD_CREATE_JOINABLE
 
 /* Directory where architecture-independent configuration files live. */
+#undef SHAREARCH_PATH
+
+/* Subdirectory of lib where architecture-independent configuration files
+   live. */
+#undef SHAREARCH_RELATIVE_PATH
+
+/* Directory where architecture-independent configuration files live. */
 #undef SHARE_PATH
 
 /* Subdirectory of lib where architecture-independent configuration files

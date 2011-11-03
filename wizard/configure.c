@@ -3,11 +3,11 @@
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%          CCCC   OOO   N   N  FFFFF  IIIII   GGGG  U   U  RRRR   EEEEE       %
-%         C      O   O  NN  N  F        I    G      U   U  R   R  E           %
-%         C      O   O  N N N  FFF      I    G GG   U   U  RRRR   EEE         %
-%         C      O   O  N  NN  F        I    G   G  U   U  R R    E           %
-%          CCCC   OOO   N   N  F      IIIII   GGG    UUU   R  R   EEEEE       %
+%          CCCC   OOO   N   N  FFFFF IIIII   GGGG  U   U  RRRR   EEEEE        %
+%         C      O   O  NN  N  F       I    G      U   U  R   R  E            %
+%         C      O   O  N N N  FFF     I    G GG   U   U  RRRR   EEE          %
+%         C      O   O  N  NN  F       I    G   G  U   U  R R    E            %
+%          CCCC   OOO   N   N  F     IIIII   GGG    UUU   R  R   EEEEE        %
 %                                                                             %
 %                                                                             %
 %                     Wizards's Toolkit Configure Methods                     %
@@ -632,6 +632,10 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
 #if defined(WIZARDSTOOLKIT_SHARE_PATH)
   (void) AppendValueToLinkedList(paths,AcquireString(
     WIZARDSTOOLKIT_SHARE_PATH));
+#endif
+#if defined(WIZARDSTOOLKIT_SHAREARCH_PATH)
+  (void) AppendValueToLinkedList(paths,AcquireString(
+    WIZARDSTOOLKIT_SHAREARCH_PATH));
 #endif
 #if defined(WIZARDSTOOLKIT_DOCUMENTATION_PATH)
   (void) AppendValueToLinkedList(paths,AcquireString(
