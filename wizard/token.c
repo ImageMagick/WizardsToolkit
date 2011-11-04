@@ -45,6 +45,7 @@
 #include "wizard/exception-private.h"
 #include "wizard/locale_.h"
 #include "wizard/string_.h"
+#include "wizard/string-private.h"
 #include "wizard/token.h"
 #include "wizard/utility.h"
 
@@ -159,7 +160,7 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
         double
           value;
 
-        value=InterpretLocaleValue(p,&q);
+        value=StringToDouble(p,&q);
         (void) value;
         if ((p != q) && (*p != ','))
           {

@@ -43,6 +43,9 @@ extern WizardExport char
 extern WizardExport const char
   *GetStringInfoPath(const StringInfo *);
 
+extern WizardExport double
+  InterpretSiPrefixValue(const char *restrict,char **restrict);
+
 extern WizardExport int
   CompareStringInfo(const StringInfo *,const StringInfo *),
   LocaleCompare(const char *,const char *),

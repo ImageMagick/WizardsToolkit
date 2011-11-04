@@ -45,6 +45,7 @@
 #include "wizard/locale_.h"
 #include "wizard/memory_.h"
 #include "wizard/resource_.h"
+#include "wizard/string-private.h"
 #include "wizard/utility.h"
 #include "wizard/utility-private.h"
 #if defined(WIZARDSTOOLKIT_HAVE_MACH_O_DYLD_H)
@@ -944,7 +945,7 @@ WizardExport const char *ParseWizardTime(const char *timestamp,time_t *target)
   p=timestamp;
   for (i=0; ; i++)
   {
-    value=InterpretLocaleValue(p,&q);
+    value=StringToDouble(p,&q);
     if (*q != separators[i])
       break;
     switch (i)

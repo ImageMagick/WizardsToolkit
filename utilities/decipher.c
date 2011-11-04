@@ -295,11 +295,12 @@ WizardExport WizardBooleanType DecipherCommand(int argc,char **argv,
             if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing chunk size: `%s'",
                 option);
-            value=InterpretLocaleValue(argv[i],&p);
+            value=StringToDouble(argv[i],&p);
             (void) value;
             if (p == argv[i])
               ThrowInvalidArgumentException(option,argv[i]);
-            content_info->chunksize=(size_t) SiPrefixToDouble(argv[i],100.0);
+            content_info->chunksize=(size_t) StringToDoubleInterval(argv[i],
+              100.0);
             break;
           }
         ThrowCipherException(OptionFatalError,"unrecognized option: `%s'",
@@ -402,7 +403,7 @@ WizardExport WizardBooleanType DecipherCommand(int argc,char **argv,
             if (i == (ssize_t) argc)
               ThrowCipherException(OptionError,"missing key length: `%s'",
                 option);
-            content_info->key_length=(unsigned int) InterpretLocaleValue(
+            content_info->key_length=(unsigned int) StringToDouble(
               option,(char **) NULL);
             break;
           }

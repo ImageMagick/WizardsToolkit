@@ -22,52 +22,40 @@
 extern "C" {
 #endif
 
-static inline double SiPrefixToDouble(const char *string,const double interval)
+#include <wizard/locale_.h>
+
+static inline double StringToDouble(const char *restrict string,
+  char **restrict sentinal)
+{
+  return(InterpretLocaleValue(string,sentinal));
+}
+
+static inline double StringToDoubleInterval(const char *string,
+  const double interval)
 {
   char
     *q;
 
   double
-    scale,
     value;
 
-  assert(string != (char *) NULL);
-  value=strtod(string,&q);
-  scale=1000.0;
-  if ((*q != '\0') && (tolower((int) ((unsigned char) *(q+1))) == 'i'))
-    scale=1024.0;
-  switch (tolower((int) ((unsigned char) *q)))
-  {
-    case '%': value*=pow(scale,0)*interval/100.0; break;
-    case 'k': value*=pow(scale,1); break;
-    case 'm': value*=pow(scale,2); break;
-    case 'g': value*=pow(scale,3); break;
-    case 't': value*=pow(scale,4); break;
-    case 'p': value*=pow(scale,5); break;
-    case 'e': value*=pow(scale,6); break;
-    case 'z': value*=pow(scale,7); break;
-    case 'y': value*=pow(scale,8); break;
-    default:  break;
-  }
+  value=StringToDouble(string,&q);
+  if (*q == '%')
+    value*=interval/100.0;
   return(value);
 }
 
-static inline double StringToDouble(const char *value)
-{
-  return(strtod(value,(char **) NULL));
-}
-
-static inline int StringToInteger(const char *value)
+static inline int StringToInteger(const char *restrict value)
 {
   return((int) strtol(value,(char **) NULL,10));
 }
 
-static inline long StringToLong(const char *value)
+static inline long StringToLong(const char *restrict value)
 {
   return(strtol(value,(char **) NULL,10));
 }
 
-static inline unsigned long StringToUnsignedLong(const char *value)
+static inline unsigned long StringToUnsignedLong(const char *restrict value)
 {
   return(strtoul(value,(char **) NULL,10));
 }

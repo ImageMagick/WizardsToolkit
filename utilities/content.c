@@ -474,7 +474,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
           }
         if (strcmp(tag,"key-length") == 0)
           {
-            content_info->key_length=(unsigned int) InterpretLocaleValue(
+            content_info->key_length=(unsigned int) StringToDouble(
               content,(char **) NULL);
             break;
           }

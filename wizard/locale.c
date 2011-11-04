@@ -347,23 +347,31 @@ WizardExport ssize_t FormatLocaleString(char *restrict string,
 WizardExport double InterpretLocaleValue(const char *restrict string,
   char **restrict sentinal)
 {
+  char
+    *q;
+
   double
     value;
 
+  if ((*string == '0') && ((string[1] | 0x20)=='x'))
+    value=(double) strtoul(string,&q,16);
+  else
+    {
 #if defined(WIZARDSTOOLKIT_HAVE_STRTOD_L)
-  {
-    locale_t
-      locale;
+      locale_t
+        locale;
 
-    locale=AcquireCLocale();
-    if (locale == (locale_t) NULL)
-      value=strtod(string,sentinal);
-    else
-      value=strtod_l(string,sentinal,locale);
-  }
+      locale=AcquireCLocale();
+      if (locale == (locale_t) NULL)
+        value=strtod(string,&q);
+      else
+        value=strtod_l(string,&q,locale);
 #else
-  value=strtod(string,sentinal);
+      value=strtod(string,&q);
 #endif
+    }
+  if (sentinal != (char **) NULL)
+    *sentinal=q;
   return(value);
 }
 
