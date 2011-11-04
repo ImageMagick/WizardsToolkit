@@ -39,7 +39,7 @@ static inline double StringToDoubleInterval(const char *string,
   double
     value;
 
-  value=StringToDouble(string,&q);
+  value=InterpretSiPrefixValue(string,&q);
   if (*q == '%')
     value*=interval/100.0;
   return(value);
