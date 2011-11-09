@@ -1454,7 +1454,7 @@ WizardExport double InterpretSiPrefixValue(const char *restrict string,
                 }
             }
         }
-      if ((*q == 'b') || (*q == 'B'))
+      if (*q == 'B')
         q++;
     }
   if (sentinal != (char **) NULL)
