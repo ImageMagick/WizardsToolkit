@@ -24453,8 +24453,8 @@ fi
 # Configure install Paths
 #
 
-# Path to ImageMagick header files
-INCLUDE_RELATIVE_PATH="ImageMagick"
+# Path to WizardsToolkit header files
+INCLUDE_RELATIVE_PATH="WizardsToolkit"
 INCLUDE_PATH="${INCLUDEARCH_DIR}/${INCLUDE_RELATIVE_PATH}"
 DEFINE_INCLUDE_PATH="${INCLUDEARCH_DIR}/${INCLUDE_RELATIVE_PATH}/"
 case "${build_os}" in

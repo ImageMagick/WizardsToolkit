@@ -1277,8 +1277,8 @@ AC_SUBST(LIB_DL)
 # Configure install Paths
 #
 
-# Path to ImageMagick header files
-INCLUDE_RELATIVE_PATH="ImageMagick"
+# Path to WizardsToolkit header files
+INCLUDE_RELATIVE_PATH="WizardsToolkit"
 INCLUDE_PATH="${INCLUDEARCH_DIR}/${INCLUDE_RELATIVE_PATH}"
 DEFINE_INCLUDE_PATH="${INCLUDEARCH_DIR}/${INCLUDE_RELATIVE_PATH}/"
 case "${build_os}" in
@@ -1286,7 +1286,7 @@ case "${build_os}" in
     DEFINE_INCLUDE_PATH=`$WinPathScript "$DEFINE_INCLUDE_PATH" 1`
     ;;
 esac
-AC_DEFINE_UNQUOTED(INCLUDE_PATH,"$DEFINE_INCLUDE_PATH",Directory where ImageMagick headers live.)
+AC_DEFINE_UNQUOTED(INCLUDE_PATH,"$DEFINE_INCLUDE_PATH",Directory where WizardsToolkit headers live.)
 AC_SUBST(INCLUDE_PATH)
 
 # Subdirectory under lib to place Wizard lib files
