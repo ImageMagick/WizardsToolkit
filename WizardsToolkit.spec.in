@@ -140,6 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc QuickStart.txt ChangeLog
 %doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt
 %{_libdir}/libWizardsToolkit.so.*
+%{_libdir}/%{name}-%{VERSION}
 %{_bindir}/[a-z]*
 %{_sysconfdir}/%{name}
 %{_datadir}/%{name}-%{VERSION}
