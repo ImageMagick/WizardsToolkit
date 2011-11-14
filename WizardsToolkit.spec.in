@@ -110,8 +110,8 @@ mv $RPM_BUILD_ROOT%{_includedir}/%{name}/wizard/wizard-config.h \
    $RPM_BUILD_ROOT%{_includedir}/%{name}/wizard/wizard-config-%{wordsize}.h
 
 cat >$RPM_BUILD_ROOT%{_includedir}/%{name}/wizard/wizard-config.h <<EOF
-#ifndef IMAGEMAGICK_MULTILIB
-#define IMAGEMAGICK_MULTILIB
+#ifndef WIZARDSTOOLKIT_MULTILIB
+#define WIZARDSTOOLKIT_MULTILIB
 
 #include <bits/wordsize.h>
 
