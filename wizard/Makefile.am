@@ -14,7 +14,7 @@
 #
 #  Makefile for building Wizard's Toolkit library.
 
-wizardincdir = $(INCLUDE_PATH)/WizardsToolkit/wizard
+wizardincdir = $(INCLUDE_PATH)/wizard
 
 # Headers which are installed
 wizardinc_HEADERS = \

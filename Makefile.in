@@ -514,6 +514,7 @@ LIPO = @LIPO@
 LN_S = @LN_S@
 LOCALSTATE_DIR = @LOCALSTATE_DIR@
 LTLIBOBJS = @LTLIBOBJS@
+LZMA_CFLAGS = @LZMA_CFLAGS@
 LZMA_LIBS = @LZMA_LIBS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
@@ -799,7 +800,7 @@ CONFIG_EXTRA_DIST = \
   config/mime.c \
   config/mime.xml
 
-wizardincdir = $(INCLUDE_PATH)/WizardsToolkit/wizard
+wizardincdir = $(INCLUDE_PATH)/wizard
 
 # Headers which are installed
 wizardinc_HEADERS = \

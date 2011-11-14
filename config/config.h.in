@@ -456,7 +456,7 @@
 /* Define to use the Windows GDI32 library */
 #undef HasWINGDI32
 
-/* Directory where ImageMagick headers live. */
+/* Directory where WizardsToolkit headers live. */
 #undef INCLUDE_PATH
 
 /* Wizard's Toolkit is formally installed under prefix */
@@ -477,7 +477,7 @@
    */
 #undef LT_OBJDIR
 
-/* Define if you have lzma compression library */
+/* Define if you have LZMA library */
 #undef LZMA_DELEGATE
 
 /* Define to 1 if assertions should be disabled. */
