@@ -357,7 +357,7 @@ AC_ARG_WITH([sharearch-dir],
     [AC_HELP_STRING([--sharearch-dir=DIR],
                     [ARCH specific config directory])],
                     [sharearch_dir=$withval],
-                    [sharearch_dir="${DATA_DIR}"])
+                    [sharearch_dir="${LIB_DIR}"])
 
 eval "eval SHAREARCH_DIR=$sharearch_dir"
 SHAREARCH_DIR="$sharearch_dir"
@@ -1368,8 +1368,8 @@ AC_SUBST(SHARE_PATH)
 # Subdirectory under share to place Wizard configuration files
 SHAREARCH_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}/config"
 AC_DEFINE_UNQUOTED(SHAREARCH_RELATIVE_PATH,"$SHAREARCH_RELATIVE_PATH",Subdirectory of lib where architecture-independent configuration files live.)
-SHAREARCH_PATH="${DATA_DIR}/${SHAREARCH_RELATIVE_PATH}"
-DEFINE_SHAREARCH_PATH="${DATA_DIR}/${SHAREARCH_RELATIVE_PATH}/"
+SHAREARCH_PATH="${SHAREARCH_DIR}/${SHAREARCH_RELATIVE_PATH}"
+DEFINE_SHAREARCH_PATH="${SHAREARCH_DIR}/${SHAREARCH_RELATIVE_PATH}/"
 case "${build_os}" in
   mingw* )
     DEFINE_SHAREARCH_PATH=`$WinPathScript "$DEFINE_SHAREARCH_PATH" 1`

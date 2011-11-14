@@ -7180,7 +7180,7 @@ eval "eval INCLUDEARCH_DIR=$includearch_dir"
 if test "${with_sharearch_dir+set}" = set; then :
   withval=$with_sharearch_dir; sharearch_dir=$withval
 else
-  sharearch_dir="${DATA_DIR}"
+  sharearch_dir="${LIB_DIR}"
 fi
 
 
@@ -24566,8 +24566,8 @@ cat >>confdefs.h <<_ACEOF
 #define SHAREARCH_RELATIVE_PATH "$SHAREARCH_RELATIVE_PATH"
 _ACEOF
 
-SHAREARCH_PATH="${DATA_DIR}/${SHAREARCH_RELATIVE_PATH}"
-DEFINE_SHAREARCH_PATH="${DATA_DIR}/${SHAREARCH_RELATIVE_PATH}/"
+SHAREARCH_PATH="${SHAREARCH_DIR}/${SHAREARCH_RELATIVE_PATH}"
+DEFINE_SHAREARCH_PATH="${SHAREARCH_DIR}/${SHAREARCH_RELATIVE_PATH}/"
 case "${build_os}" in
   mingw* )
     DEFINE_SHAREARCH_PATH=`$WinPathScript "$DEFINE_SHAREARCH_PATH" 1`

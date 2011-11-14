@@ -20,7 +20,7 @@ configsharedir = $(SHARE_PATH)
 configshare_DATA = \
 	config/configure.xml
 
-# Where architecture-independent configuration files get installed
+# Where architecture-dependent configuration files get installed
 # (share/arch/WizardsToolkit-version)
 configsharearchdir = $(SHAREARCH_PATH)
 configsharearch_DATA = \
