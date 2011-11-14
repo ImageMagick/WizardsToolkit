@@ -634,14 +634,8 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
     WIZARDSTOOLKIT_SHARE_PATH));
 #endif
 #if defined(WIZARDSTOOLKIT_SHAREARCH_PATH)
-#if !defined(WIZARDSTOOLKIT_SHARE_PATH)
   (void) AppendValueToLinkedList(paths,ConstantString(
     WIZARDSTOOLKIT_SHAREARCH_PATH));
-#else
-  if (LocaleCompare(WIZARDSTOOLKIT_SHARE_PATH,WIZARDSTOOLKIT_SHAREARCH_PATH) != 0)
-    (void) AppendValueToLinkedList(paths,ConstantString(
-      WIZARDSTOOLKIT_SHAREARCH_PATH));
-#endif
 #endif
 #if defined(WIZARDSTOOLKIT_DOCUMENTATION_PATH)
   (void) AppendValueToLinkedList(paths,AcquireString(
