@@ -2,8 +2,8 @@
 %define Patchlevel  @PACKAGE_RELEASE@
 
 Name:           @PACKAGE_NAME@
-Version:        %{VERSION}.%{Patchlevel}
-Release:        1%{?dist}
+Version:        %{VERSION}
+Release:        %{Patchlevel}
 Summary:        The Wizard's Toolkit includes command line utilities to convert plaintext to ciphertext, convert ciphertext to plaintext, report properties associated with ciphertext, compute the message digest of a file, and read message digests from a file and authenticate them. In addition, the Wizard's Toolkit includes a a cross-platform C API that includes a number of enciphering and hash methods many developers should find useful in their projects.
 Group:          Applications/Multimedia
 License:        http://www.wizards-toolkit.org/script/license.php
@@ -96,7 +96,7 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
-cp -a www/source $RPM_BUILD_ROOT%{_datadir}/doc/%{name}-%{VERSION}
+cp -a www/source $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 # fix multilib issues
