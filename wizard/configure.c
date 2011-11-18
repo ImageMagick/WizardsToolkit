@@ -538,10 +538,11 @@ WizardExport LinkedListInfo *GetConfigureOptions(const char *filename,
     blob=(char *) NTResourceToBlob(filename);
     if (blob != (char *) NULL)
       {
-        xml=StringToStringInfo(blob);
+        xml=AcquireStringInfo(0);
+        xml->length=strlen(blob)+1;
+        xml->datum=(unsigned char *) blob;
         SetStringInfoPath(xml,filename);
         (void) AppendValueToLinkedList(options,xml);
-        blob=(char *) RelinquishWizardMemory(blob);
       }
   }
 #endif
