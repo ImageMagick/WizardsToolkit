@@ -539,8 +539,8 @@ WizardExport LinkedListInfo *GetConfigureOptions(const char *filename,
     if (blob != (char *) NULL)
       {
         xml=AcquireStringInfo(0);
-        xml->length=strlen(blob)+1;
-        xml->datum=(unsigned char *) blob;
+        SetStringInfoLength(xml,strlen(blob)+1);
+        SetStringInfoDatum(xml,blob);
         SetStringInfoPath(xml,filename);
         (void) AppendValueToLinkedList(options,xml);
       }
