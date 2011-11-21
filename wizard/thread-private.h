@@ -31,6 +31,9 @@ extern "C" {
 #define WizardCachePrefetch(address,mode,locality)
 #endif
 
+#define omp_throttle(factor)  num_threads(omp_get_max_threads() >> \
+   (factor) == 0 ? 1 : omp_get_max_threads() >> (factor))
+
 #if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   typedef pthread_mutex_t WizardMutexType;
 #elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
@@ -116,7 +119,7 @@ static inline ssize_t GetOpenMPThreadId(void)
 static inline void SetOpenMPMaximumThreads(const size_t threads)
 {
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-  omp_set_num_threads(threads < 1 ? 1 : threads);
+  omp_set_num_threads(threads);
 #else
   (void) threads;
 #endif
