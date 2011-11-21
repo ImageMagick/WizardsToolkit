@@ -116,7 +116,7 @@ static inline ssize_t GetOpenMPThreadId(void)
 static inline void SetOpenMPMaximumThreads(const size_t threads)
 {
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-  omp_set_num_threads(threads);
+  omp_set_num_threads(threads < 1 ? 1 : threads);
 #else
   (void) threads;
 #endif
