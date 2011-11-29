@@ -582,6 +582,9 @@ WizardExport LinkedListInfo *GetConfigureOptions(const char *filename,
 WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
   ExceptionInfo *exception)
 {
+#define RegistryKey  "ConfigurePath"
+#define WizardsToolkitDLL  "Wizard's Toolkit.dll"
+
   char
     path[MaxTextExtent];
 
@@ -648,17 +651,13 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
 #endif
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !(defined(WIZARDSTOOLKIT_CONFIGURE_PATH) || defined(WIZARDSTOOLKIT_SHARE_PATH))
   {
-    char
-      *registry_key;
-
     unsigned char
       *key_value;
 
     /*
       Locate file via registry key.
     */
-    registry_key="ConfigurePath";
-    key_value=NTRegistryKeyLookup(registry_key);
+    key_value=NTRegistryKeyLookup(RegistryKey);
     if (key_value != (unsigned char *) NULL)
       {
         (void) FormatLocaleString(path,MaxTextExtent,"%s%s",(char *) key_value,
@@ -745,21 +744,22 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
     char
       module_path[MaxTextExtent];
 
-    if (NTGetModulePath("Wizard's Toolkit.dll",module_path) != WizardFalse)
+    if (NTGetModulePath(WizardsToolkitDLL,module_path) != WizardFalse)
       {
-        char
-          *element;
+        unsigned char
+          *key_value;
 
         /*
           Search module path.
         */
         (void) FormatLocaleString(path,MaxTextExtent,"%s%s",module_path,
           DirectorySeparator);
-        element=(char *) RemoveElementByValueFromLinkedList(paths,path);
-        if (element != (char *) NULL)
-          element=(char *) RelinquishWizardMemory(element);
-        (void) AppendValueToLinkedList(paths,AcquireString(path));
-      }
+        key_value=NTRegistryKeyLookup(RegistryKey);
+        if (key_value == (unsigned char *) NULL)
+          (void) AppendValueToLinkedList(paths,ConstantString(path));
+        else
+          key_value=(unsigned char *) RelinquishMagickMemory(key_value);
+       }
   }
 #endif
   return(paths);
