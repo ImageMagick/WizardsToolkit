@@ -27,6 +27,6 @@
   <configure name="CXXFLAGS" value="@CXXFLAGS@" />
   <configure name="DISTCHECK_CONFIG_FLAGS" value="@DISTCHECK_CONFIG_FLAGS@" />
   <configure name="HOST" value="@host@" />
-  <configure name="COPYRIGHT" value="Copyright (C) 1999-2011 ImageMagick Studio LLC" />
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2012 ImageMagick Studio LLC" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
 </configuremap>

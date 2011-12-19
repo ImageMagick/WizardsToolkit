@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2011 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2012 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
 
   You may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ extern "C" {
 #define WizardLibAddendum  "-8"
 #define WizardLibInterface  1
 #define WizardLibMinInterface  1
-#define WizardReleaseDate  "2011-12-16"
+#define WizardReleaseDate  "2011-12-18"
 #define WizardChangeDate   "20110224"
 #define WizardAuthoritativeURL  "http://www.wizards-toolkit.org"
 #define WizardVersion WizardPackageName " " WizardLibVersionText \
