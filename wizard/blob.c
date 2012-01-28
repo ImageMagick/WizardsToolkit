@@ -244,7 +244,7 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
     case ZipStream:
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-      (void) gzerror(blob_info->file,&status);
+      (void) gzerror((gzFile) blob_info->file,&status);
 #endif
       break;
     }
@@ -279,7 +279,7 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
     case ZipStream:
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-      status=gzclose(blob_info->file);
+      status=gzclose((gzFile) blob_info->file);
 #endif
       break;
     }
@@ -1259,12 +1259,13 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
       {
         default:
         {
-          count=(ssize_t) gzread(blob_info->file,q,(unsigned int) length);
+          count=(ssize_t) gzread((gzFile) blob_info->file,q,(unsigned int)
+            length);
           break;
         }
         case 2:
         {
-          c=gzgetc(blob_info->file);
+          c=gzgetc((gzFile) blob_info->file);
           if (c == EOF)
             break;
           *q++=(unsigned char) c;
@@ -1272,7 +1273,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
         }
         case 1:
         {
-          c=gzgetc(blob_info->file);
+          c=gzgetc((gzFile) blob_info->file);
           if (c == EOF)
             break;
           *q++=(unsigned char) c;
@@ -1602,7 +1603,7 @@ WizardExport int SyncBlob(BlobInfo *blob_info)
     case ZipStream:
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-      status=gzflush(blob_info->file,Z_SYNC_FLUSH);
+      status=gzflush((gzFile) blob_info->file,Z_SYNC_FLUSH);
 #endif
       break;
     }
@@ -1672,7 +1673,7 @@ WizardExport WizardOffsetType TellBlob(const BlobInfo *blob_info)
     case ZipStream:
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-      offset=(WizardOffsetType) gztell(blob_info->file);
+      offset=(WizardOffsetType) gztell((gzFile) blob_info->file);
 #endif
       break;
     }
@@ -1814,20 +1815,20 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
       {
         default:
         {
-          count=(ssize_t) gzwrite(blob_info->file,(void *) data,
+          count=(ssize_t) gzwrite((gzFile) blob_info->file,(void *) data,
             (unsigned int) length);
           break;
         }
         case 2:
         {
-          c=gzputc(blob_info->file,(int) *p++);
+          c=gzputc((gzFile) blob_info->file,(int) *p++);
           if (c == EOF)
             break;
           count++;
         }
         case 1:
         {
-          c=gzputc(blob_info->file,(int) *p++);
+          c=gzputc((gzFile) blob_info->file,(int) *p++);
           if (c == EOF)
             break;
           count++;
