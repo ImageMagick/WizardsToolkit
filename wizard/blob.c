@@ -115,8 +115,20 @@ struct _BlobInfo
   StreamType
     type;
 
-  FILE
-    *file;
+  union {
+    FILE
+      *file;
+
+#if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
+    gzFile
+      gzfile;
+#endif
+
+#if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
+    BZFILE
+      *bzfile;
+#endif
+  };
 
   struct stat
     properties;
@@ -244,14 +256,14 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
     case ZipStream:
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-      (void) gzerror((gzFile) blob_info->file,&status);
+      (void) gzerror(blob_info->gzfile,&status);
 #endif
       break;
     }
     case BZipStream:
     {
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
-      (void) BZ2_bzerror((BZFILE *) blob_info->file,&status);
+      (void) BZ2_bzerror(blob_info->bzfile,&status);
 #endif
       break;
     }
@@ -279,14 +291,14 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
     case ZipStream:
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-      status=gzclose((gzFile) blob_info->file);
+      status=gzclose(blob_info->gzfile);
 #endif
       break;
     }
     case BZipStream:
     {
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
-      BZ2_bzclose((BZFILE *) blob_info->file);
+      BZ2_bzclose(blob_info->bzfile);
 #endif
       break;
     }
@@ -445,7 +457,7 @@ WizardExport int EOFBlob(BlobInfo *blob_info)
         status;
 
       status=0;
-      (void) BZ2_bzerror((BZFILE *) blob_info->file,&status);
+      (void) BZ2_bzerror(blob_info->bzfile,&status);
       blob_info->eof=status == BZ_UNEXPECTED_EOF ? WizardTrue : WizardFalse;
 #endif
       break;
@@ -1066,8 +1078,8 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
               ((int) magick[1] == 0x8B) && ((int) magick[2] == 0x08))
             {
               (void) fclose(blob_info->file);
-              blob_info->file=(FILE *) gzopen(filename,type);
-              if (blob_info->file != (FILE *) NULL)
+              blob_info->gzfile=gzopen(filename,type);
+              if (blob_info->gzfile != (gzFile) NULL)
                 blob_info->type=ZipStream;
             }
 #endif
@@ -1076,8 +1088,8 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
               (strncmp((char *) magick,"BZh",3) == 0))
             {
               (void) fclose(blob_info->file);
-              blob_info->file=(FILE *) BZ2_bzopen(filename,type);
-              if (blob_info->file != (FILE *) NULL)
+              blob_info->bzfile=BZ2_bzopen(filename,type);
+              if (blob_info->bzfile != (BZFILE *) NULL)
                 blob_info->type=BZipStream;
             }
 #endif
@@ -1119,8 +1131,8 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
           ((LocaleCompare(extension,"Z") == 0) ||
            (LocaleCompare(extension,"gz") == 0)))
         {
-          blob_info->file=(FILE *) gzopen(filename,type);
-          if (blob_info->file != (FILE *) NULL)
+          blob_info->gzfile=gzopen(filename,type);
+          if (blob_info->gzfile != (gzFile) NULL)
             blob_info->type=ZipStream;
         }
       else
@@ -1128,8 +1140,8 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
         if ((compress != WizardFalse) && (LocaleCompare(extension,".bz2") == 0))
           {
-            blob_info->file=(FILE *) BZ2_bzopen(filename,type);
-            if (blob_info->file != (FILE *) NULL)
+            blob_info->bzfile=BZ2_bzopen(filename,type);
+            if (blob_info->gzfile != (BZFILE *) NULL)
               blob_info->type=BZipStream;
           }
         else
@@ -1259,13 +1271,13 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
       {
         default:
         {
-          count=(ssize_t) gzread((gzFile) blob_info->file,q,(unsigned int)
+          count=(ssize_t) gzread(blob_info->gzfile,q,(unsigned int)
             length);
           break;
         }
         case 2:
         {
-          c=gzgetc((gzFile) blob_info->file);
+          c=gzgetc(blob_info->gzfile);
           if (c == EOF)
             break;
           *q++=(unsigned char) c;
@@ -1273,7 +1285,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
         }
         case 1:
         {
-          c=gzgetc((gzFile) blob_info->file);
+          c=gzgetc(blob_info->gzfile);
           if (c == EOF)
             break;
           *q++=(unsigned char) c;
@@ -1288,7 +1300,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
     case BZipStream:
     {
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
-      count=(ssize_t) BZ2_bzread((BZFILE *) blob_info->file,q,(int) length);
+      count=(ssize_t) BZ2_bzread(blob_info->bzfile,q,(int) length);
 #endif
       break;
     }
@@ -1603,14 +1615,14 @@ WizardExport int SyncBlob(BlobInfo *blob_info)
     case ZipStream:
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-      status=gzflush((gzFile) blob_info->file,Z_SYNC_FLUSH);
+      status=gzflush(blob_info->gzfile,Z_SYNC_FLUSH);
 #endif
       break;
     }
     case BZipStream:
     {
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
-      status=BZ2_bzflush((BZFILE *) blob_info->file);
+      status=BZ2_bzflush(blob_info->bzfile);
 #endif
       break;
     }
@@ -1673,7 +1685,7 @@ WizardExport WizardOffsetType TellBlob(const BlobInfo *blob_info)
     case ZipStream:
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-      offset=(WizardOffsetType) gztell((gzFile) blob_info->file);
+      offset=(WizardOffsetType) gztell(blob_info->gzfile);
 #endif
       break;
     }
@@ -1815,20 +1827,20 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
       {
         default:
         {
-          count=(ssize_t) gzwrite((gzFile) blob_info->file,(void *) data,
+          count=(ssize_t) gzwrite(blob_info->gzfile,(void *) data,
             (unsigned int) length);
           break;
         }
         case 2:
         {
-          c=gzputc((gzFile) blob_info->file,(int) *p++);
+          c=gzputc(blob_info->gzfile,(int) *p++);
           if (c == EOF)
             break;
           count++;
         }
         case 1:
         {
-          c=gzputc((gzFile) blob_info->file,(int) *p++);
+          c=gzputc(blob_info->gzfile,(int) *p++);
           if (c == EOF)
             break;
           count++;
@@ -1842,8 +1854,7 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
     case BZipStream:
     {
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
-      count=(ssize_t) BZ2_bzwrite((BZFILE *) blob_info->file,(void *) data,
-        (int) length);
+      count=(ssize_t) BZ2_bzwrite(blob_info->bzfile,(void *) data,(int) length);
 #endif
       break;
     }
