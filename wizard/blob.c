@@ -1138,7 +1138,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
       else
 #endif
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
-        if ((compress != WizardFalse) && (LocaleCompare(extension,".bz2") == 0))
+        if ((compress != WizardFalse) && (LocaleCompare(extension,"bz2") == 0))
           {
             blob_info->bzfile=BZ2_bzopen(filename,type);
             if (blob_info->gzfile != (BZFILE *) NULL)
