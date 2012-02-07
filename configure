@@ -18907,18 +18907,19 @@ fi
 
 # Check whether --with-method-prefix was given.
 if test "${with_method_prefix+set}" = set; then :
-  withval=$with_method_prefix; with_method_prefix=$enableval
+  withval=$with_method_prefix; with_method_prefix=$withval
 else
-  with_method_prefix=''
+  with_method_prefix='no'
 fi
 
 
-if test "$with_method_prefix" != ''; then
+if test "$with_method_prefix" != 'no'; then
 
 cat >>confdefs.h <<_ACEOF
 #define WizardMethodPrefix $with_method_prefix
 _ACEOF
 
+  DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --with-method-prefix "
 fi
 
 # Enable umem, object-caching memory allocation library.
