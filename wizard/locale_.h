@@ -15,8 +15,8 @@
 
   WizardCore locale methods.
 */
-#ifndef _MAGICKCORE_LOCALE_H
-#define _MAGICKCORE_LOCALE_H
+#ifndef _WIZARDSTOOLKIT_LOCALE_H
+#define _WIZARDSTOOLKIT_LOCALE_H
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {

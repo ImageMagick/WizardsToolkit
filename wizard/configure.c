@@ -758,7 +758,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
         if (key_value == (unsigned char *) NULL)
           (void) AppendValueToLinkedList(paths,ConstantString(path));
         else
-          key_value=(unsigned char *) RelinquishMagickMemory(key_value);
+          key_value=(unsigned char *) RelinquishWizardMemory(key_value);
        }
   }
 #endif

@@ -252,7 +252,7 @@ extern "C" {
 #  define write  _write
 #endif
 #if !defined(wstat) && !defined(__BORLANDC__)
-#if defined(MAGICKCORE_WINDOWS_SUPPORT) && !defined(Windows95) && \
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
   !(defined(_MSC_VER) && (_MSC_VER < 1400)) && (__MSVCRT_VERSION__ < 0x800)
 #  define wstat  _wstati64
 #else
