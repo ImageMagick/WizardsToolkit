@@ -8,8 +8,8 @@
 <configuremap>
   <configure name="NAME" value="Wizard's Toolkit"/>
   <configure name="LIB_VERSION" value="0x107"/>
-  <configure name="LIB_VERSION_NUMBER" value="1,0,8,8"/>
-  <configure name="RELEASE_DATE" value="2011-12-01"/>
+  <configure name="LIB_VERSION_NUMBER" value="1,0,8,9"/>
+  <configure name="RELEASE_DATE" value="2012-03-01"/>
   <configure name="VERSION" value="1.0.8"/>
   <configure name="CC" value="vs7"/>
   <configure name="HOST" value="windows-unknown-linux-gnu"/>
