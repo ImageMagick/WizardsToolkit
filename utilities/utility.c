@@ -53,7 +53,7 @@
   Forward declaration.
 */
 static char
-   **ListFiles(const char *,const char *,size_t *);
+  **ListFiles(const char *,const char *,size_t *);
 
 static int
   IsDirectory(const char *);

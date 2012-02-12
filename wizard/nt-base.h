@@ -353,6 +353,7 @@ extern WizardExport const char
 
 #if !defined(XS_VERSION)
 extern WizardExport char
+  **NTArgvToUTF8(const int argc,wchar_t **),
   *NTRegistryKeyLookup(const char *);
 
 extern WizardExport DIR

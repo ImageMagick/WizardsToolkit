@@ -915,7 +915,8 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
 %
 %
 */
-int main(int argc,char **argv)
+
+static int WizardMain(int argc,char **argv)
 {
   char
     *option;
@@ -986,3 +987,29 @@ int main(int argc,char **argv)
   WizardsToolkitTerminus();
   return(status == WizardFalse ? 1 : 0);
 }
+
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+int main(int argc,char **argv)
+{
+  return(WizardMain(argc,argv));
+}
+#else
+int wmain(int argc,wchar_t *argv[])
+{
+  char
+    **utf8;
+
+  int
+    status;
+
+  register int
+    i;
+
+  utf8=NTArgvToUTF8(argc,argv);
+  status=WizardMain(argc,utf8);
+  for (i=0; i < argc; i++)
+    utf8[i]=DestroyString(utf8[i]);
+  utf8=(char **) RelinquishWizardMemory(utf8);
+  return(status);
+}
+#endif
