@@ -125,12 +125,26 @@ extern "C" {
 #endif
 #define WizardSignature  0xabacadabUL
 
-#if !defined(wizard_attribute)
-#  if !defined(__GNUC__)
-#    define wizard_attribute(x)  /* nothing */
-#  else
-#    define wizard_attribute  __attribute__
-#  endif
+#if defined(WIZARDSTOOLKIT_HAVE___ATTRIBUTE__)
+#  define wizard_aligned(x)  __attribute__((__aligned__(x)))
+#  define wizard_attribute  __attribute__
+#  define wizard_unused(x)  wizard_unused_ ## x __attribute__((__unused__))
+#else
+#  define wizard_aligned(x)  /* nothing */
+#  define wizard_attribute(x)  /* nothing */
+#  define wizard_unused(x) x
+#endif
+
+#if defined(WIZARDSTOOLKIT_HAVE___ALLOC_SIZE__)
+#  define wizard_alloc_size(x)  __attribute__((__alloc_size__(x)))
+#  define wizard_alloc_sizes(x,y)  __attribute__((__alloc_size__(x,y)))
+#  define wizard_cold  __attribute__((__cold__))
+#  define wizard_hot  __attribute__((__hot__))
+#else
+#  define wizard_alloc_size(x)  /* nothing */
+#  define wizard_alloc_sizes(x,y)  /* nothing */
+#  define wizard_cold
+#  define wizard_hot
 #endif
 
 #if defined(WizardMethodPrefix)
