@@ -23,24 +23,29 @@ extern "C" {
 #endif
 
 typedef void
-  *(*AcquireMemoryHandler)(size_t),
+  *(*AcquireMemoryHandler)(size_t) wizard_alloc_size(1),
   (*DestroyMemoryHandler)(void *),
-  *(*ResizeMemoryHandler)(void *,size_t);
+  *(*ResizeMemoryHandler)(void *,size_t) wizard_alloc_size(2);
 
 extern WizardExport void
-  *AcquireAlignedMemory(const size_t,const size_t) wizard_attribute((malloc)),
-  *AcquireWizardMemory(const size_t) wizard_attribute((malloc)),
-  *AcquireQuantumMemory(const size_t,const size_t) wizard_attribute((malloc)),
+  *AcquireAlignedMemory(const size_t,const size_t)
+    wizard_attribute((__malloc__)) wizard_alloc_sizes(1,2),
+  *AcquireWizardMemory(const size_t) wizard_attribute((__malloc__))
+    wizard_alloc_size(1),
+  *AcquireQuantumMemory(const size_t,const size_t)
+    wizard_attribute((__malloc__)) wizard_alloc_sizes(1,2),
   *CopyWizardMemory(void *,const void *,const size_t)
-    wizard_attribute((nonnull)),
+    wizard_attribute((__nonnull__)),
   DestroyWizardMemory(void),
   GetWizardMemoryMethods(AcquireMemoryHandler *,ResizeMemoryHandler *,
     DestroyMemoryHandler *),
   *RelinquishAlignedMemory(void *),
   *RelinquishWizardMemory(void *),
   *ResetWizardMemory(void *,int,const size_t),
-  *ResizeWizardMemory(void *,const size_t),
-  *ResizeQuantumMemory(void *,const size_t,const size_t),
+  *ResizeWizardMemory(void *,const size_t)
+    wizard_attribute((__malloc__)) wizard_alloc_size(2),
+  *ResizeQuantumMemory(void *,const size_t,const size_t)
+    wizard_attribute((__malloc__)) wizard_alloc_sizes(2,3),
   SetWizardMemoryMethods(AcquireMemoryHandler,ResizeMemoryHandler,
     DestroyMemoryHandler);
 

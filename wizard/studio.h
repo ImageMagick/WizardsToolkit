@@ -67,7 +67,7 @@ extern "C" {
 #  endif
 #  if !defined(_WIZARDLIB_)
 #   if defined(__GNUC__)
-#    define WizardExport __attribute__ ((dllimport))
+#    define WizardExport __attribute__ ((__dllimport__))
 #   else
 #    define WizardExport __declspec(dllimport)
 #   endif
@@ -76,7 +76,7 @@ extern "C" {
 #   endif
 #  else
 #   if defined(__GNUC__)
-#    define WizardExport __attribute__ ((dllexport))
+#    define WizardExport __attribute__ ((__dllexport__))
 #   else
 #    define WizardExport __declspec(dllexport)
 #   endif
@@ -115,8 +115,8 @@ extern "C" {
 # endif
 #else
 # if __GNUC__ >= 4
-#  define WizardExport __attribute__ ((visibility ("default")))
-#  define WizardPrivate  __attribute__ ((visibility ("hidden")))
+#  define WizardExport __attribute__ ((__visibility__ ("default")))
+#  define WizardPrivate  __attribute__ ((__visibility__ ("hidden")))
 # else
 #   define WizardExport
 #   define WizardPrivate
@@ -279,12 +279,25 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 #endif
 
 #if defined(WIZARDSTOOLKIT_HAVE___ATTRIBUTE__)
-#  define wizard_aligned(x)  __attribute__((aligned(x)))
+#  define wizard_aligned(x)  __attribute__((__aligned__(x)))
 #  define wizard_attribute  __attribute__
-#  define wizard_unused(x)  wizard_unused_ ## x __attribute__((unused))
+#  define wizard_unused(x)  wizard_unused_ ## x __attribute__((__unused__))
 #else
+#  define wizard_aligned(x)  /* nothing */
 #  define wizard_attribute(x)  /* nothing */
 #  define wizard_unused(x) x
+#endif
+
+#if defined(WIZARDSTOOLKIT_HAVE___ATTRIBUTE__)
+#  define wizard_alloc_size(x)  __attribute__((__alloc_size__(x)))
+#  define wizard_alloc_sizes(x,y)  __attribute__((__alloc_size__(x,y)))
+#  define wizard_cold  __attribute__((__cold__))
+#  define wizard_hot  __attribute__((__hot__))
+#else
+#  define wizard_alloc_size(x)  /* nothing */
+#  define wizard_alloc_sizes(x)  /* nothing */
+#  define wizard_cold
+#  define wizard_hot
 #endif
 
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)

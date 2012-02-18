@@ -53,17 +53,17 @@ extern WizardExport int
 
 extern WizardExport size_t
   ConcatenateWizardString(char *,const char *,const size_t)
-    wizard_attribute((nonnull)),
+    wizard_attribute((__nonnull__)),
   CopyWizardString(char *,const char *,const size_t)
-    wizard_attribute((nonnull));
+    wizard_attribute((__nonnull__));
 
 extern WizardExport ssize_t
   FormatWizardSize(const WizardSizeType,const WizardBooleanType,char *),
   FormatLocaleString(char *,const size_t,const char *,...)
-    wizard_attribute((format (printf,3,4))),
+    wizard_attribute((__format__ (__printf__,3,4))),
   FormatLocaleStringList(char *,const size_t,const char *,va_list),
   PrintWizardString(FILE *,const char *,...)
-    wizard_attribute((format (printf,2,3))),
+    wizard_attribute((__format__ (__printf__,2,3))),
   FormatWizardTime(const time_t,const size_t,char *);
 
 extern WizardExport size_t
@@ -84,7 +84,7 @@ extern WizardExport unsigned char
   *GetStringInfoDatum(const StringInfo *);
 
 extern WizardExport WizardBooleanType
-  ConcatenateString(char **,const char *) wizard_attribute((nonnull)),
+  ConcatenateString(char **,const char *) wizard_attribute((__nonnull__)),
   SubstituteString(char **,const char *,const char *);
 
 extern WizardExport WizardSizeType
@@ -92,7 +92,7 @@ extern WizardExport WizardSizeType
 
 extern WizardExport void
   ConcatenateStringInfo(StringInfo *,const StringInfo *)
-    wizard_attribute((nonnull)),
+    wizard_attribute((__nonnull__)),
   LocaleLower(char *),
   PrintStringInfo(FILE *,const char *,const StringInfo *),
   ResetStringInfo(StringInfo *),

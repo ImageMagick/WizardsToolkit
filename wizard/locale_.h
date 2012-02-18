@@ -32,13 +32,13 @@ extern WizardExport WizardBooleanType
 
 extern WizardExport ssize_t
   FormatLocaleFile(FILE *,const char *restrict,...)
-    wizard_attribute((format (printf,2,3))),
+    wizard_attribute((__format__ (__printf__,2,3))),
   FormatLocaleFileList(FILE *,const char *restrict,va_list)
-    wizard_attribute((format (printf,2,0))),
+    wizard_attribute((__format__ (__printf__,2,0))),
   FormatLocaleString(char *restrict,const size_t,const char *restrict,...)
-    wizard_attribute((format (printf,3,4))),
+    wizard_attribute((__format__ (__printf__,3,4))),
   FormatLocaleStringList(char *restrict,const size_t,const char *restrict,
-    va_list) wizard_attribute((format (printf,3,0)));
+    va_list) wizard_attribute((__format__ (__printf__,3,0)));
 
 extern WizardExport void
   LocaleComponentTerminus(void);

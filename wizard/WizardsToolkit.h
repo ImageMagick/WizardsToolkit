@@ -64,7 +64,7 @@ extern "C" {
 #  endif
 #  if !defined(_WIZARDLIB_)
 #   if defined(__GNUC__)
-#    define WizardExport __attribute__ ((dllimport))
+#    define WizardExport __attribute__ ((__dllimport__))
 #   else
 #    define WizardExport __declspec(dllimport)
 #   endif
@@ -73,7 +73,7 @@ extern "C" {
 #   endif
 #  else
 #   if defined(__GNUC__)
-#    define WizardExport __attribute__ ((dllexport))
+#    define WizardExport __attribute__ ((__dllexport__))
 #   else
 #    define WizardExport __declspec(dllexport)
 #   endif
@@ -110,8 +110,8 @@ extern "C" {
 # endif
 #else
 # if __GNUC__ >= 4
-#  define WizardExport __attribute__ ((visibility ("default")))
-#  define WizardPrivate  __attribute__ ((visibility ("hidden")))
+#  define WizardExport __attribute__ ((__visibility__ ("default")))
+#  define WizardPrivate  __attribute__ ((__visibility__ ("hidden")))
 # else
 #   define WizardExport
 #   define WizardPrivate

@@ -162,7 +162,7 @@ extern WizardExport WizardBooleanType
     const char *),
   ThrowWizardException(ExceptionInfo *,const char *,const char *,
     const size_t,const ExceptionType,const char *,...)
-    wizard_attribute((format (printf,6,7)));
+    wizard_attribute((__format__ (__printf__,6,7)));
 
 extern WizardExport void
   CatchException(ExceptionInfo *),

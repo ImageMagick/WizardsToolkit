@@ -72,10 +72,10 @@ extern WizardExport WizardBooleanType
   LogComponentGenesis(void),
   LogWizardEvent(const LogEventType,const char *,const char *,
     const size_t,const char *,...) 
-    wizard_attribute((format (printf,5,6))),
+    wizard_attribute((__format__ (__printf__,5,6))),
   LogWizardEventList(const LogEventType,const char *,const char *,
     const size_t,const char *,va_list) 
-    wizard_attribute((format (printf,5,0)));
+    wizard_attribute((__format__ (__printf__,5,0)));
 
 extern WizardExport void
   CloseWizardLog(void),
