@@ -56,79 +56,6 @@ extern "C" {
 #  define STDC
 #endif
 
-#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
-# define WizardPrivate
-# if defined(_MT) && defined(_DLL) && !defined(_WIZARDDLL_) && !defined(_LIB)
-#  define _WIZARDDLL_
-# endif
-# if defined(_WIZARDDLL_)
-#  if defined(_VISUALC_)
-#   pragma warning( disable: 4273 )  /* Disable the dll linkage warnings */
-#  endif
-#  if !defined(_WIZARDLIB_)
-#   if defined(__GNUC__)
-#    define WizardExport __attribute__ ((__dllimport__))
-#   else
-#    define WizardExport __declspec(dllimport)
-#   endif
-#   if defined(_VISUALC_)
-#    pragma message( "Wizard lib DLL import interface" )
-#   endif
-#  else
-#   if defined(__GNUC__)
-#    define WizardExport __attribute__ ((__dllexport__))
-#   else
-#    define WizardExport __declspec(dllexport)
-#   endif
-#   if defined(_VISUALC_)
-#    pragma message( "Wizard lib DLL export interface" )
-#   endif
-#  endif
-# else
-#  define WizardExport
-#  if defined(_VISUALC_)
-#   pragma message( "Wizard lib static interface" )
-#  endif
-# endif
-
-# if defined(_DLL) && !defined(_LIB)
-#  define ModuleExport  __declspec(dllexport)
-#  if defined(_VISUALC_)
-#   pragma message( "Wizard module DLL export interface" )
-#  endif
-# else
-#  define ModuleExport
-#  if defined(_VISUALC_)
-#   pragma message( "Wizard module static interface" )
-#  endif
-
-# endif
-# define WizardGlobal __declspec(thread)
-# if defined(_VISUALC_)
-#  pragma warning(disable : 4018)
-#  pragma warning(disable : 4068)
-#  pragma warning(disable : 4244)
-#  pragma warning(disable : 4142)
-#  pragma warning(disable : 4800)
-#  pragma warning(disable : 4786)
-#  pragma warning(disable : 4996)
-# endif
-#else
-# if __GNUC__ >= 4
-#  define WizardExport __attribute__ ((__visibility__ ("default")))
-#  define WizardPrivate  __attribute__ ((__visibility__ ("hidden")))
-# else
-#   define WizardExport
-#   define WizardPrivate
-# endif
-# define ModuleExport  WizardExport
-# define WizardGlobal
-#endif
-#define WizardSignature  0xabacadabUL
-#if !defined(MaxTextExtent)
-# define MaxTextExtent  4096
-#endif
-
 #include <stdarg.h>
 #include <stdio.h>
 #if defined(WIZARDSTOOLKIT_HAVE_SYS_STAT_H)
@@ -278,28 +205,6 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 # include "wizard/wizard-type.h"
 #endif
 
-#if defined(WIZARDSTOOLKIT_HAVE___ATTRIBUTE__)
-#  define wizard_aligned(x)  __attribute__((__aligned__(x)))
-#  define wizard_attribute  __attribute__
-#  define wizard_unused(x)  wizard_unused_ ## x __attribute__((__unused__))
-#else
-#  define wizard_aligned(x)  /* nothing */
-#  define wizard_attribute(x)  /* nothing */
-#  define wizard_unused(x) x
-#endif
-
-#if defined(WIZARDSTOOLKIT_HAVE___ALLOC_SIZE__)
-#  define wizard_alloc_size(x)  __attribute__((__alloc_size__(x)))
-#  define wizard_alloc_sizes(x,y)  __attribute__((__alloc_size__(x,y)))
-#  define wizard_cold  __attribute__((__cold__))
-#  define wizard_hot  __attribute__((__hot__))
-#else
-#  define wizard_alloc_size(x)  /* nothing */
-#  define wizard_alloc_sizes(x,y)  /* nothing */
-#  define wizard_cold
-#  define wizard_hot
-#endif
-
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 # include "wizard/nt-base.h"
 #endif
@@ -316,7 +221,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 #undef index
 #undef pipe
 
-#include <wizard/string_.h>
+#include <wizard/WizardsToolkit.h>
 
 /*
   Review these platform specific definitions.

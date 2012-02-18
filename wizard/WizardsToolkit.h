@@ -53,6 +53,12 @@ extern "C" {
 #include <stdio.h>
 #include <sys/types.h>
 
+#if defined(__BORLANDC__) && defined(_DLL)
+#  pragma message("BCBMagick lib DLL export interface")
+#  define _WIZARDDLL_
+#  define _WIZARDLIB_
+#endif
+
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
 # define WizardPrivate
 # if defined(_MT) && defined(_DLL) && !defined(_WIZARDDLL_) && !defined(_LIB)
