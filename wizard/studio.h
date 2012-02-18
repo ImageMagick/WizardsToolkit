@@ -288,14 +288,14 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
 #  define wizard_unused(x) x
 #endif
 
-#if defined(WIZARDSTOOLKIT_HAVE___ATTRIBUTE__)
+#if defined(WIZARDSTOOLKIT_HAVE___ALLOC_SIZE__)
 #  define wizard_alloc_size(x)  __attribute__((__alloc_size__(x)))
 #  define wizard_alloc_sizes(x,y)  __attribute__((__alloc_size__(x,y)))
 #  define wizard_cold  __attribute__((__cold__))
 #  define wizard_hot  __attribute__((__hot__))
 #else
 #  define wizard_alloc_size(x)  /* nothing */
-#  define wizard_alloc_sizes(x)  /* nothing */
+#  define wizard_alloc_sizes(x,y)  /* nothing */
 #  define wizard_cold
 #  define wizard_hot
 #endif
