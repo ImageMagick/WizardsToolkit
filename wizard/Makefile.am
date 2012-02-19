@@ -86,6 +86,7 @@ WIZARD_BASE_SRCS = \
   wizard/md5.h \
   wizard/memory.c \
   wizard/memory_.h \
+  wizard/method-attribute.h \
   wizard/mime.c \
   wizard/mime.h \
   wizard/mime-private.h \
@@ -184,6 +185,7 @@ WIZARD_INCLUDE_HDRS = \
   wizard/md5.c \
   wizard/md5.h \
   wizard/memory_.h \
+  wizard/method-attribute.h \
   wizard/mime.h \
   wizard/option.h \
   wizard/passphrase.h \

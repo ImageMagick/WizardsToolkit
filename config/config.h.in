@@ -447,9 +447,6 @@
 /* Define to 1 if you have the `_wfopen' function. */
 #undef HAVE__WFOPEN
 
-/* define if your compiler has __alloc_size__ */
-#undef HAVE___ALLOC_SIZE__
-
 /* define if your compiler has __attribute__ */
 #undef HAVE___ATTRIBUTE__
 
