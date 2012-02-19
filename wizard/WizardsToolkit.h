@@ -144,13 +144,13 @@ extern "C" {
 #if defined(WIZARDSTOOLKIT_HAVE___ALLOC_SIZE__)
 #  define wizard_alloc_size(x)  __attribute__((__alloc_size__(x)))
 #  define wizard_alloc_sizes(x,y)  __attribute__((__alloc_size__(x,y)))
-#  define wizard_cold  __attribute__((__cold__))
-#  define wizard_hot  __attribute__((__hot__))
+#  define wizard_cold_spot  __attribute__((__cold__))
+#  define wizard_hot_spot  __attribute__((__hot__))
 #else
 #  define wizard_alloc_size(x)  /* nothing */
 #  define wizard_alloc_sizes(x,y)  /* nothing */
-#  define wizard_cold
-#  define wizard_hot
+#  define wizard_cold_spot
+#  define wizard_hot_spot
 #endif
 
 #if defined(WizardMethodPrefix)
