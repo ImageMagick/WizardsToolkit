@@ -151,6 +151,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ac_func_fseeko.m4 \
 	$(top_srcdir)/m4/ax_cxx_bool.m4 \
 	$(top_srcdir)/m4/ax_cxx_namespace_std.m4 \
 	$(top_srcdir)/m4/ax_cxx_namespaces.m4 \
+	$(top_srcdir)/m4/ax_gcc_archflag.m4 \
 	$(top_srcdir)/m4/ax_lang_compiler_ms.m4 \
 	$(top_srcdir)/m4/ax_prefix_config_h.m4 \
 	$(top_srcdir)/m4/ax_pthread.m4 \
@@ -597,6 +598,7 @@ PATH_SEPARATOR = @PATH_SEPARATOR@
 PKG_CONFIG = @PKG_CONFIG@
 POW_LIB = @POW_LIB@
 PREFIX_DIR = @PREFIX_DIR@
+PRTDIAG = @PRTDIAG@
 PTHREAD_CC = @PTHREAD_CC@
 PTHREAD_CFLAGS = @PTHREAD_CFLAGS@
 PTHREAD_LIBS = @PTHREAD_LIBS@
