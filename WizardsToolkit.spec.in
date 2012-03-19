@@ -93,11 +93,11 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
-cp -a www/source $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
-rm $RPM_BUILD_ROOT%{_libdir}/*.la
+make install DESTDIR=%{buildroot} INSTALL="install -p"
+cp -a www/source %{buildroot}%{_datadir}/doc/%{name}
+rm %{buildroot}%{_libdir}/*.la
 
 # fix multilib issues
 %ifarch x86_64 s390x ia64 ppc64 alpha sparc64
@@ -106,10 +106,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %define wordsize 32
 %endif
 
-mv $RPM_BUILD_ROOT%{_includedir}/%{name}/wizard/wizard-config.h \
-   $RPM_BUILD_ROOT%{_includedir}/%{name}/wizard/wizard-config-%{wordsize}.h
+mv %{buildroot}%{_includedir}/%{name}/wizard/wizard-config.h \
+   %{buildroot}%{_includedir}/%{name}/wizard/wizard-config-%{wordsize}.h
 
-cat >$RPM_BUILD_ROOT%{_includedir}/%{name}/wizard/wizard-config.h <<EOF
+cat >%{buildroot}%{_includedir}/%{name}/wizard/wizard-config.h <<EOF
 #ifndef WIZARDSTOOLKIT_MULTILIB
 #define WIZARDSTOOLKIT_MULTILIB
 
@@ -128,8 +128,7 @@ EOF
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
-
+rm -rf %{buildroot}
 
 %post -p /sbin/ldconfig
 
