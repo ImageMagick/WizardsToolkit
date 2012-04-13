@@ -248,10 +248,6 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
       signature_info=AcquireHashInfo(PseudoRandomHash);
       key=AcquireStringInfo(sizeof(random_seed));
       SetStringInfoDatum(key,(unsigned char *) &random_seed);
-      if ((random_seed << 1) > random_seed)
-        random_seed<<=1;
-      else
-        random_seed>>=1;
       UpdateHash(signature_info,key);
       key=DestroyStringInfo(key);
       FinalizeHash(signature_info);
