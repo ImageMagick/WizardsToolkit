@@ -121,15 +121,26 @@ WizardExport void AcquireSemaphoreInfo(SemaphoreInfo **semaphore_info)
 %      SemaphoreInfo *AllocateSemaphoreInfo(void)
 %
 */
+
+static inline size_t WizardMax(const size_t x,const size_t y)
+{
+  if (x > y)
+    return(x);
+  return(y);
+}
+
 WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
 {
+#define AlignedSize  (16*sizeof(void *))
+
   SemaphoreInfo
     *semaphore_info;
 
   /*
     Allocate semaphore.
   */
-  semaphore_info=(SemaphoreInfo *) malloc(sizeof(SemaphoreInfo));
+  semaphore_info=(SemaphoreInfo *) malloc(WizardMax(sizeof(*semaphore_info),
+    AlignedSize));
   if (semaphore_info == (SemaphoreInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   (void) ResetWizardMemory(semaphore_info,0,sizeof(SemaphoreInfo));
