@@ -1134,8 +1134,7 @@ WizardExport void SetRandomKey(RandomInfo *random_info,const size_t length,
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  SetRandomSecretKey() initializes the pseudo-random number generator
-%  with a random seed.
+%  SetRandomSecretKey() sets the pseudo-random number generator secret key.
 %
 %  The format of the SetRandomSecretKey method is:
 %
@@ -1143,7 +1142,7 @@ WizardExport void SetRandomKey(RandomInfo *random_info,const size_t length,
 %
 %  A description of each parameter follows:
 %
-%    o seed: the seed.
+%    o key: the secret key.
 %
 */
 WizardExport void SetRandomSecretKey(const unsigned long key)
