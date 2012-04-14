@@ -87,6 +87,9 @@ struct _RandomInfo
   double
     normalize;
 
+  unsigned long
+    secret_key;
+
   unsigned short
     protocol_major,
     protocol_minor;
@@ -119,7 +122,7 @@ static SemaphoreInfo
   *random_semaphore = (SemaphoreInfo *) NULL;
 
 static unsigned long
-  random_seed = ~0UL;
+  secret_key = ~0UL;
 
 static WizardBooleanType
   gather_true_random = WizardFalse;
@@ -192,9 +195,10 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
     random_info->hmac_info));
   ResetStringInfo(random_info->reservoir);
   random_info->normalize=1.0/(~0UL);
-  random_info->semaphore=AllocateSemaphoreInfo();
+  random_info->secret_key=secret_key;
   random_info->protocol_major=RandomProtocolMajorVersion;
   random_info->protocol_minor=RandomProtocolMinorVersion;
+  random_info->semaphore=AllocateSemaphoreInfo();
   random_info->timestamp=time(0);
   random_info->signature=WizardSignature;
   /*
@@ -230,9 +234,9 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
   /*
     Seed pseudo random number generator.
   */
-  if (random_seed == ~0UL)
+  if (random_info->secret_key == ~0UL)
     {
-      key=GetRandomKey(random_info,sizeof(random_seed));
+      key=GetRandomKey(random_info,sizeof(random_info->secret_key));
       (void) CopyWizardMemory(random_info->seed,GetStringInfoDatum(key),
         GetStringInfoLength(key));
       key=DestroyStringInfo(key);
@@ -246,8 +250,8 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
         *signature_info;
 
       signature_info=AcquireHashInfo(PseudoRandomHash);
-      key=AcquireStringInfo(sizeof(random_seed));
-      SetStringInfoDatum(key,(unsigned char *) &random_seed);
+      key=AcquireStringInfo(sizeof(random_info->secret_key));
+      SetStringInfoDatum(key,(unsigned char *) &random_info->secret_key);
       UpdateHash(signature_info,key);
       key=DestroyStringInfo(key);
       FinalizeHash(signature_info);
@@ -834,6 +838,32 @@ WizardExport StringInfo *GetRandomKey(RandomInfo *random_info,
 %                                                                             %
 %                                                                             %
 %                                                                             %
+%   G e t R a n d o m S e c r e t K e y                                       %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  GetRandomSecretKey() returns the random secet key.
+%
+%  The format of the GetRandomSecretKey method is:
+%
+%      unsigned long GetRandomSecretKey(const RandomInfo *random_info)
+%
+%  A description of each parameter follows:
+%
+%    o random_info: the random info.
+*/
+WizardExport unsigned long GetRandomSecretKey(const RandomInfo *random_info)
+{
+  return(random_info->secret_key);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
 %   G e t R a n d o m V a l u e                                               %
 %                                                                             %
 %                                                                             %
@@ -997,34 +1027,6 @@ static WizardBooleanType SaveEntropyToReservoir(RandomInfo *random_info,
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   S e e d P s e u d o R a n d o m G e n e r a t o r                         %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  SeedPseudoRandomGenerator() initializes the pseudo-random number generator
-%  with a random seed.
-%
-%  The format of the SeedPseudoRandomGenerator method is:
-%
-%      void SeedPseudoRandomGenerator(const unsigned long seed)
-%
-%  A description of each parameter follows:
-%
-%    o seed: the seed.
-%
-*/
-WizardExport void SeedPseudoRandomGenerator(const unsigned long seed)
-{
-  random_seed=seed;
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 %   S e t R a n d o m K e y                                                   %
 %                                                                             %
 %                                                                             %
@@ -1119,6 +1121,34 @@ WizardExport void SetRandomKey(RandomInfo *random_info,const size_t length,
         p[i]=datum[i];
     }
   UnlockSemaphoreInfo(random_info->semaphore);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%   S e t R a n d o m S e c r e t K e y                                       %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  SetRandomSecretKey() initializes the pseudo-random number generator
+%  with a random seed.
+%
+%  The format of the SetRandomSecretKey method is:
+%
+%      void SetRandomSecretKey(const unsigned long key)
+%
+%  A description of each parameter follows:
+%
+%    o seed: the seed.
+%
+*/
+WizardExport void SetRandomSecretKey(const unsigned long key)
+{
+  secret_key=key;
 }
 
 /*
