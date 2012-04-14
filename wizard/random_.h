@@ -49,8 +49,8 @@ extern WizardExport unsigned long
 
 extern WizardExport void
   RandomComponentTerminus(void),
-  SetRandomSecretKey(const unsigned long),
   SetRandomKey(RandomInfo *,const size_t,unsigned char *),
+  SetRandomSecretKey(const unsigned long),
   SetRandomTrueRandom(const WizardBooleanType);
 
 extern WizardExport WizardBooleanType
