@@ -45,6 +45,7 @@
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
+#include "wizard/memory-private.h"
 #include "wizard/semaphore.h"
 #include "wizard/semaphore-private.h"
 #include "wizard/string_.h"
@@ -122,25 +123,30 @@ WizardExport void AcquireSemaphoreInfo(SemaphoreInfo **semaphore_info)
 %
 */
 
-static inline size_t WizardMax(const size_t x,const size_t y)
+static void *AcquireSemaphoreMemory(const size_t size)
 {
-  if (x > y)
-    return(x);
-  return(y);
+#if defined(MAGICKCORE_HAVE_POSIX_MEMALIGN)
+  {
+    void
+      *memory;
+
+    if (posix_memalign(&memory,CACHE_LINE_SIZE,CacheAlign(size)) == 0)
+      return(memory);
+  }
+#endif
+  return(malloc(CacheAlign(size)));
 }
 
 WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
 {
-#define AlignedSize  (16*sizeof(void *))
-
   SemaphoreInfo
     *semaphore_info;
 
   /*
     Allocate semaphore.
   */
-  semaphore_info=(SemaphoreInfo *) malloc(WizardMax(sizeof(*semaphore_info),
-    AlignedSize));
+  semaphore_info=(SemaphoreInfo *) AcquireSemaphoreMemory(
+    sizeof(*semaphore_info));
   if (semaphore_info == (SemaphoreInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   (void) ResetWizardMemory(semaphore_info,0,sizeof(SemaphoreInfo));

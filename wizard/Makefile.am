@@ -86,6 +86,7 @@ WIZARD_BASE_SRCS = \
   wizard/md5.h \
   wizard/memory.c \
   wizard/memory_.h \
+  wizard/memory-private.h \
   wizard/method-attribute.h \
   wizard/mime.c \
   wizard/mime.h \
@@ -213,6 +214,7 @@ WIZARD_NOINST_HDRS = \
   wizard/blob-private.h \
   wizard/crc64.h \
   wizard/exception-private.h \
+  wizard/memory-private.h \
   wizard/mime-private.h \
   wizard/semaphore-private.h \
   wizard/serpent.h \

@@ -227,28 +227,28 @@ am__wizard_libWizardsToolkit_la_SOURCES_DIST = wizard/aes.c \
 	wizard/keyring.h wizard/locale.c wizard/locale_.h wizard/log.c \
 	wizard/log.h wizard/lzma.c wizard/lzma.h wizard/magick.c \
 	wizard/magick.h wizard/md5.c wizard/md5.h wizard/memory.c \
-	wizard/memory_.h wizard/method-attribute.h wizard/mime.c \
-	wizard/mime.h wizard/mime-private.h wizard/nt-base.h \
-	wizard/option.c wizard/option.h wizard/passphrase.c \
-	wizard/passphrase.h wizard/random.c wizard/random_.h \
-	wizard/resource.c wizard/resource_.h wizard/sanitize.c \
-	wizard/sanitize.h wizard/secret.c wizard/secret.h \
-	wizard/semaphore.c wizard/semaphore.h \
-	wizard/semaphore-private.h wizard/serpent.c wizard/serpent.h \
-	wizard/signature.c wizard/signature.h wizard/sha1.c \
-	wizard/sha1.h wizard/sha224.c wizard/sha224.h wizard/sha256.c \
-	wizard/sha256.h wizard/sha384.c wizard/sha384.h \
-	wizard/sha512.c wizard/sha512.h wizard/splay-tree.c \
-	wizard/splay-tree.h wizard/string.c wizard/string_.h \
-	wizard/string-private.h wizard/studio.h wizard/thread.c \
-	wizard/thread_.h wizard/thread-private.h wizard/timer.c \
-	wizard/timer.h wizard/token.c wizard/token.h wizard/twofish.c \
-	wizard/twofish.h wizard/utility.c wizard/utility.h \
-	wizard/utility-private.h wizard/version.c wizard/version.h \
-	wizard/wizard.c wizard/wizard.h wizard/wizard-type.h \
-	wizard/wizard-config.h wizard/WizardsToolkit.h \
-	wizard/xml-tree.c wizard/xml-tree.h wizard/zip.c wizard/zip.h \
-	wizard/nt-base.c
+	wizard/memory_.h wizard/memory-private.h \
+	wizard/method-attribute.h wizard/mime.c wizard/mime.h \
+	wizard/mime-private.h wizard/nt-base.h wizard/option.c \
+	wizard/option.h wizard/passphrase.c wizard/passphrase.h \
+	wizard/random.c wizard/random_.h wizard/resource.c \
+	wizard/resource_.h wizard/sanitize.c wizard/sanitize.h \
+	wizard/secret.c wizard/secret.h wizard/semaphore.c \
+	wizard/semaphore.h wizard/semaphore-private.h wizard/serpent.c \
+	wizard/serpent.h wizard/signature.c wizard/signature.h \
+	wizard/sha1.c wizard/sha1.h wizard/sha224.c wizard/sha224.h \
+	wizard/sha256.c wizard/sha256.h wizard/sha384.c \
+	wizard/sha384.h wizard/sha512.c wizard/sha512.h \
+	wizard/splay-tree.c wizard/splay-tree.h wizard/string.c \
+	wizard/string_.h wizard/string-private.h wizard/studio.h \
+	wizard/thread.c wizard/thread_.h wizard/thread-private.h \
+	wizard/timer.c wizard/timer.h wizard/token.c wizard/token.h \
+	wizard/twofish.c wizard/twofish.h wizard/utility.c \
+	wizard/utility.h wizard/utility-private.h wizard/version.c \
+	wizard/version.h wizard/wizard.c wizard/wizard.h \
+	wizard/wizard-type.h wizard/wizard-config.h \
+	wizard/WizardsToolkit.h wizard/xml-tree.c wizard/xml-tree.h \
+	wizard/zip.c wizard/zip.h wizard/nt-base.c
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 = wizard/aes.lo wizard/authenticate.lo wizard/blob.lo \
 	wizard/bzip.lo wizard/cipher.lo wizard/client.lo \
@@ -922,6 +922,7 @@ WIZARD_BASE_SRCS = \
   wizard/md5.h \
   wizard/memory.c \
   wizard/memory_.h \
+  wizard/memory-private.h \
   wizard/method-attribute.h \
   wizard/mime.c \
   wizard/mime.h \
@@ -1043,6 +1044,7 @@ WIZARD_NOINST_HDRS = \
   wizard/blob-private.h \
   wizard/crc64.h \
   wizard/exception-private.h \
+  wizard/memory-private.h \
   wizard/mime-private.h \
   wizard/semaphore-private.h \
   wizard/serpent.h \
