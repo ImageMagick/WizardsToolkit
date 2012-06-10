@@ -201,11 +201,11 @@ WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
     void
       *memory;
 
-    if (posix_memalign(&memory,CACHE_LINE_SIZE,size)) == 0)
+    if (posix_memalign(&memory,CACHE_LINE_SIZE,CacheAlign(size)) == 0)
       return(memory);
   }
 #endif
-  return(malloc(size));
+  return(malloc(CacheAlign(size)));
 }
 
 #if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
