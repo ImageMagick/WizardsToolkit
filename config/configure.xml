@@ -5,8 +5,8 @@
   <configure name="VERSION" value="1.0.8" />
   <configure name="LIB_VERSION" value="0x108" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,8,10" />
-  <configure name="RELEASE_DATE" value="2012-06-10" />
-  <configure name="CONFIGURE" value="./configure  'CC=gcc'" />
+  <configure name="RELEASE_DATE" value="2012-06-20" />
+  <configure name="CONFIGURE" value="./configure " />
   <configure name="PREFIX" value="/usr/local" />
   <configure name="EXEC-PREFIX" value="/usr/local" />
   <configure name="INCLUDE_PATH" value="@INCLIUDE_PATH@"/>
@@ -25,7 +25,7 @@
   <configure name="LIBS" value="-lWizardsToolkit -lbz2 -llzma -lz -lm -lgomp -lpthread" />
   <configure name="CXX" value="g++" />
   <configure name="CXXFLAGS" value="-pthread" />
-  <configure name="DISTCHECK_CONFIG_FLAGS" value="'CC=gcc'  --with-umem=no " />
+  <configure name="DISTCHECK_CONFIG_FLAGS" value=" --with-umem=no " />
   <configure name="HOST" value="x86_64-unknown-linux-gnu" />
   <configure name="COPYRIGHT" value="Copyright (C) 1999-2012 ImageMagick Studio LLC" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
