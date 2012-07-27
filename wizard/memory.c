@@ -188,7 +188,12 @@ static WizardBooleanType
 WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
 {
   size_t
+    alignment,
+    extent,
     size;
+
+  void
+    *memory;
 
   size=count*quantum;
   if ((count == 0) || (quantum != (size/count)))
@@ -196,16 +201,31 @@ WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
       errno=ENOMEM;
       return((void *) NULL);
     }
+  memory=NULL;
+  alignment=CACHE_LINE_SIZE;
+  extent=(size+alignment-1)+sizeof(void *);
+  if ((size == 0) || (alignment < sizeof(void *)) || (extent <= size))
+    return((void *) NULL);
 #if defined(WIZARDSTOOLKIT_HAVE_POSIX_MEMALIGN)
+  if (posix_memalign(&memory,alignment,size) != 0)
+    memory=NULL;
+#elif defined(WIZARDSTOOLKIT_HAVE__ALIGNED_MALLOC)
+  memory=_aligned_malloc(size,alignment);
+#else
   {
     void
-      *memory;
+      *p;
 
-    if (posix_memalign(&memory,CACHE_LINE_SIZE,CacheAlign(size)) == 0)
-      return(memory);
+    p=malloc(extent);
+    if (p != NULL)
+      {
+        memory=(void *) (((size_t) p+sizeof(void *)+alignment-1) &
+          ~(alignment-1));
+        *((void **) memory-1)=p;
+      }
   }
 #endif
-  return(malloc(CacheAlign(size)));
+  return(memory);
 }
 
 #if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
@@ -710,8 +730,14 @@ WizardExport void *RelinquishAlignedMemory(void *memory)
 {
   if (memory == (void *) NULL)
     return((void *) NULL);
+#if defined(WIZARDSTOOLKIT_HAVE_POSIX_MEMALIGN)
   free(memory);
-  return((void *) NULL);
+#elif defined(WIZARDSTOOLKIT_HAVE__ALIGNED_MALLOC)
+  _aligned_free(memory);
+#else
+  free(*((void **) memory-1));
+#endif
+  return(NULL);
 }
 
 /*

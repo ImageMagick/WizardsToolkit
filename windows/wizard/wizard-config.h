@@ -142,6 +142,7 @@ typedef long ssize_t;
 /* Define to 1 if you have the `_wfopen' function. */
 #define WIZARDSTOOLKIT_HAVE__WFOPEN   1
 
+#define WIZARDSTOOLKIT_HAVE__ALIGNED_MALLOC 1
 #define WIZARDSTOOLKIT_HAVE_VSNPRINTF  1
 #define WIZARDSTOOLKIT_HAVE_GETTIMEOFDAY  1 
 #define WIZARDSTOOLKIT_HAVE_TEMPNAM  1

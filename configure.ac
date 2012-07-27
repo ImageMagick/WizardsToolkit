@@ -12,7 +12,9 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-#  Configure script for building the Wizard Toolkit.
+#  Copying and distribution of this file, with or without modification,
+#  are permitted in any medium without royalty provided the copyright
+#  notice and this notice are preserved.
 
 AC_PREREQ(2.67)
 
@@ -224,6 +226,7 @@ AC_SUBST(LD)
 AC_PROG_CC_C99
 AM_PROG_CC_C_O
 AX_CFLAGS_WARN_ALL
+AX_COMPILER_VENDOR
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
@@ -238,7 +241,6 @@ PKG_PROG_PKG_CONFIG
 #
 AC_EXEEXT
 AC_OBJEXT
-AX_LANG_COMPILER_MS
 
 GDI32_LIBS=''
 native_win32_build='no'
@@ -889,7 +891,7 @@ AC_FUNC_MKTIME
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_STAT
 AC_FUNC_STRERROR_R
-AC_CHECK_FUNCS([atexit clock fchmod fprintf_l ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii isnan localtime_r lstat madvise memmove memset mkdir munmap mkstemp newloacle _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readdir_r readlink realpath sbrk select strtod_l setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times uselocale usleep utime vfprintf vfprintf_l vsprintf vsnprintf vsnprintf_l _wfopen])
+AC_CHECK_FUNCS([_aligned_malloc atexit clock fchmod fprintf_l ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii isnan localtime_r lstat madvise memmove memset mkdir munmap mkstemp newloacle _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readdir_r readlink realpath sbrk select strtod_l setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times uselocale usleep utime vfprintf vfprintf_l vsprintf vsnprintf vsnprintf_l _wfopen])
 
 #
 # Check for clock_gettime().
