@@ -79,8 +79,8 @@
 typedef enum
 {
   UndefinedStream,
-  FileStream,
   StandardStream,
+  FileStream,
   PipeStream,
   ZipStream,
   BZipStream,
@@ -245,9 +245,9 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
   switch (blob_info->type)
   {
     case UndefinedStream:
+    case StandardStream:
       break;
     case FileStream:
-    case StandardStream:
     case PipeStream:
     {
       status=ferror(blob_info->file);
@@ -274,9 +274,9 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
   switch (blob_info->type)
   {
     case UndefinedStream:
+    case StandardStream:
       break;
     case FileStream:
-    case StandardStream:
     {
       status=fclose(blob_info->file);
       break;
@@ -437,9 +437,9 @@ WizardExport int EOFBlob(BlobInfo *blob_info)
   switch (blob_info->type)
   {
     case UndefinedStream:
+    case StandardStream:
       break;
     case FileStream:
-    case StandardStream:
     case PipeStream:
     {
       blob_info->eof=feof(blob_info->file) != 0 ? WizardTrue : WizardFalse;
@@ -753,13 +753,17 @@ WizardExport WizardSizeType GetBlobSize(BlobInfo *blob_info)
       length=blob_info->size;
       break;
     }
+    case StandardStream:
+    {
+      length=blob_info->size;
+      break;
+    }
     case FileStream:
     {
       if (fstat(fileno(blob_info->file),&blob_info->properties) == 0)
         length=(WizardSizeType) blob_info->properties.st_size;
       break;
     }
-    case StandardStream:
     case PipeStream:
     {
       length=blob_info->size;
@@ -1232,8 +1236,12 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
   {
     case UndefinedStream:
       break;
-    case FileStream:
     case StandardStream:
+    {
+      count=(ssize_t) read(fileno(blob_info->file),q,length);
+      break;
+    }
+    case FileStream:
     case PipeStream:
     {
       switch (length)
@@ -1489,6 +1497,11 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
   {
     case UndefinedStream:
       break;
+    case StandardStream:
+    {
+      return(WizardFalse);
+      break;
+    }
     case FileStream:
     {
       if (extent != (WizardSizeType) ((off_t) extent))
@@ -1512,7 +1525,6 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
 #endif
       break;
     }
-    case StandardStream:
     case PipeStream:
     case ZipStream:
     {
@@ -1604,9 +1616,9 @@ WizardExport int SyncBlob(BlobInfo *blob_info)
   switch (blob_info->type)
   {
     case UndefinedStream:
+    case StandardStream:
       break;
     case FileStream:
-    case StandardStream:
     case PipeStream:
     {
       status=fflush(blob_info->file);
@@ -1673,13 +1685,13 @@ WizardExport WizardOffsetType TellBlob(const BlobInfo *blob_info)
   switch (blob_info->type)
   {
     case UndefinedStream:
+    case StandardStream:
       break;
     case FileStream:
     {
       offset=ftell(blob_info->file);
       break;
     }
-    case StandardStream:
     case PipeStream:
       break;
     case ZipStream:
@@ -1789,16 +1801,19 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
   {
     case UndefinedStream:
       break;
-    case FileStream:
     case StandardStream:
+    {
+      count=(ssize_t) write(fileno(blob_info->file),data,length);
+      break;
+    }
+    case FileStream:
     case PipeStream:
     {
       switch (length)
       {
         default:
         {
-          count=(ssize_t) fwrite((const char *) data,1,length,
-            blob_info->file);
+          count=(ssize_t) fwrite((const char *) data,1,length,blob_info->file);
           break;
         }
         case 2:
