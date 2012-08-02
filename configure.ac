@@ -24,7 +24,7 @@ m4_define([wizard_micro_version], [8])
 m4_define([wizard_patchlevel_version], [10])
 m4_define([wizard_version],
           [wizard_major_version.wizard_minor_version.wizard_micro_version-wizard_patchlevel_version])
-m4_define([wizard_svn_revision], esyscmd([sh -c "svnversion | sed -r 's/([0-9]+).*/\1/'"]))
+m4_define([wizard_svn_revision], esyscmd([sh -c "(svnversion .) | awk '{ print \$1 }' | tr -d '\n'"]))
 
 AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit])
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
