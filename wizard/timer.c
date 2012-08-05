@@ -431,10 +431,10 @@ static void StopTimer(TimerInfo *timer_info)
   timer_info->user.stop=UserTime();
   if (timer_info->state == RunningTimerState)
     {
-      timer_info->user.total+=
-        timer_info->user.stop-timer_info->user.start+WizardEpsilon;
-      timer_info->elapsed.total+=
-        timer_info->elapsed.stop-timer_info->elapsed.start+WizardEpsilon;
+      timer_info->user.total+=timer_info->user.stop-
+        timer_info->user.start+WizardEpsilon;
+      timer_info->elapsed.total+=timer_info->elapsed.stop-
+        timer_info->elapsed.start+WizardEpsilon;
     }
   timer_info->state=StoppedTimerState;
 }
