@@ -213,7 +213,7 @@ WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
   if (posix_memalign(&memory,alignment,extent) != 0)
     memory=NULL;
 #elif defined(WIZARDSTOOLKIT_HAVE__ALIGNED_MALLOC)
-  memory=_aligned_malloc(size,alignment);
+  memory=_aligned_malloc(extent,alignment);
 #else
   {
     void
