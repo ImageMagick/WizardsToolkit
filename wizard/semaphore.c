@@ -297,7 +297,7 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
   DeleteCriticalSection(&(*semaphore_info)->mutex);
 #endif
   (*semaphore_info)->signature=(~WizardSignature);
-  *semaphore_info=RelinquishSemaphoreMemory(*semaphore_info);
+  *semaphore_info=(SemaphoreInfo *) RelinquishSemaphoreMemory(*semaphore_info);
   UnlockWizardMutex();
 }
 
