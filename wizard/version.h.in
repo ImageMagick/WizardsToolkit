@@ -26,7 +26,7 @@ extern "C" {
   Define declarations.
 */
 #define WizardPackageName "@PACKAGE_NAME@"
-#define WizardCopyright  "Copyright (C) 2004-2011 ImageMagick Studio LLC"
+#define WizardCopyright  "Copyright (C) 2004-2012 ImageMagick Studio LLC"
 #define WizardSVNRevision  "@WIZARD_SVN_REVISION@"
 #define WizardLibVersion  @PACKAGE_LIB_VERSION@
 #define WizardLibVersionText  "@WIZARD_LIB_VERSION_TEXT@"
