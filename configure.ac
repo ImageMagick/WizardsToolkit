@@ -16,7 +16,7 @@
 #  are permitted in any medium without royalty provided the copyright
 #  notice and this notice are preserved.
 
-AC_PREREQ(2.67)
+AC_PREREQ(2.69)
 
 m4_define([wizard_major_version], [1])
 m4_define([wizard_minor_version], [0])
