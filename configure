@@ -3164,7 +3164,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=8753:8900M
+WIZARD_SVN_REVISION=8753:9012M
 
 
 
@@ -25317,8 +25317,6 @@ BrowseDelegateDefault='mozilla'
 EchoDelegateDefault='echo'
 LPDelegateDefault='lp'
 LPRDelegateDefault='lpr'
-LZWDecodeDelegateDefault='uncompress'
-LZWEncodeDelegateDefault='compress'
 MANDelegateDefault='groff'
 MVDelegateDefault='mv'
 RMDelegateDefault='rm'
