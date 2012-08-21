@@ -68,11 +68,11 @@ utilities_digest_SOURCES = \
 
 # Tests to run
 UTILITIES_TESTS = \
-	utilities/tests/encipher.sh \
-	utilities/tests/cipher-info.sh \
-	utilities/tests/decipher.sh \
-	utilities/tests/keyring.sh \
-	utilities/tests/digest.sh
+	utilities/tests/encipher.tap \
+	utilities/tests/cipher-info.tap \
+	utilities/tests/decipher.tap \
+	utilities/tests/keyring.tap \
+	utilities/tests/digest.tap
 
 UTILITIES_MANS = \
 	utilities/encipher.1 \
@@ -90,7 +90,7 @@ UTILITIES_CONFIGURE = \
 
 UTILITIES_EXTRA_DIST = \
 	$(UTILITIES_TESTS) \
-	utilities/tests/common.sh \
+	utilities/tests/common.shi \
 	utilities/tests/passphrase.txt \
 	utilities/tests/README.txt
 

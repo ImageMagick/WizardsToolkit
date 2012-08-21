@@ -9,10 +9,12 @@
 #
 
 set -e # Exit on any error
-. ${srcdir}/utilities/tests/common.sh
+. ${srcdir}/utilities/tests/common.shi
+echo "1..1"
 
 CIPHERTEXT="README.cip"
 MYKEYRING="keyring.xdm"
 PLANETEXT="README.txt~"
-${DECIPHER} -verbose -keyring ${MYKEYRING} -passphrase ${PASSPHRASE} ${CIPHERTEXT} ${PLANETEXT}
+${DECIPHER} -verbose -keyring ${MYKEYRING} -passphrase ${PASSPHRASE} ${CIPHERTEXT} ${PLANETEXT} && echo "ok" || echo "not ok"
 diff ${PLAINTEXT} ${PLANETEXT}
+:

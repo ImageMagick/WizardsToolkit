@@ -1,14 +1,17 @@
 #!/bin/sh
-# Copyright (C) 1999-2012 ImageMagick Studio LLC
+# Copyright (C) 1999-2010 ImageMagick Studio LLC
 #
 # This program is covered by multiple licenses, which are described in
 # LICENSE. You should have received a copy of LICENSE with this
 # package; otherwise see http://www.wizards-toolkit.org/script/license.php.
 #
-#  Test for 'validate' utility.
+#  Test for 'cipher-info' utility.
 #
 
 set -e # Exit on any error
-. ${srcdir}/tests/common.sh
+. ${srcdir}/utilities/tests/common.shi
+echo "1..1"
 
-${VALIDATE} ${PASSPHRASE}
+CIPHERTEXT="README.cip"
+${CIPHERINFO} ${CIPHERTEXT} && echo "ok" || echo "not ok"
+:

@@ -24,10 +24,10 @@ tests_validate_LDADD   = $(WIZARD_LIBS)
 TESTS_XFAIL_TESTS = 
 
 TESTS_TESTS = \
-	tests/validate.sh
+	tests/validate.tap
 
 TESTS_EXTRA_DIST = \
-	tests/common.sh \
+	tests/common.shi \
 	tests/passphrase.txt \
 	$(TESTS_TESTS)
 

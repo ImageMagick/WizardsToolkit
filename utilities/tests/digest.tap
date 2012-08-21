@@ -5,11 +5,15 @@
 # LICENSE. You should have received a copy of LICENSE with this
 # package; otherwise see http://www.wizards-toolkit.org/script/license.php.
 #
-#  Test for 'cipher-info' utility.
+#  Test for '${DIGEST}' utility.
 #
 
 set -e # Exit on any error
-. ${srcdir}/utilities/tests/common.sh
+. ${srcdir}/utilities/tests/common.shi
+echo "1..1"
 
-CIPHERTEXT="README.cip"
-${CIPHERINFO} ${CIPHERTEXT}
+PLANETEXT="README.txt~"
+DIGESTRDF="digest.rdf"
+${DIGEST} ${PLAINTEXT} ${PLANETEXT} ${DIGESTRDF}
+${DIGEST} -authenticate ${DIGESTRDF} - && echo "ok" || echo "not ok"
+:
