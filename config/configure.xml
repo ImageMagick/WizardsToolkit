@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <configuremap>
   <configure name="NAME" value="WizardsToolkit" />
-  <configure name="SVN_REVISION" value="8753:9026" />
+  <configure name="SVN_REVISION" value="8753:9030M" />
   <configure name="VERSION" value="1.0.8" />
   <configure name="LIB_VERSION" value="0x108" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,8,10" />

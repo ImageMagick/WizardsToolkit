@@ -27,7 +27,7 @@ extern "C" {
 */
 #define WizardPackageName "WizardsToolkit"
 #define WizardCopyright  "Copyright (C) 2004-2012 ImageMagick Studio LLC"
-#define WizardSVNRevision  "8753:9026"
+#define WizardSVNRevision  "8753:9030M"
 #define WizardLibVersion  0x108
 #define WizardLibVersionText  "1.0.8"
 #define WizardLibVersionNumber  1,0,1
