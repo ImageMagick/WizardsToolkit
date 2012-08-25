@@ -1,7 +1,17 @@
-SRCDIR=`dirname $0`
-SRCDIR=`cd $SRCDIR && pwd`
-TOPSRCDIR=`cd $srcdir && pwd`
-mkdir -p utilities/tests
-cd utilities/tests || exit 1
-PASSPHRASE="${TOPSRCDIR}/utilities/tests/passphrase.txt"
-PLAINTEXT="${TOPSRCDIR}/utilities/tests/README.txt"
+# Test environment
+top_srcdir='/home/cristy/WizardsToolkit'
+top_builddir='/home/cristy/WizardsToolkit'
+
+set -a
+ENCIPHER="/home/cristy/WizardsToolkit/utilities/encipher"
+DECIPHER="/home/cristy/WizardsToolkit/utilities/decipher"
+CIPHERINFO="/home/cristy/WizardsToolkit/utilities/cipher-info"
+KEYRING="/home/cristy/WizardsToolkit/utilities/keyring"
+DIGEST="/home/cristy/WizardsToolkit/utilities/digest"
+VALIDATE="/home/cristy/WizardsToolkit/tests/validate"
+PASSPHRASE="/home/cristy/WizardsToolkit/utilities/tests/passphrase.txt"
+PLAINTEXT="/home/cristy/WizardsToolkit/utilities/tests/README.txt"
+LD_LIBRARY_PATH="/home/cristy/WizardsToolkit/wizard/.libs:${LD_LIBRARY_PATH}"
+WIZARD_CONFIGURE_PATH='/home/cristy/WizardsToolkit/config:/home/cristy/WizardsToolkit/config'
+PATH="/home/cristy/WizardsToolkit/utilities:${PATH}"
+set +a

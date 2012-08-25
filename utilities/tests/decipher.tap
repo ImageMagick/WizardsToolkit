@@ -14,7 +14,7 @@ echo "1..1"
 
 CIPHERTEXT="README.cip"
 MYKEYRING="keyring.xdm"
-PLANETEXT="README.txt~"
-${DECIPHER} -verbose -keyring ${MYKEYRING} -passphrase ${PASSPHRASE} ${CIPHERTEXT} ${PLANETEXT} && echo "ok" || echo "not ok"
-diff ${PLAINTEXT} ${PLANETEXT}
+PLAINTEXT="README.txt~"
+${DECIPHER} -verbose -keyring ${MYKEYRING} -passphrase ${PASSPHRASE} ${CIPHERTEXT} ${PLAINTEXT} && echo "ok" || echo "not ok"
+diff ${PLAINTEXT} ${PLAINTEXT}
 :

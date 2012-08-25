@@ -45,6 +45,7 @@ AC_CONFIG_FILES([\
   utilities/digest.1 \
   utilities/encipher.1 \
   utilities/keyring.1 \
+  utilities/tests/common.shi \
   windows/WizardsToolkit.bat \
   wizard/version.h \
   wizard/WizardsToolkit-config \

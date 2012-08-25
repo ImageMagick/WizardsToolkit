@@ -160,6 +160,7 @@ DIST_COMMON = $(am__configure_deps) $(include_HEADERS) \
 	$(top_srcdir)/utilities/digest.1.in \
 	$(top_srcdir)/utilities/encipher.1.in \
 	$(top_srcdir)/utilities/keyring.1.in \
+	$(top_srcdir)/utilities/tests/common.shi.in \
 	$(top_srcdir)/windows/WizardsToolkit.bat.in \
 	$(top_srcdir)/wizard/WizardsToolkit-config.in \
 	$(top_srcdir)/wizard/WizardsToolkit.pc.in \
@@ -196,9 +197,10 @@ CONFIG_HEADER = $(top_builddir)/config/config.h
 CONFIG_CLEAN_FILES = config/configure.xml config/WizardsToolkit.dox \
 	wizard.sh tests/common.shi utilities/cipher-info.1 \
 	utilities/decipher.1 utilities/digest.1 utilities/encipher.1 \
-	utilities/keyring.1 windows/WizardsToolkit.bat \
-	wizard/version.h wizard/WizardsToolkit-config \
-	wizard/WizardsToolkit.pc WizardsToolkit.spec
+	utilities/keyring.1 utilities/tests/common.shi \
+	windows/WizardsToolkit.bat wizard/version.h \
+	wizard/WizardsToolkit-config wizard/WizardsToolkit.pc \
+	WizardsToolkit.spec
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -1406,6 +1408,8 @@ utilities/digest.1: $(top_builddir)/config.status $(top_srcdir)/utilities/digest
 utilities/encipher.1: $(top_builddir)/config.status $(top_srcdir)/utilities/encipher.1.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 utilities/keyring.1: $(top_builddir)/config.status $(top_srcdir)/utilities/keyring.1.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+utilities/tests/common.shi: $(top_builddir)/config.status $(top_srcdir)/utilities/tests/common.shi.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 windows/WizardsToolkit.bat: $(top_builddir)/config.status $(top_srcdir)/windows/WizardsToolkit.bat.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
