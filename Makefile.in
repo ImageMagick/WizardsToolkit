@@ -154,6 +154,7 @@ DIST_COMMON = $(am__configure_deps) $(include_HEADERS) \
 	$(top_srcdir)/config/mkinstalldirs \
 	$(top_srcdir)/config/tap-driver.sh \
 	$(top_srcdir)/config/test-driver $(top_srcdir)/configure \
+	$(top_srcdir)/tests/common.shi.in \
 	$(top_srcdir)/utilities/cipher-info.1.in \
 	$(top_srcdir)/utilities/decipher.1.in \
 	$(top_srcdir)/utilities/digest.1.in \
@@ -193,11 +194,11 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
 mkinstalldirs = $(SHELL) $(top_srcdir)/config/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config/config.h
 CONFIG_CLEAN_FILES = config/configure.xml config/WizardsToolkit.dox \
-	wizard.sh utilities/cipher-info.1 utilities/decipher.1 \
-	utilities/digest.1 utilities/encipher.1 utilities/keyring.1 \
-	windows/WizardsToolkit.bat wizard/version.h \
-	wizard/WizardsToolkit-config wizard/WizardsToolkit.pc \
-	WizardsToolkit.spec
+	wizard.sh tests/common.shi utilities/cipher-info.1 \
+	utilities/decipher.1 utilities/digest.1 utilities/encipher.1 \
+	utilities/keyring.1 windows/WizardsToolkit.bat \
+	wizard/version.h wizard/WizardsToolkit-config \
+	wizard/WizardsToolkit.pc WizardsToolkit.spec
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -878,21 +879,9 @@ TAP_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) \
 
 # Environment parameters to be used during tests
 TESTS_ENVIRONMENT = \
-  ENCIPHER="$(MEMCHECK) @abs_top_builddir@/utilities/encipher" \
-  DECIPHER="$(MEMCHECK) @abs_top_builddir@/utilities/decipher" \
-  CIPHERINFO="$(MEMCHECK) @abs_top_builddir@/utilities/cipher-info" \
-  KEYRING="$(MEMCHECK) @abs_top_builddir@/utilities/keyring" \
-  DIGEST="$(MEMCHECK) @abs_top_builddir@/utilities/digest" \
-  VALIDATE="$(MEMCHECK) @abs_top_builddir@/tests/validate" \
-	LD_LIBRARY_PATH="@abs_top_builddir@/wizard/.libs:${LD_LIBRARY_PATH}" \
-	WIZARD_CODER_MODULE_PATH='@WIZARD_CODER_MODULE_PATH@' \
-	WIZARD_CONFIGURE_PATH='@WIZARD_CONFIGURE_BUILD_PATH@@DIRSEP@@WIZARD_CONFIGURE_SRC_PATH@' \
-	WIZARD_FILTER_MODULE_PATH='@WIZARD_FILTER_MODULE_PATH@' \
 	MAKE="$(MAKE)" \
 	MAKEFLAGS="$(MAKEFLAGS)" \
-	MEMCHECK="$(MEMCHECK)" \
-	PATH="@abs_top_builddir@/utilities:${PATH}" \
-	SRCDIR=$(SRCDIR)
+	MEMCHECK="$(MEMCHECK)"
 
 
 # Tests to run
@@ -1405,6 +1394,8 @@ config/configure.xml: $(top_builddir)/config.status $(top_srcdir)/config/configu
 config/WizardsToolkit.dox: $(top_builddir)/config.status $(top_srcdir)/config/WizardsToolkit.dox.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 wizard.sh: $(top_builddir)/config.status $(srcdir)/wizard.sh.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+tests/common.shi: $(top_builddir)/config.status $(top_srcdir)/tests/common.shi.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 utilities/cipher-info.1: $(top_builddir)/config.status $(top_srcdir)/utilities/cipher-info.1.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@

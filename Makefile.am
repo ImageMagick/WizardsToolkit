@@ -70,21 +70,9 @@ TAP_LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) \
 
 # Environment parameters to be used during tests
 TESTS_ENVIRONMENT = \
-  ENCIPHER="$(MEMCHECK) @abs_top_builddir@/utilities/encipher" \
-  DECIPHER="$(MEMCHECK) @abs_top_builddir@/utilities/decipher" \
-  CIPHERINFO="$(MEMCHECK) @abs_top_builddir@/utilities/cipher-info" \
-  KEYRING="$(MEMCHECK) @abs_top_builddir@/utilities/keyring" \
-  DIGEST="$(MEMCHECK) @abs_top_builddir@/utilities/digest" \
-  VALIDATE="$(MEMCHECK) @abs_top_builddir@/tests/validate" \
-	LD_LIBRARY_PATH="@abs_top_builddir@/wizard/.libs:${LD_LIBRARY_PATH}" \
-	WIZARD_CODER_MODULE_PATH='@WIZARD_CODER_MODULE_PATH@' \
-	WIZARD_CONFIGURE_PATH='@WIZARD_CONFIGURE_BUILD_PATH@@DIRSEP@@WIZARD_CONFIGURE_SRC_PATH@' \
-	WIZARD_FILTER_MODULE_PATH='@WIZARD_FILTER_MODULE_PATH@' \
 	MAKE="$(MAKE)" \
 	MAKEFLAGS="$(MAKEFLAGS)" \
-	MEMCHECK="$(MEMCHECK)" \
-	PATH="@abs_top_builddir@/utilities:${PATH}" \
-	SRCDIR=$(SRCDIR)
+	MEMCHECK="$(MEMCHECK)"
 
 # Tests to run
 TESTS = \

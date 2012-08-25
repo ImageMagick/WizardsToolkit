@@ -1,0 +1,18 @@
+# Test environment
+top_srcdir='@abs_top_srcdir@'
+top_builddir='@abs_top_builddir@'
+
+set -a
+ENCIPHER="$(MEMCHECK) @abs_top_builddir@/utilities/encipher"
+DECIPHER="$(MEMCHECK) @abs_top_builddir@/utilities/decipher"
+CIPHERINFO="$(MEMCHECK) @abs_top_builddir@/utilities/cipher-info"
+KEYRING="$(MEMCHECK) @abs_top_builddir@/utilities/keyring"
+DIGEST="$(MEMCHECK) @abs_top_builddir@/utilities/digest"
+VALIDATE="$(MEMCHECK) @abs_top_builddir@/tests/validate"
+LD_LIBRARY_PATH="@abs_top_builddir@/wizard/.libs:${LD_LIBRARY_PATH}"
+WIZARD_CODER_MODULE_PATH='@WIZARD_CODER_MODULE_PATH@'
+WIZARD_CONFIGURE_PATH='@WIZARD_CONFIGURE_BUILD_PATH@@DIRSEP@@WIZARD_CONFIGURE_SRC_PATH@'
+WIZARD_FILTER_MODULE_PATH='@WIZARD_FILTER_MODULE_PATH@'
+PATH="@abs_top_builddir@/utilities:${PATH}"
+SRCDIR=$(SRCDIR)
+set +a

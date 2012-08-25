@@ -39,6 +39,7 @@ AC_CONFIG_FILES([\
   config/WizardsToolkit.dox \
   Makefile \
   wizard.sh \
+  tests/common.shi \
   utilities/cipher-info.1 \
   utilities/decipher.1 \
   utilities/digest.1 \

@@ -1,6 +1,18 @@
-SRCDIR=`dirname $0`
-SRCDIR=`cd $SRCDIR && pwd`
-TOPSRCDIR=`cd $srcdir && pwd`
-PASSPHRASE="${TOPSRCDIR}/utilities/tests/passphrase.txt"
-export SRCDIR TOPSRCDIR
-cd tests || exit 1
+# Test environment
+top_srcdir='/home/cristy/WizardsToolkit'
+top_builddir='/home/cristy/WizardsToolkit'
+
+set -a
+ENCIPHER="$(MEMCHECK) /home/cristy/WizardsToolkit/utilities/encipher"
+DECIPHER="$(MEMCHECK) /home/cristy/WizardsToolkit/utilities/decipher"
+CIPHERINFO="$(MEMCHECK) /home/cristy/WizardsToolkit/utilities/cipher-info"
+KEYRING="$(MEMCHECK) /home/cristy/WizardsToolkit/utilities/keyring"
+DIGEST="$(MEMCHECK) /home/cristy/WizardsToolkit/utilities/digest"
+VALIDATE="$(MEMCHECK) /home/cristy/WizardsToolkit/tests/validate"
+LD_LIBRARY_PATH="/home/cristy/WizardsToolkit/wizard/.libs:${LD_LIBRARY_PATH}"
+WIZARD_CODER_MODULE_PATH='@WIZARD_CODER_MODULE_PATH@'
+WIZARD_CONFIGURE_PATH='/home/cristy/WizardsToolkit/config:/home/cristy/WizardsToolkit/config'
+WIZARD_FILTER_MODULE_PATH='@WIZARD_FILTER_MODULE_PATH@'
+PATH="/home/cristy/WizardsToolkit/utilities:${PATH}"
+SRCDIR=$(SRCDIR)
+set +a
