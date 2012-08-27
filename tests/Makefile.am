@@ -27,7 +27,7 @@ TESTS_TESTS = \
 	tests/validate.tap
 
 TESTS_EXTRA_DIST = \
-	tests/common.shi \
+	tests/common.shi.in \
 	tests/passphrase.txt \
 	$(TESTS_TESTS)
 
