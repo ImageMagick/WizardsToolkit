@@ -3164,7 +3164,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=8753:9140M
+WIZARD_SVN_REVISION=8753:9236M
 
 
 
@@ -19882,7 +19882,7 @@ fi
 
 
 # Check additional headers
-for ac_header in argz.h arm/limits.h fcntl.h limits.h linux/unistd.h locale.h mach-o/dyld.h machine/param.h malloc.h process.h stdarg.h sys/syslimits.h sys/resource.h sys/time.h sys/timeb.h sys/times.h sys/utime.h termios.h utime.h xlocale.h
+for ac_header in argz.h arm/limits.h fcntl.h limits.h linux/unistd.h locale.h mach-o/dyld.h machine/param.h malloc.h process.h sun_prefetch.h stdarg.h sys/mman.h sys/syslimits.h sys/resource.h sys/time.h sys/timeb.h sys/times.h sys/utime.h termios.h utime.h xlocale.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
