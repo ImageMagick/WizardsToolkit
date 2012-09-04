@@ -655,7 +655,7 @@ AC_HEADER_ASSERT
 AC_HEADER_DIRENT
 
 # Check additional headers
-AC_CHECK_HEADERS(argz.h arm/limits.h fcntl.h limits.h linux/unistd.h locale.h mach-o/dyld.h machine/param.h malloc.h process.h stdarg.h sys/syslimits.h sys/resource.h sys/time.h sys/timeb.h sys/times.h sys/utime.h termios.h utime.h xlocale.h)
+AC_CHECK_HEADERS(argz.h arm/limits.h fcntl.h limits.h linux/unistd.h locale.h mach-o/dyld.h machine/param.h malloc.h process.h sun_prefetch.h stdarg.h sys/mman.h sys/syslimits.h sys/resource.h sys/time.h sys/timeb.h sys/times.h sys/utime.h termios.h utime.h xlocale.h)
 
 ########
 #
