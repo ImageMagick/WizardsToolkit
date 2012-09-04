@@ -52,10 +52,6 @@
 #include "wizard/string-private.h"
 #include "wizard/utility.h"
 #include "wizard/utility-private.h"
-#include "blob.h"
-#if defined(WIZARDSTOOLKIT_HAVE_MMAP_FILEIO) && !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
-# include <sys/mman.h>
-#endif
 #include "bzlib.h"
 #include "zlib.h"
 
