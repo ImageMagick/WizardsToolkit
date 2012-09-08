@@ -1158,6 +1158,14 @@ AC_SUBST(MATH_LIBS)
 
 dnl ===========================================================================
 
+# Encode the this name into the shared library.
+AC_ARG_WITH([package-release-name],
+    [AC_HELP_STRING([--with-package-release-name=NAME],
+                    [encode this name into the shared library])],
+[WIZARD_LT_RELEASE_OPTS="-release $withval"])
+AC_SUBST(WIZARD_LT_RELEASE_OPTS)
+
+
 #
 # Check for BZLIB
 #
@@ -1505,9 +1513,9 @@ fi
 #
 
 if test "$with_modules" != 'no'; then
-  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
+  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $GOMP_LIBS $UMEM_LIBS $THREAD_LIBS"
 else
-  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
+  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $UMEM_LIBS $GOMP_LIBS $UMEM_LIBS $THREAD_LIBS"
 fi
 AC_SUBST(WIZARD_DEP_LIBS)
 

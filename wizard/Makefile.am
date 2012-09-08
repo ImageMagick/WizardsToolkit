@@ -34,7 +34,7 @@ WIZARD_LIBS = wizard/libWizardsToolkit.la
 wizard_libWizardsToolkit_la_SOURCES = $(WIZARD_BASE_SRCS) $(WIZARD_PLATFORM_SRCS)
 wizard_libWizardsToolkit_la_LIBADD = $(WIZARD_DEP_LIBS)
 wizard_libWizardsToolkit_la_LDFLAGS = -no-undefined -export-symbols-regex ".*" \
-  -version-info \
+  $(WIZARD_LT_RELEASE_OPTS) -version-info \
   $(WIZARD_LIBRARY_CURRENT):$(WIZARD_LIBRARY_REVISION):$(WIZARD_LIBRARY_AGE)
 
 # Library base sources

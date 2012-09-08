@@ -674,6 +674,7 @@ LZMA_CFLAGS
 BZLIB_LIBS
 BZLIB_DELEGATE_FALSE
 BZLIB_DELEGATE_TRUE
+WIZARD_LT_RELEASE_OPTS
 MATH_LIBS
 CCMALLOCDelegate
 UMEM_LIBS
@@ -929,6 +930,7 @@ enable_gcov
 with_method_prefix
 with_umem
 with_libstdc
+with_package_release_name
 with_bzlib
 with_lzma
 with_zlib
@@ -1617,6 +1619,8 @@ Optional Packages:
                           prefix WizardsToolkit API methods
   --with-umem             enable umem memory allocation library support
   --with-libstdc=DIR      use libstdc++ in DIR (for GNU C++)
+  --with-package-release-name=NAME
+                          encode this name into the shared library
   --without-bzlib         disable BZLIB support
   --without-lzma          disable LZMA support
   --without-zlib          disable ZLIB support
@@ -3164,7 +3168,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=8753:9236M
+WIZARD_SVN_REVISION=9240:9250M
 
 
 
@@ -24482,6 +24486,16 @@ LIBS="$MATH_LIBS $LIBS"
 
 
 
+# Encode the this name into the shared library.
+
+# Check whether --with-package-release-name was given.
+if test "${with_package_release_name+set}" = set; then :
+  withval=$with_package_release_name; WIZARD_LT_RELEASE_OPTS="-release $withval"
+fi
+
+
+
+
 #
 # Check for BZLIB
 #
@@ -25608,9 +25622,9 @@ fi
 #
 
 if test "$with_modules" != 'no'; then
-  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
+  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $GOMP_LIBS $UMEM_LIBS $THREAD_LIBS"
 else
-  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $CCMALLOC_LIBS $EFENCE_LIBS $UMEM_LIBS $GOMP_LIBS $THREAD_LIBS"
+  WIZARD_DEP_LIBS="$IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $UMEM_LIBS $GOMP_LIBS $UMEM_LIBS $THREAD_LIBS"
 fi
 
 
