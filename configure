@@ -3001,7 +3001,7 @@ ac_config_headers="$ac_config_headers config/config.h"
 
 ac_config_commands="$ac_config_commands wizard/wizard-config.h"
 
-ac_config_files="$ac_config_files config/configure.xml config/WizardsToolkit.dox Makefile wizard.sh tests/common.shi utilities/cipher-info.1 utilities/decipher.1 utilities/digest.1 utilities/encipher.1 utilities/keyring.1 utilities/tests/common.shi windows/WizardsToolkit.bat wizard/version.h wizard/WizardsToolkit-config wizard/WizardsToolkit.pc WizardsToolkit.spec"
+ac_config_files="$ac_config_files config/configure.xml config/WizardsToolkit.dox Makefile wizard.sh common.shi utilities/cipher-info.1 utilities/decipher.1 utilities/digest.1 utilities/encipher.1 utilities/keyring.1 windows/WizardsToolkit.bat wizard/version.h wizard/WizardsToolkit-config wizard/WizardsToolkit.pc WizardsToolkit.spec"
 
 
 #
@@ -3168,7 +3168,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=9240:9250M
+WIZARD_SVN_REVISION=9240:9349M
 
 
 
@@ -26849,13 +26849,12 @@ do
     "config/WizardsToolkit.dox") CONFIG_FILES="$CONFIG_FILES config/WizardsToolkit.dox" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "wizard.sh") CONFIG_FILES="$CONFIG_FILES wizard.sh" ;;
-    "tests/common.shi") CONFIG_FILES="$CONFIG_FILES tests/common.shi" ;;
+    "common.shi") CONFIG_FILES="$CONFIG_FILES common.shi" ;;
     "utilities/cipher-info.1") CONFIG_FILES="$CONFIG_FILES utilities/cipher-info.1" ;;
     "utilities/decipher.1") CONFIG_FILES="$CONFIG_FILES utilities/decipher.1" ;;
     "utilities/digest.1") CONFIG_FILES="$CONFIG_FILES utilities/digest.1" ;;
     "utilities/encipher.1") CONFIG_FILES="$CONFIG_FILES utilities/encipher.1" ;;
     "utilities/keyring.1") CONFIG_FILES="$CONFIG_FILES utilities/keyring.1" ;;
-    "utilities/tests/common.shi") CONFIG_FILES="$CONFIG_FILES utilities/tests/common.shi" ;;
     "windows/WizardsToolkit.bat") CONFIG_FILES="$CONFIG_FILES windows/WizardsToolkit.bat" ;;
     "wizard/version.h") CONFIG_FILES="$CONFIG_FILES wizard/version.h" ;;
     "wizard/WizardsToolkit-config") CONFIG_FILES="$CONFIG_FILES wizard/WizardsToolkit-config" ;;

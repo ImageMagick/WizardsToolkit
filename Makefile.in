@@ -140,10 +140,10 @@ XFAIL_TESTS = $(am__EXEEXT_3)
 check_PROGRAMS = $(am__EXEEXT_2)
 DIST_COMMON = $(am__configure_deps) $(include_HEADERS) \
 	$(noinst_HEADERS) $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/WizardsToolkit.spec.in $(srcdir)/config/Makefile.am \
-	$(srcdir)/m4/Makefile.am $(srcdir)/tests/Makefile.am \
-	$(srcdir)/utilities/Makefile.am $(srcdir)/wizard.sh.in \
-	$(srcdir)/wizard/Makefile.am \
+	$(srcdir)/WizardsToolkit.spec.in $(srcdir)/common.shi.in \
+	$(srcdir)/config/Makefile.am $(srcdir)/m4/Makefile.am \
+	$(srcdir)/tests/Makefile.am $(srcdir)/utilities/Makefile.am \
+	$(srcdir)/wizard.sh.in $(srcdir)/wizard/Makefile.am \
 	$(top_srcdir)/config/WizardsToolkit.dox.in \
 	$(top_srcdir)/config/compile $(top_srcdir)/config/config.guess \
 	$(top_srcdir)/config/config.h.in \
@@ -154,13 +154,11 @@ DIST_COMMON = $(am__configure_deps) $(include_HEADERS) \
 	$(top_srcdir)/config/mkinstalldirs \
 	$(top_srcdir)/config/tap-driver.sh \
 	$(top_srcdir)/config/test-driver $(top_srcdir)/configure \
-	$(top_srcdir)/tests/common.shi.in \
 	$(top_srcdir)/utilities/cipher-info.1.in \
 	$(top_srcdir)/utilities/decipher.1.in \
 	$(top_srcdir)/utilities/digest.1.in \
 	$(top_srcdir)/utilities/encipher.1.in \
 	$(top_srcdir)/utilities/keyring.1.in \
-	$(top_srcdir)/utilities/tests/common.shi.in \
 	$(top_srcdir)/windows/WizardsToolkit.bat.in \
 	$(top_srcdir)/wizard/WizardsToolkit-config.in \
 	$(top_srcdir)/wizard/WizardsToolkit.pc.in \
@@ -195,12 +193,11 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
 mkinstalldirs = $(SHELL) $(top_srcdir)/config/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config/config.h
 CONFIG_CLEAN_FILES = config/configure.xml config/WizardsToolkit.dox \
-	wizard.sh tests/common.shi utilities/cipher-info.1 \
+	wizard.sh common.shi utilities/cipher-info.1 \
 	utilities/decipher.1 utilities/digest.1 utilities/encipher.1 \
-	utilities/keyring.1 utilities/tests/common.shi \
-	windows/WizardsToolkit.bat wizard/version.h \
-	wizard/WizardsToolkit-config wizard/WizardsToolkit.pc \
-	WizardsToolkit.spec
+	utilities/keyring.1 windows/WizardsToolkit.bat \
+	wizard/version.h wizard/WizardsToolkit-config \
+	wizard/WizardsToolkit.pc WizardsToolkit.spec
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -1199,7 +1196,7 @@ TESTS_TESTS = \
 	tests/validate.tap
 
 TESTS_EXTRA_DIST = \
-	tests/common.shi.in \
+	tests/common.shi \
 	tests/passphrase.txt \
 	$(TESTS_TESTS)
 
@@ -1398,7 +1395,7 @@ config/WizardsToolkit.dox: $(top_builddir)/config.status $(top_srcdir)/config/Wi
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 wizard.sh: $(top_builddir)/config.status $(srcdir)/wizard.sh.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-tests/common.shi: $(top_builddir)/config.status $(top_srcdir)/tests/common.shi.in
+common.shi: $(top_builddir)/config.status $(srcdir)/common.shi.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 utilities/cipher-info.1: $(top_builddir)/config.status $(top_srcdir)/utilities/cipher-info.1.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
@@ -1409,8 +1406,6 @@ utilities/digest.1: $(top_builddir)/config.status $(top_srcdir)/utilities/digest
 utilities/encipher.1: $(top_builddir)/config.status $(top_srcdir)/utilities/encipher.1.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 utilities/keyring.1: $(top_builddir)/config.status $(top_srcdir)/utilities/keyring.1.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-utilities/tests/common.shi: $(top_builddir)/config.status $(top_srcdir)/utilities/tests/common.shi.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 windows/WizardsToolkit.bat: $(top_builddir)/config.status $(top_srcdir)/windows/WizardsToolkit.bat.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@

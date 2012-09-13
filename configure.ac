@@ -35,17 +35,16 @@ AC_CONFIG_LIBOBJ_DIR([wizard])
 AC_CONFIG_HEADERS([config/config.h])
 AX_PREFIX_CONFIG_H([wizard/wizard-config.h],[WizardsToolkit])
 AC_CONFIG_FILES([\
+  common.shi \
   config/configure.xml \
   config/WizardsToolkit.dox \
   Makefile \
   wizard.sh \
-  tests/common.shi \
   utilities/cipher-info.1 \
   utilities/decipher.1 \
   utilities/digest.1 \
   utilities/encipher.1 \
   utilities/keyring.1 \
-  utilities/tests/common.shi \
   windows/WizardsToolkit.bat \
   wizard/version.h \
   wizard/WizardsToolkit-config \
