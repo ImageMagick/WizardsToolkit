@@ -192,8 +192,8 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(SHELL) $(top_srcdir)/config/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config/config.h
-CONFIG_CLEAN_FILES = config/configure.xml config/WizardsToolkit.dox \
-	wizard.sh common.shi utilities/cipher-info.1 \
+CONFIG_CLEAN_FILES = common.shi config/configure.xml \
+	config/WizardsToolkit.dox wizard.sh utilities/cipher-info.1 \
 	utilities/decipher.1 utilities/digest.1 utilities/encipher.1 \
 	utilities/keyring.1 windows/WizardsToolkit.bat \
 	wizard/version.h wizard/WizardsToolkit-config \
@@ -1389,13 +1389,13 @@ $(top_srcdir)/config/config.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 
 distclean-hdr:
 	-rm -f config/config.h config/stamp-h1
+common.shi: $(top_builddir)/config.status $(srcdir)/common.shi.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
 config/configure.xml: $(top_builddir)/config.status $(top_srcdir)/config/configure.xml.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 config/WizardsToolkit.dox: $(top_builddir)/config.status $(top_srcdir)/config/WizardsToolkit.dox.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 wizard.sh: $(top_builddir)/config.status $(srcdir)/wizard.sh.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-common.shi: $(top_builddir)/config.status $(srcdir)/common.shi.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 utilities/cipher-info.1: $(top_builddir)/config.status $(top_srcdir)/utilities/cipher-info.1.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
