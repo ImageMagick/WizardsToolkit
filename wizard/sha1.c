@@ -418,12 +418,12 @@ WizardExport void InitializeSHA1(SHA1Info *sha_info)
 %
 */
 
-static inline unsigned int Trunc32(unsigned int x)
+static inline unsigned int Trunc32(const unsigned int x)
 {
   return(x & 0xffffffffU);
 }
 
-static unsigned int RotateLeft(unsigned int x,unsigned int n)
+static unsigned int RotateLeft(const unsigned int x,const unsigned int n)
 {
   return(Trunc32((x << n) | (x >> (32-n))));
 }

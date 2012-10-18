@@ -416,22 +416,24 @@ WizardExport void InitializeSHA256(SHA256Info *sha_info)
 %
 */
 
-static inline unsigned int Ch(unsigned int x,unsigned int y,unsigned int z)
+static inline unsigned int Ch(const unsigned int x,const unsigned int y,
+  const unsigned int z)
 {
   return((x & y) ^ (~x & z));
 }
 
-static inline unsigned int Maj(unsigned int x,unsigned int y,unsigned int z)
+static inline unsigned int Maj(const unsigned int x,const unsigned int y,
+  const unsigned int z)
 {
   return((x & y) ^ (x & z) ^ (y & z));
 }
 
-static inline unsigned int Trunc32(unsigned int x)
+static inline unsigned int Trunc32(const unsigned int x)
 {
   return((unsigned int) (x & 0xffffffffU));
 }
 
-static unsigned int RotateRight(unsigned int x,unsigned int n)
+static unsigned int RotateRight(const unsigned int x,const unsigned int n)
 {
   return(Trunc32((x >> n) | (x << (32-n))));
 }

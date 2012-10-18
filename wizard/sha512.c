@@ -432,22 +432,24 @@ WizardExport void InitializeSHA512(SHA512Info *sha_info)
 %
 */
 
-static inline WizardSizeType Ch(WizardSizeType x,WizardSizeType y,WizardSizeType z)
+static inline WizardSizeType Ch(const WizardSizeType x,const WizardSizeType y,
+  const WizardSizeType z)
 {
   return((x & y) ^ (~x & z));
 }
 
-static inline WizardSizeType Maj(WizardSizeType x, WizardSizeType y,WizardSizeType z)
+static inline WizardSizeType Maj(const WizardSizeType x,const WizardSizeType y,
+  const WizardSizeType z)
 {
   return((x & y) ^ (x & z) ^ (y & z));
 }
 
-static inline WizardSizeType Trunc64(WizardSizeType x)
+static inline WizardSizeType Trunc64(const WizardSizeType x)
 {
   return((WizardSizeType) (x & WizardULLConstant(0xffffffffffffffff)));
 }
 
-static WizardSizeType RotateRight(WizardSizeType x,WizardSizeType n)
+static WizardSizeType RotateRight(const WizardSizeType x,const WizardSizeType n)
 {
   return(Trunc64((x >> n) | (x << (64-n))));
 }
@@ -576,21 +578,19 @@ static void TransformSHA512(SHA512Info *sha_info)
       W[i]=(T);
     }
   else
+    for (i=0; i < 16; i++)
     {
-      for (i=0; i < 16; i++)
-      {
-        T=(*((WizardSizeType *) p));
-        p+=8;
-        W[i]=(WizardSizeType)
-          (((T << 56) & WizardULLConstant(0xff00000000000000)) |
-           ((T << 40) & WizardULLConstant(0x00ff000000000000)) |
-           ((T << 24) & WizardULLConstant(0x0000ff0000000000)) |
-           ((T <<  8) & WizardULLConstant(0x000000ff00000000)) |
-           ((T >>  8) & WizardULLConstant(0x00000000ff000000)) |
-           ((T >> 24) & WizardULLConstant(0x0000000000ff0000)) |
-           ((T >> 40) & WizardULLConstant(0x000000000000ff00)) |
-           ((T >> 56) & WizardULLConstant(0x00000000000000ff)));
-      }
+      T=(*((WizardSizeType *) p));
+      p+=8;
+      W[i]=(WizardSizeType)
+        (((T << 56) & WizardULLConstant(0xff00000000000000)) |
+         ((T << 40) & WizardULLConstant(0x00ff000000000000)) |
+         ((T << 24) & WizardULLConstant(0x0000ff0000000000)) |
+         ((T <<  8) & WizardULLConstant(0x000000ff00000000)) |
+         ((T >>  8) & WizardULLConstant(0x00000000ff000000)) |
+         ((T >> 24) & WizardULLConstant(0x0000000000ff0000)) |
+         ((T >> 40) & WizardULLConstant(0x000000000000ff00)) |
+         ((T >> 56) & WizardULLConstant(0x00000000000000ff)));
     }
   /*
     Copy accumulator to registers.
