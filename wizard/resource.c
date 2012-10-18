@@ -199,7 +199,7 @@ static WizardBooleanType GetPathTemplate(const char *path,char *filename)
   struct stat
     file_info;
 
-  (void) FormatLocaleString(filename,MaxTextExtent,"wizard-%.20g-XXXXXXXX",
+  (void) FormatLocaleString(filename,MaxTextExtent,"wizard-%.20g-XXXXXXXXXXXX",
     (double) getpid());
   if (*path != '\0')
     directory=ConstantString(path);
@@ -221,7 +221,7 @@ static WizardBooleanType GetPathTemplate(const char *path,char *filename)
       if (directory == (char *) NULL)
         return(WizardTrue);
     }
-  if (strlen(directory) > (MaxTextExtent-15))
+  if (strlen(directory) > (MaxTextExtent-25))
     {
       directory=(char *) RelinquishWizardMemory(directory);
       return(WizardTrue);
@@ -233,11 +233,11 @@ static WizardBooleanType GetPathTemplate(const char *path,char *filename)
       return(WizardTrue);
     }
   if (directory[strlen(directory)-1] == *DirectorySeparator)
-    (void) FormatLocaleString(filename,MaxTextExtent,"%swizard-%.20g-XXXXXXXX",
-      directory,(double) getpid());
+    (void) FormatLocaleString(filename,MaxTextExtent,
+      "%swizard-%.20g-XXXXXXXXXXXX",directory,(double) getpid());
   else
     (void) FormatLocaleString(filename,MaxTextExtent,
-      "%s%swizard-%.20g-XXXXXXXX",directory,DirectorySeparator,(double)
+      "%s%swizard-%.20g-XXXXXXXXXXXX",directory,DirectorySeparator,(double)
       getpid());
   directory=(char *) RelinquishWizardMemory(directory);
   if (*DirectorySeparator != '/')
@@ -290,7 +290,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
     */
     (void) GetPathTemplate(path,filename);
     key=GetRandomKey(random_info,2);
-    p=filename+strlen(filename)-8;
+    p=filename+strlen(filename)-12;
     datum=GetStringInfoDatum(key);
     for (i=0; i < (ssize_t) GetStringInfoLength(key); i++)
     {
@@ -306,8 +306,8 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
     if (file != -1)
       break;
 #endif
-    key=GetRandomKey(random_info,6);
-    p=filename+strlen(filename)-6;
+    key=GetRandomKey(random_info,12);
+    p=filename+strlen(filename)-12;
     datum=GetStringInfoDatum(key);
     for (i=0; i < (ssize_t) GetStringInfoLength(key); i++)
     {
