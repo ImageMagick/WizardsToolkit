@@ -79,7 +79,7 @@ struct _MD5Info
   Forward declaraction.
 */
 static void
-  TransformMD5(MD5Info *,unsigned int *);
+  TransformMD5(MD5Info *,const unsigned int *);
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -409,46 +409,50 @@ WizardExport void InitializeMD5(MD5Info *md5_info)
 %
 */
 
-static inline unsigned int F(unsigned int x,unsigned int y,unsigned int z)
+static inline unsigned int F(const unsigned int x,const unsigned int y,
+  const unsigned int z)
 {
   return((x & y) | (~x & z));
 }
 
-static inline unsigned int G(unsigned int x,unsigned int y,unsigned int z)
+static inline unsigned int G(const unsigned int x,const unsigned int y,
+  const unsigned int z)
 {
   return((x & z) | (y & ~z));
 }
 
-static inline unsigned int H(unsigned int x,unsigned int y,unsigned int z)
+static inline unsigned int H(const unsigned int x,const unsigned int y,
+  const unsigned int z)
 {
   return(x ^ y ^ z);
 }
 
-static inline unsigned int I(unsigned int x,unsigned int y,unsigned int z)
+static inline unsigned int I(const unsigned int x,const unsigned int y,
+  const unsigned int z)
 {
   return(y ^ (x | ~z));
 }
 
-static inline unsigned int Trunc32(unsigned int x)
+static inline unsigned int Trunc32(const unsigned int x)
 {
   return((unsigned int) (x & 0xffffffffUL));
 }
 
-static inline unsigned int RotateLeft(unsigned int x,unsigned int n)
+static inline unsigned int RotateLeft(const unsigned int x,const unsigned int n)
 {
   return(Trunc32((x << n) | (x >> (32-n))));
 }
 
-static void TransformMD5(MD5Info *md5_info,unsigned int *message)
+static void TransformMD5(MD5Info *md5_info,const unsigned int *message)
 {
+  register const unsigned int
+    *p;
+
   register ssize_t
     i;
 
   register unsigned int
     j;
-
-  register const unsigned int
-    *p;
 
   static const unsigned int
     K[64]=
@@ -473,6 +477,7 @@ static void TransformMD5(MD5Info *md5_info,unsigned int *message)
     B,
     C,
     D;
+
   /*
     Copy accumulator to registers
   */

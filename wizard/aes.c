@@ -239,8 +239,8 @@ static inline unsigned char ByteMultiply(const unsigned char alpha,
   return(InverseLog[(Log[alpha]+Log[beta]) % 0xff]);
 }
 
-static inline unsigned int ByteSubTransform(unsigned int x,
-  unsigned char *s_box)
+static inline unsigned int ByteSubTransform(const unsigned int x,
+  const unsigned char *s_box)
 {
   unsigned int
     key;
