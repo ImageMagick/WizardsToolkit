@@ -289,7 +289,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
       Get temporary pathname.
     */
     (void) GetPathTemplate(path,filename);
-    key=GetRandomKey(random_info,2);
+    key=GetRandomKey(random_info,6);
     p=filename+strlen(filename)-12;
     datum=GetStringInfoDatum(key);
     for (i=0; i < (ssize_t) GetStringInfoLength(key); i++)
