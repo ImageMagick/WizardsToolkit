@@ -126,8 +126,8 @@ WizardExport SHA384Info *AcquireSHA384Info(void)
   if (sha_info->accumulator == (WizardSizeType *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
   lsb_first=1;
-  sha_info->lsb_first=(int)
-    (*(char *) &lsb_first) == 1 ? WizardTrue : WizardFalse;
+  sha_info->lsb_first=(int) (*(char *) &lsb_first) == 1 ? WizardTrue :
+    WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
   InitializeSHA384(sha_info);
