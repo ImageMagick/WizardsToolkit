@@ -1234,7 +1234,24 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
       break;
     case StandardStream:
     {
-      count=(ssize_t) read(fileno(blob_info->file),q,length);
+      register ssize_t
+        i;
+
+      count=0;
+      for (i=0; i < (ssize_t) length; i+=count)
+      {
+        count=read(fileno(blob_info->file),q+i,(size_t) WizardMin(length-i,
+          SSIZE_MAX));
+        if (count > 0)
+          continue;
+        count=0;
+        if (errno != EINTR)
+          {
+            i=(-1);
+            break;
+          }
+      }
+      count=i;
       break;
     }
     case FileStream:
@@ -1799,7 +1816,24 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
       break;
     case StandardStream:
     {
-      count=(ssize_t) write(fileno(blob_info->file),data,length);
+      register ssize_t
+        i;
+
+      count=0;
+      for (i=0; i < (ssize_t) length; i+=count)
+      {
+        count=write(fileno(blob_info->file),data+i,(size_t) WizardMin(length-i,
+          SSIZE_MAX));
+        if (count > 0)
+          continue;
+        count=0;
+        if (errno != EINTR)
+          {
+            i=(-1);
+            break;
+          }
+      }
+      count=i;
       break;
     }
     case FileStream:
