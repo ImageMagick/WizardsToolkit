@@ -1247,7 +1247,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
         count=0;
         if (errno != EINTR)
           {
-            i=(-1);
+            i=0;
             break;
           }
       }
@@ -1829,7 +1829,7 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
         count=0;
         if (errno != EINTR)
           {
-            i=(-1);
+            i=0;
             break;
           }
       }
