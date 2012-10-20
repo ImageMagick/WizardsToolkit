@@ -198,9 +198,6 @@ WizardExport SHA512Info *DestroySHA512Info(SHA512Info *sha_info)
 */
 WizardExport void FinalizeSHA512(SHA512Info *sha_info)
 {
-  WizardOffsetType
-    count;
-
   register ssize_t
     i;
 
@@ -212,6 +209,9 @@ WizardExport void FinalizeSHA512(SHA512Info *sha_info)
 
   unsigned char
     *datum;
+
+  WizardOffsetType
+    count;
 
   WizardSizeType
     high_order,

@@ -127,7 +127,7 @@ WizardExport SHA256Info *AcquireSHA256Info(void)
     ThrowWizardFatalError(HashError,MemoryError);
   lsb_first=1;
   sha_info->lsb_first=(int) (*(char *) &lsb_first) == 1 ? WizardTrue :
-     WizardFalse;
+    WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
   InitializeSHA256(sha_info);
@@ -206,11 +206,13 @@ WizardExport void FinalizeSHA256(SHA256Info *sha_info)
   register unsigned int
     *p;
 
+  ssize_t
+    count;
+
   unsigned char
     *datum;
 
   unsigned int
-    count,
     high_order,
     low_order;
 
@@ -222,10 +224,10 @@ WizardExport void FinalizeSHA256(SHA256Info *sha_info)
   assert(sha_info->signature == WizardSignature);
   low_order=sha_info->low_order;
   high_order=sha_info->high_order;
-  count=((low_order >> 3) & 0x3f);
+  count=(ssize_t) ((low_order >> 3) & 0x3f);
   datum=GetStringInfoDatum(sha_info->message);
   datum[count++]=(unsigned char) 0x80;
-  if (count <= (unsigned int) (GetStringInfoLength(sha_info->message)-8))
+  if (count <= (ssize_t) (GetStringInfoLength(sha_info->message)-8))
     (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
       sha_info->message)-8-count);
   else

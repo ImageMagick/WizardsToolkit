@@ -162,8 +162,8 @@ WizardExport SHA384Info *DestroySHA384Info(SHA384Info *sha_info)
   assert(sha_info != (SHA384Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   if (sha_info->accumulator != (WizardSizeType *) NULL)
-    sha_info->accumulator=(WizardSizeType *)
-      RelinquishWizardMemory(sha_info->accumulator);
+    sha_info->accumulator=(WizardSizeType *) RelinquishWizardMemory(
+      sha_info->accumulator);
   if (sha_info->message != (StringInfo *) NULL)
     sha_info->message=DestroyStringInfo(sha_info->message);
   if (sha_info->digest != (StringInfo *) NULL)
@@ -210,8 +210,10 @@ WizardExport void FinalizeSHA384(SHA384Info *sha_info)
   unsigned char
     *datum;
 
+  WizardOffsetType
+    count;
+
   WizardSizeType
-    count,
     high_order,
     low_order;
 
@@ -223,10 +225,10 @@ WizardExport void FinalizeSHA384(SHA384Info *sha_info)
   assert(sha_info->signature == WizardSignature);
   low_order=sha_info->low_order;
   high_order=sha_info->high_order;
-  count=(low_order >> 3) & 0x7f;
+  count=(WizardOffsetType) ((low_order >> 3) & 0x7f);
   datum=GetStringInfoDatum(sha_info->message);
   datum[count++]=(unsigned char) 0x80;
-  if (count <= (WizardSizeType) (GetStringInfoLength(sha_info->message)-16))
+  if (count <= (WizardOffsetType) (GetStringInfoLength(sha_info->message)-16))
     (void) ResetWizardMemory(datum+count,0,(size_t) (GetStringInfoLength(
       sha_info->message)-16-count));
   else
