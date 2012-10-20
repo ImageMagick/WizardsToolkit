@@ -162,8 +162,8 @@ WizardExport SHA256Info *DestroySHA256Info(SHA256Info *sha_info)
   assert(sha_info != (SHA256Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   if (sha_info->accumulator != (unsigned int *) NULL)
-    sha_info->accumulator=(unsigned int *)
-      RelinquishWizardMemory(sha_info->accumulator);
+    sha_info->accumulator=(unsigned int *) RelinquishWizardMemory(
+      sha_info->accumulator);
   if (sha_info->message != (StringInfo *) NULL)
     sha_info->message=DestroyStringInfo(sha_info->message);
   if (sha_info->digest != (StringInfo *) NULL)
