@@ -32,7 +32,7 @@
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% See http://csrc.nist.gov/cryptval/shs.html
+% See http://csrc.nist.gov/groups/ST/toolkit/index.html
 %
 */
 
