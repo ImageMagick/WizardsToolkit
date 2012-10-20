@@ -236,8 +236,8 @@ WizardExport void FinalizeSHA384(SHA384Info *sha_info)
       (void) ResetWizardMemory(datum+count,0,(size_t) (GetStringInfoLength(
         sha_info->message)-count));
       TransformSHA384(sha_info);
-      (void) ResetWizardMemory(datum,0,(size_t) (GetStringInfoLength(
-        sha_info->message)-16));
+      (void) ResetWizardMemory(datum,0,(GetStringInfoLength(sha_info->message)-
+        16));
     }
   datum[112]=(unsigned char) (high_order >> 56);
   datum[113]=(unsigned char) (high_order >> 48);
