@@ -230,8 +230,8 @@ WizardExport void FinalizeSHA256(SHA256Info *sha_info)
       sha_info->message)-8-count);
   else
     {
-      (void) ResetWizardMemory(datum+count,0,
-        GetStringInfoLength(sha_info->message)-count);
+      (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
+        sha_info->message)-count);
       TransformSHA256(sha_info);
       (void) ResetWizardMemory(datum,0,GetStringInfoLength(sha_info->message)-
         8);

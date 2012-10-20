@@ -161,8 +161,8 @@ WizardExport SHA224Info *DestroySHA224Info(SHA224Info *sha_info)
   assert(sha_info != (SHA224Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   if (sha_info->accumulator != (unsigned int *) NULL)
-    sha_info->accumulator=(unsigned int *)
-      RelinquishWizardMemory(sha_info->accumulator);
+    sha_info->accumulator=(unsigned int *) RelinquishWizardMemory(
+      sha_info->accumulator);
   if (sha_info->message != (StringInfo *) NULL)
     sha_info->message=DestroyStringInfo(sha_info->message);
   if (sha_info->digest != (StringInfo *) NULL)
@@ -226,15 +226,15 @@ WizardExport void FinalizeSHA224(SHA224Info *sha_info)
   datum=GetStringInfoDatum(sha_info->message);
   datum[count++]=(unsigned char) 0x80;
   if (count <= (unsigned int) (GetStringInfoLength(sha_info->message)-8))
-    (void) ResetWizardMemory(datum+count,0,
-      GetStringInfoLength(sha_info->message)-8-count);
+    (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
+      sha_info->message)-8-count);
   else
     {
-      (void) ResetWizardMemory(datum+count,0,
-        GetStringInfoLength(sha_info->message)-count);
+      (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
+        sha_info->message)-count);
       TransformSHA224(sha_info);
-      (void) ResetWizardMemory(datum,0,
-        GetStringInfoLength(sha_info->message)-8);
+      (void) ResetWizardMemory(datum,0,GetStringInfoLength(sha_info->message)-
+        8);
     }
   datum[56]=(unsigned char) (high_order >> 24);
   datum[57]=(unsigned char) (high_order >> 16);
