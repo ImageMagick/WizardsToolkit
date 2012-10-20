@@ -678,27 +678,29 @@ WizardExport void UpdateSHA512(SHA512Info *sha_info,const StringInfo *message)
   register unsigned char
     *p;
 
-  WizardSizeType
-    length,
+  size_t
     n;
+
+  WizardSizeType
+    length;
 
   /*
     Update the SHA512 accumulator.
   */
   assert(sha_info != (SHA512Info *) NULL);
   assert(sha_info->signature == WizardSignature);
-  n=(WizardSizeType) GetStringInfoLength(message);
-  length=Trunc64(sha_info->low_order+(n << 3));
+  n=GetStringInfoLength(message);
+  length=Trunc64(sha_info->low_order+((WizardSizeType) n << 3));
   if (length < sha_info->low_order)
     sha_info->high_order++;
   sha_info->low_order=length;
-  sha_info->high_order+=(n >> 61);
+  sha_info->high_order+=(WizardSizeType) n >> 61;
   p=GetStringInfoDatum(message);
   if (sha_info->offset != 0)
     {
       i=GetStringInfoLength(sha_info->message)-sha_info->offset;
-      if ((WizardSizeType) i > n)
-        i=(size_t) n;
+      if (i > n)
+        i=n;
       (void) CopyWizardMemory(GetStringInfoDatum(sha_info->message)+
         sha_info->offset,p,i);
       n-=i;
@@ -708,15 +710,15 @@ WizardExport void UpdateSHA512(SHA512Info *sha_info,const StringInfo *message)
         return;
       TransformSHA512(sha_info);
     }
-  while (n >= (WizardSizeType) GetStringInfoLength(sha_info->message))
+  while (n >= GetStringInfoLength(sha_info->message))
   {
     SetStringInfoDatum(sha_info->message,p);
     p+=GetStringInfoLength(sha_info->message);
     n-=GetStringInfoLength(sha_info->message);
     TransformSHA512(sha_info);
   }
-  (void) CopyWizardMemory(GetStringInfoDatum(sha_info->message),p,(size_t) n);
-  sha_info->offset=(size_t) n;
+  (void) CopyWizardMemory(GetStringInfoDatum(sha_info->message),p,n);
+  sha_info->offset=n;
   /*
     Reset working registers.
   */

@@ -612,7 +612,7 @@ WizardExport void UpdateSHA1(SHA1Info *sha_info,const StringInfo *message)
   if (length < sha_info->low_order)
     sha_info->high_order++;
   sha_info->low_order=length;
-  sha_info->high_order+=(unsigned int) (n >> 29);
+  sha_info->high_order+=(unsigned int) n >> 29;
   p=GetStringInfoDatum(message);
   if (sha_info->offset != 0)
     {
