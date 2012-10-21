@@ -1242,13 +1242,11 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
       {
         count=read(fileno(blob_info->file),q+i,(size_t) WizardMin(length-i,
           SSIZE_MAX));
-        if (count > 0)
-          continue;
-        count=0;
-        if (errno != EINTR)
+        if (count <= 0)
           {
-            i=0;
-            break;
+            count=0;
+            if (errno != EINTR)
+              break;
           }
       }
       count=i;
@@ -1824,13 +1822,11 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
       {
         count=write(fileno(blob_info->file),data+i,(size_t) WizardMin(length-i,
           SSIZE_MAX));
-        if (count > 0)
-          continue;
-        count=0;
-        if (errno != EINTR)
+        if (count <= 0)
           {
-            i=0;
-            break;
+            count=0;
+            if (errno != EINTR)
+              break;
           }
       }
       count=i;
