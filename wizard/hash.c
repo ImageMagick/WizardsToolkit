@@ -191,7 +191,7 @@ WizardExport HashInfo *AcquireHashInfo(const HashType hash)
       SHA3Info
         *sha_info;
 
-      sha_info=AcquireSHA3Info();
+      sha_info=AcquireSHA3Info(hash);
       hash_info->handle=(HashInfo *) sha_info;
       digestsize=GetSHA3Digestsize(sha_info);
       break;

@@ -56,6 +56,9 @@
 */
 struct _SHA3Info
 {   
+  HashType
+    hash;
+
   unsigned int
     digestsize,
     blocksize;
@@ -103,10 +106,14 @@ static void
 %
 %  The format of the AcquireSHA3Info method is:
 %
-%      SHA3Info *AcquireSHA3Info(void)
+%      SHA3Info *AcquireSHA3Info(const HashType hash)
+%
+%  A description of each parameter follows:
+%
+%    o hash: The hash type.
 %
 */
-WizardExport SHA3Info *AcquireSHA3Info(void)
+WizardExport SHA3Info *AcquireSHA3Info(const HashType hash)
 {
   SHA3Info
     *sha_info;
@@ -118,6 +125,7 @@ WizardExport SHA3Info *AcquireSHA3Info(void)
   if (sha_info == (SHA3Info *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
   (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));
+  sha_info->hash=hash;
   sha_info->digestsize=SHA3Digestsize;
   sha_info->blocksize=SHA3Blocksize;
   sha_info->digest=AcquireStringInfo(SHA3Digestsize);

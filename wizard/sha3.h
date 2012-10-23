@@ -26,7 +26,7 @@ typedef struct _SHA3Info
   SHA3Info;
 
 extern WizardExport SHA3Info
-  *AcquireSHA3Info(void),
+  *AcquireSHA3Info(const HashType),
   *DestroySHA3Info(SHA3Info *);
 
 extern WizardExport const StringInfo
