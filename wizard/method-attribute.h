@@ -112,6 +112,10 @@ extern "C" {
 #  define wizard_aligned(x)  __attribute__((aligned(x)))
 #  define wizard_attribute  __attribute__
 #  define wizard_unused(x)  wizard_unused_ ## x __attribute__((unused))
+#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(__CYGWIN__)
+#  define wizard_aligned(x)  __declspec(align(x))
+#  define wizard_attribute(x)  /* nothing */
+#  define wizard_unused(x) x
 #else
 #  define wizard_aligned(x)  /* nothing */
 #  define wizard_attribute(x)  /* nothing */
