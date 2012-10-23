@@ -253,6 +253,9 @@
 				RelativePath="..\wizard\sha2512.c">
 			</File>
 			<File
+				RelativePath="..\wizard\sha3.c">
+			</File>
+			<File
 				RelativePath="..\wizard\signature.c">
 			</File>
 			<File
@@ -402,6 +405,9 @@
 			</File>
 			<File
 				RelativePath="..\wizard\sha2512.h">
+			</File>
+			<File
+				RelativePath="..\wizard\sha3.h">
 			</File>
 			<File
 				RelativePath="..\wizard\signature.h">
