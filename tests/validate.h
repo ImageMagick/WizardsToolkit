@@ -1071,7 +1071,7 @@ struct SHA3TestVector
 };
 
 struct SHA3TestVector
-  sha1_test_vector[] =
+  sha3_test_vector[] =
   {
     { "abc",
       { 0xA9, 0x99, 0x3E, 0x36, 0x47, 0x06, 0x81, 0x6A, 0xBA, 0x3E,
