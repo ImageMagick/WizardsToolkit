@@ -81,12 +81,12 @@ WizardExport ContentInfo *AcquireContentInfo(void)
   content_info->cipher=AESCipher;
   content_info->mode=CTRMode;
   content_info->authenticate_method=SecretAuthenticateMethod;
-  content_info->key_hash=SHA256Hash;
+  content_info->key_hash=SHA2256Hash;
   content_info->key_length=512;
   content_info->entropy=BZIPEntropy;
   content_info->level=6;
-  content_info->hmac=SHA256Hash;
-  content_info->random_hash=SHA256Hash;
+  content_info->hmac=SHA2256Hash;
+  content_info->random_hash=SHA2256Hash;
   content_info->chunksize=262144;
   content_info->timestamp=time((time_t *) NULL);
   content_info->version=ConstantString(GetWizardVersion(&version));
@@ -348,7 +348,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
   if (count != (ssize_t) bytes)
     ThrowFileException(exception,FileError,GetBlobFilename(cipher_blob));
   GetStringInfoDatum(properties)[bytes]='\0';
-  hash_info=AcquireHashInfo(SHA256Hash);
+  hash_info=AcquireHashInfo(SHA2256Hash);
   InitializeHash(hash_info);
   UpdateHash(hash_info,properties);
   FinalizeHash(hash_info);

@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U="/>
-  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Hash Algorithm-512</title>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Hash Algorithm-224</title>
   <meta http-equiv="Content-Language" content="en-US"/>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
@@ -12,7 +12,7 @@
   <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext and back, reports properties about ciphertext, and computes and authenticates message digests."/>
   <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
   <meta name="Generator" content="PHP"/>
-  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, secure, hash, algorithm-512, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, secure, hash, algorithm-224, WizardsToolkit, Wizard's, Toolkit"/>
   <meta name="Rating" content="GENERAL"/>
   <meta name="Robots" content="INDEX, FOLLOW"/>
   <meta name="Generator" content="ImageMagick Studio LLC"/>
@@ -136,33 +136,33 @@
 
 <div class="main">
 
-<h1>Module sha512
+<h1>Module sha2224
  Methods</h1>
-<p class="navigation-index">[<a href="#AcquireSHA512Info">AcquireSHA512Info</a> &bull; <a href="#DestroySHA512Info">DestroySHA512Info</a> &bull; <a href="#FinalizeSHA512">FinalizeSHA512</a> &bull; <a href="#GetSHA512Blocksize">GetSHA512Blocksize</a> &bull; <a href="#GetSHA512Digest">GetSHA512Digest</a> &bull; <a href="#GetSHA512Digestsize">GetSHA512Digestsize</a> &bull; <a href="#IntializeSHA512">IntializeSHA512</a> &bull; <a href="#TransformSHA512">TransformSHA512</a> &bull; <a href="#UpdateSHA512">UpdateSHA512</a>]</p>
+<p class="navigation-index">[<a href="#AcquireSHA2224Info">AcquireSHA2224Info</a> &bull; <a href="#DestroySHA2224Info">DestroySHA2224Info</a> &bull; <a href="#FinalizeSHA2224">FinalizeSHA2224</a> &bull; <a href="#GetSHA2224Blocksize">GetSHA2224Blocksize</a> &bull; <a href="#GetSHA2224Digest">GetSHA2224Digest</a> &bull; <a href="#GetSHA2224Digestsize">GetSHA2224Digestsize</a> &bull; <a href="#IntializeSHA2224">IntializeSHA2224</a> &bull; <a href="#TransformSHA2224">TransformSHA2224</a> &bull; <a href="#UpdateSHA2224">UpdateSHA2224</a>]</p>
 
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" id="AcquireSHA512Info">AcquireSHA512Info</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2224
+_8c.html" id="AcquireSHA2224Info">AcquireSHA2224Info</a></h2>
 <div class="doc-section">
 
-<p>AcquireSHA512Info() allocate the SHA512Info structure.</p>
+<p>AcquireSHA2224Info() allocate the SHA2224Info structure.</p>
 
-<p>The format of the AcquireSHA512Info method is:</p>
+<p>The format of the AcquireSHA2224Info method is:</p>
 
 <pre class="code">
-  SHA512Info *AcquireSHA512Info(void)
+  SHA2224Info *AcquireSHA2224Info(void)
 </pre>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" id="DestroySHA512Info">DestroySHA512Info</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2224
+_8c.html" id="DestroySHA2224Info">DestroySHA2224Info</a></h2>
 <div class="doc-section">
 
-<p>DestroySHA512Info() zeros memory associated with the SHA512Info structure.</p>
+<p>DestroySHA2224Info() zeros memory associated with the SHA2224Info structure.</p>
 
-<p>The format of the DestroySHA512Info method is:</p>
+<p>The format of the DestroySHA2224Info method is:</p>
 
 <pre class="code">
-  SHA512Info *DestroySHA512Info(SHA512Info *sha_info)
+  SHA2224Info *DestroySHA2224Info(SHA2224Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
@@ -171,89 +171,89 @@ _8c.html" id="DestroySHA512Info">DestroySHA512Info</a></h2>
 <p>The cipher sha_info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" id="FinalizeSHA512">FinalizeSHA512</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2224
+_8c.html" id="FinalizeSHA2224">FinalizeSHA2224</a></h2>
 <div class="doc-section">
 
-<p>FinalizeSHA512() finalizes the SHA512 message accumulator computation.</p>
+<p>FinalizeSHA2224() finalizes the SHA2224 message accumulator computation.</p>
 
-<p>The format of the FinalizeSHA512 method is:</p>
+<p>The format of the FinalizeSHA2224 method is:</p>
 
 <pre class="code">
-  FinalizeSHA512(SHA512Info *sha_info)
+  FinalizeSHA2224(SHA2224Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<p>The address of a structure of type SHA512Info.</p>
+<p>The address of a structure of type SHA2224Info.</p>
 
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" id="GetSHA512Blocksize">GetSHA512Blocksize</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2224
+_8c.html" id="GetSHA2224Blocksize">GetSHA2224Blocksize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA512Blocksize() returns the SHA512 blocksize.</p>
+<p>GetSHA2224Blocksize() returns the SHA2224 blocksize.</p>
 
-<p>The format of the GetSHA512Blocksize method is:</p>
+<p>The format of the GetSHA2224Blocksize method is:</p>
 
 <pre class="code">
-  unsigned int *GetSHA512Blocksize(const SHA512Info *sha512_info)
+  unsigned int *GetSHA2224Blocksize(const SHA2224Info *sha2224_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
-<h5>sha512_info</h5>
-<p>The shaa info.</p>
+<h5>sha2224_info</h5>
+<p>The sha2224 info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" id="GetSHA512Digest">GetSHA512Digest</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2224
+_8c.html" id="GetSHA2224Digest">GetSHA2224Digest</a></h2>
 <div class="doc-section">
 
-<p>GetSHA512Digest() returns the SHA512 digest.</p>
+<p>GetSHA2224Digest() returns the SHA2224 digest.</p>
 
-<p>The format of the GetSHA512Digest method is:</p>
+<p>The format of the GetSHA2224Digest method is:</p>
 
 <pre class="code">
-  const StringInfo *GetSHA512Digest(const SHA512Info *sha512_info)
+  const StringInfo *GetSHA2224Digest(const SHA2224Info *sha2224_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
-<h5>sha512_info</h5>
-<p>The shaa info.</p>
+<h5>sha2224_info</h5>
+<p>The sha2224 info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" id="GetSHA512Digestsize">GetSHA512Digestsize</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2224
+_8c.html" id="GetSHA2224Digestsize">GetSHA2224Digestsize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA512Digestsize() returns the SHA512 digest size.</p>
+<p>GetSHA2224Digestsize() returns the SHA2224 digest size.</p>
 
-<p>The format of the GetSHA512Digestsize method is:</p>
+<p>The format of the GetSHA2224Digestsize method is:</p>
 
 <pre class="code">
-  unsigned int *GetSHA512Digestsize(const SHA512Info *sha512_info)
+  unsigned int *GetSHA2224Digestsize(const SHA2224Info *sha2224_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
-<h5>sha512_info</h5>
-<p>The shaa info.</p>
+<h5>sha2224_info</h5>
+<p>The sha2224 info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" id="IntializeSHA512">IntializeSHA512</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2224
+_8c.html" id="IntializeSHA2224">IntializeSHA2224</a></h2>
 <div class="doc-section">
 
-<p>IntializeSHA512() intializes the SHA512 accumulator.</p>
+<p>IntializeSHA2224() intializes the SHA2224 accumulator.</p>
 
-<p>The format of the DestroySHA512Info method is:</p>
+<p>The format of the DestroySHA2224Info method is:</p>
 
 <pre class="code">
-  void InitializeSHA512Info(SHA512Info *sha_info)
+  void InitializeSHA2224Info(SHA2224Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
@@ -262,44 +262,45 @@ _8c.html" id="IntializeSHA512">IntializeSHA512</a></h2>
 <p>The cipher sha_info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" id="TransformSHA512">TransformSHA512</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2224
+_8c.html" id="TransformSHA2224">TransformSHA2224</a></h2>
 <div class="doc-section">
 
-<p>TransformSHA512() transforms the SHA512 message accumulator.</p>
+<p>TransformSHA2224() transforms the SHA2224 message accumulator.</p>
 
-<p>The format of the TransformSHA512 method is:</p>
+<p>The format of the TransformSHA2224 method is:</p>
 
 <pre class="code">
-  TransformSHA512(SHA512Info *sha_info)
+  TransformSHA2224(SHA2224Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<p>The address of a structure of type SHA512Info.</p>
+<p>The address of a structure of type SHA2224Info.</p>
 
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha512
-_8c.html" id="UpdateSHA512">UpdateSHA512</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2224
+_8c.html" id="UpdateSHA2224">UpdateSHA2224</a></h2>
 <div class="doc-section">
 
-<p>UpdateSHA512() updates the SHA512 message accumulator.</p>
+<p>UpdateSHA2224() updates the SHA2224 message accumulator.</p>
 
-<p>The format of the UpdateSHA512 method is:</p>
+<p>The format of the UpdateSHA2224 method is:</p>
 
 <pre class="code">
-  UpdateSHA512(SHA512Info *sha_info,const StringInfo *message)
+  UpdateSHA2224(SHA2224Info *sha_info,const StringInfo *message)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<p>The address of a structure of type SHA512Info.</p>
+<p>The address of a structure of type SHA2224Info.</p>
 
 <h5>message</h5>
 <p>The message.</p>
+
 
  </div>
 

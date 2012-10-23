@@ -136,33 +136,33 @@
 
 <div class="main">
 
-<h1>Module sha256
+<h1>Module sha2256
  Methods</h1>
-<p class="navigation-index">[<a href="#AcquireSHA256Info">AcquireSHA256Info</a> &bull; <a href="#DestroySHA256Info">DestroySHA256Info</a> &bull; <a href="#FinalizeSHA256">FinalizeSHA256</a> &bull; <a href="#GetSHA256Blocksize">GetSHA256Blocksize</a> &bull; <a href="#GetSHA256Digest">GetSHA256Digest</a> &bull; <a href="#GetSHA256Digestsize">GetSHA256Digestsize</a> &bull; <a href="#IntializeSHA256">IntializeSHA256</a> &bull; <a href="#TransformSHA256">TransformSHA256</a> &bull; <a href="#UpdateSHA256">UpdateSHA256</a>]</p>
+<p class="navigation-index">[<a href="#AcquireSHA2256Info">AcquireSHA2256Info</a> &bull; <a href="#DestroySHA2256Info">DestroySHA2256Info</a> &bull; <a href="#FinalizeSHA2256">FinalizeSHA2256</a> &bull; <a href="#GetSHA2256Blocksize">GetSHA2256Blocksize</a> &bull; <a href="#GetSHA2256Digest">GetSHA2256Digest</a> &bull; <a href="#GetSHA2256Digestsize">GetSHA2256Digestsize</a> &bull; <a href="#IntializeSHA2256">IntializeSHA2256</a> &bull; <a href="#TransformSHA2256">TransformSHA2256</a> &bull; <a href="#UpdateSHA2256">UpdateSHA2256</a>]</p>
 
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha256
-_8c.html" id="AcquireSHA256Info">AcquireSHA256Info</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2256
+_8c.html" id="AcquireSHA2256Info">AcquireSHA2256Info</a></h2>
 <div class="doc-section">
 
-<p>AcquireSHA256Info() allocate the SHA256Info structure.</p>
+<p>AcquireSHA2256Info() allocate the SHA2256Info structure.</p>
 
-<p>The format of the AcquireSHA256Info method is:</p>
+<p>The format of the AcquireSHA2256Info method is:</p>
 
 <pre class="code">
-  SHA256Info *AcquireSHA256Info(void)
+  SHA2256Info *AcquireSHA2256Info(void)
 </pre>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha256
-_8c.html" id="DestroySHA256Info">DestroySHA256Info</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2256
+_8c.html" id="DestroySHA2256Info">DestroySHA2256Info</a></h2>
 <div class="doc-section">
 
-<p>DestroySHA256Info() zeros memory associated with the SHA256Info structure.</p>
+<p>DestroySHA2256Info() zeros memory associated with the SHA2256Info structure.</p>
 
-<p>The format of the DestroySHA256Info method is:</p>
+<p>The format of the DestroySHA2256Info method is:</p>
 
 <pre class="code">
-  SHA256Info *DestroySHA256Info(SHA256Info *sha_info)
+  SHA2256Info *DestroySHA2256Info(SHA2256Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
@@ -171,88 +171,88 @@ _8c.html" id="DestroySHA256Info">DestroySHA256Info</a></h2>
 <p>The cipher sha_info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha256
-_8c.html" id="FinalizeSHA256">FinalizeSHA256</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2256
+_8c.html" id="FinalizeSHA2256">FinalizeSHA2256</a></h2>
 <div class="doc-section">
 
-<p>FinalizeSHA256() finalizes the SHA256 message accumulator computation.</p>
+<p>FinalizeSHA2256() finalizes the SHA2256 message accumulator computation.</p>
 
-<p>The format of the FinalizeSHA256 method is:</p>
+<p>The format of the FinalizeSHA2256 method is:</p>
 
 <pre class="code">
-  FinalizeSHA256(SHA256Info *sha_info)
+  FinalizeSHA2256(SHA2256Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<p>The address of a structure of type SHA256Info.</p>
+<p>The address of a structure of type SHA2256Info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha256
-_8c.html" id="GetSHA256Blocksize">GetSHA256Blocksize</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2256
+_8c.html" id="GetSHA2256Blocksize">GetSHA2256Blocksize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA256Blocksize() returns the SHA256 blocksize.</p>
+<p>GetSHA2256Blocksize() returns the SHA2256 blocksize.</p>
 
-<p>The format of the GetSHA256Blocksize method is:</p>
+<p>The format of the GetSHA2256Blocksize method is:</p>
 
 <pre class="code">
-  unsigned int *GetSHA256Blocksize(const SHA256Info *sha256_info)
+  unsigned int *GetSHA2256Blocksize(const SHA2256Info *sha2256_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
-<h5>sha256_info</h5>
-<p>The sha256 info.</p>
+<h5>sha2256_info</h5>
+<p>The sha2256 info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha256
-_8c.html" id="GetSHA256Digest">GetSHA256Digest</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2256
+_8c.html" id="GetSHA2256Digest">GetSHA2256Digest</a></h2>
 <div class="doc-section">
 
-<p>GetSHA256Digest() returns the SHA256 digest.</p>
+<p>GetSHA2256Digest() returns the SHA2256 digest.</p>
 
-<p>The format of the GetSHA256Digest method is:</p>
+<p>The format of the GetSHA2256Digest method is:</p>
 
 <pre class="code">
-  const StringInfo *GetSHA256Digest(const SHA256Info *sha256_info)
+  const StringInfo *GetSHA2256Digest(const SHA2256Info *sha2256_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
-<h5>sha256_info</h5>
-<p>The sha256 info.</p>
+<h5>sha2256_info</h5>
+<p>The sha2256 info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha256
-_8c.html" id="GetSHA256Digestsize">GetSHA256Digestsize</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2256
+_8c.html" id="GetSHA2256Digestsize">GetSHA2256Digestsize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA256Digestsize() returns the SHA256 digest size.</p>
+<p>GetSHA2256Digestsize() returns the SHA2256 digest size.</p>
 
-<p>The format of the GetSHA256Digestsize method is:</p>
+<p>The format of the GetSHA2256Digestsize method is:</p>
 
 <pre class="code">
-  unsigned int *GetSHA256Digestsize(const SHA256Info *sha256_info)
+  unsigned int *GetSHA2256Digestsize(const SHA2256Info *sha2256_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
-<h5>sha256_info</h5>
-<p>The sha256 info.</p>
+<h5>sha2256_info</h5>
+<p>The sha2256 info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha256
-_8c.html" id="IntializeSHA256">IntializeSHA256</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2256
+_8c.html" id="IntializeSHA2256">IntializeSHA2256</a></h2>
 <div class="doc-section">
 
-<p>IntializeSHA256() intializes the SHA256 accumulator.</p>
+<p>IntializeSHA2256() intializes the SHA2256 accumulator.</p>
 
-<p>The format of the DestroySHA256Info method is:</p>
+<p>The format of the DestroySHA2256Info method is:</p>
 
 <pre class="code">
-  void InitializeSHA256Info(SHA256Info *sha_info)
+  void InitializeSHA2256Info(SHA2256Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
@@ -261,40 +261,40 @@ _8c.html" id="IntializeSHA256">IntializeSHA256</a></h2>
 <p>The cipher sha_info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha256
-_8c.html" id="TransformSHA256">TransformSHA256</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2256
+_8c.html" id="TransformSHA2256">TransformSHA2256</a></h2>
 <div class="doc-section">
 
-<p>TransformSHA256() transforms the SHA256 message accumulator.</p>
+<p>TransformSHA2256() transforms the SHA2256 message accumulator.</p>
 
-<p>The format of the TransformSHA256 method is:</p>
+<p>The format of the TransformSHA2256 method is:</p>
 
 <pre class="code">
-  TransformSHA256(SHA256Info *sha_info)
+  TransformSHA2256(SHA2256Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<p>The address of a structure of type SHA256Info.</p>
+<p>The address of a structure of type SHA2256Info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha256
-_8c.html" id="UpdateSHA256">UpdateSHA256</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha2256
+_8c.html" id="UpdateSHA2256">UpdateSHA2256</a></h2>
 <div class="doc-section">
 
-<p>UpdateSHA256() updates the SHA256 message accumulator.</p>
+<p>UpdateSHA2256() updates the SHA2256 message accumulator.</p>
 
-<p>The format of the UpdateSHA256 method is:</p>
+<p>The format of the UpdateSHA2256 method is:</p>
 
 <pre class="code">
-  UpdateSHA256(SHA256Info *sha_info,const StringInfo *message)
+  UpdateSHA2256(SHA2256Info *sha_info,const StringInfo *message)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<p>The address of a structure of type SHA256Info.</p>
+<p>The address of a structure of type SHA2256Info.</p>
 
 <h5>message</h5>
 <p>The message.</p>

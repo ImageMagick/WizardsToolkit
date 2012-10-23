@@ -241,16 +241,16 @@
 				RelativePath="..\wizard\sha1.c">
 			</File>
 			<File
-				RelativePath="..\wizard\sha224.c">
+				RelativePath="..\wizard\sha2224.c">
 			</File>
 			<File
-				RelativePath="..\wizard\sha256.c">
+				RelativePath="..\wizard\sha2256.c">
 			</File>
 			<File
-				RelativePath="..\wizard\sha384.c">
+				RelativePath="..\wizard\sha2384.c">
 			</File>
 			<File
-				RelativePath="..\wizard\sha512.c">
+				RelativePath="..\wizard\sha2512.c">
 			</File>
 			<File
 				RelativePath="..\wizard\signature.c">
@@ -392,16 +392,16 @@
 				RelativePath="..\wizard\sha1.h">
 			</File>
 			<File
-				RelativePath="..\wizard\sha224.h">
+				RelativePath="..\wizard\sha2224.h">
 			</File>
 			<File
-				RelativePath="..\wizard\sha256.h">
+				RelativePath="..\wizard\sha2256.h">
 			</File>
 			<File
-				RelativePath="..\wizard\sha384.h">
+				RelativePath="..\wizard\sha2384.h">
 			</File>
 			<File
-				RelativePath="..\wizard\sha512.h">
+				RelativePath="..\wizard\sha2512.h">
 			</File>
 			<File
 				RelativePath="..\wizard\signature.h">

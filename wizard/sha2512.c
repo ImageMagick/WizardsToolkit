@@ -9,7 +9,7 @@
 %                             SSSSS  H   H  A   A                             %
 %                                                                             %
 %                                                                             %
-%             Wizard's Toolkit Secure Hash Algorithm-512 Methods              %
+%             Wizard's Toolkit Secure Hash Algorithm 2-512 Methods            %
 %                                                                             %
 %                             Software Design                                 %
 %                               John Cristy                                   %
@@ -43,17 +43,17 @@
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
-#include "wizard/sha512.h"
+#include "wizard/sha2512.h"
 /*
   Define declarations.
 */
-#define SHA512Blocksize  128
-#define SHA512Digestsize  64
+#define SHA2512Blocksize  128
+#define SHA2512Digestsize  64
 
 /*
   Typedef declarations.
 */
-struct _SHA512Info
+struct _SHA2512Info
 {   
   unsigned int
     digestsize,
@@ -85,7 +85,7 @@ struct _SHA512Info
   Forward declarations.
 */
 static void
-  TransformSHA512(SHA512Info *);
+  TransformSHA2512(SHA2512Info *);
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -98,30 +98,30 @@ static void
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AcquireSHA512Info() allocate the SHA512Info structure.
+%  AcquireSHA2512Info() allocate the SHA2512Info structure.
 %
-%  The format of the AcquireSHA512Info method is:
+%  The format of the AcquireSHA2512Info method is:
 %
-%      SHA512Info *AcquireSHA512Info(void)
+%      SHA2512Info *AcquireSHA2512Info(void)
 %
 */
-WizardExport SHA512Info *AcquireSHA512Info(void)
+WizardExport SHA2512Info *AcquireSHA2512Info(void)
 {
-  SHA512Info
+  SHA2512Info
     *sha_info;
 
   unsigned int
     lsb_first;
 
-  sha_info=(SHA512Info *) AcquireWizardMemory(sizeof(*sha_info));
-  if (sha_info == (SHA512Info *) NULL)
+  sha_info=(SHA2512Info *) AcquireWizardMemory(sizeof(*sha_info));
+  if (sha_info == (SHA2512Info *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
   (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));
-  sha_info->digestsize=SHA512Digestsize;
-  sha_info->blocksize=SHA512Blocksize;
-  sha_info->digest=AcquireStringInfo(SHA512Digestsize);
-  sha_info->message=AcquireStringInfo(SHA512Blocksize);
-  sha_info->accumulator=(WizardSizeType *) AcquireQuantumMemory(SHA512Blocksize,
+  sha_info->digestsize=SHA2512Digestsize;
+  sha_info->blocksize=SHA2512Blocksize;
+  sha_info->digest=AcquireStringInfo(SHA2512Digestsize);
+  sha_info->message=AcquireStringInfo(SHA2512Blocksize);
+  sha_info->accumulator=(WizardSizeType *) AcquireQuantumMemory(SHA2512Blocksize,
     sizeof(*sha_info->accumulator));
   if (sha_info->accumulator == (WizardSizeType *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
@@ -130,7 +130,7 @@ WizardExport SHA512Info *AcquireSHA512Info(void)
     (*(char *) &lsb_first) == 1 ? WizardTrue : WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
-  InitializeSHA512(sha_info);
+  InitializeSHA2512(sha_info);
   return(sha_info);
 }
 
@@ -145,21 +145,21 @@ WizardExport SHA512Info *AcquireSHA512Info(void)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DestroySHA512Info() zeros memory associated with the SHA512Info structure.
+%  DestroySHA2512Info() zeros memory associated with the SHA2512Info structure.
 %
-%  The format of the DestroySHA512Info method is:
+%  The format of the DestroySHA2512Info method is:
 %
-%      SHA512Info *DestroySHA512Info(SHA512Info *sha_info)
+%      SHA2512Info *DestroySHA2512Info(SHA2512Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The cipher sha_info.
 %
 */
-WizardExport SHA512Info *DestroySHA512Info(SHA512Info *sha_info)
+WizardExport SHA2512Info *DestroySHA2512Info(SHA2512Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA512Info *) NULL);
+  assert(sha_info != (SHA2512Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   if (sha_info->accumulator != (WizardSizeType *) NULL)
     sha_info->accumulator=(WizardSizeType *)
@@ -169,7 +169,7 @@ WizardExport SHA512Info *DestroySHA512Info(SHA512Info *sha_info)
   if (sha_info->digest != (StringInfo *) NULL)
     sha_info->digest=DestroyStringInfo(sha_info->digest);
   sha_info->signature=(~WizardSignature);
-  sha_info=(SHA512Info *) RelinquishWizardMemory(sha_info);
+  sha_info=(SHA2512Info *) RelinquishWizardMemory(sha_info);
   return(sha_info);
 }
 
@@ -184,19 +184,19 @@ WizardExport SHA512Info *DestroySHA512Info(SHA512Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  FinalizeSHA512() finalizes the SHA512 message accumulator computation.
+%  FinalizeSHA2512() finalizes the SHA2512 message accumulator computation.
 %
-%  The format of the FinalizeSHA512 method is:
+%  The format of the FinalizeSHA2512 method is:
 %
-%      FinalizeSHA512(SHA512Info *sha_info)
+%      FinalizeSHA2512(SHA2512Info *sha_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha_info: The address of a structure of type SHA512Info.
+%    o sha_info: The address of a structure of type SHA2512Info.
 %
 %
 */
-WizardExport void FinalizeSHA512(SHA512Info *sha_info)
+WizardExport void FinalizeSHA2512(SHA2512Info *sha_info)
 {
   register ssize_t
     i;
@@ -221,7 +221,7 @@ WizardExport void FinalizeSHA512(SHA512Info *sha_info)
     Add padding and return the message accumulator.
   */
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA512Info *) NULL);
+  assert(sha_info != (SHA2512Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   low_order=sha_info->low_order;
   high_order=sha_info->high_order;
@@ -235,7 +235,7 @@ WizardExport void FinalizeSHA512(SHA512Info *sha_info)
     {
       (void) ResetWizardMemory(datum+count,0,(size_t) (GetStringInfoLength(
         sha_info->message)-count));
-      TransformSHA512(sha_info);
+      TransformSHA2512(sha_info);
       (void) ResetWizardMemory(datum,0,GetStringInfoLength(sha_info->message)-
         16);
     }
@@ -255,10 +255,10 @@ WizardExport void FinalizeSHA512(SHA512Info *sha_info)
   datum[125]=(unsigned char) (low_order >> 16);
   datum[126]=(unsigned char) (low_order >> 8);
   datum[127]=(unsigned char) low_order;
-  TransformSHA512(sha_info);
+  TransformSHA2512(sha_info);
   p=sha_info->accumulator;
   q=GetStringInfoDatum(sha_info->digest);
-  for (i=0; i < (SHA512Digestsize/8); i++)
+  for (i=0; i < (SHA2512Digestsize/8); i++)
   {
     *q++=(unsigned char) ((*p >> 56) & 0xff);
     *q++=(unsigned char) ((*p >> 48) & 0xff);
@@ -289,23 +289,23 @@ WizardExport void FinalizeSHA512(SHA512Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetSHA512Blocksize() returns the SHA512 blocksize.
+%  GetSHA2512Blocksize() returns the SHA2512 blocksize.
 %
-%  The format of the GetSHA512Blocksize method is:
+%  The format of the GetSHA2512Blocksize method is:
 %
-%      unsigned int *GetSHA512Blocksize(const SHA512Info *sha512_info)
+%      unsigned int *GetSHA2512Blocksize(const SHA2512Info *sha2512_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha512_info: The shaa info.
+%    o sha2512_info: The shaa info.
 %
 */
-WizardExport unsigned int GetSHA512Blocksize(const SHA512Info *sha512_info)
+WizardExport unsigned int GetSHA2512Blocksize(const SHA2512Info *sha2512_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(CipherDomain,sha512_info != (SHA512Info *) NULL);
-  WizardAssert(CipherDomain,sha512_info->signature == WizardSignature);
-  return(sha512_info->blocksize);
+  WizardAssert(CipherDomain,sha2512_info != (SHA2512Info *) NULL);
+  WizardAssert(CipherDomain,sha2512_info->signature == WizardSignature);
+  return(sha2512_info->blocksize);
 }
 
 /*
@@ -319,23 +319,23 @@ WizardExport unsigned int GetSHA512Blocksize(const SHA512Info *sha512_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetSHA512Digest() returns the SHA512 digest.
+%  GetSHA2512Digest() returns the SHA2512 digest.
 %
-%  The format of the GetSHA512Digest method is:
+%  The format of the GetSHA2512Digest method is:
 %
-%      const StringInfo *GetSHA512Digest(const SHA512Info *sha512_info)
+%      const StringInfo *GetSHA2512Digest(const SHA2512Info *sha2512_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha512_info: The shaa info.
+%    o sha2512_info: The shaa info.
 %
 */
-WizardExport const StringInfo *GetSHA512Digest(const SHA512Info *sha512_info)
+WizardExport const StringInfo *GetSHA2512Digest(const SHA2512Info *sha2512_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(HashDomain,sha512_info != (SHA512Info *) NULL);
-  WizardAssert(HashDomain,sha512_info->signature == WizardSignature);
-  return(sha512_info->digest);
+  WizardAssert(HashDomain,sha2512_info != (SHA2512Info *) NULL);
+  WizardAssert(HashDomain,sha2512_info->signature == WizardSignature);
+  return(sha2512_info->digest);
 }
 
 /*
@@ -349,23 +349,23 @@ WizardExport const StringInfo *GetSHA512Digest(const SHA512Info *sha512_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetSHA512Digestsize() returns the SHA512 digest size.
+%  GetSHA2512Digestsize() returns the SHA2512 digest size.
 %
-%  The format of the GetSHA512Digestsize method is:
+%  The format of the GetSHA2512Digestsize method is:
 %
-%      unsigned int *GetSHA512Digestsize(const SHA512Info *sha512_info)
+%      unsigned int *GetSHA2512Digestsize(const SHA2512Info *sha2512_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha512_info: The shaa info.
+%    o sha2512_info: The shaa info.
 %
 */
-WizardExport unsigned int GetSHA512Digestsize(const SHA512Info *sha512_info)
+WizardExport unsigned int GetSHA2512Digestsize(const SHA2512Info *sha2512_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(CipherDomain,sha512_info != (SHA512Info *) NULL);
-  WizardAssert(CipherDomain,sha512_info->signature == WizardSignature);
-  return(sha512_info->digestsize);
+  WizardAssert(CipherDomain,sha2512_info != (SHA2512Info *) NULL);
+  WizardAssert(CipherDomain,sha2512_info->signature == WizardSignature);
+  return(sha2512_info->digestsize);
 }
 
 /*
@@ -379,21 +379,21 @@ WizardExport unsigned int GetSHA512Digestsize(const SHA512Info *sha512_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  IntializeSHA512() intializes the SHA512 accumulator.
+%  IntializeSHA2512() intializes the SHA2512 accumulator.
 %
-%  The format of the DestroySHA512Info method is:
+%  The format of the DestroySHA2512Info method is:
 %
-%      void InitializeSHA512Info(SHA512Info *sha_info)
+%      void InitializeSHA2512Info(SHA2512Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The cipher sha_info.
 %
 */
-WizardExport void InitializeSHA512(SHA512Info *sha_info)
+WizardExport void InitializeSHA2512(SHA2512Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA512Info *) NULL);
+  assert(sha_info != (SHA2512Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   sha_info->accumulator[0]=WizardULLConstant(0x6a09e667f3bcc908);
   sha_info->accumulator[1]=WizardULLConstant(0xbb67ae8584caa73b);
@@ -419,15 +419,15 @@ WizardExport void InitializeSHA512(SHA512Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  TransformSHA512() transforms the SHA512 message accumulator.
+%  TransformSHA2512() transforms the SHA2512 message accumulator.
 %
-%  The format of the TransformSHA512 method is:
+%  The format of the TransformSHA2512 method is:
 %
-%      TransformSHA512(SHA512Info *sha_info)
+%      TransformSHA2512(SHA2512Info *sha_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha_info: The address of a structure of type SHA512Info.
+%    o sha_info: The address of a structure of type SHA2512Info.
 %
 %
 */
@@ -454,7 +454,7 @@ static WizardSizeType RotateRight(const WizardSizeType x,const WizardSizeType n)
   return(Trunc64((x >> n) | (x << (64-n))));
 }
 
-static void TransformSHA512(SHA512Info *sha_info)
+static void TransformSHA2512(SHA2512Info *sha_info)
 {
 #define Sigma0(x)  (RotateRight(x,1) ^ RotateRight(x,8) ^ Trunc64((x) >> 7))
 #define Sigma1(x)  (RotateRight(x,19) ^ RotateRight(x,61) ^ Trunc64((x) >> 6))
@@ -657,20 +657,20 @@ static void TransformSHA512(SHA512Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  UpdateSHA512() updates the SHA512 message accumulator.
+%  UpdateSHA2512() updates the SHA2512 message accumulator.
 %
-%  The format of the UpdateSHA512 method is:
+%  The format of the UpdateSHA2512 method is:
 %
-%      UpdateSHA512(SHA512Info *sha_info,const StringInfo *message)
+%      UpdateSHA2512(SHA2512Info *sha_info,const StringInfo *message)
 %
 %  A description of each parameter follows:
 %
-%    o sha_info: The address of a structure of type SHA512Info.
+%    o sha_info: The address of a structure of type SHA2512Info.
 %
 %    o message: The message.
 %
 */
-WizardExport void UpdateSHA512(SHA512Info *sha_info,const StringInfo *message)
+WizardExport void UpdateSHA2512(SHA2512Info *sha_info,const StringInfo *message)
 {
   register size_t
     i;
@@ -685,9 +685,9 @@ WizardExport void UpdateSHA512(SHA512Info *sha_info,const StringInfo *message)
     length;
 
   /*
-    Update the SHA512 accumulator.
+    Update the SHA2512 accumulator.
   */
-  assert(sha_info != (SHA512Info *) NULL);
+  assert(sha_info != (SHA2512Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   n=GetStringInfoLength(message);
   length=Trunc64(sha_info->low_order+((WizardSizeType) n << 3));
@@ -708,14 +708,14 @@ WizardExport void UpdateSHA512(SHA512Info *sha_info,const StringInfo *message)
       sha_info->offset+=i;
       if (sha_info->offset != GetStringInfoLength(sha_info->message))
         return;
-      TransformSHA512(sha_info);
+      TransformSHA2512(sha_info);
     }
   while (n >= GetStringInfoLength(sha_info->message))
   {
     SetStringInfoDatum(sha_info->message,p);
     p+=GetStringInfoLength(sha_info->message);
     n-=GetStringInfoLength(sha_info->message);
-    TransformSHA512(sha_info);
+    TransformSHA2512(sha_info);
   }
   (void) CopyWizardMemory(GetStringInfoDatum(sha_info->message),p,n);
   sha_info->offset=n;

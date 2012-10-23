@@ -170,10 +170,10 @@
   <li><a href="../www/api/secret.html">Secret Authentication Methods</a></li>
   <li><a href="../www/api/semaphore.html">Semaphore Methods</a></li>
   <li><a href="../www/api/sha1.html">Secure Hash Algorithm-256 Methods</a></li>
-  <li><a href="../www/api/sha224.html">Secure Hash Algorithm-224 Methods</a></li>
-  <li><a href="../www/api/sha256.html">Secure Hash Algorithm-256 Methods</a></li>
-  <li><a href="../www/api/sha384.html">Secure Hash Algorithm-384 Methods</a></li>
-  <li><a href="../www/api/sha512.html">Secure Hash Algorithm-512 Methods</a></li>
+  <li><a href="../www/api/sha2224.html">Secure Hash Algorithm-224 Methods</a></li>
+  <li><a href="../www/api/sha2256.html">Secure Hash Algorithm-256 Methods</a></li>
+  <li><a href="../www/api/sha2384.html">Secure Hash Algorithm-384 Methods</a></li>
+  <li><a href="../www/api/sha2512.html">Secure Hash Algorithm-512 Methods</a></li>
   <li><a href="../www/api/splay-tree.html">Self-adjusting Binary Tree Methods</a></li>
   <li><a href="../www/api/serpent.html">Serpent Cipher Methods</a></li>
   <li><a href="../www/api/string.html">String Methods</a></li>
@@ -206,7 +206,7 @@
       *content;
   
     WizardsToolkitGenesis(*argv);
-    hash_info=AcquireHashInfo(SHA512Hash);
+    hash_info=AcquireHashInfo(SHA2512Hash);
     InitializeHash(hash_info);
     content=StringToStringInfo("The Wizard's Toolkit");
     UpdateHash(hash_info,content);

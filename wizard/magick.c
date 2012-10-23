@@ -95,7 +95,7 @@ WizardExport StringInfo *GetWizardMagick(const unsigned char *signature,
     *magick,
     *tag;
 
-  hash_info=AcquireHashInfo(SHA256Hash);
+  hash_info=AcquireHashInfo(SHA2256Hash);
   InitializeHash(hash_info);
   tag=AcquireStringInfo(length);
   SetStringInfoDatum(tag,signature);

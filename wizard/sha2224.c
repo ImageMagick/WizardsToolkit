@@ -9,7 +9,7 @@
 %                             SSSSS  H   H  A   A                             %
 %                                                                             %
 %                                                                             %
-%             Wizard's Toolkit Secure Hash Algorithm-256 Methods              %
+%             Wizard's Toolkit Secure Hash Algorithm 2-224 Methods            %
 %                                                                             %
 %                             Software Design                                 %
 %                               John Cristy                                   %
@@ -43,17 +43,17 @@
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
-#include "wizard/sha256.h"
+#include "wizard/sha2224.h"
 /*
   Define declarations.
 */
-#define SHA256Blocksize  64
-#define SHA256Digestsize  32
+#define SHA2224Blocksize  64
+#define SHA2224Digestsize  28
 
 /*
   Typedef declarations.
 */
-struct _SHA256Info
+struct _SHA2224Info
 {   
   unsigned int
     digestsize,
@@ -85,7 +85,7 @@ struct _SHA256Info
   Forward declarations.
 */
 static void
-  TransformSHA256(SHA256Info *);
+  TransformSHA2224(SHA2224Info *);
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -98,39 +98,38 @@ static void
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AcquireSHA256Info() allocate the SHA256Info structure.
+%  AcquireSHA2224Info() allocate the SHA2224Info structure.
 %
-%  The format of the AcquireSHA256Info method is:
+%  The format of the AcquireSHA2224Info method is:
 %
-%      SHA256Info *AcquireSHA256Info(void)
+%      SHA2224Info *AcquireSHA2224Info(void)
 %
 */
-WizardExport SHA256Info *AcquireSHA256Info(void)
+WizardExport SHA2224Info *AcquireSHA2224Info(void)
 {
-  SHA256Info
+  SHA2224Info
     *sha_info;
 
   unsigned int
     lsb_first;
 
-  sha_info=(SHA256Info *) AcquireWizardMemory(sizeof(*sha_info));
-  if (sha_info == (SHA256Info *) NULL)
+  sha_info=(SHA2224Info *) AcquireWizardMemory(sizeof(*sha_info));
+  if (sha_info == (SHA2224Info *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
   (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));
-  sha_info->digestsize=SHA256Digestsize;
-  sha_info->blocksize=SHA256Blocksize;
-  sha_info->digest=AcquireStringInfo(SHA256Digestsize);
-  sha_info->message=AcquireStringInfo(SHA256Blocksize);
-  sha_info->accumulator=(unsigned int *) AcquireQuantumMemory(SHA256Blocksize,
+  sha_info->digestsize=SHA2224Digestsize;
+  sha_info->blocksize=SHA2224Blocksize;
+  sha_info->digest=AcquireStringInfo(SHA2224Digestsize);
+  sha_info->message=AcquireStringInfo(SHA2224Blocksize);
+  sha_info->accumulator=(unsigned int *) AcquireQuantumMemory(SHA2224Blocksize,
     sizeof(*sha_info->accumulator));
   if (sha_info->accumulator == (unsigned int *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
   lsb_first=1;
-  sha_info->lsb_first=(int) (*(char *) &lsb_first) == 1 ? WizardTrue :
-    WizardFalse;
+  sha_info->lsb_first=(*(char *) &lsb_first) != 0 ? WizardTrue : WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
-  InitializeSHA256(sha_info);
+  InitializeSHA2224(sha_info);
   return(sha_info);
 }
 
@@ -145,21 +144,21 @@ WizardExport SHA256Info *AcquireSHA256Info(void)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DestroySHA256Info() zeros memory associated with the SHA256Info structure.
+%  DestroySHA2224Info() zeros memory associated with the SHA2224Info structure.
 %
-%  The format of the DestroySHA256Info method is:
+%  The format of the DestroySHA2224Info method is:
 %
-%      SHA256Info *DestroySHA256Info(SHA256Info *sha_info)
+%      SHA2224Info *DestroySHA2224Info(SHA2224Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The cipher sha_info.
 %
 */
-WizardExport SHA256Info *DestroySHA256Info(SHA256Info *sha_info)
+WizardExport SHA2224Info *DestroySHA2224Info(SHA2224Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA256Info *) NULL);
+  assert(sha_info != (SHA2224Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   if (sha_info->accumulator != (unsigned int *) NULL)
     sha_info->accumulator=(unsigned int *) RelinquishWizardMemory(
@@ -169,7 +168,7 @@ WizardExport SHA256Info *DestroySHA256Info(SHA256Info *sha_info)
   if (sha_info->digest != (StringInfo *) NULL)
     sha_info->digest=DestroyStringInfo(sha_info->digest);
   sha_info->signature=(~WizardSignature);
-  sha_info=(SHA256Info *) RelinquishWizardMemory(sha_info);
+  sha_info=(SHA2224Info *) RelinquishWizardMemory(sha_info);
   return(sha_info);
 }
 
@@ -184,18 +183,19 @@ WizardExport SHA256Info *DestroySHA256Info(SHA256Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  FinalizeSHA256() finalizes the SHA256 message accumulator computation.
+%  FinalizeSHA2224() finalizes the SHA2224 message accumulator computation.
 %
-%  The format of the FinalizeSHA256 method is:
+%  The format of the FinalizeSHA2224 method is:
 %
-%      FinalizeSHA256(SHA256Info *sha_info)
+%      FinalizeSHA2224(SHA2224Info *sha_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha_info: The address of a structure of type SHA256Info.
+%    o sha_info: The address of a structure of type SHA2224Info.
+%
 %
 */
-WizardExport void FinalizeSHA256(SHA256Info *sha_info)
+WizardExport void FinalizeSHA2224(SHA2224Info *sha_info)
 {
   register ssize_t
     i;
@@ -220,7 +220,7 @@ WizardExport void FinalizeSHA256(SHA256Info *sha_info)
     Add padding and return the message accumulator.
   */
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA256Info *) NULL);
+  assert(sha_info != (SHA2224Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   low_order=sha_info->low_order;
   high_order=sha_info->high_order;
@@ -234,7 +234,7 @@ WizardExport void FinalizeSHA256(SHA256Info *sha_info)
     {
       (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
         sha_info->message)-count);
-      TransformSHA256(sha_info);
+      TransformSHA2224(sha_info);
       (void) ResetWizardMemory(datum,0,GetStringInfoLength(sha_info->message)-
         8);
     }
@@ -246,10 +246,10 @@ WizardExport void FinalizeSHA256(SHA256Info *sha_info)
   datum[61]=(unsigned char) (low_order >> 16);
   datum[62]=(unsigned char) (low_order >> 8);
   datum[63]=(unsigned char) low_order;
-  TransformSHA256(sha_info);
+  TransformSHA2224(sha_info);
   p=sha_info->accumulator;
   q=GetStringInfoDatum(sha_info->digest);
-  for (i=0; i < (SHA256Digestsize/4); i++)
+  for (i=0; i < (SHA2224Digestsize/4); i++)
   {
     *q++=(unsigned char) ((*p >> 24) & 0xff);
     *q++=(unsigned char) ((*p >> 16) & 0xff);
@@ -270,29 +270,29 @@ WizardExport void FinalizeSHA256(SHA256Info *sha_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   G e t S H A 2 5 6 B l o c k s i z e                                       %
+%   G e t S H A 2 2 4 B l o c k s i z e                                       %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetSHA256Blocksize() returns the SHA256 blocksize.
+%  GetSHA2224Blocksize() returns the SHA2224 blocksize.
 %
-%  The format of the GetSHA256Blocksize method is:
+%  The format of the GetSHA2224Blocksize method is:
 %
-%      unsigned int *GetSHA256Blocksize(const SHA256Info *sha256_info)
+%      unsigned int *GetSHA2224Blocksize(const SHA2224Info *sha2224_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha256_info: The sha256 info.
+%    o sha2224_info: The sha2224 info.
 %
 */
-WizardExport unsigned int GetSHA256Blocksize(const SHA256Info *sha256_info)
+WizardExport unsigned int GetSHA2224Blocksize(const SHA2224Info *sha2224_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(CipherDomain,sha256_info != (SHA256Info *) NULL);
-  WizardAssert(CipherDomain,sha256_info->signature == WizardSignature);
-  return(sha256_info->blocksize);
+  WizardAssert(CipherDomain,sha2224_info != (SHA2224Info *) NULL);
+  WizardAssert(CipherDomain,sha2224_info->signature == WizardSignature);
+  return(sha2224_info->blocksize);
 }
 
 /*
@@ -300,29 +300,29 @@ WizardExport unsigned int GetSHA256Blocksize(const SHA256Info *sha256_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   G e t S H A 2 5 6 D i g e s t                                             %
+%   G e t S H A 2 2 4 D i g e s t                                             %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetSHA256Digest() returns the SHA256 digest.
+%  GetSHA2224Digest() returns the SHA2224 digest.
 %
-%  The format of the GetSHA256Digest method is:
+%  The format of the GetSHA2224Digest method is:
 %
-%      const StringInfo *GetSHA256Digest(const SHA256Info *sha256_info)
+%      const StringInfo *GetSHA2224Digest(const SHA2224Info *sha2224_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha256_info: The sha256 info.
+%    o sha2224_info: The sha2224 info.
 %
 */
-WizardExport const StringInfo *GetSHA256Digest(const SHA256Info *sha256_info)
+WizardExport const StringInfo *GetSHA2224Digest(const SHA2224Info *sha2224_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(HashDomain,sha256_info != (SHA256Info *) NULL);
-  WizardAssert(HashDomain,sha256_info->signature == WizardSignature);
-  return(sha256_info->digest);
+  WizardAssert(HashDomain,sha2224_info != (SHA2224Info *) NULL);
+  WizardAssert(HashDomain,sha2224_info->signature == WizardSignature);
+  return(sha2224_info->digest);
 }
 
 /*
@@ -330,29 +330,29 @@ WizardExport const StringInfo *GetSHA256Digest(const SHA256Info *sha256_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   G e t S H A 2 5 6 D i g e s t s i z e                                     %
+%   G e t S H A 2 2 4 D i g e s t s i z e                                     %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetSHA256Digestsize() returns the SHA256 digest size.
+%  GetSHA2224Digestsize() returns the SHA2224 digest size.
 %
-%  The format of the GetSHA256Digestsize method is:
+%  The format of the GetSHA2224Digestsize method is:
 %
-%      unsigned int *GetSHA256Digestsize(const SHA256Info *sha256_info)
+%      unsigned int *GetSHA2224Digestsize(const SHA2224Info *sha2224_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha256_info: The sha256 info.
+%    o sha2224_info: The sha2224 info.
 %
 */
-WizardExport unsigned int GetSHA256Digestsize(const SHA256Info *sha256_info)
+WizardExport unsigned int GetSHA2224Digestsize(const SHA2224Info *sha2224_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(CipherDomain,sha256_info != (SHA256Info *) NULL);
-  WizardAssert(CipherDomain,sha256_info->signature == WizardSignature);
-  return(sha256_info->digestsize);
+  WizardAssert(CipherDomain,sha2224_info != (SHA2224Info *) NULL);
+  WizardAssert(CipherDomain,sha2224_info->signature == WizardSignature);
+  return(sha2224_info->digestsize);
 }
 
 /*
@@ -366,30 +366,30 @@ WizardExport unsigned int GetSHA256Digestsize(const SHA256Info *sha256_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  IntializeSHA256() intializes the SHA256 accumulator.
+%  IntializeSHA2224() intializes the SHA2224 accumulator.
 %
-%  The format of the DestroySHA256Info method is:
+%  The format of the DestroySHA2224Info method is:
 %
-%      void InitializeSHA256Info(SHA256Info *sha_info)
+%      void InitializeSHA2224Info(SHA2224Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The cipher sha_info.
 %
 */
-WizardExport void InitializeSHA256(SHA256Info *sha_info)
+WizardExport void InitializeSHA2224(SHA2224Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA256Info *) NULL);
+  assert(sha_info != (SHA2224Info *) NULL);
   assert(sha_info->signature == WizardSignature);
-  sha_info->accumulator[0]=0x6a09e667U;
-  sha_info->accumulator[1]=0xbb67ae85U;
-  sha_info->accumulator[2]=0x3c6ef372U;
-  sha_info->accumulator[3]=0xa54ff53aU;
-  sha_info->accumulator[4]=0x510e527fU;
-  sha_info->accumulator[5]=0x9b05688cU;
-  sha_info->accumulator[6]=0x1f83d9abU;
-  sha_info->accumulator[7]=0x5be0cd19U;
+  sha_info->accumulator[0]=0xc1059ed8U;
+  sha_info->accumulator[1]=0x367cd507U;
+  sha_info->accumulator[2]=0x3070dd17U;
+  sha_info->accumulator[3]=0xf70e5939U;
+  sha_info->accumulator[4]=0xffc00b31U;
+  sha_info->accumulator[5]=0x68581511U;
+  sha_info->accumulator[6]=0x64f98fa7U;
+  sha_info->accumulator[7]=0xbefa4fa4U;
   sha_info->low_order=0;
   sha_info->high_order=0;
   sha_info->offset=0;
@@ -406,15 +406,16 @@ WizardExport void InitializeSHA256(SHA256Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  TransformSHA256() transforms the SHA256 message accumulator.
+%  TransformSHA2224() transforms the SHA2224 message accumulator.
 %
-%  The format of the TransformSHA256 method is:
+%  The format of the TransformSHA2224 method is:
 %
-%      TransformSHA256(SHA256Info *sha_info)
+%      TransformSHA2224(SHA2224Info *sha_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha_info: The address of a structure of type SHA256Info.
+%    o sha_info: The address of a structure of type SHA2224Info.
+%
 %
 */
 
@@ -440,7 +441,7 @@ static unsigned int RotateRight(const unsigned int x,const unsigned int n)
   return(Trunc32((x >> n) | (x << (32-n))));
 }
 
-static void TransformSHA256(SHA256Info *sha_info)
+static void TransformSHA2224(SHA2224Info *sha_info)
 {
 #define Sigma0(x)  (RotateRight(x,7) ^ RotateRight(x,18) ^ Trunc32((x) >> 3))
 #define Sigma1(x)  (RotateRight(x,17) ^ RotateRight(x,19) ^ Trunc32((x) >> 10))
@@ -565,7 +566,6 @@ static void TransformSHA256(SHA256Info *sha_info)
   sha_info->accumulator[4]=Trunc32(sha_info->accumulator[4]+E);
   sha_info->accumulator[5]=Trunc32(sha_info->accumulator[5]+F);
   sha_info->accumulator[6]=Trunc32(sha_info->accumulator[6]+G);
-  sha_info->accumulator[7]=Trunc32(sha_info->accumulator[7]+H);
   /*
     Reset working registers.
   */
@@ -594,20 +594,21 @@ static void TransformSHA256(SHA256Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  UpdateSHA256() updates the SHA256 message accumulator.
+%  UpdateSHA2224() updates the SHA2224 message accumulator.
 %
-%  The format of the UpdateSHA256 method is:
+%  The format of the UpdateSHA2224 method is:
 %
-%      UpdateSHA256(SHA256Info *sha_info,const StringInfo *message)
+%      UpdateSHA2224(SHA2224Info *sha_info,const StringInfo *message)
 %
 %  A description of each parameter follows:
 %
-%    o sha_info: The address of a structure of type SHA256Info.
+%    o sha_info: The address of a structure of type SHA2224Info.
 %
 %    o message: The message.
 %
+%
 */
-WizardExport void UpdateSHA256(SHA256Info *sha_info,const StringInfo *message)
+WizardExport void UpdateSHA2224(SHA2224Info *sha_info,const StringInfo *message)
 {
   register size_t
     i;
@@ -622,9 +623,9 @@ WizardExport void UpdateSHA256(SHA256Info *sha_info,const StringInfo *message)
     length;
 
   /*
-    Update the SHA256 accumulator.
+    Update the SHA2224 accumulator.
   */
-  assert(sha_info != (SHA256Info *) NULL);
+  assert(sha_info != (SHA2224Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   n=GetStringInfoLength(message);
   length=Trunc32((unsigned int) (sha_info->low_order+(n << 3)));
@@ -645,14 +646,14 @@ WizardExport void UpdateSHA256(SHA256Info *sha_info,const StringInfo *message)
       sha_info->offset+=i;
       if (sha_info->offset != GetStringInfoLength(sha_info->message))
         return;
-      TransformSHA256(sha_info);
+      TransformSHA2224(sha_info);
     }
   while (n >= GetStringInfoLength(sha_info->message))
   {
     SetStringInfoDatum(sha_info->message,p);
     p+=GetStringInfoLength(sha_info->message);
     n-=GetStringInfoLength(sha_info->message);
-    TransformSHA256(sha_info);
+    TransformSHA2224(sha_info);
   }
   (void) CopyWizardMemory(GetStringInfoDatum(sha_info->message),p,n);
   sha_info->offset=n;

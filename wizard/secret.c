@@ -56,8 +56,8 @@
 */
 #define SecretKeyCipher  AESCipher
 #define SecretKeyMode  CTRMode
-#define SecretKeyHash  SHA256Hash
-#define SecretRandomHash  SHA256Hash
+#define SecretKeyHash  SHA2256Hash
+#define SecretRandomHash  SHA2256Hash
 
 /*
   Typedef declarations.

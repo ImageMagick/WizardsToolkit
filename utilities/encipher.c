@@ -772,7 +772,7 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
     Wrap cipher RDF in a cipher-packet.
   */
   length=strlen(cipher_rdf);
-  hash_info=AcquireHashInfo(SHA256Hash);
+  hash_info=AcquireHashInfo(SHA2256Hash);
   InitializeHash(hash_info);
   plaintext=StringToStringInfo(cipher_rdf);
   UpdateHash(hash_info,plaintext);

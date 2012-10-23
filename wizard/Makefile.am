@@ -114,14 +114,16 @@ WIZARD_BASE_SRCS = \
   wizard/signature.h \
   wizard/sha1.c \
   wizard/sha1.h \
-  wizard/sha224.c \
-  wizard/sha224.h \
-  wizard/sha256.c \
-  wizard/sha256.h \
-  wizard/sha384.c \
-  wizard/sha384.h \
-  wizard/sha512.c \
-  wizard/sha512.h \
+  wizard/sha2224.c \
+  wizard/sha2224.h \
+  wizard/sha2256.c \
+  wizard/sha2256.h \
+  wizard/sha2384.c \
+  wizard/sha2384.h \
+  wizard/sha2512.c \
+  wizard/sha2512.h \
+  wizard/sha3.c \
+  wizard/sha3.h \
   wizard/splay-tree.c \
   wizard/splay-tree.h \
   wizard/string.c \
@@ -219,10 +221,11 @@ WIZARD_NOINST_HDRS = \
   wizard/semaphore-private.h \
   wizard/serpent.h \
   wizard/sha1.h \
-  wizard/sha224.h \
-  wizard/sha256.h \
-  wizard/sha384.h \
-  wizard/sha512.h \
+  wizard/sha2224.h \
+  wizard/sha2256.h \
+  wizard/sha2384.h \
+  wizard/sha2512.h \
+  wizard/sha3.h \
   wizard/string-private.h \
   wizard/studio.h \
   wizard/thread-private.h \

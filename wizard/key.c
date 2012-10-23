@@ -55,7 +55,7 @@
 */
 #define KeymapCipher  AESCipher
 #define KeymapMode  CTRMode
-#define SessionKeyHash  SHA256Hash
+#define SessionKeyHash  SHA2256Hash
 #define SessionKeyLength  512
 
 /*

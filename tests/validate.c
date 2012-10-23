@@ -239,7 +239,7 @@ static WizardBooleanType TestAuthenticate(const char *passphrase)
 
   (void) PrintValidateString(stdout,"testing secret authentication:\n");
   authenticate_info=AcquireAuthenticateInfo(SecretAuthenticateMethod,
-    (const char *) NULL,SHA256Hash);
+    (const char *) NULL,SHA2256Hash);
   (void) PrintValidateString(stdout,"  generate authenticate key:\n");
   if (passphrase != (const char *) NULL)
     SetAuthenticatePassphrase(authenticate_info,passphrase);
@@ -483,7 +483,7 @@ static WizardBooleanType TestHMACSHA1(void)
   return(pass);
 }
 
-static WizardBooleanType TestHMACSHA256(void)
+static WizardBooleanType TestHMACSHA2256(void)
 {
   register ssize_t
     i;
@@ -500,17 +500,17 @@ static WizardBooleanType TestHMACSHA256(void)
     clone,
     pass;
 
-  (void) PrintValidateString(stdout,"testing hmac-sha256:\n");
+  (void) PrintValidateString(stdout,"testing hmac-sha2256:\n");
   pass=WizardTrue;
-  hmac_info=AcquireHMACInfo(SHA256Hash);
-  for (i=0; i < HMACSHA256TestVectors; i++)
+  hmac_info=AcquireHMACInfo(SHA2256Hash);
+  for (i=0; i < HMACSHA2256TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-    key=StringToStringInfo((char *) hmac_sha256_test_vector[i].key);
-    message=StringToStringInfo((char *) hmac_sha256_test_vector[i].plaintext);
+    key=StringToStringInfo((char *) hmac_sha2256_test_vector[i].key);
+    message=StringToStringInfo((char *) hmac_sha2256_test_vector[i].plaintext);
     ConstructHMAC(hmac_info,key,message);
     results=AcquireStringInfo(GetStringInfoLength(GetHMACDigest(hmac_info)));
-    SetStringInfoDatum(results,hmac_sha256_test_vector[i].digest);
+    SetStringInfoDatum(results,hmac_sha2256_test_vector[i].digest);
     clone=CompareStringInfo(GetHMACDigest(hmac_info),results) == 0 ?
       WizardTrue : WizardFalse;
     (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
@@ -783,7 +783,7 @@ static WizardBooleanType TestRandomKey(void)
     pass;
 
   (void) PrintValidateString(stdout,"testing random key:\n");
-  random_info=AcquireRandomInfo(SHA256Hash);
+  random_info=AcquireRandomInfo(SHA2256Hash);
   key=GetRandomKey(random_info,256);
   key=DestroyStringInfo(key);
   pass=WizardTrue;
@@ -994,7 +994,7 @@ static WizardBooleanType TestSHA1(void)
   return(pass);
 }
 
-static WizardBooleanType TestSHA256(void)
+static WizardBooleanType TestSHA2256(void)
 {
   HashInfo
     *hash_info;
@@ -1010,18 +1010,18 @@ static WizardBooleanType TestSHA256(void)
     clone,
     pass;
 
-  (void) PrintValidateString(stdout,"testing sha256:\n");
+  (void) PrintValidateString(stdout,"testing sha2256:\n");
   pass=WizardTrue;
-  hash_info=AcquireHashInfo(SHA256Hash);
-  for (i=0; i < SHA256TestVectors; i++)
+  hash_info=AcquireHashInfo(SHA2256Hash);
+  for (i=0; i < SHA2256TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     InitializeHash(hash_info);
-    plaintext=StringToStringInfo((char *) sha256_test_vector[i].plaintext);
+    plaintext=StringToStringInfo((char *) sha2256_test_vector[i].plaintext);
     UpdateHash(hash_info,plaintext);
     FinalizeHash(hash_info);
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
-    SetStringInfoDatum(results,sha256_test_vector[i].digest);
+    SetStringInfoDatum(results,sha2256_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
       WizardTrue : WizardFalse;
     (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
@@ -1044,7 +1044,7 @@ static WizardBooleanType TestSHA256(void)
   FinalizeHash(hash_info);
   plaintext=DestroyStringInfo(plaintext);
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
-  SetStringInfoDatum(results,sha256_test_vector[1].digest);
+  SetStringInfoDatum(results,sha2256_test_vector[1].digest);
   clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
     WizardTrue : WizardFalse;
   (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
@@ -1056,7 +1056,7 @@ static WizardBooleanType TestSHA256(void)
   return(pass);
 }
 
-static WizardBooleanType TestSHA384(void)
+static WizardBooleanType TestSHA2384(void)
 {
   HashInfo
     *hash_info;
@@ -1072,18 +1072,18 @@ static WizardBooleanType TestSHA384(void)
     clone,
     pass;
 
-  (void) PrintValidateString(stdout,"testing sha384:\n");
+  (void) PrintValidateString(stdout,"testing sha2384:\n");
   pass=WizardTrue;
-  hash_info=AcquireHashInfo(SHA384Hash);
-  for (i=0; i < SHA384TestVectors; i++)
+  hash_info=AcquireHashInfo(SHA2384Hash);
+  for (i=0; i < SHA2384TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     InitializeHash(hash_info);
-    plaintext=StringToStringInfo((char *) sha384_test_vector[i].plaintext);
+    plaintext=StringToStringInfo((char *) sha2384_test_vector[i].plaintext);
     UpdateHash(hash_info,plaintext);
     FinalizeHash(hash_info);
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
-    SetStringInfoDatum(results,sha384_test_vector[i].digest);
+    SetStringInfoDatum(results,sha2384_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
       WizardTrue : WizardFalse;
     (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
@@ -1106,7 +1106,7 @@ static WizardBooleanType TestSHA384(void)
   plaintext=DestroyStringInfo(plaintext);
   FinalizeHash(hash_info);
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
-  SetStringInfoDatum(results,sha384_test_vector[1].digest);
+  SetStringInfoDatum(results,sha2384_test_vector[1].digest);
   clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
     WizardTrue : WizardFalse;
   (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
@@ -1118,7 +1118,7 @@ static WizardBooleanType TestSHA384(void)
   return(pass);
 }
 
-static WizardBooleanType TestSHA512(void)
+static WizardBooleanType TestSHA2512(void)
 {
   HashInfo
     *hash_info;
@@ -1134,18 +1134,18 @@ static WizardBooleanType TestSHA512(void)
     clone,
     pass;
 
-  (void) PrintValidateString(stdout,"testing sha512:\n");
+  (void) PrintValidateString(stdout,"testing sha2512:\n");
   pass=WizardTrue;
-  hash_info=AcquireHashInfo(SHA512Hash);
-  for (i=0; i < SHA512TestVectors; i++)
+  hash_info=AcquireHashInfo(SHA2512Hash);
+  for (i=0; i < SHA2512TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     InitializeHash(hash_info);
-    plaintext=StringToStringInfo((char *) sha512_test_vector[i].plaintext);
+    plaintext=StringToStringInfo((char *) sha2512_test_vector[i].plaintext);
     UpdateHash(hash_info,plaintext);
     FinalizeHash(hash_info);
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
-    SetStringInfoDatum(results,sha512_test_vector[i].digest);
+    SetStringInfoDatum(results,sha2512_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
       WizardTrue : WizardFalse;
     (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
@@ -1168,7 +1168,69 @@ static WizardBooleanType TestSHA512(void)
   plaintext=DestroyStringInfo(plaintext);
   FinalizeHash(hash_info);
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
-  SetStringInfoDatum(results,sha512_test_vector[1].digest);
+  SetStringInfoDatum(results,sha2512_test_vector[1].digest);
+  clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
+    WizardTrue : WizardFalse;
+  (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
+    "fail");
+  if (clone == WizardFalse)
+    pass=WizardFalse;
+  results=DestroyStringInfo(results);
+  hash_info=DestroyHashInfo(hash_info);
+  return(pass);
+}
+
+static WizardBooleanType TestSHA3(void)
+{
+  HashInfo
+    *hash_info;
+
+  register ssize_t
+    i;
+
+  StringInfo
+    *plaintext,
+    *results;
+
+  WizardBooleanType
+    clone,
+    pass;
+
+  (void) PrintValidateString(stdout,"testing sha3:\n");
+  pass=WizardTrue;
+  hash_info=AcquireHashInfo(SHA3Hash);
+  for (i=0; i < SHA3TestVectors; i++)
+  {
+    (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
+    InitializeHash(hash_info);
+    plaintext=StringToStringInfo((char *) sha1_test_vector[i].plaintext);
+    UpdateHash(hash_info,plaintext);
+    FinalizeHash(hash_info);
+    results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
+    SetStringInfoDatum(results,sha1_test_vector[i].digest);
+    clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
+      WizardTrue : WizardFalse;
+    (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
+      "fail");
+    if (clone == WizardFalse)
+      pass=WizardFalse;
+    results=DestroyStringInfo(results);
+    plaintext=DestroyStringInfo(plaintext);
+  }
+  /*
+    Multiple update test.
+  */
+  (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
+  InitializeHash(hash_info);
+  plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
+  UpdateHash(hash_info,plaintext);
+  plaintext=DestroyStringInfo(plaintext);
+  plaintext=StringToStringInfo("hijkijkljklmklmnlmnomnopnopq");
+  UpdateHash(hash_info,plaintext);
+  FinalizeHash(hash_info);
+  plaintext=DestroyStringInfo(plaintext);
+  results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
+  SetStringInfoDatum(results,sha1_test_vector[1].digest);
   clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
     WizardTrue : WizardFalse;
   (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
@@ -1439,17 +1501,19 @@ int main(int argc,char **argv)
     pass=WizardFalse;
   if (TestSHA1() == WizardFalse)
     pass=WizardFalse;
-  if (TestSHA256() == WizardFalse)
+  if (TestSHA2256() == WizardFalse)
     pass=WizardFalse;
-  if (TestSHA384() == WizardFalse)
+  if (TestSHA2384() == WizardFalse)
     pass=WizardFalse;
-  if (TestSHA512() == WizardFalse)
+  if (TestSHA2512() == WizardFalse)
+    pass=WizardFalse;
+  if (TestSHA3() == WizardFalse)
     pass=WizardFalse;
   if (TestHMACMD5() == WizardFalse)
     pass=WizardFalse;
   if (TestHMACSHA1() == WizardFalse)
     pass=WizardFalse;
-  if (TestHMACSHA256() == WizardFalse)
+  if (TestHMACSHA2256() == WizardFalse)
     pass=WizardFalse;
   if (TestAES() == WizardFalse)
     pass=WizardFalse;

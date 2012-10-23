@@ -59,7 +59,7 @@
 /*
   Define declarations.
 */
-#define PseudoRandomHash  SHA256Hash
+#define PseudoRandomHash  SHA2256Hash
 #define RandomEntropyLevel  9
 #define RandomFilename  "reservoir.xdm"
 #define RandomFiletype  "random"

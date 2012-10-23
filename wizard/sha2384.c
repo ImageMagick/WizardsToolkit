@@ -9,7 +9,7 @@
 %                             SSSSS  H   H  A   A                             %
 %                                                                             %
 %                                                                             %
-%             Wizard's Toolkit Secure Hash Algorithm-384 Methods              %
+%             Wizard's Toolkit Secure Hash Algorithm 2-384 Methods            %
 %                                                                             %
 %                             Software Design                                 %
 %                               John Cristy                                   %
@@ -43,17 +43,17 @@
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
-#include "wizard/sha384.h"
+#include "wizard/sha2384.h"
 /*
   Define declarations.
 */
-#define SHA384Blocksize  128
-#define SHA384Digestsize  48
+#define SHA2384Blocksize  128
+#define SHA2384Digestsize  48
 
 /*
   Typedef declarations.
 */
-struct _SHA384Info
+struct _SHA2384Info
 {   
   unsigned int
     digestsize,
@@ -85,7 +85,7 @@ struct _SHA384Info
   Forward declarations.
 */
 static void
-  TransformSHA384(SHA384Info *);
+  TransformSHA2384(SHA2384Info *);
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -98,30 +98,30 @@ static void
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AcquireSHA384Info() allocate the SHA384Info structure.
+%  AcquireSHA2384Info() allocate the SHA2384Info structure.
 %
-%  The format of the AcquireSHA384Info method is:
+%  The format of the AcquireSHA2384Info method is:
 %
-%      SHA384Info *AcquireSHA384Info(void)
+%      SHA2384Info *AcquireSHA2384Info(void)
 %
 */
-WizardExport SHA384Info *AcquireSHA384Info(void)
+WizardExport SHA2384Info *AcquireSHA2384Info(void)
 {
-  SHA384Info
+  SHA2384Info
     *sha_info;
 
   unsigned int
     lsb_first;
 
-  sha_info=(SHA384Info *) AcquireWizardMemory(sizeof(*sha_info));
-  if (sha_info == (SHA384Info *) NULL)
+  sha_info=(SHA2384Info *) AcquireWizardMemory(sizeof(*sha_info));
+  if (sha_info == (SHA2384Info *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
   (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));
-  sha_info->digestsize=SHA384Digestsize;
-  sha_info->blocksize=SHA384Blocksize;
-  sha_info->digest=AcquireStringInfo(SHA384Digestsize);
-  sha_info->message=AcquireStringInfo(SHA384Blocksize);
-  sha_info->accumulator=(WizardSizeType *) AcquireQuantumMemory(SHA384Blocksize,
+  sha_info->digestsize=SHA2384Digestsize;
+  sha_info->blocksize=SHA2384Blocksize;
+  sha_info->digest=AcquireStringInfo(SHA2384Digestsize);
+  sha_info->message=AcquireStringInfo(SHA2384Blocksize);
+  sha_info->accumulator=(WizardSizeType *) AcquireQuantumMemory(SHA2384Blocksize,
     sizeof(*sha_info->accumulator));
   if (sha_info->accumulator == (WizardSizeType *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
@@ -130,7 +130,7 @@ WizardExport SHA384Info *AcquireSHA384Info(void)
     WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
-  InitializeSHA384(sha_info);
+  InitializeSHA2384(sha_info);
   return(sha_info);
 }
 
@@ -145,21 +145,21 @@ WizardExport SHA384Info *AcquireSHA384Info(void)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DestroySHA384Info() zeros memory associated with the SHA384Info structure.
+%  DestroySHA2384Info() zeros memory associated with the SHA2384Info structure.
 %
-%  The format of the DestroySHA384Info method is:
+%  The format of the DestroySHA2384Info method is:
 %
-%      SHA384Info *DestroySHA384Info(SHA384Info *sha_info)
+%      SHA2384Info *DestroySHA2384Info(SHA2384Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The cipher sha_info.
 %
 */
-WizardExport SHA384Info *DestroySHA384Info(SHA384Info *sha_info)
+WizardExport SHA2384Info *DestroySHA2384Info(SHA2384Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA384Info *) NULL);
+  assert(sha_info != (SHA2384Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   if (sha_info->accumulator != (WizardSizeType *) NULL)
     sha_info->accumulator=(WizardSizeType *) RelinquishWizardMemory(
@@ -169,7 +169,7 @@ WizardExport SHA384Info *DestroySHA384Info(SHA384Info *sha_info)
   if (sha_info->digest != (StringInfo *) NULL)
     sha_info->digest=DestroyStringInfo(sha_info->digest);
   sha_info->signature=(~WizardSignature);
-  sha_info=(SHA384Info *) RelinquishWizardMemory(sha_info);
+  sha_info=(SHA2384Info *) RelinquishWizardMemory(sha_info);
   return(sha_info);
 }
 
@@ -184,19 +184,19 @@ WizardExport SHA384Info *DestroySHA384Info(SHA384Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  FinalizeSHA384() finalizes the SHA384 message accumulator computation.
+%  FinalizeSHA2384() finalizes the SHA2384 message accumulator computation.
 %
-%  The format of the FinalizeSHA384 method is:
+%  The format of the FinalizeSHA2384 method is:
 %
-%      FinalizeSHA384(SHA384Info *sha_info)
+%      FinalizeSHA2384(SHA2384Info *sha_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha_info: The address of a structure of type SHA384Info.
+%    o sha_info: The address of a structure of type SHA2384Info.
 %
 %
 */
-WizardExport void FinalizeSHA384(SHA384Info *sha_info)
+WizardExport void FinalizeSHA2384(SHA2384Info *sha_info)
 {
   register size_t
     i;
@@ -221,7 +221,7 @@ WizardExport void FinalizeSHA384(SHA384Info *sha_info)
     Add padding and return the message accumulator.
   */
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA384Info *) NULL);
+  assert(sha_info != (SHA2384Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   low_order=sha_info->low_order;
   high_order=sha_info->high_order;
@@ -235,7 +235,7 @@ WizardExport void FinalizeSHA384(SHA384Info *sha_info)
     {
       (void) ResetWizardMemory(datum+count,0,(size_t) (GetStringInfoLength(
         sha_info->message)-count));
-      TransformSHA384(sha_info);
+      TransformSHA2384(sha_info);
       (void) ResetWizardMemory(datum,0,(GetStringInfoLength(sha_info->message)-
         16));
     }
@@ -255,10 +255,10 @@ WizardExport void FinalizeSHA384(SHA384Info *sha_info)
   datum[125]=(unsigned char) (low_order >> 16);
   datum[126]=(unsigned char) (low_order >> 8);
   datum[127]=(unsigned char) low_order;
-  TransformSHA384(sha_info);
+  TransformSHA2384(sha_info);
   p=sha_info->accumulator;
   q=GetStringInfoDatum(sha_info->digest);
-  for (i=0; i < (SHA384Digestsize/8); i++)
+  for (i=0; i < (SHA2384Digestsize/8); i++)
   {
     *q++=(unsigned char) ((*p >> 56) & 0xff);
     *q++=(unsigned char) ((*p >> 48) & 0xff);
@@ -289,23 +289,23 @@ WizardExport void FinalizeSHA384(SHA384Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetSHA384Blocksize() returns the SHA384 blocksize.
+%  GetSHA2384Blocksize() returns the SHA2384 blocksize.
 %
-%  The format of the GetSHA384Blocksize method is:
+%  The format of the GetSHA2384Blocksize method is:
 %
-%      unsigned int *GetSHA384Blocksize(const SHA384Info *sha384_info)
+%      unsigned int *GetSHA2384Blocksize(const SHA2384Info *sha2384_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha384_info: The sha384 info.
+%    o sha2384_info: The sha2384 info.
 %
 */
-WizardExport unsigned int GetSHA384Blocksize(const SHA384Info *sha384_info)
+WizardExport unsigned int GetSHA2384Blocksize(const SHA2384Info *sha2384_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(CipherDomain,sha384_info != (SHA384Info *) NULL);
-  WizardAssert(CipherDomain,sha384_info->signature == WizardSignature);
-  return(sha384_info->blocksize);
+  WizardAssert(CipherDomain,sha2384_info != (SHA2384Info *) NULL);
+  WizardAssert(CipherDomain,sha2384_info->signature == WizardSignature);
+  return(sha2384_info->blocksize);
 }
 
 /*
@@ -319,23 +319,23 @@ WizardExport unsigned int GetSHA384Blocksize(const SHA384Info *sha384_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetSHA384Digest() returns the SHA384 digest.
+%  GetSHA2384Digest() returns the SHA2384 digest.
 %
-%  The format of the GetSHA384Digest method is:
+%  The format of the GetSHA2384Digest method is:
 %
-%      const StringInfo *GetSHA384Digest(const SHA384Info *sha384_info)
+%      const StringInfo *GetSHA2384Digest(const SHA2384Info *sha2384_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha384_info: The sha384 info.
+%    o sha2384_info: The sha2384 info.
 %
 */
-WizardExport const StringInfo *GetSHA384Digest(const SHA384Info *sha384_info)
+WizardExport const StringInfo *GetSHA2384Digest(const SHA2384Info *sha2384_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(HashDomain,sha384_info != (SHA384Info *) NULL);
-  WizardAssert(HashDomain,sha384_info->signature == WizardSignature);
-  return(sha384_info->digest);
+  WizardAssert(HashDomain,sha2384_info != (SHA2384Info *) NULL);
+  WizardAssert(HashDomain,sha2384_info->signature == WizardSignature);
+  return(sha2384_info->digest);
 }
 
 /*
@@ -349,23 +349,23 @@ WizardExport const StringInfo *GetSHA384Digest(const SHA384Info *sha384_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetSHA384Digestsize() returns the SHA384 digest size.
+%  GetSHA2384Digestsize() returns the SHA2384 digest size.
 %
-%  The format of the GetSHA384Digestsize method is:
+%  The format of the GetSHA2384Digestsize method is:
 %
-%      unsigned int *GetSHA384Digestsize(const SHA384Info *sha384_info)
+%      unsigned int *GetSHA2384Digestsize(const SHA2384Info *sha2384_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha384_info: The sha384 info.
+%    o sha2384_info: The sha2384 info.
 %
 */
-WizardExport unsigned int GetSHA384Digestsize(const SHA384Info *sha384_info)
+WizardExport unsigned int GetSHA2384Digestsize(const SHA2384Info *sha2384_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(CipherDomain,sha384_info != (SHA384Info *) NULL);
-  WizardAssert(CipherDomain,sha384_info->signature == WizardSignature);
-  return(sha384_info->digestsize);
+  WizardAssert(CipherDomain,sha2384_info != (SHA2384Info *) NULL);
+  WizardAssert(CipherDomain,sha2384_info->signature == WizardSignature);
+  return(sha2384_info->digestsize);
 }
 
 /*
@@ -379,21 +379,21 @@ WizardExport unsigned int GetSHA384Digestsize(const SHA384Info *sha384_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  IntializeSHA384() intializes the SHA384 accumulator.
+%  IntializeSHA2384() intializes the SHA2384 accumulator.
 %
-%  The format of the DestroySHA384Info method is:
+%  The format of the DestroySHA2384Info method is:
 %
-%      void InitializeSHA384Info(SHA384Info *sha_info)
+%      void InitializeSHA2384Info(SHA2384Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The cipher sha_info.
 %
 */
-WizardExport void InitializeSHA384(SHA384Info *sha_info)
+WizardExport void InitializeSHA2384(SHA2384Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA384Info *) NULL);
+  assert(sha_info != (SHA2384Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   sha_info->accumulator[0]=WizardULLConstant(0xcbbb9d5dc1059ed8);
   sha_info->accumulator[1]=WizardULLConstant(0x629a292a367cd507);
@@ -419,15 +419,15 @@ WizardExport void InitializeSHA384(SHA384Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  TransformSHA384() transforms the SHA384 message accumulator.
+%  TransformSHA2384() transforms the SHA2384 message accumulator.
 %
-%  The format of the TransformSHA384 method is:
+%  The format of the TransformSHA2384 method is:
 %
-%      TransformSHA384(SHA384Info *sha_info)
+%      TransformSHA2384(SHA2384Info *sha_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha_info: The address of a structure of type SHA384Info.
+%    o sha_info: The address of a structure of type SHA2384Info.
 %
 %
 */
@@ -454,7 +454,7 @@ static WizardSizeType RotateRight(const WizardSizeType x,const WizardSizeType n)
   return(Trunc64((x >> n) | (x << (64-n))));
 }
 
-static void TransformSHA384(SHA384Info *sha_info)
+static void TransformSHA2384(SHA2384Info *sha_info)
 {
 #define Sigma0(x)  (RotateRight(x,1) ^ RotateRight(x,8) ^ Trunc64((x) >> 7))
 #define Sigma1(x)  (RotateRight(x,19) ^ RotateRight(x,61) ^ Trunc64((x) >> 6))
@@ -657,20 +657,20 @@ static void TransformSHA384(SHA384Info *sha_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  UpdateSHA384() updates the SHA384 message accumulator.
+%  UpdateSHA2384() updates the SHA2384 message accumulator.
 %
-%  The format of the UpdateSHA384 method is:
+%  The format of the UpdateSHA2384 method is:
 %
-%      UpdateSHA384(SHA384Info *sha_info,const StringInfo *message)
+%      UpdateSHA2384(SHA2384Info *sha_info,const StringInfo *message)
 %
 %  A description of each parameter follows:
 %
-%    o sha_info: The address of a structure of type SHA384Info.
+%    o sha_info: The address of a structure of type SHA2384Info.
 %
 %    o message: The message.
 %
 */
-WizardExport void UpdateSHA384(SHA384Info *sha_info,const StringInfo *message)
+WizardExport void UpdateSHA2384(SHA2384Info *sha_info,const StringInfo *message)
 {
   register size_t
     i;
@@ -685,9 +685,9 @@ WizardExport void UpdateSHA384(SHA384Info *sha_info,const StringInfo *message)
     length;
 
   /*
-    Update the SHA384 accumulator.
+    Update the SHA2384 accumulator.
   */
-  assert(sha_info != (SHA384Info *) NULL);
+  assert(sha_info != (SHA2384Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   n=GetStringInfoLength(message);
   length=Trunc64(sha_info->low_order+((WizardSizeType) n << 3));
@@ -708,14 +708,14 @@ WizardExport void UpdateSHA384(SHA384Info *sha_info,const StringInfo *message)
       sha_info->offset+=i;
       if (sha_info->offset != GetStringInfoLength(sha_info->message))
         return;
-      TransformSHA384(sha_info);
+      TransformSHA2384(sha_info);
     }
   while (n >= GetStringInfoLength(sha_info->message))
   {
     SetStringInfoDatum(sha_info->message,p);
     p+=GetStringInfoLength(sha_info->message);
     n-=GetStringInfoLength(sha_info->message);
-    TransformSHA384(sha_info);
+    TransformSHA2384(sha_info);
   }
   (void) CopyWizardMemory(GetStringInfoDatum(sha_info->message),p,n);
   sha_info->offset=n;

@@ -274,7 +274,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
     path=ConstantString("unknown");
     modify_date=ConstantString("unknown");
     timestamp=ConstantString("unknown");
-    hash=SHA256Hash;
+    hash=SHA2256Hash;
     for (c=ReadBlobByte(digest_blob); (c != '>') && (c != EOF); )
     {
       length=MaxTextExtent;
@@ -426,7 +426,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                     /*
                       Compute content message digest and verify.
                     */
-                    hash_info=AcquireHashInfo(SHA256Hash);
+                    hash_info=AcquireHashInfo(SHA2256Hash);
                     InitializeHash(hash_info);
                     for (content=AcquireStringInfo(WizardMaxBufferExtent); ; )
                     {
@@ -584,7 +584,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
   digest_blob=OpenBlob(argv[argc-1],WriteBinaryBlobMode,WizardTrue,exception);
   if (digest_blob == (BlobInfo *) NULL)
     return(WizardFalse);
-  hash=SHA256Hash;
+  hash=SHA2256Hash;
   (void) WriteBlobString(digest_blob,"<?xml version=\"1.0\"?>\n");
   (void) WriteBlobString(digest_blob,"<rdf:RDF xmlns:rdf=\""
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n");

@@ -15,31 +15,31 @@
 
   Wizard's Toolkit secure hash algorithm methods.
 */
-#ifndef _WIZARDSTOOLKIT_SHA256_H
-#define _WIZARDSTOOLKIT_SHA256_H
+#ifndef _WIZARDSTOOLKIT_SHA2384_H
+#define _WIZARDSTOOLKIT_SHA2384_H
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
 
-typedef struct _SHA256Info
-  SHA256Info;
+typedef struct _SHA2384Info
+  SHA2384Info;
 
-extern WizardExport SHA256Info
-  *AcquireSHA256Info(void),
-  *DestroySHA256Info(SHA256Info *);
+extern WizardExport SHA2384Info
+  *AcquireSHA2384Info(void),
+  *DestroySHA2384Info(SHA2384Info *);
 
 extern WizardExport const StringInfo
-  *GetSHA256Digest(const SHA256Info *);
+  *GetSHA2384Digest(const SHA2384Info *);
 
 extern WizardExport unsigned int
-  GetSHA256Blocksize(const SHA256Info *),
-  GetSHA256Digestsize(const SHA256Info *);
+  GetSHA2384Blocksize(const SHA2384Info *),
+  GetSHA2384Digestsize(const SHA2384Info *);
 
 extern WizardExport void
-  InitializeSHA256(SHA256Info *),
-  FinalizeSHA256(SHA256Info *),
-  UpdateSHA256(SHA256Info *,const StringInfo *);
+  InitializeSHA2384(SHA2384Info *),
+  FinalizeSHA2384(SHA2384Info *),
+  UpdateSHA2384(SHA2384Info *,const StringInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

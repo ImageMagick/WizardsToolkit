@@ -522,21 +522,21 @@ struct HMACSHA1TestVector
   };
 
 /*
-  HMAC-SHA256 test vectors from draft-ietf-ipsec-ciph-SHA-256-01.txt.
+  HMAC-SHA2256 test vectors from draft-ietf-ipsec-ciph-SHA-256-01.txt.
 */
-#define HMACSHA256Digestsize  32
-#define HMACSHA256TestVectors  10
+#define HMACSHA2256Digestsize  32
+#define HMACSHA2256TestVectors  10
 
-struct HMACSHA256TestVector
+struct HMACSHA2256TestVector
 {
   unsigned char
     key[128],
     plaintext[128],
-    digest[HMACSHA256Digestsize];
+    digest[HMACSHA2256Digestsize];
 };
 
-struct HMACSHA256TestVector
-  hmac_sha256_test_vector[] =
+struct HMACSHA2256TestVector
+  hmac_sha2256_test_vector[] =
   {
     {
       { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
@@ -930,20 +930,20 @@ struct SHA1TestVector
   };
 
 /*
-  SHA256 test vectors from from NIST.
+  SHA2256 test vectors from from NIST.
 */
-#define SHA256Digestsize  32
-#define SHA256TestVectors  2
+#define SHA2256Digestsize  32
+#define SHA2256TestVectors  2
 
-struct SHA256TestVector
+struct SHA2256TestVector
 {
   unsigned char
     plaintext[128],
-    digest[SHA256Digestsize];
+    digest[SHA2256Digestsize];
 };
 
-struct SHA256TestVector
-  sha256_test_vector[] =
+struct SHA2256TestVector
+  sha2256_test_vector[] =
   {
     { "abc",
       { 0xba, 0x78, 0x16, 0xbf, 0x8f, 0x01, 0xcf, 0xea, 0x41, 0x41, 0x40,
@@ -958,20 +958,20 @@ struct SHA256TestVector
   };
 
 /*
-  SHA384 test vectors from from NIST and kerneli.
+  SHA2384 test vectors from from NIST and kerneli.
 */
-#define SHA384Digestsize  48
-#define SHA384TestVectors  4
+#define SHA2384Digestsize  48
+#define SHA2384TestVectors  4
 
-struct SHA384TestVector
+struct SHA2384TestVector
 {
   unsigned char
     plaintext[128],
-    digest[SHA384Digestsize];
+    digest[SHA2384Digestsize];
 };
 
-struct SHA384TestVector
-  sha384_test_vector[] =
+struct SHA2384TestVector
+  sha2384_test_vector[] =
   {
     { "abc",
       { 0xcb, 0x00, 0x75, 0x3f, 0x45, 0xa3, 0x5e, 0x8b, 0xb5, 0xa0, 0x3d,
@@ -1006,20 +1006,20 @@ struct SHA384TestVector
   };
 
 /*
-  SHA512 test vectors from from NIST.
+  SHA2512 test vectors from from NIST.
 */
-#define SHA512Digestsize  64
-#define SHA512TestVectors  4
+#define SHA2512Digestsize  64
+#define SHA2512TestVectors  4
 
-struct SHA512TestVector
+struct SHA2512TestVector
 {
   unsigned char
     plaintext[128],
-    digest[SHA512Digestsize];
+    digest[SHA2512Digestsize];
 };
 
-struct SHA512TestVector
-  sha512_test_vector[] =
+struct SHA2512TestVector
+  sha2512_test_vector[] =
   {
     { "abc",
       { 0xdd, 0xaf, 0x35, 0xa1, 0x93, 0x61, 0x7a, 0xba, 0xcc, 0x41, 0x73,
@@ -1055,6 +1055,32 @@ struct SHA512TestVector
         0xff, 0x8b, 0x84, 0xfe, 0x2b, 0x28, 0x70, 0xf7, 0x42, 0xa5, 0x80,
         0xd8, 0xed, 0xb4, 0x19, 0x87, 0x23, 0x28, 0x50, 0xc9 }
     },
+  };
+
+/*
+  SHA3 test vectors.
+*/
+#define SHA3Digestsize  20
+#define SHA3TestVectors  2
+
+struct SHA3TestVector
+{
+  unsigned char
+    plaintext[128],
+    digest[SHA3Digestsize];
+};
+
+struct SHA3TestVector
+  sha1_test_vector[] =
+  {
+    { "abc",
+      { 0xA9, 0x99, 0x3E, 0x36, 0x47, 0x06, 0x81, 0x6A, 0xBA, 0x3E,
+        0x25, 0x71, 0x78, 0x50, 0xC2, 0x6C ,0x9C, 0xD0, 0xD8, 0x9D }
+    },
+    { "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+      { 0x84, 0x98, 0x3E, 0x44, 0x1C, 0x3B, 0xD2, 0x6E ,0xBA, 0xAE,
+        0x4A, 0xA1, 0xF9, 0x51, 0x29, 0xE5, 0xE5, 0x46, 0x70, 0xF1 }
+    }
   };
 
 /*

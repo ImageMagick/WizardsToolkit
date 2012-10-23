@@ -47,10 +47,11 @@
 #include "wizard/memory_.h"
 #include "wizard/md5.h"
 #include "wizard/sha1.h"
-#include "wizard/sha224.h"
-#include "wizard/sha256.h"
-#include "wizard/sha384.h"
-#include "wizard/sha512.h"
+#include "wizard/sha2224.h"
+#include "wizard/sha2256.h"
+#include "wizard/sha2384.h"
+#include "wizard/sha2512.h"
+#include "wizard/sha3.h"
 
 /*
   Typedef declarations.
@@ -140,44 +141,59 @@ WizardExport HashInfo *AcquireHashInfo(const HashType hash)
       digestsize=GetSHA1Digestsize(sha_info);
       break;
     }
-    case SHA224Hash:
+    case SHA2224Hash:
     {
-      SHA224Info
+      SHA2224Info
         *sha_info;
 
-      sha_info=AcquireSHA224Info();
+      sha_info=AcquireSHA2224Info();
       hash_info->handle=(HashInfo *) sha_info;
-      digestsize=GetSHA224Digestsize(sha_info);
+      digestsize=GetSHA2224Digestsize(sha_info);
       break;
     }
-    case SHA256Hash:
+    case SHA2256Hash:
+    case SHA2Hash:
     {
-      SHA256Info
+      SHA2256Info
         *sha_info;
 
-      sha_info=AcquireSHA256Info();
+      sha_info=AcquireSHA2256Info();
       hash_info->handle=(HashInfo *) sha_info;
-      digestsize=GetSHA256Digestsize(sha_info);
+      digestsize=GetSHA2256Digestsize(sha_info);
       break;
     }
-    case SHA384Hash:
+    case SHA2384Hash:
     {
-      SHA384Info
+      SHA2384Info
         *sha_info;
 
-      sha_info=AcquireSHA384Info();
+      sha_info=AcquireSHA2384Info();
       hash_info->handle=(HashInfo *) sha_info;
-      digestsize=GetSHA384Digestsize(sha_info);
+      digestsize=GetSHA2384Digestsize(sha_info);
       break;
     }
-    case SHA512Hash:
+    case SHA2512Hash:
     {
-      SHA512Info
+      SHA2512Info
         *sha_info;
 
-      sha_info=AcquireSHA512Info();
+      sha_info=AcquireSHA2512Info();
       hash_info->handle=(HashInfo *) sha_info;
-      digestsize=GetSHA512Digestsize(sha_info);
+      digestsize=GetSHA2512Digestsize(sha_info);
+      break;
+    }
+    case SHA3Hash:
+    case SHA3224Hash:
+    case SHA3256Hash:
+    case SHA3384Hash:
+    case SHA3512Hash:
+    {
+      SHA3Info
+        *sha_info;
+
+      sha_info=AcquireSHA3Info();
+      hash_info->handle=(HashInfo *) sha_info;
+      digestsize=GetSHA3Digestsize(sha_info);
       break;
     }
     default:
@@ -238,27 +254,38 @@ WizardExport HashInfo *DestroyHashInfo(HashInfo *hash_info)
           hash_info->handle);
         break;
       }
-      case SHA224Hash:
+      case SHA2224Hash:
       {
-        hash_info->handle=(void *) DestroySHA224Info((SHA224Info *)
+        hash_info->handle=(void *) DestroySHA2224Info((SHA2224Info *)
           hash_info->handle);
         break;
       }
-      case SHA256Hash:
+      case SHA2256Hash:
+      case SHA2Hash:
       {
-        hash_info->handle=(void *) DestroySHA256Info((SHA256Info *)
+        hash_info->handle=(void *) DestroySHA2256Info((SHA2256Info *)
           hash_info->handle);
         break;
       }
-      case SHA384Hash:
+      case SHA2384Hash:
       {
-        hash_info->handle=(void *) DestroySHA384Info((SHA384Info *)
+        hash_info->handle=(void *) DestroySHA2384Info((SHA2384Info *)
           hash_info->handle);
         break;
       }
-      case SHA512Hash:
+      case SHA2512Hash:
       {
-        hash_info->handle=(void *) DestroySHA512Info((SHA512Info *)
+        hash_info->handle=(void *) DestroySHA2512Info((SHA2512Info *)
+          hash_info->handle);
+        break;
+      }
+      case SHA3Hash:
+      case SHA3224Hash:
+      case SHA3256Hash:
+      case SHA3384Hash:
+      case SHA3512Hash:
+      {
+        hash_info->handle=(void *) DestroySHA3Info((SHA3Info *)
           hash_info->handle);
         break;
       }
@@ -334,44 +361,59 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
       SetStringInfo(hash_info->digest,GetSHA1Digest(sha_info));
       break;
     }
-    case SHA224Hash:
+    case SHA2224Hash:
     {
-      SHA224Info
+      SHA2224Info
         *sha_info;
 
-      sha_info=(SHA224Info *) hash_info->handle;
-      FinalizeSHA224(sha_info);
-      SetStringInfo(hash_info->digest,GetSHA224Digest(sha_info));
+      sha_info=(SHA2224Info *) hash_info->handle;
+      FinalizeSHA2224(sha_info);
+      SetStringInfo(hash_info->digest,GetSHA2224Digest(sha_info));
       break;
     }
-    case SHA256Hash:
+    case SHA2256Hash:
+    case SHA2Hash:
     {
-      SHA256Info
+      SHA2256Info
         *sha_info;
 
-      sha_info=(SHA256Info *) hash_info->handle;
-      FinalizeSHA256(sha_info);
-      SetStringInfo(hash_info->digest,GetSHA256Digest(sha_info));
+      sha_info=(SHA2256Info *) hash_info->handle;
+      FinalizeSHA2256(sha_info);
+      SetStringInfo(hash_info->digest,GetSHA2256Digest(sha_info));
       break;
     }
-    case SHA384Hash:
+    case SHA2384Hash:
     {
-      SHA384Info
+      SHA2384Info
         *sha_info;
 
-      sha_info=(SHA384Info *) hash_info->handle;
-      FinalizeSHA384(sha_info);
-      SetStringInfo(hash_info->digest,GetSHA384Digest(sha_info));
+      sha_info=(SHA2384Info *) hash_info->handle;
+      FinalizeSHA2384(sha_info);
+      SetStringInfo(hash_info->digest,GetSHA2384Digest(sha_info));
       break;
     }
-    case SHA512Hash:
+    case SHA2512Hash:
     {
-      SHA512Info
+      SHA2512Info
         *sha_info;
 
-      sha_info=(SHA512Info *) hash_info->handle;
-      FinalizeSHA512(sha_info);
-      SetStringInfo(hash_info->digest,GetSHA512Digest(sha_info));
+      sha_info=(SHA2512Info *) hash_info->handle;
+      FinalizeSHA2512(sha_info);
+      SetStringInfo(hash_info->digest,GetSHA2512Digest(sha_info));
+      break;
+    }
+    case SHA3Hash:
+    case SHA3224Hash:
+    case SHA3256Hash:
+    case SHA3384Hash:
+    case SHA3512Hash:
+    {
+      SHA3Info
+        *sha_info;
+
+      sha_info=(SHA3Info *) hash_info->handle;
+      FinalizeSHA3(sha_info);
+      SetStringInfo(hash_info->digest,GetSHA3Digest(sha_info));
       break;
     }
     default:
@@ -438,40 +480,54 @@ WizardExport size_t GetHashBlocksize(const HashInfo *hash_info)
       blocksize=GetSHA1Blocksize(sha_info);
       break;
     }
-    case SHA224Hash:
+    case SHA2224Hash:
     {
-      SHA224Info
+      SHA2224Info
         *sha_info;
 
-      sha_info=(SHA224Info *) hash_info->handle;
-      blocksize=GetSHA224Blocksize(sha_info);
+      sha_info=(SHA2224Info *) hash_info->handle;
+      blocksize=GetSHA2224Blocksize(sha_info);
       break;
     }
-    case SHA256Hash:
+    case SHA2256Hash:
+    case SHA2Hash:
     {
-      SHA256Info
+      SHA2256Info
         *sha_info;
 
-      sha_info=(SHA256Info *) hash_info->handle;
-      blocksize=GetSHA256Blocksize(sha_info);
+      sha_info=(SHA2256Info *) hash_info->handle;
+      blocksize=GetSHA2256Blocksize(sha_info);
       break;
     }
-    case SHA384Hash:
+    case SHA2384Hash:
     {
-      SHA384Info
+      SHA2384Info
         *sha_info;
 
-      sha_info=(SHA384Info *) hash_info->handle;
-      blocksize=GetSHA384Blocksize(sha_info);
+      sha_info=(SHA2384Info *) hash_info->handle;
+      blocksize=GetSHA2384Blocksize(sha_info);
       break;
     }
-    case SHA512Hash:
+    case SHA2512Hash:
     {
-      SHA512Info
+      SHA2512Info
         *sha_info;
 
-      sha_info=(SHA512Info *) hash_info->handle;
-      blocksize=GetSHA512Blocksize(sha_info);
+      sha_info=(SHA2512Info *) hash_info->handle;
+      blocksize=GetSHA2512Blocksize(sha_info);
+      break;
+    }
+    case SHA3Hash:
+    case SHA3224Hash:
+    case SHA3256Hash:
+    case SHA3384Hash:
+    case SHA3512Hash:
+    {
+      SHA3Info
+        *sha_info;
+
+      sha_info=(SHA3Info *) hash_info->handle;
+      blocksize=GetSHA3Blocksize(sha_info);
       break;
     }
     default:
@@ -569,40 +625,54 @@ WizardExport size_t GetHashDigestsize(const HashInfo *hash_info)
       digestsize=GetSHA1Digestsize(sha_info);
       break;
     }
-    case SHA224Hash:
+    case SHA2224Hash:
     {
-      SHA224Info
+      SHA2224Info
         *sha_info;
 
-      sha_info=(SHA224Info *) hash_info->handle;
-      digestsize=GetSHA224Digestsize(sha_info);
+      sha_info=(SHA2224Info *) hash_info->handle;
+      digestsize=GetSHA2224Digestsize(sha_info);
       break;
     }
-    case SHA256Hash:
+    case SHA2256Hash:
+    case SHA2Hash:
     {
-      SHA256Info
+      SHA2256Info
         *sha_info;
 
-      sha_info=(SHA256Info *) hash_info->handle;
-      digestsize=GetSHA256Digestsize(sha_info);
+      sha_info=(SHA2256Info *) hash_info->handle;
+      digestsize=GetSHA2256Digestsize(sha_info);
       break;
     }
-    case SHA384Hash:
+    case SHA2384Hash:
     {
-      SHA384Info
+      SHA2384Info
         *sha_info;
 
-      sha_info=(SHA384Info *) hash_info->handle;
-      digestsize=GetSHA384Digestsize(sha_info);
+      sha_info=(SHA2384Info *) hash_info->handle;
+      digestsize=GetSHA2384Digestsize(sha_info);
       break;
     }
-    case SHA512Hash:
+    case SHA2512Hash:
     {
-      SHA512Info
+      SHA2512Info
         *sha_info;
 
-      sha_info=(SHA512Info *) hash_info->handle;
-      digestsize=GetSHA512Digestsize(sha_info);
+      sha_info=(SHA2512Info *) hash_info->handle;
+      digestsize=GetSHA2512Digestsize(sha_info);
+      break;
+    }
+    case SHA3Hash:
+    case SHA3224Hash:
+    case SHA3256Hash:
+    case SHA3384Hash:
+    case SHA3512Hash:
+    {
+      SHA3Info
+        *sha_info;
+
+      sha_info=(SHA3Info *) hash_info->handle;
+      digestsize=GetSHA3Digestsize(sha_info);
       break;
     }
     default:
@@ -702,24 +772,34 @@ WizardExport void InitializeHash(HashInfo *hash_info)
       InitializeSHA1((SHA1Info *) hash_info->handle);
       break;
     }
-    case SHA224Hash:
+    case SHA2224Hash:
     {
-      InitializeSHA224((SHA224Info *) hash_info->handle);
+      InitializeSHA2224((SHA2224Info *) hash_info->handle);
       break;
     }
-    case SHA256Hash:
+    case SHA2256Hash:
+    case SHA2Hash:
     {
-      InitializeSHA256((SHA256Info *) hash_info->handle);
+      InitializeSHA2256((SHA2256Info *) hash_info->handle);
       break;
     }
-    case SHA384Hash:
+    case SHA2384Hash:
     {
-      InitializeSHA384((SHA384Info *) hash_info->handle);
+      InitializeSHA2384((SHA2384Info *) hash_info->handle);
       break;
     }
-    case SHA512Hash:
+    case SHA2512Hash:
     {
-      InitializeSHA512((SHA512Info *) hash_info->handle);
+      InitializeSHA2512((SHA2512Info *) hash_info->handle);
+      break;
+    }
+    case SHA3Hash:
+    case SHA3224Hash:
+    case SHA3256Hash:
+    case SHA3384Hash:
+    case SHA3512Hash:
+    {
+      InitializeSHA3((SHA3Info *) hash_info->handle);
       break;
     }
     default:
@@ -776,24 +856,34 @@ WizardExport void UpdateHash(HashInfo *hash_info,const StringInfo *message)
       UpdateSHA1((SHA1Info *) hash_info->handle,message);
       break;
     }
-    case SHA224Hash:
+    case SHA2224Hash:
     {
-      UpdateSHA224((SHA224Info *) hash_info->handle,message);
+      UpdateSHA2224((SHA2224Info *) hash_info->handle,message);
       break;
     }
-    case SHA256Hash:
+    case SHA2256Hash:
+    case SHA2Hash:
     {
-      UpdateSHA256((SHA256Info *) hash_info->handle,message);
+      UpdateSHA2256((SHA2256Info *) hash_info->handle,message);
       break;
     }
-    case SHA384Hash:
+    case SHA2384Hash:
     {
-      UpdateSHA384((SHA384Info *) hash_info->handle,message);
+      UpdateSHA2384((SHA2384Info *) hash_info->handle,message);
       break;
     }
-    case SHA512Hash:
+    case SHA2512Hash:
     {
-      UpdateSHA512((SHA512Info *) hash_info->handle,message);
+      UpdateSHA2512((SHA2512Info *) hash_info->handle,message);
+      break;
+    }
+    case SHA3Hash:
+    case SHA3224Hash:
+    case SHA3256Hash:
+    case SHA3384Hash:
+    case SHA3512Hash:
+    {
+      UpdateSHA3((SHA3Info *) hash_info->handle,message);
       break;
     }
     default:

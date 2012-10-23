@@ -15,55 +15,31 @@
 
   Wizard's Toolkit secure hash algorithm methods.
 */
-#ifndef _WIZARDSTOOLKIT_HASH_H
-#define _WIZARDSTOOLKIT_HASH_H
+#ifndef _WIZARDSTOOLKIT_SHA3_H
+#define _WIZARDSTOOLKIT_SHA3_H
 
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
 
-#include "wizard/string_.h"
+typedef struct _SHA3Info
+  SHA3Info;
 
-typedef enum
-{
-  UndefinedHash,
-  NoHash,
-  CRC64Hash,
-  MD5Hash,
-  SHA1Hash,
-  SHA2Hash,
-  SHA2224Hash,
-  SHA2256Hash,
-  SHA2384Hash,
-  SHA2512Hash,
-  SHA3Hash,
-  SHA3224Hash,
-  SHA3256Hash,
-  SHA3384Hash,
-  SHA3512Hash
-} HashType;
-
-typedef struct _HashInfo
-  HashInfo;
-
-extern WizardExport char
-  *GetHashHexDigest(const HashInfo *);
+extern WizardExport SHA3Info
+  *AcquireSHA3Info(void),
+  *DestroySHA3Info(SHA3Info *);
 
 extern WizardExport const StringInfo
-  *GetHashDigest(const HashInfo *);
+  *GetSHA3Digest(const SHA3Info *);
 
-extern WizardExport HashInfo
-  *DestroyHashInfo(HashInfo *),
-  *AcquireHashInfo(const HashType);
-
-extern WizardExport size_t
-  GetHashBlocksize(const HashInfo *),
-  GetHashDigestsize(const HashInfo *);
+extern WizardExport unsigned int
+  GetSHA3Blocksize(const SHA3Info *),
+  GetSHA3Digestsize(const SHA3Info *);
 
 extern WizardExport void
-  InitializeHash(HashInfo *),
-  FinalizeHash(HashInfo *),
-  UpdateHash(HashInfo *,const StringInfo *);
+  InitializeSHA3(SHA3Info *),
+  FinalizeSHA3(SHA3Info *),
+  UpdateSHA3(SHA3Info *,const StringInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

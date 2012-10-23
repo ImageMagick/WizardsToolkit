@@ -52,7 +52,7 @@
 /*
   Define declarations.
 */
-#define CipherRandomHash  SHA256Hash
+#define CipherRandomHash  SHA2256Hash
 
 /*
   Typedef declarations.
