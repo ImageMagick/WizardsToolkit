@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-#define WizardEpsilon  1.0e-16
+#define WizardEpsilon  1.0e-15
 
 typedef enum
 {
