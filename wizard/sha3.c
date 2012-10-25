@@ -74,12 +74,11 @@ struct _SHA3Info
     blocksize;
 
   StringInfo
-    *digest,
-    *message;
+    *digest;
 
   unsigned char
     state[SHA3PermutationSizeInBytes],
-    message_queue[SHA3MaximumRateInBytes];
+    message[SHA3MaximumRateInBytes];
 
   unsigned int
     rate,
@@ -144,15 +143,19 @@ WizardExport SHA3Info *AcquireSHA3Info(const HashType hash)
     ThrowWizardFatalError(HashDomain,MemoryError);
   (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));
   sha_info->hash=hash;
-  switch(sha_info->hash)
+  switch (sha_info->hash)
   {
+    case SHA3Hash:
+    {
+      sha_info->digestsize=36;
+      break;
+    }
     case SHA3224Hash:
     {
       sha_info->digestsize=28;
       break;
     }
     case SHA3256Hash:
-    case SHA3Hash:
     {
       sha_info->digestsize=32;
       break;
@@ -175,7 +178,6 @@ WizardExport SHA3Info *AcquireSHA3Info(const HashType hash)
   }
   sha_info->blocksize=SHA3Blocksize;
   sha_info->digest=AcquireStringInfo(SHA3Digestsize);
-  sha_info->message=AcquireStringInfo(SHA3Blocksize);
   lsb_first=1;
   sha_info->lsb_first=(int) (*(char *) &lsb_first) == 1 ? WizardTrue :
     WizardFalse;
@@ -211,8 +213,6 @@ WizardExport SHA3Info *DestroySHA3Info(SHA3Info *sha_info)
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   assert(sha_info != (SHA3Info *) NULL);
   assert(sha_info->signature == WizardSignature);
-  if (sha_info->message != (StringInfo *) NULL)
-    sha_info->message=DestroyStringInfo(sha_info->message);
   if (sha_info->digest != (StringInfo *) NULL)
     sha_info->digest=DestroyStringInfo(sha_info->digest);
   sha_info->signature=(~WizardSignature);
@@ -330,7 +330,7 @@ static void SHA3PermutationOnWords(const SHA3Info *sha_info,
     for (y=0; y < 5; y++)
     {
       for (x=0; x < 5; x++)
-        C[x]=state[SHA3Index(x, y)] ^ ((~state[SHA3Index(x+1,y)]) &
+        C[x]=state[SHA3Index(x,y)] ^ ((~state[SHA3Index(x+1,y)]) &
           state[SHA3Index(x+2,y)]);
       for (x=0; x< 5; x++)
         state[SHA3Index(x,y)]=C[x];
@@ -380,39 +380,30 @@ void SHA3Extract(const unsigned char *state,const size_t length,
   memcpy(message,state,8*length);
 }
 
-static void SHA3Extract1024bits(const unsigned char *state,
-  unsigned char *message)
-{
-  memcpy(message,state,128);
-}
-
 static void AbsorbQueue(SHA3Info *sha_info)
 {
   if (sha_info->rate == 576)
-    SHA3PermutationAfterXor(sha_info,sha_info->message_queue,72,
-      sha_info->state);
+    SHA3PermutationAfterXor(sha_info,sha_info->message,72,sha_info->state);
   else
     if (sha_info->rate == 832)
-      SHA3PermutationAfterXor(sha_info,sha_info->message_queue,104,
-        sha_info->state);
+      SHA3PermutationAfterXor(sha_info,sha_info->message,104,sha_info->state);
     else
       if (sha_info->rate == 1024)
-        SHA3PermutationAfterXor(sha_info,sha_info->message_queue,128,
-          sha_info->state);
+        SHA3PermutationAfterXor(sha_info,sha_info->message,128,sha_info->state);
       else
         if (sha_info->rate == 1088)
-          SHA3PermutationAfterXor(sha_info,sha_info->message_queue,136,
+          SHA3PermutationAfterXor(sha_info,sha_info->message,136,
             sha_info->state);
        else
         if (sha_info->rate == 1152)
-          SHA3PermutationAfterXor(sha_info,sha_info->message_queue,144,
+          SHA3PermutationAfterXor(sha_info,sha_info->message,144,
             sha_info->state);
         else
          if (sha_info->rate == 1344)
-           SHA3PermutationAfterXor(sha_info,sha_info->message_queue,168,
+           SHA3PermutationAfterXor(sha_info,sha_info->message,168,
              sha_info->state);
          else
-           SHA3Absorb(sha_info,sha_info->message_queue,sha_info->rate/64,
+           SHA3Absorb(sha_info,sha_info->message,sha_info->rate/64,
              sha_info->state);
   sha_info->bits_in_queue=0;
 }
@@ -421,30 +412,22 @@ static void PadAndSwitchToSqueezingPhase(SHA3Info *sha_info)
 {
   if ((sha_info->bits_in_queue+1) == sha_info->rate)
     {
-      sha_info->message_queue[sha_info->bits_in_queue/8]|=1 <<
+      sha_info->message[sha_info->bits_in_queue/8]|=1 <<
         (sha_info->bits_in_queue % 8);
       AbsorbQueue(sha_info);
-      memset(sha_info->message_queue,0,sha_info->rate/8);
+      memset(sha_info->message,0,sha_info->rate/8);
     }
   else
     {
-      memset(sha_info->message_queue+(sha_info->bits_in_queue+7)/8,0,
-        sha_info->rate/8-(sha_info->bits_in_queue+7)/8);
-      sha_info->message_queue[sha_info->bits_in_queue/8]|=1 <<
+      memset(sha_info->message+(sha_info->bits_in_queue+7)/8,0,sha_info->rate/8-
+        (sha_info->bits_in_queue+7)/8);
+      sha_info->message[sha_info->bits_in_queue/8]|=1 <<
         (sha_info->bits_in_queue % 8);
     }
-  sha_info->message_queue[(sha_info->rate-1)/8]|=1 << ((sha_info->rate-1) % 8);
+  sha_info->message[(sha_info->rate-1)/8]|=1 << ((sha_info->rate-1) % 8);
   AbsorbQueue(sha_info);
-  if (sha_info->rate == 1024)
-    {
-      SHA3Extract1024bits(sha_info->message_queue,sha_info->state);
-      sha_info->squeeze_bits=1024;
-    }
-  else
-    {
-      SHA3Extract(sha_info->state,sha_info->rate/64,sha_info->message_queue);
-      sha_info->squeeze_bits=sha_info->rate;
-    }
+  SHA3Extract(sha_info->state,sha_info->rate/64,sha_info->message);
+  sha_info->squeeze_bits=sha_info->rate;
   sha_info->squeeze=WizardTrue;
 }
 
@@ -469,23 +452,14 @@ static WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
     if (sha_info->squeeze_bits == 0)
       {
         SHA3Permutation(sha_info,sha_info->state);
-        if (sha_info->rate == 1024)
-          {
-            SHA3Extract1024bits(sha_info->message_queue,sha_info->state);
-            sha_info->squeeze_bits=1024;
-          }
-        else
-          {
-            SHA3Extract(sha_info->state,sha_info->rate/64,
-              sha_info->message_queue);
-            sha_info->squeeze_bits=sha_info->rate;
-          }
+        SHA3Extract(sha_info->state,sha_info->rate/64,sha_info->message);
+        sha_info->squeeze_bits=sha_info->rate;
       }
     bits=sha_info->squeeze_bits;
     if (bits > (length-i))
       bits=length-i;
-    memcpy(output+i/8,sha_info->message_queue+(sha_info->rate-
-      sha_info->squeeze_bits)/8,bits/8);
+    memcpy(output+i/8,sha_info->message+(sha_info->rate-sha_info->squeeze_bits)/
+      8,bits/8);
     sha_info->squeeze_bits-=bits;
   }
   return(WizardTrue);
@@ -718,7 +692,7 @@ static WizardBooleanType InitializeSponge(SHA3Info *sha_info,
   sha_info->capacity=capacity;
   sha_info->length=0;
   memset(sha_info->state,0,SHA3PermutationSizeInBytes);
-  memset(sha_info->message_queue,0,SHA3MaximumRateInBytes);
+  memset(sha_info->message,0,SHA3MaximumRateInBytes);
   sha_info->bits_in_queue=0;
   sha_info->squeeze=WizardFalse;
   sha_info->squeeze_bits=0;
@@ -734,15 +708,19 @@ WizardExport void InitializeSHA3(SHA3Info *sha_info)
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   assert(sha_info != (SHA3Info *) NULL);
   assert(sha_info->signature == WizardSignature);
-  switch(sha_info->hash)
+  switch (sha_info->hash)
   {
+    case SHA3Hash:
+    {
+      status=InitializeSponge(sha_info,1024,576);
+      break;
+    }
     case SHA3224Hash:
     {
       status=InitializeSponge(sha_info,1152,448);
       break;
     }
     case SHA3256Hash:
-    case SHA3Hash:
     {
       status=InitializeSponge(sha_info,1088,512);
       break;
@@ -879,8 +857,7 @@ static WizardBooleanType Absorb(SHA3Info *sha_info,const unsigned char *message,
         bits=sha_info->rate-sha_info->bits_in_queue;
       byte=bits % 8;
       bits-=byte;
-      memcpy(sha_info->message_queue+sha_info->bits_in_queue/8,
-        message+i/8,bits/8);
+      memcpy(sha_info->message+sha_info->bits_in_queue/8,message+i/8,bits/8);
       sha_info->bits_in_queue+=bits;
       i+=bits;
       if (sha_info->bits_in_queue == sha_info->rate)
@@ -891,8 +868,7 @@ static WizardBooleanType Absorb(SHA3Info *sha_info,const unsigned char *message,
             mask;
 
           mask=(unsigned char) ((1 << byte)-1);
-          sha_info->message_queue[sha_info->bits_in_queue/8]=
-            message[i/8] & mask;
+          sha_info->message[sha_info->bits_in_queue/8]=message[i/8] & mask;
           sha_info->bits_in_queue+=byte;
           i+=byte;
         }
