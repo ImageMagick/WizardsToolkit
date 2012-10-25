@@ -1198,7 +1198,7 @@ static WizardBooleanType TestSHA3(void)
 
   (void) PrintValidateString(stdout,"testing sha3:\n");
   pass=WizardTrue;
-  hash_info=AcquireHashInfo(SHA3Hash);
+  hash_info=AcquireHashInfo(SHA3256Hash);
   for (i=0; i < SHA3TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
