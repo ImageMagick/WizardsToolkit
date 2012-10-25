@@ -1,3 +1,6 @@
+2012-10-24  1.0.8-10 Cristy  <cristy@virgi...>
+  * Add support for the SHA-3 hash
+
 2011-02-24  1.0.6-7 Cristy  <cristy@virgi...>
   * Update automake / autoconf / libtool configuration scripts.
 
