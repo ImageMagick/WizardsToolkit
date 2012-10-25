@@ -915,7 +915,7 @@ WizardExport void UpdateSHA3(SHA3Info *sha_info,const StringInfo *message)
   assert(sha_info != (SHA3Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   datum=GetStringInfoDatum(message);
-  length=GetStringInfoLength(message);
+  length=8*GetStringInfoLength(message);
   if ((length % 8) == 0)
     status=Absorb(sha_info,datum,length);
   else

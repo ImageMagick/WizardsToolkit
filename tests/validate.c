@@ -1222,10 +1222,10 @@ static WizardBooleanType TestSHA3(void)
   */
   (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
   InitializeHash(hash_info);
-  plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
+  plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghi");
   UpdateHash(hash_info,plaintext);
   plaintext=DestroyStringInfo(plaintext);
-  plaintext=StringToStringInfo("hijkijkljklmklmnlmnomnopnopq");
+  plaintext=StringToStringInfo("ghijhijkijkljklmklmnlmnomnopnopq");
   UpdateHash(hash_info,plaintext);
   FinalizeHash(hash_info);
   plaintext=DestroyStringInfo(plaintext);
