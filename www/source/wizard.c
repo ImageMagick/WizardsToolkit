@@ -10,7 +10,7 @@ int main(int argc,char **argv)
     *content;
 
   WizardsToolkitGenesis(*argv);
-  hash_info=AcquireHashInfo(SHA2512Hash);
+  hash_info=AcquireHashInfo(SHA512Hash);
   InitializeHash(hash_info);
   content=StringToStringInfo("The Wizard's Toolkit");
   UpdateHash(hash_info,content);

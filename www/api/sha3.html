@@ -1,49 +1,67 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<html version="-//W3C//DTD XHTML 1.1//EN"
+      xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.w3.org/1999/xhtml
+                          http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U="/>
-  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Hash Algorithm-1</title>
-  <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
-  <meta name="Application-name" content="Wizard's Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext and back, reports properties about ciphertext, and computes and authenticates message digests."/>
-  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
-  <meta name="Generator" content="PHP"/>
-  <meta name="Keywords" content="c, api, for, the, wizard's, toolkit:, secure, hash, algorithm-1, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Rating" content="GENERAL"/>
-  <meta name="Robots" content="INDEX, FOLLOW"/>
-  <meta name="Generator" content="ImageMagick Studio LLC"/>
-  <meta name="Author" content="ImageMagick Studio LLC"/>
-  <meta name="Revisit-after" content="2 DAYS"/>
-  <meta name="Resource-type" content="document"/>
-  <meta name="Copyright" content="Copyright (c) 1999-2012 ImageMagick Studio LLC"/>
-  <meta name="Distribution" content="Global"/>
+  <title>Wizard's Toolkit: C API for the Wizard's Toolkit: Secure Hash Algorithm-3</title>
+  <meta http-equiv="content-language" content="en-US"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="application-name" content="Wizard's Toolkit"/>
+  <meta name="description" content="The Wizard's Toolkit converts plaintext to ciphertext and back, reports properties about ciphertext, and computes and authenticates message digests."/>
+  <meta name="application-url" content="http://www.wizards-toolkit.org"/>
+  <meta name="generator" content="PHP"/>
+  <meta name="keywords" content="c, api, for, the, wizard's, toolkit:, secure, hash, algorithm-3, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="rating" content="GENERAL"/>
+  <meta name="robots" content="INDEX, FOLLOW"/>
+  <meta name="generator" content="ImageMagick Studio LLC"/>
+  <meta name="author" content="ImageMagick Studio LLC"/>
+  <meta name="revisit-after" content="2 DAYS"/>
+  <meta name="resource-type" content="document"/>
+  <meta name="copyright" content="Copyright (c) 1999-2011 ImageMagick Studio LLC"/>
+  <meta name="distribution" content="Global"/>
   <link rel="icon" href="../../images/wand.png"/>
   <link rel="shortcut icon" href="../../images/wand.ico"  type="images/x-icon"/>
+  <link rel="canonical" href="http://www.wizards-toolkit.org" />
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf"/>
+
+  <!-- Add jQuery library -->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+  
+  <!-- Add mousewheel plugin (this is optional) -->
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+  
+  <!-- Add fancyBox -->
+  <link rel="stylesheet" href="http://www.imagemagick.org/fancybox/www/source/jquery.fancybox.css?v=2.0.6" type="text/css" media="screen" />
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/www/source/jquery.fancybox.pack.js?v=2.0.6"></script>
+  
+  <!-- Optionally add helpers - button, thumbnail and/or media -->
+  <link rel="stylesheet" href="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-buttons.css?v=1.0.2" type="text/css" media="screen" />
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-buttons.js?v=1.0.2"></script>
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-media.js?v=1.0.0"></script>
+  
+  <link rel="stylesheet" href="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-thumbs.css?v=2.0.6" type="text/css" media="screen" />
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-thumbs.js?v=2.0.6"></script>
+  
+  <script type="text/javascript">
+  	$(document).ready(function() {
+  		$(".fancybox").fancybox();
+  	});
+  </script>
+
+  <!-- Wizard's Toolkit style -->
   <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../../www/wizard.css");
   </style>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-  <script type="text/javascript" src="/www/../fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-  <link rel="stylesheet" type="text/css" href="/www/../fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
-        'transitionIn'  : 'elastic',
-        'transitionOut' : 'elastic',
-        'overlayShow'   : false,
-        'opacity'       : true
-      });
-    });
-  </script>
 </head>
 
-<body id="www-wizards-toolkit-org">
+<body id="www-wizardstoolkit-org">
 <div class="titlebar">
 <div style="margin: 17px auto; float: left;">
   <script type="text/javascript">
@@ -121,48 +139,68 @@
   <img src="../../images/networkredux.png" alt="[sponsor]"
   style="margin-top: 4px; margin-left: 4px; border: 0px; float: left;" /></a>
 <div class="sponsbox">
-<div  class="sponsor">
-  <a title="Sponsor: Best Web Hosting" href="http://webhostinggeeks.com">Best Web Hosting</a><!-- 201110010720 -->
-</div>
-<div  class="sponsor">
-  <a title="Sponsor: Web Hosting Ratings" href="http://webhostingrating.com">Web Hosting Ratings</a><!-- 201110010720 -->
+<div class="sponsor">
+   <a rel="follow" title="Sponsor: Names List" href="http://www.listofnames.info">Names List</a><!-- 2012110100180 grimshrat@busyb-->
 </div>
 </div>
 </div>
 </div>
 
 <div class="eastbar">
+  <div class="g-plusone" id="gplusone"></div>
+  <script type="text/javascript">
+    window.___gcfg = {
+      lang: 'en-US'
+    };
+
+    (function() {
+      var po = document.createElement('script');
+      po.type = 'text/javascript';
+      po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var script = document.getElementsByTagName('script')[0];
+      script.parentNode.insertBefore(po, script);
+    })();
+    var gplusone = document.getElementById("gplusone");
+    gplusone.setAttribute("data-size","medium");
+    gplusone.setAttribute("data-count","false");
+  </script>
 </div>
 
 <div class="main">
 
-<h1>Module sha1
+<h1>Module sha3
  Methods</h1>
-<p class="navigation-index">[<a href="#AcquireSHA1Info">AcquireSHA1Info</a> &bull; <a href="#DestroySHA1Info">DestroySHA1Info</a> &bull; <a href="#FinalizeSHA1">FinalizeSHA1</a> &bull; <a href="#GetSHA1Blocksize">GetSHA1Blocksize</a> &bull; <a href="#GetSHA1Digest">GetSHA1Digest</a> &bull; <a href="#GetSHA1Digestsize">GetSHA1Digestsize</a> &bull; <a href="#IntializeSHA1">IntializeSHA1</a> &bull; <a href="#TransformSHA1">TransformSHA1</a> &bull; <a href="#UpdateSHA1">UpdateSHA1</a>]</p>
+<p class="navigation-index">[<a href="#AcquireSHA3Info">AcquireSHA3Info</a> &bull; <a href="#DestroySHA3Info">DestroySHA3Info</a> &bull; <a href="#FinalizeSHA3">FinalizeSHA3</a> &bull; <a href="#GetSHA3Blocksize">GetSHA3Blocksize</a> &bull; <a href="#GetSHA3Digest">GetSHA3Digest</a> &bull; <a href="#GetSHA3Digestsize">GetSHA3Digestsize</a> &bull; <a href="#IntializeSHA3">IntializeSHA3</a> &bull; <a href="#UpdateSHA3">UpdateSHA3</a>]</p>
 
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" id="AcquireSHA1Info">AcquireSHA1Info</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha3
+_8c.html" id="AcquireSHA3Info">AcquireSHA3Info</a></h2>
 <div class="doc-section">
 
-<p>AcquireSHA1Info() allocate the SHA1Info structure.</p>
+<p>AcquireSHA3Info() allocate the SHA3Info structure.</p>
 
-<p>The format of the AcquireSHA1Info method is:</p>
+<p>The format of the AcquireSHA3Info method is:</p>
 
 <pre class="code">
-  SHA1Info *AcquireSHA1Info(void)
+  SHA3Info *AcquireSHA3Info(const HashType hash)
 </pre>
 
+<p>A description of each parameter follows:</p>
+
+<h5>hash</h5>
+<p>The hash type.</p>
+
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" id="DestroySHA1Info">DestroySHA1Info</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha3
+_8c.html" id="DestroySHA3Info">DestroySHA3Info</a></h2>
 <div class="doc-section">
 
-<p>DestroySHA1Info() zeros memory associated with the SHA1Info structure.</p>
+<p>DestroySHA3Info() zeros memory associated with the SHA3Info structure.</p>
 
-<p>The format of the DestroySHA1Info method is:</p>
+<p>The format of the DestroySHA3Info method is:</p>
 
 <pre class="code">
-  SHA1Info *DestroySHA1Info(SHA1Info *sha_info)
+  SHA3Info *DestroySHA3Info(SHA3Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
@@ -171,89 +209,89 @@ _8c.html" id="DestroySHA1Info">DestroySHA1Info</a></h2>
 <p>The cipher sha_info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" id="FinalizeSHA1">FinalizeSHA1</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha3
+_8c.html" id="FinalizeSHA3">FinalizeSHA3</a></h2>
 <div class="doc-section">
 
-<p>FinalizeSHA1() finalizes the SHA1 message accumulator computation.</p>
+<p>FinalizeSHA3() finalizes the SHA3 message accumulator computation.</p>
 
-<p>The format of the FinalizeSHA1 method is:</p>
+<p>The format of the FinalizeSHA3 method is:</p>
 
 <pre class="code">
-  FinalizeSHA1(SHA1Info *sha_info)
+  FinalizeSHA3(SHA3Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<p>The address of a structure of type SHA1Info.</p>
+<p>The address of a structure of type SHA3Info.</p>
 
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" id="GetSHA1Blocksize">GetSHA1Blocksize</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha3
+_8c.html" id="GetSHA3Blocksize">GetSHA3Blocksize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA1Blocksize() returns the SHA1 blocksize.</p>
+<p>GetSHA3Blocksize() returns the SHA3 blocksize.</p>
 
-<p>The format of the GetSHA1Blocksize method is:</p>
+<p>The format of the GetSHA3Blocksize method is:</p>
 
 <pre class="code">
-  unsigned int *GetSHA1Blocksize(const SHA1Info *sha1_info)
+  unsigned int *GetSHA3Blocksize(const SHA3Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
-<h5>sha1_info</h5>
-<p>The sha1 info.</p>
+<h5>sha_info</h5>
+<p>The sha3 info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" id="GetSHA1Digest">GetSHA1Digest</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha3
+_8c.html" id="GetSHA3Digest">GetSHA3Digest</a></h2>
 <div class="doc-section">
 
-<p>GetSHA1Digest() returns the SHA1 digest.</p>
+<p>GetSHA3Digest() returns the SHA3 digest.</p>
 
-<p>The format of the GetSHA1Digest method is:</p>
+<p>The format of the GetSHA3Digest method is:</p>
 
 <pre class="code">
-  const StringInfo *GetSHA1Digest(const SHA1Info *sha1_info)
+  const StringInfo *GetSHA3Digest(const SHA3Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
-<h5>sha1_info</h5>
-<p>The sha1 info.</p>
+<h5>sha_info</h5>
+<p>The sha3 info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" id="GetSHA1Digestsize">GetSHA1Digestsize</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha3
+_8c.html" id="GetSHA3Digestsize">GetSHA3Digestsize</a></h2>
 <div class="doc-section">
 
-<p>GetSHA1Digestsize() returns the SHA1 digest size.</p>
+<p>GetSHA3Digestsize() returns the SHA3 digest size.</p>
 
-<p>The format of the GetSHA1Digestsize method is:</p>
+<p>The format of the GetSHA3Digestsize method is:</p>
 
 <pre class="code">
-  unsigned int *GetSHA1Digestsize(const SHA1Info *sha1_info)
+  unsigned int *GetSHA3Digestsize(const SHA3Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
-<h5>sha1_info</h5>
-<p>The sha1 info.</p>
+<h5>sha_info</h5>
+<p>The sha3 info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" id="IntializeSHA1">IntializeSHA1</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha3
+_8c.html" id="IntializeSHA3">IntializeSHA3</a></h2>
 <div class="doc-section">
 
-<p>IntializeSHA1() intializes the SHA1 accumulator.</p>
+<p>IntializeSHA3() intializes the SHA3 accumulator.</p>
 
-<p>The format of the DestroySHA1Info method is:</p>
+<p>The format of the DestroySHA3Info method is:</p>
 
 <pre class="code">
-  void InitializeSHA1Info(SHA1Info *sha_info)
+  void InitializeSHA3Info(SHA3Info *sha_info)
 </pre>
 
 <p>A description of each parameter follows:</p>
@@ -262,41 +300,22 @@ _8c.html" id="IntializeSHA1">IntializeSHA1</a></h2>
 <p>The cipher sha_info.</p>
 
  </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" id="TransformSHA1">TransformSHA1</a></h2>
+<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha3
+_8c.html" id="UpdateSHA3">UpdateSHA3</a></h2>
 <div class="doc-section">
 
-<p>TransformSHA1() transforms the SHA1 message accumulator.</p>
+<p>UpdateSHA3() updates the SHA3 message accumulator.</p>
 
-<p>The format of the TransformSHA1 method is:</p>
+<p>The format of the UpdateSHA3 method is:</p>
 
 <pre class="code">
-  TransformSHA1(SHA1Info *sha_info)
+  UpdateSHA3(SHA3Info *sha_info,const StringInfo *message)
 </pre>
 
 <p>A description of each parameter follows:</p>
 
 <h5>sha_info</h5>
-<p>The address of a structure of type SHA1Info.</p>
-
-
- </div>
-<h2><a href="http://www.wizards-toolkit.org/api/WizardsToolkit/sha1
-_8c.html" id="UpdateSHA1">UpdateSHA1</a></h2>
-<div class="doc-section">
-
-<p>UpdateSHA1() updates the SHA1 message accumulator.</p>
-
-<p>The format of the UpdateSHA1 method is:</p>
-
-<pre class="code">
-  UpdateSHA1(SHA1Info *sha_info,const StringInfo *message)
-</pre>
-
-<p>A description of each parameter follows:</p>
-
-<h5>sha_info</h5>
-<p>The address of a structure of type SHA1Info.</p>
+<p>The address of a structure of type SHA3Info.</p>
 
 <h5>message</h5>
 <p>The message</p>

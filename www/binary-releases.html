@@ -1,49 +1,67 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<html version="-//W3C//DTD XHTML 1.1//EN"
+      xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.w3.org/1999/xhtml
+                          http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U="/>
   <title>Wizard's Toolkit: Install from Binary Distribution</title>
-  <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
-  <meta name="Application-name" content="Wizard's Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext and back, reports properties about ciphertext, and computes and authenticates message digests."/>
-  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
-  <meta name="Generator" content="PHP"/>
-  <meta name="Keywords" content="install, from, binary, distribution, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Rating" content="GENERAL"/>
-  <meta name="Robots" content="INDEX, FOLLOW"/>
-  <meta name="Generator" content="ImageMagick Studio LLC"/>
-  <meta name="Author" content="ImageMagick Studio LLC"/>
-  <meta name="Revisit-after" content="2 DAYS"/>
-  <meta name="Resource-type" content="document"/>
-  <meta name="Copyright" content="Copyright (c) 1999-2012 ImageMagick Studio LLC"/>
-  <meta name="Distribution" content="Global"/>
+  <meta http-equiv="content-language" content="en-US"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="reply-to" content="magick-users@imagemagick.org"/>
+  <meta name="application-name" content="Wizard's Toolkit"/>
+  <meta name="description" content="The Wizard's Toolkit converts plaintext to ciphertext and back, reports properties about ciphertext, and computes and authenticates message digests."/>
+  <meta name="application-url" content="http://www.wizards-toolkit.org"/>
+  <meta name="generator" content="PHP"/>
+  <meta name="keywords" content="install, from, binary, distribution, WizardsToolkit, Wizard's, Toolkit"/>
+  <meta name="rating" content="GENERAL"/>
+  <meta name="robots" content="INDEX, FOLLOW"/>
+  <meta name="generator" content="ImageMagick Studio LLC"/>
+  <meta name="author" content="ImageMagick Studio LLC"/>
+  <meta name="revisit-after" content="2 DAYS"/>
+  <meta name="resource-type" content="document"/>
+  <meta name="copyright" content="Copyright (c) 1999-2011 ImageMagick Studio LLC"/>
+  <meta name="distribution" content="Global"/>
   <link rel="icon" href="../images/wand.png"/>
   <link rel="shortcut icon" href="../images/wand.ico"  type="images/x-icon"/>
+  <link rel="canonical" href="http://www.wizards-toolkit.org" />
   <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf"/>
+
+  <!-- Add jQuery library -->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+  
+  <!-- Add mousewheel plugin (this is optional) -->
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+  
+  <!-- Add fancyBox -->
+  <link rel="stylesheet" href="http://www.imagemagick.org/fancybox/www/source/jquery.fancybox.css?v=2.0.6" type="text/css" media="screen" />
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/www/source/jquery.fancybox.pack.js?v=2.0.6"></script>
+  
+  <!-- Optionally add helpers - button, thumbnail and/or media -->
+  <link rel="stylesheet" href="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-buttons.css?v=1.0.2" type="text/css" media="screen" />
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-buttons.js?v=1.0.2"></script>
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-media.js?v=1.0.0"></script>
+  
+  <link rel="stylesheet" href="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-thumbs.css?v=2.0.6" type="text/css" media="screen" />
+  <script type="text/javascript" src="http://www.imagemagick.org/fancybox/www/source/helpers/jquery.fancybox-thumbs.js?v=2.0.6"></script>
+  
+  <script type="text/javascript">
+  	$(document).ready(function() {
+  		$(".fancybox").fancybox();
+  	});
+  </script>
+
+  <!-- Wizard's Toolkit style -->
   <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
   <style type="text/css" media="all">
     @import url("../www/wizard.css");
   </style>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-  <script type="text/javascript" src="../fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-  <link rel="stylesheet" type="text/css" href="../fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
-        'transitionIn'  : 'elastic',
-        'transitionOut' : 'elastic',
-        'overlayShow'   : false,
-        'opacity'       : true
-      });
-    });
-  </script>
 </head>
 
-<body id="www-wizards-toolkit-org">
+<body id="www-wizardstoolkit-org">
 <div class="titlebar">
 <div style="margin: 17px auto; float: left;">
   <script type="text/javascript">
@@ -121,17 +139,32 @@
   <img src="../images/networkredux.png" alt="[sponsor]"
   style="margin-top: 4px; margin-left: 4px; border: 0px; float: left;" /></a>
 <div class="sponsbox">
-<div  class="sponsor">
-  <a title="Sponsor: Best Web Hosting" href="http://webhostinggeeks.com">Best Web Hosting</a><!-- 201110010720 -->
-</div>
-<div  class="sponsor">
-  <a title="Sponsor: Web Hosting Ratings" href="http://webhostingrating.com">Web Hosting Ratings</a><!-- 201110010720 -->
+<div class="sponsor">
+   <a rel="follow" title="Sponsor: Names List" href="http://www.listofnames.info">Names List</a><!-- 2012110100180 grimshrat@busyb-->
 </div>
 </div>
 </div>
 </div>
 
 <div class="eastbar">
+  <div class="g-plusone" id="gplusone"></div>
+  <script type="text/javascript">
+    window.___gcfg = {
+      lang: 'en-US'
+    };
+
+    (function() {
+      var po = document.createElement('script');
+      po.type = 'text/javascript';
+      po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var script = document.getElementsByTagName('script')[0];
+      script.parentNode.insertBefore(po, script);
+    })();
+    var gplusone = document.getElementById("gplusone");
+    gplusone.setAttribute("data-size","medium");
+    gplusone.setAttribute("data-count","false");
+  </script>
 </div>
 
 <div class="main">
@@ -159,17 +192,17 @@
   </tr>
 
   <tr>
-      <td valign="top">WizardsToolkit-1.0.8-0.i386.rpm</td>
-    <td valign="top"><a href= "http://www.wizards-toolkit.org/download/linux/CentOS/i386/WizardsToolkit-1.0.8-0.i386.rpm">download</a></td>
-    <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/linux/CentOS/i386/WizardsToolkit-1.0.8-0.i386.rpm">download</a></td>
-    <td valign="top">CentOS 5.5 i386 RPM</td>
+      <td valign="top">WizardsToolkit-1.0.8-9.i386.rpm</td>
+    <td valign="top"><a href= "http://www.wizards-toolkit.org/download/linux/CentOS/i386/WizardsToolkit-1.0.8-9.i386.rpm">download</a></td>
+    <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/linux/CentOS/i386/WizardsToolkit-1.0.8-9.i386.rpm">download</a></td>
+    <td valign="top">CentOS 5.7 i386 RPM</td>
   </tr>
 
   <tr>
-      <td valign="top">WizardsToolkit-1.0.8-0.x86_64.rpm</td>
-      <td valign="top"><a href= "http://www.wizards-toolkit.org/download/linux/CentOS/x86_64/WizardsToolkit-1.0.8-0.x86_64.rpm">download</a></td>
-    <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/linux/CentOS/x86_64/WizardsToolkit-1.0.8-0.x86_64.rpm">download</a></td>
-    <td valign="top">CentOS 5.5 x86_64 RPM</td>
+      <td valign="top">WizardsToolkit-1.0.8-9.x86_64.rpm</td>
+      <td valign="top"><a href= "http://www.wizards-toolkit.org/download/linux/CentOS/x86_64/WizardsToolkit-1.0.8-9.x86_64.rpm">download</a></td>
+    <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/linux/CentOS/x86_64/WizardsToolkit-1.0.8-9.x86_64.rpm">download</a></td>
+    <td valign="top">CentOS 5.7 x86_64 RPM</td>
   </tr>
 
   <tr>
@@ -205,26 +238,26 @@
 
 <p>WizardsToolkit RPM's are self-installing.  Simply type the following command and you're ready to start using WizardsToolkit:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>rpm -Uvh WizardsToolkit-1.0.8-0.i386.rpm</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>rpm -Uvh WizardsToolkit-1.0.8-9.i386.rpm</span></p>
 <p>For other systems, create (or choose) a directory to install the package into and change to that directory, for example:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>cd $HOME</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>cd $HOME</span></p>
 <p>Next, extract the contents of the package.  For example:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>tar xvfz WizardsToolkit.tar.gz</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>tar xvfz WizardsToolkit.tar.gz</span></p>
 <p>Set the <kbd>WIZARD_HOME</kbd> environment variable to the path where you extracted the WizardsToolkit files. For example:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>export WIZARD_HOME="$HOME/WizardsToolkit-1.0.8"</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>export WIZARD_HOME="$HOME/WizardsToolkit-1.0.8"</span></p>
 <p>If the <kbd>bin</kbd> subdirectory of the extracted package is not already in your executable search path, add it to your <kbd>PATH</kbd> environment variable. For example:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>export PATH="$WIZARD_HOME/bin:$PATH"</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>export PATH="$WIZARD_HOME/bin:$PATH"</span></p>
 
 <p>On Linux and Solaris machines add <kbd>$WIZARD_HOME/lib</kbd> to the <kbd>LD_LIBRARY_PATH</kbd> environment variable:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$WIZARD_HOME/lib"</span><span class='crtout'></span><span class="crtprompt"> $magick&gt; </span><span class='crtin'>export LD_LIBRARY_PATH</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$WIZARD_HOME/lib"</span><span class='crtout'></span><span class="crtprompt"> $ </span><span class='crtin'>export LD_LIBRARY_PATH</span></p>
 <p>Finally, to verify WizardsToolkit is working properly, type the following on the command line:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>validate <em>passphrase</em></span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>validate <em>passphrase</em></span></p>
 <p>Congratulations, you have a working WizardsToolkit distribution under Unix or Linux and you are ready to use WizardsToolkit to <a href="../www/command-line-tools.html">encipher, decipher, or compute a message digest</a> for your content or perhaps you'll want to use one of the <a href="../www/api.html">Application Program Interfaces</a> for C, C++, Perl, and others.</p>
 
 </div>
@@ -234,7 +267,7 @@
 
 <p>We provide a Mac OS X binary distribution, however, if you already have <a href="http://www.macports.org">MacPorts</a> installed on your system, simply type:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>sudo port install WizardsToolkit</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>sudo port install WizardsToolkit</span></p>
 <p>The <kbd>port</kbd> command downloads WizardsToolkit and many of its delegate libraries (e.g. JPEG, PNG, Freetype, etc.) and configures, builds, and installs WizardsToolkit automagically.  Alternatively, download the WizardsToolkit Mac OS X distribution we provide:</p>
 
 <table class="doc">
@@ -258,23 +291,23 @@
 
 <p>Create (or choose) a directory to install the package into and change to that directory, for example:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>cd $HOME</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>cd $HOME</span></p>
 <p>Next, extract the contents of the package.  For example:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>tar xvfz WizardsToolkit-universal-apple-darwin9.7.0.tar.gz</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>tar xvfz WizardsToolkit-universal-apple-darwin9.7.0.tar.gz</span></p>
 <p>Set the <kbd>WIZARD_HOME</kbd> environment variable to the path where you extracted the WizardsToolkit files. For example:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>export WIZARD_HOME="$HOME/WizardsToolkit-1.0.8"</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>export WIZARD_HOME="$HOME/WizardsToolkit-1.0.8"</span></p>
 <p>If the <kbd>bin</kbd> subdirectory of the extracted package is not already in your executable search path, add it to your <kbd>PATH</kbd> environment variable. For example:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>export PATH="$WIZARD_HOME/bin:$PATH"</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>export PATH="$WIZARD_HOME/bin:$PATH"</span></p>
 
 <p>Set the <kbd>DYLD_LIBRARY_PATH</kbd> environment variable:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>export DYLD_LIBRARY_PATH="$WIZARD_HOME/lib"</span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>export DYLD_LIBRARY_PATH="$WIZARD_HOME/lib"</span></p>
 <p>Finally, to verify WizardsToolkit is working properly, type the following on the command line:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>validate <em>passphrase</em></span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>validate <em>passphrase</em></span></p>
 <p>Congratulations, you have a working WizardsToolkit distribution under Mac OS X and you are ready to use WizardsToolkit to <a href="../www/command-line-tools.html">encipher, decipher, or compute a message digest</a> for your content or perhaps you'll want to use one of the <a href="../www/api.html">Application Program Interfaces</a> for C, C++, Perl, and others.</p>
 
 </div>
@@ -285,7 +318,7 @@
 <p>WizardsToolkit runs on all recent Windows releases except Windows 95 / 98. We recommend its use on an NT-based version of Windows (NT4, 2000, 2003, XP, or Vista).</p>
 
 <p>The Windows version of WizardsToolkit is self-installing.  Simply click on the appropriate version below and it will launch itself and ask you a few installation questions.  Versions with <em>dll</em> in the filename include WizardsToolkit libraries as <a href="http://www.answers.com/topic/dll">dynamic link libraries</a>. If you are not sure which version is appropriate, choose
-<a href='http://www.wizards-toolkit.org/download/binaries/WizardsToolkit-1.0.8-0-windows-dll.exe' >WizardsToolkit-1.0.8-0-windows-dll.exe</a>.</p>
+<a href='http://www.wizards-toolkit.org/download/binaries/WizardsToolkit-1.0.8-9-windows-dll.exe' >WizardsToolkit-1.0.8-9-windows-dll.exe</a>.</p>
 
 <table class="doc">
   <col width="50%"/> <col width="10%"/> <col width="10%"/> <col width="30%"/>
@@ -297,23 +330,23 @@
   </tr>
 
   <tr>
-        <td valign="top">WizardsToolkit-1.0.8-0-windows-dll.exe</td>
-        <td valign="top"><a href= "http://www.wizards-toolkit.org/download/binaries/WizardsToolkit-1.0.8-0-windows-dll.exe">download</a></td>
-      <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/binaries/WizardsToolkit-1.0.8-0-windows-dll.exe">download</a></td>
+        <td valign="top">WizardsToolkit-1.0.8-9-windows-dll.exe</td>
+        <td valign="top"><a href= "http://www.wizards-toolkit.org/download/binaries/WizardsToolkit-1.0.8-9-windows-dll.exe">download</a></td>
+      <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/binaries/WizardsToolkit-1.0.8-9-windows-dll.exe">download</a></td>
     <td valign="top">Win32 dynamic</td>
   </tr>
 
   <tr>
-        <td valign="top">WizardsToolkit-1.0.8-0-windows-static.exe</td>
-        <td valign="top"><a href= "http://www.wizards-toolkit.org/download/binaries/WizardsToolkit-1.0.8-0-windows-static.exe">download</a></td>
-      <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/binaries/WizardsToolkit-1.0.8-0-windows-static.exe">download</a></td>
+        <td valign="top">WizardsToolkit-1.0.8-9-windows-static.exe</td>
+        <td valign="top"><a href= "http://www.wizards-toolkit.org/download/binaries/WizardsToolkit-1.0.8-9-windows-static.exe">download</a></td>
+      <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/binaries/WizardsToolkit-1.0.8-9-windows-static.exe">download</a></td>
     <td valign="top">Win32 static</td>
   </tr>
 
   <tr>
-        <td valign="top">WizardsToolkit-1.0.8-0-windows-x64-static.exe</td>
-        <td valign="top"><a href= "http://www.wizards-toolkit.org/download/binaries/WizardsToolkit-1.0.8-0-windows-x64-static.exe">download</a></td>
-      <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/binaries/WizardsToolkit-1.0.8-0-windows-x64-static.exe">download</a></td>
+        <td valign="top">WizardsToolkit-1.0.8-9-windows-x64-static.exe</td>
+        <td valign="top"><a href= "http://www.wizards-toolkit.org/download/binaries/WizardsToolkit-1.0.8-9-windows-x64-static.exe">download</a></td>
+      <td valign="top"><a href="ftp://ftp.wizards-toolkit.org/pub/WizardsToolkit/binaries/WizardsToolkit-1.0.8-9-windows-x64-static.exe">download</a></td>
    <td valign="top">x64 static</td>
   </tr>
 </table>
@@ -322,7 +355,7 @@
 
 <p>To verify WizardsToolkit is working properly, type the following in an MS-DOS Command Prompt window:</p>
 
-<p class='crt'><span class="crtprompt"> $magick&gt; </span><span class='crtin'>validate <em>passphrase</em></span></p>
+<p class='crt'><span class="crtprompt"> $ </span><span class='crtin'>validate <em>passphrase</em></span></p>
 <p>A series of regression tests are performed to ensure the WizardsToolkit is installed and running properly.</p>
 
 <p>If you have any problems, install the <a href="http://www.microsoft.com/downloads/details.aspx?familyid=A7B7A05E-6DE6-4D3A-A423-37BF0912DB84">Visual C++ 2010 Redistributable Package (x86)</a> or <a href="http://www.microsoft.com/downloads/details.aspx?familyid=BD512D9E-43C8-4655-81BF-9350143D5867">Visual C++ 2010 Redistributable Package (x64)</a>. 64-bit Windows requires both packages (x86 &amp; x64).</p>
