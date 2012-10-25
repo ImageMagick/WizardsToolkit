@@ -32,7 +32,8 @@
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% See http://csrc.nist.gov/groups/ST/toolkit/index.html
+% SHA-3 uses the "sponge construction", where input is "absorbed" into the hash % state at a given rate, an output hash is then "squeezed" from it at the same
+% rate.  See http://keccak.noekeon.org/.
 %
 */
 
@@ -49,13 +50,22 @@
   Define declarations.
 */
 #define SHA3Blocksize  64
-#define SHA3Digestsize  20
+#define SHA3Digestsize  64
+#define SHA3Index(x,y)  (((x) % 5)+5*((y) % 5))
+#define SHA3Lanes 25
+#define SHA3MaximumRate  1536
+#define SHA3MaximumRateInBytes  (SHA3MaximumRate/8)
+#define SHA3PermutationSize  1600
+#define SHA3PermutationSizeInBytes  (SHA3PermutationSize/8)
+#define SHA3RotateLeft(x,offset)  ((offset) != 0 ? ((((WizardSizeType) x) << \
+  offset) ^ (((WizardSizeType) x) >> (64-offset))) : x)
+#define SHA3Rounds 24
 
 /*
   Typedef declarations.
 */
 struct _SHA3Info
-{   
+{
   HashType
     hash;
 
@@ -67,13 +77,27 @@ struct _SHA3Info
     *digest,
     *message;
 
+  unsigned char
+    state[SHA3PermutationSizeInBytes],
+    message_queue[SHA3MaximumRateInBytes];
+
   unsigned int
-    *accumulator,
-    low_order,
-    high_order;
+    rate,
+    capacity,
+    bits_in_queue;
 
   size_t
-    offset;
+    length;
+
+  WizardBooleanType
+    squeeze;
+
+  unsigned int
+    squeeze_bits,
+    rho[SHA3Lanes];
+
+  WizardSizeType
+    rounds[SHA3Rounds];
 
   WizardBooleanType
     lsb_first;
@@ -84,12 +108,6 @@ struct _SHA3Info
   size_t
     signature;
 };
-
-/*
-  Forward declarations.
-*/
-static void
-  TransformSHA3(SHA3Info *);
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,20 +144,43 @@ WizardExport SHA3Info *AcquireSHA3Info(const HashType hash)
     ThrowWizardFatalError(HashDomain,MemoryError);
   (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));
   sha_info->hash=hash;
-  sha_info->digestsize=SHA3Digestsize;
+  switch(sha_info->hash)
+  {
+    case SHA3224Hash:
+    {
+      sha_info->digestsize=28;
+      break;
+    }
+    case SHA3256Hash:
+    case SHA3Hash:
+    {
+      sha_info->digestsize=32;
+      break;
+    }
+    case SHA3384Hash:
+    {
+      sha_info->digestsize=48;
+      break;
+    }
+    case SHA3512Hash:
+    {
+      sha_info->digestsize=64;
+      break;
+    }
+    default:
+    {
+      sha_info->digestsize=SHA3Digestsize;
+      break;
+    }
+  }
   sha_info->blocksize=SHA3Blocksize;
   sha_info->digest=AcquireStringInfo(SHA3Digestsize);
   sha_info->message=AcquireStringInfo(SHA3Blocksize);
-  sha_info->accumulator=(unsigned int *) AcquireQuantumMemory(SHA3Blocksize,
-    sizeof(*sha_info->accumulator));
-  if (sha_info->accumulator == (unsigned int *) NULL)
-    ThrowWizardFatalError(HashDomain,MemoryError);
   lsb_first=1;
-  sha_info->lsb_first=(int)
-    (*(char *) &lsb_first) == 1 ? WizardTrue : WizardFalse;
+  sha_info->lsb_first=(int) (*(char *) &lsb_first) == 1 ? WizardTrue :
+    WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
-  InitializeSHA3(sha_info);
   return(sha_info);
 }
 
@@ -170,9 +211,6 @@ WizardExport SHA3Info *DestroySHA3Info(SHA3Info *sha_info)
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   assert(sha_info != (SHA3Info *) NULL);
   assert(sha_info->signature == WizardSignature);
-  if (sha_info->accumulator != (unsigned int *) NULL)
-    sha_info->accumulator=(unsigned int *)
-      RelinquishWizardMemory(sha_info->accumulator);
   if (sha_info->message != (StringInfo *) NULL)
     sha_info->message=DestroyStringInfo(sha_info->message);
   if (sha_info->digest != (StringInfo *) NULL)
@@ -205,26 +243,271 @@ WizardExport SHA3Info *DestroySHA3Info(SHA3Info *sha_info)
 %
 %
 */
+
+static void ConvertBytesToWords(const unsigned char *bytes,
+  WizardSizeType *words)
+{
+  register ssize_t
+    i;
+
+  for (i=0; i < (SHA3PermutationSize/64); i++)
+  {
+    register ssize_t
+      j;
+
+    words[i]=0;
+    for (j=0; j< (64/8); j++)
+      words[i]|=(WizardSizeType) (bytes[i*(64/8)+j]) << (8*j);
+  }
+}
+
+static void ConvertWordsToBytes(const WizardSizeType *words,
+  unsigned char *bytes)
+{
+  register ssize_t
+    i;
+
+  for (i=0; i < (SHA3PermutationSize/64); i++)
+  {
+    register ssize_t
+      j;
+
+    for (j=0; j < (64/8); j++)
+      bytes[i*(64/8)+j]=(unsigned char) ((words[i] >> (8*j)) & 0xFF);
+  }
+}
+
+static void SHA3PermutationOnWords(const SHA3Info *sha_info,
+  WizardSizeType *state)
+{
+  register ssize_t
+    i;
+
+  for (i=0; i < SHA3Rounds; i++)
+  {
+    ssize_t
+      x,
+      y;
+
+    WizardSizeType
+      C[5],
+      D[5],
+      T[25];
+
+    /*
+      Theta.
+    */
+    for (x=0; x < 5; x++)
+    {
+      C[x]=0;
+      for (y=0; y < 5; y++)
+        C[x]^=state[SHA3Index(x,y)];
+    }
+    for (x=0; x < 5; x++)
+      D[x]=SHA3RotateLeft(C[(x+1) % 5],1) ^ C[(x+4) % 5];
+    for (x=0; x < 5; x++)
+      for (y=0; y < 5; y++)
+        state[SHA3Index(x,y)]^=D[x];
+    /*
+      Rho.
+    */
+    for (x=0; x < 5; x++)
+      for (y=0; y < 5; y++)
+        state[SHA3Index(x,y)]=SHA3RotateLeft(state[SHA3Index(x,y)],
+          (WizardSizeType) sha_info->rho[SHA3Index(x,y)]);
+    /*
+      Pi.
+    */
+    for (x=0; x < 5; x++)
+      for (y=0; y < 5; y++)
+        T[SHA3Index(x,y)]=state[SHA3Index(x,y)];
+    for (x=0; x < 5; x++)
+      for (y=0; y < 5; y++)
+        state[SHA3Index(0*x+1*y,2*x+3*y)]=T[SHA3Index(x,y)];
+    /*
+      Chi.
+    */
+    for (y=0; y < 5; y++)
+    {
+      for (x=0; x < 5; x++)
+        C[x]=state[SHA3Index(x, y)] ^ ((~state[SHA3Index(x+1,y)]) &
+          state[SHA3Index(x+2,y)]);
+      for (x=0; x< 5; x++)
+        state[SHA3Index(x,y)]=C[x];
+     }
+    /*
+      Iota.
+    */
+    state[SHA3Index(0,0)]^=sha_info->rounds[i];
+  }
+}
+
+static void SHA3Permutation(const SHA3Info *sha_info,unsigned char *bytes)
+{
+  WizardSizeType
+    words[SHA3PermutationSize/64];
+
+  if (sha_info->lsb_first != 0)
+    SHA3PermutationOnWords(sha_info,(WizardSizeType *) bytes);
+  else
+    {
+      ConvertBytesToWords(bytes,words);
+      SHA3PermutationOnWords(sha_info,words);
+      ConvertWordsToBytes(words,bytes);
+    }
+}
+
+static void SHA3PermutationAfterXor(const SHA3Info *sha_info,
+  const unsigned char *message,const size_t length,unsigned char *state)
+{
+  register ssize_t
+    i;
+
+  for (i=0; i < (ssize_t) length; i++)
+    state[i]^=message[i];
+  SHA3Permutation(sha_info,state);
+}
+
+static void SHA3Absorb(SHA3Info *sha_info,const unsigned char *message,
+  const size_t length,unsigned char *state)
+{
+  SHA3PermutationAfterXor(sha_info,message,8*length,state);
+}
+
+void SHA3Extract(const unsigned char *state,const size_t length,
+  unsigned char *message)
+{
+  memcpy(message,state,8*length);
+}
+
+static void SHA3Extract1024bits(const unsigned char *state,
+  unsigned char *message)
+{
+  memcpy(message,state,128);
+}
+
+static void AbsorbQueue(SHA3Info *sha_info)
+{
+  if (sha_info->rate == 576)
+    SHA3PermutationAfterXor(sha_info,sha_info->message_queue,72,
+      sha_info->state);
+  else
+    if (sha_info->rate == 832)
+      SHA3PermutationAfterXor(sha_info,sha_info->message_queue,104,
+        sha_info->state);
+    else
+      if (sha_info->rate == 1024)
+        SHA3PermutationAfterXor(sha_info,sha_info->message_queue,128,
+          sha_info->state);
+      else
+        if (sha_info->rate == 1088)
+          SHA3PermutationAfterXor(sha_info,sha_info->message_queue,136,
+            sha_info->state);
+       else
+        if (sha_info->rate == 1152)
+          SHA3PermutationAfterXor(sha_info,sha_info->message_queue,144,
+            sha_info->state);
+        else
+         if (sha_info->rate == 1344)
+           SHA3PermutationAfterXor(sha_info,sha_info->message_queue,168,
+             sha_info->state);
+         else
+           SHA3Absorb(sha_info,sha_info->message_queue,sha_info->rate/64,
+             sha_info->state);
+  sha_info->bits_in_queue=0;
+}
+
+static void PadAndSwitchToSqueezingPhase(SHA3Info *sha_info)
+{
+  if ((sha_info->bits_in_queue+1) == sha_info->rate)
+    {
+      sha_info->message_queue[sha_info->bits_in_queue/8]|=1 <<
+        (sha_info->bits_in_queue % 8);
+      AbsorbQueue(sha_info);
+      memset(sha_info->message_queue,0,sha_info->rate/8);
+    }
+  else
+    {
+      memset(sha_info->message_queue+(sha_info->bits_in_queue+7)/8,0,
+        sha_info->rate/8-(sha_info->bits_in_queue+7)/8);
+      sha_info->message_queue[sha_info->bits_in_queue/8]|=1 <<
+        (sha_info->bits_in_queue % 8);
+    }
+  sha_info->message_queue[(sha_info->rate-1)/8]|=1 << ((sha_info->rate-1) % 8);
+  AbsorbQueue(sha_info);
+  if (sha_info->rate == 1024)
+    {
+      SHA3Extract1024bits(sha_info->message_queue,sha_info->state);
+      sha_info->squeeze_bits=1024;
+    }
+  else
+    {
+      SHA3Extract(sha_info->state,sha_info->rate/64,sha_info->message_queue);
+      sha_info->squeeze_bits=sha_info->rate;
+    }
+  sha_info->squeeze=WizardTrue;
+}
+
+static WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
+  unsigned char *output)
+{
+  register ssize_t
+    i;
+
+  size_t
+    bits;
+
+  /*
+    Squeeze output data from the sponge function.
+  */
+  if (sha_info->squeeze == WizardFalse)
+    PadAndSwitchToSqueezingPhase(sha_info);
+  if ((length % 8) != 0)
+    return(WizardFalse);  // must be a multiple of 8
+  for (i=0; i < (ssize_t) length; i+=bits)
+  {
+    if (sha_info->squeeze_bits == 0)
+      {
+        SHA3Permutation(sha_info,sha_info->state);
+        if (sha_info->rate == 1024)
+          {
+            SHA3Extract1024bits(sha_info->message_queue,sha_info->state);
+            sha_info->squeeze_bits=1024;
+          }
+        else
+          {
+            SHA3Extract(sha_info->state,sha_info->rate/64,
+              sha_info->message_queue);
+            sha_info->squeeze_bits=sha_info->rate;
+          }
+      }
+    bits=sha_info->squeeze_bits;
+    if (bits > (length-i))
+      bits=length-i;
+    memcpy(output+i/8,sha_info->message_queue+(sha_info->rate-
+      sha_info->squeeze_bits)/8,bits/8);
+    sha_info->squeeze_bits-=bits;
+  }
+  return(WizardTrue);
+}
+
 WizardExport void FinalizeSHA3(SHA3Info *sha_info)
 {
   register size_t
     i;
 
   register unsigned char
+    *p,
     *q;
 
-  register unsigned int
-    *p;
-
-  ssize_t
-    count;
+  SHA3Info
+    clone_info;
 
   unsigned char
-    *datum;
+    digest[SHA3Digestsize];
 
-  unsigned int
-    high_order,
-    low_order;
+  WizardBooleanType
+    status;
 
   /*
     Add padding and return the message accumulator.
@@ -232,47 +515,14 @@ WizardExport void FinalizeSHA3(SHA3Info *sha_info)
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   assert(sha_info != (SHA3Info *) NULL);
   assert(sha_info->signature == WizardSignature);
-  low_order=sha_info->low_order;
-  high_order=sha_info->high_order;
-  count=(ssize_t) ((low_order >> 3) & 0x3f);
-  datum=GetStringInfoDatum(sha_info->message);
-  datum[count++]=(unsigned char) 0x80;
-  if (count <= (ssize_t) (GetStringInfoLength(sha_info->message)-8))
-    (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
-      sha_info->message)-8-count);
-  else
-    {
-      (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
-        sha_info->message)-count);
-      TransformSHA3(sha_info);
-      (void) ResetWizardMemory(datum,0,GetStringInfoLength(sha_info->message)-
-        8);
-    }
-  datum[56]=(unsigned char) (high_order >> 24);
-  datum[57]=(unsigned char) (high_order >> 16);
-  datum[58]=(unsigned char) (high_order >> 8);
-  datum[59]=(unsigned char) high_order;
-  datum[60]=(unsigned char) (low_order >> 24);
-  datum[61]=(unsigned char) (low_order >> 16);
-  datum[62]=(unsigned char) (low_order >> 8);
-  datum[63]=(unsigned char) low_order;
-  TransformSHA3(sha_info);
-  p=sha_info->accumulator;
+  clone_info=(*sha_info);
+  status=Squeeze(&clone_info,clone_info.length,digest);
+  if (status == WizardFalse)
+    ThrowWizardFatalError(HashDomain,HashIOError);
+  p=digest;
   q=GetStringInfoDatum(sha_info->digest);
-  for (i=0; i < (SHA3Digestsize/4); i++)
-  {
-    *q++=(unsigned char) ((*p >> 24) & 0xff);
-    *q++=(unsigned char) ((*p >> 16) & 0xff);
-    *q++=(unsigned char) ((*p >> 8) & 0xff);
-    *q++=(unsigned char) (*p & 0xff);
-    p++;
-  }
-  /*
-    Reset working registers.
-  */
-  count=0;
-  high_order=0;
-  low_order=0;
+  for (i=0; i < SHA3Digestsize; i++)
+    *q++=(*p++);
 }
 
 /*
@@ -280,7 +530,7 @@ WizardExport void FinalizeSHA3(SHA3Info *sha_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   G e t S H A 1 B l o c k s i z e                                           %
+%   G e t S H A 3 B l o c k s i z e                                           %
 %                                                                             %
 %                                                                             %
 %                                                                             %
@@ -290,19 +540,19 @@ WizardExport void FinalizeSHA3(SHA3Info *sha_info)
 %
 %  The format of the GetSHA3Blocksize method is:
 %
-%      unsigned int *GetSHA3Blocksize(const SHA3Info *sha3_info)
+%      unsigned int *GetSHA3Blocksize(const SHA3Info *sha_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha3_info: The sha3 info.
+%    o sha_info: The sha3 info.
 %
 */
-WizardExport unsigned int GetSHA3Blocksize(const SHA3Info *sha3_info)
+WizardExport unsigned int GetSHA3Blocksize(const SHA3Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(CipherDomain,sha3_info != (SHA3Info *) NULL);
-  WizardAssert(CipherDomain,sha3_info->signature == WizardSignature);
-  return(sha3_info->blocksize);
+  WizardAssert(CipherDomain,sha_info != (SHA3Info *) NULL);
+  WizardAssert(CipherDomain,sha_info->signature == WizardSignature);
+  return(sha_info->blocksize);
 }
 
 /*
@@ -310,7 +560,7 @@ WizardExport unsigned int GetSHA3Blocksize(const SHA3Info *sha3_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   G e t S H A 1 D i g e s t                                                 %
+%   G e t S H A 3 D i g e s t                                                 %
 %                                                                             %
 %                                                                             %
 %                                                                             %
@@ -320,19 +570,19 @@ WizardExport unsigned int GetSHA3Blocksize(const SHA3Info *sha3_info)
 %
 %  The format of the GetSHA3Digest method is:
 %
-%      const StringInfo *GetSHA3Digest(const SHA3Info *sha3_info)
+%      const StringInfo *GetSHA3Digest(const SHA3Info *sha_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha3_info: The sha3 info.
+%    o sha_info: The sha3 info.
 %
 */
-WizardExport const StringInfo *GetSHA3Digest(const SHA3Info *sha3_info)
+WizardExport const StringInfo *GetSHA3Digest(const SHA3Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(HashDomain,sha3_info != (SHA3Info *) NULL);
-  WizardAssert(HashDomain,sha3_info->signature == WizardSignature);
-  return(sha3_info->digest);
+  WizardAssert(HashDomain,sha_info != (SHA3Info *) NULL);
+  WizardAssert(HashDomain,sha_info->signature == WizardSignature);
+  return(sha_info->digest);
 }
 
 /*
@@ -340,7 +590,7 @@ WizardExport const StringInfo *GetSHA3Digest(const SHA3Info *sha3_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   G e t S H A 1 D i g e s t s i z e                                         %
+%   G e t S H A 3 D i g e s t s i z e                                         %
 %                                                                             %
 %                                                                             %
 %                                                                             %
@@ -350,19 +600,19 @@ WizardExport const StringInfo *GetSHA3Digest(const SHA3Info *sha3_info)
 %
 %  The format of the GetSHA3Digestsize method is:
 %
-%      unsigned int *GetSHA3Digestsize(const SHA3Info *sha3_info)
+%      unsigned int *GetSHA3Digestsize(const SHA3Info *sha_info)
 %
 %  A description of each parameter follows:
 %
-%    o sha3_info: The sha3 info.
+%    o sha_info: The sha3 info.
 %
 */
-WizardExport unsigned int GetSHA3Digestsize(const SHA3Info *sha3_info)
+WizardExport unsigned int GetSHA3Digestsize(const SHA3Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  WizardAssert(CipherDomain,sha3_info != (SHA3Info *) NULL);
-  WizardAssert(CipherDomain,sha3_info->signature == WizardSignature);
-  return(sha3_info->digestsize);
+  WizardAssert(CipherDomain,sha_info != (SHA3Info *) NULL);
+  WizardAssert(CipherDomain,sha_info->signature == WizardSignature);
+  return(sha_info->digestsize);
 }
 
 /*
@@ -387,189 +637,134 @@ WizardExport unsigned int GetSHA3Digestsize(const SHA3Info *sha3_info)
 %    o sha_info: The cipher sha_info.
 %
 */
-WizardExport void InitializeSHA3(SHA3Info *sha_info)
-{
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  assert(sha_info != (SHA3Info *) NULL);
-  assert(sha_info->signature == WizardSignature);
-  sha_info->accumulator[0]=0x67452301U;
-  sha_info->accumulator[1]=0xefcdab89U;
-  sha_info->accumulator[2]=0x98badcfeU;
-  sha_info->accumulator[3]=0x10325476U;
-  sha_info->accumulator[4]=0xc3d2e1f0U;
-  sha_info->low_order=0;
-  sha_info->high_order=0;
-  sha_info->offset=0;
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%   T r a n s f o r m S H A                                                   %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  TransformSHA3() transforms the SHA3 message accumulator.
-%
-%  The format of the TransformSHA3 method is:
-%
-%      TransformSHA3(SHA3Info *sha_info)
-%
-%  A description of each parameter follows:
-%
-%    o sha_info: The address of a structure of type SHA3Info.
-%
-%
-*/
 
-static inline unsigned int Trunc32(const unsigned int x)
+static int LFSR86540(unsigned char *byte)
 {
-  return(x & 0xffffffffU);
+  int
+    result;
+
+  /*
+    Primitive polynomial over GF(2): x^8+x^6+x^5+x^4+1.
+  */
+  result=((*byte) & 0x01) != 0;
+  if (((*byte) & 0x80) != 0)
+    (*byte)=((*byte) << 1) ^ 0x71;
+  else
+    (*byte)<<=1;
+  return(result);
 }
 
-static unsigned int RotateLeft(const unsigned int x,const unsigned int n)
-{
-  return(Trunc32((x << n) | (x >> (32-n))));
-}
-
-static void TransformSHA3(SHA3Info *sha_info)
+static void SHA3InitializeRoundConstants(SHA3Info *sha_info)
 {
   register ssize_t
     i;
 
-  register unsigned char
-    *p;
+  unsigned char
+    byte;
 
-  register unsigned int
-    *q;
+  byte=0x01;
+  for (i=0; i < SHA3Rounds; i++)
+  {
+    register ssize_t
+      j;
 
-  unsigned int
-    A,
-    B,
-    C,
-    D,
-    E,
-    shift,
-    T,
-    W[80];
+    ssize_t
+      offset;
 
-  shift=32;
-  p=GetStringInfoDatum(sha_info->message);
-  if (sha_info->lsb_first == WizardFalse)
+    sha_info->rounds[i]=0;
+    for (j=0; j < 7; j++)
     {
-      if (sizeof(unsigned int) <= 4)
-        for (i=0; i < 16; i++)
-        {
-          T=(*((unsigned int *) p));
-          p+=4;
-          W[i]=Trunc32(T);
-        }
-      else
-        for (i=0; i < 16; i+=2)
-        {
-          T=(*((unsigned int *) p));
-          p+=8;
-          W[i]=Trunc32(T >> shift);
-          W[i+1]=Trunc32(T);
-        }
+      offset=(ssize_t) (1 << j)-1;
+      if (LFSR86540(&byte) != 0)
+        sha_info->rounds[i]^=(WizardSizeType) 1 << offset;
     }
-  else
-    if (sizeof(unsigned int) <= 4)
-      for (i=0; i < 16; i++)
-      {
-        T=(*((unsigned int *) p));
-        p+=4;
-        W[i]=((T << 24) & 0xff000000) | ((T << 8) & 0x00ff0000) |
-          ((T >> 8) & 0x0000ff00) | ((T >> 24) & 0x000000ff);
-      }
-    else
-      for (i=0; i < 16; i+=2)
-      {
-        T=(*((unsigned int *) p));
-        p+=8;
-        W[i]=((T << 24) & 0xff000000) | ((T << 8) & 0x00ff0000) |
-          ((T >> 8) & 0x0000ff00) | ((T >> 24) & 0x000000ff);
-        T>>=shift;
-        W[i+1]=((T << 24) & 0xff000000) | ((T << 8) & 0x00ff0000) |
-          ((T >> 8) & 0x0000ff00) | ((T >> 24) & 0x000000ff);
-      }
-  /*
-    Copy accumulator to registers.
-  */
-  A=sha_info->accumulator[0];
-  B=sha_info->accumulator[1];
-  C=sha_info->accumulator[2];
-  D=sha_info->accumulator[3];
-  E=sha_info->accumulator[4];
-  for (i=16; i < 80; i++)
-  {
-    W[i]=W[i-3] ^ W[i-8] ^ W[i-14] ^ W[i-16];
-    W[i]=RotateLeft(W[i],1);
   }
-  q=W;
-  for (i=0; i < 20; i++)
+}
+
+static void SHA3InitializeRho(SHA3Info *sha_info)
+{
+  register ssize_t
+    i;
+
+  ssize_t
+    x,
+    y;
+
+  sha_info->rho[SHA3Index(0,0)]=0;
+  x=1;
+  y=0;
+  for (i=0; i < 24; i++)
   {
-    T=Trunc32(RotateLeft(A,5)+((B & C) | (~B & D))+E+(*q)+0x5a827999U);
-    E=D;
-    D=C;
-    C=RotateLeft(B,30);
-    B=A;
-    A=T;
-    q++;
+    ssize_t
+      z;
+
+    sha_info->rho[SHA3Index(x,y)]=(unsigned int) (((i+1)*(i+2)/2) % 64);
+    z=x;
+    x=(0*x+1*y) % 5;
+    y=(2*z+3*y) % 5;
   }
-  for ( ; i < 40; i++)
+}
+
+static WizardBooleanType InitializeSponge(SHA3Info *sha_info,
+  const unsigned int rate,const unsigned int capacity)
+{
+  if (rate+capacity != 1600)
+    return(WizardFalse);
+  if ((rate <= 0) || (rate >= 1600) || ((rate % 64) != 0))
+    return(WizardFalse);
+  SHA3InitializeRoundConstants(sha_info);
+  SHA3InitializeRho(sha_info);
+  sha_info->rate=rate;
+  sha_info->capacity=capacity;
+  sha_info->length=0;
+  memset(sha_info->state,0,SHA3PermutationSizeInBytes);
+  memset(sha_info->message_queue,0,SHA3MaximumRateInBytes);
+  sha_info->bits_in_queue=0;
+  sha_info->squeeze=WizardFalse;
+  sha_info->squeeze_bits=0;
+  sha_info->length=capacity/2;
+  return(WizardTrue);
+}
+
+WizardExport void InitializeSHA3(SHA3Info *sha_info)
+{
+  WizardBooleanType
+    status;
+
+  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
+  assert(sha_info != (SHA3Info *) NULL);
+  assert(sha_info->signature == WizardSignature);
+  switch(sha_info->hash)
   {
-    T=Trunc32(RotateLeft(A,5)+(B ^ C ^ D)+E+(*q)+0x6ed9eba1U);
-    E=D;
-    D=C;
-    C=RotateLeft(B,30);
-    B=A;
-    A=T;
-    q++;
+    case SHA3224Hash:
+    {
+      status=InitializeSponge(sha_info,1152,448);
+      break;
+    }
+    case SHA3256Hash:
+    case SHA3Hash:
+    {
+      status=InitializeSponge(sha_info,1088,512);
+      break;
+    }
+    case SHA3384Hash:
+    {
+      status=InitializeSponge(sha_info,832,768);
+      break;
+    }
+    case SHA3512Hash:
+    {
+      status=InitializeSponge(sha_info,576,1024);
+      break;
+    }
+    default:
+    {
+      status=WizardFalse;
+      break;
+    }
   }
-  for ( ; i < 60; i++)
-  {
-    T=Trunc32(RotateLeft(A,5)+((B & C) | (B & D) | (C & D))+E+(*q)+
-      0x8F1bbcdcU);
-    E=D;
-    D=C;
-    C=RotateLeft(B,30);
-    B=A;
-    A=T;
-    q++;
-  }
-  for ( ; i < 80; i++)
-  {
-    T=Trunc32(RotateLeft(A,5)+(B ^ C ^ D)+E+(*q)+0xca62c1d6U);
-    E=D;
-    D=C;
-    C=RotateLeft(B,30);
-    B=A;
-    A=T;
-    q++;
-  }
-  /*
-    Add registers back to accumulator.
-  */
-  sha_info->accumulator[0]=Trunc32(sha_info->accumulator[0]+A);
-  sha_info->accumulator[1]=Trunc32(sha_info->accumulator[1]+B);
-  sha_info->accumulator[2]=Trunc32(sha_info->accumulator[2]+C);
-  sha_info->accumulator[3]=Trunc32(sha_info->accumulator[3]+D);
-  sha_info->accumulator[4]=Trunc32(sha_info->accumulator[4]+E);
-  /*
-    Reset working registers.
-  */
-  A=0;
-  B=0;
-  C=0;
-  D=0;
-  E=0;
-  T=0;
-  (void) ResetWizardMemory(W,0,sizeof(W));
+  if (status == WizardFalse)
+    ThrowWizardFatalError(HashDomain,HashIOError);
 }
 
 /*
@@ -596,59 +791,145 @@ static void TransformSHA3(SHA3Info *sha_info)
 %    o message: The message
 %
 */
-WizardExport void UpdateSHA3(SHA3Info *sha_info,const StringInfo *message)
-{
-  register size_t
-    i;
 
-  register unsigned char
+static WizardBooleanType Absorb(SHA3Info *sha_info,const unsigned char *message,
+  const size_t length)
+{
+  register const unsigned char
     *p;
 
-  size_t
-    n;
+  register ssize_t
+    i;
 
-  unsigned int
+  size_t
+    bits,
+    blocks,
+    byte;
+
+  /*
+    Give input message for the sponge function to absorb.
+  */
+  if ((sha_info->bits_in_queue % 8) != 0)
+    return(WizardFalse);  /* only the last call may contain a partial byte */
+  if (sha_info->squeeze != WizardFalse)
+    return(WizardFalse);  /* too late for additional input */
+  for (i=0; i < (ssize_t) length; )
+  {
+    if ((sha_info->bits_in_queue == 0) && (length >= sha_info->rate) &&
+        (i <= (ssize_t) (length-sha_info->rate)))
+     {
+       register ssize_t
+         j;
+
+       blocks=(size_t) ((length-i)/sha_info->rate);
+       p=message+i/8;
+       if (sha_info->rate == 576)
+         for (j=0; j < (ssize_t) blocks; j++)
+         {
+           SHA3PermutationAfterXor(sha_info,p,72,sha_info->state);
+           p+=576/8;
+         }
+       else
+         if (sha_info->rate == 832)
+           for (j=0; j < (ssize_t) blocks; j++)
+           {
+             SHA3PermutationAfterXor(sha_info,p,104,sha_info->state);
+             p+=832/8;
+           }
+         else
+          if (sha_info->rate == 1024)
+            for (j=0; j < (ssize_t) blocks; j++)
+            {
+              SHA3PermutationAfterXor(sha_info,p,128,sha_info->state);
+              p+=1024/8;
+            }
+          else
+            if (sha_info->rate == 1088)
+              for (j=0; j < (ssize_t) blocks; j++)
+              {
+                SHA3PermutationAfterXor(sha_info,p,136,sha_info->state);
+                p+=1088/8;
+              }
+            else
+              if (sha_info->rate == 1152)
+                for (j=0; j < (ssize_t) blocks; j++)
+                {
+                  SHA3PermutationAfterXor(sha_info,p,144,sha_info->state);
+                  p+=1152/8;
+                }
+              else
+                if (sha_info->rate == 1344)
+                  for (j=0; j < (ssize_t) blocks; j++)
+                  {
+                    SHA3PermutationAfterXor(sha_info,p,168,sha_info->state);
+                    p+=1344/8;
+                  }
+               else
+                  for (j=0; j < (ssize_t) blocks; j++)
+                  {
+                    SHA3Absorb(sha_info,p,sha_info->rate/64,sha_info->state);
+                    p+=sha_info->rate/8;
+                  }
+      i+=blocks*sha_info->rate;
+    }
+  else
+    {
+      bits=(unsigned int) (length-i);
+      if ((bits+sha_info->bits_in_queue) > sha_info->rate)
+        bits=sha_info->rate-sha_info->bits_in_queue;
+      byte=bits % 8;
+      bits-=byte;
+      memcpy(sha_info->message_queue+sha_info->bits_in_queue/8,
+        message+i/8,bits/8);
+      sha_info->bits_in_queue+=bits;
+      i+=bits;
+      if (sha_info->bits_in_queue == sha_info->rate)
+        AbsorbQueue(sha_info);
+      if (byte > 0)
+        {
+          unsigned char
+            mask;
+
+          mask=(unsigned char) ((1 << byte)-1);
+          sha_info->message_queue[sha_info->bits_in_queue/8]=
+            message[i/8] & mask;
+          sha_info->bits_in_queue+=byte;
+          i+=byte;
+        }
+    }
+  }
+  return(WizardTrue);
+}
+
+WizardExport void UpdateSHA3(SHA3Info *sha_info,const StringInfo *message)
+{
+  const unsigned char
+    *datum;
+
+  size_t
     length;
 
-  /*
-    Update the SHA3 accumulator.
-  */
+  WizardBooleanType
+    status;
+
   assert(sha_info != (SHA3Info *) NULL);
   assert(sha_info->signature == WizardSignature);
-  n=GetStringInfoLength(message);
-  length=Trunc32((unsigned int) (sha_info->low_order+(n << 3)));
-  if (length < sha_info->low_order)
-    sha_info->high_order++;
-  sha_info->low_order=length;
-  sha_info->high_order+=(unsigned int) n >> 29;
-  p=GetStringInfoDatum(message);
-  if (sha_info->offset != 0)
+  datum=GetStringInfoDatum(message);
+  length=GetStringInfoLength(message);
+  if ((length % 8) == 0)
+    status=Absorb(sha_info,datum,length);
+  else
     {
-      i=GetStringInfoLength(sha_info->message)-sha_info->offset;
-      if (i > n)
-        i=n;
-      (void) CopyWizardMemory(GetStringInfoDatum(sha_info->message)+
-        sha_info->offset,p,i);
-      n-=i;
-      p+=i;
-      sha_info->offset+=i;
-      if (sha_info->offset != GetStringInfoLength(sha_info->message))
-        return;
-      TransformSHA3(sha_info);
+      status=Absorb(sha_info,datum,length-(length % 8));
+      if (status != WizardFalse)
+        {
+          unsigned char
+            byte;
+
+          byte=datum[length/8] >> (8-(length % 8));
+          status=Absorb(sha_info,&byte,length % 8);
+       }
     }
-  while (n >= GetStringInfoLength(sha_info->message))
-  {
-    SetStringInfoDatum(sha_info->message,p);
-    p+=GetStringInfoLength(sha_info->message);
-    n-=GetStringInfoLength(sha_info->message);
-    TransformSHA3(sha_info);
-  }
-  (void) CopyWizardMemory(GetStringInfoDatum(sha_info->message),p,n);
-  sha_info->offset=n;
-  /*
-    Reset working registers.
-  */
-  i=0;
-  n=0;
-  length=0;
+  if (status == WizardFalse)
+    ThrowWizardFatalError(HashDomain,HashIOError);
 }

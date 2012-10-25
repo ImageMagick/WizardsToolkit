@@ -1207,7 +1207,7 @@ static WizardBooleanType TestSHA3(void)
     UpdateHash(hash_info,plaintext);
     FinalizeHash(hash_info);
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
-    SetStringInfoDatum(results,sha1_test_vector[i].digest);
+    SetStringInfoDatum(results,sha3_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
       WizardTrue : WizardFalse;
     (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
@@ -1230,7 +1230,7 @@ static WizardBooleanType TestSHA3(void)
   FinalizeHash(hash_info);
   plaintext=DestroyStringInfo(plaintext);
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
-  SetStringInfoDatum(results,sha1_test_vector[1].digest);
+  SetStringInfoDatum(results,sha3_test_vector[1].digest);
   clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
     WizardTrue : WizardFalse;
   (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
