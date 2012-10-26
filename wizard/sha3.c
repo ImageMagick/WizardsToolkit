@@ -899,32 +899,12 @@ static inline WizardBooleanType Absorb(SHA3Info *sha_info,
 WizardExport WizardBooleanType UpdateSHA3(SHA3Info *sha_info,
   const StringInfo *message)
 {
-  const unsigned char
-    *datum;
-
-  size_t
-    length;
-
   WizardBooleanType
     status;
 
   assert(sha_info != (SHA3Info *) NULL);
   assert(sha_info->signature == WizardSignature);
-  datum=GetStringInfoDatum(message);
-  length=8*GetStringInfoLength(message);
-  if ((length % 8) == 0)
-    status=Absorb(sha_info,datum,length);
-  else
-    {
-      status=Absorb(sha_info,datum,length-(length % 8));
-      if (status != WizardFalse)
-        {
-          unsigned char
-            byte;
-
-          byte=datum[length/8] >> (8-(length % 8));
-          status=Absorb(sha_info,&byte,length % 8);
-       }
-    }
+  status=Absorb(sha_info,GetStringInfoDatum(message),8*
+    GetStringInfoLength(message));
   return(status);
 }
