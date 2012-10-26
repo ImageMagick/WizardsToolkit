@@ -188,15 +188,14 @@ WizardExport SHA2512Info *DestroySHA2512Info(SHA2512Info *sha_info)
 %
 %  The format of the FinalizeSHA2512 method is:
 %
-%      FinalizeSHA2512(SHA2512Info *sha_info)
+%      WizardBooleanType FinalizeSHA2512(SHA2512Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The address of a structure of type SHA2512Info.
 %
-%
 */
-WizardExport void FinalizeSHA2512(SHA2512Info *sha_info)
+WizardExport WizardBooleanType FinalizeSHA2512(SHA2512Info *sha_info)
 {
   register ssize_t
     i;
@@ -276,6 +275,7 @@ WizardExport void FinalizeSHA2512(SHA2512Info *sha_info)
   count=0;
   high_order=0;
   low_order=0;
+  return(WizardTrue);
 }
 
 /*
@@ -383,14 +383,14 @@ WizardExport unsigned int GetSHA2512Digestsize(const SHA2512Info *sha2512_info)
 %
 %  The format of the DestroySHA2512Info method is:
 %
-%      void InitializeSHA2512Info(SHA2512Info *sha_info)
+%      WizardBooleanType InitializeSHA2512Info(SHA2512Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The cipher sha_info.
 %
 */
-WizardExport void InitializeSHA2512(SHA2512Info *sha_info)
+WizardExport WizardBooleanType InitializeSHA2512(SHA2512Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   assert(sha_info != (SHA2512Info *) NULL);
@@ -406,6 +406,7 @@ WizardExport void InitializeSHA2512(SHA2512Info *sha_info)
   sha_info->low_order=0;
   sha_info->high_order=0;
   sha_info->offset=0;
+  return(WizardTrue);
 }
 
 /*
@@ -428,7 +429,6 @@ WizardExport void InitializeSHA2512(SHA2512Info *sha_info)
 %  A description of each parameter follows:
 %
 %    o sha_info: The address of a structure of type SHA2512Info.
-%
 %
 */
 
@@ -661,7 +661,8 @@ static void TransformSHA2512(SHA2512Info *sha_info)
 %
 %  The format of the UpdateSHA2512 method is:
 %
-%      UpdateSHA2512(SHA2512Info *sha_info,const StringInfo *message)
+%      WizardBooleanType UpdateSHA2512(SHA2512Info *sha_info,
+%        const StringInfo *message)
 %
 %  A description of each parameter follows:
 %
@@ -670,7 +671,8 @@ static void TransformSHA2512(SHA2512Info *sha_info)
 %    o message: The message.
 %
 */
-WizardExport void UpdateSHA2512(SHA2512Info *sha_info,const StringInfo *message)
+WizardExport WizardBooleanType UpdateSHA2512(SHA2512Info *sha_info,
+  const StringInfo *message)
 {
   register size_t
     i;
@@ -707,7 +709,7 @@ WizardExport void UpdateSHA2512(SHA2512Info *sha_info,const StringInfo *message)
       p+=i;
       sha_info->offset+=i;
       if (sha_info->offset != GetStringInfoLength(sha_info->message))
-        return;
+        return(WizardTrue);
       TransformSHA2512(sha_info);
     }
   while (n >= GetStringInfoLength(sha_info->message))
@@ -725,4 +727,5 @@ WizardExport void UpdateSHA2512(SHA2512Info *sha_info,const StringInfo *message)
   i=0;
   n=0;
   length=0;
+  return(WizardTrue);
 }

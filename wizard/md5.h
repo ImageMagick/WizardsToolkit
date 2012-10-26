@@ -36,7 +36,7 @@ extern WizardExport unsigned int
   GetMD5Blocksize(const MD5Info *),
   GetMD5Digestsize(const MD5Info *);
 
-extern WizardExport void
+extern WizardExport WizardBooleanType
   InitializeMD5(MD5Info *),
   FinalizeMD5(MD5Info *),
   UpdateMD5(MD5Info *,const StringInfo *);

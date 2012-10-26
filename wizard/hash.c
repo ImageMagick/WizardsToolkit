@@ -314,15 +314,18 @@ WizardExport HashInfo *DestroyHashInfo(HashInfo *hash_info)
 %
 %  The format of the FinalizeHash method is:
 %
-%      FinalizeHash(HashInfo *hash_info)
+%      WizardBooleanType FinalizeHash(HashInfo *hash_info)
 %
 %  A description of each parameter follows:
 %
 %    o hash_info: The address of a structure of type HashInfo.
 %
 */
-WizardExport void FinalizeHash(HashInfo *hash_info)
+WizardExport WizardBooleanType FinalizeHash(HashInfo *hash_info)
 {
+  WizardBooleanType
+    status;
+
   /*
     Add padding and return the message accumulator.
   */
@@ -337,7 +340,7 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
         *crc_info;
 
       crc_info=(CRC64Info *) hash_info->handle;
-      FinalizeCRC64(crc_info);
+      status=FinalizeCRC64(crc_info);
       SetStringInfo(hash_info->digest,GetCRC64Digest(crc_info));
       break;
     }
@@ -347,7 +350,7 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
         *md5_info;
 
       md5_info=(MD5Info *) hash_info->handle;
-      FinalizeMD5(md5_info);
+      status=FinalizeMD5(md5_info);
       SetStringInfo(hash_info->digest,GetMD5Digest(md5_info));
       break;
     }
@@ -357,7 +360,7 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
         *sha_info;
 
       sha_info=(SHA1Info *) hash_info->handle;
-      FinalizeSHA1(sha_info);
+      status=FinalizeSHA1(sha_info);
       SetStringInfo(hash_info->digest,GetSHA1Digest(sha_info));
       break;
     }
@@ -367,7 +370,7 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
         *sha_info;
 
       sha_info=(SHA2224Info *) hash_info->handle;
-      FinalizeSHA2224(sha_info);
+      status=FinalizeSHA2224(sha_info);
       SetStringInfo(hash_info->digest,GetSHA2224Digest(sha_info));
       break;
     }
@@ -378,7 +381,7 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
         *sha_info;
 
       sha_info=(SHA2256Info *) hash_info->handle;
-      FinalizeSHA2256(sha_info);
+      status=FinalizeSHA2256(sha_info);
       SetStringInfo(hash_info->digest,GetSHA2256Digest(sha_info));
       break;
     }
@@ -388,7 +391,7 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
         *sha_info;
 
       sha_info=(SHA2384Info *) hash_info->handle;
-      FinalizeSHA2384(sha_info);
+      status=FinalizeSHA2384(sha_info);
       SetStringInfo(hash_info->digest,GetSHA2384Digest(sha_info));
       break;
     }
@@ -398,7 +401,7 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
         *sha_info;
 
       sha_info=(SHA2512Info *) hash_info->handle;
-      FinalizeSHA2512(sha_info);
+      status=FinalizeSHA2512(sha_info);
       SetStringInfo(hash_info->digest,GetSHA2512Digest(sha_info));
       break;
     }
@@ -412,13 +415,17 @@ WizardExport void FinalizeHash(HashInfo *hash_info)
         *sha_info;
 
       sha_info=(SHA3Info *) hash_info->handle;
-      FinalizeSHA3(sha_info);
+      status=FinalizeSHA3(sha_info);
       SetStringInfo(hash_info->digest,GetSHA3Digest(sha_info));
       break;
     }
     default:
-      ThrowWizardFatalError(HashDomain,EnumerateError);
+    {
+      status=WizardFalse;
+      break;
+    }
   }
+  return(status);
 }
 
 /*
@@ -743,15 +750,18 @@ WizardExport char *GetHashHexDigest(const HashInfo *hash_info)
 %
 %  The format of the IntializeHash method is:
 %
-%      void IntializeHash(HashInfo *hash_info)
+%      WizardBooleanType IntializeHash(HashInfo *hash_info)
 %
 %  A description of each parameter follows:
 %
 %    o hash_info: The hash info.
 %
 */
-WizardExport void InitializeHash(HashInfo *hash_info)
+WizardExport WizardBooleanType InitializeHash(HashInfo *hash_info)
 {
+  WizardBooleanType
+    status;
+
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   assert(hash_info != (HashInfo *) NULL);
   assert(hash_info->signature == WizardSignature);
@@ -759,38 +769,38 @@ WizardExport void InitializeHash(HashInfo *hash_info)
   {
     case CRC64Hash:
     {
-      InitializeCRC64((CRC64Info *) hash_info->handle);
+      status=InitializeCRC64((CRC64Info *) hash_info->handle);
       break;
     }
     case MD5Hash:
     {
-      InitializeMD5((MD5Info *) hash_info->handle);
+      status=InitializeMD5((MD5Info *) hash_info->handle);
       break;
     }
     case SHA1Hash:
     {
-      InitializeSHA1((SHA1Info *) hash_info->handle);
+      status=InitializeSHA1((SHA1Info *) hash_info->handle);
       break;
     }
     case SHA2224Hash:
     {
-      InitializeSHA2224((SHA2224Info *) hash_info->handle);
+      status=InitializeSHA2224((SHA2224Info *) hash_info->handle);
       break;
     }
     case SHA2256Hash:
     case SHA2Hash:
     {
-      InitializeSHA2256((SHA2256Info *) hash_info->handle);
+      status=InitializeSHA2256((SHA2256Info *) hash_info->handle);
       break;
     }
     case SHA2384Hash:
     {
-      InitializeSHA2384((SHA2384Info *) hash_info->handle);
+      status=InitializeSHA2384((SHA2384Info *) hash_info->handle);
       break;
     }
     case SHA2512Hash:
     {
-      InitializeSHA2512((SHA2512Info *) hash_info->handle);
+      status=InitializeSHA2512((SHA2512Info *) hash_info->handle);
       break;
     }
     case SHA3Hash:
@@ -799,12 +809,16 @@ WizardExport void InitializeHash(HashInfo *hash_info)
     case SHA3384Hash:
     case SHA3512Hash:
     {
-      InitializeSHA3((SHA3Info *) hash_info->handle);
+      status=InitializeSHA3((SHA3Info *) hash_info->handle);
       break;
     }
     default:
-      ThrowWizardFatalError(HashDomain,EnumerateError);
+    {
+      status=WizardFalse;
+      break;
+    }
   }
+  return(status);
 }
 
 /*
@@ -822,7 +836,8 @@ WizardExport void InitializeHash(HashInfo *hash_info)
 %
 %  The format of the UpdateHash method is:
 %
-%      UpdateHash(HashInfo *hash_info,const StringInfo *message)
+%      WizardBooleanType UpdateHash(HashInfo *hash_info,
+%        const StringInfo *message)
 %
 %  A description of each parameter follows:
 %
@@ -831,8 +846,12 @@ WizardExport void InitializeHash(HashInfo *hash_info)
 %    o message: The message.
 %
 */
-WizardExport void UpdateHash(HashInfo *hash_info,const StringInfo *message)
+WizardExport WizardBooleanType UpdateHash(HashInfo *hash_info,
+  const StringInfo *message)
 {
+  WizardBooleanType
+    status;
+
   /*
     Update the Hash accumulator.
   */
@@ -843,38 +862,38 @@ WizardExport void UpdateHash(HashInfo *hash_info,const StringInfo *message)
   {
     case CRC64Hash:
     {
-      UpdateCRC64((CRC64Info *) hash_info->handle,message);
+      status=UpdateCRC64((CRC64Info *) hash_info->handle,message);
       break;
     }
     case MD5Hash:
     {
-      UpdateMD5((MD5Info *) hash_info->handle,message);
+      status=UpdateMD5((MD5Info *) hash_info->handle,message);
       break;
     }
     case SHA1Hash:
     {
-      UpdateSHA1((SHA1Info *) hash_info->handle,message);
+      status=UpdateSHA1((SHA1Info *) hash_info->handle,message);
       break;
     }
     case SHA2224Hash:
     {
-      UpdateSHA2224((SHA2224Info *) hash_info->handle,message);
+      status=UpdateSHA2224((SHA2224Info *) hash_info->handle,message);
       break;
     }
     case SHA2256Hash:
     case SHA2Hash:
     {
-      UpdateSHA2256((SHA2256Info *) hash_info->handle,message);
+      status=UpdateSHA2256((SHA2256Info *) hash_info->handle,message);
       break;
     }
     case SHA2384Hash:
     {
-      UpdateSHA2384((SHA2384Info *) hash_info->handle,message);
+      status=UpdateSHA2384((SHA2384Info *) hash_info->handle,message);
       break;
     }
     case SHA2512Hash:
     {
-      UpdateSHA2512((SHA2512Info *) hash_info->handle,message);
+      status=UpdateSHA2512((SHA2512Info *) hash_info->handle,message);
       break;
     }
     case SHA3Hash:
@@ -883,10 +902,14 @@ WizardExport void UpdateHash(HashInfo *hash_info,const StringInfo *message)
     case SHA3384Hash:
     case SHA3512Hash:
     {
-      UpdateSHA3((SHA3Info *) hash_info->handle,message);
+      status=UpdateSHA3((SHA3Info *) hash_info->handle,message);
       break;
     }
     default:
-      ThrowWizardFatalError(HashDomain,EnumerateError);
+    {
+      status=WizardFalse;
+      break;
+    }
   }
+  return(status);
 }

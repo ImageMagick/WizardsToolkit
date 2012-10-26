@@ -60,7 +60,7 @@ extern WizardExport size_t
   GetHashBlocksize(const HashInfo *),
   GetHashDigestsize(const HashInfo *);
 
-extern WizardExport void
+extern WizardExport WizardBooleanType
   InitializeHash(HashInfo *),
   FinalizeHash(HashInfo *),
   UpdateHash(HashInfo *,const StringInfo *);

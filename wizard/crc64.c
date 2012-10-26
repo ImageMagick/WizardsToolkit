@@ -164,7 +164,7 @@ WizardExport CRC64Info *DestroyCRC64Info(CRC64Info *crc_info)
 %
 %  The format of the FinalizeCRC64 method is:
 %
-%      void FinalizeCRC64(CRC64Info *crc_info)
+%      WizardBooleanType FinalizeCRC64(CRC64Info *crc_info)
 %
 %  A description of each parameter follows:
 %
@@ -172,7 +172,7 @@ WizardExport CRC64Info *DestroyCRC64Info(CRC64Info *crc_info)
 %
 %
 */
-WizardExport void FinalizeCRC64(CRC64Info *crc_info)
+WizardExport WizardBooleanType FinalizeCRC64(CRC64Info *crc_info)
 {
   unsigned char
     *datum;
@@ -189,6 +189,7 @@ WizardExport void FinalizeCRC64(CRC64Info *crc_info)
   datum[5]=(unsigned char) (crc_info->crc >> 16);
   datum[6]=(unsigned char) (crc_info->crc >> 8);
   datum[7]=(unsigned char) (crc_info->crc >> 0);
+  return(WizardTrue);
 }
 
 /*
@@ -328,15 +329,14 @@ WizardExport unsigned int GetCRC64Digestsize(const CRC64Info *crc64_info)
 %
 %  The format of the InitializeCRC64 method is:
 %
-%      void InitializeCRC64(crc_info)
+%      WizardBooleanType InitializeCRC64(crc_info)
 %
 %  A description of each parameter follows:
 %
 %    o crc_info: The address of a structure of type CRC64Info.
 %
-%
 */
-WizardExport void InitializeCRC64(CRC64Info *crc_info)
+WizardExport WizardBooleanType InitializeCRC64(CRC64Info *crc_info)
 {
   register ssize_t
     i,
@@ -363,6 +363,7 @@ WizardExport void InitializeCRC64(CRC64Info *crc_info)
         alpha>>=1;
     crc_info->crc_xor[i]=alpha;
   }
+  return(WizardTrue);
 }
 
 /*
@@ -380,14 +381,16 @@ WizardExport void InitializeCRC64(CRC64Info *crc_info)
 %
 %  The format of the UpdateCRC64 method is:
 %
-%      UpdateCRC64(CRC64Info *crc_info,const StringInfo *message)
+%      WizardBooleanType UpdateCRC64(CRC64Info *crc_info,
+%        const StringInfo *message)
 %
 %  A description of each parameter follows:
 %
 %    o crc_info: The address of a structure of type CRC64Info.
 %
 */
-WizardExport void UpdateCRC64(CRC64Info *crc_info,const StringInfo *message)
+WizardExport WizardBooleanType UpdateCRC64(CRC64Info *crc_info,
+  const StringInfo *message)
 {
   register const unsigned char
     *p;
@@ -408,4 +411,5 @@ WizardExport void UpdateCRC64(CRC64Info *crc_info,const StringInfo *message)
       crc_info->crc_xor[(crc_info->crc ^ (WizardSizeType) *p) & 0xff];
     p++;
   }
+  return(WizardTrue);
 }

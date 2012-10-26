@@ -36,7 +36,7 @@ extern WizardExport unsigned int
   GetSHA1Blocksize(const SHA1Info *),
   GetSHA1Digestsize(const SHA1Info *);
 
-extern WizardExport void
+extern WizardExport WizardBooleanType
   InitializeSHA1(SHA1Info *),
   FinalizeSHA1(SHA1Info *),
   UpdateSHA1(SHA1Info *,const StringInfo *);

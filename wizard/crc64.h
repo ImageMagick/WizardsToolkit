@@ -36,7 +36,7 @@ extern WizardExport unsigned int
   GetCRC64Blocksize(const CRC64Info *),
   GetCRC64Digestsize(const CRC64Info *);
 
-extern WizardExport void
+extern WizardExport WizardBooleanType
   InitializeCRC64(CRC64Info *),
   FinalizeCRC64(CRC64Info *),
   UpdateCRC64(CRC64Info *,const StringInfo *);

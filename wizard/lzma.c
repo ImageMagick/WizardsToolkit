@@ -348,7 +348,7 @@ WizardExport WizardBooleanType RestoreLZMA(LZMAInfo *lzma_info,
       return(WizardFalse);
     }
   status=lzma_code(&stream,LZMA_RUN);
-  if (status != LZMA_OK)
+  if (status < 0)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),EntropyError,
         "unable to restore entropy `%s'",strerror(errno));

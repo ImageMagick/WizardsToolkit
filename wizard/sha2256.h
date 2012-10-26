@@ -36,7 +36,7 @@ extern WizardExport unsigned int
   GetSHA2256Blocksize(const SHA2256Info *),
   GetSHA2256Digestsize(const SHA2256Info *);
 
-extern WizardExport void
+extern WizardExport WizardBooleanType
   InitializeSHA2256(SHA2256Info *),
   FinalizeSHA2256(SHA2256Info *),
   UpdateSHA2256(SHA2256Info *,const StringInfo *);

@@ -175,15 +175,14 @@ WizardExport MD5Info *DestroyMD5Info(MD5Info *md5_info)
 %
 %  The format of the FinalizeMD5 method is:
 %
-%      void FinalizeMD5(MD5Info *md5_info)
+%      WizardBooleanType FinalizeMD5(MD5Info *md5_info)
 %
 %  A description of each parameter follows:
 %
 %    o md5_info: The address of a structure of type MD5Info.
 %
-%
 */
-WizardExport void FinalizeMD5(MD5Info *md5_info)
+WizardExport WizardBooleanType FinalizeMD5(MD5Info *md5_info)
 {
   ssize_t
     number_bytes;
@@ -254,6 +253,7 @@ WizardExport void FinalizeMD5(MD5Info *md5_info)
   */
   number_bytes=0;
   (void) ResetWizardMemory(message,0,sizeof(message));
+  return(WizardTrue);
 }
 
 /*
@@ -361,15 +361,14 @@ WizardExport unsigned int GetMD5Digestsize(const MD5Info *md5_info)
 %
 %  The format of the InitializeMD5 method is:
 %
-%      void InitializeMD5(md5_info)
+%      WizardBooleanType InitializeMD5(md5_info)
 %
 %  A description of each parameter follows:
 %
 %    o md5_info: The address of a structure of type MD5Info.
 %
-%
 */
-WizardExport void InitializeMD5(MD5Info *md5_info)
+WizardExport WizardBooleanType InitializeMD5(MD5Info *md5_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   assert(md5_info != (MD5Info *) NULL);
@@ -383,6 +382,7 @@ WizardExport void InitializeMD5(MD5Info *md5_info)
   md5_info->accumulator[1]=(unsigned int) 0xefcdab89;
   md5_info->accumulator[2]=(unsigned int) 0x98badcfe;
   md5_info->accumulator[3]=(unsigned int) 0x10325476;
+  return(WizardTrue);
 }
 
 /*
@@ -593,14 +593,16 @@ static void TransformMD5(MD5Info *md5_info,const unsigned int *message)
 %
 %  The format of the UpdateMD5 method is:
 %
-%      UpdateMD5(MD5Info *md5_info,const unsigned char *message)
+%      WizardBooleanType UpdateMD5(MD5Info *md5_info,
+%        const unsigned char *message)
 %
 %  A description of each parameter follows:
 %
 %    o md5_info: The address of a structure of type MD5Info.
 %
 */
-WizardExport void UpdateMD5(MD5Info *md5_info,const StringInfo *message)
+WizardExport WizardBooleanType UpdateMD5(MD5Info *md5_info,
+  const StringInfo *message)
 {
   register unsigned char
     *p;
@@ -652,4 +654,5 @@ WizardExport void UpdateMD5(MD5Info *md5_info,const StringInfo *message)
   number_bits=0;
   number_bytes=0;
   (void) ResetWizardMemory(buffer,0,sizeof(buffer));
+  return(WizardTrue);
 }

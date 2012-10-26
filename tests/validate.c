@@ -298,6 +298,8 @@ static WizardBooleanType TestBZIPEntropy(void)
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     plaintext=StringToStringInfo((char *) bzip_test_vector[i].plaintext);
     status=IncreaseEntropy(entropy_info,plaintext,exception);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     chaos=AcquireStringInfo(bzip_test_vector[i].chaossize);
     SetStringInfoDatum(chaos,bzip_test_vector[i].chaos);
     clone=CompareStringInfo(GetEntropyChaos(entropy_info),chaos) == 0 ?
@@ -320,6 +322,8 @@ static WizardBooleanType TestBZIPEntropy(void)
     SetStringInfoDatum(chaos,bzip_test_vector[i].chaos);
     status=RestoreEntropy(entropy_info,
       strlen((char *) bzip_test_vector[i].plaintext),chaos,exception);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) bzip_test_vector[i].plaintext);
     clone=CompareStringInfo(GetEntropyChaos(entropy_info),plaintext) == 0 ?
       WizardTrue : WizardFalse;
@@ -350,7 +354,8 @@ static WizardBooleanType TestCRC64(void)
 
   WizardBooleanType
     clone,
-    pass;
+    pass,
+    status;
 
   (void) PrintValidateString(stdout,"testing crc64:\n");
   pass=WizardTrue;
@@ -358,11 +363,17 @@ static WizardBooleanType TestCRC64(void)
   for (i=0; i < CRC64TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-    InitializeHash(hash_info);
+    status=InitializeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) crc64_test_vector[i].plaintext);
-    UpdateHash(hash_info,plaintext);
+    status=UpdateHash(hash_info,plaintext);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=DestroyStringInfo(plaintext);
-    FinalizeHash(hash_info);
+    status=FinalizeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
     SetStringInfoDatum(results,crc64_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -377,14 +388,22 @@ static WizardBooleanType TestCRC64(void)
     Multiple update test.
   */
   (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-  InitializeHash(hash_info);
+  status=InitializeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=StringToStringInfo("ABCDEFGHIJKLMNOPQRSTUVWXYZabcde");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   plaintext=StringToStringInfo("fghijklmnopqrstuvwxyz0123456789");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
-  FinalizeHash(hash_info);
+  status=FinalizeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
   SetStringInfoDatum(results,crc64_test_vector[5].digest);
   clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -607,6 +626,8 @@ static WizardBooleanType TestLZMAEntropy(void)
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     plaintext=StringToStringInfo((char *) lzma_test_vector[i].plaintext);
     status=IncreaseEntropy(entropy_info,plaintext,exception);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     chaos=AcquireStringInfo(lzma_test_vector[i].chaossize);
     SetStringInfoDatum(chaos,lzma_test_vector[i].chaos);
     clone=CompareStringInfo(GetEntropyChaos(entropy_info),chaos) == 0 ?
@@ -620,7 +641,6 @@ static WizardBooleanType TestLZMAEntropy(void)
   }
   entropy_info=DestroyEntropyInfo(entropy_info);
   (void) PrintValidateString(stdout,"testing lzma restore entropy:\n");
-  pass=WizardTrue;
   entropy_info=AcquireEntropyInfo(LZMAEntropy,6);
   for (i=0; i < ZipTestVectors; i++)
   {
@@ -629,6 +649,8 @@ static WizardBooleanType TestLZMAEntropy(void)
     SetStringInfoDatum(chaos,lzma_test_vector[i].chaos);
     status=RestoreEntropy(entropy_info,
       strlen((char *) lzma_test_vector[i].plaintext),chaos,exception);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) lzma_test_vector[i].plaintext);
     clone=CompareStringInfo(GetEntropyChaos(entropy_info),plaintext) == 0 ?
       WizardTrue : WizardFalse;
@@ -659,7 +681,8 @@ static WizardBooleanType TestMD5(void)
 
   WizardBooleanType
     clone,
-    pass;
+    pass,
+    status;
 
   (void) PrintValidateString(stdout,"testing md5:\n");
   pass=WizardTrue;
@@ -667,11 +690,17 @@ static WizardBooleanType TestMD5(void)
   for (i=0; i < MD5TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-    InitializeHash(hash_info);
+    status=InitializeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) md5_test_vector[i].plaintext);
-    UpdateHash(hash_info,plaintext);
+    status=UpdateHash(hash_info,plaintext);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=DestroyStringInfo(plaintext);
-    FinalizeHash(hash_info);
+    status=FinalizeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     results=AcquireStringInfo(GetHashDigestsize(hash_info));
     SetStringInfoDatum(results,md5_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -686,14 +715,22 @@ static WizardBooleanType TestMD5(void)
     Multiple update test.
   */
   (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-  InitializeHash(hash_info);
+  status=InitializeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=StringToStringInfo("ABCDEFGHIJKLMNOPQRSTUVWXYZabcde");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   plaintext=StringToStringInfo("fghijklmnopqrstuvwxyz0123456789");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
-  FinalizeHash(hash_info);
+  status=FinalizeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   results=AcquireStringInfo(GetHashDigestsize(hash_info));
   SetStringInfoDatum(results,md5_test_vector[5].digest);
   clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -946,7 +983,8 @@ static WizardBooleanType TestSHA1(void)
 
   WizardBooleanType
     clone,
-    pass;
+    pass,
+    status;
 
   (void) PrintValidateString(stdout,"testing sha1:\n");
   pass=WizardTrue;
@@ -954,10 +992,16 @@ static WizardBooleanType TestSHA1(void)
   for (i=0; i < SHA1TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-    InitializeHash(hash_info);
+    status=InitializeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) sha1_test_vector[i].plaintext);
-    UpdateHash(hash_info,plaintext);
-    FinalizeHash(hash_info);
+    status=UpdateHash(hash_info,plaintext);
+    if (status == WizardFalse)
+      pass=WizardFalse;
+    status=FinalizeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
     SetStringInfoDatum(results,sha1_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -973,13 +1017,21 @@ static WizardBooleanType TestSHA1(void)
     Multiple update test.
   */
   (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-  InitializeHash(hash_info);
+  status=InitializeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   plaintext=StringToStringInfo("hijkijkljklmklmnlmnomnopnopq");
-  UpdateHash(hash_info,plaintext);
-  FinalizeHash(hash_info);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
+  status=FinalizeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
   SetStringInfoDatum(results,sha1_test_vector[1].digest);
@@ -1008,7 +1060,8 @@ static WizardBooleanType TestSHA2256(void)
 
   WizardBooleanType
     clone,
-    pass;
+    pass,
+    status;
 
   (void) PrintValidateString(stdout,"testing sha2256:\n");
   pass=WizardTrue;
@@ -1016,10 +1069,16 @@ static WizardBooleanType TestSHA2256(void)
   for (i=0; i < SHA2256TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-    InitializeHash(hash_info);
+    status=InitializeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) sha2256_test_vector[i].plaintext);
-    UpdateHash(hash_info,plaintext);
-    FinalizeHash(hash_info);
+    status=UpdateHash(hash_info,plaintext);
+    if (status == WizardFalse)
+      pass=WizardFalse;
+    status=FinalizeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
     SetStringInfoDatum(results,sha2256_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -1035,13 +1094,21 @@ static WizardBooleanType TestSHA2256(void)
     Multiple update test.
   */
   (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-  InitializeHash(hash_info);
+  status=InitializeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   plaintext=StringToStringInfo("hijkijkljklmklmnlmnomnopnopq");
-  UpdateHash(hash_info,plaintext);
-  FinalizeHash(hash_info);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
+  status=FinalizeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
   SetStringInfoDatum(results,sha2256_test_vector[1].digest);
@@ -1070,7 +1137,8 @@ static WizardBooleanType TestSHA2384(void)
 
   WizardBooleanType
     clone,
-    pass;
+    pass,
+    status;
 
   (void) PrintValidateString(stdout,"testing sha2384:\n");
   pass=WizardTrue;
@@ -1078,10 +1146,16 @@ static WizardBooleanType TestSHA2384(void)
   for (i=0; i < SHA2384TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-    InitializeHash(hash_info);
+    status=InitializeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) sha2384_test_vector[i].plaintext);
-    UpdateHash(hash_info,plaintext);
-    FinalizeHash(hash_info);
+    status=UpdateHash(hash_info,plaintext);
+    if (status == WizardFalse)
+      pass=WizardFalse;
+    status=FinalizeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
     SetStringInfoDatum(results,sha2384_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -1097,14 +1171,22 @@ static WizardBooleanType TestSHA2384(void)
     Multiple update test.
   */
   (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-  InitializeHash(hash_info);
+  status=InitializeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   plaintext=StringToStringInfo("hijkijkljklmklmnlmnomnopnopq");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
-  FinalizeHash(hash_info);
+  status=FinalizeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
   SetStringInfoDatum(results,sha2384_test_vector[1].digest);
   clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -1132,7 +1214,8 @@ static WizardBooleanType TestSHA2512(void)
 
   WizardBooleanType
     clone,
-    pass;
+    pass,
+    status;
 
   (void) PrintValidateString(stdout,"testing sha2512:\n");
   pass=WizardTrue;
@@ -1140,10 +1223,16 @@ static WizardBooleanType TestSHA2512(void)
   for (i=0; i < SHA2512TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-    InitializeHash(hash_info);
+    status=InitializeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) sha2512_test_vector[i].plaintext);
-    UpdateHash(hash_info,plaintext);
-    FinalizeHash(hash_info);
+    status=UpdateHash(hash_info,plaintext);
+    if (status == WizardFalse)
+      pass=WizardFalse;
+    status=FinalizeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
     SetStringInfoDatum(results,sha2512_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -1159,14 +1248,22 @@ static WizardBooleanType TestSHA2512(void)
     Multiple update test.
   */
   (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-  InitializeHash(hash_info);
+  status=InitializeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghighij");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   plaintext=StringToStringInfo("hijkijkljklmklmnlmnomnopnopq");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
-  FinalizeHash(hash_info);
+  status=FinalizeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
   SetStringInfoDatum(results,sha2512_test_vector[1].digest);
   clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -1194,7 +1291,8 @@ static WizardBooleanType TestSHA3(void)
 
   WizardBooleanType
     clone,
-    pass;
+    pass,
+    status;
 
   (void) PrintValidateString(stdout,"testing sha3:\n");
   pass=WizardTrue;
@@ -1202,10 +1300,16 @@ static WizardBooleanType TestSHA3(void)
   for (i=0; i < SHA3TestVectors; i++)
   {
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-    InitializeHash(hash_info);
+    status=InitializeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) sha1_test_vector[i].plaintext);
-    UpdateHash(hash_info,plaintext);
-    FinalizeHash(hash_info);
+    status=UpdateHash(hash_info,plaintext);
+    if (status == WizardFalse)
+      pass=WizardFalse;
+    status=FinalizeHash(hash_info);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
     SetStringInfoDatum(results,sha3_test_vector[i].digest);
     clone=CompareStringInfo(GetHashDigest(hash_info),results) == 0 ?
@@ -1221,13 +1325,21 @@ static WizardBooleanType TestSHA3(void)
     Multiple update test.
   */
   (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
-  InitializeHash(hash_info);
+  status=InitializeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=StringToStringInfo("abcdbcdecdefdefgefghfghi");
-  UpdateHash(hash_info,plaintext);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   plaintext=StringToStringInfo("ghijhijkijkljklmklmnlmnomnopnopq");
-  UpdateHash(hash_info,plaintext);
-  FinalizeHash(hash_info);
+  status=UpdateHash(hash_info,plaintext);
+  if (status == WizardFalse)
+    pass=WizardFalse;
+  status=FinalizeHash(hash_info);
+  if (status == WizardFalse)
+    pass=WizardFalse;
   plaintext=DestroyStringInfo(plaintext);
   results=AcquireStringInfo(GetStringInfoLength(GetHashDigest(hash_info)));
   SetStringInfoDatum(results,sha3_test_vector[1].digest);
@@ -1428,6 +1540,8 @@ static WizardBooleanType TestZIPEntropy(void)
     (void) PrintValidateString(stdout,"  test %.20g ",(double) i);
     plaintext=StringToStringInfo((char *) zip_test_vector[i].plaintext);
     status=IncreaseEntropy(entropy_info,plaintext,exception);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     chaos=AcquireStringInfo(zip_test_vector[i].chaossize);
     SetStringInfoDatum(chaos,zip_test_vector[i].chaos);
     clone=CompareStringInfo(GetEntropyChaos(entropy_info),chaos) == 0 ?
@@ -1450,6 +1564,8 @@ static WizardBooleanType TestZIPEntropy(void)
     SetStringInfoDatum(chaos,zip_test_vector[i].chaos);
     status=RestoreEntropy(entropy_info,
       strlen((char *) zip_test_vector[i].plaintext),chaos,exception);
+    if (status == WizardFalse)
+      pass=WizardFalse;
     plaintext=StringToStringInfo((char *) zip_test_vector[i].plaintext);
     clone=CompareStringInfo(GetEntropyChaos(entropy_info),plaintext) == 0 ?
       WizardTrue : WizardFalse;

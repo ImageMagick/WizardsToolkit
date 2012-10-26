@@ -121,8 +121,8 @@ WizardExport SHA2384Info *AcquireSHA2384Info(void)
   sha_info->blocksize=SHA2384Blocksize;
   sha_info->digest=AcquireStringInfo(SHA2384Digestsize);
   sha_info->message=AcquireStringInfo(SHA2384Blocksize);
-  sha_info->accumulator=(WizardSizeType *) AcquireQuantumMemory(SHA2384Blocksize,
-    sizeof(*sha_info->accumulator));
+  sha_info->accumulator=(WizardSizeType *) AcquireQuantumMemory(
+    SHA2384Blocksize,sizeof(*sha_info->accumulator));
   if (sha_info->accumulator == (WizardSizeType *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
   lsb_first=1;
@@ -188,15 +188,14 @@ WizardExport SHA2384Info *DestroySHA2384Info(SHA2384Info *sha_info)
 %
 %  The format of the FinalizeSHA2384 method is:
 %
-%      FinalizeSHA2384(SHA2384Info *sha_info)
+%      WizardBooleanType FinalizeSHA2384(SHA2384Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The address of a structure of type SHA2384Info.
 %
-%
 */
-WizardExport void FinalizeSHA2384(SHA2384Info *sha_info)
+WizardExport WizardBooleanType FinalizeSHA2384(SHA2384Info *sha_info)
 {
   register size_t
     i;
@@ -276,6 +275,7 @@ WizardExport void FinalizeSHA2384(SHA2384Info *sha_info)
   count=0;
   high_order=0;
   low_order=0;
+  return(WizardTrue);
 }
 
 /*
@@ -383,14 +383,14 @@ WizardExport unsigned int GetSHA2384Digestsize(const SHA2384Info *sha2384_info)
 %
 %  The format of the DestroySHA2384Info method is:
 %
-%      void InitializeSHA2384Info(SHA2384Info *sha_info)
+%      WizardBooleanType InitializeSHA2384Info(SHA2384Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The cipher sha_info.
 %
 */
-WizardExport void InitializeSHA2384(SHA2384Info *sha_info)
+WizardExport WizardBooleanType InitializeSHA2384(SHA2384Info *sha_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   assert(sha_info != (SHA2384Info *) NULL);
@@ -406,6 +406,7 @@ WizardExport void InitializeSHA2384(SHA2384Info *sha_info)
   sha_info->low_order=0;
   sha_info->high_order=0;
   sha_info->offset=0;
+  return(WizardTrue);
 }
 
 /*
@@ -661,7 +662,8 @@ static void TransformSHA2384(SHA2384Info *sha_info)
 %
 %  The format of the UpdateSHA2384 method is:
 %
-%      UpdateSHA2384(SHA2384Info *sha_info,const StringInfo *message)
+%      WizardBooleanType UpdateSHA2384(SHA2384Info *sha_info,
+%        const StringInfo *message)
 %
 %  A description of each parameter follows:
 %
@@ -670,7 +672,8 @@ static void TransformSHA2384(SHA2384Info *sha_info)
 %    o message: The message.
 %
 */
-WizardExport void UpdateSHA2384(SHA2384Info *sha_info,const StringInfo *message)
+WizardExport WizardBooleanType UpdateSHA2384(SHA2384Info *sha_info,
+  const StringInfo *message)
 {
   register size_t
     i;
@@ -707,7 +710,7 @@ WizardExport void UpdateSHA2384(SHA2384Info *sha_info,const StringInfo *message)
       p+=i;
       sha_info->offset+=i;
       if (sha_info->offset != GetStringInfoLength(sha_info->message))
-        return;
+        return(WizardTrue);
       TransformSHA2384(sha_info);
     }
   while (n >= GetStringInfoLength(sha_info->message))
@@ -725,4 +728,5 @@ WizardExport void UpdateSHA2384(SHA2384Info *sha_info,const StringInfo *message)
   i=0;
   n=0;
   length=0;
+  return(WizardTrue);
 }
