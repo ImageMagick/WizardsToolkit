@@ -32,7 +32,8 @@
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% SHA-3 uses the "sponge construction", where input is "absorbed" into the hash % state at a given rate, an output hash is then "squeezed" from it at the same
+% SHA-3 uses the "sponge construction", where input is "absorbed" into the hash
+% state at a given rate, an output hash is then "squeezed" from it at the same
 % rate.  See http://keccak.noekeon.org/.
 %
 */
