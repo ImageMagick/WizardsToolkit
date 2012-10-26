@@ -41,6 +41,7 @@
 #include "wizard/studio.h"
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #include "wizard/client.h"
+#include "wizard/exception-private.h"
 #include "wizard/locale_.h"
 #include "wizard/log.h"
 #include "wizard/memory_.h"
@@ -349,7 +350,7 @@ WizardExport char **NTArgvToUTF8(const int argc,wchar_t **argv)
 
   utf8=(char **) AcquireQuantumMemory(argc,sizeof(*utf8));
   if (utf8 == (char **) NULL)
-    ThrowFatalException(ResourceLimitFatalError,"UnableToConvertStringToARGV");
+    ThrowFatalException(ResourceFatalError,"UnableToConvertStringToARGV");
   for (i=0; i < (ssize_t) argc; i++)
   {
     ssize_t
@@ -364,8 +365,7 @@ WizardExport char **NTArgvToUTF8(const int argc,wchar_t **argv)
         for (i--; i >= 0; i--)
           utf8[i]=DestroyString(utf8[i]);
         utf8=(char **) RelinquishWizardMemory(utf8);
-        ThrowFatalException(ResourceLimitFatalError,
-          "UnableToConvertStringToARGV");
+        ThrowFatalException(ResourceFatalError,"UnableToConvertStringToARGV");
       }
     count=WideCharToMultiByte(CP_UTF8,0,argv[i],-1,utf8[i],count,NULL,NULL);
     utf8[i][count]=0;

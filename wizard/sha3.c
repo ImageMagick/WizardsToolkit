@@ -50,6 +50,7 @@
   Define declarations.
 */
 #define SHA3Blocksize  64
+#define SHA3Digestsize  64
 #define SHA3Index(x,y)  (((x) % 5)+5*((y) % 5))
 #define SHA3Lanes  25
 #define SHA3MaximumRate  1536
@@ -476,7 +477,7 @@ WizardExport WizardBooleanType FinalizeSHA3(SHA3Info *sha_info)
     clone_info;
 
   unsigned char
-    digest[sha_info->digestsize];
+    digest[SHA3Digestsize];
 
   WizardBooleanType
     status;
