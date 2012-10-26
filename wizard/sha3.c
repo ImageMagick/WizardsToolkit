@@ -50,16 +50,13 @@
   Define declarations.
 */
 #define SHA3Blocksize  64
-#define SHA3Digestsize  64
 #define SHA3Index(x,y)  (((x) % 5)+5*((y) % 5))
-#define SHA3Lanes 25
+#define SHA3Lanes  25
 #define SHA3MaximumRate  1536
-#define SHA3MaximumRateInBytes  (SHA3MaximumRate/8)
 #define SHA3PermutationSize  1600
-#define SHA3PermutationSizeInBytes  (SHA3PermutationSize/8)
-#define SHA3RotateLeft(x,offset)  ((offset) != 0 ? ((((WizardSizeType) x) << \
-  offset) ^ (((WizardSizeType) x) >> (64-offset))) : x)
-#define SHA3Rounds 24
+#define SHA3RotateLeft(x,offset)  ((offset) != 0 ? ((((WizardSizeType) (x)) << \
+  offset) ^ (((WizardSizeType) (x)) >> (64-(offset)))) : (x))
+#define SHA3Rounds  24
 
 /*
   Typedef declarations.
@@ -77,8 +74,8 @@ struct _SHA3Info
     *digest;
 
   unsigned char
-    state[SHA3PermutationSizeInBytes],
-    message[SHA3MaximumRateInBytes];
+    state[SHA3PermutationSize/8],
+    message[SHA3MaximumRate/8];
 
   unsigned int
     rate,
@@ -171,13 +168,10 @@ WizardExport SHA3Info *AcquireSHA3Info(const HashType hash)
       break;
     }
     default:
-    {
-      sha_info->digestsize=SHA3Digestsize;
-      break;
-    }
+      ThrowWizardFatalError(HashDomain,HashIOError);
   }
   sha_info->blocksize=SHA3Blocksize;
-  sha_info->digest=AcquireStringInfo(SHA3Digestsize);
+  sha_info->digest=AcquireStringInfo(sha_info->digestsize);
   lsb_first=1;
   sha_info->lsb_first=(int) (*(char *) &lsb_first) == 1 ? WizardTrue :
     WizardFalse;
@@ -382,29 +376,44 @@ void SHA3Extract(const unsigned char *state,const size_t length,
 
 static void AbsorbQueue(SHA3Info *sha_info)
 {
-  if (sha_info->rate == 576)
-    SHA3PermutationAfterXor(sha_info,sha_info->message,72,sha_info->state);
-  else
-    if (sha_info->rate == 832)
+  switch (sha_info->rate)
+  {
+    case 576:
+    {
+      SHA3PermutationAfterXor(sha_info,sha_info->message,72,sha_info->state);
+      break;
+    }
+    case 832:
+    {
       SHA3PermutationAfterXor(sha_info,sha_info->message,104,sha_info->state);
-    else
-      if (sha_info->rate == 1024)
-        SHA3PermutationAfterXor(sha_info,sha_info->message,128,sha_info->state);
-      else
-        if (sha_info->rate == 1088)
-          SHA3PermutationAfterXor(sha_info,sha_info->message,136,
-            sha_info->state);
-       else
-        if (sha_info->rate == 1152)
-          SHA3PermutationAfterXor(sha_info,sha_info->message,144,
-            sha_info->state);
-        else
-         if (sha_info->rate == 1344)
-           SHA3PermutationAfterXor(sha_info,sha_info->message,168,
-             sha_info->state);
-         else
-           SHA3Absorb(sha_info,sha_info->message,sha_info->rate/64,
-             sha_info->state);
+      break;
+    }
+    case 1024:
+    {
+      SHA3PermutationAfterXor(sha_info,sha_info->message,128,sha_info->state);
+      break;
+    }
+    case 1088:
+    {
+      SHA3PermutationAfterXor(sha_info,sha_info->message,136,sha_info->state);
+      break;
+    }
+    case 1152:
+    {
+      SHA3PermutationAfterXor(sha_info,sha_info->message,144,sha_info->state);
+      break;
+    }
+    case 1344:
+    {
+      SHA3PermutationAfterXor(sha_info,sha_info->message,168,sha_info->state);
+      break;
+    }
+    default:
+    {
+      SHA3Absorb(sha_info,sha_info->message,sha_info->rate/64,sha_info->state);
+      break;
+    }
+  }
   sha_info->bits_in_queue=0;
 }
 
@@ -446,7 +455,7 @@ static WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
   if (sha_info->squeeze == WizardFalse)
     PadAndSwitchToSqueezingPhase(sha_info);
   if ((length % 8) != 0)
-    return(WizardFalse);  // must be a multiple of 8
+    return(WizardFalse);  /* must be a multiple of 8 */
   for (i=0; i < (ssize_t) length; i+=bits)
   {
     if (sha_info->squeeze_bits == 0)
@@ -467,7 +476,7 @@ static WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
 
 WizardExport void FinalizeSHA3(SHA3Info *sha_info)
 {
-  register size_t
+  register ssize_t
     i;
 
   register unsigned char
@@ -478,7 +487,7 @@ WizardExport void FinalizeSHA3(SHA3Info *sha_info)
     clone_info;
 
   unsigned char
-    digest[SHA3Digestsize];
+    digest[sha_info->digestsize];
 
   WizardBooleanType
     status;
@@ -495,7 +504,7 @@ WizardExport void FinalizeSHA3(SHA3Info *sha_info)
     ThrowWizardFatalError(HashDomain,HashIOError);
   p=digest;
   q=GetStringInfoDatum(sha_info->digest);
-  for (i=0; i < SHA3Digestsize; i++)
+  for (i=0; i < (ssize_t) sha_info->digestsize; i++)
     *q++=(*p++);
 }
 
@@ -691,8 +700,8 @@ static WizardBooleanType InitializeSponge(SHA3Info *sha_info,
   sha_info->rate=rate;
   sha_info->capacity=capacity;
   sha_info->length=0;
-  memset(sha_info->state,0,SHA3PermutationSizeInBytes);
-  memset(sha_info->message,0,SHA3MaximumRateInBytes);
+  memset(sha_info->state,0,SHA3PermutationSize/8);
+  memset(sha_info->message,0,SHA3MaximumRate/8);
   sha_info->bits_in_queue=0;
   sha_info->squeeze=WizardFalse;
   sha_info->squeeze_bits=0;
@@ -793,86 +802,105 @@ static WizardBooleanType Absorb(SHA3Info *sha_info,const unsigned char *message,
     return(WizardFalse);  /* too late for additional input */
   for (i=0; i < (ssize_t) length; )
   {
-    if ((sha_info->bits_in_queue == 0) && (length >= sha_info->rate) &&
-        (i <= (ssize_t) (length-sha_info->rate)))
-     {
-       register ssize_t
-         j;
+    if ((sha_info->bits_in_queue != 0) || (length < sha_info->rate) ||
+        (i > (ssize_t) (length-sha_info->rate)))
+      {
+        bits=(unsigned int) (length-i);
+        if ((bits+sha_info->bits_in_queue) > sha_info->rate)
+          bits=sha_info->rate-sha_info->bits_in_queue;
+        byte=bits % 8;
+        bits-=byte;
+        memcpy(sha_info->message+sha_info->bits_in_queue/8,message+i/8,bits/8);
+        sha_info->bits_in_queue+=bits;
+        i+=bits;
+        if (sha_info->bits_in_queue == sha_info->rate)
+          AbsorbQueue(sha_info);
+        if (byte > 0)
+          {
+            unsigned char
+              mask;
 
-       blocks=(size_t) ((length-i)/sha_info->rate);
-       p=message+i/8;
-       if (sha_info->rate == 576)
-         for (j=0; j < (ssize_t) blocks; j++)
-         {
-           SHA3PermutationAfterXor(sha_info,p,72,sha_info->state);
-           p+=576/8;
-         }
-       else
-         if (sha_info->rate == 832)
-           for (j=0; j < (ssize_t) blocks; j++)
-           {
-             SHA3PermutationAfterXor(sha_info,p,104,sha_info->state);
-             p+=832/8;
-           }
-         else
-          if (sha_info->rate == 1024)
+            mask=(unsigned char) ((1 << byte)-1);
+            sha_info->message[sha_info->bits_in_queue/8]=message[i/8] & mask;
+            sha_info->bits_in_queue+=byte;
+            i+=byte;
+          }
+      }
+    else
+      {
+        register ssize_t
+          j;
+
+        blocks=(size_t) ((length-i)/sha_info->rate);
+        p=message+i/8;
+        switch (sha_info->rate)
+        {
+          case 576:
+          {
+            for (j=0; j < (ssize_t) blocks; j++)
+            {
+              SHA3PermutationAfterXor(sha_info,p,72,sha_info->state);
+              p+=576/8;
+            }
+            break;
+          }
+          case 832:
+          {
+            for (j=0; j < (ssize_t) blocks; j++)
+            {
+              SHA3PermutationAfterXor(sha_info,p,104,sha_info->state);
+              p+=832/8;
+            }
+            break;
+          }
+          case 1024:
+          {
             for (j=0; j < (ssize_t) blocks; j++)
             {
               SHA3PermutationAfterXor(sha_info,p,128,sha_info->state);
               p+=1024/8;
             }
-          else
-            if (sha_info->rate == 1088)
-              for (j=0; j < (ssize_t) blocks; j++)
-              {
-                SHA3PermutationAfterXor(sha_info,p,136,sha_info->state);
-                p+=1088/8;
-              }
-            else
-              if (sha_info->rate == 1152)
-                for (j=0; j < (ssize_t) blocks; j++)
-                {
-                  SHA3PermutationAfterXor(sha_info,p,144,sha_info->state);
-                  p+=1152/8;
-                }
-              else
-                if (sha_info->rate == 1344)
-                  for (j=0; j < (ssize_t) blocks; j++)
-                  {
-                    SHA3PermutationAfterXor(sha_info,p,168,sha_info->state);
-                    p+=1344/8;
-                  }
-               else
-                  for (j=0; j < (ssize_t) blocks; j++)
-                  {
-                    SHA3Absorb(sha_info,p,sha_info->rate/64,sha_info->state);
-                    p+=sha_info->rate/8;
-                  }
-      i+=blocks*sha_info->rate;
-    }
-  else
-    {
-      bits=(unsigned int) (length-i);
-      if ((bits+sha_info->bits_in_queue) > sha_info->rate)
-        bits=sha_info->rate-sha_info->bits_in_queue;
-      byte=bits % 8;
-      bits-=byte;
-      memcpy(sha_info->message+sha_info->bits_in_queue/8,message+i/8,bits/8);
-      sha_info->bits_in_queue+=bits;
-      i+=bits;
-      if (sha_info->bits_in_queue == sha_info->rate)
-        AbsorbQueue(sha_info);
-      if (byte > 0)
-        {
-          unsigned char
-            mask;
-
-          mask=(unsigned char) ((1 << byte)-1);
-          sha_info->message[sha_info->bits_in_queue/8]=message[i/8] & mask;
-          sha_info->bits_in_queue+=byte;
-          i+=byte;
+            break;
+          }
+          case 1088:
+          {
+            for (j=0; j < (ssize_t) blocks; j++)
+            {
+              SHA3PermutationAfterXor(sha_info,p,136,sha_info->state);
+              p+=1088/8;
+            }
+            break;
+          }
+          case 1152:
+          {
+            for (j=0; j < (ssize_t) blocks; j++)
+            {
+              SHA3PermutationAfterXor(sha_info,p,144,sha_info->state);
+              p+=1152/8;
+            }
+            break;
+          }
+          case 1344:
+          {
+            for (j=0; j < (ssize_t) blocks; j++)
+            {
+              SHA3PermutationAfterXor(sha_info,p,168,sha_info->state);
+              p+=1344/8;
+            }
+            break;
+          }
+          default:
+          {
+            for (j=0; j < (ssize_t) blocks; j++)
+            {
+              SHA3Absorb(sha_info,p,sha_info->rate/64,sha_info->state);
+              p+=sha_info->rate/8;
+            }
+            break;
+          }
         }
-    }
+        i+=blocks*sha_info->rate;
+      }
   }
   return(WizardTrue);
 }
