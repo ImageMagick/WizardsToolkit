@@ -318,7 +318,8 @@ WizardExport unsigned int GetSHA2256Blocksize(const SHA2256Info *sha2256_info)
 %    o sha2256_info: The sha2256 info.
 %
 */
-WizardExport const StringInfo *GetSHA2256Digest(const SHA2256Info *sha2256_info)
+WizardExport const StringInfo *GetSHA2256Digest(
+  const SHA2256Info *sha2256_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(HashDomain,sha2256_info != (SHA2256Info *) NULL);

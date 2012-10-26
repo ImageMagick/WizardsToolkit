@@ -121,8 +121,8 @@ WizardExport SHA2512Info *AcquireSHA2512Info(void)
   sha_info->blocksize=SHA2512Blocksize;
   sha_info->digest=AcquireStringInfo(SHA2512Digestsize);
   sha_info->message=AcquireStringInfo(SHA2512Blocksize);
-  sha_info->accumulator=(WizardSizeType *) AcquireQuantumMemory(SHA2512Blocksize,
-    sizeof(*sha_info->accumulator));
+  sha_info->accumulator=(WizardSizeType *) AcquireQuantumMemory(
+    SHA2512Blocksize,sizeof(*sha_info->accumulator));
   if (sha_info->accumulator == (WizardSizeType *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
   lsb_first=1;
@@ -330,7 +330,8 @@ WizardExport unsigned int GetSHA2512Blocksize(const SHA2512Info *sha2512_info)
 %    o sha2512_info: The shaa info.
 %
 */
-WizardExport const StringInfo *GetSHA2512Digest(const SHA2512Info *sha2512_info)
+WizardExport const StringInfo *GetSHA2512Digest(
+  const SHA2512Info *sha2512_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(HashDomain,sha2512_info != (SHA2512Info *) NULL);
@@ -449,7 +450,8 @@ static inline WizardSizeType Trunc64(const WizardSizeType x)
   return((WizardSizeType) (x & WizardULLConstant(0xffffffffffffffff)));
 }
 
-static WizardSizeType RotateRight(const WizardSizeType x,const WizardSizeType n)
+static WizardSizeType RotateRight(const WizardSizeType x,
+  const WizardSizeType n)
 {
   return(Trunc64((x >> n) | (x << (64-n))));
 }

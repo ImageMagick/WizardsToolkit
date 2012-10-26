@@ -330,7 +330,8 @@ WizardExport unsigned int GetSHA2384Blocksize(const SHA2384Info *sha2384_info)
 %    o sha2384_info: The sha2384 info.
 %
 */
-WizardExport const StringInfo *GetSHA2384Digest(const SHA2384Info *sha2384_info)
+WizardExport const StringInfo *GetSHA2384Digest(
+  const SHA2384Info *sha2384_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(HashDomain,sha2384_info != (SHA2384Info *) NULL);
@@ -430,7 +431,6 @@ WizardExport WizardBooleanType InitializeSHA2384(SHA2384Info *sha_info)
 %
 %    o sha_info: The address of a structure of type SHA2384Info.
 %
-%
 */
 
 static inline WizardSizeType Ch(const WizardSizeType x,const WizardSizeType y,
@@ -450,7 +450,8 @@ static inline WizardSizeType Trunc64(const WizardSizeType x)
   return((WizardSizeType) (x & WizardULLConstant(0xffffffffffffffff)));
 }
 
-static WizardSizeType RotateRight(const WizardSizeType x,const WizardSizeType n)
+static WizardSizeType RotateRight(const WizardSizeType x,
+  const WizardSizeType n)
 {
   return(Trunc64((x >> n) | (x << (64-n))));
 }

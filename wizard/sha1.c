@@ -195,7 +195,6 @@ WizardExport SHA1Info *DestroySHA1Info(SHA1Info *sha_info)
 %
 %    o sha_info: The address of a structure of type SHA1Info.
 %
-%
 */
 WizardExport WizardBooleanType FinalizeSHA1(SHA1Info *sha_info)
 {
@@ -416,7 +415,6 @@ WizardExport WizardBooleanType InitializeSHA1(SHA1Info *sha_info)
 %  A description of each parameter follows:
 %
 %    o sha_info: The address of a structure of type SHA1Info.
-%
 %
 */
 

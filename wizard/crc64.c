@@ -170,7 +170,6 @@ WizardExport CRC64Info *DestroyCRC64Info(CRC64Info *crc_info)
 %
 %    o crc_info: The address of a structure of type CRC64Info.
 %
-%
 */
 WizardExport WizardBooleanType FinalizeCRC64(CRC64Info *crc_info)
 {

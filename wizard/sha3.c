@@ -229,15 +229,16 @@ WizardExport SHA3Info *DestroySHA3Info(SHA3Info *sha_info)
 %
 %  The format of the FinalizeSHA3 method is:
 %
-%      WizardBooleanType FinalizeSHA3(SHA3Info *sha_info)
+%      FinalizeSHA3(SHA3Info *sha_info)
 %
 %  A description of each parameter follows:
 %
 %    o sha_info: The address of a structure of type SHA3Info.
 %
+%
 */
 
-static void ConvertBytesToWords(const unsigned char *bytes,
+static inline void ConvertBytesToWords(const unsigned char *bytes,
   WizardSizeType *words)
 {
   register ssize_t
@@ -254,7 +255,7 @@ static void ConvertBytesToWords(const unsigned char *bytes,
   }
 }
 
-static void ConvertWordsToBytes(const WizardSizeType *words,
+static inline void ConvertWordsToBytes(const WizardSizeType *words,
   unsigned char *bytes)
 {
   register ssize_t
@@ -270,7 +271,7 @@ static void ConvertWordsToBytes(const WizardSizeType *words,
   }
 }
 
-static void SHA3PermutationOnWords(const SHA3Info *sha_info,
+static inline void SHA3PermutationOnWords(const SHA3Info *sha_info,
   WizardSizeType *state)
 {
   register ssize_t
@@ -335,7 +336,8 @@ static void SHA3PermutationOnWords(const SHA3Info *sha_info,
   }
 }
 
-static void SHA3Permutation(const SHA3Info *sha_info,unsigned char *bytes)
+static inline void SHA3Permutation(const SHA3Info *sha_info,
+  unsigned char *bytes)
 {
   WizardSizeType
     words[SHA3PermutationSize/64];
@@ -350,7 +352,7 @@ static void SHA3Permutation(const SHA3Info *sha_info,unsigned char *bytes)
     }
 }
 
-static void SHA3PermutationAfterXor(const SHA3Info *sha_info,
+static inline void SHA3PermutationAfterXor(const SHA3Info *sha_info,
   const unsigned char *message,const size_t length,unsigned char *state)
 {
   register ssize_t
@@ -361,19 +363,7 @@ static void SHA3PermutationAfterXor(const SHA3Info *sha_info,
   SHA3Permutation(sha_info,state);
 }
 
-static void SHA3Absorb(SHA3Info *sha_info,const unsigned char *message,
-  const size_t length,unsigned char *state)
-{
-  SHA3PermutationAfterXor(sha_info,message,8*length,state);
-}
-
-static void SHA3Extract(const unsigned char *state,const size_t length,
-  unsigned char *message)
-{
-  memcpy(message,state,8*length);
-}
-
-static void AbsorbQueue(SHA3Info *sha_info)
+static inline void AbsorbQueue(SHA3Info *sha_info)
 {
   switch (sha_info->rate)
   {
@@ -409,14 +399,15 @@ static void AbsorbQueue(SHA3Info *sha_info)
     }
     default:
     {
-      SHA3Absorb(sha_info,sha_info->message,sha_info->rate/64,sha_info->state);
+      SHA3PermutationAfterXor(sha_info,sha_info->message,8*sha_info->rate/64,
+        sha_info->state);
       break;
     }
   }
   sha_info->bits_in_queue=0;
 }
 
-static void PadAndSwitchToSqueezingPhase(SHA3Info *sha_info)
+static inline void PadAndSwitchToSqueezingPhase(SHA3Info *sha_info)
 {
   if ((sha_info->bits_in_queue+1) == sha_info->rate)
     {
@@ -434,12 +425,12 @@ static void PadAndSwitchToSqueezingPhase(SHA3Info *sha_info)
     }
   sha_info->message[(sha_info->rate-1)/8]|=1 << ((sha_info->rate-1) % 8);
   AbsorbQueue(sha_info);
-  SHA3Extract(sha_info->state,sha_info->rate/64,sha_info->message);
+  memcpy(sha_info->message,sha_info->state,8*sha_info->rate/64);
   sha_info->squeeze_bits=sha_info->rate;
   sha_info->squeeze=WizardTrue;
 }
 
-static WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
+static inline WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
   unsigned char *output)
 {
   register ssize_t
@@ -460,7 +451,7 @@ static WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
     if (sha_info->squeeze_bits == 0)
       {
         SHA3Permutation(sha_info,sha_info->state);
-        SHA3Extract(sha_info->state,sha_info->rate/64,sha_info->message);
+        memcpy(sha_info->message,sha_info->state,8*sha_info->rate/64);
         sha_info->squeeze_bits=sha_info->rate;
       }
     bits=sha_info->squeeze_bits;
@@ -473,7 +464,7 @@ static WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
   return(WizardTrue);
 }
 
-WizardExport WizardBooleanType FinalizeSHA3(SHA3Info *sha_info)
+WizardExport void FinalizeSHA3(SHA3Info *sha_info)
 {
   register ssize_t
     i;
@@ -499,11 +490,12 @@ WizardExport WizardBooleanType FinalizeSHA3(SHA3Info *sha_info)
   assert(sha_info->signature == WizardSignature);
   clone_info=(*sha_info);
   status=Squeeze(&clone_info,clone_info.length,digest);
+  if (status == WizardFalse)
+    ThrowWizardFatalError(HashDomain,HashIOError);
   p=digest;
   q=GetStringInfoDatum(sha_info->digest);
   for (i=0; i < (ssize_t) sha_info->digestsize; i++)
     *q++=(*p++);
-  return(status);
 }
 
 /*
@@ -611,7 +603,7 @@ WizardExport unsigned int GetSHA3Digestsize(const SHA3Info *sha_info)
 %
 %  The format of the DestroySHA3Info method is:
 %
-%      WizardBooleanType InitializeSHA3Info(SHA3Info *sha_info)
+%      void InitializeSHA3Info(SHA3Info *sha_info)
 %
 %  A description of each parameter follows:
 %
@@ -619,7 +611,7 @@ WizardExport unsigned int GetSHA3Digestsize(const SHA3Info *sha_info)
 %
 */
 
-static int LFSR86540(unsigned char *byte)
+static inline int LFSR86540(unsigned char *byte)
 {
   int
     result;
@@ -635,7 +627,7 @@ static int LFSR86540(unsigned char *byte)
   return(result);
 }
 
-static void SHA3InitializeRoundConstants(SHA3Info *sha_info)
+static inline void SHA3InitializeRoundConstants(SHA3Info *sha_info)
 {
   register ssize_t
     i;
@@ -662,7 +654,7 @@ static void SHA3InitializeRoundConstants(SHA3Info *sha_info)
   }
 }
 
-static void SHA3InitializeRho(SHA3Info *sha_info)
+static inline void SHA3InitializeRho(SHA3Info *sha_info)
 {
   register ssize_t
     i;
@@ -686,7 +678,7 @@ static void SHA3InitializeRho(SHA3Info *sha_info)
   }
 }
 
-static WizardBooleanType InitializeSponge(SHA3Info *sha_info,
+static inline WizardBooleanType InitializeSponge(SHA3Info *sha_info,
   const unsigned int rate,const unsigned int capacity)
 {
   if (rate+capacity != 1600)
@@ -707,7 +699,7 @@ static WizardBooleanType InitializeSponge(SHA3Info *sha_info,
   return(WizardTrue);
 }
 
-WizardExport WizardBooleanType InitializeSHA3(SHA3Info *sha_info)
+WizardExport void InitializeSHA3(SHA3Info *sha_info)
 {
   WizardBooleanType
     status;
@@ -748,7 +740,8 @@ WizardExport WizardBooleanType InitializeSHA3(SHA3Info *sha_info)
       break;
     }
   }
-  return(status);
+  if (status == WizardFalse)
+    ThrowWizardFatalError(HashDomain,HashIOError);
 }
 
 /*
@@ -766,8 +759,7 @@ WizardExport WizardBooleanType InitializeSHA3(SHA3Info *sha_info)
 %
 %  The format of the UpdateSHA3 method is:
 %
-%      WizardBooleanType UpdateSHA3(SHA3Info *sha_info,
-%        const StringInfo *message)
+%      UpdateSHA3(SHA3Info *sha_info,const StringInfo *message)
 %
 %  A description of each parameter follows:
 %
@@ -777,8 +769,8 @@ WizardExport WizardBooleanType InitializeSHA3(SHA3Info *sha_info)
 %
 */
 
-static WizardBooleanType Absorb(SHA3Info *sha_info,const unsigned char *message,
-  const size_t length)
+static inline WizardBooleanType Absorb(SHA3Info *sha_info,
+  const unsigned char *message,const size_t length)
 {
   register const unsigned char
     *p;
@@ -891,7 +883,8 @@ static WizardBooleanType Absorb(SHA3Info *sha_info,const unsigned char *message,
           {
             for (j=0; j < (ssize_t) blocks; j++)
             {
-              SHA3Absorb(sha_info,p,sha_info->rate/64,sha_info->state);
+              SHA3PermutationAfterXor(sha_info,sha_info->message,8*
+                sha_info->rate/64,sha_info->state);
               p+=sha_info->rate/8;
             }
             break;
@@ -903,8 +896,7 @@ static WizardBooleanType Absorb(SHA3Info *sha_info,const unsigned char *message,
   return(WizardTrue);
 }
 
-WizardExport WizardBooleanType UpdateSHA3(SHA3Info *sha_info,
-  const StringInfo *message)
+WizardExport void UpdateSHA3(SHA3Info *sha_info,const StringInfo *message)
 {
   const unsigned char
     *datum;
@@ -918,7 +910,21 @@ WizardExport WizardBooleanType UpdateSHA3(SHA3Info *sha_info,
   assert(sha_info != (SHA3Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   datum=GetStringInfoDatum(message);
-  length=GetStringInfoLength(message);
-  status=Absorb(sha_info,datum,8*length);
-  return(status);
+  length=8*GetStringInfoLength(message);
+  if ((length % 8) == 0)
+    status=Absorb(sha_info,datum,length);
+  else
+    {
+      status=Absorb(sha_info,datum,length-(length % 8));
+      if (status != WizardFalse)
+        {
+          unsigned char
+            byte;
+
+          byte=datum[length/8] >> (8-(length % 8));
+          status=Absorb(sha_info,&byte,length % 8);
+       }
+    }
+  if (status == WizardFalse)
+    ThrowWizardFatalError(HashDomain,HashIOError);
 }
