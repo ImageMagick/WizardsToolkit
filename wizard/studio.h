@@ -153,6 +153,8 @@ extern size_t strlcpy(char *,const char *,size_t);
 extern int vsnprintf(char *,size_t,const char *,va_list);
 #endif
 
+#include "wizard/method-attribute.h"
+
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
 # include <sys/types.h>
 # include <sys/stat.h>
