@@ -330,8 +330,7 @@ WizardExport unsigned int GetSHA2512Blocksize(const SHA2512Info *sha2512_info)
 %    o sha2512_info: The shaa info.
 %
 */
-WizardExport const StringInfo *GetSHA2512Digest(
-  const SHA2512Info *sha2512_info)
+WizardExport const StringInfo *GetSHA2512Digest(const SHA2512Info *sha2512_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(HashDomain,sha2512_info != (SHA2512Info *) NULL);
@@ -450,7 +449,7 @@ static inline WizardSizeType Trunc64(const WizardSizeType x)
   return((WizardSizeType) (x & WizardULLConstant(0xffffffffffffffff)));
 }
 
-static WizardSizeType RotateRight(const WizardSizeType x,
+static inline WizardSizeType RotateRight(const WizardSizeType x,
   const WizardSizeType n)
 {
   return(Trunc64((x >> n) | (x << (64-n))));

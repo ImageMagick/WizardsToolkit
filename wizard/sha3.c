@@ -271,7 +271,7 @@ static inline void ConvertWordsToBytes(const WizardSizeType *words,
   }
 }
 
-static inline void SHA3PermutationOnWords(const SHA3Info *sha_info,
+static void SHA3PermutationOnWords(const SHA3Info *sha_info,
   WizardSizeType *state)
 {
   register ssize_t

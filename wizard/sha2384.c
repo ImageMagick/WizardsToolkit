@@ -330,8 +330,7 @@ WizardExport unsigned int GetSHA2384Blocksize(const SHA2384Info *sha2384_info)
 %    o sha2384_info: The sha2384 info.
 %
 */
-WizardExport const StringInfo *GetSHA2384Digest(
-  const SHA2384Info *sha2384_info)
+WizardExport const StringInfo *GetSHA2384Digest(const SHA2384Info *sha2384_info)
 {
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(HashDomain,sha2384_info != (SHA2384Info *) NULL);
