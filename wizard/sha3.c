@@ -490,7 +490,7 @@ WizardExport WizardBooleanType FinalizeSHA3(SHA3Info *sha_info)
   clone_info=(*sha_info);
   status=Squeeze(&clone_info,clone_info.length,digest);
   if (status == WizardFalse)
-    ThrowWizardFatalError(HashDomain,HashIOError);
+    return(WizardFalse);
   p=digest;
   q=GetStringInfoDatum(sha_info->digest);
   for (i=0; i < (ssize_t) sha_info->digestsize; i++)
