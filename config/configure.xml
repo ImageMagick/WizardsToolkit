@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <configuremap>
   <configure name="NAME" value="WizardsToolkit" />
-  <configure name="SVN_REVISION" value="9746:9780M" />
+  <configure name="SVN_REVISION" value="9839M" />
   <configure name="VERSION" value="1.0.9" />
   <configure name="LIB_VERSION" value="0x109" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,9,0" />
-  <configure name="RELEASE_DATE" value="2012-10-26" />
+  <configure name="RELEASE_DATE" value="2012-11-03" />
   <configure name="CONFIGURE" value="./configure " />
   <configure name="PREFIX" value="/usr/local" />
   <configure name="EXEC-PREFIX" value="/usr/local" />
