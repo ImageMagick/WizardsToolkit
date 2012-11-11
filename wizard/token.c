@@ -487,15 +487,30 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
 WizardExport WizardBooleanType IsGlob(const char *path)
 {
   WizardBooleanType
-    status;
+    status = WizardFalse;
 
-  if (IsAccessible(path) != WizardFalse)
+  register const char
+    *p;
+
+  if (IsPathAcessible(path) != WizardFalse)
     return(WizardFalse);
-  status=(strchr(path,'*') != (char *) NULL) ||
-    (strchr(path,'?') != (char *) NULL) ||
-    (strchr(path,'{') != (char *) NULL) ||
-    (strchr(path,'}') != (char *) NULL) ||
-    (strchr(path,'[') != (char *) NULL) ||
-    (strchr(path,']') != (char *) NULL) ? WizardTrue : WizardFalse;
+  for (p=path; *p != '\0'; p++)
+  {
+    switch (*p)
+    {
+      case '*':
+      case '?':
+      case '{':
+      case '}':
+      case '[':
+      case ']':
+      {
+        status=WizardTrue;
+        break;
+      }
+      default:
+        break;
+    }
+  }
   return(status);
 }

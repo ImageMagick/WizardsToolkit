@@ -265,7 +265,7 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
           MaxTextExtent);
       (void) ConcatenateWizardString(filename,filelist[j],MaxTextExtent);
       filelist[j]=DestroyString(filelist[j]);
-      if (IsAccessible(filename) != WizardFalse)
+      if (IsPathAcessible(filename) != WizardFalse)
         {
           char
             path[MaxTextExtent];

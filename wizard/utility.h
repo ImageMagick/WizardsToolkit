@@ -52,7 +52,7 @@ extern WizardExport void
 
 extern WizardExport WizardBooleanType
   GetExecutionPath(char *,const size_t),
-  IsAccessible(const char *),
+  IsPathAcessible(const char *),
   IsWizardTrue(const char *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

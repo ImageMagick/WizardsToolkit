@@ -1199,7 +1199,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
               UnlockSemaphoreInfo(log_semaphore);
               return(WizardFalse);
             }
-          log_info->append=IsAccessible(filename);
+          log_info->append=IsPathAcessible(filename);
           log_info->file=fopen_utf8(filename,"ab");
           filename=(char  *) RelinquishWizardMemory(filename);
           if (log_info->file == (FILE *) NULL)

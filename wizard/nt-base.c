@@ -1375,7 +1375,7 @@ WizardExport unsigned char *NTResourceToBlob(const char *id)
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",id);
   (void) FormatLocaleString(path,MaxTextExtent,"%s%s%s",GetClientPath(),
     DirectorySeparator,GetClientName());
-  if (IsAccessible(path) != WizardFalse)
+  if (IsPathAcessible(path) != WizardFalse)
     handle=GetModuleHandle(path);
   else
     handle=GetModuleHandle(0);

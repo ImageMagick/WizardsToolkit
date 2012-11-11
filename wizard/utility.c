@@ -436,7 +436,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
   *filesystem='\0';
   for (p=component; *p != '\0'; p++)
     if ((*p == ':') && (IsDirectory(path) < 0) &&
-        (IsAccessible(path) == WizardFalse))
+        (IsPathAcessible(path) == WizardFalse))
       {     
         /*
           Look for filesystem specification (e.g. c:/documents).
@@ -740,7 +740,7 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
     execution_path=(char *) RelinquishWizardMemory(execution_path);
   }
 #endif
-  return(IsAccessible(path));
+  return(IsPathAcessible(path));
 }
 
 /*
@@ -748,25 +748,25 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%  I s A c c e s s i b l e                                                    %
+%  I s P a t h A c c e s s i b l e                                            %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  IsAccessible() returns WizardTrue if the file as defined by the path is
+%  IsPathAcessible() returns WizardTrue if the file as defined by the path is
 %  accessible.
 %
-%  The format of the IsAccessible method is:
+%  The format of the IsPathAcessible method is:
 %
-%      WizardBooleanType IsAccessible(const char *filename)
+%      WizardBooleanType IsPathAcessible(const char *filename)
 %
 %  A description of each parameter follows.
 %
 %    o path:  Specifies a path to a file.
 %
 */
-WizardExport WizardBooleanType IsAccessible(const char *path)
+WizardExport WizardBooleanType IsPathAcessible(const char *path)
 {
   int
     status;
@@ -800,7 +800,7 @@ WizardExport WizardBooleanType IsAccessible(const char *path)
 %  IsDirectory() returns -1 if the directory does not exist,  1 is returned
 %  if the path represents a directory otherwise 0.
 %
-%  The format of the IsAccessible method is:
+%  The format of the IsDirectory method is:
 %
 %      int IsDirectory(const char *path)
 %
