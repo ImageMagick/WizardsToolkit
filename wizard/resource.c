@@ -224,13 +224,13 @@ static WizardBooleanType GetPathTemplate(const char *path,char *filename)
   if (strlen(directory) > (MaxTextExtent-25))
     {
       directory=(char *) RelinquishWizardMemory(directory);
-      return(WizardTrue);
+      return(WizardFalse);
     }
   status=stat_utf8(directory,&file_info);
   if ((status != 0) || !S_ISDIR(file_info.st_mode))
     {
       directory=(char *) RelinquishWizardMemory(directory);
-      return(WizardTrue);
+      return(WizardFalse);
     }
   if (directory[strlen(directory)-1] == *DirectorySeparator)
     (void) FormatLocaleString(filename,MaxTextExtent,
