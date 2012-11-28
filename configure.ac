@@ -243,6 +243,9 @@ AX_C___ATTRIBUTE__
 AX_GCC_ARCHFLAG([no])
 PKG_PROG_PKG_CONFIG
 
+# Check for linker script support 
+gl_LD_VERSION_SCRIPT
+
 #
 # Tests for Windows
 #

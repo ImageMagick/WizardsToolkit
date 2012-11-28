@@ -752,6 +752,8 @@ WIN32_NATIVE_BUILD_TRUE
 HasWINGDI32_FALSE
 HasWINGDI32_TRUE
 GDI32_LIBS
+HAVE_LD_VERSION_SCRIPT_FALSE
+HAVE_LD_VERSION_SCRIPT_TRUE
 PKG_CONFIG
 PRTDIAG
 LN_S
@@ -904,6 +906,7 @@ enable_dependency_tracking
 with_gnu_ld
 with_dmalloc
 with_gcc_arch
+enable_ld_version_script
 enable_osx_universal_binary
 with_includearch_dir
 with_sharearch_dir
@@ -1576,6 +1579,9 @@ Optional Features:
                           do not reject slow dependency extractors
   --disable-dependency-tracking
                           speeds up one-time build
+  --enable-ld-version-script
+                          enable linker version script (default is enabled
+                          when possible)
   --enable-osx-universal-binary
                           build universal binary on OS X [[default=no]]
   --disable-openmp        do not use OpenMP
@@ -3168,7 +3174,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=9839M
+WIZARD_SVN_REVISION=9839:10046M
 
 
 
@@ -7620,6 +7626,85 @@ $as_echo "no" >&6; }
 	fi
 
 fi
+
+# Check for linker script support
+
+  # Check whether --enable-ld-version-script was given.
+if test "${enable_ld_version_script+set}" = set; then :
+  enableval=$enable_ld_version_script; have_ld_version_script=$enableval
+fi
+
+  if test -z "$have_ld_version_script"; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking if LD -Wl,--version-script works" >&5
+$as_echo_n "checking if LD -Wl,--version-script works... " >&6; }
+    save_LDFLAGS="$LDFLAGS"
+    LDFLAGS="$LDFLAGS -Wl,--version-script=conftest.map"
+    cat > conftest.map <<EOF
+foo
+EOF
+    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  accepts_syntax_errors=yes
+else
+  accepts_syntax_errors=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+    if test "$accepts_syntax_errors" = no; then
+      cat > conftest.map <<EOF
+VERS_1 {
+        global: sym;
+};
+
+VERS_2 {
+        global: sym;
+} VERS_1;
+EOF
+      cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  have_ld_version_script=yes
+else
+  have_ld_version_script=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+    else
+      have_ld_version_script=no
+    fi
+    rm -f conftest.map
+    LDFLAGS="$save_LDFLAGS"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_ld_version_script" >&5
+$as_echo "$have_ld_version_script" >&6; }
+  fi
+   if test "$have_ld_version_script" = "yes"; then
+  HAVE_LD_VERSION_SCRIPT_TRUE=
+  HAVE_LD_VERSION_SCRIPT_FALSE='#'
+else
+  HAVE_LD_VERSION_SCRIPT_TRUE='#'
+  HAVE_LD_VERSION_SCRIPT_FALSE=
+fi
+
+
 
 #
 # Tests for Windows
@@ -25806,6 +25891,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${am__fastdepCC_TRUE}" && test -z "${am__fastdepCC_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCC\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HAVE_LD_VERSION_SCRIPT_TRUE}" && test -z "${HAVE_LD_VERSION_SCRIPT_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_LD_VERSION_SCRIPT\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${HasWINGDI32_TRUE}" && test -z "${HasWINGDI32_FALSE}"; then

@@ -33,7 +33,15 @@ WIZARD_LIBS = wizard/libWizardsToolkit.la
 
 wizard_libWizardsToolkit_la_SOURCES = $(WIZARD_BASE_SRCS) $(WIZARD_PLATFORM_SRCS)
 wizard_libWizardsToolkit_la_LIBADD = $(WIZARD_DEP_LIBS)
-wizard_libWizardsToolkit_la_LDFLAGS = -no-undefined -export-symbols-regex ".*" \
+
+if HAVE_LD_VERSION_SCRIPT
+wizard_libWizardsToolkit_la_LDFLAGS_VERSION =  -Wl,--version-script=$(top_srcdir)/wizard/libWizardsToolkit.map
+else
+wizard_libWizardsToolkit_la_LDFLAGS_VERSION = -export-symbols-regex ".*"
+endif
+
+wizard_libWizardsToolkit_la_LDFLAGS = -no-undefined \
+  $(wizard_libWizardsToolkit_la_LDFLAGS_VERSION) \
   $(WIZARD_LT_RELEASE_OPTS) -version-info \
   $(WIZARD_LIBRARY_CURRENT):$(WIZARD_LIBRARY_REVISION):$(WIZARD_LIBRARY_AGE)
 
@@ -233,6 +241,7 @@ WIZARD_NOINST_HDRS = \
   wizard/utility-private.h 
 
 WIZARD_EXTRA_DIST = \
+	wizard/libWizardsToolkit.map \
 	wizard/WizardsToolkit-config.in \
 	$(WIZARD_MANS) \
 	wizard/WizardsToolkit.pc.in

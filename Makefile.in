@@ -180,6 +180,7 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/ac_func_fseeko.m4 \
 	$(top_srcdir)/m4/ax_prefix_config_h.m4 \
 	$(top_srcdir)/m4/ax_pthread.m4 \
 	$(top_srcdir)/m4/cxx_have_std_libs.m4 \
+	$(top_srcdir)/m4/ld-version-script.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
 	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
 	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/pkg.m4 \
@@ -984,7 +985,10 @@ WIZARD_MANS = \
 
 wizard_libWizardsToolkit_la_SOURCES = $(WIZARD_BASE_SRCS) $(WIZARD_PLATFORM_SRCS)
 wizard_libWizardsToolkit_la_LIBADD = $(WIZARD_DEP_LIBS)
-wizard_libWizardsToolkit_la_LDFLAGS = -no-undefined -export-symbols-regex ".*" \
+@HAVE_LD_VERSION_SCRIPT_FALSE@wizard_libWizardsToolkit_la_LDFLAGS_VERSION = -export-symbols-regex ".*"
+@HAVE_LD_VERSION_SCRIPT_TRUE@wizard_libWizardsToolkit_la_LDFLAGS_VERSION = -Wl,--version-script=$(top_srcdir)/wizard/libWizardsToolkit.map
+wizard_libWizardsToolkit_la_LDFLAGS = -no-undefined \
+  $(wizard_libWizardsToolkit_la_LDFLAGS_VERSION) \
   $(WIZARD_LT_RELEASE_OPTS) -version-info \
   $(WIZARD_LIBRARY_CURRENT):$(WIZARD_LIBRARY_REVISION):$(WIZARD_LIBRARY_AGE)
 
@@ -1179,6 +1183,7 @@ WIZARD_NOINST_HDRS = \
   wizard/utility-private.h 
 
 WIZARD_EXTRA_DIST = \
+	wizard/libWizardsToolkit.map \
 	wizard/WizardsToolkit-config.in \
 	$(WIZARD_MANS) \
 	wizard/WizardsToolkit.pc.in
