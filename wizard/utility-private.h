@@ -46,7 +46,7 @@ extern WizardExport void
 
 static inline int access_utf8(const char *path,int mode)
 {
-#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
   return(access(path,mode));
 #else
    int
@@ -70,7 +70,7 @@ static inline int access_utf8(const char *path,int mode)
 
 static inline FILE *fopen_utf8(const char *path,const char *mode)
 {
-#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
   return(fopen(path,mode));
 #else
    FILE
@@ -104,14 +104,14 @@ static inline FILE *fopen_utf8(const char *path,const char *mode)
 #endif
 }
 
-#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(__CYGWIN__) && !defined(__MINGW32__)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(__CYGWIN__) && \!defined(__MINGW32__) && \!defined(__MINGW64__)
 typedef int
   mode_t;
 #endif
 
 static inline int open_utf8(const char *path,int flags,mode_t mode)
 {
-#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
   return(open(path,flags,mode));
 #else
    int
@@ -135,7 +135,7 @@ static inline int open_utf8(const char *path,int flags,mode_t mode)
 
 static inline FILE *popen_utf8(const char *command,const char *type)
 {
-#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
   return(popen(command,type));
 #else
    FILE
@@ -171,7 +171,7 @@ static inline FILE *popen_utf8(const char *command,const char *type)
 
 static inline int remove_utf8(const char *path)
 {
-#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
   return(unlink(path));
 #else
    int
@@ -195,7 +195,7 @@ static inline int remove_utf8(const char *path)
 
 static inline int rename_utf8(const char *source,const char *destination)
 {
-#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
   return(rename(source,destination));
 #else
    int
@@ -230,7 +230,7 @@ static inline int rename_utf8(const char *source,const char *destination)
 
 static inline int stat_utf8(const char *path,struct stat *attributes)
 {
-#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
   return(stat(path,attributes));
 #else
    int

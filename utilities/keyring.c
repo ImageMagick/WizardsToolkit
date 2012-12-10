@@ -585,7 +585,7 @@ static int WizardMain(int argc,char **argv)
   return(status == WizardFalse ? 1 : 0);
 }
 
-#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__)
+#if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
 int main(int argc,char **argv)
 {
   return(WizardMain(argc,argv));
