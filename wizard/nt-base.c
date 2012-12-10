@@ -217,7 +217,7 @@ WizardExport int Exit(int status)
   return(0);
 }
 
-#if \!defined(__MINGW32__) && \!defined(__MINGW64__)
+#if !defined(__MINGW32__) && !defined(__MINGW64__)
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                             %
