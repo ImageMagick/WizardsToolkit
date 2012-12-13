@@ -331,7 +331,7 @@ static void DefaultFatalErrorHandler(const ExceptionType severity,
   (void) fprintf(stderr,".\n");
   (void) fflush(stderr);
   WizardsToolkitTerminus();
-  exit(1);
+  exit(severity);
 }
 
 /*
