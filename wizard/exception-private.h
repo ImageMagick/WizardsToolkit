@@ -24,6 +24,7 @@ extern "C" {
 
 #include "wizard/log.h"
 #include "wizard/string_.h"
+#include "wizard/wizard.h"
 
 #define CatchWizardException(severity,tag,context) \
 { \
@@ -69,6 +70,7 @@ extern "C" {
   (void) FormatLocaleString(tag,MaxTextExtent,"%ld\n",(long) domain); \
   (void) FormatLocaleString(context,MaxTextExtent,"%ld\n",(long) error); \
   CatchWizardException(UndefinedException,tag,context); \
+  WizardsToolkitTerminus(); \
   _exit((domain << 3) | error); \
 }
 
@@ -80,6 +82,7 @@ extern "C" {
   message=GetExceptionMessage(errno); \
   CatchWizardException(severity,tag,message); \
   message=DestroyString(message); \
+  WizardsToolkitTerminus(); \
   _exit(127); \
 }
 
