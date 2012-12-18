@@ -1515,25 +1515,24 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
     }
     case FileStream:
     {
+      ssize_t
+        count;
+
+      WizardOffsetType
+        offset;
+
       if (extent != (WizardSizeType) ((off_t) extent))
         return(WizardFalse);
-#if !defined(WIZARDSTOOLKIT_HAVE_POSIX_FALLOCATE)
+      offset=fseek(blob_info->file,0,SEEK_END);
+      if (offset < 0)
         return(WizardFalse);
-#else
-      {
-        int
-          status;
-
-        WizardOffsetType
-          offset;
-
-        offset=TellBlob(blob_info);
-        status=posix_fallocate(fileno(blob_info->file),(off_t) offset,
-          (off_t) (extent-offset));
-        if (status != 0)
-          return(WizardFalse);
-      }
-#endif
+      if ((WizardSizeType) offset >= extent)
+        break;
+      offset=fseek(blob_info->file,(WizardOffsetType) extent-1,SEEK_SET);
+      count=fwrite((const unsigned char *) "",1,1,blob_info->file);
+      offset=fseek(blob_info->file,offset,SEEK_SET);
+      if (count != (WizardOffsetType) 1)
+        return(WizardTrue);
       break;
     }
     case PipeStream:
@@ -1546,37 +1545,34 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
       return(WizardFalse);
     case BlobStream:
     {
+      if (extent != (WizardSizeType) ((size_t) extent))
+        return(WizardFalse);
       if (blob_info->mapped != WizardFalse)
         {
-          if (blob_info->file == (FILE *) NULL)
-            return(WizardFalse);
+          ssize_t
+            count;
+
+          WizardOffsetType
+            offset;
+
           (void) UnmapBlob(blob_info->data,blob_info->length);
-#if !defined(WIZARDSTOOLKIT_HAVE_POSIX_FALLOCATE)
-          return(WizardFalse);
-#else
-          {
-            int
-              status;
-
-            WizardOffsetType
-              offset;
-
-            offset=TellBlob(blob_info);
-            status=posix_fallocate(fileno(blob_info->file),(off_t) offset,
-              (off_t) (extent-offset));
-            if (status != 0)
-              return(WizardFalse);
-          }
+          offset=fseek(blob_info->file,0,SEEK_END);
+          if (offset < 0)
+            return(WizardFalse);
+          if ((WizardSizeType) offset >= extent)
+            break;
+          offset=fseek(blob_info->file,(WizardOffsetType) extent-1,SEEK_SET);
+          count=fwrite((const unsigned char *) "",1,1,blob_info->file);
+          offset=fseek(blob_info->file,offset,SEEK_SET);
+          if (count != (WizardOffsetType) 1)
+            return(WizardTrue);
           blob_info->data=(unsigned char*) MapBlob(fileno(blob_info->file),
             WriteMode,0,(size_t) extent);
           blob_info->extent=(size_t) extent;
           blob_info->length=(size_t) extent;
           (void) SyncBlob(blob_info);
           break;
-#endif
         }
-      if (extent != (WizardSizeType) ((size_t) extent))
-        return(WizardFalse);
       blob_info->extent=(size_t) extent;
       blob_info->data=(unsigned char *) ResizeQuantumMemory(
         blob_info->data,blob_info->extent,sizeof(*blob_info->data));
