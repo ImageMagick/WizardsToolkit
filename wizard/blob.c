@@ -265,7 +265,7 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
   if (blob_info->exempt != WizardFalse)
     {
       blob_info->type=UndefinedStream;
-      return(WizardTrue);
+      return(blob_info->status);
     }
   switch (blob_info->type)
   {
