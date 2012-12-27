@@ -230,8 +230,6 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
   if (blob_info->type == UndefinedStream)
     return(WizardTrue);
   (void) SyncBlob(blob_info);
-  blob_info->size=GetBlobSize(blob_info);
-  blob_info->eof=WizardFalse;
   status=0;
   switch (blob_info->type)
   {
@@ -262,6 +260,8 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
       break;
   }
   blob_info->status=status < 0 ? WizardTrue : WizardFalse;
+  blob_info->size=GetBlobSize(blob_info);
+  blob_info->eof=WizardFalse;
   if (blob_info->exempt != WizardFalse)
     {
       blob_info->type=UndefinedStream;
