@@ -229,8 +229,7 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
       blob_info->filename);
   if (blob_info->type == UndefinedStream)
     return(WizardTrue);
-  (void) SyncBlob(blob_info);
-  status=0;
+  status=SyncBlob(blob_info);
   switch (blob_info->type)
   {
     case UndefinedStream:
