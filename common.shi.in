@@ -10,6 +10,6 @@ KEYRING="@abs_top_builddir@/utilities/keyring"
 DIGEST="@abs_top_builddir@/utilities/digest"
 VALIDATE="@abs_top_builddir@/tests/validate"
 LD_LIBRARY_PATH="@abs_top_builddir@/wizard/.libs:${LD_LIBRARY_PATH}"
-WIZARD_CONFIGURE_PATH='@WIZARD_CONFIGURE_BUILD_PATH@@DIRSEP@@WIZARD_CONFIGURE_SRC_PATH@'
+WIZARD_CONFIGURE_PATH="@abs_top_builddir@/config"
 PATH="@abs_top_builddir@/utilities:${PATH}"
 set +a
