@@ -1069,7 +1069,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 #endif
           (void) ResetWizardMemory(magick,0,sizeof(magick));
           count=fread(magick,1,sizeof(magick),blob_info->file);
-          (void) fseek(blob_info->file,(off_t) -count,SEEK_CUR);
+          (void) fseek(blob_info->file,-((off_t) count),SEEK_CUR);
           (void) fflush(blob_info->file);
           (void) LogWizardEvent(BlobEvent,GetWizardModule(),
             "  read %.20g magic header bytes",(double) count);
