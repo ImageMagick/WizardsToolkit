@@ -1531,7 +1531,7 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
       if ((WizardSizeType) offset >= extent)
         break;
       offset=fseek(blob_info->file,(WizardOffsetType) extent-1,SEEK_SET);
-      count=(ssize_t) fwrite((const unsigned char *) "",1,1,blob_info- >file);
+      count=(ssize_t) fwrite((const unsigned char *) "",1,1,blob_info->file);
       offset=fseek(blob_info->file,offset,SEEK_SET);
       if (count != 1)
         return(WizardTrue);
@@ -1813,22 +1813,8 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
       break;
     case StandardStream:
     {
-      register ssize_t
-        i;
-
-      count=0;
-      for (i=0; i < (ssize_t) length; i+=count)
-      {
-        count=write(fileno(blob_info->file),data+i,(size_t) WizardMin(length-i,
-          (WizardSizeType) SSIZE_MAX));
-        if (count <= 0)
-          {
-            count=0;
-            if (errno != EINTR)
-              break;
-          }
-      }
-      count=i;
+      count=write(fileno(blob_info->file),data,(size_t) WizardMin(length,
+        (WizardSizeType) SSIZE_MAX));
       break;
     }
     case FileStream:
