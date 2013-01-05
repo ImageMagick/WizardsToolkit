@@ -530,7 +530,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
         "unable to open file `%s': %s",filename,strerror(errno));
       return((unsigned char *) NULL);
     }
-  offset=lseek(file,0,SEEK_END);
+  offset=(WizardOffsetType) lseek(file,0,SEEK_END);
   count=0;
   if ((offset < 0) || (offset != (WizardOffsetType) ((ssize_t) offset)))
     {
@@ -1069,7 +1069,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 #endif
           (void) ResetWizardMemory(magick,0,sizeof(magick));
           count=fread(magick,1,sizeof(magick),blob_info->file);
-          (void) fseek(blob_info->file,-((off_t) count),SEEK_CUR);
+          (void) fseek(blob_info->file,-((WizardOffsetType) count),SEEK_CUR);
           (void) fflush(blob_info->file);
           (void) LogWizardEvent(BlobEvent,GetWizardModule(),
             "  read %.20g magic header bytes",(double) count);
@@ -1200,7 +1200,8 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 %
 */
 
-static inline size_t WizardMin(const size_t x,const size_t y)
+static inline WizardSizeType WizardMin(const WizardSizeType x,
+  const WizardSizeType y)
 {
   if (x < y)
     return(x);
@@ -1241,7 +1242,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
       for (i=0; i < (ssize_t) length; i+=count)
       {
         count=read(fileno(blob_info->file),q+i,(size_t) WizardMin(length-i,
-          SSIZE_MAX));
+          (WizardSizeType) SSIZE_MAX));
         if (count <= 0)
           {
             count=0;
@@ -1461,7 +1462,8 @@ WizardExport ssize_t ReadBlobChunk(BlobInfo *blob_info,const size_t length,
   count=0;
   for (i=0; i < (ssize_t) length; i+=count)
   {
-    count=ReadBlob(blob_info,WizardMin(length-i,(size_t) SSIZE_MAX),data+i);
+    count=ReadBlob(blob_info,(size_t) WizardMin(length-i,(WizardSizeType)
+      SSIZE_MAX),data+i);
     if (count <= 0)
       {
         count=0;
@@ -1529,9 +1531,9 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
       if ((WizardSizeType) offset >= extent)
         break;
       offset=fseek(blob_info->file,(WizardOffsetType) extent-1,SEEK_SET);
-      count=fwrite((const unsigned char *) "",1,1,blob_info->file);
+      count=(ssize_t) fwrite((const unsigned char *) "",1,1,blob_info- >file);
       offset=fseek(blob_info->file,offset,SEEK_SET);
-      if (count != (WizardOffsetType) 1)
+      if (count != 1)
         return(WizardTrue);
       break;
     }
@@ -1562,9 +1564,10 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
           if ((WizardSizeType) offset >= extent)
             break;
           offset=fseek(blob_info->file,(WizardOffsetType) extent-1,SEEK_SET);
-          count=fwrite((const unsigned char *) "",1,1,blob_info->file);
+          count=(ssize_t) fwrite((const unsigned char *) "",1,1,
+            blob_info->file);
           offset=fseek(blob_info->file,offset,SEEK_SET);
-          if (count != (WizardOffsetType) 1)
+          if (count != 1)
             return(WizardTrue);
           blob_info->data=(unsigned char*) MapBlob(fileno(blob_info->file),
             WriteMode,0,(size_t) extent);
@@ -1817,7 +1820,7 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
       for (i=0; i < (ssize_t) length; i+=count)
       {
         count=write(fileno(blob_info->file),data+i,(size_t) WizardMin(length-i,
-          SSIZE_MAX));
+          (WizardSizeType) SSIZE_MAX));
         if (count <= 0)
           {
             count=0;
@@ -2039,7 +2042,8 @@ WizardExport ssize_t WriteBlobChunk(BlobInfo *blob_info,const size_t length,
   count=0;
   for (i=0; i < (ssize_t) length; i+=count)
   {
-    count=WriteBlob(blob_info,WizardMin(length-i,(size_t) SSIZE_MAX),data+i);
+    count=WriteBlob(blob_info,(size_t) WizardMin(length-i,(WizardSizeType)
+      SSIZE_MAX),data+i);
     if (count <= 0)
       {
         count=0;
