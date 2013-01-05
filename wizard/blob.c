@@ -1182,8 +1182,10 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  ReadBlob() reads data from the blob and returns it.  It returns the number
-%  of bytes read.
+%  ReadBlob() reads data from the blob or file and returns it.  It
+%  returns the number of bytes read. If length is zero, ReadBlob() returns
+%  zero and has no other results. If length is greater than SSIZE_MAX, the
+%  result is unspecified.
 %
 %  The format of the ReadBlob method is:
 %
@@ -1235,22 +1237,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
       break;
     case StandardStream:
     {
-      register ssize_t
-        i;
-
-      count=0;
-      for (i=0; i < (ssize_t) length; i+=count)
-      {
-        count=read(fileno(blob_info->file),q+i,(size_t) WizardMin(length-i,
-          (WizardSizeType) SSIZE_MAX));
-        if (count <= 0)
-          {
-            count=0;
-            if (errno != EINTR)
-              break;
-          }
-      }
-      count=i;
+      count=read(fileno(blob_info->file),q,length);
       break;
     }
     case FileStream:
@@ -1291,8 +1278,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
       {
         default:
         {
-          count=(ssize_t) gzread(blob_info->gzfile,q,(unsigned int)
-            length);
+          count=(ssize_t) gzread(blob_info->gzfile,q,(unsigned int) length);
           break;
         }
         case 2:
@@ -1534,7 +1520,7 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
       count=(ssize_t) fwrite((const unsigned char *) "",1,1,blob_info->file);
       offset=fseek(blob_info->file,offset,SEEK_SET);
       if (count != 1)
-        return(WizardTrue);
+        return(WizardFalse);
       break;
     }
     case PipeStream:
@@ -1568,7 +1554,7 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
             blob_info->file);
           offset=fseek(blob_info->file,offset,SEEK_SET);
           if (count != 1)
-            return(WizardTrue);
+            return(WizardFalse);
           blob_info->data=(unsigned char*) MapBlob(fileno(blob_info->file),
             WriteMode,0,(size_t) extent);
           blob_info->extent=(size_t) extent;
@@ -1813,8 +1799,7 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
       break;
     case StandardStream:
     {
-      count=write(fileno(blob_info->file),data,(size_t) WizardMin(length,
-        (WizardSizeType) SSIZE_MAX));
+      count=write(fileno(blob_info->file),data,length);
       break;
     }
     case FileStream:
@@ -1897,8 +1882,7 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
           blob_info->quantum<<=1;
           blob_info->extent+=length+blob_info->quantum;
           blob_info->data=(unsigned char *) ResizeQuantumMemory(
-            blob_info->data,blob_info->extent+1,
-            sizeof(*blob_info->data));
+            blob_info->data,blob_info->extent+1,sizeof(*blob_info->data));
           (void) SyncBlob(blob_info);
           if (blob_info->data == (unsigned char *) NULL)
             {
