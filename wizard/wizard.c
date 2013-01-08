@@ -155,10 +155,6 @@ static void WizardSignalHandler(int signal_number)
   AsynchronousResourceComponentTerminus();
   instantiate_wizard=WizardFalse;
   (void) SetWizardSignalHandler(signal_number,signal_handlers[signal_number]);
-#if defined(WIZARDSTOOLKIT_HAVE_RAISE)
-  if (signal_handlers[signal_number] != WizardSignalHandler)
-    raise(signal_number);
-#endif
 #if !defined(WIZARDSTOOLKIT_HAVE__EXIT)
   exit(signal_number);
 #else
@@ -181,6 +177,10 @@ static void WizardSignalHandler(int signal_number)
 #if defined(SIGSEGV)
   if (signal_number == SIGSEGV)
     exit(signal_number);
+#endif
+#if defined(WIZARDSTOOLKIT_HAVE_RAISE)
+  if (signal_handlers[signal_number] != WizardSignalHandler)
+    raise(signal_number);
 #endif
   _exit(signal_number);  /* do not invoke registered atexit() methods */
 #endif
