@@ -214,22 +214,22 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
     if (status != 0)
       {
         errno=status;
-        ThrowFatalException(ResourceFatalError,
-          "unable to instantiate semaphore `%s'");
+        perror("unable to initialize mutex attributes");
+        _exit(1);
       }
     status=pthread_mutex_init(&semaphore_info->mutex,&mutex_info);
     if (status != 0)
       {
         errno=status;
-        ThrowFatalException(ResourceFatalError,
-          "unable to instantiate semaphore `%s'");
+        perror("unable to initialize mutex");
+        _exit(1);
       }
     status=pthread_mutexattr_destroy(&mutex_info);
     if (status != 0)
       {
         errno=status;
-        ThrowFatalException(ResourceFatalError,
-          "unable to instantiate semaphore `%s'");
+        perror("unable to destroy mutex");
+        _exit(1);
       }
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
@@ -241,8 +241,8 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
     if (status == 0)
       {
         errno=status;
-        ThrowFatalException(ResourceFatalError,
-          "unable to instantiate semaphore `%s'");
+        perror("unable to initialize critical section");
+        _exit(1);
       }
   }
 #endif
@@ -289,7 +289,7 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
     if (status != 0)
       {
         errno=status;
-        perror("unable to destroy semaphore");
+        perror("unable to destroy mutex");
         _exit(1);
       }
   }
@@ -336,8 +336,8 @@ WizardExport void LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
     if (status != 0)
       {
         errno=status;
-        ThrowFatalException(ResourceFatalError,
-          "unable to lock semaphore `%s'");
+        perror("unable to lock mutex");
+        _exit(1);
       }
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
@@ -347,8 +347,8 @@ WizardExport void LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
   if ((semaphore_info->reference_count > 0) &&
       (IsWizardThreadEqual(semaphore_info->id) != WizardFalse))
     {
-      (void) fprintf(stderr,"Warning: unexpected recursive lock!\n");
-      (void) fflush(stderr);
+      perror("unexpected recursive lock!");
+      _exit(1);
     }
 #endif
   semaphore_info->id=GetWizardThreadId();
@@ -476,8 +476,8 @@ WizardExport void UnlockSemaphoreInfo(SemaphoreInfo *semaphore_info)
     if (status != 0)
       {
         errno=status;
-        ThrowFatalException(ResourceFatalError,
-          "unable to unlock semaphore `%s'");
+        perror("unable to unlock mutex");
+        _exit(1);
       }
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
