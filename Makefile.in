@@ -839,6 +839,9 @@ mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
+
+# Pkgconfig directory
+pkgconfigdir = $(libdir)/pkgconfig
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
@@ -1316,9 +1319,6 @@ UTILITIES_CLEANFILES = \
 	utilities/tests/*.txt~ \
 	utilities/tests/*.xdm
 
-
-# Pkgconfig directory
-pkgconfigdir = $(libdir)/pkgconfig
 
 # Files to install in Pkgconfig directory
 pkgconfig_DATA = \
