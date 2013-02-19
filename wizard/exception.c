@@ -668,7 +668,7 @@ WizardExport void InheritException(ExceptionInfo *exception,
   assert(relative->signature == WizardSignature);
   if (relative->exceptions == (void *) NULL)
     return;
-  LockSemaphoreInfo(exception->semaphore);
+  LockSemaphoreInfo(relative->semaphore);
   ResetLinkedListIterator((LinkedListInfo *) relative->exceptions);
   p=(const ExceptionInfo *) GetNextValueInLinkedList((LinkedListInfo *)
     relative->exceptions);
@@ -678,7 +678,7 @@ WizardExport void InheritException(ExceptionInfo *exception,
     p=(const ExceptionInfo *) GetNextValueInLinkedList((LinkedListInfo *)
       relative->exceptions);
   }
-  UnlockSemaphoreInfo(exception->semaphore);
+  UnlockSemaphoreInfo(relative->semaphore);
 }
 
 /*
@@ -927,15 +927,22 @@ WizardExport WizardBooleanType ThrowException(ExceptionInfo *exception,
   assert(exception->signature == WizardSignature);
   if (exception->exceptions == (void *) NULL)
     return(WizardTrue);
+  LockSemaphoreInfo(exception->semaphore);
   p=(ExceptionInfo *) GetLastValueInLinkedList((LinkedListInfo *)
     exception->exceptions);
   if ((p != (ExceptionInfo *) NULL) && (p->severity == severity) &&
       (LocaleCompare(exception->reason,reason) == 0) &&
       (LocaleCompare(exception->description,description) == 0))
-    return(WizardTrue);
+    {
+      UnlockSemaphoreInfo(exception->semaphore);
+      return(WizardTrue);
+    }
   p=(ExceptionInfo *) AcquireWizardMemory(sizeof(*p));
   if (p == (ExceptionInfo *) NULL)
-    ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
+    {
+      UnlockSemaphoreInfo(exception->semaphore);
+      ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
+    }
   (void) ResetWizardMemory(p,0,sizeof(*p));
   p->severity=severity;
   if (reason != (const char *) NULL)
@@ -947,6 +954,7 @@ WizardExport WizardBooleanType ThrowException(ExceptionInfo *exception,
   exception->severity=p->severity;
   exception->reason=p->reason;
   exception->description=p->description;
+  UnlockSemaphoreInfo(exception->semaphore);
   return(WizardTrue);
 }
 
