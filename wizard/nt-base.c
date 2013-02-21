@@ -1643,12 +1643,12 @@ WizardExport ssize_t NTSystemConfiguration(int name)
             status;
 
           GlobalMemoryStatus(&status);
-          return((ssize_t) status.dwAvailPhys/system_info.dwPageSize);
+          return((ssize_t) status.dwAvailPhys/system_info.dwPageSize/2);
         }
       status.dwLength=sizeof(status);
       if (module(&status) == 0)
         return(0L);
-      return((ssize_t) status.ullAvailPhys/system_info.dwPageSize);
+      return((ssize_t) status.ullAvailPhys/system_info.dwPageSize/2);
     }
     case _SC_OPEN_MAX:
       return(2048);
