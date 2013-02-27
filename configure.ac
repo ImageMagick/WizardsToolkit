@@ -1,4 +1,4 @@
-#  Copyright 1999-2012 ImageMagick Studio LLC, a non-profit organization
+#  Copyright 1999-2012 Wizards Toolkit Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.  You may
@@ -1030,7 +1030,7 @@ fi
 
 # Assume that delegate headers reside under same directory as Wizard's
 # Toolkit installation prefix.
-WIZARD_CPPFLAGS="-I$INCLUDE_DIR/${PACKAGE_NAME} $WIZARD_CPPFLAGS"
+WIZARD_CPPFLAGS="-I$INCLUDE_DIR/${PACKAGE_NAME}-$WIZARD_MAJOR_VERSION.$WIZARD_MINOR_VERSION $WIZARD_CPPFLAGS"
 
 #
 # Find OpenMP library
@@ -1333,6 +1333,17 @@ esac
 AC_DEFINE_UNQUOTED(INCLUDE_PATH,"$DEFINE_INCLUDE_PATH",Directory where WizardsToolkit headers live.)
 AC_SUBST(INCLUDE_PATH)
 
+# Path to Wizards Toolkit header files (arch part)
+INCLUDEARCH_PATH="${INCLUDEARCH_DIR}/${INCLUDE_RELATIVE_PATH}"
+DEFINE_INCLUDEARCH_PATH="${INCLUDEARCH_DIR}/${INCLUDE_RELATIVE_PATH}/"
+case "${build_os}" in
+  mingw* )
+    DEFINE_INCLUDEARCH_PATH=`$WinPathScript "$DEFINE_INCLUDEARCH_PATH" 1`
+    ;;
+esac
+AC_DEFINE_UNQUOTED(INCLUDEARCH_PATH,"$DEFINE_INCLUDE_PATH",[Directory where Wizards Toolkit architecture headers live.])
+AC_SUBST(INCLUDEARCH_PATH)
+
 # Subdirectory under lib to place Wizard lib files
 LIBRARY_RELATIVE_PATH="${PACKAGE_NAME}-${PACKAGE_VERSION}"
 AC_DEFINE_UNQUOTED(LIBRARY_RELATIVE_PATH,"$LIBRARY_RELATIVE_PATH",Subdirectory of lib where Wizard architecture dependent files are installed)
@@ -1399,16 +1410,22 @@ AC_DEFINE_UNQUOTED(SHARE_PATH,"$DEFINE_SHARE_PATH",Directory where architecture-
 AC_SUBST(SHARE_PATH)
 
 # Subdirectory under share to place Wizard configuration files
-SHAREARCH_RELATIVE_PATH="${LIBRARY_RELATIVE_PATH}/config"
-AC_DEFINE_UNQUOTED(SHAREARCH_RELATIVE_PATH,"$SHAREARCH_RELATIVE_PATH",Subdirectory of lib where architecture-independent configuration files live.)
-SHAREARCH_PATH="${SHAREARCH_DIR}/${SHAREARCH_RELATIVE_PATH}"
-DEFINE_SHAREARCH_PATH="${SHAREARCH_DIR}/${SHAREARCH_RELATIVE_PATH}/"
-case "${build_os}" in
-  mingw* )
-    DEFINE_SHAREARCH_PATH=`$WinPathScript "$DEFINE_SHAREARCH_PATH" 1`
-    ;;
-esac
-AC_DEFINE_UNQUOTED(SHAREARCH_PATH,"$DEFINE_SHAREARCH_PATH",Directory where architecture-independent configuration files live.)
+if test "x$SHAREARCH_BASEDIRNAME" = "x"; then
+   SHAREARCH_BASEDIRNAME="config"
+fi
+AC_DEFINE_UNQUOTED(SHAREARCH_BASEDIRNAME,"$SHAREARCH_BASEDIRNAME",[Sharearch directory name without ABI part.])
+AC_SUBST(SHAREARCH_BASEDIRNAME)
+
+if test "x$SHAREARCH_DIRNAME" = "x"; then
+  SHAREARCH_DIRNAME=${SHAREARCH_BASEDIRNAME}-${WIZARD_ABI_SUFFIX}
+else
+  AC_DEFINE_UNQUOTED(SHAREARCH_DIRNAME,"$SHAREARCH_DIRNAME",[Sharearch directory dirname])
+fi
+AC_SUBST(SHAREARCH_DIRNAME)
+
+SHAREARCH_RELATIVE_PATH="${SHAREARCH_DIRNAME}"
+AC_SUBST(SHAREARCH_RELATIVE_PATH)
+SHAREARCH_PATH="${LIBRARY_PATH}/${SHAREARCH_RELATIVE_PATH}"
 AC_SUBST(SHAREARCH_PATH)
 
 #

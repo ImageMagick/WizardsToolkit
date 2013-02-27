@@ -465,6 +465,9 @@
 /* Define to use the Windows GDI32 library */
 #undef HasWINGDI32
 
+/* Directory where Wizards Toolkit architecture headers live. */
+#undef INCLUDEARCH_PATH
+
 /* Directory where WizardsToolkit headers live. */
 #undef INCLUDE_PATH
 
@@ -520,12 +523,11 @@
    your system. */
 #undef PTHREAD_CREATE_JOINABLE
 
-/* Directory where architecture-independent configuration files live. */
-#undef SHAREARCH_PATH
+/* Sharearch directory name without ABI part. */
+#undef SHAREARCH_BASEDIRNAME
 
-/* Subdirectory of lib where architecture-independent configuration files
-   live. */
-#undef SHAREARCH_RELATIVE_PATH
+/* Sharearch directory dirname */
+#undef SHAREARCH_DIRNAME
 
 /* Directory where architecture-independent configuration files live. */
 #undef SHARE_PATH
