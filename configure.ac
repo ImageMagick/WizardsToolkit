@@ -88,6 +88,14 @@ WIZARD_TARGET_OS=$host_os
 AC_SUBST(WIZARD_TARGET_OS)
 AC_DEFINE_UNQUOTED(WIZARD_TARGET_OS,$WIZARD_TARGET_OS,[Target Host OS])
 
+# Substitute versioning
+AC_SUBST([WIZARD_MAJOR_VERSION],[wizard_major_version])
+AC_SUBST([WIZARD_MINOR_VERSION],[wizard_minor_version])
+AC_SUBST([WIZARD_MICRO_VERSION],[wizard_micro_version])
+AC_SUBST([WIZARD_PATCHLEVEL_VERSION],[wizard_patchlevel_version])
+AC_SUBST([WIZARD_VERSION],[wizard_version])
+AC_SUBST([WIZARD_SVN_REVISION],[wizard_svn_revision])
+
 # Substitute library versioning
 AC_SUBST(WIZARD_LIBRARY_CURRENT)dnl
 AC_SUBST(WIZARD_LIBRARY_REVISION)dnl
