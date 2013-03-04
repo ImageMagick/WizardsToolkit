@@ -1,7 +1,7 @@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
-includedir=@includedir@/WizardsToolkit
+includedir=@includedir@/WizardsToolkit-@WIZARD_MAJOR_VERSION@
 																																								Name: WizardsToolkit
 Description: Wizard's Toolkit
 Version: @PACKAGE_VERSION@

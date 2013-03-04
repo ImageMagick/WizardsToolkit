@@ -1,6 +1,5 @@
 %global VERSION  @PACKAGE_VERSION@
 %global MAJOR_VERSION  @WIZARD_MAJOR_VERSION@
-%global MINOR_VERSION  @WIZARD_MINOR_VERSION@
 %global Patchlevel  @PACKAGE_RELEASE@
 
 Name:           @PACKAGE_NAME@
@@ -98,7 +97,7 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 
 make install DESTDIR=%{buildroot} INSTALL="install -p"
-cp -a www/source %{buildroot}%{_datadir}/doc/%{name}-%{MAJOR_VERSION}.%{MINOR_VERSION}
+cp -a www/source %{buildroot}%{_datadir}/doc/%{name}-%{MAJOR_VERSION}
 rm %{buildroot}%{_libdir}/*.la
 
 # fix multilib issues
@@ -108,10 +107,10 @@ rm %{buildroot}%{_libdir}/*.la
 %define wordsize 32
 %endif
 
-mv %{buildroot}%{_includedir}/%{name}-%{MAJOR_VERSION}.%{MINOR_VERSION}/wizard/wizard-config.h \
-   %{buildroot}%{_includedir}/%{name}-%{MAJOR_VERSION}.%{MINOR_VERSION}/wizard/wizard-config-%{wordsize}.h
+mv %{buildroot}%{_includedir}/%{name}-%{MAJOR_VERSION}/wizard/wizard-config.h \
+   %{buildroot}%{_includedir}/%{name}-%{MAJOR_VERSION}/wizard/wizard-config-%{wordsize}.h
 
-cat >%{buildroot}%{_includedir}/%{name}-%{MAJOR_VERSION}.%{MINOR_VERSION}/wizard/wizard-config.h <<EOF
+cat >%{buildroot}%{_includedir}/%{name}-%{MAJOR_VERSION}/wizard/wizard-config.h <<EOF
 #ifndef WIZARDSTOOLKIT_MULTILIB
 #define WIZARDSTOOLKIT_MULTILIB
 
@@ -143,22 +142,22 @@ rm -rf %{buildroot}
 %{_libdir}/libWizardsToolkit.so.*
 %{_libdir}/%{name}-%{VERSION}
 %{_bindir}/[a-z]*
-%{_datadir}/%{name}-%{MAJOR_VERSION}.%{MINOR_VERSION}
+%{_datadir}/%{name}-%{MAJOR_VERSION}
 %{_mandir}/man[145]/[a-zA-Z]*
-%{_sysconfdir}/%{name}-%{MAJOR_VERSION}.%{MINOR_VERSION}
+%{_sysconfdir}/%{name}-%{MAJOR_VERSION}
 
 %files devel
 %defattr(-,root,root,-)
 %{_bindir}/WizardsToolkit-config
 %{_libdir}/libWizardsToolkit.so
 %{_libdir}/pkgconfig/WizardsToolkit.pc
-%dir %{_includedir}/%{name}-%{MAJOR_VERSION}.%{MINOR_VERSION}
-%{_includedir}/%{name}-%{MAJOR_VERSION}.%{MINOR_VERSION}/wizard
+%dir %{_includedir}/%{name}-%{MAJOR_VERSION}
+%{_includedir}/%{name}-%{MAJOR_VERSION}/wizard
 %{_mandir}/man1/WizardsToolkit-config.*
 
 %files doc
 %defattr(-,root,root,-)
-%doc %{_datadir}/doc/%{name}-%{MAJOR_VERSION}.%{MINOR_VERSION}
+%doc %{_datadir}/doc/%{name}-%{MAJOR_VERSION}
 %doc LICENSE
 
 %changelog
