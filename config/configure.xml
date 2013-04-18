@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <configuremap>
   <configure name="NAME" value="WizardsToolkit" />
-  <configure name="SVN_REVISION" value="10306:11248M" />
+  <configure name="SVN_REVISION" value="10306:11903M" />
   <configure name="VERSION" value="1.0.9" />
   <configure name="LIB_VERSION" value="0x109" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,9,0" />
-  <configure name="RELEASE_DATE" value="2013-04-11" />
-  <configure name="CONFIGURE" value="./configure  '--prefix=/usr'" />
+  <configure name="RELEASE_DATE" value="2013-04-18" />
+  <configure name="CONFIGURE" value="./configure  '--prefix=/usr' 'CFLAGS=-fopenmp -g -O2 -Wall -pthread'" />
   <configure name="PREFIX" value="/usr" />
   <configure name="EXEC-PREFIX" value="/usr" />
   <configure name="INCLUDE_PATH" value="/usr/include/WizardsToolkit-1"/>
@@ -24,8 +24,8 @@
   <configure name="LDFLAGS" value="-L/usr/lib " />
   <configure name="LIBS" value="-lWizardsToolkit -lbz2 -llzma -lz -lm -lgomp -lpthread" />
   <configure name="CXX" value="g++" />
-  <configure name="CXXFLAGS" value="-pthread" />
-  <configure name="DISTCHECK_CONFIG_FLAGS" value=" --with-umem=no " />
+  <configure name="CXXFLAGS" value="" />
+  <configure name="DISTCHECK_CONFIG_FLAGS" value="'CFLAGS=-fopenmp -g -O2 -Wall -pthread'  --with-umem=no " />
   <configure name="HOST" value="x86_64-unknown-linux-gnu" />
   <configure name="COPYRIGHT" value="Copyright (C) 1999-2012 ImageMagick Studio LLC" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
