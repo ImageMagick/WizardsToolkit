@@ -30,8 +30,12 @@ extern "C" {
 #define CacheAlign(size)  ((size) < CACHE_LINE_SIZE ? CACHE_LINE_SIZE : (size))
 
 #if (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 6))
+#if !defined(__ICC)
 #define WizardAssumeAligned(address) \
   __builtin_assume_aligned((address),CACHE_LINE_SIZE)
+#else
+#define WizardAssumeAligned(address)  (address)
+#endif
 #else
 #define WizardAssumeAligned(address)  (address)
 #endif
