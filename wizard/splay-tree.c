@@ -242,7 +242,7 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
 %
 */
 
-static NodeInfo *LinkSplayTreeNodes(NodeInfo **nodes,const size_t low,
+static inline NodeInfo *LinkSplayTreeNodes(NodeInfo **nodes,const size_t low,
   const size_t high)
 {
   register NodeInfo
@@ -264,7 +264,7 @@ static NodeInfo *LinkSplayTreeNodes(NodeInfo **nodes,const size_t low,
   return(node);
 }
 
-static int SplayTreeToNodeArray(NodeInfo *node,const void *nodes)
+static inline int SplayTreeToNodeArray(NodeInfo *node,const void *nodes)
 {
   register const NodeInfo
     ***p;
@@ -328,7 +328,7 @@ static void BalanceSplayTree(SplayTreeInfo *splay_tree)
 %
 */
 
-static void *GetFirstSplayTreeNode(SplayTreeInfo *splay_tree)
+static inline void *GetFirstSplayTreeNode(SplayTreeInfo *splay_tree)
 {
   register NodeInfo
     *node;
@@ -1467,7 +1467,7 @@ WizardExport void ResetSplayTreeIterator(SplayTreeInfo *splay_tree)
 %
 */
 
-static NodeInfo *Splay(SplayTreeInfo *splay_tree,const size_t depth,
+static inline NodeInfo *Splay(SplayTreeInfo *splay_tree,const size_t depth,
   const void *key,NodeInfo **node,NodeInfo **parent,NodeInfo **grandparent)
 {
   int
