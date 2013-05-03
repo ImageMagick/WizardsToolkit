@@ -3192,7 +3192,7 @@ WIZARD_PATCHLEVEL_VERSION=0
 
 WIZARD_VERSION=1.0.9-0
 
-WIZARD_SVN_REVISION=10306:11996M
+WIZARD_SVN_REVISION=10306:12119M
 
 
 # Substitute library versioning
@@ -3200,7 +3200,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=10306:11996M
+WIZARD_SVN_REVISION=10306:12119M
 
 
 
@@ -3734,7 +3734,12 @@ mkdir_p='$(MKDIR_P)'
 # in the wild :-(  We should find a proper way to deprecate it ...
 AMTAR='$${TAR-tar}'
 
+
+# We'll loop over all known methods to create a tar archive until one works.
+_am_tools='gnutar  pax cpio none'
+
 am__tar='$${TAR-tar} chof - "$$tardir"' am__untar='$${TAR-tar} xf -'
+
 
 
 
