@@ -689,6 +689,9 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
         (void) FormatLocaleString(path,MaxTextExtent,"%s/share/%s/",home,
           WIZARDSTOOLKIT_SHARE_RELATIVE_PATH);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
+        (void) FormatLocaleString(path,MaxTextExtent,"%s",
+          WIZARDSTOOLKIT_SHAREARCH_PATH);
+        (void) AppendValueToLinkedList(paths,AcquireString(path));
 #endif
         home=(char *) RelinquishWizardMemory(home);
       }
@@ -713,6 +716,9 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
       (void) AppendValueToLinkedList(paths,AcquireString(path));
       (void) FormatLocaleString(path,MaxTextExtent,"%s/share/%s/",prefix,
         WIZARDSTOOLKIT_SHARE_RELATIVE_PATH);
+      (void) AppendValueToLinkedList(paths,AcquireString(path));
+      (void) FormatLocaleString(path,MaxTextExtent,"%s",
+        WIZARDSTOOLKIT_SHAREARCH_PATH);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
 #endif
     }
