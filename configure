@@ -3192,7 +3192,7 @@ WIZARD_PATCHLEVEL_VERSION=0
 
 WIZARD_VERSION=1.0.9-0
 
-WIZARD_SVN_REVISION=10306:12302M
+WIZARD_SVN_REVISION=12318:12359M
 
 
 # Substitute library versioning
@@ -3200,7 +3200,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=10306:12302M
+WIZARD_SVN_REVISION=12318:12359M
 
 
 
@@ -27826,7 +27826,7 @@ $as_echo X"$mf" |
     DEPDIR=`sed -n 's/^DEPDIR = //p' < "$mf"`
     test -z "$DEPDIR" && continue
     am__include=`sed -n 's/^am__include = //p' < "$mf"`
-    test -z "am__include" && continue
+    test -z "$am__include" && continue
     am__quote=`sed -n 's/^am__quote = //p' < "$mf"`
     # Find all dependency output files, they are included files with
     # $(DEPDIR) in their names.  We invoke sed twice because it is the
