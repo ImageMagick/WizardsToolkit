@@ -65,9 +65,6 @@
 #if !defined(MAP_FAILED)
 #define MAP_FAILED      ((void *) -1)
 #endif
-#if !defined(MS_SYNC)
-#define MS_SYNC  0x04
-#endif
 
 /*
   Typedef declarations.
@@ -1650,7 +1647,7 @@ WizardExport int SyncBlob(BlobInfo *blob_info)
     }
     case BlobStream:
     {
-#if defined(WIZARDSTOOLKIT_HAVE_MMAP_FILEIO)
+#if defined(WIZARDSTOOLKIT_HAVE_MMAP_FILEIO) && defined(MS_SYNC)
       if (blob_info->mapped != WizardFalse)
         status=msync(blob_info->data,blob_info->length,MS_SYNC);
 #endif
