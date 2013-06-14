@@ -101,9 +101,6 @@ struct _BlobInfo
   char
     filename[MaxTextExtent];
 
-  MapMode
-    mode;
-
   size_t
     length,
     extent,
@@ -1122,7 +1119,6 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
                   blob_info->file_info.file=(FILE *) NULL;
                   AttachBlob(blob_info,blob,length);
                   blob_info->mapped=WizardTrue;
-                  blob_info->mode=ReadMode;
                 }
             }
         }
@@ -1582,7 +1578,6 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
             return(WizardFalse);
           blob_info->data=(unsigned char *) MapBlob(fileno(
             blob_info->file_info.file),WriteMode,0,(size_t) extent);
-          blob_info->mode=WriteMode;
           blob_info->extent=(size_t) extent;
           blob_info->length=(size_t) extent;
           (void) SyncBlob(blob_info);
@@ -1661,14 +1656,7 @@ WizardExport int SyncBlob(BlobInfo *blob_info)
       break;
     }
     case BlobStream:
-    {
-#if defined(WIZARDSTOOLKIT_HAVE_MMAP_FILEIO) && defined(MS_SYNC)
-      if ((blob_info->mapped != WizardFalse) &&
-          ((blob_info->mode == WriteMode) || (blob_info->mode == IOMode)))
-        status=msync(blob_info->data,blob_info->length,MS_SYNC);
-#endif
       break;
-    }
   }
   return(status);
 }
