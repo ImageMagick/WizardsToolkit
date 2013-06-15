@@ -348,7 +348,10 @@ WizardExport BlobInfo *DestroyBlob(BlobInfo *blob_info)
     return(blob_info);
   (void) CloseBlob(blob_info);
   if (blob_info->mapped != WizardFalse)
-    (void) UnmapBlob(blob_info->data,blob_info->length);
+    {
+      (void) UnmapBlob(blob_info->data,blob_info->length);
+      RelinquishWizardResource(MapResource,blob_info->length);
+    }
   if (blob_info->semaphore != (SemaphoreInfo *) NULL)
     DestroySemaphoreInfo(&blob_info->semaphore);
   blob_info->signature=(~WizardSignature);
@@ -387,7 +390,10 @@ static unsigned char *DetachBlob(BlobInfo *blob_info)
   if (blob_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (blob_info->mapped != WizardFalse)
-    (void) UnmapBlob(blob_info->data,blob_info->length);
+    {
+      (void) UnmapBlob(blob_info->data,blob_info->length);
+      RelinquishWizardResource(MapResource,blob_info->length);
+    }
   blob_info->mapped=WizardFalse;
   blob_info->length=0;
   blob_info->offset=0;
@@ -1060,7 +1066,13 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
       if (blob_info->file_info.file != (FILE *) NULL)
         {
           size_t
+            length;
+
+          ssize_t
             count;
+
+          struct stat
+            *properties;
 
           unsigned char
             magick[3];
@@ -1071,7 +1083,8 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
             16384);
 #endif
           (void) ResetWizardMemory(magick,0,sizeof(magick));
-          count=fread(magick,1,sizeof(magick),blob_info->file_info.file);
+          count=(ssize_t) fread(magick,1,sizeof(magick),
+            blob_info->file_info.file);
           (void) fseek(blob_info->file_info.file,-((off_t) count),SEEK_CUR);
           (void) fflush(blob_info->file_info.file);
           (void) LogWizardEvent(BlobEvent,GetWizardModule(),
@@ -1096,21 +1109,19 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
                 blob_info->type=BZipStream;
             }
 #endif
-          if (blob_info->type == FileStream)
+          properties=(&blob_info->properties);
+          length=(size_t) properties->st_size;
+          if ((blob_info->type == FileStream) &&
+              (length > WizardMaxBufferExtent) &&
+              (AcquireWizardResource(MapResource,length) != WizardFalse))
             {
-              size_t
-                length;
-
-              struct stat
-                *properties;
-
               void
                 *blob;
 
-              properties=(&blob_info->properties);
-              length=(size_t) properties->st_size;
               blob=MapBlob(fileno(blob_info->file_info.file),ReadMode,0,length);
-              if (blob != (void *) NULL)
+              if (blob == (void *) NULL)
+                RelinquishWizardResource(MapResource,length);
+              else
                 {
                   /*
                     Use memory-mapped I/O.
@@ -1564,6 +1575,7 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
             offset;
 
           (void) UnmapBlob(blob_info->data,blob_info->length);
+          RelinquishWizardResource(MapResource,blob_info->length);
           offset=fseek(blob_info->file_info.file,0,SEEK_END);
           if (offset < 0)
             return(WizardFalse);
@@ -1576,6 +1588,7 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
           offset=fseek(blob_info->file_info.file,offset,SEEK_SET);
           if (count != 1)
             return(WizardFalse);
+          (void) AcquireWizardResource(MapResource,extent);
           blob_info->data=(unsigned char *) MapBlob(fileno(
             blob_info->file_info.file),WriteMode,0,(size_t) extent);
           blob_info->extent=(size_t) extent;
