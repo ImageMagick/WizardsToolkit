@@ -1071,9 +1071,6 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
           ssize_t
             count;
 
-          struct stat
-            *properties;
-
           unsigned char
             magick[3];
 
@@ -1109,8 +1106,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
                 blob_info->type=BZipStream;
             }
 #endif
-          properties=(&blob_info->properties);
-          length=(size_t) properties->st_size;
+          length=(size_t) blob_info->properties.st_size;
           if ((blob_info->type == FileStream) &&
               (length > WizardMaxBufferExtent) &&
               (AcquireWizardResource(MapResource,length) != WizardFalse))
