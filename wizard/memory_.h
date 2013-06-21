@@ -31,7 +31,7 @@ typedef void
   *(*ResizeMemoryHandler)(void *,size_t) wizard_alloc_size(2);
 
 extern WizardExport MemoryInfo
-  *AcquireMemoryInfo(const size_t),
+  *AcquireMemoryInfo(const size_t,const size_t) wizard_alloc_sizes(1,2),
   *RelinquishMemoryInfo(const MemoryInfo *);
 
 extern WizardExport void
