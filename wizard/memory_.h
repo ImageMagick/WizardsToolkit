@@ -22,10 +22,17 @@
 extern "C" {
 #endif
 
+typedef struct _MemoryInfo
+  MemoryInfo;
+
 typedef void
   *(*AcquireMemoryHandler)(size_t) wizard_alloc_size(1),
   (*DestroyMemoryHandler)(void *),
   *(*ResizeMemoryHandler)(void *,size_t) wizard_alloc_size(2);
+
+extern WizardExport MemoryInfo
+  *AcquireMemoryInfo(const size_t),
+  *RelinquishMemoryInfo(const MemoryInfo *);
 
 extern WizardExport void
   *AcquireAlignedMemory(const size_t,const size_t)
@@ -39,6 +46,7 @@ extern WizardExport void
   DestroyWizardMemory(void),
   GetWizardMemoryMethods(AcquireMemoryHandler *,ResizeMemoryHandler *,
     DestroyMemoryHandler *),
+  *GetMemoryInfoMemory(const MemoryInfo *),
   *RelinquishAlignedMemory(void *),
   *RelinquishWizardMemory(void *),
   *ResetWizardMemory(void *,int,const size_t),
