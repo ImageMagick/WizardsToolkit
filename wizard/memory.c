@@ -126,6 +126,9 @@ typedef struct _MemoryInfo
 
   void
     *memory;
+
+  size_t
+    signature;
 } MemoryInfo;
 
 typedef struct _MemoryPool
@@ -423,6 +426,7 @@ WizardExport MemoryInfo *AcquireMemoryInfo(void)
   if (memory_info == (MemoryInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   (void) ResetWizardMemory(memory_info,0,sizeof(*memory_info));
+  memory_info->signature=WizardSignature;
   return(memory_info);
 }
 
@@ -768,22 +772,23 @@ WizardExport void GetWizardMemoryMethods(
 %
 %  The format of the GetMemoryInfoMemory method is:
 %
-%      void *GetMemoryInfoMemory(const MemoryInfo *memory_info,
-%        const size_t count,const size_t quantum)
+%      void *GetMemoryInfoMemory(MemoryInfo *memory_info,const size_t count,
+%        const size_t quantum)
 %
 %  A description of each parameter follows:
 %
-%    o memory: A pointer to a block of memory to free for reuse.
+%    o memory_info: The MemoryInfo structure.
 %
 %    o count: the number of quantum elements to allocate.
 %
 %    o quantum: the number of bytes in each quantum.
 %
 */
-WizardExport void *GetMemoryInfoMemory(const MemoryInfo *memory_info,
+WizardExport void *GetMemoryInfoMemory(MemoryInfo *memory_info,
   const size_t count,const size_t quantum)
 {
-  assert(memory_info != (const MemoryInfo *) NULL);
+  assert(memory_info != (MemoryInfo *) NULL);
+  assert(memory_info->signature == WizardSignature);
   return(memory_info->memory);
 }
 
@@ -835,20 +840,22 @@ WizardExport void *RelinquishAlignedMemory(void *memory)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  RelinquishMemoryInfo() frees memory acquired with AcquireMemoryInfo()
-%  or reuse.
+%  RelinquishMemoryInfo() destroys the MemoryInfo structure returned by a
+%  previous call to AcquireMemoryInfo().
 %
 %  The format of the RelinquishMemoryInfo method is:
 %
-%      void *RelinquishMemoryInfo(const MemoryInfo *memory_info)
+%      void *RelinquishMemoryInfo(MemoryInfo *memory_info)
 %
 %  A description of each parameter follows:
 %
 %    o memory_info: A pointer to a block of memory to free for reuse.
 %
 */
-WizardExport MemoryInfo *RelinquishMemoryInfo(const MemoryInfo *memory_info)
+WizardExport MemoryInfo *RelinquishMemoryInfo(MemoryInfo *memory_info)
 {
+  assert(memory_info != (MemoryInfo *) NULL);
+  assert(memory_info->signature == WizardSignature);
   return((MemoryInfo *) NULL);
 }
 

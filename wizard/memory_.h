@@ -32,7 +32,7 @@ typedef void
 
 extern WizardExport MemoryInfo
   *AcquireMemoryInfo(void),
-  *RelinquishMemoryInfo(const MemoryInfo *);
+  *RelinquishMemoryInfo(MemoryInfo *);
 
 extern WizardExport void
   *AcquireAlignedMemory(const size_t,const size_t)
@@ -46,7 +46,7 @@ extern WizardExport void
   DestroyWizardMemory(void),
   GetWizardMemoryMethods(AcquireMemoryHandler *,ResizeMemoryHandler *,
     DestroyMemoryHandler *),
-  *GetMemoryInfoMemory(const MemoryInfo *,const size_t,const size_t)
+  *GetMemoryInfoMemory(MemoryInfo *,const size_t,const size_t)
     wizard_alloc_sizes(2,3),
   *RelinquishAlignedMemory(void *),
   *RelinquishWizardMemory(void *),
