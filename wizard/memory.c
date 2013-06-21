@@ -415,7 +415,15 @@ static void *AcquireBlock(size_t size)
 */
 WizardExport MemoryInfo *AcquireMemoryInfo(void)
 {
-  return((MemoryInfo *) NULL);
+  MemoryInfo
+    *memory_info;
+
+  memory_info=(MemoryInfo *) WizardAssumeAligned(AcquireAlignedMemory(1,
+    sizeof(*memory_info)));
+  if (memory_info == (MemoryInfo *) NULL)
+    ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
+  (void) ResetWizardMemory(memory_info,0,sizeof(*memory_info));
+  return(memory_info);
 }
 
 /*
@@ -1012,7 +1020,8 @@ WizardExport void *ResizeWizardMemory(void *memory,const size_t size)
         {
           UnlockSemaphoreInfo(memory_semaphore);
           memory=RelinquishWizardMemory(memory);
-          ThrowFatalException(ResourceLimitFatalError,"MemoryAllocationFailed");
+          ThrowFatalException(ResourceFatalError,
+            "memory allocation failed `%s'");
         }
       block=ResizeBlock(memory,size == 0 ? 1UL : size);
       assert(block != (void *) NULL);
