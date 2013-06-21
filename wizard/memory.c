@@ -406,22 +406,14 @@ static void *AcquireBlock(size_t size)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AcquireMemoryInfo() returns a pointer to a block of memory at least size
-%  bytes suitably aligned for any use.
+%  AcquireMemoryInfo() returns a MemoryInfo structure.  It always succeeds.
 %
 %  The format of the AcquireMemoryInfo method is:
 %
-%      MemoryInfo *AcquireMemoryInfo(const size_t count,const size_t quantum)
-%
-%  A description of each parameter follows:
-%
-%    o count: the number of quantum elements to allocate.
-%
-%    o quantum: the number of bytes in each quantum.
+%      MemoryInfo *AcquireMemoryInfo(void)
 %
 */
-WizardExport MemoryInfo *AcquireMemoryInfo(const size_t count,
-  const size_t quantum)
+WizardExport MemoryInfo *AcquireMemoryInfo(void)
 {
   return((MemoryInfo *) NULL);
 }
@@ -763,18 +755,25 @@ WizardExport void GetWizardMemoryMethods(
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetMemoryInfoMemory() returns a pointer to the allocated memory.
+%  GetMemoryInfoMemory() returns a pointer to a block of memory at least size
+%  bytes suitably aligned for any use.
 %
 %  The format of the GetMemoryInfoMemory method is:
 %
-%      void *GetMemoryInfoMemory(const MemoryInfo *memory_info)
+%      void *GetMemoryInfoMemory(const MemoryInfo *memory_info,
+%        const size_t count,const size_t quantum)
 %
 %  A description of each parameter follows:
 %
 %    o memory: A pointer to a block of memory to free for reuse.
 %
+%    o count: the number of quantum elements to allocate.
+%
+%    o quantum: the number of bytes in each quantum.
+%
 */
-WizardExport void *GetMemoryInfoMemory(const MemoryInfo *memory_info)
+WizardExport void *GetMemoryInfoMemory(const MemoryInfo *memory_info,
+  const size_t count,const size_t quantum)
 {
   assert(memory_info != (const MemoryInfo *) NULL);
   return(memory_info->memory);
