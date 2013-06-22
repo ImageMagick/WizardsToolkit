@@ -31,8 +31,8 @@ typedef void
   *(*ResizeMemoryHandler)(void *,size_t) wizard_alloc_size(2);
 
 extern WizardExport MemoryInfo
-  *AcquireMemoryInfo(void),
-  *RelinquishMemoryInfo(MemoryInfo *);
+  *AcquireVirtualMemory(const size_t,const size_t) wizard_alloc_sizes(1,2),
+  *RelinquishVirtualMemory(MemoryInfo *);
 
 extern WizardExport void
   *AcquireAlignedMemory(const size_t,const size_t)
@@ -44,10 +44,9 @@ extern WizardExport void
   *CopyWizardMemory(void *,const void *,const size_t)
     wizard_attribute((__nonnull__)),
   DestroyWizardMemory(void),
+  *GetVirtualMemoryBlob(const MemoryInfo *),
   GetWizardMemoryMethods(AcquireMemoryHandler *,ResizeMemoryHandler *,
     DestroyMemoryHandler *),
-  *GetMemoryInfoMemory(MemoryInfo *,const size_t,const size_t)
-    wizard_alloc_sizes(2,3),
   *RelinquishAlignedMemory(void *),
   *RelinquishWizardMemory(void *),
   *ResetWizardMemory(void *,int,const size_t),

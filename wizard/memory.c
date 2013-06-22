@@ -125,7 +125,7 @@ typedef struct _MemoryInfo
     mapped;
 
   void
-    *memory;
+    *blob;
 
   size_t
     signature;
@@ -403,20 +403,28 @@ static void *AcquireBlock(size_t size)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   A c q u i r e M e m o r y I n f o                                         %
+%   A c q u i r e V i r t u a l M e m o r y                                   %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AcquireMemoryInfo() returns a MemoryInfo structure.  It always succeeds.
+%  AcquireVirtualMemory() allocates a pointer to a block of memory at least size
+%  bytes suitably aligned for any use.
 %
-%  The format of the AcquireMemoryInfo method is:
+%  The format of the AcquireVirtualMemory method is:
 %
-%      MemoryInfo *AcquireMemoryInfo(void)
+%      MemoryInfo *AcquireVirtualMemory(const size_t count,const size_t quantum)
+%
+%  A description of each parameter follows:
+%
+%    o count: the number of quantum elements to allocate.
+%
+%    o quantum: the number of bytes in each quantum.
 %
 */
-WizardExport MemoryInfo *AcquireMemoryInfo(void)
+WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
+  const size_t quantum)
 {
   MemoryInfo
     *memory_info;
@@ -761,35 +769,28 @@ WizardExport void GetWizardMemoryMethods(
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   G e t M e m o r y I n f o M e m o r y                                     %
+%   G e t V i r t u a l M e m o r y B l o b                                   %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetMemoryInfoMemory() returns a pointer to a block of memory at least size
-%  bytes suitably aligned for any use.
+%  GetVirtualMemoryBlob() returns the virtual memory blob associated with the
+%  specified MemoryInfo structure.
 %
-%  The format of the GetMemoryInfoMemory method is:
+%  The format of the GetVirtualMemoryBlob method is:
 %
-%      void *GetMemoryInfoMemory(MemoryInfo *memory_info,const size_t count,
-%        const size_t quantum)
+%      void *GetVirtualMemoryBlob(const MemoryInfo *memory_info)
 %
 %  A description of each parameter follows:
 %
 %    o memory_info: The MemoryInfo structure.
-%
-%    o count: the number of quantum elements to allocate.
-%
-%    o quantum: the number of bytes in each quantum.
-%
 */
-WizardExport void *GetMemoryInfoMemory(MemoryInfo *memory_info,
-  const size_t count,const size_t quantum)
+WizardExport void *GetVirtualMemoryBlob(const MemoryInfo *memory_info)
 {
   assert(memory_info != (MemoryInfo *) NULL);
   assert(memory_info->signature == WizardSignature);
-  return(memory_info->memory);
+  return(memory_info->blob);
 }
 
 /*
@@ -834,25 +835,25 @@ WizardExport void *RelinquishAlignedMemory(void *memory)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   R e l i n q u i s h M e m o r y I n f o                                   %
+%   R e l i n q u i s h V i r t u a l M e m o r y                             %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  RelinquishMemoryInfo() destroys the MemoryInfo structure returned by a
-%  previous call to AcquireMemoryInfo().
+%  RelinquishVirtualMemory() destroys the MemoryInfo structure returned by a
+%  previous call to AcquireVirtualMemory().
 %
-%  The format of the RelinquishMemoryInfo method is:
+%  The format of the RelinquishVirtualMemory method is:
 %
-%      void *RelinquishMemoryInfo(MemoryInfo *memory_info)
+%      void *RelinquishVirtualMemory(MemoryInfo *memory_info)
 %
 %  A description of each parameter follows:
 %
 %    o memory_info: A pointer to a block of memory to free for reuse.
 %
 */
-WizardExport MemoryInfo *RelinquishMemoryInfo(MemoryInfo *memory_info)
+WizardExport MemoryInfo *RelinquishVirtualMemory(MemoryInfo *memory_info)
 {
   assert(memory_info != (MemoryInfo *) NULL);
   assert(memory_info->signature == WizardSignature);
