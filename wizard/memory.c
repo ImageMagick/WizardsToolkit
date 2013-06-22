@@ -60,6 +60,7 @@
 #include "wizard/exception-private.h"
 #include "wizard/memory_.h"
 #include "wizard/memory-private.h"
+#include "wizard/resource_.h"
 #include "wizard/semaphore.h"
 #include "wizard/string_.h"
 
