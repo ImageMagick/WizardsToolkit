@@ -31,7 +31,8 @@ typedef void
   *(*ResizeMemoryHandler)(void *,size_t) wizard_alloc_size(2);
 
 extern WizardExport MemoryInfo
-  *AcquireVirtualMemory(const size_t,const size_t) wizard_alloc_sizes(1,2),
+  *AcquireVirtualMemory(const size_t,const size_t,ExceptionInfo *)
+    wizard_alloc_sizes(1,2),
   *RelinquishVirtualMemory(MemoryInfo *);
 
 extern WizardExport void

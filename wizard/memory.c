@@ -63,6 +63,7 @@
 #include "wizard/resource_.h"
 #include "wizard/semaphore.h"
 #include "wizard/string_.h"
+#include "wizard/utility-private.h"
 
 /*
   Define declarations.
@@ -117,7 +118,7 @@ typedef struct _WizardMemoryMethods
     destroy_memory_handler;
 } WizardMemoryMethods;
 
-typedef struct _MemoryInfo
+struct _MemoryInfo
 {
   char
     filename[MaxTextExtent];
@@ -125,12 +126,15 @@ typedef struct _MemoryInfo
   WizardBooleanType
     mapped;
 
+  size_t
+    length;
+
   void
     *blob;
 
   size_t
     signature;
-} MemoryInfo;
+};
 
 typedef struct _MemoryPool
 {
@@ -415,7 +419,8 @@ static void *AcquireBlock(size_t size)
 %
 %  The format of the AcquireVirtualMemory method is:
 %
-%      MemoryInfo *AcquireVirtualMemory(const size_t count,const size_t quantum)
+%      MemoryInfo *AcquireVirtualMemory(const size_t count,const size_t quantum,
+%        ExceptionInfo *exception)
 %
 %  A description of each parameter follows:
 %
@@ -425,17 +430,58 @@ static void *AcquireBlock(size_t size)
 %
 */
 WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
-  const size_t quantum)
+  const size_t quantum,ExceptionInfo *exception)
 {
   MemoryInfo
     *memory_info;
 
+  size_t
+    length;
+
+  length=count*quantum;
+  if ((count == 0) || (quantum != (length/count)))
+    {
+      errno=ENOMEM;
+      return((void *) NULL);
+    }
   memory_info=(MemoryInfo *) WizardAssumeAligned(AcquireAlignedMemory(1,
     sizeof(*memory_info)));
   if (memory_info == (MemoryInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   (void) ResetWizardMemory(memory_info,0,sizeof(*memory_info));
+  memory_info->length=length;
   memory_info->signature=WizardSignature;
+  memory_info->blob=AcquireWizardMemory(length);
+  if (memory_info->blob == NULL)
+    {
+      /*
+        Heap memory failed, try anonymous memory mapping.
+      */
+      memory_info->mapped=WizardTrue;
+      memory_info->blob=MapBlob(-1,IOMode,0,length);
+    }
+  if (memory_info->blob == NULL)
+    {
+      int
+        file;
+
+      /*
+        Anonymous memory mapping failed, try file-backed memory mapping.
+      */
+      file=AcquireUniqueFileResource("",memory_info->filename,exception);
+      file=open_utf8(memory_info->filename,O_RDWR | O_CREAT | O_BINARY | O_EXCL,
+        S_MODE);
+      if (file == -1)
+        file=open_utf8(memory_info->filename,O_RDWR | O_BINARY,S_MODE);
+      if (file != -1)
+        {
+          if ((lseek(file,length-1,SEEK_SET) >= 0) && (write(file,"",1) == 1))
+            memory_info->blob=MapBlob(file,IOMode,0,length);
+          (void) close(file);
+        }
+    }
+  if (memory_info->blob == NULL)
+    return(RelinquishVirtualMemory(memory_info));
   return(memory_info);
 }
 
@@ -858,7 +904,22 @@ WizardExport MemoryInfo *RelinquishVirtualMemory(MemoryInfo *memory_info)
 {
   assert(memory_info != (MemoryInfo *) NULL);
   assert(memory_info->signature == WizardSignature);
-  return((MemoryInfo *) NULL);
+  if (memory_info->blob != (void *) NULL)
+    {
+      if (memory_info->mapped == WizardFalse)
+        memory_info->blob=RelinquishWizardMemory(memory_info->blob);
+      else
+        {
+          (void) UnmapBlob(memory_info->blob,memory_info->length);
+          memory_info->blob=NULL;
+          if (*memory_info->filename != '\0')
+            (void) RelinquishUniqueFileResource(memory_info->filename,
+               WizardTrue);
+        }
+    }
+  memory_info->signature=(~WizardSignature);
+  memory_info=(MemoryInfo *) RelinquishAlignedMemory(memory_info);
+  return(memory_info);
 }
 
 /*
