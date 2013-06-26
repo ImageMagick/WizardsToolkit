@@ -170,8 +170,8 @@ typedef struct _LogMapInfo
 static const LogMapInfo
   LogMap[] =
   {
-    { NoEvents, ConsoleHandler, "Magick-%d.log",
-      "%t %r %u %v %d %c[%p]: %m/%f/%l/%d\n  %e" }
+    { NoEvents, ConsoleHandler, "Magick-%g.log",
+      "%t %r %u %v %d %c[%p]: %m/%f/%l/%d\\n  %e" }
   };
 
 static char
@@ -230,8 +230,7 @@ WizardExport void CloseWizardLog(void)
   LockSemaphoreInfo(log_semaphore);
   if (log_info->file != (FILE *) NULL)
     {
-      if (log_info->append == WizardFalse)
-        (void) fprintf(log_info->file,"</log>\n");
+      (void) fprintf(log_info->file,"</log>\n");
       (void) fclose(log_info->file);
       log_info->file=(FILE *) NULL;
     }
@@ -613,9 +612,6 @@ WizardExport WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
 {
 #define MegabytesToBytes(value) ((WizardSizeType) (value)*1024*1024)
 
-  char
-    limit[MaxTextExtent];
-
   const char
     *path;
 
@@ -645,11 +641,29 @@ WizardExport WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
     if ((path == (const char *) NULL) ||
         (LocaleCompare(path,log_info[i]->path) != 0))
       {
+        size_t
+          length;
+
         if (log_info[i]->path != (char *) NULL)
           (void) fprintf(file,"\nPath: %s\n\n",log_info[i]->path);
-        (void) fprintf(file,"Filename       Generations     Limit  Format\n");
-        (void) fprintf(file,"-------------------------------------------------"
-          "------------------------------\n");
+        length=0;
+        for (j=0; j < (ssize_t) (8*sizeof(LogHandlerType)); j++)
+        {
+          size_t
+            mask;
+
+          mask=1U << j;
+          if ((log_info[i]->handler_mask & mask) != 0)
+            {
+              (void) fprintf(file,"%s ",LogHandlers[j].name);
+              length+=strlen(LogHandlers[j].name);
+            }
+        }
+        for (j=(ssize_t) length; j <= 12; j++)
+          (void) FormatLocaleFile(file," ");
+        (void) fprintf(file," Generations     Limit  Format\n");
+        (void) fprintf(file,"-----------------------------------------"
+          "--------------------------------------\n");
       }
     path=log_info[i]->path;
     if (log_info[i]->filename != (char *) NULL)
@@ -659,9 +673,7 @@ WizardExport WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
           (void) fprintf(file," ");
       }
     (void) fprintf(file,"%9g  ",(double) log_info[i]->generations);
-    (void) FormatWizardSize(MegabytesToBytes(log_info[i]->limit),WizardFalse,
-      limit);
-    (void) fprintf(file,"%8sB  ",limit);
+    (void) fprintf(file,"%8g   ",(double) log_info[i]->limit);
     if (log_info[i]->format != (char *) NULL)
       (void) fprintf(file,"%s",log_info[i]->format);
     (void) fprintf(file,"\n");
@@ -722,8 +734,7 @@ static void *DestroyLogElement(void *log_info)
   p=(LogInfo *) log_info;
   if (p->file != (FILE *) NULL)
     {
-      if (p->append == WizardFalse)
-        (void) fprintf(p->file,"</log>\n");
+      (void) fprintf(p->file,"</log>\n");
       (void) fclose(p->file);
       p->file=(FILE *) NULL;
     }
@@ -1209,13 +1220,11 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
             }
           log_info->generation++;
           if (log_info->append == WizardFalse)
-            {
-              (void) fprintf(log_info->file,"<?xml version=\"1.0\" "
-                "encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-              (void) fprintf(log_info->file,"<log>\n");
-            }
+            (void) fprintf(log_info->file,"<?xml version=\"1.0\" "
+              "encoding=\"UTF-8\" standalone=\"yes\"?>\n");
+          (void) fprintf(log_info->file,"<log>\n");
         }
-      (void) fprintf(log_info->file,"%s\n",text);
+      (void) fprintf(log_info->file,"  <event>%s</event>\n",text);
       (void) fflush(log_info->file);
     }
   if ((log_info->handler_mask & StdoutHandler) != 0)
@@ -1552,6 +1561,22 @@ static WizardBooleanType LoadLogLists(const char *filename,
           return(WizardFalse);
         }
     }
+  /*
+    Load external log map.
+  */
+  status=WizardTrue;
+  options=GetConfigureOptions(filename,exception);
+  option=(const StringInfo *) GetNextValueInLinkedList(options);
+  while (option != (const StringInfo *) NULL)
+  {
+    status|=LoadLogList((const char *) GetStringInfoDatum(option),
+      GetStringInfoPath(option),0,exception);
+    option=(const StringInfo *) GetNextValueInLinkedList(options);
+  }
+  /*
+    Load built-in log map.
+  */
+  options=DestroyConfigureOptions(options);
   for (i=0; i < (ssize_t) (sizeof(LogMap)/sizeof(*LogMap)); i++)
   {
     LogInfo
@@ -1577,23 +1602,11 @@ static WizardBooleanType LoadLogLists(const char *filename,
     log_info->format=ConstantString(p->format);
     log_info->exempt=WizardTrue;
     log_info->signature=WizardSignature;
-    status=AppendValueToLinkedList(log_list,log_info);
+    status|=AppendValueToLinkedList(log_list,log_info);
     if (status == WizardFalse)
       (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
         "memory allocation failed `%s'",log_info->name);
   }
-  /*
-    Load external log map.
-  */
-  options=GetConfigureOptions(filename,exception);
-  option=(const StringInfo *) GetNextValueInLinkedList(options);
-  while (option != (const StringInfo *) NULL)
-  {
-    status|=LoadLogList((const char *) GetStringInfoDatum(option),
-      GetStringInfoPath(option),0,exception);
-    option=(const StringInfo *) GetNextValueInLinkedList(options);
-  }
-  options=DestroyConfigureOptions(options);
   return(status != 0 ? WizardTrue : WizardFalse);
 }
 
