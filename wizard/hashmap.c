@@ -1244,8 +1244,6 @@ WizardExport WizardBooleanType IsLinkedListEmpty(
 {
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   return(list_info->elements == 0 ? WizardTrue : WizardFalse);
 }
 
