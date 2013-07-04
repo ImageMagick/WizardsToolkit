@@ -1,3 +1,6 @@
+2013-07-04  1.0.9-0 Cristy  <cristy@virgi...>
+  * Do not decompress when authenticating.
+
 2012-10-24  1.0.8-10 Cristy  <cristy@virgi...>
   * Add support for the SHA-3 hash
 

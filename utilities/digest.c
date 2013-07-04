@@ -90,7 +90,6 @@ static void DigestUsage()
     {
       "-authenticate        read message digests from a file and authenticate them",
       "-debug events        display copious debugging information",
-      "-(de)compress        automagically (de)compress BZIP and ZIP files",
       "-hash type           compute the message digest with this hash",
       "-help                print program options",
       "-list type           print a list of supported option arguments",
@@ -184,14 +183,6 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
       {
         switch(*(option+1))
         {
-          case '(':
-          {
-            if (LocaleCompare(option+1,"(de)compress") == 0)
-              break;
-            ThrowDigestException(OptionFatalError,"unrecognized option: `%s'",
-              option);
-            break;
-          }
           case 'a':
           {
             if (strcasecmp(option,"-authenticate") == 0)
@@ -283,7 +274,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
       {
         register char
           *p;
-  
+
         if ((isalnum(c) == WizardFalse) && (c != '/'))
           c=ReadBlobByte(digest_blob);
         else
@@ -419,14 +410,14 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                 if ((LocaleCompare(key,"/digest:Content") == 0) ||
                     (LocaleCompare(key,"/rdf:Description") == 0))
                   {
-                    content_blob=OpenBlob(path,ReadBinaryBlobMode,WizardTrue,
+                    content_blob=OpenBlob(path,ReadBinaryBlobMode,WizardFalse,
                       exception);
                     if (content_blob == (BlobInfo *) NULL)
                       break;
                     /*
                       Compute content message digest and verify.
                     */
-                    hash_info=AcquireHashInfo(SHA2256Hash);
+                    hash_info=AcquireHashInfo(hash);
                     InitializeHash(hash_info);
                     for (content=AcquireStringInfo(WizardMaxBufferExtent); ; )
                     {
@@ -442,6 +433,9 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                     content=DestroyStringInfo(content);
                     if (strcmp(digest,GetHashHexDigest(hash_info)) != 0)
                       {
+                        char
+                          algorithm[MaxTextExtent];
+
                         message=AcquireString("Path: ");
                         (void) ConcatenateString(&message,path);
                         (void) ConcatenateString(&message,"\n");
@@ -450,6 +444,11 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                         (void) ConcatenateString(&message,"\n");
                         (void) ConcatenateString(&message,"  modify date: ");
                         (void) ConcatenateString(&message,modify_date);
+                        (void) ConcatenateString(&message,"\n");
+                        (void) FormatLocaleString(algorithm,MaxTextExtent,"%s",
+                          WizardOptionToMnemonic(WizardHashOptions,hash));
+                        (void) ConcatenateString(&message,"  hash: ");
+                        (void) ConcatenateString(&message,algorithm);
                         (void) ConcatenateString(&message,"\n");
                         (void) ConcatenateString(&message,"  digest (");
                         (void) ConcatenateString(&message,timestamp);
@@ -544,7 +543,6 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     *content;
 
   WizardBooleanType
-    compress,
     status;
 
   WizardSizeType
@@ -590,7 +588,6 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n");
   (void) WriteBlobString(digest_blob,"         xmlns:digest=\""
      "http://www.wizards-toolkit.org/digest/1.0/\">\n");
-  compress=WizardFalse;
   for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];
@@ -598,17 +595,6 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
       {
         switch(*(option+1))
         {
-          case '(':
-          {
-            if (LocaleCompare(option+1,"(de)compress") == 0)
-              {
-                compress=(*option == '-') ? WizardTrue : WizardFalse;
-                break;
-              }
-            ThrowDigestException(OptionFatalError,"unrecognized option: `%s'",
-              option);
-            break;
-          }
           case 'd':
           {
             if (strcasecmp(option,"-debug") == 0)
@@ -723,7 +709,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     /*
       Compute message digest for this content.
     */
-    content_blob=OpenBlob(argv[i],ReadBinaryBlobMode,compress,exception);
+    content_blob=OpenBlob(argv[i],ReadBinaryBlobMode,WizardFalse,exception);
     if (content_blob == (BlobInfo *) NULL)
       continue;
     properties=GetBlobProperties(content_blob);
