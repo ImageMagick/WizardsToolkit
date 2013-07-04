@@ -13,7 +13,6 @@ For more information about the digest command, point your browser to file://@DOC
 .SH DESCRIPTION
   -authenticate        read message digests from a file and authenticate them
   -debug events        display copious debugging information
-  -(de)compress        automagically (de)compress BZIP and ZIP files
   -hash type           compute the message digest with this hash
   -help                print program options
   -list type           print a list of supported option arguments
