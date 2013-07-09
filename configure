@@ -935,6 +935,7 @@ enable_installed
 enable_embeddable
 enable_assert
 enable_maintainer_mode
+enable_hugepages
 enable_debug
 enable_ccmalloc
 enable_efence
@@ -1610,6 +1611,7 @@ Optional Features:
   --enable-maintainer-mode
                           enable make rules and dependencies not useful (and
                           sometimes confusing) to the casual installer
+  --enable-hugepages      enable 'huge pages' support
   --disable-debug         disable Wizard Executable Environment debugging
   --enable-ccmalloc       enable 'ccmalloc' memory debug support
   --enable-efence         enable 'efence' memory debug support
@@ -3192,7 +3194,7 @@ WIZARD_PATCHLEVEL_VERSION=1
 
 WIZARD_VERSION=1.0.9-1
 
-WIZARD_SVN_REVISION=12538:12618M
+WIZARD_SVN_REVISION=12538:12626M
 
 
 # Substitute library versioning
@@ -3200,7 +3202,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=12538:12618M
+WIZARD_SVN_REVISION=12538:12626M
 
 
 
@@ -19437,6 +19439,15 @@ fi
 
 
 
+# Enable hugepages support
+# Check whether --enable-hugepages was given.
+if test "${enable_hugepages+set}" = set; then :
+  enableval=$enable_hugepages; enable_hugepages=$enableval
+else
+  enable_hugepages='no'
+fi
+
+
 # Enable Wizard Debugging
 # Check whether --enable-debug was given.
 if test "${enable_debug+set}" = set; then :
@@ -24573,6 +24584,17 @@ fi
       LIBS="$OLIBS"
     fi
   fi
+fi
+
+#
+# Add support for 'huge pages' if requested
+#
+if test "x$enable_hugepages" != "xno"; then :
+
+
+$as_echo "#define HAVE_HUGEPAGES 1" >>confdefs.h
+
+
 fi
 
 #

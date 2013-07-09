@@ -22,7 +22,7 @@
 /* Enable Wizard Executable Environment debugging */
 #undef Debug
 
-/* Build self-contained, embeddable, zero-configuration Wizard's Toolkit
+/* Build self-contained, embeddable, zero-configuration Wizards Toolkit
    (experimental) */
 #undef EMBEDDABLE_SUPPORT
 
@@ -121,6 +121,9 @@
 
 /* Define to 1 if you have the `gmtime_r' function. */
 #undef HAVE_GMTIME_R
+
+/* Compile with hugepage support */
+#undef HAVE_HUGEPAGES
 
 /* Define to 1 if the system has the type `intmax_t'. */
 #undef HAVE_INTMAX_T

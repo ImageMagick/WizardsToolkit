@@ -506,7 +506,7 @@ AC_ARG_ENABLE([embeddable],
     [enable_embeddable='no'])
 
 if test "$with_embeddable" = 'yes'; then
-  AC_DEFINE(EMBEDDABLE_SUPPORT,1,[Build self-contained, embeddable, zero-configuration Wizard's Toolkit (experimental)])
+  AC_DEFINE(EMBEDDABLE_SUPPORT,1,[Build self-contained, embeddable, zero-configuration Wizards Toolkit (experimental)])
 fi
 
 # Build a version of Wizard with assert statements.
@@ -524,6 +524,13 @@ fi
 # checking and generation useful to package maintainers.  This is made an
 # option to avoid confusing end users.
 AM_MAINTAINER_MODE
+
+# Enable hugepages support
+AC_ARG_ENABLE([hugepages],
+    [AC_HELP_STRING([--enable-hugepages],
+                    [enable 'huge pages' support])],
+    [enable_hugepages=$enableval],
+    [enable_hugepages='no'])
 
 # Enable Wizard Debugging
 AC_ARG_ENABLE([debug],
@@ -1153,6 +1160,13 @@ if test "$enable_ccmalloc" = 'yes'; then
     fi
   fi
 fi
+
+#
+# Add support for 'huge pages' if requested
+#
+AS_IF([test "x$enable_hugepages" != "xno"],[
+  AC_DEFINE(HAVE_HUGEPAGES, 1, [Compile with hugepage support])
+])
 
 #
 # Add support for efence memory debugging library if requested

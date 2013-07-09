@@ -885,33 +885,32 @@ WizardExport void *MapBlob(int file,const MapMode mode,
     default:
     {
       protection=PROT_READ;
-      map=(unsigned char *) mmap((char *) NULL,length,protection,flags,file,
-        (off_t) offset);
+      flags|=MAP_PRIVATE;
       break;
     }
     case WriteMode:
     {
       protection=PROT_WRITE;
-      if (file != -1)
-        flags|=MAP_SHARED;
-      map=(unsigned char *) mmap((char *) NULL,length,protection,flags,file,
-        (off_t) offset);
-#if defined(WIZARDTOOLKIT_HAVE_POSIX_MADVISE)
-      (void) posix_madvise(map,length,POSIX_MADV_SEQUENTIAL |
-        POSIX_MADV_WILLNEED);
-#endif
+      flags|=MAP_SHARED;
       break;
     }
     case IOMode:
     {
       protection=PROT_READ | PROT_WRITE;
-      if (file != -1)
-        flags|=MAP_SHARED;
-      map=(unsigned char *) mmap((char *) NULL,length,protection,flags,file,
-        (off_t) offset);
+      flags|=MAP_SHARED;
       break;
     }
   }
+#if !defined(WIZARDSTOOLKIT_HAVE_HUGEPAGES) || !defined(MAP_HUGETLB)
+  map=(unsigned char *) mmap((char *) NULL,length,protection,flags,file,
+    (off_t) offset);
+#else
+  map=(unsigned char *) mmap((char *) NULL,length,protection,flags |
+    MAP_HUGETLB,file,(off_t) offset);
+  if (map == (unsigned char *) MAP_FAILED)
+    map=(unsigned char *) mmap((char *) NULL,length,protection,flags,file,
+      (off_t) offset);
+#endif
   if (map == (unsigned char *) MAP_FAILED)
     return((unsigned char *) NULL);
   return(map);
