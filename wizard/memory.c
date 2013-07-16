@@ -442,7 +442,7 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
   if ((count == 0) || (quantum != (length/count)))
     {
       errno=ENOMEM;
-      return((void *) NULL);
+      return((MemoryInfo *) NULL);
     }
   memory_info=(MemoryInfo *) WizardAssumeAligned(AcquireAlignedMemory(1,
     sizeof(*memory_info)));
