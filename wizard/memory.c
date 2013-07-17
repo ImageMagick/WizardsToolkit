@@ -451,14 +451,22 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
   (void) ResetWizardMemory(memory_info,0,sizeof(*memory_info));
   memory_info->length=length;
   memory_info->signature=WizardSignature;
-  memory_info->blob=AcquireWizardMemory(length);
-  if (memory_info->blob == NULL)
+  if (AcquireWizardResource(MemoryResource,length) != WizardFalse)
+    {
+      memory_info->blob=AcquireWizardMemory(length);
+      if (memory_info->blob == NULL)
+        RelinquishWizardResource(MemoryResource,length);
+    }
+  if ((memory_info->blob == NULL) &&
+      (AcquireWizardResource(MapResource,length) != WizardFalse))
     {
       /*
         Heap memory failed, try anonymous memory mapping.
       */
       memory_info->mapped=WizardTrue;
       memory_info->blob=MapBlob(-1,IOMode,0,length);
+      if (memory_info->blob == NULL)
+        RelinquishWizardResource(MapResource,length);
     }
   if (memory_info->blob == NULL)
     {
@@ -476,7 +484,13 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
       if (file != -1)
         {
           if ((lseek(file,length-1,SEEK_SET) >= 0) && (write(file,"",1) == 1))
-            memory_info->blob=MapBlob(file,IOMode,0,length);
+            {
+              (void) AcquireWizardResource(MapResource,length);
+              memory_info->mapped=WizardTrue;
+              memory_info->blob=MapBlob(file,IOMode,0,length);
+              if (memory_info->blob == NULL)
+                RelinquishWizardResource(MapResource,length);
+            }
           (void) close(file);
         }
     }
@@ -907,14 +921,18 @@ WizardExport MemoryInfo *RelinquishVirtualMemory(MemoryInfo *memory_info)
   if (memory_info->blob != (void *) NULL)
     {
       if (memory_info->mapped == WizardFalse)
-        memory_info->blob=RelinquishWizardMemory(memory_info->blob);
+        {
+          memory_info->blob=RelinquishWizardMemory(memory_info->blob);
+          RelinquishWizardResource(MemoryResource,memory_info->length);
+        }
       else
         {
           (void) UnmapBlob(memory_info->blob,memory_info->length);
+          RelinquishWizardResource(MapResource,memory_info->length);
           memory_info->blob=NULL;
           if (*memory_info->filename != '\0')
             (void) RelinquishUniqueFileResource(memory_info->filename,
-               WizardTrue);
+              WizardTrue);
         }
     }
   memory_info->signature=(~WizardSignature);
