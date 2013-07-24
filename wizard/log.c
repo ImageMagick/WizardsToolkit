@@ -1177,6 +1177,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
     {
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
       OutputDebugString(text);
+      OutputDebugString("\n");
 #endif
     }
   if ((log_info->handler_mask & EventHandler) != 0)
