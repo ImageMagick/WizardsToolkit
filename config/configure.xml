@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <configuremap>
   <configure name="NAME" value="WizardsToolkit" />
-  <configure name="SVN_REVISION" value="12538:12626M" />
+  <configure name="SVN_REVISION" value="12538:12746M" />
   <configure name="VERSION" value="1.0.9" />
   <configure name="LIB_VERSION" value="0x109" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,9,1" />
-  <configure name="RELEASE_DATE" value="2013-07-16" />
+  <configure name="RELEASE_DATE" value="2013-07-28" />
   <configure name="CONFIGURE" value="./configure  '--disable-shared' 'CC=c++'" />
   <configure name="PREFIX" value="/usr/local" />
   <configure name="EXEC-PREFIX" value="/usr/local" />
