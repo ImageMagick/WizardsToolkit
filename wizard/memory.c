@@ -463,9 +463,10 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
       /*
         Heap memory failed, try anonymous memory mapping.
       */
-      memory_info->mapped=WizardTrue;
       memory_info->blob=MapBlob(-1,IOMode,0,length);
-      if (memory_info->blob == NULL)
+      if (memory_info->blob != NULL)
+        memory_info->mapped=WizardTrue;
+      else
         RelinquishWizardResource(MapResource,length);
     }
   if (memory_info->blob == NULL)
@@ -481,16 +482,18 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
         {
           if ((lseek(file,length-1,SEEK_SET) >= 0) && (write(file,"",1) == 1))
             {
-              memory_info->mapped=WizardTrue;
               memory_info->blob=MapBlob(file,IOMode,0,length);
               if (memory_info->blob != NULL)
-                (void) AcquireWizardResource(MapResource,length);
+                {
+                  memory_info->mapped=WizardTrue;
+                  (void) AcquireWizardResource(MapResource,length);
+                }
             }
           (void) close(file);
         }
     }
   if (memory_info->blob == NULL)
-    return(RelinquishVirtualMemory(memory_info));
+    memory_info->blob=AcquireWizardMemory(length);
   return(memory_info);
 }
 
