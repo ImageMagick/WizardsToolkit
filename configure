@@ -684,7 +684,6 @@ CCMALLOCDelegate
 UMEM_LIBS
 HasUMEM_FALSE
 HasUMEM_TRUE
-THREAD_LIBS
 GOMP_LIBS
 WITH_WIZARD_PLUS_PLUS_FALSE
 WITH_WIZARD_PLUS_PLUS_TRUE
@@ -741,6 +740,7 @@ DLLTOOL
 AS
 LFS_CPPFLAGS
 OPENMP_CFLAGS
+THREAD_LIBS
 PTHREAD_CFLAGS
 PTHREAD_LIBS
 PTHREAD_CC
@@ -3194,7 +3194,7 @@ WIZARD_PATCHLEVEL_VERSION=1
 
 WIZARD_VERSION=1.0.9-1
 
-WIZARD_SVN_REVISION=12538:12746M
+WIZARD_SVN_REVISION=12538:12794M
 
 
 # Substitute library versioning
@@ -3202,7 +3202,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=12538:12746M
+WIZARD_SVN_REVISION=12538:12794M
 
 
 
@@ -8260,6 +8260,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
         DEF_THREAD="$PTHREAD_CFLAGS"
         CFLAGS="$CFLAGS $DEF_THREAD"
         CXXFLAGS="$CXXFLAGS $DEF_THREAD"
+	THREAD_LIBS="$PTHREAD_LIBS"
         if test "$CC" != "$PTHREAD_CC"; then
             { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Replacing compiler $CC with compiler $PTHREAD_CC to support pthreads." >&5
 $as_echo "$as_me: WARNING: Replacing compiler $CC with compiler $PTHREAD_CC to support pthreads." >&2;}
@@ -8270,6 +8271,8 @@ $as_echo "#define THREAD_SUPPORT 1" >>confdefs.h
 
     fi
 fi
+LIBS="$LIBS $THREAD_LIBS"
+
 
 # Enable support for OpenMP
 if test "$have_threads" != 'yes'; then
@@ -19381,6 +19384,8 @@ $as_echo "#define INSTALLED_SUPPORT 1" >>confdefs.h
 else
   DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --disable-installed "
 fi
+LIBS="$LIBS $THREAD_LIBS"
+
 
 # Build an embeddable version of Wizard's Toolkit.
 # Check whether --enable-embeddable was given.

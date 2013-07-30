@@ -404,6 +404,7 @@ if test "$with_threads" != 'no'; then
         DEF_THREAD="$PTHREAD_CFLAGS"
         CFLAGS="$CFLAGS $DEF_THREAD"
         CXXFLAGS="$CXXFLAGS $DEF_THREAD"
+	THREAD_LIBS="$PTHREAD_LIBS"
         if test "$CC" != "$PTHREAD_CC"; then
             AC_MSG_WARN([Replacing compiler $CC with compiler $PTHREAD_CC to support pthreads.])
             CC="$PTHREAD_CC"
@@ -411,6 +412,8 @@ if test "$with_threads" != 'no'; then
         AC_DEFINE(THREAD_SUPPORT,1,[Define if you have POSIX threads libraries and header files.])
     fi
 fi
+LIBS="$LIBS $THREAD_LIBS"
+AC_SUBST(THREAD_LIBS)
 
 # Enable support for OpenMP
 if test "$have_threads" != 'yes'; then
@@ -497,6 +500,8 @@ if test "$enable_installed" = 'yes'; then
 else
   DISTCHECK_CONFIG_FLAGS="${DISTCHECK_CONFIG_FLAGS} --disable-installed "
 fi
+LIBS="$LIBS $THREAD_LIBS"
+AC_SUBST(THREAD_LIBS)
 
 # Build an embeddable version of Wizard's Toolkit.
 AC_ARG_ENABLE([embeddable],
