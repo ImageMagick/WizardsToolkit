@@ -84,9 +84,6 @@ struct _LinkedListInfo
     *tail,
     *next;
 
-  WizardBooleanType
-    debug;
-
   SemaphoreInfo
     *semaphore;
 
@@ -116,9 +113,6 @@ struct _HashmapInfo
 
   LinkedListInfo
     **map;
-
-  WizardBooleanType
-    debug;
 
   SemaphoreInfo
     *semaphore;
@@ -160,7 +154,6 @@ WizardExport WizardBooleanType AppendValueToLinkedList(
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  list_info->debug=IsEventLogging();
   if (list_info->elements == list_info->capacity)
     return(WizardFalse);
   next=(ElementInfo *) AcquireWizardMemory(sizeof(*next));
@@ -218,8 +211,6 @@ WizardExport void ClearLinkedList(LinkedListInfo *list_info,
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(list_info->semaphore);
   next=list_info->head;
   while (next != (ElementInfo *) NULL)
@@ -348,8 +339,6 @@ WizardExport HashmapInfo *DestroyHashmap(HashmapInfo *hashmap_info)
 
   assert(hashmap_info != (HashmapInfo *) NULL);
   assert(hashmap_info->signature == WizardSignature);
-  if (hashmap_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(hashmap_info->semaphore);
   for (i=0; i < (ssize_t) hashmap_info->capacity; i++)
   {
@@ -461,8 +450,6 @@ WizardExport void *GetLastValueInLinkedList(LinkedListInfo *list_info)
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (list_info->elements == 0)
     return((void *) NULL);
   LockSemaphoreInfo(list_info->semaphore);
@@ -506,8 +493,6 @@ WizardExport void *GetNextKeyInHashmap(HashmapInfo *hashmap_info)
 
   assert(hashmap_info != (HashmapInfo *) NULL);
   assert(hashmap_info->signature == WizardSignature);
-  if (hashmap_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(hashmap_info->semaphore);
   while (hashmap_info->next < hashmap_info->capacity)
   {
@@ -569,8 +554,6 @@ WizardExport void *GetNextValueInHashmap(HashmapInfo *hashmap_info)
 
   assert(hashmap_info != (HashmapInfo *) NULL);
   assert(hashmap_info->signature == WizardSignature);
-  if (hashmap_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(hashmap_info->semaphore);
   while (hashmap_info->next < hashmap_info->capacity)
   {
@@ -626,8 +609,6 @@ WizardExport void *GetNextValueInLinkedList(LinkedListInfo *list_info)
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(list_info->semaphore);
   if (list_info->next == (ElementInfo *) NULL)
     {
@@ -667,8 +648,6 @@ WizardExport size_t GetNumberOfEntriesInHashmap(
 {
   assert(hashmap_info != (HashmapInfo *) NULL);
   assert(hashmap_info->signature == WizardSignature);
-  if (hashmap_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   return(hashmap_info->entries);
 }
 
@@ -701,8 +680,6 @@ WizardExport size_t GetNumberOfElementsInLinkedList(
 {
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   return(list_info->elements);
 }
 
@@ -747,8 +724,6 @@ WizardExport void *GetValueFromHashmap(HashmapInfo *hashmap_info,
 
   assert(hashmap_info != (HashmapInfo *) NULL);
   assert(hashmap_info->signature == WizardSignature);
-  if (hashmap_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (key == NULL)
     return((void *) NULL);
   LockSemaphoreInfo(hashmap_info->semaphore);
@@ -1024,8 +999,6 @@ WizardExport WizardBooleanType InsertValueInLinkedList(
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (value == NULL)
     return(WizardFalse);
   if ((index > list_info->elements) ||
@@ -1131,8 +1104,6 @@ WizardExport WizardBooleanType InsertValueInSortedLinkedList(
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if ((compare == (int (*)(const void *,const void *)) NULL) ||
       (value == (const void *) NULL))
     return(WizardFalse);
@@ -1207,8 +1178,6 @@ WizardExport WizardBooleanType IsHashmapEmpty(const HashmapInfo *hashmap_info)
 {
   assert(hashmap_info != (HashmapInfo *) NULL);
   assert(hashmap_info->signature == WizardSignature);
-  if (hashmap_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   return(hashmap_info->entries == 0 ? WizardTrue : WizardFalse);
 }
 
@@ -1278,8 +1247,6 @@ WizardExport WizardBooleanType LinkedListToArray(LinkedListInfo *list_info,
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (array == (void **) NULL)
     return(WizardFalse);
   LockSemaphoreInfo(list_info->semaphore);
@@ -1364,7 +1331,6 @@ WizardExport HashmapInfo *NewHashmap(const size_t capacity,
     ThrowWizardFatalError(CacheDomain,MemoryError);
   (void) ResetWizardMemory(hashmap_info->map,0,(size_t) capacity*
     sizeof(*hashmap_info->map));
-  hashmap_info->debug=IsEventLogging();
   hashmap_info->semaphore=AllocateSemaphoreInfo();
   hashmap_info->signature=WizardSignature;
   return(hashmap_info);
@@ -1407,7 +1373,6 @@ WizardExport LinkedListInfo *NewLinkedList(const size_t capacity)
   list_info->head=(ElementInfo *) NULL;
   list_info->tail=(ElementInfo *) NULL;
   list_info->next=(ElementInfo *) NULL;
-  list_info->debug=WizardFalse;
   list_info->semaphore=AllocateSemaphoreInfo();
   list_info->signature=WizardSignature;
   return(list_info);
@@ -1538,8 +1503,6 @@ WizardExport WizardBooleanType PutEntryInHashmap(HashmapInfo *hashmap_info,
 
   assert(hashmap_info != (HashmapInfo *) NULL);
   assert(hashmap_info->signature == WizardSignature);
-  if (hashmap_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if ((key == (void *) NULL) || (value == (void *) NULL))
     return(WizardFalse);
   next=(EntryInfo *) AcquireWizardMemory(sizeof(*next));
@@ -1635,8 +1598,6 @@ WizardExport void *RemoveElementByValueFromLinkedList(LinkedListInfo *list_info,
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if ((list_info->elements == 0) || (value == NULL))
     return((void *) NULL);
   LockSemaphoreInfo(list_info->semaphore);
@@ -1715,8 +1676,6 @@ WizardExport void *RemoveElementFromLinkedList(LinkedListInfo *list_info,
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (index >= list_info->elements)
     return((void *) NULL);
   LockSemaphoreInfo(list_info->semaphore);
@@ -1795,8 +1754,6 @@ WizardExport void *RemoveEntryFromHashmap(HashmapInfo *hashmap_info,
 
   assert(hashmap_info != (HashmapInfo *) NULL);
   assert(hashmap_info->signature == WizardSignature);
-  if (hashmap_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (key == NULL)
     return((void *) NULL);
   LockSemaphoreInfo(hashmap_info->semaphore);
@@ -1871,8 +1828,6 @@ WizardExport void *RemoveLastElementFromLinkedList(LinkedListInfo *list_info)
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (list_info->elements == 0)
     return((void *) NULL);
   LockSemaphoreInfo(list_info->semaphore);
@@ -1929,8 +1884,6 @@ WizardExport void ResetHashmapIterator(HashmapInfo *hashmap_info)
 {
   assert(hashmap_info != (HashmapInfo *) NULL);
   assert(hashmap_info->signature == WizardSignature);
-  if (hashmap_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(hashmap_info->semaphore);
   hashmap_info->next=0;
   hashmap_info->head_of_list=WizardFalse;
@@ -1965,8 +1918,6 @@ WizardExport void ResetLinkedListIterator(LinkedListInfo *list_info)
 {
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(list_info->semaphore);
   list_info->next=list_info->head;
   UnlockSemaphoreInfo(list_info->semaphore);

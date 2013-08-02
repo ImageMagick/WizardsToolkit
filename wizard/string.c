@@ -270,7 +270,6 @@ WizardExport char *CloneString(char **destination,const char *source)
   size_t
     length;
 
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,destination != (char **) NULL);
   if (source == (const char *) NULL)
     {
@@ -323,7 +322,6 @@ WizardExport StringInfo *CloneStringInfo(const StringInfo *string_info)
   StringInfo
     *clone_info;
 
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   clone_info=AcquireStringInfo(string_info->length);
@@ -373,7 +371,6 @@ WizardExport int CompareStringInfo(const StringInfo *target,
   int
     status;
 
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,target != (StringInfo *) NULL);
   WizardAssert(StringDomain,target->signature == WizardSignature);
   WizardAssert(StringDomain,source != (StringInfo *) NULL);
@@ -705,7 +702,6 @@ WizardExport void ConcatenateStringInfo(StringInfo *string_info,
   size_t
     length;
 
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   WizardAssert(StringDomain,source != (const StringInfo *) NULL);
@@ -1197,7 +1193,6 @@ WizardExport WizardSizeType GetStringInfoCRC(const StringInfo *string_info)
   WizardSizeType
     crc;
 
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   crc_info=AcquireCRC64Info();
@@ -1335,7 +1330,6 @@ WizardExport StringInfo *HexStringToStringInfo(const char *string)
   StringInfo
     *string_info;
 
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string != (const char *) NULL);
   string_info=AcquireStringInfo(strlen(string)/2);
   (void) ResetWizardMemory(hex_digits,0,sizeof(hex_digits));
@@ -1701,7 +1695,6 @@ WizardExport void PrintStringInfo(FILE *file,const char *id,
     *p,
     *q;
 
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   q=string_info->datum+string_info->length;
@@ -1746,7 +1739,6 @@ WizardExport void PrintStringInfo(FILE *file,const char *id,
 */
 WizardExport void ResetStringInfo(StringInfo *string_info)
 {
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   (void) ResetWizardMemory(string_info->datum,0,string_info->length);
@@ -1779,7 +1771,6 @@ WizardExport void ResetStringInfo(StringInfo *string_info)
 WizardExport void SetStringInfo(StringInfo *string_info,
   const StringInfo *source)
 {
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   WizardAssert(StringDomain,source != (StringInfo *) NULL);
@@ -1820,7 +1811,6 @@ WizardExport void SetStringInfo(StringInfo *string_info,
 WizardExport void SetStringInfoDatum(StringInfo *string_info,
   const unsigned char *source)
 {
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   if (string_info->length != 0)
@@ -1854,7 +1844,6 @@ WizardExport void SetStringInfoDatum(StringInfo *string_info,
 WizardExport void SetStringInfoLength(StringInfo *string_info,
   const size_t length)
 {
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   string_info->length=length;
@@ -1896,7 +1885,6 @@ WizardExport void SetStringInfoLength(StringInfo *string_info,
 */
 WizardExport void SetStringInfoPath(StringInfo *string_info,const char *path)
 {
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   WizardAssert(StringDomain,path != (const char *) NULL);
@@ -1931,7 +1919,6 @@ WizardExport StringInfo *SplitStringInfo(StringInfo *string_info,
   StringInfo
     *split_info;
 
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   if (offset > string_info->length)
@@ -2193,7 +2180,6 @@ WizardExport StringInfo *StringToStringInfo(const char *string)
   StringInfo
     *string_info;
 
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string != (const char *) NULL);
   string_info=AcquireStringInfo(strlen(string));
   SetStringInfoDatum(string_info,(const unsigned char *) string);
