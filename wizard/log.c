@@ -704,7 +704,13 @@ WizardExport WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
 */
 WizardExport WizardBooleanType LogComponentGenesis(void)
 {
+  ExceptionInfo
+    *exception;
+
   AcquireSemaphoreInfo(&log_semaphore);
+  exception=AcquireExceptionInfo();
+  (void) GetLogInfo("*",exception);
+  exception=DestroyExceptionInfo(exception);
   return(WizardTrue);
 }
 
