@@ -160,8 +160,7 @@ WizardExport WizardBooleanType AppendValueToLinkedList(
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
+  list_info->debug=IsEventLogging();
   if (list_info->elements == list_info->capacity)
     return(WizardFalse);
   next=(ElementInfo *) AcquireWizardMemory(sizeof(*next));
@@ -417,8 +416,6 @@ WizardExport LinkedListInfo *DestroyLinkedList(LinkedListInfo *list_info,
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(list_info->semaphore);
   for (next=list_info->head; next != (ElementInfo *) NULL; )
   {
@@ -826,8 +823,6 @@ WizardExport void *GetValueFromLinkedList(LinkedListInfo *list_info,
 
   assert(list_info != (LinkedListInfo *) NULL);
   assert(list_info->signature == WizardSignature);
-  if (list_info->debug != WizardFalse)
-    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (index >= list_info->elements)
     return((void *) NULL);
   LockSemaphoreInfo(list_info->semaphore);

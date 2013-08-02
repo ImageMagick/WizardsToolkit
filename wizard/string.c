@@ -845,7 +845,6 @@ WizardExport char *DestroyString(char *string)
 */
 WizardExport StringInfo *DestroyStringInfo(StringInfo *string_info)
 {
-  (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   if (string_info->datum != (unsigned char *) NULL)
