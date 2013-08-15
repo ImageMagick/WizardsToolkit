@@ -239,7 +239,7 @@ WizardExport WizardBooleanType ExportKeyringKey(KeyringInfo *keyring_info,
   filetype=GetWizardMagick((unsigned char *) KeyringFiletype,
     strlen(KeyringFiletype));
   target=CloneStringInfo(filetype);
-  status|=ReadFileChunk(file_info,GetStringInfoDatum(target),
+  status&=ReadFileChunk(file_info,GetStringInfoDatum(target),
     GetStringInfoLength(target));
   if ((status == WizardFalse) || (CompareStringInfo(target,filetype) != 0))
     {
@@ -262,16 +262,16 @@ WizardExport WizardBooleanType ExportKeyringKey(KeyringInfo *keyring_info,
         return(WizardFalse);
       }
     keyring_info->signature=signature;
-    status|=ReadFile32Bits(file_info,&length);
-    status|=ReadFile16Bits(file_info,&keyring_info->protocol_major);
-    status|=ReadFile16Bits(file_info,&keyring_info->protocol_minor);
+    status&=ReadFile32Bits(file_info,&length);
+    status&=ReadFile16Bits(file_info,&keyring_info->protocol_major);
+    status&=ReadFile16Bits(file_info,&keyring_info->protocol_minor);
     if ((keyring_info->protocol_major == 1) &&
         (keyring_info->protocol_minor == 0))
       timestamp=(time_t) length;
     else
-      status|=ReadFile64Bits(file_info,&timestamp);
+      status&=ReadFile64Bits(file_info,&timestamp);
     keyring_info->timestamp=(time_t) timestamp;
-    status|=ReadFile32Bits(file_info,&length);
+    status&=ReadFile32Bits(file_info,&length);
     if (status == WizardFalse)
       {
         file_info=DestroyFileInfo(file_info,exception);
@@ -280,9 +280,9 @@ WizardExport WizardBooleanType ExportKeyringKey(KeyringInfo *keyring_info,
         return(WizardFalse);
       }
     id=AcquireStringInfo(length);
-    status|=ReadFileChunk(file_info,GetStringInfoDatum(id),
+    status&=ReadFileChunk(file_info,GetStringInfoDatum(id),
       GetStringInfoLength(id));
-    status|=ReadFile32Bits(file_info,&length);
+    status&=ReadFile32Bits(file_info,&length);
     if (status == WizardFalse)
       {
         file_info=DestroyFileInfo(file_info,exception);
@@ -291,9 +291,9 @@ WizardExport WizardBooleanType ExportKeyringKey(KeyringInfo *keyring_info,
         return(WizardFalse);
       }
     key=AcquireStringInfo(length);
-    status|=ReadFileChunk(file_info,GetStringInfoDatum(key),
+    status&=ReadFileChunk(file_info,GetStringInfoDatum(key),
       GetStringInfoLength(key));
-    status|=ReadFile32Bits(file_info,&length);
+    status&=ReadFile32Bits(file_info,&length);
     if (status == WizardFalse)
       {
         file_info=DestroyFileInfo(file_info,exception);
@@ -302,7 +302,7 @@ WizardExport WizardBooleanType ExportKeyringKey(KeyringInfo *keyring_info,
         return(WizardFalse);
       }
     nonce=AcquireStringInfo(length);
-    status|=ReadFileChunk(file_info,GetStringInfoDatum(nonce),
+    status&=ReadFileChunk(file_info,GetStringInfoDatum(nonce),
       GetStringInfoLength(nonce));
     if (CompareStringInfo(keyring_info->id,id) == 0)
       {
@@ -469,7 +469,7 @@ WizardExport WizardBooleanType ImportKeyringKey(KeyringInfo *keyring_info,
   magick=DestroyStringInfo(magick);
   filetype=GetWizardMagick((unsigned char *) KeyringFiletype,
     strlen(KeyringFiletype));
-  status|=WriteFileChunk(file_info,GetStringInfoDatum(filetype),
+  status&=WriteFileChunk(file_info,GetStringInfoDatum(filetype),
     GetStringInfoLength(filetype));
   filetype=DestroyStringInfo(filetype);
   offset=lseek(GetFileDescriptor(file_info),0,SEEK_END);
@@ -481,21 +481,21 @@ WizardExport WizardBooleanType ImportKeyringKey(KeyringInfo *keyring_info,
         strerror(errno));
       return(WizardFalse);
     }
-  status|=WriteFile32Bits(file_info,keyring_info->signature);
-  status|=WriteFile32Bits(file_info,0U);
-  status|=WriteFile16Bits(file_info,keyring_info->protocol_major);
-  status|=WriteFile16Bits(file_info,keyring_info->protocol_minor);
-  status|=WriteFile64Bits(file_info,(WizardSizeType) keyring_info->timestamp);
+  status&=WriteFile32Bits(file_info,keyring_info->signature);
+  status&=WriteFile32Bits(file_info,0U);
+  status&=WriteFile16Bits(file_info,keyring_info->protocol_major);
+  status&=WriteFile16Bits(file_info,keyring_info->protocol_minor);
+  status&=WriteFile64Bits(file_info,(WizardSizeType) keyring_info->timestamp);
   length=GetStringInfoLength(keyring_info->id);
-  status|=WriteFile32Bits(file_info,(size_t) length);
-  status|=WriteFileChunk(file_info,GetStringInfoDatum(keyring_info->id),length);
+  status&=WriteFile32Bits(file_info,(size_t) length);
+  status&=WriteFileChunk(file_info,GetStringInfoDatum(keyring_info->id),length);
   length=GetStringInfoLength(keyring_info->key);
-  status|=WriteFile32Bits(file_info,(size_t) length);
-  status|=WriteFileChunk(file_info,GetStringInfoDatum(keyring_info->key),
+  status&=WriteFile32Bits(file_info,(size_t) length);
+  status&=WriteFileChunk(file_info,GetStringInfoDatum(keyring_info->key),
     length);
   length=GetStringInfoLength(keyring_info->nonce);
-  status|=WriteFile32Bits(file_info,(size_t) length);
-  status|=WriteFileChunk(file_info,GetStringInfoDatum(keyring_info->nonce),
+  status&=WriteFile32Bits(file_info,(size_t) length);
+  status&=WriteFileChunk(file_info,GetStringInfoDatum(keyring_info->nonce),
     length);
   if (status == WizardFalse)
     (void) ThrowWizardException(exception,GetWizardModule(),KeyringError,
@@ -615,7 +615,7 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
   filetype=GetWizardMagick((unsigned char *) KeyringFiletype,
     strlen(KeyringFiletype));
   target=CloneStringInfo(filetype);
-  status|=ReadFileChunk(file_info,GetStringInfoDatum(target),
+  status&=ReadFileChunk(file_info,GetStringInfoDatum(target),
     GetStringInfoLength(target));
   if ((status == WizardFalse) || (CompareStringInfo(target,filetype) != 0))
     {
@@ -637,16 +637,16 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
           "corrupt key ring file `%s'",GetFilePath(file_info));
         return(WizardFalse);
       }
-    status|=ReadFile32Bits(file_info,&length);
-    status|=ReadFile16Bits(file_info,&keyring_info.protocol_major);
-    status|=ReadFile16Bits(file_info,&keyring_info.protocol_minor);
+    status&=ReadFile32Bits(file_info,&length);
+    status&=ReadFile16Bits(file_info,&keyring_info.protocol_major);
+    status&=ReadFile16Bits(file_info,&keyring_info.protocol_minor);
     if ((keyring_info.protocol_major == 1) &&
         (keyring_info.protocol_minor == 0))
       timestamp=(time_t) length;
     else
-      status|=ReadFile64Bits(file_info,&timestamp);
+      status&=ReadFile64Bits(file_info,&timestamp);
     keyring_info.timestamp=(time_t) timestamp;
-    status|=ReadFile32Bits(file_info,&length);
+    status&=ReadFile32Bits(file_info,&length);
     if (status == WizardFalse)
       {
         file_info=DestroyFileInfo(file_info,exception);
@@ -655,9 +655,9 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
         return(WizardFalse);
       }
     id=AcquireStringInfo(length);
-    status|=ReadFileChunk(file_info,GetStringInfoDatum(id),
+    status&=ReadFileChunk(file_info,GetStringInfoDatum(id),
       GetStringInfoLength(id));
-    status|=ReadFile32Bits(file_info,&length);
+    status&=ReadFile32Bits(file_info,&length);
     if (status == WizardFalse)
       {
         file_info=DestroyFileInfo(file_info,exception);
@@ -666,9 +666,9 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
         return(WizardFalse);
       }
     key=AcquireStringInfo(length);
-    status|=ReadFileChunk(file_info,GetStringInfoDatum(key),
+    status&=ReadFileChunk(file_info,GetStringInfoDatum(key),
       GetStringInfoLength(key));
-    status|=ReadFile32Bits(file_info,&length);
+    status&=ReadFile32Bits(file_info,&length);
     if (status == WizardFalse)
       {
         file_info=DestroyFileInfo(file_info,exception);
@@ -677,7 +677,7 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
         return(WizardFalse);
       }
     nonce=AcquireStringInfo(length);
-    status|=ReadFileChunk(file_info,GetStringInfoDatum(nonce),
+    status&=ReadFileChunk(file_info,GetStringInfoDatum(nonce),
       GetStringInfoLength(nonce));
     keyring_rdf=AcquireString("  <keyring:Key rdf:about=\"");
     hex=StringInfoToHexString(id);

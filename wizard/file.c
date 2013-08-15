@@ -163,7 +163,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
         pid=(-1);
         tid=(~0UL);
         status=ReadFileChunk(file_info,&pid,sizeof(pid));
-        status|=ReadFileChunk(file_info,&tid,sizeof(tid));
+        status&=ReadFileChunk(file_info,&tid,sizeof(tid));
         if (close(file_info->file) == -1)
           (void) ThrowWizardException(exception,GetWizardModule(),FileError,
             "unable to close file `%s': %s",path,strerror(errno));

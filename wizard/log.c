@@ -1391,7 +1391,7 @@ static WizardBooleanType LoadLogList(const char *xml,const char *filename,
                   xml=FileToString(path,~0,exception);
                   if (xml != (char *) NULL)
                     {
-                      status|=LoadLogList(xml,path,depth+1,exception);
+                      status&=LoadLogList(xml,path,depth+1,exception);
                       xml=DestroyString(xml);
                     }
                 }
@@ -1577,7 +1577,7 @@ static WizardBooleanType LoadLogLists(const char *filename,
   option=(const StringInfo *) GetNextValueInLinkedList(options);
   while (option != (const StringInfo *) NULL)
   {
-    status|=LoadLogList((const char *) GetStringInfoDatum(option),
+    status&=LoadLogList((const char *) GetStringInfoDatum(option),
       GetStringInfoPath(option),0,exception);
     option=(const StringInfo *) GetNextValueInLinkedList(options);
   }
@@ -1610,7 +1610,7 @@ static WizardBooleanType LoadLogLists(const char *filename,
     log_info->format=ConstantString(p->format);
     log_info->exempt=WizardTrue;
     log_info->signature=WizardSignature;
-    status|=AppendValueToLinkedList(log_list,log_info);
+    status&=AppendValueToLinkedList(log_list,log_info);
     if (status == WizardFalse)
       (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
         "memory allocation failed `%s'",log_info->name);

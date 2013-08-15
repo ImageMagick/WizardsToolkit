@@ -965,14 +965,14 @@ WizardExport WizardBooleanType LoadMimeLists(const char *filename,
   option=(const StringInfo *) GetNextValueInLinkedList(options);
   while (option != (const StringInfo *) NULL)
   {
-    status|=LoadMimeList((const char *) GetStringInfoDatum(option),
+    status&=LoadMimeList((const char *) GetStringInfoDatum(option),
       GetStringInfoPath(option),0,exception);
     option=(const StringInfo *) GetNextValueInLinkedList(options);
   }
   options=DestroyConfigureOptions(options);
   if ((mime_list == (LinkedListInfo *) NULL) || 
       (IsLinkedListEmpty(mime_list) != WizardFalse))
-    status|=LoadMimeList(MimeMap,"built-in",0,exception);
+    status&=LoadMimeList(MimeMap,"built-in",0,exception);
   else
     ClearWizardException(exception);
   return(status != 0 ? WizardTrue : WizardFalse);

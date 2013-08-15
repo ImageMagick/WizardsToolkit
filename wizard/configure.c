@@ -1154,7 +1154,7 @@ static WizardBooleanType LoadConfigureLists(const char *filename,
   while (option != (const StringInfo *) NULL)
   {
     (void) CopyWizardString(path,GetStringInfoPath(option),MaxTextExtent);
-    status|=LoadConfigureList((const char *) GetStringInfoDatum(option),
+    status&=LoadConfigureList((const char *) GetStringInfoDatum(option),
       GetStringInfoPath(option),0,exception);
     option=(const StringInfo *) GetNextValueInLinkedList(options);
   }

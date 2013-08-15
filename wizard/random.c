@@ -702,7 +702,7 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
   filetype=GetWizardMagick((unsigned char *) RandomFiletype,strlen(
     RandomFiletype));
   target=CloneStringInfo(filetype);
-  status|=ReadFileChunk(file_info,GetStringInfoDatum(target),
+  status&=ReadFileChunk(file_info,GetStringInfoDatum(target),
     GetStringInfoLength(target));
   if ((status == WizardFalse) || (CompareStringInfo(target,filetype) != 0))
     {
@@ -716,17 +716,17 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
     }
   filetype=DestroyStringInfo(filetype);
   target=DestroyStringInfo(target);
-  status|=ReadFile16Bits(file_info,&random_info->protocol_major);
-  status|=ReadFile16Bits(file_info,&random_info->protocol_minor);
+  status&=ReadFile16Bits(file_info,&random_info->protocol_major);
+  status&=ReadFile16Bits(file_info,&random_info->protocol_minor);
   if ((random_info->protocol_major != 1) || (random_info->protocol_minor != 0))
     {
       WizardSizeType
         timestamp;
 
-      status|=ReadFile64Bits(file_info,&timestamp);
+      status&=ReadFile64Bits(file_info,&timestamp);
       random_info->timestamp=(time_t) timestamp;
     }
-  status|=ReadFile32Bits(file_info,&length);
+  status&=ReadFile32Bits(file_info,&length);
   if (status == WizardFalse)
     {
       file_info=DestroyFileInfo(file_info,exception);
@@ -736,10 +736,10 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
       return((StringInfo *) NULL);
     }
   entropy=AcquireStringInfo(length);
-  status|=ReadFileChunk(file_info,GetStringInfoDatum(entropy),
+  status&=ReadFileChunk(file_info,GetStringInfoDatum(entropy),
     GetStringInfoLength(entropy));
   crc=0;
-  status|=ReadFile64Bits(file_info,&crc);
+  status&=ReadFile64Bits(file_info,&crc);
   if ((status == WizardFalse) || (crc != GetStringInfoCRC(entropy)))
     {
       entropy=DestroyStringInfo(entropy);
@@ -1001,17 +1001,17 @@ static WizardBooleanType SaveEntropyToReservoir(RandomInfo *random_info,
   magick=DestroyStringInfo(magick);
   filetype=GetWizardMagick((unsigned char *) RandomFiletype,strlen(
     RandomFiletype));
-  status|=WriteFileChunk(file_info,GetStringInfoDatum(filetype),
+  status&=WriteFileChunk(file_info,GetStringInfoDatum(filetype),
     GetStringInfoLength(filetype));
   filetype=DestroyStringInfo(filetype);
-  status|=WriteFile16Bits(file_info,random_info->protocol_major);
-  status|=WriteFile16Bits(file_info,random_info->protocol_minor);
-  status|=WriteFile64Bits(file_info,(WizardSizeType) random_info->timestamp);
+  status&=WriteFile16Bits(file_info,random_info->protocol_major);
+  status&=WriteFile16Bits(file_info,random_info->protocol_minor);
+  status&=WriteFile64Bits(file_info,(WizardSizeType) random_info->timestamp);
   length=GetStringInfoLength(GetHMACDigest(random_info->hmac_info));
-  status|=WriteFile32Bits(file_info,length);
-  status|=WriteFileChunk(file_info,GetStringInfoDatum(GetHMACDigest(
+  status&=WriteFile32Bits(file_info,length);
+  status&=WriteFileChunk(file_info,GetStringInfoDatum(GetHMACDigest(
     random_info->hmac_info)),length);
-  status|=WriteFile64Bits(file_info,GetStringInfoCRC(GetHMACDigest(
+  status&=WriteFile64Bits(file_info,GetStringInfoCRC(GetHMACDigest(
     random_info->hmac_info)));
   if (status == WizardFalse)
     (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
