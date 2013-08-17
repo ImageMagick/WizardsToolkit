@@ -125,7 +125,6 @@ struct _LogInfo
 
   WizardBooleanType
     append,
-    exempt,
     stealth;
 
   TimerInfo
@@ -745,15 +744,12 @@ static void *DestroyLogElement(void *log_info)
       (void) fclose(p->file);
       p->file=(FILE *) NULL;
     }
-  if (p->exempt == WizardFalse)
-    {
-      if (p->format != (char *) NULL)
-        p->format=DestroyString(p->format);
-      if (p->filename != (char *) NULL)
-        p->filename=DestroyString(p->filename);
-      if (p->path != (char *) NULL)
-        p->path=DestroyString(p->path);
-    }
+  if (p->format != (char *) NULL)
+    p->format=DestroyString(p->format);
+  if (p->filename != (char *) NULL)
+    p->filename=DestroyString(p->filename);
+  if (p->path != (char *) NULL)
+    p->path=DestroyString(p->path);
   if (p->timer != (TimerInfo *) NULL)
     p->timer=DestroyTimerInfo(p->timer);
   p=(LogInfo *) RelinquishWizardMemory(p);
@@ -1411,7 +1407,6 @@ static WizardBooleanType LoadLogList(const char *xml,const char *filename,
         (void) ResetWizardMemory(log_info,0,sizeof(*log_info));
         log_info->path=ConstantString(filename);
         log_info->timer=AcquireTimerInfo();
-        log_info->exempt=WizardFalse;
         log_info->signature=WizardSignature;
         continue;
       }
@@ -1602,13 +1597,12 @@ static WizardBooleanType LoadLogLists(const char *filename,
         continue;
       }
     (void) ResetWizardMemory(log_info,0,sizeof(*log_info));
-    log_info->path=(char *) "[built-in]";
+    log_info->path=ConstantString("[built-in]");
     log_info->timer=AcquireTimerInfo();
     log_info->event_mask=p->event_mask;
     log_info->handler_mask=p->handler_mask;
-    log_info->filename=p->filename;
-    log_info->format=p->format;
-    log_info->exempt=WizardTrue;
+    log_info->filename=ConstantString(p->filename);
+    log_info->format=ConstantString(p->format);
     log_info->signature=WizardSignature;
     status&=AppendValueToLinkedList(log_list,log_info);
     if (status == WizardFalse)
