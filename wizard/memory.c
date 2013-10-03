@@ -453,7 +453,7 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
   memory_info->signature=WizardSignature;
   if (AcquireWizardResource(MemoryResource,length) != WizardFalse)
     {
-      memory_info->blob=AcquireWizardMemory(length);
+      memory_info->blob=AcquireAlignedMemory(1,length);
       if (memory_info->blob == NULL)
         RelinquishWizardResource(MemoryResource,length);
     }
@@ -920,7 +920,7 @@ WizardExport MemoryInfo *RelinquishVirtualMemory(MemoryInfo *memory_info)
     {
       if (memory_info->mapped == WizardFalse)
         {
-          memory_info->blob=RelinquishWizardMemory(memory_info->blob);
+          memory_info->blob=RelinquishAlignedMemory(memory_info->blob);
           RelinquishWizardResource(MemoryResource,memory_info->length);
         }
       else
