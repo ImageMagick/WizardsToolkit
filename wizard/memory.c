@@ -504,7 +504,7 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
     }
   if (memory_info->blob == NULL)
     {
-      memory_info->blob=AcquireAlignedMemory(1,length);
+      memory_info->blob=AcquireWizardMemory(length);
       if (memory_info->blob != NULL)
         memory_info->type=UnalignedVirtualMemory;
     }
@@ -951,7 +951,7 @@ WizardExport MemoryInfo *RelinquishVirtualMemory(MemoryInfo *memory_info)
       case UnalignedVirtualMemory:
       default:
       {
-        memory_info->blob=RelinquishAlignedMemory(memory_info->blob);
+        memory_info->blob=RelinquishWizardMemory(memory_info->blob);
         break;
       }
     }
