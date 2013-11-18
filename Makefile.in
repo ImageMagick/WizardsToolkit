@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-#  Copyright 1999-2012 ImageMagick Studio LLC, a non-profit organization
+#  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.  You may
@@ -30,7 +30,7 @@
 #
 #  Top-Level Makefile for building the Wizard's Toolkit.
 
-#  Copyright 1999-2012 ImageMagick Studio LLC, a non-profit organization
+#  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.  You may
@@ -46,7 +46,7 @@
 #
 #  Makefile for the Wizard's Toolkit configuration files.
 
-#  Copyright 1999-2012 ImageMagick Studio LLC, a non-profit organization
+#  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@
 #
 #  Makefile for building Wizard's Toolkit library.
 
-# Copyright 1999-2012 ImageMagick Studio LLC, a non-profit organization
+# Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
 # dedicated to making software imaging solutions freely available.
 #
 # You may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@
 #
 #  Makefile for Wizard's Toolkit tests invoked via the C API.
 
-#  Copyright 1999-2012 ImageMagick Studio LLC, a non-profit organization
+#  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.  You may

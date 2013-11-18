@@ -27,6 +27,6 @@
   <configure name="CXXFLAGS" value="-pthread" />
   <configure name="DISTCHECK_CONFIG_FLAGS" value="'CFLAGS=-O3 -g'  --with-umem=no " />
   <configure name="HOST" value="x86_64-unknown-linux-gnu" />
-  <configure name="COPYRIGHT" value="Copyright (C) 1999-2012 ImageMagick Studio LLC" />
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2014 ImageMagick Studio LLC" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
 </configuremap>
