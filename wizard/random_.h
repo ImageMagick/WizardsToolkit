@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_RANDOM_H
 #define _WIZARDSTOOLKIT_RANDOM_H
 
+#include "wizard/hmac.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "wizard/hmac.h"
 
 /*
   Typedef declarations.

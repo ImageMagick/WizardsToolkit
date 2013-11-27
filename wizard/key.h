@@ -18,13 +18,13 @@
 #ifndef _WIZARDSTOOLKIT_KEY_H_
 #define _WIZARDSTOOLKIT_KEY_H_
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
-
 #include "wizard/cipher.h"
 #include "wizard/random_.h"
 #include "wizard/splay-tree.h"
+
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
+#endif
 
 typedef struct _KeyInfo
   KeyInfo;

@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_XML_TREE_H
 #define _WIZARDSTOOLKIT_XML_TREE_H
 
+#include <wizard/exception.h>
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include <wizard/exception.h>
 
 typedef struct _XMLTreeInfo
   XMLTreeInfo;

@@ -18,9 +18,7 @@
 #ifndef _WIZARDSTOOLKIT_NTBASE_H
 #define _WIZARDSTOOLKIT_NTBASE_H
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
+#include "wizard/exception.h"
 
 #define WIN32_LEAN_AND_MEAN
 #define VC_EXTRALEAN
@@ -35,7 +33,10 @@ extern "C" {
 #endif
 
 #include <stdarg.h>
-#include "wizard/exception.h"
+
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
+#endif
 
 #define PROT_READ  0x01
 #define PROT_WRITE  0x02

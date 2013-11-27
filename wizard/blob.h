@@ -18,6 +18,8 @@
 #ifndef _WIZARDSTOOLKIT_BLOB_H
 #define _WIZARDSTOOLKIT_BLOB_H
 
+#include "wizard/exception.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
@@ -25,8 +27,6 @@ extern "C" {
 #if !defined(WizardMaxBufferExtent)
 #define WizardMaxBufferExtent  0x3c005L
 #endif
-
-#include "wizard/exception.h"
 
 typedef enum
 {

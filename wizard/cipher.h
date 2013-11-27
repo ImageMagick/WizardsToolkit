@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_CIPHER_H
 #define _WIZARDSTOOLKIT_CIPHER_H
 
+#include "wizard/random_.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "wizard/random_.h"
 
 #define MaxCipherBlocksize  128
 

@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_SEMAPHORE_PRIVATE_H
 #define _WIZARDSTOOLKIT_SEMAPHORE_PRIVATE_H
 
+#include "wizard/exception-private.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "wizard/exception-private.h"
 
 #if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
 static pthread_mutex_t

@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_BLOB_PRIVATE_H
 #define _WIZARDSTOOLKIT_BLOB_PRIVATE_H
 
+#include <wizard/blob.h>
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include <wizard/blob.h>
 
 #if defined(WIZARDSTOOLKIT_HAVE_FSEEKO)
 # define fseek  fseeko

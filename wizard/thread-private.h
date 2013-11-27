@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_THREAD_PRIVATE_H
 #define _WIZARDSTOOLKIT_THREAD_PRIVATE_H
 
+#include <wizard/thread_.h>
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include <wizard/thread_.h>
 
 #if (__GNUC__ > 3) || ((__GNUC__ == 3) && (__GNUC_MINOR__ > 10))
 #define WizardCachePrefetch(address,mode,locality) \

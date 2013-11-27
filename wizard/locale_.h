@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_LOCALE_H
 #define _WIZARDSTOOLKIT_LOCALE_H
 
+#include "wizard/hashmap.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "wizard/hashmap.h"
 
 extern WizardExport double
   InterpretLocaleValue(const char *restrict,char **restrict);

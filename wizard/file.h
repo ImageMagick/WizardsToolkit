@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_FILE_H_
 #define _WIZARDSTOOLKIT_FILE_H_
 
+#include "wizard/exception.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "wizard/exception.h"
 
 typedef enum
 {

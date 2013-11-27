@@ -18,13 +18,13 @@
 #ifndef _WIZARDSTOOLKIT_UTILITY_PRIVATE_H
 #define _WIZARDSTOOLKIT_UTILITY_PRIVATE_H
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
-
 #include "wizard/memory_.h"
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
 #include "wizard/nt-base.h"
+#endif
+
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
 #endif
 
 extern WizardExport char

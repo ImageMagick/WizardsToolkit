@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_HASH_H
 #define _WIZARDSTOOLKIT_HASH_H
 
+#include "wizard/string_.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "wizard/string_.h"
 
 typedef enum
 {

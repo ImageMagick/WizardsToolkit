@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_CONFIGURE_H
 #define _WIZARDSTOOLKIT_CONFIGURE_H
 
+#include "wizard/hashmap.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "wizard/hashmap.h"
 
 typedef struct _ConfigureInfo
 {

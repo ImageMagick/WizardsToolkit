@@ -18,13 +18,13 @@
 #ifndef _WIZARDSTOOLKIT_EXCEPTION_PRIVATE_H
 #define _WIZARDSTOOLKIT_EXCEPTION_PRIVATE_H
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
-
 #include "wizard/log.h"
 #include "wizard/string_.h"
 #include "wizard/wizard.h"
+
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
+#endif
 
 #define CatchWizardException(severity,tag,context) \
 { \

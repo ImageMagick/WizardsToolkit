@@ -18,11 +18,11 @@
 #ifndef _WIZARDSTOOLKIT_STRING_PRIVATE_H
 #define _WIZARDSTOOLKIT_STRING_PRIVATE_H
 
+#include <wizard/locale_.h>
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include <wizard/locale_.h>
 
 static inline double StringToDouble(const char *restrict string,
   char **restrict sentinal)

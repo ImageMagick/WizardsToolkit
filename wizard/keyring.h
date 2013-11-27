@@ -18,13 +18,13 @@
 #ifndef _WIZARDSTOOLKIT_RING_H_
 #define _WIZARDSTOOLKIT_RING_H_
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
-
 #include <wizard/blob.h>
 #include <wizard/exception.h>
 #include <wizard/string_.h>
+
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
+#endif
 
 typedef struct _KeyringInfo
   KeyringInfo;

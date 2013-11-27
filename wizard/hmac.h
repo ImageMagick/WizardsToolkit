@@ -18,11 +18,11 @@
 #ifndef _MAGICK_HMAC_H
 #define _MAGICK_HMAC_H
 
+#include "wizard/hash.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "wizard/hash.h"
 
 typedef struct _HMACInfo
   HMACInfo;

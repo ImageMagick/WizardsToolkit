@@ -18,13 +18,13 @@
 #ifndef _WIZARDSTOOLKIT_LOG_H
 #define _WIZARDSTOOLKIT_LOG_H
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
-
 #include <stdarg.h>
 #include "wizard/exception.h"
 #include "wizard/timer.h"
+
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
+#endif
 
 #if !defined(GetWizardModule)
 # define GetWizardModule()  __FILE__,__func__,(unsigned long) __LINE__

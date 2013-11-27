@@ -18,12 +18,12 @@
 #ifndef _WIZARDSTOOLKIT_STRING_H_
 #define _WIZARDSTOOLKIT_STRING_H_
 
+#include <stdarg.h>
+#include "wizard/exception.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include <stdarg.h>
-#include "wizard/exception.h"
 
 typedef struct _StringInfo
   StringInfo;

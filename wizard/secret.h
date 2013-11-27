@@ -18,16 +18,16 @@
 #ifndef _WIZARDSTOOLKIT_SECRET_H_
 #define _WIZARDSTOOLKIT_SECRET_H_
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
-
 #include "wizard/cipher.h"
 #include "wizard/exception.h"
 #include "wizard/hash.h"
 #include "wizard/hmac.h"
 #include "wizard/keyring.h"
 #include "wizard/random_.h"
+
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
+#endif
 
 typedef struct _SecretInfo
   SecretInfo;

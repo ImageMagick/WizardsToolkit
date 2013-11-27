@@ -18,12 +18,12 @@
 #ifndef _WIZARDSTOOLKIT_OPTION_H
 #define _WIZARDSTOOLKIT_OPTION_H
 
+#include "wizard/hash.h"
+#include "wizard/log.h"
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-
-#include "wizard/hash.h"
-#include "wizard/log.h"
 
 typedef struct _OptionInfo
 {
