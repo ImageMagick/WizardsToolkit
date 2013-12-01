@@ -13,7 +13,7 @@
 %                   Get/Set Wizard's Toolkit Resources.                       %
 %                                                                             %
 %                              Software Design                                %
-%                                John Cristy                                  %
+%                                   Cristy                                    %
 %                               September 2002                                %
 %                                                                             %
 %                                                                             %

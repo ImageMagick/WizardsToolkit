@@ -13,7 +13,7 @@
 %          Import, Export, or List Properties of Keys in the Keyring          %
 %                                                                             %
 %                              Software Design                                %
-%                                John Cristy                                  %
+%                                   Cristy                                    %
 %                                January 2008                                 %
 %                                                                             %
 %                                                                             %

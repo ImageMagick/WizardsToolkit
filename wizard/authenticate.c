@@ -13,7 +13,7 @@
 %                   Wizard's Toolkit Authentication Methods                   %
 %                                                                             %
 %                             Software Design                                 %
-%                               John Cristy                                   %
+%                                  Cristy                                     %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

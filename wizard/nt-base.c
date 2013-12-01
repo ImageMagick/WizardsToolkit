@@ -13,7 +13,7 @@
 %             Windows NT Utility Methods for the Wizard's Toolkit             %
 %                                                                             %
 %                               Software Design                               %
-%                                 John Cristy                                 %
+%                                    Cristy                                   %
 %                                December 1996                                %
 %                                                                             %
 %                                                                             %

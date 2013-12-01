@@ -13,7 +13,7 @@
 %                    Wizard's Toolkit Twofish Cipher Methods                  %
 %                                                                             %
 %                               Software Design                               %
-%                                 John Cristy                                 %
+%                                    Cristy                                   %
 %                                 March 2003                                  %
 %                                                                             %
 %  Copyright 1999-2014 ImageMagick Studio, LLC, Wilmington, DE, U.S.A.  All   %

@@ -12,7 +12,7 @@
 %             Wizard's Toolkit Secure Hash Algorithm 2-384 Methods            %
 %                                                                             %
 %                             Software Design                                 %
-%                               John Cristy                                   %
+%                                  Cristy                                     %
 %                               March  2003                                   %
 %                                                                             %
 %                                                                             %

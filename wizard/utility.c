@@ -13,7 +13,7 @@
 %                     Wizard's Toolkit Utility Methods                        %
 %                                                                             %
 %                             Software Design                                 %
-%                               John Cristy                                   %
+%                                  Cristy                                     %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

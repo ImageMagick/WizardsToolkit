@@ -13,7 +13,7 @@
 %                    Wizard's Toolkit BZip Entropy Methods                    %
 %                                                                             %
 %                             Software Design                                 %
-%                               John Cristy                                   %
+%                                  Cristy                                     %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

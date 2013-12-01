@@ -12,7 +12,7 @@
 %                         Wizard's Toolkit File Methods                       %
 %                                                                             %
 %                             Software Design                                 %
-%                               John Cristy                                   %
+%                                  Cristy                                     %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

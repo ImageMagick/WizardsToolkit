@@ -12,7 +12,7 @@
 %           Wizard's Toolkit Keyed-Hashing for Message Authentication         %
 %                                                                             %
 %                             Software Design                                 %
-%                               John Cristy                                   %
+%                                  Cristy                                     %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

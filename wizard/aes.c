@@ -13,7 +13,7 @@
 %         Wizard's Toolkit Advanced Encryption Standard Cipher Methods        %
 %                                                                             %
 %                               Software Design                               %
-%                                 John Cristy                                 %
+%                                    Cristy                                   %
 %                                 March 2003                                  %
 %                                                                             %
 %                                                                             %

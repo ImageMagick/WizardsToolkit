@@ -13,7 +13,7 @@
 %              Wizard's Toolkit Environment Sanitazion Methods                %
 %                                                                             %
 %                             Software Design                                 %
-%                               John Cristy                                   %
+%                                  Cristy                                     %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

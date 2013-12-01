@@ -12,7 +12,7 @@
 %             Wizard's Toolkit Message Digest Algorithm-5 Methods             %
 %                                                                             %
 %                             Software Design                                 %
-%                               John Cristy                                   %
+%                                  Cristy                                     %
 %                               March  2003                                   %
 %                                                                             %
 %                                                                             %

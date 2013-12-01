@@ -13,7 +13,7 @@
 %                     Wizard's Toolkit Timing Methods                         %
 %                                                                             %
 %                             Software Design                                 %
-%                               John Cristy                                   %
+%                                  Cristy                                     %
 %                              January 1993                                   %
 %                                                                             %
 %                                                                             %

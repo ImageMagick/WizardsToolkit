@@ -13,7 +13,7 @@
 %                        Convert Plaintext To Ciphertext                      %
 %                                                                             %
 %                              Software Design                                %
-%                                John Cristy                                  %
+%                                   Cristy                                    %
 %                                January 2008                                 %
 %                                                                             %
 %                                                                             %
