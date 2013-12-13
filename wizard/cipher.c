@@ -41,6 +41,7 @@
 */
 #include "wizard/studio.h"
 #include "wizard/aes.h"
+#include "wizard/chacha.h"
 #include "wizard/cipher.h"
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
@@ -153,6 +154,18 @@ WizardExport CipherInfo *AcquireCipherInfo(const CipherType cipher,
       cipher_info->blocksize=GetAESBlocksize(aes_info);
       cipher_info->decipher_block=(DecipherBlock) DecipherAESBlock;
       cipher_info->encipher_block=(DecipherBlock) EncipherAESBlock;
+      break;
+    }
+    case ChachaCipher:
+    {
+      ChachaInfo
+        *chacha_info;
+
+      chacha_info=AcquireChachaInfo();
+      cipher_info->handle=(CipherInfo *) chacha_info;
+      cipher_info->blocksize=GetChachaBlocksize(chacha_info);
+      cipher_info->decipher_block=(DecipherBlock) DecipherChachaBlock;
+      cipher_info->encipher_block=(DecipherBlock) EncipherChachaBlock;
       break;
     }
     case SerpentCipher:
@@ -697,6 +710,12 @@ WizardExport CipherInfo *DestroyCipherInfo(CipherInfo *cipher_info)
       case AESCipher:
       {
         cipher_info->handle=DestroyAESInfo((AESInfo *) cipher_info->handle);
+        break;
+      }
+      case ChachaCipher:
+      {
+        cipher_info->handle=DestroyChachaInfo((ChachaInfo *)
+          cipher_info->handle);
         break;
       }
       case SerpentCipher:
@@ -1413,6 +1432,11 @@ WizardExport void SetCipherKey(CipherInfo *cipher_info,const StringInfo *key)
     case AESCipher:
     {
       SetAESKey((AESInfo *) cipher_info->handle,key);
+      break;
+    }
+    case ChachaCipher:
+    {
+      SetChachaKey((ChachaInfo *) cipher_info->handle,key);
       break;
     }
     case SerpentCipher:

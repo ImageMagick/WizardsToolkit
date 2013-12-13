@@ -56,6 +56,8 @@ WIZARD_BASE_SRCS = \
   wizard/blob-private.h \
   wizard/bzip.c \
   wizard/bzip.h \
+  wizard/chacha.c \
+  wizard/chacha.h \
   wizard/cipher.c \
   wizard/cipher.h \
   wizard/client.c \
@@ -221,6 +223,7 @@ WIZARD_INCLUDE_HDRS = \
 
 WIZARD_NOINST_HDRS = \
   wizard/aes.h \
+  wizard/chacha.h \
   wizard/blob-private.h \
   wizard/crc64.h \
   wizard/exception-private.h \

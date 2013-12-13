@@ -115,7 +115,7 @@ static WizardBooleanType TestAES(void)
     clone,
     pass;
 
-  (void) PrintValidateString(stdout,"testing aes encipher:\n");
+  (void) PrintValidateString(stdout,"testing AES encipher:\n");
   pass=WizardTrue;
   cipher_info=AcquireCipherInfo(AESCipher,CBCMode);
   for (i=0; i < AESEncipherTestVectors; i++)
@@ -141,7 +141,7 @@ static WizardBooleanType TestAES(void)
     plaintext=DestroyStringInfo(plaintext);
   }
   cipher_info=DestroyCipherInfo(cipher_info);
-  (void) PrintValidateString(stdout,"testing aes decipher:\n");
+  (void) PrintValidateString(stdout,"testing AES decipher:\n");
   cipher_info=AcquireCipherInfo(AESCipher,CBCMode);
   for (i=0; i < AESDecipherTestVectors; i++)
   {
@@ -169,7 +169,7 @@ static WizardBooleanType TestAES(void)
   /*
     Validate non-blocksize lengths.
   */
-  (void) PrintValidateString(stdout,"testing aes non-blocksize "
+  (void) PrintValidateString(stdout,"testing AES non-blocksize "
     "encipher/decipher:\n");
   cipher_info=AcquireCipherInfo(AESCipher,CBCMode);
   key=StringToStringInfo(CipherKey);
@@ -196,7 +196,8 @@ static WizardBooleanType TestAES(void)
   /*
     Validate CTR mode.
   */
-  (void) PrintValidateString(stdout,"testing aes CTR-mode encipher/decipher:\n");
+  (void) PrintValidateString(stdout,
+    "testing AES CTR-mode encipher/decipher:\n");
   cipher_info=AcquireCipherInfo(AESCipher,CTRMode);
   key=StringToStringInfo(CipherKey);
   SetCipherKey(cipher_info,key);
@@ -337,6 +338,132 @@ static WizardBooleanType TestBZIPEntropy(void)
   entropy_info=DestroyEntropyInfo(entropy_info);
   exception=DestroyExceptionInfo(exception);
   (void) status;
+  return(pass);
+}
+
+static WizardBooleanType TestChacha(void)
+{
+  CipherInfo
+    *cipher_info;
+
+  register ssize_t
+    i;
+
+  StringInfo
+    *ciphertext,
+    *key,
+    *plaintext,
+    *results;
+
+  WizardBooleanType
+    clone,
+    pass;
+
+  (void) PrintValidateString(stdout,"testing Chacha encipher:\n");
+  pass=WizardTrue;
+  cipher_info=AcquireCipherInfo(ChachaCipher,CBCMode);
+  for (i=0; i < ChachaEncipherTestVectors; i++)
+  {
+    (void) PrintValidateString(stdout,"  test %.20g (%.20g bit key) ",
+      (double) i+1,(double) (8*chacha_encipher_test_vector[i].key_length));
+    key=AcquireStringInfo(chacha_encipher_test_vector[i].key_length);
+    SetStringInfoDatum(key,chacha_encipher_test_vector[i].key);
+    SetCipherKey(cipher_info,key);
+    ResetCipherNonce(cipher_info);
+    plaintext=AcquireStringInfo(chacha_encipher_test_vector[i].length);
+    SetStringInfoDatum(plaintext,chacha_encipher_test_vector[i].plaintext);
+    ciphertext=EncipherCipher(cipher_info,plaintext);
+    results=AcquireStringInfo(chacha_encipher_test_vector[i].result_length);
+    SetStringInfoDatum(results,chacha_encipher_test_vector[i].result);
+    clone=CompareStringInfo(ciphertext,results) == 0 ? WizardTrue : WizardFalse;
+    (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
+      "fail");
+    if (clone == WizardFalse)
+      pass=WizardFalse;
+    results=DestroyStringInfo(results);
+    key=DestroyStringInfo(key);
+    plaintext=DestroyStringInfo(plaintext);
+  }
+  cipher_info=DestroyCipherInfo(cipher_info);
+  (void) PrintValidateString(stdout,"testing Chacha decipher:\n");
+  cipher_info=AcquireCipherInfo(ChachaCipher,CBCMode);
+  for (i=0; i < ChachaDecipherTestVectors; i++)
+  {
+    (void) PrintValidateString(stdout,"  test %.20g (%.20g bit key) ",(double)
+      i+1,(double) (8*chacha_decipher_test_vector[i].key_length));
+    key=AcquireStringInfo(chacha_decipher_test_vector[i].key_length);
+    SetStringInfoDatum(key,chacha_decipher_test_vector[i].key);
+    SetCipherKey(cipher_info,key);
+    ResetCipherNonce(cipher_info);
+    ciphertext=AcquireStringInfo(chacha_decipher_test_vector[i].length);
+    SetStringInfoDatum(ciphertext,chacha_decipher_test_vector[i].plaintext);
+    plaintext=DecipherCipher(cipher_info,ciphertext);
+    results=AcquireStringInfo(chacha_decipher_test_vector[i].length);
+    SetStringInfoDatum(results,chacha_decipher_test_vector[i].result);
+    clone=CompareStringInfo(plaintext,results) == 0 ? WizardTrue : WizardFalse;
+    (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
+      "fail");
+    if (clone == WizardFalse)
+      pass=WizardFalse;
+    results=DestroyStringInfo(results);
+    key=DestroyStringInfo(key);
+    ciphertext=DestroyStringInfo(ciphertext);
+  }
+  cipher_info=DestroyCipherInfo(cipher_info);
+  /*
+    Validate non-blocksize lengths.
+  */
+  (void) PrintValidateString(stdout,"testing Chacha non-blocksize "
+    "encipher/decipher:\n");
+  cipher_info=AcquireCipherInfo(ChachaCipher,CBCMode);
+  key=StringToStringInfo(CipherKey);
+  SetCipherKey(cipher_info,key);
+  ResetCipherNonce(cipher_info);
+  key=DestroyStringInfo(key);
+  plaintext=StringToStringInfo(CipherPlaintext);
+  (void) PrintValidateString(stdout,"  test 0 ");
+  ciphertext=EncipherCipher(cipher_info,plaintext);
+  key=StringToStringInfo(CipherKey);
+  SetCipherKey(cipher_info,key);
+  ResetCipherNonce(cipher_info);
+  key=DestroyStringInfo(key);
+  plaintext=DecipherCipher(cipher_info,ciphertext);
+  results=StringToStringInfo(CipherPlaintext);
+  clone=CompareStringInfo(plaintext,results) == 0 ? WizardTrue : WizardFalse;
+  (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
+    "fail");
+  if (clone == WizardFalse)
+    pass=WizardFalse;
+  results=DestroyStringInfo(results);
+  plaintext=DestroyStringInfo(plaintext);
+  cipher_info=DestroyCipherInfo(cipher_info);
+  /*
+    Validate CTR mode.
+  */
+  (void) PrintValidateString(stdout,
+    "testing Chacha CTR-mode encipher/decipher:\n");
+  cipher_info=AcquireCipherInfo(ChachaCipher,CTRMode);
+  key=StringToStringInfo(CipherKey);
+  SetCipherKey(cipher_info,key);
+  ResetCipherNonce(cipher_info);
+  key=DestroyStringInfo(key);
+  plaintext=StringToStringInfo(CipherPlaintext);
+  (void) PrintValidateString(stdout,"  test 0 ");
+  ciphertext=EncipherCipher(cipher_info,plaintext);
+  key=StringToStringInfo(CipherKey);
+  SetCipherKey(cipher_info,key);
+  ResetCipherNonce(cipher_info);
+  key=DestroyStringInfo(key);
+  plaintext=DecipherCipher(cipher_info,ciphertext);
+  results=StringToStringInfo(CipherPlaintext);
+  clone=CompareStringInfo(plaintext,results) == 0 ? WizardTrue : WizardFalse;
+  (void) PrintValidateString(stdout,"%s.\n",clone != WizardFalse ? "pass" :
+     "fail");
+  if (clone == WizardFalse)
+    pass=WizardFalse;
+  results=DestroyStringInfo(results);
+  plaintext=DestroyStringInfo(plaintext);
+  cipher_info=DestroyCipherInfo(cipher_info);
   return(pass);
 }
 
@@ -1632,6 +1759,8 @@ int main(int argc,char **argv)
   if (TestHMACSHA2256() == WizardFalse)
     pass=WizardFalse;
   if (TestAES() == WizardFalse)
+    pass=WizardFalse;
+  if (TestChacha() == WizardFalse)
     pass=WizardFalse;
   if (TestSerpent() == WizardFalse)
     pass=WizardFalse;

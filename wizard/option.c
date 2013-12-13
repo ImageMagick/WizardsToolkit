@@ -66,6 +66,7 @@ static const OptionInfo
   {
     { "Undefined", (ssize_t) UndefinedCipher },
     { "AES", (ssize_t) AESCipher },
+    { "Chacha", (ssize_t) ChachaCipher },
     { "None", (ssize_t) NoCipher },
     { "Serpent", (ssize_t) SerpentCipher },
     { "Twofish", (ssize_t) TwofishCipher },

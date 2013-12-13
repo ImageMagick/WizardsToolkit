@@ -41,6 +41,7 @@ typedef enum
   UndefinedCipher,
   NoCipher,
   AESCipher,
+  ChachaCipher,
   SerpentCipher,
   TwofishCipher
 } CipherType;
