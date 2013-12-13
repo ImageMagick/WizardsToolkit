@@ -12,7 +12,7 @@
 %              Wizard's Toolkit Secure Cipher Algorithm Methods               %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                               March  2003                                   %
 %                                                                             %
 %                                                                             %

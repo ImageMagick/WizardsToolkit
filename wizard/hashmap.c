@@ -13,7 +13,7 @@
 %                Wizard's Toolkit Hash-map and Linked-list Methods            %
 %                                                                             %
 %                              Software Design                                %
-%                                   Cristy                                    %
+%                                  Cristy                                     %
 %                               December 2002                                 %
 %                                                                             %
 %                                                                             %

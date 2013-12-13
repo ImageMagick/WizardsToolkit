@@ -14,7 +14,7 @@
 %                                                                             %
 %                              Software Design                                %
 %                             William Radcliffe                               %
-%                                   Cristy                                    %
+%                                  Cristy                                     %
 %                                 June 2000                                   %
 %                                                                             %
 %                                                                             %

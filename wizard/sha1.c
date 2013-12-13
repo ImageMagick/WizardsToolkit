@@ -12,7 +12,7 @@
 %             Wizard's Toolkit Secure Hash Algorithm 1 Methods                %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                               March  2003                                   %
 %                                                                             %
 %                                                                             %

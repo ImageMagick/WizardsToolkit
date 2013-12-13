@@ -13,7 +13,7 @@
 %                           Log ImageMagick Events                            %
 %                                                                             %
 %                               Software Design                               %
-%                                    Cristy                                   %
+%                                   Cristy                                    %
 %                                September 2002                               %
 %                                                                             %
 %                                                                             %

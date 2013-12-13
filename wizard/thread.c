@@ -12,7 +12,7 @@
 %                         WizardCore Thread Methods                           %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                               March  2003                                   %
 %                                                                             %
 %                                                                             %

@@ -14,7 +14,7 @@
 %                 Wizard's Toolkit Executable Validation Suite                %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

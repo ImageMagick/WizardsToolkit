@@ -13,7 +13,7 @@
 %                    Wizard's Toolkit Serpent Cipher Methods                  %
 %                                                                             %
 %                               Software Design                               %
-%                                    Cristy                                   %
+%                                   Cristy                                    %
 %                                 March 2003                                  %
 %                                                                             %
 %  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization      %

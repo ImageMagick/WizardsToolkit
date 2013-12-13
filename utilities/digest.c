@@ -13,7 +13,7 @@
 %                       Compute Content Message Digest.                       %
 %                                                                             %
 %                              Software Design                                %
-%                                   Cristy                                    %
+%                                  Cristy                                     %
 %                                January 2008                                 %
 %                                                                             %
 %                                                                             %

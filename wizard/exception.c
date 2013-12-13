@@ -13,7 +13,7 @@
 %                    Wizards Toolkit Exception Methods                        %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                                July 1993                                    %
 %                                                                             %
 %                                                                             %

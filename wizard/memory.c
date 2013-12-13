@@ -13,7 +13,7 @@
 %                 The Wizard's Toolkit Memory Allocation Methods              %
 %                                                                             %
 %                              Software Design                                %
-%                                   Cristy                                    %
+%                                  Cristy                                     %
 %                                 July 1998                                   %
 %                                                                             %
 %                                                                             %

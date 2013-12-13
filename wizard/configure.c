@@ -13,7 +13,7 @@
 %                     Wizards's Toolkit Configure Methods                     %
 %                                                                             %
 %                              Software Design                                %
-%                                   Cristy                                    %
+%                                  Cristy                                     %
 %                                 July 2003                                   %
 %                                                                             %
 %                                                                             %

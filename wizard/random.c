@@ -12,7 +12,7 @@
 %                   Wizard's Toolkit Random Numbers Methods                   %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

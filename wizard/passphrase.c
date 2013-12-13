@@ -13,7 +13,7 @@
 %                     Wizard's Toolkit Passphrase Methods                     %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

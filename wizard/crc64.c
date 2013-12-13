@@ -12,7 +12,7 @@
 %               Wizard's Toolkit Cyclic Redunancy Checksum Methods            %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                               March  2003                                   %
 %                                                                             %
 %                                                                             %

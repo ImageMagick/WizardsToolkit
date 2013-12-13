@@ -12,7 +12,7 @@
 %             Methods to Compute a Message Digest for an Image                %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                              December 1992                                  %
 %                                                                             %
 %                                                                             %

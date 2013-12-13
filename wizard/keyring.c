@@ -12,7 +12,7 @@
 %                      Wizard's Toolkit Keyring Methods                       %
 %                                                                             %
 %                             Software Design                                 %
-%                                  Cristy                                     %
+%                                 Cristy                                      %
 %                               March 2003                                    %
 %                                                                             %
 %                                                                             %

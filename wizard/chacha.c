@@ -3,18 +3,18 @@
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%                   CCCC  IIIII  PPPP   H   H  EEEEE  RRRR                    %
-%                  C        I    P   P  H   H  E      R   R                   %
-%                  C        I    PPPP   HHHHH  EEE    RRRR                    %
-%                  C        I    P      H   H  E      R R                     %
-%                   CCCC  IIIII  P      H   H  EEEEE  R  R                    %
+%                   CCCC  H   H   AAA    CCCC  H   H   AAA                    %
+%                  C      H   H  A   A  C      H   H  A   A                   %
+%                  C      HHHHH  AAAAA  C      HHHHH  AAAAA                   %
+%                  C      H   H  A   A  C      H   H  A   A                   %
+%                   CCCC  H   H  A   A   CCCC  H   H  A   A                   %
 %                                                                             %
 %                                                                             %
 %                   Wizard's Toolkit Chacha Cipher Methods                    %
 %                                                                             %
 %                               Software Design                               %
-%                                    Cristy                                   %
-%                                 March 2003                                  %
+%                                   Cristy                                    %
+%                                 March 2009                                  %
 %                                                                             %
 %                                                                             %
 %  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization      %
@@ -69,16 +69,9 @@ struct _ChachaInfo
 /*
   Define declarations.
 */
-#define ChachaBlocksize 64
-#define PopChachaWord(p, v) \
-{ \
-  (p)[0]=((unsigned char) (((v)      ) & 0xff)); \
-  (p)[1]=((unsigned char) (((v) >>  8) & 0xff)); \
-  (p)[2]=((unsigned char) (((v) >> 16) & 0xff)); \
-  (p)[3]=((unsigned char) (((v) >> 24) & 0xff)); \
-}
+#define ChachaBlocksize  64
 #define PushChachaWord(p) \
-  (((unsigned int) ((p)[0])      ) | \
+  (((unsigned int) ((p)[0]) <<  0) | \
    ((unsigned int) ((p)[1]) <<  8) | \
    ((unsigned int) ((p)[2]) << 16) | \
    ((unsigned int) ((p)[3]) << 24))
@@ -212,21 +205,23 @@ WizardExport ChachaInfo *DestroyChachaInfo(ChachaInfo *chacha_info)
 WizardExport void EncipherChachaBlock(ChachaInfo *chacha_info,
   const unsigned char *plaintext,unsigned char *ciphertext)
 {
-#define U32V(v)  ((unsigned int) (v) & 0xFFFFFFFFU)
-#define ChachaAdd(v,w)  (U32V((v)+(w)))
+#define ChachaAdd(v,w)  ((unsigned int) ((v)+(w)) & 0xFFFFFFFFU)
 #define ChachaQuarterRound(a,b,c,d) \
 { \
-  a=ChachaAdd(a,b); \
-  d=ChachaRotate(ChachaXor(d,a),16); \
-  c=ChachaAdd(c,d); \
-  b=ChachaRotate(ChachaXor(b,c),12); \
-  a=ChachaAdd(a,b); \
-  d=ChachaRotate(ChachaXor(d,a),8); \
-  c=ChachaAdd(c,d); \
-  b=ChachaRotate(ChachaXor(b,c),7); \
+  a=ChachaAdd(a,b); d=ChachaRotate((d) ^ (a),16); \
+  c=ChachaAdd(c,d); b=ChachaRotate((b) ^ (c),12); \
+  a=ChachaAdd(a,b); d=ChachaRotate((d) ^ (a), 8); \
+  c=ChachaAdd(c,d); b=ChachaRotate((b) ^ (c), 7); \
 }
-#define ChachaRotate(v,n)  (U32V((v) << (n)) | ((v) >> (32-(n))))
-#define ChachaXor(v,w)  ((v) ^ (w))
+#define ChachaRotate(v,n) \
+  (((unsigned int) ((v) << (n)) & 0xFFFFFFFFU) | ((v) >> (32-(n))))
+#define PopChachaWord(p,v) \
+{ \
+  (p)[0]=((unsigned char) (((v) >>  0) & 0xff)); \
+  (p)[1]=((unsigned char) (((v) >>  8) & 0xff)); \
+  (p)[2]=((unsigned char) (((v) >> 16) & 0xff)); \
+  (p)[3]=((unsigned char) (((v) >> 24) & 0xff)); \
+}
 
   register ssize_t
     i;
@@ -295,25 +290,22 @@ WizardExport void EncipherChachaBlock(ChachaInfo *chacha_info,
   x13=ChachaAdd(x13,ChachaAdd(chacha_info->key[13],chacha_info->x13));
   x14=ChachaAdd(x14,chacha_info->key[14]);
   x15=ChachaAdd(x15,chacha_info->key[15]);
-  x0=ChachaXor(x0,PushChachaWord(plaintext+0));
-  x1=ChachaXor(x1,PushChachaWord(plaintext+4));
-  x2=ChachaXor(x2,PushChachaWord(plaintext+8));
-  x3=ChachaXor(x3,PushChachaWord(plaintext+12));
-  x4=ChachaXor(x4,PushChachaWord(plaintext+16));
-  x5=ChachaXor(x5,PushChachaWord(plaintext+20));
-  x6=ChachaXor(x6,PushChachaWord(plaintext+24));
-  x7=ChachaXor(x7,PushChachaWord(plaintext+28));
-  x8=ChachaXor(x8,PushChachaWord(plaintext+32));
-  x9=ChachaXor(x9,PushChachaWord(plaintext+36));
-  x10=ChachaXor(x10,PushChachaWord(plaintext+40));
-  x11=ChachaXor(x11,PushChachaWord(plaintext+44));
-  x12=ChachaXor(x12,PushChachaWord(plaintext+48));
-  x13=ChachaXor(x13,PushChachaWord(plaintext+52));
-  x14=ChachaXor(x14,PushChachaWord(plaintext+56));
-  x15=ChachaXor(x15,PushChachaWord(plaintext+60));
-  chacha_info->x12=ChachaAdd(chacha_info->x12,1);
-  if (chacha_info->x12 == 0)
-    chacha_info->x13=ChachaAdd(chacha_info->x13,1);
+  x0^=PushChachaWord(plaintext+0);
+  x1^=PushChachaWord(plaintext+4);
+  x2^=PushChachaWord(plaintext+8);
+  x3^=PushChachaWord(plaintext+12);
+  x4^=PushChachaWord(plaintext+16);
+  x5^=PushChachaWord(plaintext+20);
+  x6^=PushChachaWord(plaintext+24);
+  x7^=PushChachaWord(plaintext+28);
+  x8^=PushChachaWord(plaintext+32);
+  x9^=PushChachaWord(plaintext+36);
+  x10^=PushChachaWord(plaintext+40);
+  x11^=PushChachaWord(plaintext+44);
+  x12^=PushChachaWord(plaintext+48);
+  x13^=PushChachaWord(plaintext+52);
+  x14^=PushChachaWord(plaintext+56);
+  x15^=PushChachaWord(plaintext+60);
   PopChachaWord(ciphertext+0,x0);
   PopChachaWord(ciphertext+4,x1);
   PopChachaWord(ciphertext+8,x2);
@@ -330,11 +322,18 @@ WizardExport void EncipherChachaBlock(ChachaInfo *chacha_info,
   PopChachaWord(ciphertext+52,x13);
   PopChachaWord(ciphertext+56,x14);
   PopChachaWord(ciphertext+60,x15);
+  chacha_info->x12=ChachaAdd(chacha_info->x12,1);
+  if (chacha_info->x12 == 0)
+    {
+      chacha_info->x13=ChachaAdd(chacha_info->x13,1);
+      if (chacha_info->x13 == 0)
+        ThrowWizardFatalError(CipherDomain,EnumerateError);
+    }
   /*
     Reset registers.
   */
-  x0=0; x1=0; x2=0; x3=0; x4=0; x5=0; x6=0; x7=0; x8=0; x9=0;
-  x10=0; x12=0; x13=0; x14=0; x15=0;
+  x0=0;  x1=0;  x2=0;  x3=0;  x4=0;  x5=0;  x6=0;  x7=0;
+  x8=0;  x9=0; x10=0; x11=0; x12=0; x13=0; x14=0; x15=0;
 }
 
 /*
@@ -399,8 +398,8 @@ WizardExport void SetChachaKey(ChachaInfo *chacha_info,const StringInfo *key)
     *constants;
 
   static const char
-    sigma[16] = "expand 32-byte k",
-    tau[16] = "expand 16-byte k";
+    sigma[17] = "expand 32-byte k",
+    tau[17] = "expand 16-byte k";
 
   unsigned char
     *datum;
@@ -445,7 +444,9 @@ WizardExport void SetChachaKey(ChachaInfo *chacha_info,const StringInfo *key)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  SetChachaNonce() sets the nonce for the Chacha cipher.
+%  SetChachaNonce() sets the nonce for the Chacha cipher.  The nonce must be
+%  at least 8 bytes.  The counter can be NULL, if not it must be at least
+%  8 bytes.
 %
 %  The format of the SetChachaKey method is:
 %

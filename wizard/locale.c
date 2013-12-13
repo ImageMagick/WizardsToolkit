@@ -13,7 +13,7 @@
 %                      WizardCore Image Locale Methods                        %
 %                                                                             %
 %                              Software Design                                %
-%                                   Cristy                                    %
+%                                  Cristy                                     %
 %                                 July 2003                                   %
 %                                                                             %
 %                                                                             %

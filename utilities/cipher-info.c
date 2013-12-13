@@ -20,7 +20,7 @@
 %                       Identify Ciphertext Properties.                       %
 %                                                                             %
 %                              Software Design                                %
-%                                   Cristy                                    %
+%                                  Cristy                                     %
 %                                January 2008                                 %
 %                                                                             %
 %                                                                             %
