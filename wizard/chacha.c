@@ -263,7 +263,7 @@ WizardExport void EncipherChachaBlock(ChachaInfo *chacha_info,
   x13=ChachaAdd(chacha_info->key[13],chacha_info->x13);
   x14=chacha_info->key[14];
   x15=chacha_info->key[15];
-  for (i=20; i > 0; i-=2)
+  for (i=8; i > 0; i-=2)
   {
     ChachaQuarterRound(x0,x4,x8,x12);
     ChachaQuarterRound(x1,x5,x9,x13);
