@@ -52,8 +52,6 @@ struct _ChachaInfo
 {
   unsigned int
     blocksize,
-    x12,
-    x13,
     key[16];
 
   ssize_t
@@ -259,11 +257,11 @@ WizardExport void EncipherChachaBlock(ChachaInfo *chacha_info,
   x9=chacha_info->key[9];
   x10=chacha_info->key[10];
   x11=chacha_info->key[11];
-  x12=ChachaAdd(chacha_info->key[12],chacha_info->x12);
-  x13=ChachaAdd(chacha_info->key[13],chacha_info->x13);
+  x12=chacha_info->key[12];
+  x13=chacha_info->key[13];
   x14=chacha_info->key[14];
   x15=chacha_info->key[15];
-  for (i=8; i > 0; i-=2)
+  for (i=20; i > 0; i-=2)
   {
     ChachaQuarterRound(x0,x4,x8,x12);
     ChachaQuarterRound(x1,x5,x9,x13);
@@ -286,8 +284,8 @@ WizardExport void EncipherChachaBlock(ChachaInfo *chacha_info,
   x9=ChachaAdd(x9,chacha_info->key[9]);
   x10=ChachaAdd(x10,chacha_info->key[10]);
   x11=ChachaAdd(x11,chacha_info->key[11]);
-  x12=ChachaAdd(x12,ChachaAdd(chacha_info->key[12],chacha_info->x12));
-  x13=ChachaAdd(x13,ChachaAdd(chacha_info->key[13],chacha_info->x13));
+  x12=ChachaAdd(x12,chacha_info->key[12]);
+  x13=ChachaAdd(x13,chacha_info->key[13]);
   x14=ChachaAdd(x14,chacha_info->key[14]);
   x15=ChachaAdd(x15,chacha_info->key[15]);
   x0^=PushChachaWord(plaintext+0);
@@ -322,13 +320,6 @@ WizardExport void EncipherChachaBlock(ChachaInfo *chacha_info,
   PopChachaWord(ciphertext+52,x13);
   PopChachaWord(ciphertext+56,x14);
   PopChachaWord(ciphertext+60,x15);
-  chacha_info->x12=ChachaAdd(chacha_info->x12,1);
-  if (chacha_info->x12 == 0)
-    {
-      chacha_info->x13=ChachaAdd(chacha_info->x13,1);
-      if (chacha_info->x13 == 0)
-        ThrowWizardFatalError(CipherDomain,EnumerateError);
-    }
   /*
     Reset registers.
   */
@@ -409,24 +400,36 @@ WizardExport void SetChachaKey(ChachaInfo *chacha_info,const StringInfo *key)
   WizardAssert(CipherDomain,chacha_info->signature == WizardSignature);
   WizardAssert(CipherDomain,key != (StringInfo *) NULL);
   datum=GetStringInfoDatum(key);
-  chacha_info->key[4]=PushChachaWord(datum+0);
-  chacha_info->key[5]=PushChachaWord(datum+4);
-  chacha_info->key[6]=PushChachaWord(datum+8);
-  chacha_info->key[7]=PushChachaWord(datum+12);
+  if (GetStringInfoLength(key) >= 4)
+    chacha_info->key[4]=PushChachaWord(datum+0);
+  if (GetStringInfoLength(key) >= 8)
+    chacha_info->key[5]=PushChachaWord(datum+4);
+  if (GetStringInfoLength(key) >= 12)
+    chacha_info->key[6]=PushChachaWord(datum+8);
+  if (GetStringInfoLength(key) >= 16)
+    chacha_info->key[7]=PushChachaWord(datum+12);
   constants=tau;
   if ((8*GetStringInfoLength(key)) == 256)
     {
       datum+=16;
       constants=sigma;
     }
-  chacha_info->key[8]=PushChachaWord(datum+0);
-  chacha_info->key[9]=PushChachaWord(datum+4);
-  chacha_info->key[10]=PushChachaWord(datum+8);
-  chacha_info->key[11]=PushChachaWord(datum+12);
+  if (GetStringInfoLength(key) >= 4)
+    chacha_info->key[8]=PushChachaWord(datum+0);
+  if (GetStringInfoLength(key) >= 8)
+    chacha_info->key[9]=PushChachaWord(datum+4);
+  if (GetStringInfoLength(key) >= 12)
+    chacha_info->key[10]=PushChachaWord(datum+8);
+  if (GetStringInfoLength(key) >= 16)
+    chacha_info->key[11]=PushChachaWord(datum+12);
   chacha_info->key[0]=PushChachaWord(constants+0);
   chacha_info->key[1]=PushChachaWord(constants+4);
   chacha_info->key[2]=PushChachaWord(constants+8);
   chacha_info->key[3]=PushChachaWord(constants+12);
+  chacha_info->key[12]=0;  /* we don't use counter in key */
+  chacha_info->key[13]=0;  /* we don't use counter in key */
+  chacha_info->key[14]=0;
+  chacha_info->key[15]=0;
   /*
     Reset registers.
   */
