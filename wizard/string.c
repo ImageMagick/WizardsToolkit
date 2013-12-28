@@ -114,8 +114,11 @@ static const unsigned char
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AcquireString() allocates memory for a string and copies the source string
-%  to that memory location (and returns it).
+%  AcquireString() returns an new extented string, containing a clone of the
+%  given string.
+%
+%  An extended string is the string length, plus an extra MaxTextExtent space
+%  to allow for the string to be activally worked on.
 %
 %  The format of the AcquireString method is:
 %

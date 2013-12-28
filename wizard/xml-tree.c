@@ -514,12 +514,11 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
          (((XMLTreeRoot *) xml_info)->signature == WizardSignature));
   if (xml_info->parent == (XMLTreeInfo *) NULL)
     return;
-  return;
   /*
     Free root tag allocations.
   */
   root=(XMLTreeRoot *) xml_info;
-  for (i=NumberPredefinedEntities; root->entities[i]; i+=2)
+  for (i=NumberPredefinedEntities; root->entities[i] != (char *) NULL; i+=2)
     root->entities[i+1]=DestroyString(root->entities[i+1]);
   root->entities=(char **) RelinquishWizardMemory(root->entities);
   for (i=0; root->attributes[i] != (char **) NULL; i++)
@@ -1059,7 +1058,6 @@ WizardExport XMLTreeInfo *InsertTagIntoXMLTree(XMLTreeInfo *xml_info,
     *node,
     *previous;
 
-  DestroyXMLTreeRoot(xml_info);
   child->ordered=(XMLTreeInfo *) NULL;
   child->sibling=(XMLTreeInfo *) NULL;
   child->next=(XMLTreeInfo *) NULL;
