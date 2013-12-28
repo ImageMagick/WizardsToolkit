@@ -1422,7 +1422,7 @@ static WizardBooleanType ValidateEntities(char *tag,char *xml,char **entities)
       return(WizardFalse);
     i=0;
     while ((entities[i] != (char *) NULL) &&
-           (strncmp(entities[i],xml+1,strlen(entities[i]) == 0)))
+           (strncmp(entities[i],xml+1,strlen(entities[i])) == 0))
       i+=2;
     if ((entities[i] != (char *) NULL) &&
         (ValidateEntities(tag,entities[i+1],entities) == 0))
