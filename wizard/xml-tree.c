@@ -558,18 +558,6 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
 
 WizardExport XMLTreeInfo *DestroyXMLTree(XMLTreeInfo *xml_info)
 {
-  char
-    **attributes;
-
-  ssize_t
-    j;
-
-  register ssize_t
-    i;
-
-  XMLTreeRoot
-    *root;
-
   WizardAssert(ResourceDomain,xml_info != (XMLTreeInfo *) NULL);
   WizardAssert(ResourceDomain,(xml_info->signature == WizardSignature) ||
          (((XMLTreeRoot *) xml_info)->signature == WizardSignature));
