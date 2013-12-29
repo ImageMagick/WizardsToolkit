@@ -512,12 +512,11 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
   assert(xml_info != (XMLTreeInfo *) NULL);
   assert((xml_info->signature == WizardSignature) ||
          (((XMLTreeRoot *) xml_info)->signature == WizardSignature));
-  if (xml_info->parent == (XMLTreeInfo *) NULL)
+  if (xml_info->parent != (XMLTreeInfo *) NULL)
     return;
   /*
     Free root tag allocations.
   */
-  return;
   root=(XMLTreeRoot *) xml_info;
   for (i=NumberPredefinedEntities; root->entities[i] != (char *) NULL; i+=2)
     root->entities[i+1]=DestroyString(root->entities[i+1]);
