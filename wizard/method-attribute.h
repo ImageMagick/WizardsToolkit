@@ -40,7 +40,7 @@ extern "C" {
 #   pragma warning( disable: 4273 )  /* Disable the dll linkage warnings */
 #  endif
 #  if !defined(_WIZARDLIB_)
-#   if defined(__GNUC__)
+#   if defined(__clang__) || defined(__GNUC__)
 #    define WizardExport __attribute__ ((dllimport))
 #   else
 #    define WizardExport __declspec(dllimport)
@@ -49,7 +49,7 @@ extern "C" {
 #    pragma message( "WizardCore lib DLL import interface" )
 #   endif
 #  else
-#   if defined(__GNUC__)
+#   if defined(__clang__) || defined(__GNUC__)
 #    define WizardExport __attribute__ ((dllexport))
 #   else
 #    define WizardExport __declspec(dllexport)
@@ -66,7 +66,7 @@ extern "C" {
 # endif
 
 # if defined(_DLL) && !defined(_LIB)
-#   if defined(__GNUC__)
+#   if defined(__clang__) || defined(__GNUC__)
 #    define ModuleExport __attribute__ ((dllexport))
 #   else
 #    define ModuleExport __declspec(dllexport)
@@ -92,7 +92,7 @@ extern "C" {
 #  pragma warning(disable : 4996)
 # endif
 #else
-# if __GNUC__ >= 4
+# if defined(__clang__) || (__GNUC__ >= 4)
 #  define WizardExport __attribute__ ((visibility ("default")))
 #  define WizardPrivate  __attribute__ ((visibility ("hidden")))
 # else
