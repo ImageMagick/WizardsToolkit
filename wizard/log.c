@@ -1593,7 +1593,7 @@ static WizardBooleanType LoadLogLists(const char *filename,
     if (log_info == (LogInfo *) NULL)
       {
         (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
-          "memory allocation failed `%s'",log_info->name);
+          "memory allocation failed `%s'",p->filename);
         continue;
       }
     (void) ResetWizardMemory(log_info,0,sizeof(*log_info));
