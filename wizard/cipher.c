@@ -343,6 +343,7 @@ static StringInfo *DecipherCFBMode(CipherInfo *cipher_info,
   WizardAssert(CipherDomain,cipher_info != (CipherInfo *) NULL);
   WizardAssert(CipherDomain,cipher_info->signature == WizardSignature);
   blocksize=cipher_info->blocksize;
+  WizardAssert(CipherDomain,blocksize != 0);
   WizardAssert(CipherDomain,blocksize <= MaxCipherBlocksize);
   WizardAssert(CipherDomain,ciphertext != (StringInfo *) NULL);
   plaintext=ciphertext;
@@ -798,6 +799,7 @@ static StringInfo *EncipherCBCMode(CipherInfo *cipher_info,
   WizardAssert(CipherDomain,cipher_info != (CipherInfo *) NULL);
   WizardAssert(CipherDomain,cipher_info->signature == WizardSignature);
   blocksize=cipher_info->blocksize;
+  WizardAssert(CipherDomain,blocksize != 0);
   WizardAssert(CipherDomain,blocksize <= MaxCipherBlocksize);
   WizardAssert(CipherDomain,plaintext != (StringInfo *) NULL);
   ciphertext=plaintext;
@@ -882,6 +884,7 @@ static StringInfo *EncipherCFBMode(CipherInfo *cipher_info,
   WizardAssert(CipherDomain,cipher_info != (CipherInfo *) NULL);
   WizardAssert(CipherDomain,cipher_info->signature == WizardSignature);
   blocksize=cipher_info->blocksize;
+  WizardAssert(CipherDomain,blocksize != 0);
   WizardAssert(CipherDomain,blocksize <= MaxCipherBlocksize);
   WizardAssert(CipherDomain,plaintext != (StringInfo *) NULL);
   ciphertext=plaintext;
@@ -1044,6 +1047,7 @@ static StringInfo *EncipherCTRMode(CipherInfo *cipher_info,
   WizardAssert(CipherDomain,cipher_info != (CipherInfo *) NULL);
   WizardAssert(CipherDomain,cipher_info->signature == WizardSignature);
   blocksize=cipher_info->blocksize;
+  WizardAssert(CipherDomain,blocksize != 0);
   WizardAssert(CipherDomain,blocksize <= MaxCipherBlocksize);
   WizardAssert(CipherDomain,plaintext != (StringInfo *) NULL);
   ciphertext=plaintext;
@@ -1193,6 +1197,7 @@ static StringInfo *EncipherOFBMode(CipherInfo *cipher_info,
   WizardAssert(CipherDomain,cipher_info != (CipherInfo *) NULL);
   WizardAssert(CipherDomain,cipher_info->signature == WizardSignature);
   blocksize=cipher_info->blocksize;
+  WizardAssert(CipherDomain,blocksize != 0);
   WizardAssert(CipherDomain,blocksize <= MaxCipherBlocksize);
   WizardAssert(CipherDomain,plaintext != (StringInfo *) NULL);
   ciphertext=plaintext;

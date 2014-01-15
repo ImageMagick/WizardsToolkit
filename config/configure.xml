@@ -5,8 +5,8 @@
   <configure name="VERSION" value="1.0.9" />
   <configure name="LIB_VERSION" value="0x109" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,9,1" />
-  <configure name="RELEASE_DATE" value="2013-12-21" />
-  <configure name="CONFIGURE" value="./configure  '--disable-shared' 'CC=c++'" />
+  <configure name="RELEASE_DATE" value="2014-01-14" />
+  <configure name="CONFIGURE" value="./configure  '--disable-shared' 'CC=/usr/libexec/clang-analyzer/scan-build/ccc-analyzer' 'CXX=/usr/libexec/clang-analyzer/scan-build/c++-analyzer'" />
   <configure name="PREFIX" value="/usr/local" />
   <configure name="EXEC-PREFIX" value="/usr/local" />
   <configure name="INCLUDE_PATH" value="/usr/local/include/WizardsToolkit-1"/>
@@ -18,14 +18,14 @@
   <configure name="SHARE_PATH" value="/usr/local/share/WizardsToolkit-1"/>
   <configure name="CODER_PATH" value="@CODER_PATH@"/>
   <configure name="FILTER_PATH" value="@FILTER_PATH@"/>
-  <configure name="CC" value="c++" />
-  <configure name="CFLAGS" value="-fopenmp -g -O2 -Wall -pthread" />
+  <configure name="CC" value="/usr/libexec/clang-analyzer/scan-build/ccc-analyzer -std=gnu99" />
+  <configure name="CFLAGS" value="-g -O2 -Wall -pthread" />
   <configure name="CPPFLAGS" value="-I/usr/local/include/WizardsToolkit-1" />
   <configure name="LDFLAGS" value="-L/usr/local/lib " />
   <configure name="LIBS" value="-lWizardsToolkit -lbz2 -llzma -lz -lm -lgomp -lpthread" />
-  <configure name="CXX" value="g++" />
+  <configure name="CXX" value="/usr/libexec/clang-analyzer/scan-build/c++-analyzer" />
   <configure name="CXXFLAGS" value="-pthread" />
-  <configure name="DISTCHECK_CONFIG_FLAGS" value="'CC=c++'  --with-umem=no " />
+  <configure name="DISTCHECK_CONFIG_FLAGS" value="'CC=/usr/libexec/clang-analyzer/scan-build/ccc-analyzer' 'CXX=/usr/libexec/clang-analyzer/scan-build/c++-analyzer'  --with-umem=no " />
   <configure name="HOST" value="x86_64-unknown-linux-gnu" />
   <configure name="COPYRIGHT" value="Copyright (C) 1999-2014 ImageMagick Studio LLC" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />

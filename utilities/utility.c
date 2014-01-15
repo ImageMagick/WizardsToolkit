@@ -263,7 +263,8 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
       if (*path != '\0')
         (void) ConcatenateWizardString(filename,DirectorySeparator,
           MaxTextExtent);
-      (void) ConcatenateWizardString(filename,filelist[j],MaxTextExtent);
+      if (filelist[j] != (char *) NULL)
+        (void) ConcatenateWizardString(filename,filelist[j],MaxTextExtent);
       filelist[j]=DestroyString(filelist[j]);
       if (IsPathAcessible(filename) != WizardFalse)
         {
