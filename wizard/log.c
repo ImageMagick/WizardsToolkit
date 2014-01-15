@@ -1419,6 +1419,7 @@ static WizardBooleanType LoadLogList(const char *xml,const char *filename,
           (void) ThrowWizardException(exception,GetWizardModule(),
             ResourceError,"memory allocation failed: `%s'",filename);
         log_info=(LogInfo *) NULL;
+        continue;
       }
     GetWizardToken(q,(const char **) NULL,token);
     if (*token != '=')
