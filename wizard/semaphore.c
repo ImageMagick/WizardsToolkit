@@ -202,7 +202,9 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
   /*
     Initialize the semaphore.
   */
-#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+  omp_init_lock((omp_lock_t *) &semaphore_info->mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   {
     int
       status;
@@ -280,7 +282,9 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
   assert((*semaphore_info) != (SemaphoreInfo *) NULL);
   assert((*semaphore_info)->signature == WizardSignature);
   LockWizardMutex();
-#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+  omp_destroy_lock((omp_lock_t *) &(*semaphore_info)->mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   {
     int
       status;
@@ -327,7 +331,9 @@ WizardExport void LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 {
   assert(semaphore_info != (SemaphoreInfo *) NULL);
   assert(semaphore_info->signature == WizardSignature);
-#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+  omp_set_lock((omp_lock_t *) &semaphore_info->mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   {
     int
       status;
@@ -467,7 +473,9 @@ WizardExport void UnlockSemaphoreInfo(SemaphoreInfo *semaphore_info)
     }
   semaphore_info->reference_count--;
 #endif
-#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+  omp_unset_lock((omp_lock_t *) &semaphore_info->mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   {
     int
       status;
