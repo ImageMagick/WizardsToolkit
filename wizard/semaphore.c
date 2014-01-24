@@ -464,7 +464,7 @@ WizardExport void SemaphoreComponentTerminus(void)
 WizardExport void UnlockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 {
   assert(semaphore_info != (SemaphoreInfo *) NULL);
-  assert(semaphore_info->signature == WizardSignature); 
+  assert(semaphore_info->signature == WizardSignature);
 #if defined(WIZARDSTOOLKIT_DEBUG)
   assert(IsWizardThreadEqual(semaphore_info->id) != WizardFalse);
   if (semaphore_info->reference_count == 0)
