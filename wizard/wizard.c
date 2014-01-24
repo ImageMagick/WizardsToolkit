@@ -212,6 +212,7 @@ WizardExport void WizardsToolkitGenesis(const char *path)
   /*
     Initialize the Wizard environment.
   */
+  InitializeWizardMutex();
   LockWizardMutex();
   if (instantiate_wizardstoolkit != WizardFalse)
     {
@@ -330,6 +331,7 @@ WizardExport void WizardsToolkitGenesis(const char *path)
 */
 WizardExport void WizardsToolkitTerminus(void)
 {
+  InitializeWizardMutex();
   LockWizardMutex();
   if (instantiate_wizardstoolkit == WizardFalse)
     {
@@ -343,4 +345,5 @@ WizardExport void WizardsToolkitTerminus(void)
   SemaphoreComponentTerminus();
   instantiate_wizardstoolkit=WizardFalse;
   UnlockWizardMutex();
+  DestroyWizardMutex();
 }
