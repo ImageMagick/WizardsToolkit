@@ -41,7 +41,7 @@ static ssize_t
 static MagickBooleanType
   active_mutex = MagickFalse;
 
-static inline void DestroyMagickMutex(void)
+static inline void DestroyWizardMutex(void)
 {
   if (active_mutex != MagickFalse)
 #if defined(MAGICKCORE_OPENMP_SUPPORT)
@@ -54,7 +54,7 @@ static inline void DestroyMagickMutex(void)
   active_mutex=MagickFalse;
 }
 
-static inline void InitializeMagickMutex(void)
+static inline void InitializeWizardMutex(void)
 {
   if (active_mutex == MagickFalse)
 #if defined(MAGICKCORE_OPENMP_SUPPORT)

@@ -97,7 +97,7 @@ WizardExport void AcquireSemaphoreInfo(SemaphoreInfo **semaphore_info)
   assert(semaphore_info != (SemaphoreInfo **) NULL);
   if (*semaphore_info == (SemaphoreInfo *) NULL)
     {
-      InitializeMagickMutex();
+      InitializeWizardMutex();
       LockWizardMutex();
       if (*semaphore_info == (SemaphoreInfo *) NULL)
         *semaphore_info=AllocateSemaphoreInfo();
@@ -282,7 +282,7 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
   assert(semaphore_info != (SemaphoreInfo **) NULL);
   assert((*semaphore_info) != (SemaphoreInfo *) NULL);
   assert((*semaphore_info)->signature == WizardSignature);
-  InitializeMagickMutex();
+  InitializeWizardMutex();
   LockWizardMutex();
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
   omp_destroy_lock((omp_lock_t *) &(*semaphore_info)->mutex);
@@ -412,8 +412,7 @@ WizardExport void RelinquishSemaphoreInfo(SemaphoreInfo *semaphore_info)
 */
 WizardExport WizardBooleanType SemaphoreComponentGenesis(void)
 {
-  LockWizardMutex();
-  UnlockWizardMutex();
+  InitializeWizardMutex();
   return(WizardTrue);
 }
 
@@ -437,7 +436,7 @@ WizardExport WizardBooleanType SemaphoreComponentGenesis(void)
 */
 WizardExport void SemaphoreComponentTerminus(void)
 {
-  DestroyMagickMutex();
+  DestroyWizardMutex();
 }
 
 /*
