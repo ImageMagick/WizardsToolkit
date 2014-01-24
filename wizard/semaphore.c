@@ -282,6 +282,7 @@ WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
   assert(semaphore_info != (SemaphoreInfo **) NULL);
   assert((*semaphore_info) != (SemaphoreInfo *) NULL);
   assert((*semaphore_info)->signature == WizardSignature);
+  InitializeMagickMutex();
   LockWizardMutex();
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
   omp_destroy_lock((omp_lock_t *) &(*semaphore_info)->mutex);
