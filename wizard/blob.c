@@ -540,7 +540,8 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
     }
   offset=(WizardOffsetType) lseek(file,0,SEEK_END);
   count=0;
-  if ((offset < 0) || (offset != (WizardOffsetType) ((ssize_t) offset)))
+  if ((file == fileno(stdin)) || (offset < 0) ||
+      (offset != (WizardOffsetType) ((ssize_t) offset)))
     {
       size_t
         quantum;
@@ -551,6 +552,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
       /*
         Stream is not seekable.
       */
+      offset=(WizardOffsetType) lseek(file,0,SEEK_SET);
       quantum=(size_t) WizardMaxBufferExtent;
       if ((fstat(file,&file_info) == 0) && (file_info.st_size != 0))
         quantum=Min((size_t) file_info.st_size,WizardMaxBufferExtent);
