@@ -64,6 +64,7 @@ static inline void InitializeWizardMutex(void)
       InitializeCriticalSection(&semaphore_mutex);
 #endif
     }
+  active_mutex=WizardTrue;
 }
 
 static inline void LockWizardMutex(void)
