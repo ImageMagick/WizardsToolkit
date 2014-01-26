@@ -24,15 +24,15 @@
 extern "C" {
 #endif
 
-#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+static omp_lock_t
+  semaphore_mutex;
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
 static pthread_mutex_t
   semaphore_mutex = PTHREAD_MUTEX_INITIALIZER;
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
 static LONG
   semaphore_mutex = 0;
-#elif defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-static omp_lock_t
-  semaphore_mutex;
 #else
 static ssize_t
   semaphore_mutex = 0;
@@ -45,12 +45,12 @@ static inline void DestroyWizardMutex(void)
 {
   if (active_mutex != WizardFalse)
     {
-#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+      omp_destroy_lock(&semaphore_mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
       ;
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
       DeleteCriticalSection(&semaphore_mutex);
-#elif defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-      omp_destroy_lock(&semaphore_mutex);
 #endif
     }
   active_mutex=WizardFalse;
@@ -60,12 +60,12 @@ static inline void InitializeWizardMutex(void)
 {
   if (active_mutex == WizardFalse)
     {
-#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+      omp_init_lock(&semaphore_mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
       ;
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
       InitializeCriticalSection(&semaphore_mutex);
-#elif defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-      omp_init_lock(&semaphore_mutex);
 #endif
     }
   active_mutex=WizardTrue;
@@ -73,7 +73,9 @@ static inline void InitializeWizardMutex(void)
 
 static inline void LockWizardMutex(void)
 {
-#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+  omp_set_lock(&semaphore_mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   {
     int
       status;
@@ -89,14 +91,14 @@ static inline void LockWizardMutex(void)
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
   while (InterlockedCompareExchange(&semaphore_mutex,1L,0L) != 0)
     Sleep(10);
-#elif defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-  omp_set_lock(&semaphore_mutex);
 #endif
 }
 
 static inline void UnlockWizardMutex(void)
 {
-#if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+  omp_unset_lock(&semaphore_mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   {
     int
       status;
@@ -111,8 +113,6 @@ static inline void UnlockWizardMutex(void)
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
   InterlockedExchange(&semaphore_mutex,0L);
-#elif defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-  omp_unset_lock(&semaphore_mutex);
 #endif
 }
 
