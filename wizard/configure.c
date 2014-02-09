@@ -679,8 +679,9 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
 		if (home != (char *) NULL)
       {
 #if !defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
-        (void) FormatLocaleString(path,MaxTextExtent,"%s%s",home,
-          DirectorySeparator);
+        (void) FormatLocaleString(path,MaxTextExtent,
+          "%s%s.config%sWizardsToolkit%s",home,DirectorySeparator,
+          DirectorySeparator,DirectorySeparator);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
 #else
         (void) FormatLocaleString(path,MaxTextExtent,"%s/etc/%s/",home,
@@ -737,9 +738,10 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
     if (home != (char *) NULL)
       {
         /*
-          Search $HOME/.wizard.
+          Search $HOME/.config/ImageMagick.
         */
-        (void) FormatLocaleString(path,MaxTextExtent,"%s%s.wizard%s",home,
+        (void) FormatLocaleString(path,MaxTextExtent,
+          "%s%s.config%sWizardsToolkit%s",home,DirectorySeparator,
           DirectorySeparator,DirectorySeparator);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
         home=(char *) RelinquishWizardMemory(home);
