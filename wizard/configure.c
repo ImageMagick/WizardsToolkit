@@ -160,7 +160,7 @@ static void *DestroyConfigureElement(void *configure_info)
 WizardExport void ConfigureComponentTerminus(void)
 {
   if (configure_semaphore == (SemaphoreInfo *) NULL)
-    configure_semaphore=AcquireSemaphoreInfo();
+    ActivateSemaphoreInfo(&configure_semaphore);
   LockSemaphoreInfo(configure_semaphore);
   if (configure_list != (LinkedListInfo *) NULL)
     configure_list=DestroyLinkedList(configure_list,DestroyConfigureElement);
@@ -831,7 +831,7 @@ static WizardBooleanType InitializeConfigureList(ExceptionInfo *exception)
       (instantiate_configure == WizardFalse))
     {
       if (configure_semaphore == (SemaphoreInfo *) NULL)
-        configure_semaphore=AcquireSemaphoreInfo();
+        ActivateSemaphoreInfo(&configure_semaphore);
       LockSemaphoreInfo(configure_semaphore);
       if ((configure_list == (LinkedListInfo *) NULL) &&
           (instantiate_configure == WizardFalse))

@@ -420,7 +420,7 @@ WizardExport WizardBooleanType LocaleComponentGenesis(void)
 WizardExport void LocaleComponentTerminus(void)
 {
   if (locale_semaphore == (SemaphoreInfo *) NULL)
-    locale_semaphore=AcquireSemaphoreInfo();
+    ActivateSemaphoreInfo(&locale_semaphore);
   LockSemaphoreInfo(locale_semaphore);
   DestroyCLocale();
   instantiate_locale=WizardFalse;

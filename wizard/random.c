@@ -938,7 +938,7 @@ WizardExport WizardBooleanType RandomComponentGenesis(void)
 WizardExport void RandomComponentTerminus(void)
 {
   if (random_semaphore == (SemaphoreInfo *) NULL)
-    random_semaphore=AcquireSemaphoreInfo();
+    ActivateSemaphoreInfo(&random_semaphore);
   RelinquishSemaphoreInfo(&random_semaphore);
 }
 

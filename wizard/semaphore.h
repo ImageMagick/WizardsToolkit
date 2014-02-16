@@ -29,15 +29,15 @@ extern WizardExport SemaphoreInfo
   *AcquireSemaphoreInfo(void);
 
 extern WizardExport void
+  ActivateSemaphoreInfo(SemaphoreInfo **),
+  LockSemaphoreInfo(SemaphoreInfo *),
   RelinquishSemaphoreInfo(SemaphoreInfo **),
-  SemaphoreComponentTerminus(void);
+  SemaphoreComponentTerminus(void),
+  UnlockSemaphoreInfo(SemaphoreInfo *);
 
 extern WizardExport WizardBooleanType
   SemaphoreComponentGenesis(void);
 
-extern WizardExport void
-  LockSemaphoreInfo(SemaphoreInfo *),
-  UnlockSemaphoreInfo(SemaphoreInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }
