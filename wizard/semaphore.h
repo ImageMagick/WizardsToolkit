@@ -26,12 +26,10 @@ typedef struct SemaphoreInfo
   SemaphoreInfo;
 
 extern WizardExport SemaphoreInfo
-  *AllocateSemaphoreInfo(void);
+  *AcquireSemaphoreInfo(void);
 
 extern WizardExport void
-  AcquireSemaphoreInfo(SemaphoreInfo **),
-  DestroySemaphoreInfo(SemaphoreInfo **),
-  RelinquishSemaphoreInfo(SemaphoreInfo *),
+  RelinquishSemaphoreInfo(SemaphoreInfo **),
   SemaphoreComponentTerminus(void);
 
 extern WizardExport WizardBooleanType

@@ -114,7 +114,7 @@ static WizardBooleanType
 */
 WizardExport WizardBooleanType ConfigureComponentGenesis(void)
 {
-  AcquireSemaphoreInfo(&configure_semaphore);
+  configure_semaphore=AcquireSemaphoreInfo();
   return(WizardTrue);
 }
 
@@ -160,14 +160,14 @@ static void *DestroyConfigureElement(void *configure_info)
 WizardExport void ConfigureComponentTerminus(void)
 {
   if (configure_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&configure_semaphore);
+    configure_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(configure_semaphore);
   if (configure_list != (LinkedListInfo *) NULL)
     configure_list=DestroyLinkedList(configure_list,DestroyConfigureElement);
   configure_list=(LinkedListInfo *) NULL;
   instantiate_configure=WizardFalse;
   UnlockSemaphoreInfo(configure_semaphore);
-  DestroySemaphoreInfo(&configure_semaphore);
+  RelinquishSemaphoreInfo(&configure_semaphore);
 }
 
 /*
@@ -831,7 +831,7 @@ static WizardBooleanType InitializeConfigureList(ExceptionInfo *exception)
       (instantiate_configure == WizardFalse))
     {
       if (configure_semaphore == (SemaphoreInfo *) NULL)
-        AcquireSemaphoreInfo(&configure_semaphore);
+        configure_semaphore=AcquireSemaphoreInfo();
       LockSemaphoreInfo(configure_semaphore);
       if ((configure_list == (LinkedListInfo *) NULL) &&
           (instantiate_configure == WizardFalse))

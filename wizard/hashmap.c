@@ -363,7 +363,7 @@ WizardExport HashmapInfo *DestroyHashmap(HashmapInfo *hashmap_info)
     hashmap_info->map);
   hashmap_info->signature=(~WizardSignature);
   UnlockSemaphoreInfo(hashmap_info->semaphore);
-  DestroySemaphoreInfo(&hashmap_info->semaphore);
+  RelinquishSemaphoreInfo(&hashmap_info->semaphore);
   hashmap_info=(HashmapInfo *) RelinquishWizardMemory(hashmap_info);
   return(hashmap_info);
 }
@@ -416,7 +416,7 @@ WizardExport LinkedListInfo *DestroyLinkedList(LinkedListInfo *list_info,
   }
   list_info->signature=(~WizardSignature);
   UnlockSemaphoreInfo(list_info->semaphore);
-  DestroySemaphoreInfo(&list_info->semaphore);
+  RelinquishSemaphoreInfo(&list_info->semaphore);
   list_info=(LinkedListInfo *) RelinquishWizardMemory(list_info);
   return(list_info);
 }
@@ -1331,7 +1331,7 @@ WizardExport HashmapInfo *NewHashmap(const size_t capacity,
     ThrowWizardFatalError(CacheDomain,MemoryError);
   (void) ResetWizardMemory(hashmap_info->map,0,(size_t) capacity*
     sizeof(*hashmap_info->map));
-  hashmap_info->semaphore=AllocateSemaphoreInfo();
+  hashmap_info->semaphore=AcquireSemaphoreInfo();
   hashmap_info->signature=WizardSignature;
   return(hashmap_info);
 }
@@ -1373,7 +1373,7 @@ WizardExport LinkedListInfo *NewLinkedList(const size_t capacity)
   list_info->head=(ElementInfo *) NULL;
   list_info->tail=(ElementInfo *) NULL;
   list_info->next=(ElementInfo *) NULL;
-  list_info->semaphore=AllocateSemaphoreInfo();
+  list_info->semaphore=AcquireSemaphoreInfo();
   list_info->signature=WizardSignature;
   return(list_info);
 }
@@ -1479,7 +1479,7 @@ static WizardBooleanType IncreaseHashmapCapacity(HashmapInfo *hashmap_info)
     }
     list_info->signature=(~WizardSignature);
     UnlockSemaphoreInfo(list_info->semaphore);
-    DestroySemaphoreInfo(&list_info->semaphore);
+    RelinquishSemaphoreInfo(&list_info->semaphore);
     list_info=(LinkedListInfo *) RelinquishWizardMemory(list_info);
   }
   hashmap_info->map=(LinkedListInfo **) RelinquishWizardMemory(hashmap_info->map);

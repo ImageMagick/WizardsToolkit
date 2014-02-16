@@ -334,7 +334,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
       return(-1);
     }
   if (resource_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&resource_semaphore);
+    resource_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(resource_semaphore);
   if (temporary_resources == (SplayTreeInfo *) NULL)
     temporary_resources=NewSplayTree(CompareSplayTreeString,
@@ -389,7 +389,7 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
   status=WizardFalse;
   (void) FormatWizardSize(size,WizardFalse,resource_request);
   if (resource_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&resource_semaphore);
+    resource_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(resource_semaphore);
   switch (type)
   {
@@ -537,7 +537,7 @@ WizardExport WizardSizeType GetWizardResource(const ResourceType type)
 
   resource=0;
   if (resource_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&resource_semaphore);
+    resource_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(resource_semaphore);
   switch (type)
   {
@@ -603,7 +603,7 @@ WizardExport WizardSizeType GetWizardResourceLimit(const ResourceType type)
 
   resource=0;
   if (resource_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&resource_semaphore);
+    resource_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(resource_semaphore);
   switch (type)
   {
@@ -676,7 +676,7 @@ WizardExport WizardBooleanType ListWizardResourceInfo(FILE *file,
   if (file == (const FILE *) NULL)
     file=stdout;
   if (resource_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&resource_semaphore);
+    resource_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(resource_semaphore);
   (void) FormatWizardSize(resource_info.area_limit,WizardFalse,area_limit);
   (void) FormatWizardSize(resource_info.map_limit,WizardTrue,map_limit);
@@ -728,7 +728,7 @@ WizardExport void RelinquishWizardResource(const ResourceType type,
 
   (void) FormatWizardSize(size,WizardFalse,resource_request);
   if (resource_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&resource_semaphore);
+    resource_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(resource_semaphore);
   switch (type)
   {
@@ -879,7 +879,7 @@ WizardExport WizardBooleanType ResourceComponentGenesis(void)
   /*
     Set Wizard resource limits.
   */
-  AcquireSemaphoreInfo(&resource_semaphore);
+  resource_semaphore=AcquireSemaphoreInfo();
   pagesize=(-1);
 #if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_PAGESIZE)
   pagesize=sysconf(_SC_PAGESIZE);
@@ -961,12 +961,12 @@ WizardExport WizardBooleanType ResourceComponentGenesis(void)
 WizardExport void ResourceComponentTerminus(void)
 {
   if (resource_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&resource_semaphore);
+    resource_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(resource_semaphore);
   if (temporary_resources != (SplayTreeInfo *) NULL)
     temporary_resources=DestroySplayTree(temporary_resources);
   UnlockSemaphoreInfo(resource_semaphore);
-  DestroySemaphoreInfo(&resource_semaphore);
+  RelinquishSemaphoreInfo(&resource_semaphore);
 }
 
 /*
@@ -998,7 +998,7 @@ WizardExport WizardBooleanType SetWizardResourceLimit(const ResourceType type,
   const WizardSizeType limit)
 {
   if (resource_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&resource_semaphore);
+    resource_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(resource_semaphore);
   switch (type)
   {

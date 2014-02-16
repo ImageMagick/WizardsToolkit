@@ -353,7 +353,7 @@ WizardExport BlobInfo *DestroyBlob(BlobInfo *blob_info)
       RelinquishWizardResource(MapResource,blob_info->length);
     }
   if (blob_info->semaphore != (SemaphoreInfo *) NULL)
-    DestroySemaphoreInfo(&blob_info->semaphore);
+    RelinquishSemaphoreInfo(&blob_info->semaphore);
   blob_info->signature=(~WizardSignature);
   blob_info=(BlobInfo *) RelinquishWizardMemory(blob_info);
   return(blob_info);
@@ -714,7 +714,7 @@ WizardExport void GetBlobInfo(BlobInfo *blob_info)
   blob_info->quantum=(size_t) WizardMaxBlobExtent;
   blob_info->debug=IsEventLogging();
   blob_info->reference_count=1;
-  blob_info->semaphore=AllocateSemaphoreInfo();
+  blob_info->semaphore=AcquireSemaphoreInfo();
   blob_info->signature=WizardSignature;
 }
 

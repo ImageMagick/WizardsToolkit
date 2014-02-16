@@ -278,7 +278,7 @@ WizardExport FileInfo *AcquireFileInfo(const char *path,
   (void) ResetWizardMemory(file_info,0,sizeof(*file_info));
   file_info->path=AcquireString((char *) NULL);
   file_info->file=(-1);
-  file_info->semaphore=AllocateSemaphoreInfo();
+  file_info->semaphore=AcquireSemaphoreInfo();
   file_info->timestamp=time((time_t *) NULL);
   file_info->signature=WizardSignature;
   if (path != (char *) NULL)
@@ -444,7 +444,7 @@ WizardExport FileInfo *DestroyFileInfo(FileInfo *file_info,
     file_info->path=DestroyString(file_info->path);
   file_info->signature=(~WizardSignature);
   UnlockSemaphoreInfo(file_info->semaphore);
-  DestroySemaphoreInfo(&file_info->semaphore);
+  RelinquishSemaphoreInfo(&file_info->semaphore);
   file_info=(FileInfo *) RelinquishWizardMemory(file_info);
   return(file_info);
 }

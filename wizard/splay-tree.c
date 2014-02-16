@@ -733,7 +733,7 @@ WizardExport SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
     }
   splay_tree->signature=(~WizardSignature);
   UnlockSemaphoreInfo(splay_tree->semaphore);
-  DestroySemaphoreInfo(&splay_tree->semaphore);
+  RelinquishSemaphoreInfo(&splay_tree->semaphore);
   splay_tree=(SplayTreeInfo *) RelinquishWizardMemory(splay_tree);
   return(splay_tree);
 }
@@ -1111,7 +1111,7 @@ WizardExport SplayTreeInfo *NewSplayTree(
   splay_tree->next=(void *) NULL;
   splay_tree->nodes=0;
   splay_tree->debug=IsEventLogging();
-  splay_tree->semaphore=AllocateSemaphoreInfo();
+  splay_tree->semaphore=AcquireSemaphoreInfo();
   splay_tree->signature=WizardSignature;
   return(splay_tree);
 }

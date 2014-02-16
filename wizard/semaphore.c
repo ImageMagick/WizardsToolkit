@@ -75,52 +75,17 @@ struct SemaphoreInfo
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   A c q u i r e S e m a p h o r e I n f o                                   %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  AcquireSemaphoreInfo() acquires a semaphore.
-%
-%  The format of the AcquireSemaphoreInfo method is:
-%
-%      void AcquireSemaphoreInfo(SemaphoreInfo **semaphore_info)
-%
-%  A description of each parameter follows:
-%
-%    o semaphore_info: Specifies a pointer to an SemaphoreInfo structure.
-%
-*/
-WizardExport void AcquireSemaphoreInfo(SemaphoreInfo **semaphore_info)
-{
-  assert(semaphore_info != (SemaphoreInfo **) NULL);
-  if (*semaphore_info == (SemaphoreInfo *) NULL)
-    {
-      InitializeWizardMutex();
-      LockWizardMutex();
-      if (*semaphore_info == (SemaphoreInfo *) NULL)
-        *semaphore_info=AllocateSemaphoreInfo();
-      UnlockWizardMutex();
-    }
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 %   A l l o c a t e S e m a p h o r e I n f o                                 %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AllocateSemaphoreInfo() initializes the SemaphoreInfo structure.
+%  AcquireSemaphoreInfo() initializes the SemaphoreInfo structure.
 %
-%  The format of the AllocateSemaphoreInfo method is:
+%  The format of the AcquireSemaphoreInfo method is:
 %
-%      SemaphoreInfo *AllocateSemaphoreInfo(void)
+%      SemaphoreInfo *AcquireSemaphoreInfo(void)
 %
 */
 
@@ -187,7 +152,7 @@ static void *RelinquishSemaphoreMemory(void *memory)
   return(NULL);
 }
 
-WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
+WizardExport SemaphoreInfo *AcquireSemaphoreInfo(void)
 {
   SemaphoreInfo
     *semaphore_info;
@@ -260,58 +225,6 @@ WizardExport SemaphoreInfo *AllocateSemaphoreInfo(void)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   D e s t r o y S e m a p h o r e I n f o                                   %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  DestroySemaphoreInfo() destroys a semaphore.
-%
-%  The format of the DestroySemaphoreInfo method is:
-%
-%      void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
-%
-%  A description of each parameter follows:
-%
-%    o semaphore_info: Specifies a pointer to an SemaphoreInfo structure.
-%
-*/
-WizardExport void DestroySemaphoreInfo(SemaphoreInfo **semaphore_info)
-{
-  assert(semaphore_info != (SemaphoreInfo **) NULL);
-  assert((*semaphore_info) != (SemaphoreInfo *) NULL);
-  assert((*semaphore_info)->signature == WizardSignature);
-  InitializeWizardMutex();
-  LockWizardMutex();
-#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-  omp_destroy_lock((omp_lock_t *) &(*semaphore_info)->mutex);
-#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
-  {
-    int
-      status;
-
-    status=pthread_mutex_destroy(&(*semaphore_info)->mutex);
-    if (status != 0)
-      {
-        errno=status;
-        perror("unable to destroy mutex");
-        _exit(1);
-      }
-  }
-#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-  DeleteCriticalSection(&(*semaphore_info)->mutex);
-#endif
-  (*semaphore_info)->signature=(~WizardSignature);
-  *semaphore_info=(SemaphoreInfo *) RelinquishSemaphoreMemory(*semaphore_info);
-  UnlockWizardMutex();
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
 %   L o c k S e m a p h o r e I n f o                                         %
 %                                                                             %
 %                                                                             %
@@ -368,28 +281,51 @@ WizardExport void LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   R e l i n g u i s h S e m a p h o r e I n f o                             %
+%   R e l i n q u i s h S e m a p h o r e I n f o                             %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  RelinquishSemaphoreInfo() relinquishes a semaphore.
+%  RelinquishSemaphoreInfo() destroys a semaphore.
 %
 %  The format of the RelinquishSemaphoreInfo method is:
 %
-%      RelinquishSemaphoreInfo(SemaphoreInfo *semaphore_info)
+%      void RelinquishSemaphoreInfo(SemaphoreInfo **semaphore_info)
 %
 %  A description of each parameter follows:
 %
 %    o semaphore_info: Specifies a pointer to an SemaphoreInfo structure.
 %
 */
-WizardExport void RelinquishSemaphoreInfo(SemaphoreInfo *semaphore_info)
+WizardExport void RelinquishSemaphoreInfo(SemaphoreInfo **semaphore_info)
 {
-  assert(semaphore_info != (SemaphoreInfo *) NULL);
-  assert(semaphore_info->signature == WizardSignature);
-  UnlockSemaphoreInfo(semaphore_info);
+  assert(semaphore_info != (SemaphoreInfo **) NULL);
+  assert((*semaphore_info) != (SemaphoreInfo *) NULL);
+  assert((*semaphore_info)->signature == WizardSignature);
+  InitializeWizardMutex();
+  LockWizardMutex();
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+  omp_destroy_lock((omp_lock_t *) &(*semaphore_info)->mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+  {
+    int
+      status;
+
+    status=pthread_mutex_destroy(&(*semaphore_info)->mutex);
+    if (status != 0)
+      {
+        errno=status;
+        perror("unable to destroy mutex");
+        _exit(1);
+      }
+  }
+#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
+  DeleteCriticalSection(&(*semaphore_info)->mutex);
+#endif
+  (*semaphore_info)->signature=(~WizardSignature);
+  *semaphore_info=(SemaphoreInfo *) RelinquishSemaphoreMemory(*semaphore_info);
+  UnlockWizardMutex();
 }
 
 /*

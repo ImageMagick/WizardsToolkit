@@ -395,7 +395,7 @@ WizardExport double InterpretLocaleValue(const char *restrict string,
 */
 WizardExport WizardBooleanType LocaleComponentGenesis(void)
 {
-  AcquireSemaphoreInfo(&locale_semaphore);
+  locale_semaphore=AcquireSemaphoreInfo();
   return(WizardTrue);
 }
 
@@ -420,10 +420,10 @@ WizardExport WizardBooleanType LocaleComponentGenesis(void)
 WizardExport void LocaleComponentTerminus(void)
 {
   if (locale_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&locale_semaphore);
+    locale_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(locale_semaphore);
   DestroyCLocale();
   instantiate_locale=WizardFalse;
   UnlockSemaphoreInfo(locale_semaphore);
-  DestroySemaphoreInfo(&locale_semaphore);
+  RelinquishSemaphoreInfo(&locale_semaphore);
 }

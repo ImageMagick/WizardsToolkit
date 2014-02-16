@@ -605,7 +605,7 @@ static WizardBooleanType InitializeMimeList(ExceptionInfo *exception)
       (instantiate_mime == WizardFalse))
     {
       if (mime_semaphore == (SemaphoreInfo *) NULL)
-        AcquireSemaphoreInfo(&mime_semaphore);
+        mime_semaphore=AcquireSemaphoreInfo();
       LockSemaphoreInfo(mime_semaphore);
       if ((mime_list == (LinkedListInfo *) NULL) &&
           (instantiate_mime == WizardFalse))
@@ -999,7 +999,7 @@ WizardExport WizardBooleanType LoadMimeLists(const char *filename,
 */
 WizardExport WizardBooleanType MimeComponentGenesis(void)
 {
-  AcquireSemaphoreInfo(&mime_semaphore);
+  mime_semaphore=AcquireSemaphoreInfo();
   return(WizardTrue);
 }
 
@@ -1045,13 +1045,13 @@ static void *DestroyMimeElement(void *mime_info)
 WizardExport void MimeComponentTerminus(void)
 {
   if (mime_semaphore == (SemaphoreInfo *) NULL)
-    AcquireSemaphoreInfo(&mime_semaphore);
+    mime_semaphore=AcquireSemaphoreInfo();
   LockSemaphoreInfo(mime_semaphore);
   if (mime_list != (LinkedListInfo *) NULL)
     mime_list=DestroyLinkedList(mime_list,DestroyMimeElement);
   instantiate_mime=WizardFalse;
   UnlockSemaphoreInfo(mime_semaphore);
-  DestroySemaphoreInfo(&mime_semaphore);
+  RelinquishSemaphoreInfo(&mime_semaphore);
 }
 
 /*
