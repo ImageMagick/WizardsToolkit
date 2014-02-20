@@ -75,7 +75,7 @@ struct SemaphoreInfo
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   A l l o c a t e S e m a p h o r e I n f o                                 %
+%   A c q u i r e S e m a p h o r e I n f o                                   %
 %                                                                             %
 %                                                                             %
 %                                                                             %
@@ -231,7 +231,8 @@ WizardExport SemaphoreInfo *AcquireSemaphoreInfo(void)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  ActivateSemaphoreInfo() acquires a semaphore.
+%  ActivateSemaphoreInfo() activates a semaphore under protection of a mutex
+%  to ensure only one thread allocates the semaphore.
 %
 %  The format of the ActivateSemaphoreInfo method is:
 %
