@@ -45,6 +45,7 @@
 #include "wizard/exception-private.h"
 #include "wizard/file.h"
 #include "wizard/memory_.h"
+#include "wizard/nt-base.h"
 #include "wizard/semaphore.h"
 #include "wizard/string_.h"
 #include "wizard/utility.h"

@@ -46,6 +46,7 @@
 #include "wizard/studio.h"
 #include "wizard/WizardsToolkit.h"
 #include "wizard/blob-private.h"
+#include "wizard/nt-base.h"
 #include "wizard/exception-private.h"
 #include "wizard/string-private.h"
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)

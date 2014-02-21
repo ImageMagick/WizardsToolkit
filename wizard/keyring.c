@@ -47,6 +47,7 @@
 #include "wizard/keyring.h"
 #include "wizard/magick.h"
 #include "wizard/memory_.h"
+#include "wizard/nt-base.h"
 #include "wizard/utility.h"
 #include "wizard/xml-tree.h"
 

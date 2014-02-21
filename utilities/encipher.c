@@ -47,6 +47,7 @@
 #include "wizard/WizardsToolkit.h"
 #include "wizard/blob-private.h"
 #include "wizard/exception-private.h"
+#include "wizard/nt-base.h"
 #include "wizard/string-private.h"
 #if defined(WIZARDSTOOLKIT_HAVE_UTIME)
 #if defined(WIZARDSTOOLKIT_HAVE_UTIME_H)
