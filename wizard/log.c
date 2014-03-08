@@ -532,12 +532,13 @@ WizardExport const char *GetLogName(void)
 */
 static WizardBooleanType InitializeLogList(ExceptionInfo *exception)
 {
-  if ((log_list == (LinkedListInfo *) NULL) && (instantiate_log == WizardFalse))
+  if ((log_list == (LinkedListInfo *) NULL) ||
+      (instantiate_log == WizardFalse))
     {
       if (log_semaphore == (SemaphoreInfo *) NULL)
         ActivateSemaphoreInfo(&log_semaphore);
       LockSemaphoreInfo(log_semaphore);
-      if ((log_list == (LinkedListInfo *) NULL) &&
+      if ((log_list == (LinkedListInfo *) NULL) ||
           (instantiate_log == WizardFalse))
         {
           (void) LoadLogLists(LogFilename,exception);

@@ -601,13 +601,13 @@ WizardExport const char *GetMimeType(const MimeInfo *mime_info)
 */
 static WizardBooleanType InitializeMimeList(ExceptionInfo *exception)
 {
-  if ((mime_list == (LinkedListInfo *) NULL) &&
+  if ((mime_list == (LinkedListInfo *) NULL) ||
       (instantiate_mime == WizardFalse))
     {
       if (mime_semaphore == (SemaphoreInfo *) NULL)
 				ActivateSemaphoreInfo(&mime_semaphore);
       LockSemaphoreInfo(mime_semaphore);
-      if ((mime_list == (LinkedListInfo *) NULL) &&
+      if ((mime_list == (LinkedListInfo *) NULL) ||
           (instantiate_mime == WizardFalse))
         {
           (void) LoadMimeLists(MimeFilename,exception);

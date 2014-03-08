@@ -43,19 +43,31 @@ static WizardBooleanType
 
 static inline void DestroyWizardMutex(void)
 {
-#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
   if (active_mutex != WizardFalse)
-    omp_destroy_lock(&semaphore_mutex);
+    {
+#if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
+      omp_destroy_lock(&semaphore_mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+      ;
+#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
+      DeleteCriticalSection(&semaphore_mutex);
 #endif
+    }
   active_mutex=WizardFalse;
 }
 
 static inline void InitializeWizardMutex(void)
 {
+  if (active_mutex == WizardFalse)
+    {
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-  if (active_mutex == MagickFalse)
-    omp_init_lock(&semaphore_mutex);
+      omp_init_lock(&semaphore_mutex);
+#elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
+      ;
+#elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
+      InitializeCriticalSection(&semaphore_mutex);
 #endif
+    }
   active_mutex=WizardTrue;
 }
 
