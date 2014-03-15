@@ -20,6 +20,12 @@
 
 #include "wizard/exception.h"
 
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
+#endif
+
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
+
 #define WIN32_LEAN_AND_MEAN
 #define VC_EXTRALEAN
 #include <windows.h>
@@ -352,7 +358,6 @@ extern WizardExport const char
   *NTGetLibraryError(void);
 #endif
 
-#if !defined(XS_VERSION)
 extern WizardExport char
   **NTArgvToUTF8(const int argc,wchar_t **),
   *NTRegistryKeyLookup(const char *);
@@ -404,8 +409,7 @@ extern WizardExport void
   *NTOpenLibrary(const char *),
   NTSeekDirectory(DIR *,ssize_t),
   NTWarningHandler(const ExceptionType,const char *,const char *);
-
-#endif /* !XS_VERSION */
+#endif
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

@@ -67,9 +67,6 @@ static SemaphoreInfo
 
 static volatile locale_t
   c_locale = (locale_t) NULL;
-
-static volatile WizardBooleanType
-  instantiate_locale = WizardFalse;
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -423,7 +420,6 @@ WizardExport void LocaleComponentTerminus(void)
     ActivateSemaphoreInfo(&locale_semaphore);
   LockSemaphoreInfo(locale_semaphore);
   DestroyCLocale();
-  instantiate_locale=WizardFalse;
   UnlockSemaphoreInfo(locale_semaphore);
   RelinquishSemaphoreInfo(&locale_semaphore);
 }

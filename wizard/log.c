@@ -181,9 +181,6 @@ static LinkedListInfo
 
 static SemaphoreInfo
   *log_semaphore = (SemaphoreInfo *) NULL;
-
-static volatile WizardBooleanType
-  instantiate_log = WizardFalse;
 
 /*
   Forward declarations.
@@ -268,12 +265,9 @@ WizardExport const LogInfo *GetLogInfo(const char *name,
     *p;
 
   assert(exception != (ExceptionInfo *) NULL);
-  if ((log_list == (LinkedListInfo *) NULL) || (instantiate_log == WizardFalse))
+  if (log_list == (LinkedListInfo *) NULL)
     if (InitializeLogList(exception) == WizardFalse)
       return((const LogInfo *) NULL);
-  if ((log_list == (LinkedListInfo *) NULL) ||
-      (IsLinkedListEmpty(log_list) != WizardFalse))
-    return((const LogInfo *) NULL);
   if ((name == (const char *) NULL) || (LocaleCompare(name,"*") == 0))
     return((const LogInfo *) GetValueFromLinkedList(log_list,0));
   /*
@@ -532,20 +526,12 @@ WizardExport const char *GetLogName(void)
 */
 static WizardBooleanType InitializeLogList(ExceptionInfo *exception)
 {
-  if ((log_list == (LinkedListInfo *) NULL) &&
-      (instantiate_log == WizardFalse))
-    {
-      if (log_semaphore == (SemaphoreInfo *) NULL)
-        ActivateSemaphoreInfo(&log_semaphore);
-      LockSemaphoreInfo(log_semaphore);
-      if ((log_list == (LinkedListInfo *) NULL) ||
-          (instantiate_log == WizardFalse))
-        {
-          (void) LoadLogLists(LogFilename,exception);
-          instantiate_log=WizardTrue;
-        }
-      UnlockSemaphoreInfo(log_semaphore);
-    }
+  if (log_semaphore == (SemaphoreInfo *) NULL)
+    ActivateSemaphoreInfo(&log_semaphore);
+  LockSemaphoreInfo(log_semaphore);
+  if (log_list == (LinkedListInfo *) NULL)
+    (void) LoadLogLists(LogFilename,exception);
+  UnlockSemaphoreInfo(log_semaphore);
   return(log_list != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
 }
 
@@ -764,7 +750,6 @@ WizardExport void LogComponentTerminus(void)
   LockSemaphoreInfo(log_semaphore);
   if (log_list != (LinkedListInfo *) NULL)
     log_list=DestroyLinkedList(log_list,DestroyLogElement);
-  instantiate_log=WizardFalse;
   UnlockSemaphoreInfo(log_semaphore);
   RelinquishSemaphoreInfo(&log_semaphore);
 }

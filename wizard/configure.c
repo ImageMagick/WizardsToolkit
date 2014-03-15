@@ -83,9 +83,6 @@ static LinkedListInfo
 
 static SemaphoreInfo
   *configure_semaphore = (SemaphoreInfo *) NULL;
-
-static volatile WizardBooleanType
-  instantiate_configure = WizardFalse;
 
 /*
   Forward declarations.
@@ -165,7 +162,6 @@ WizardExport void ConfigureComponentTerminus(void)
   if (configure_list != (LinkedListInfo *) NULL)
     configure_list=DestroyLinkedList(configure_list,DestroyConfigureElement);
   configure_list=(LinkedListInfo *) NULL;
-  instantiate_configure=WizardFalse;
   UnlockSemaphoreInfo(configure_semaphore);
   RelinquishSemaphoreInfo(&configure_semaphore);
 }
@@ -242,13 +238,9 @@ WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
     *p;
 
   assert(exception != (ExceptionInfo *) NULL);
-  if ((configure_list == (LinkedListInfo *) NULL) ||
-      (instantiate_configure == WizardFalse))
+  if (configure_list == (LinkedListInfo *) NULL)
     if (InitializeConfigureList(exception) == WizardFalse)
       return((const ConfigureInfo *) NULL);
-  if ((configure_list == (LinkedListInfo *) NULL) ||
-      (IsLinkedListEmpty(configure_list) != WizardFalse))
-    return((const ConfigureInfo *) NULL);
   if ((name == (const char *) NULL) || (strcasecmp(name,"*") == 0))
     return((const ConfigureInfo *) GetValueFromLinkedList(configure_list,0));
   /*
@@ -827,20 +819,12 @@ WizardExport const char *GetConfigureValue(const ConfigureInfo *configure_info)
 */
 static WizardBooleanType InitializeConfigureList(ExceptionInfo *exception)
 {
-  if ((configure_list == (LinkedListInfo *) NULL) ||
-      (instantiate_configure == WizardFalse))
-    {
-      if (configure_semaphore == (SemaphoreInfo *) NULL)
-        ActivateSemaphoreInfo(&configure_semaphore);
-      LockSemaphoreInfo(configure_semaphore);
-      if ((configure_list == (LinkedListInfo *) NULL) ||
-          (instantiate_configure == WizardFalse))
-        {
-          (void) LoadConfigureLists(ConfigureFilename,exception);
-          instantiate_configure=WizardTrue;
-        }
-      UnlockSemaphoreInfo(configure_semaphore);
-    }
+  if (configure_semaphore == (SemaphoreInfo *) NULL)
+    ActivateSemaphoreInfo(&configure_semaphore);
+  LockSemaphoreInfo(configure_semaphore);
+  if (configure_list == (LinkedListInfo *) NULL)
+    (void) LoadConfigureLists(ConfigureFilename,exception);
+  UnlockSemaphoreInfo(configure_semaphore);
   return(configure_list != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
 }
 

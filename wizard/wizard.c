@@ -83,7 +83,6 @@ static SignalHandler
   *signal_handlers[SIGMAX] = { (SignalHandler *) NULL };
 
 static volatile WizardBooleanType
-  instantiate_wizard = WizardFalse,
   instantiate_wizardstoolkit = WizardFalse;
 
 /*
@@ -153,7 +152,6 @@ static void WizardSignalHandler(int signal_number)
   (void) signal(signal_number,SIG_IGN);
 #endif
   AsynchronousResourceComponentTerminus();
-  instantiate_wizard=WizardFalse;
   (void) SetWizardSignalHandler(signal_number,signal_handlers[signal_number]);
 #if !defined(WIZARDSTOOLKIT_HAVE__EXIT)
   exit(signal_number);
