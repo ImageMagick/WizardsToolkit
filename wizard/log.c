@@ -180,6 +180,7 @@ static LinkedListInfo
   *log_list = (LinkedListInfo *) NULL;
 
 static SemaphoreInfo
+  *event_semaphore = (SemaphoreInfo *) NULL,
   *log_semaphore = (SemaphoreInfo *) NULL;
 
 /*
@@ -697,6 +698,7 @@ WizardExport WizardBooleanType LogComponentGenesis(void)
   exception=AcquireExceptionInfo();
   (void) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
+  event_semaphore=AcquireSemaphoreInfo();
   return(WizardTrue);
 }
 
@@ -745,6 +747,11 @@ static void *DestroyLogElement(void *log_info)
 
 WizardExport void LogComponentTerminus(void)
 {
+  if (event_semaphore == (SemaphoreInfo *) NULL)
+    ActivateSemaphoreInfo(&event_semaphore);
+  LockSemaphoreInfo(event_semaphore);
+  UnlockSemaphoreInfo(event_semaphore);
+  RelinquishSemaphoreInfo(&event_semaphore);
   if (log_semaphore == (SemaphoreInfo *) NULL)
     ActivateSemaphoreInfo(&log_semaphore);
   LockSemaphoreInfo(log_semaphore);
@@ -1135,10 +1142,12 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
-  LockSemaphoreInfo(log_semaphore);
+  if (event_semaphore == (SemaphoreInfo *) NULL)
+    ActivateSemaphoreInfo(&event_semaphore);
+  LockSemaphoreInfo(event_semaphore);
   if ((log_info->event_mask & type) == 0)
     {
-      UnlockSemaphoreInfo(log_semaphore);
+      UnlockSemaphoreInfo(event_semaphore);
       return(WizardTrue);
     }
   domain=WizardOptionToMnemonic(WizardLogEventOptions,type);
@@ -1153,7 +1162,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
   if (text == (char *) NULL)
     {
       (void) ContinueTimer(log_info->timer);
-      UnlockSemaphoreInfo(log_semaphore);
+      UnlockSemaphoreInfo(event_semaphore);
       return(WizardFalse);
     }
   if ((log_info->handler_mask & ConsoleHandler) != 0)
@@ -1197,7 +1206,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
           if (filename == (char *) NULL)
             {
               (void) ContinueTimer(log_info->timer);
-              UnlockSemaphoreInfo(log_semaphore);
+              UnlockSemaphoreInfo(event_semaphore);
               return(WizardFalse);
             }
           log_info->append=IsPathAcessible(filename);
@@ -1205,7 +1214,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
           filename=(char  *) RelinquishWizardMemory(filename);
           if (log_info->file == (FILE *) NULL)
             {
-              UnlockSemaphoreInfo(log_semaphore);
+              UnlockSemaphoreInfo(event_semaphore);
               return(WizardFalse);
             }
           log_info->generation++;
@@ -1229,7 +1238,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
     }
   text=(char  *) RelinquishWizardMemory(text);
   (void) ContinueTimer(log_info->timer);
-  UnlockSemaphoreInfo(log_semaphore);
+  UnlockSemaphoreInfo(event_semaphore);
   return(WizardTrue);
 }
 
