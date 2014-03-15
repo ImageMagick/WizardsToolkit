@@ -189,7 +189,7 @@ static LogHandlerType
   ParseLogHandlers(const char *);
 
 static WizardBooleanType
-  InitializeLogList(ExceptionInfo *),
+  IsLogListInstantiated(ExceptionInfo *),
   LoadLogLists(const char *,ExceptionInfo *);
 
 /*
@@ -265,9 +265,8 @@ WizardExport const LogInfo *GetLogInfo(const char *name,
     *p;
 
   assert(exception != (ExceptionInfo *) NULL);
-  if (log_list == (LinkedListInfo *) NULL)
-    if (InitializeLogList(exception) == WizardFalse)
-      return((const LogInfo *) NULL);
+  if (IsLogListInstantiated(exception) == WizardFalse)
+    return((const LogInfo *) NULL);
   if ((name == (const char *) NULL) || (LocaleCompare(name,"*") == 0))
     return((const LogInfo *) GetValueFromLinkedList(log_list,0));
   /*
@@ -507,24 +506,25 @@ WizardExport const char *GetLogName(void)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   I n i t i a l i z e L o g L i s t                                         %
++   I s L o g L i s t I n s t a n t i a t e d                                 %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  InitializeLogList() initialize the log list.
+%  IsLogListInstantiated() determines if the log list is instantiated.  If not,
+%  it instantiates the list and returns it.
 %
-%  The format of the InitializeLogList method is:
+%  The format of the IsLogInstantiated method is:
 %
-%      WizardBooleanType InitializeLogList(ExceptionInfo *exception)
+%      WizardBooleanType IsLogListInstantiated(ExceptionInfo *exception)
 %
 %  A description of each parameter follows.
 %
 %    o exception: Return any errors or warnings in this structure.
 %
 */
-static WizardBooleanType InitializeLogList(ExceptionInfo *exception)
+static WizardBooleanType IsLogListInstantiated(ExceptionInfo *exception)
 {
   if (log_semaphore == (SemaphoreInfo *) NULL)
     ActivateSemaphoreInfo(&log_semaphore);
