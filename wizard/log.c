@@ -60,6 +60,7 @@
 #include "wizard/utility-private.h"
 #include "wizard/version.h"
 #include "wizard/xml-tree.h"
+#include "wizard/xml-tree-private.h"
 
 /*
   Define declarations.
@@ -1472,7 +1473,7 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
                     (void) CopyWizardString(path,token,MaxTextExtent);
                   else
                     (void) ConcatenateWizardString(path,token,MaxTextExtent);
-                  xml=FileToString(path,~0,exception);
+                  xml=FileToXML(path,~0UL);
                   if (xml != (char *) NULL)
                     {
                       status&=LoadLogCache(log_cache,xml,path,depth+1,exception);

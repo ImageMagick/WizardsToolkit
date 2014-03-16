@@ -53,6 +53,7 @@
 #include "wizard/token.h"
 #include "wizard/utility.h"
 #include "wizard/xml-tree.h"
+#include "wizard/xml-tree-private.h"
 
 /*
   Define declarations.
@@ -842,7 +843,7 @@ static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,const char *xm
               (void) CopyWizardString(path,attribute,MaxTextExtent);
             else
               (void) ConcatenateWizardString(path,attribute,MaxTextExtent);
-            xml=FileToString(path,~0,exception);
+            xml=FileToXML(path,~0UL);
             if (xml != (char *) NULL)
               {
                 status=LoadMimeCache(mime_cache,xml,path,depth+1,exception);

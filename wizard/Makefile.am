@@ -161,6 +161,7 @@ WIZARD_BASE_SRCS = \
   wizard/WizardsToolkit.h \
   wizard/xml-tree.c \
   wizard/xml-tree.h \
+  wizard/xml-tree-private.h \
   wizard/zip.c \
   wizard/zip.h 
 
@@ -241,7 +242,8 @@ WIZARD_NOINST_HDRS = \
   wizard/studio.h \
   wizard/thread-private.h \
   wizard/twofish.h \
-  wizard/utility-private.h 
+  wizard/utility-private.h \
+  wizard/xml-tree-private.h
 
 WIZARD_EXTRA_DIST = \
 	wizard/libWizardsToolkit.map \
