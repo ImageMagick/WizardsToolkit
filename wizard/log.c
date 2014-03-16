@@ -268,14 +268,17 @@ WizardExport const LogInfo *GetLogInfo(const char *name,
   assert(exception != (ExceptionInfo *) NULL);
   if (IsLogListInstantiated(exception) == WizardFalse)
     return((const LogInfo *) NULL);
-  if ((name == (const char *) NULL) || (LocaleCompare(name,"*") == 0))
-    return((const LogInfo *) GetValueFromLinkedList(log_list,0));
   /*
     Search for named log.
   */
   LockSemaphoreInfo(log_semaphore);
   ResetLinkedListIterator(log_list);
   p=(const LogInfo *) GetNextValueInLinkedList(log_list);
+  if ((name == (const char *) NULL) || (LocaleCompare(name,"*") == 0))
+    {
+      UnlockSemaphoreInfo(log_semaphore);
+      return(p);
+    }
   while (p != (const LogInfo *) NULL)
   {
     if (LocaleCompare(name,p->name) == 0)

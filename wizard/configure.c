@@ -239,14 +239,17 @@ WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
   assert(exception != (ExceptionInfo *) NULL);
   if (IsConfigureListInstantiated(exception) == WizardFalse)
     return((const ConfigureInfo *) NULL);
-  if ((name == (const char *) NULL) || (strcasecmp(name,"*") == 0))
-    return((const ConfigureInfo *) GetValueFromLinkedList(configure_list,0));
   /*
     Search for named configure.
   */
   LockSemaphoreInfo(configure_semaphore);
   ResetLinkedListIterator(configure_list);
   p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
+  if ((name == (const char *) NULL) || (strcasecmp(name,"*") == 0))
+    {
+      UnlockSemaphoreInfo(configure_semaphore);
+      return(p);
+    }
   while (p != (const ConfigureInfo *) NULL)
   {
     if (strcasecmp(name,p->name) == 0)
