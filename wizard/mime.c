@@ -112,7 +112,7 @@ static const char
     "</mimemap>";
 
 static LinkedListInfo
-  *mime_list = (LinkedListInfo *) NULL;
+  *mime_cache = (LinkedListInfo *) NULL;
 
 static SemaphoreInfo
   *mime_semaphore = (SemaphoreInfo *) NULL;
@@ -121,7 +121,73 @@ static SemaphoreInfo
   Forward declarations.
 */
 static WizardBooleanType
-  IsMimeListInstantiated(ExceptionInfo *);
+  IsMimeCacheInstantiated(ExceptionInfo *),
+  LoadMimeCache(LinkedListInfo *,const char *,const char *,const size_t,
+    ExceptionInfo *);
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%  A c q u i r e M i m e C a c h e                                            %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  AcquireMimeCache() caches one or more magic configurations which provides a
+%  mapping between magic attributes and a magic name.
+%
+%  The format of the AcquireMimeCache method is:
+%
+%      LinkedListInfo *AcquireMimeCache(const char *filename,
+%        ExceptionInfo *exception)
+%
+%  A description of each parameter follows:
+%
+%    o filename: The font file name.
+%
+%    o exception: Return any errors or warnings in this structure.
+%
+*/
+WizardExport LinkedListInfo *AcquireMimeCache(const char *filename,
+  ExceptionInfo *exception)
+{
+#if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
+  return(LoadMimeCache(mime_cache,MimeMap,"built-in",0,exception));
+#else
+  const StringInfo
+    *option;
+
+  LinkedListInfo
+    *mime_cache,
+    *options;
+
+  WizardStatusType
+    status;
+
+  mime_cache=NewLinkedList(0);
+  if (mime_cache == (LinkedListInfo *) NULL)
+    ThrowFatalException(ResourceFatalError,"memory allocation failed `%s`");
+  status=WizardTrue;
+  options=GetConfigureOptions(filename,exception);
+  option=(const StringInfo *) GetNextValueInLinkedList(options);
+  while (option != (const StringInfo *) NULL)
+  {
+    status&=LoadMimeCache(mime_cache,(const char *) GetStringInfoDatum(option),
+      GetStringInfoPath(option),0,exception);
+    option=(const StringInfo *) GetNextValueInLinkedList(options);
+  }
+  options=DestroyConfigureOptions(options);
+  if ((mime_cache == (LinkedListInfo *) NULL) || 
+      (IsLinkedListEmpty(mime_cache) != WizardFalse))
+    status&=LoadMimeCache(mime_cache,MimeMap,"built-in",0,exception);
+  else
+    ClearWizardException(exception);
+  return(mime_cache);
+#endif
+}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -181,7 +247,7 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
     lsb_first;
 
   assert(exception != (ExceptionInfo *) NULL);
-  if (IsMimeListInstantiated(exception) == WizardFalse)
+  if (IsMimeCacheInstantiated(exception) == WizardFalse)
     return((const MimeInfo *) NULL);
   if (length == 0)
     return((const MimeInfo *) NULL);
@@ -191,8 +257,8 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
   mime_info=(const MimeInfo *) NULL;
   lsb_first=1;
   LockSemaphoreInfo(mime_semaphore);
-  ResetLinkedListIterator(mime_list);
-  p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
+  ResetLinkedListIterator(mime_cache);
+  p=(const MimeInfo *) GetNextValueInLinkedList(mime_cache);
   if ((magic == (const unsigned char *) NULL) || (length == 0))
     {
       UnlockSemaphoreInfo(mime_semaphore);
@@ -204,14 +270,14 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
     if (mime_info != (const MimeInfo *) NULL)
       if (p->priority > mime_info->priority)
         {
-          p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
+          p=(const MimeInfo *) GetNextValueInLinkedList(mime_cache);
           continue;
         }
     if ((p->pattern != (char *) NULL) && (filename != (char *) NULL))
       {
         if (GlobExpression(filename,p->pattern,WizardFalse) != WizardFalse)
           mime_info=p;
-        p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
+        p=(const MimeInfo *) GetNextValueInLinkedList(mime_cache);
         continue;
       }
     switch (p->data_type)
@@ -314,11 +380,11 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
         break;
       }
     }
-    p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
+    p=(const MimeInfo *) GetNextValueInLinkedList(mime_cache);
   }
   if (p != (const MimeInfo *) NULL)
-    (void) InsertValueInLinkedList(mime_list,0,
-      RemoveElementByValueFromLinkedList(mime_list,p));
+    (void) InsertValueInLinkedList(mime_cache,0,
+      RemoveElementByValueFromLinkedList(mime_cache,p));
   UnlockSemaphoreInfo(mime_semaphore);
   return(p);
 }
@@ -397,21 +463,21 @@ WizardExport const MimeInfo **GetMimeInfoList(const char *pattern,
   if (p == (const MimeInfo *) NULL)
     return((const MimeInfo **) NULL);
   aliases=(const MimeInfo **) AcquireQuantumMemory((size_t)
-    GetNumberOfElementsInLinkedList(mime_list)+1UL,sizeof(*aliases));
+    GetNumberOfElementsInLinkedList(mime_cache)+1UL,sizeof(*aliases));
   if (aliases == (const MimeInfo **) NULL)
     return((const MimeInfo **) NULL);
   /*
     Generate mime list.
   */
   LockSemaphoreInfo(mime_semaphore);
-  ResetLinkedListIterator(mime_list);
-  p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
+  ResetLinkedListIterator(mime_cache);
+  p=(const MimeInfo *) GetNextValueInLinkedList(mime_cache);
   for (i=0; p != (const MimeInfo *) NULL; )
   {
     if ((p->stealth == WizardFalse) &&
         (GlobExpression(p->type,pattern,WizardFalse) != WizardFalse))
       aliases[i++]=p;
-    p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
+    p=(const MimeInfo *) GetNextValueInLinkedList(mime_cache);
   }
   UnlockSemaphoreInfo(mime_semaphore);
   qsort((void *) aliases,(size_t) i,sizeof(*aliases),MimeInfoCompare);
@@ -492,18 +558,18 @@ WizardExport char **GetMimeList(const char *pattern,
   if (p == (const MimeInfo *) NULL)
     return((char **) NULL);
   aliases=(char **) AcquireQuantumMemory((size_t)
-    GetNumberOfElementsInLinkedList(mime_list)+1UL,sizeof(*aliases));
+    GetNumberOfElementsInLinkedList(mime_cache)+1UL,sizeof(*aliases));
   if (aliases == (char **) NULL)
     return((char **) NULL);
   LockSemaphoreInfo(mime_semaphore);
-  ResetLinkedListIterator(mime_list);
-  p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
+  ResetLinkedListIterator(mime_cache);
+  p=(const MimeInfo *) GetNextValueInLinkedList(mime_cache);
   for (i=0; p != (const MimeInfo *) NULL; )
   {
     if ((p->stealth == WizardFalse) &&
         (GlobExpression(p->type,pattern,WizardFalse) != WizardFalse))
       aliases[i++]=ConstantString(p->type);
-    p=(const MimeInfo *) GetNextValueInLinkedList(mime_list);
+    p=(const MimeInfo *) GetNextValueInLinkedList(mime_cache);
   }
   UnlockSemaphoreInfo(mime_semaphore);
   qsort((void *) aliases,(size_t) i,sizeof(*aliases),MimeCompare);
@@ -583,27 +649,30 @@ WizardExport const char *GetMimeType(const MimeInfo *mime_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  IsMimeListInstantiated() determines if the mime list is instantiated.  If
+%  IsMimeCacheInstantiated() determines if the mime list is instantiated.  If
 %  not, it instantiates the list and returns it.
 %
 %  The format of the IsMimeInstantiated method is:
 %
-%      WizardBooleanType IsMimeListInstantiated(ExceptionInfo *exception)
+%      WizardBooleanType IsMimeCacheInstantiated(ExceptionInfo *exception)
 %
 %  A description of each parameter follows.
 %
 %    o exception: Return any errors or warnings in this structure.
 %
 */
-static WizardBooleanType IsMimeListInstantiated(ExceptionInfo *exception)
+static WizardBooleanType IsMimeCacheInstantiated(ExceptionInfo *exception)
 {
-  if (mime_semaphore == (SemaphoreInfo *) NULL)
-    ActivateSemaphoreInfo(&mime_semaphore);
-  LockSemaphoreInfo(mime_semaphore);
-  if (mime_list == (LinkedListInfo *) NULL)
-    (void) LoadMimeLists(MimeFilename,exception);
-  UnlockSemaphoreInfo(mime_semaphore);
-  return(mime_list != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
+  if (mime_cache == (LinkedListInfo *) NULL)
+    {
+      if (mime_semaphore == (SemaphoreInfo *) NULL)
+        ActivateSemaphoreInfo(&mime_semaphore);
+      LockSemaphoreInfo(mime_semaphore);
+      if (mime_cache == (LinkedListInfo *) NULL)
+        mime_cache=AcquireMimeCache(MimeFilename,exception);
+      UnlockSemaphoreInfo(mime_semaphore);
+    }
+  return(mime_cache != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
 }
 
 /*
@@ -700,13 +769,13 @@ WizardExport WizardBooleanType ListMimeInfo(FILE *file,ExceptionInfo *exception)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  LoadMimeList() loads the magic configuration file which provides a mapping
+%  LoadMimeCache() loads the magic configurations which provides a mapping
 %  between magic attributes and a magic name.
 %
-%  The format of the LoadMimeList method is:
+%  The format of the LoadMimeCache method is:
 %
-%      WizardBooleanType LoadMimeList(const char *xml,const char *filename,
-%        const size_t depth,ExceptionInfo *exception)
+%      WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,const char *xml,
+%        const char *filename,const size_t depth,ExceptionInfo *exception)
 %
 %  A description of each parameter follows:
 %
@@ -719,8 +788,8 @@ WizardExport WizardBooleanType ListMimeInfo(FILE *file,ExceptionInfo *exception)
 %    o exception: Return any errors or warnings in this structure.
 %
 */
-static WizardBooleanType LoadMimeList(const char *xml,const char *filename,
-  const size_t depth,ExceptionInfo *exception)
+static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,const char *xml,
+  const char *filename,const size_t depth,ExceptionInfo *exception)
 {
   const char
     *attribute;
@@ -743,12 +812,6 @@ static WizardBooleanType LoadMimeList(const char *xml,const char *filename,
     "Loading mime map \"%s\" ...",filename);
   if (xml == (const char *) NULL)
     return(WizardFalse);
-  if (mime_list == (LinkedListInfo *) NULL)
-    {
-      mime_list=NewLinkedList(0);
-      if (mime_list == (LinkedListInfo *) NULL)
-        ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-    }
   mime_map=NewXMLTree(xml,exception);
   if (mime_map == (XMLTreeInfo *) NULL)
     return(WizardFalse);
@@ -782,7 +845,7 @@ static WizardBooleanType LoadMimeList(const char *xml,const char *filename,
             xml=FileToString(path,~0,exception);
             if (xml != (char *) NULL)
               {
-                status=LoadMimeList(xml,path,depth+1,exception);
+                status=LoadMimeCache(mime_cache,xml,path,depth+1,exception);
                 xml=DestroyString(xml);
               }
           }
@@ -897,7 +960,7 @@ static WizardBooleanType LoadMimeList(const char *xml,const char *filename,
     attribute=GetXMLTreeAttribute(mime,"type");
     if (attribute != (const char *) NULL)
       mime_info->type=ConstantString(attribute);
-    status=AppendValueToLinkedList(mime_list,mime_info);
+    status=AppendValueToLinkedList(mime_cache,mime_info);
     if (status == WizardFalse)
       (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
         "memory allocation failed `%s'",filename);
@@ -905,66 +968,6 @@ static WizardBooleanType LoadMimeList(const char *xml,const char *filename,
   }
   mime_map=DestroyXMLTree(mime_map);
   return(status);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%  L o a d M i m e L i s t s                                                  %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  LoadMimeList() loads one or more magic configuration file which provides a
-%  mapping between magic attributes and a magic name.
-%
-%  The format of the LoadMimeLists method is:
-%
-%      WizardBooleanType LoadMimeLists(const char *filename,
-%        ExceptionInfo *exception)
-%
-%  A description of each parameter follows:
-%
-%    o filename: The font file name.
-%
-%    o exception: Return any errors or warnings in this structure.
-%
-*/
-WizardExport WizardBooleanType LoadMimeLists(const char *filename,
-  ExceptionInfo *exception)
-{
-#if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
-  return(LoadMimeList(MimeMap,"built-in",0,exception));
-#else
-  const StringInfo
-    *option;
-
-  LinkedListInfo
-    *options;
-
-  WizardStatusType
-    status;
-
-  status=WizardFalse;
-  options=GetConfigureOptions(filename,exception);
-  option=(const StringInfo *) GetNextValueInLinkedList(options);
-  while (option != (const StringInfo *) NULL)
-  {
-    status&=LoadMimeList((const char *) GetStringInfoDatum(option),
-      GetStringInfoPath(option),0,exception);
-    option=(const StringInfo *) GetNextValueInLinkedList(options);
-  }
-  options=DestroyConfigureOptions(options);
-  if ((mime_list == (LinkedListInfo *) NULL) || 
-      (IsLinkedListEmpty(mime_list) != WizardFalse))
-    status&=LoadMimeList(MimeMap,"built-in",0,exception);
-  else
-    ClearWizardException(exception);
-  return(status != 0 ? WizardTrue : WizardFalse);
-#endif
 }
 
 /*
@@ -1035,8 +1038,8 @@ WizardExport void MimeComponentTerminus(void)
   if (mime_semaphore == (SemaphoreInfo *) NULL)
     ActivateSemaphoreInfo(&mime_semaphore);
   LockSemaphoreInfo(mime_semaphore);
-  if (mime_list != (LinkedListInfo *) NULL)
-    mime_list=DestroyLinkedList(mime_list,DestroyMimeElement);
+  if (mime_cache != (LinkedListInfo *) NULL)
+    mime_cache=DestroyLinkedList(mime_cache,DestroyMimeElement);
   UnlockSemaphoreInfo(mime_semaphore);
   RelinquishSemaphoreInfo(&mime_semaphore);
 }

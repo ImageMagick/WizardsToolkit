@@ -79,7 +79,7 @@ static const ConfigureMapInfo
   };
 
 static LinkedListInfo
-  *configure_list = (LinkedListInfo *) NULL;
+  *configure_cache = (LinkedListInfo *) NULL;
 
 static SemaphoreInfo
   *configure_semaphore = (SemaphoreInfo *) NULL;
@@ -88,8 +88,106 @@ static SemaphoreInfo
   Forward declarations.
 */
 static WizardBooleanType
-  IsConfigureListInstantiated(ExceptionInfo *),
-  LoadConfigureLists(const char *,ExceptionInfo *);
+  IsConfigureCacheInstantiated(ExceptionInfo *),
+  LoadConfigureCache(LinkedListInfo *,const char *,const char *,const size_t,
+    ExceptionInfo *);
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%  A c q u i r e C o n f i g u r e C a c h e                                  %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  AcquireConfigureCache() caches one or more configure configurations which
+%  provides a mapping between configure attributes and a configure name.
+%
+%  The format of the AcquireConfigureCache method is:
+%
+%      LinkedListInfo *AcquireConfigureCache(const char *filename,
+%        ExceptionInfo *exception)
+%
+%  A description of each parameter follows:
+%
+%    o filename: The font file name.
+%
+%    o exception: Return any errors or warnings in this structure.
+%
+*/
+static LinkedListInfo *AcquireConfigureCache(const char *filename,
+  ExceptionInfo *exception)
+{
+  char
+    path[MaxTextExtent];
+
+  const StringInfo
+    *option;
+
+  LinkedListInfo
+    *configure_cache,
+    *options;
+
+  register ssize_t
+    i;
+
+  WizardStatusType
+    status;
+
+  /*
+    Load built-in configure map.
+  */
+  configure_cache=NewLinkedList(0);
+  if (configure_cache == (LinkedListInfo *) NULL)
+    ThrowFatalException(ResourceFatalError,"memory allocation failed `%s`");
+  status=WizardTrue;
+  for (i=0; i < (ssize_t) (sizeof(ConfigureMap)/sizeof(*ConfigureMap)); i++)
+  {
+    ConfigureInfo
+      *configure_info;
+
+    register const ConfigureMapInfo
+      *p;
+
+    p=ConfigureMap+i;
+    configure_info=(ConfigureInfo *) AcquireWizardMemory(
+      sizeof(*configure_info));
+    if (configure_info == (ConfigureInfo *) NULL)
+      {
+        (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
+          "memory allocation failed `%s'",strerror(errno));
+        continue;
+      }
+    (void) ResetWizardMemory(configure_info,0,sizeof(*configure_info));
+    configure_info->path=(char *) "[built-in]";
+    configure_info->name=(char *) p->name;
+    configure_info->value=(char *) p->value;
+    configure_info->exempt=WizardTrue;
+    configure_info->signature=WizardSignature;
+    status=AppendValueToLinkedList(configure_cache,configure_info);
+    if (status == WizardFalse)
+      (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
+        "memory allocation failed `%s'",strerror(errno));
+  }
+  /*
+    Load external configure map.
+  */
+  *path='\0';
+  options=GetConfigureOptions(filename,exception);
+  option=(const StringInfo *) GetNextValueInLinkedList(options);
+  while (option != (const StringInfo *) NULL)
+  {
+    (void) CopyWizardString(path,GetStringInfoPath(option),MaxTextExtent);
+    status&=LoadConfigureCache(configure_cache,(const char *)
+      GetStringInfoDatum(option),GetStringInfoPath(option),0,exception);
+    option=(const StringInfo *) GetNextValueInLinkedList(options);
+  }
+  options=DestroyConfigureOptions(options);
+  return(configure_cache);
+}
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,9 +257,9 @@ WizardExport void ConfigureComponentTerminus(void)
   if (configure_semaphore == (SemaphoreInfo *) NULL)
     ActivateSemaphoreInfo(&configure_semaphore);
   LockSemaphoreInfo(configure_semaphore);
-  if (configure_list != (LinkedListInfo *) NULL)
-    configure_list=DestroyLinkedList(configure_list,DestroyConfigureElement);
-  configure_list=(LinkedListInfo *) NULL;
+  if (configure_cache != (LinkedListInfo *) NULL)
+    configure_cache=DestroyLinkedList(configure_cache,DestroyConfigureElement);
+  configure_cache=(LinkedListInfo *) NULL;
   UnlockSemaphoreInfo(configure_semaphore);
   RelinquishSemaphoreInfo(&configure_semaphore);
 }
@@ -237,14 +335,14 @@ WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
     *p;
 
   assert(exception != (ExceptionInfo *) NULL);
-  if (IsConfigureListInstantiated(exception) == WizardFalse)
+  if (IsConfigureCacheInstantiated(exception) == WizardFalse)
     return((const ConfigureInfo *) NULL);
   /*
     Search for named configure.
   */
   LockSemaphoreInfo(configure_semaphore);
-  ResetLinkedListIterator(configure_list);
-  p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
+  ResetLinkedListIterator(configure_cache);
+  p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_cache);
   if ((name == (const char *) NULL) || (strcasecmp(name,"*") == 0))
     {
       UnlockSemaphoreInfo(configure_semaphore);
@@ -254,14 +352,14 @@ WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
   {
     if (strcasecmp(name,p->name) == 0)
       break;
-    p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
+    p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_cache);
   }
   if (p == (ConfigureInfo *) NULL)
     (void) ThrowWizardException(exception,GetWizardModule(),OptionWarning,
       "no such configure list `%s'",name);
   else
-    (void) InsertValueInLinkedList(configure_list,0,
-      RemoveElementByValueFromLinkedList(configure_list,p));
+    (void) InsertValueInLinkedList(configure_cache,0,
+      RemoveElementByValueFromLinkedList(configure_cache,p));
   UnlockSemaphoreInfo(configure_semaphore);
   return(p);
 }
@@ -340,21 +438,21 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
   if (p == (const ConfigureInfo *) NULL)
     return((const ConfigureInfo **) NULL);
   options=(const ConfigureInfo **) AcquireQuantumMemory((size_t)
-    GetNumberOfElementsInLinkedList(configure_list)+1UL,sizeof(*options));
+    GetNumberOfElementsInLinkedList(configure_cache)+1UL,sizeof(*options));
   if (options == (const ConfigureInfo **) NULL)
     return((const ConfigureInfo **) NULL);
   /*
     Generate configure list.
   */
   LockSemaphoreInfo(configure_semaphore);
-  ResetLinkedListIterator(configure_list);
-  p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
+  ResetLinkedListIterator(configure_cache);
+  p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_cache);
   for (i=0; p != (const ConfigureInfo *) NULL; )
   {
     if ((p->stealth == WizardFalse) &&
         (GlobExpression(p->name,pattern,WizardFalse) != WizardFalse))
       options[i++]=p;
-    p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
+    p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_cache);
   }
   UnlockSemaphoreInfo(configure_semaphore);
   qsort((void *) options,(size_t) i,sizeof(*options),ConfigureInfoCompare);
@@ -436,18 +534,18 @@ WizardExport char **GetConfigureList(const char *pattern,
   LockSemaphoreInfo(configure_semaphore);
   UnlockSemaphoreInfo(configure_semaphore);
   options=(char **) AcquireQuantumMemory((size_t)
-    GetNumberOfElementsInLinkedList(configure_list)+1UL,sizeof(*options));
+    GetNumberOfElementsInLinkedList(configure_cache)+1UL,sizeof(*options));
   if (options == (char **) NULL)
     return((char **) NULL);
   LockSemaphoreInfo(configure_semaphore);
-  ResetLinkedListIterator(configure_list);
-  p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
+  ResetLinkedListIterator(configure_cache);
+  p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_cache);
   for (i=0; p != (const ConfigureInfo *) NULL; )
   {
     if ((p->stealth == WizardFalse) &&
         (GlobExpression(p->name,pattern,WizardFalse) != WizardFalse))
       options[i++]=ConstantString(p->name);
-    p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_list);
+    p=(const ConfigureInfo *) GetNextValueInLinkedList(configure_cache);
   }
   UnlockSemaphoreInfo(configure_semaphore);
   qsort((void *) options,(size_t) i,sizeof(*options),ConfigureCompare);
@@ -807,27 +905,30 @@ WizardExport const char *GetConfigureValue(const ConfigureInfo *configure_info)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  IsConfigureListInstantiated() determines if the configure list is
+%  IsConfigureCacheInstantiated() determines if the configure list is
 %  instantiated.  If not, it instantiates the list and returns it.
 %
 %  The format of the IsConfigureInstantiated method is:
 %
-%      WizardBooleanType IsConfigureListInstantiated(ExceptionInfo *exception)
+%      WizardBooleanType IsConfigureCacheInstantiated(ExceptionInfo *exception)
 %
 %  A description of each parameter follows.
 %
 %    o exception: Return any errors or warnings in this structure.
 %
 */
-static WizardBooleanType IsConfigureListInstantiated(ExceptionInfo *exception)
+static WizardBooleanType IsConfigureCacheInstantiated(ExceptionInfo *exception)
 {
-  if (configure_semaphore == (SemaphoreInfo *) NULL)
-    ActivateSemaphoreInfo(&configure_semaphore);
-  LockSemaphoreInfo(configure_semaphore);
-  if (configure_list == (LinkedListInfo *) NULL)
-    (void) LoadConfigureLists(ConfigureFilename,exception);
-  UnlockSemaphoreInfo(configure_semaphore);
-  return(configure_list != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
+  if (configure_cache == (LinkedListInfo *) NULL)
+    {
+      if (configure_semaphore == (SemaphoreInfo *) NULL)
+        ActivateSemaphoreInfo(&configure_semaphore);
+      LockSemaphoreInfo(configure_semaphore);
+      if (configure_cache == (LinkedListInfo *) NULL)
+        configure_cache=AcquireConfigureCache(ConfigureFilename,exception);
+      UnlockSemaphoreInfo(configure_semaphore);
+    }
+  return(configure_cache != (LinkedListInfo *) NULL ? WizardTrue : WizardFalse);
 }
 
 /*
@@ -924,13 +1025,14 @@ WizardExport WizardBooleanType ListConfigureInfo(FILE *file,
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  LoadConfigureList() loads the configure configuration file which provides a
+%  LoadConfigureCache() loads the configure configurations which provides a
 %  mapping between configure attributes and a configure name.
 %
-%  The format of the LoadConfigureList method is:
+%  The format of the LoadConfigureCache method is:
 %
-%      WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
-%        const size_t depth,ExceptionInfo *exception)
+%      WizardBooleanType LoadConfigureCache(LinkedListInfo *configure_cache,
+%        const char *xml,const char *filename,const size_t depth,
+%        ExceptionInfo *exception)
 %
 %  A description of each parameter follows:
 %
@@ -943,8 +1045,9 @@ WizardExport WizardBooleanType ListConfigureInfo(FILE *file,
 %    o exception: Return any errors or warnings in this structure.
 %
 */
-static WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
-  const size_t depth,ExceptionInfo *exception)
+static WizardBooleanType LoadConfigureCache(LinkedListInfo *configure_cache,
+  const char *xml,const char *filename,const size_t depth,
+  ExceptionInfo *exception)
 {
   const char
     *attribute;
@@ -967,16 +1070,6 @@ static WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
     "Loading configure map \"%s\" ...",filename);
   if (xml == (const char *) NULL)
     return(WizardFalse);
-  if (configure_list == (LinkedListInfo *) NULL)
-    {
-      configure_list=NewLinkedList(0);
-      if (configure_list == (LinkedListInfo *) NULL)
-        {
-          (void) ThrowWizardException(exception,GetWizardModule(),
-            ResourceFatalError,"memory allocation failed `%s`",strerror(errno));
-          return(WizardFalse);
-        }
-    }
   configure_map=NewXMLTree(xml,exception);
   if (configure_map == (XMLTreeInfo *) NULL)
     return(WizardFalse);
@@ -1005,8 +1098,8 @@ static WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
                 MaxTextExtent);
             (void) ConcatenateWizardString(path,attribute,MaxTextExtent);
             xml=FileToString(path,~0,exception);
-            if (LoadConfigureList(xml,path,depth+1,exception) == WizardFalse)
-              status=WizardFalse;
+            status&=LoadConfigureCache(configure_cache,xml,path,depth+1,
+              exception);
             xml=(char *) RelinquishWizardMemory(xml);
           }
       }
@@ -1038,7 +1131,7 @@ static WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
     attribute=GetXMLTreeAttribute(configure,"value");
     if (attribute != (const char *) NULL)
       configure_info->value=ConstantString(attribute);
-    status=AppendValueToLinkedList(configure_list,configure_info);
+    status=AppendValueToLinkedList(configure_cache,configure_info);
     if (status == WizardFalse)
       (void) ThrowWizardException(exception,GetWizardModule(),
         ResourceFatalError,"memory allocation failed `%s`",strerror(errno));
@@ -1046,106 +1139,4 @@ static WizardBooleanType LoadConfigureList(const char *xml,const char *filename,
   }
   configure_map=DestroyXMLTree(configure_map);
   return(status);
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%  L o a d C o n f i g u r e L i s t s                                        %
-%                                                                             %
-%                                                                             %
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  LoadConfigureList() loads one or more configure configuration file which
-%  provides a mapping between configure attributes and a configure name.
-%
-%  The format of the LoadConfigureLists method is:
-%
-%      WizardBooleanType LoadConfigureLists(const char *filename,
-%        ExceptionInfo *exception)
-%
-%  A description of each parameter follows:
-%
-%    o filename: The font file name.
-%
-%    o exception: Return any errors or warnings in this structure.
-%
-*/
-static WizardBooleanType LoadConfigureLists(const char *filename,
-  ExceptionInfo *exception)
-{
-  char
-    path[MaxTextExtent];
-
-  const StringInfo
-    *option;
-
-  LinkedListInfo
-    *options;
-
-  register ssize_t
-    i;
-
-  WizardStatusType
-    status;
-
-  /*
-    Load built-in configure map.
-  */
-  status=WizardFalse;
-  if (configure_list == (LinkedListInfo *) NULL)
-    {
-      configure_list=NewLinkedList(0);
-      if (configure_list == (LinkedListInfo *) NULL)
-        {
-          ThrowFileException(exception,FileError,filename);
-          return(WizardFalse);
-        }
-    }
-  for (i=0; i < (ssize_t) (sizeof(ConfigureMap)/sizeof(*ConfigureMap)); i++)
-  {
-    ConfigureInfo
-      *configure_info;
-
-    register const ConfigureMapInfo
-      *p;
-
-    p=ConfigureMap+i;
-    configure_info=(ConfigureInfo *) AcquireWizardMemory(
-      sizeof(*configure_info));
-    if (configure_info == (ConfigureInfo *) NULL)
-      {
-        (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
-          "memory allocation failed `%s'",strerror(errno));
-        continue;
-      }
-    (void) ResetWizardMemory(configure_info,0,sizeof(*configure_info));
-    configure_info->path=(char *) "[built-in]";
-    configure_info->name=(char *) p->name;
-    configure_info->value=(char *) p->value;
-    configure_info->exempt=WizardTrue;
-    configure_info->signature=WizardSignature;
-    status=AppendValueToLinkedList(configure_list,configure_info);
-    if (status == WizardFalse)
-      (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
-        "memory allocation failed `%s'",strerror(errno));
-  }
-  /*
-    Load external configure map.
-  */
-  *path='\0';
-  options=GetConfigureOptions(filename,exception);
-  option=(const StringInfo *) GetNextValueInLinkedList(options);
-  while (option != (const StringInfo *) NULL)
-  {
-    (void) CopyWizardString(path,GetStringInfoPath(option),MaxTextExtent);
-    status&=LoadConfigureList((const char *) GetStringInfoDatum(option),
-      GetStringInfoPath(option),0,exception);
-    option=(const StringInfo *) GetNextValueInLinkedList(options);
-  }
-  options=DestroyConfigureOptions(options);
-  return(status != 0 ? WizardTrue : WizardFalse);
 }
