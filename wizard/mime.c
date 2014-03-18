@@ -155,15 +155,8 @@ static WizardBooleanType
 WizardExport LinkedListInfo *AcquireMimeCache(const char *filename,
   ExceptionInfo *exception)
 {
-#if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
-  return(LoadMimeCache(mime_cache,MimeMap,"built-in",0,exception));
-#else
-  const StringInfo
-    *option;
-
   LinkedListInfo
     *mime_cache,
-    *options;
 
   WizardStatusType
     status;
@@ -172,22 +165,29 @@ WizardExport LinkedListInfo *AcquireMimeCache(const char *filename,
   if (mime_cache == (LinkedListInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s`");
   status=WizardTrue;
-  options=GetConfigureOptions(filename,exception);
-  option=(const StringInfo *) GetNextValueInLinkedList(options);
-  while (option != (const StringInfo *) NULL)
+#if !defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
   {
-    status&=LoadMimeCache(mime_cache,(const char *) GetStringInfoDatum(option),
-      GetStringInfoPath(option),0,exception);
+    const StringInfo
+      *option;
+
+    LinkedListInfo
+      *mime_cache,
+      *options;
+
+    options=GetConfigureOptions(filename,exception);
     option=(const StringInfo *) GetNextValueInLinkedList(options);
+    while (option != (const StringInfo *) NULL)
+    {
+      status&=LoadMimeCache(mime_cache,(const char *)
+        GetStringInfoDatum(option),GetStringInfoPath(option),0,exception);
+      option=(const StringInfo *) GetNextValueInLinkedList(options);
+    }
+    options=DestroyConfigureOptions(options);
   }
-  options=DestroyConfigureOptions(options);
-  if ((mime_cache == (LinkedListInfo *) NULL) || 
-      (IsLinkedListEmpty(mime_cache) != WizardFalse))
-    status&=LoadMimeCache(mime_cache,MimeMap,"built-in",0,exception);
-  else
-    ClearWizardException(exception);
-  return(mime_cache);
 #endif
+  if (IsLinkedListEmpty(mime_cache) != WizardFalse)
+    status&=LoadMimeCache(mime_cache,MimeMap,"built-in",0,exception);
+  return(mime_cache);
 }
 
 /*
@@ -775,8 +775,9 @@ WizardExport WizardBooleanType ListMimeInfo(FILE *file,ExceptionInfo *exception)
 %
 %  The format of the LoadMimeCache method is:
 %
-%      WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,const char *xml,
-%        const char *filename,const size_t depth,ExceptionInfo *exception)
+%      WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,
+%        const char *xml,const char *filename,const size_t depth,
+%        ExceptionInfo *exception)
 %
 %  A description of each parameter follows:
 %
@@ -789,8 +790,9 @@ WizardExport WizardBooleanType ListMimeInfo(FILE *file,ExceptionInfo *exception)
 %    o exception: Return any errors or warnings in this structure.
 %
 */
-static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,const char *xml,
-  const char *filename,const size_t depth,ExceptionInfo *exception)
+static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,
+  const char *xml,const char *filename,const size_t depth,
+  ExceptionInfo *exception)
 {
   const char
     *attribute;
@@ -846,7 +848,7 @@ static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,const char *xm
             xml=FileToXML(path,~0UL);
             if (xml != (char *) NULL)
               {
-                status=LoadMimeCache(mime_cache,xml,path,depth+1,exception);
+                status&=LoadMimeCache(mime_cache,xml,path,depth+1,exception);
                 xml=DestroyString(xml);
               }
           }

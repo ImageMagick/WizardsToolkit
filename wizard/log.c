@@ -1476,7 +1476,8 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
                   xml=FileToXML(path,~0UL);
                   if (xml != (char *) NULL)
                     {
-                      status&=LoadLogCache(log_cache,xml,path,depth+1,exception);
+                      status&=LoadLogCache(log_cache,xml,path,depth+1,
+                        exception);
                       xml=DestroyString(xml);
                     }
                 }
