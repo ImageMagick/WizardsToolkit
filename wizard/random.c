@@ -465,24 +465,23 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
 #if defined(WIZARDSTOOLKIT_HAVE_MKSTEMP)
   {
     char
-      *filename;
+      path[MaxTextExtent];
 
     int
       file;
 
-    filename=AcquireString("wizardXXXXXX");
-    file=mkstemp(filename);
+    (void) GetPathTemplate(path);
+    file=mkstemp(path);
     if (file != -1)
       if (close(file) == -1)
         (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
-          "unable to close file `%s': %s",filename,strerror(errno));
-    if (remove_utf8(filename) == -1)
+          "unable to close file `%s': %s",path,strerror(errno));
+    if (remove_utf8(path) == -1)
       (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
-        "unable to remove file `%s': %s",filename,strerror(errno));
-    SetStringInfoLength(chaos,strlen(filename));
-    SetStringInfoDatum(chaos,(unsigned char *) filename);
+        "unable to remove file `%s': %s",path,strerror(errno));
+    SetStringInfoLength(chaos,strlen(path));
+    SetStringInfoDatum(chaos,(unsigned char *) path);
     ConcatenateStringInfo(entropy,chaos);
-    filename=DestroyString(filename);
   }
 #endif
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)

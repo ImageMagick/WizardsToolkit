@@ -185,7 +185,7 @@ static void *DestroyTemporaryResources(void *temporary_resource)
   return((void *) NULL);
 }
 
-static WizardBooleanType GetPathTemplate(const char *path,char *filename)
+WizardExport WizardBooleanType GetPathTemplate(const char *path,char *filename)
 {
   char
     *directory;
