@@ -44,7 +44,7 @@ extern WizardExport int
 extern WizardExport WizardBooleanType
   AcquireWizardResource(const ResourceType,const WizardSizeType),
   AcquireUniqueFilename(char *,ExceptionInfo *),
-  GetPathTemplate(char *),
+  GetPathTemplate(const char *,char *),
   ListWizardResourceInfo(FILE *,ExceptionInfo *),
   RelinquishUniqueFileResource(const char *,const WizardBooleanType),
   ResourceComponentGenesis(void),

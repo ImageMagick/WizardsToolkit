@@ -201,7 +201,7 @@ WizardExport WizardBooleanType GetPathTemplate(const char *path,char *filename)
 
   (void) FormatLocaleString(filename,MaxTextExtent,"wizard-%.20gXXXXXXXXXXXX",
     (double) getpid());
-  if (*path != '\0')
+  if ((path == (const char *) NULL) || (*path != '\0'))
     directory=ConstantString(path);
   else
     {

@@ -137,8 +137,8 @@ static WizardBooleanType
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AcquireMimeCache() caches one or more magic configurations which provides a
-%  mapping between magic attributes and a magic name.
+%  AcquireMimeCache() caches one or more magic configurations which provides
+%  a mapping between magic attributes and a magic name.
 %
 %  The format of the AcquireMimeCache method is:
 %
@@ -152,11 +152,11 @@ static WizardBooleanType
 %    o exception: Return any errors or warnings in this structure.
 %
 */
-WizardExport LinkedListInfo *AcquireMimeCache(const char *filename,
+static LinkedListInfo *AcquireMimeCache(const char *filename,
   ExceptionInfo *exception)
 {
   LinkedListInfo
-    *mime_cache,
+    *mime_cache;
 
   WizardStatusType
     status;
@@ -171,7 +171,6 @@ WizardExport LinkedListInfo *AcquireMimeCache(const char *filename,
       *option;
 
     LinkedListInfo
-      *mime_cache,
       *options;
 
     options=GetConfigureOptions(filename,exception);
@@ -232,9 +231,6 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
   EndianType
     endian;
 
-  ssize_t
-    value;
-
   register const MimeInfo
     *p;
 
@@ -247,10 +243,11 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
   size_t
     lsb_first;
 
+  ssize_t
+    value;
+
   assert(exception != (ExceptionInfo *) NULL);
   if (IsMimeCacheInstantiated(exception) == WizardFalse)
-    return((const MimeInfo *) NULL);
-  if (length == 0)
     return((const MimeInfo *) NULL);
   /*
     Search for requested mime type.
@@ -263,7 +260,7 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
   if ((magic == (const unsigned char *) NULL) || (length == 0))
     {
       UnlockSemaphoreInfo(mime_semaphore);
-      return(mime_info);
+      return(p);
     }
   while (p != (const MimeInfo *) NULL)
   {
@@ -288,7 +285,7 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
         if ((size_t) (p->offset+4) > length)
           break;
         q=magic+p->offset;
-        value=(*q++);
+        value=(ssize_t) (*q++);
         if (p->mask == 0)
           {
             if (p->value == value)
@@ -311,12 +308,12 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
           endian=(*(char *) &lsb_first) == 1 ? LSBEndian : MSBEndian;
         if (endian == LSBEndian)
           {
-            value=(*q++);
+            value=(ssize_t) (*q++);
             value|=(*q++) << 8;
           }
         else
           {
-            value=(*q++) << 8;
+            value=(ssize_t) (*q++) << 8;
             value|=(*q++);
           }
         if (p->mask == 0)
@@ -341,14 +338,14 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
           endian=(*(char *) &lsb_first) == 1 ? LSBEndian : MSBEndian;
         if (endian == LSBEndian)
           {
-            value=(*q++);
+            value=(ssize_t) (*q++);
             value|=(*q++) << 8;
             value|=(*q++) << 16;
             value|=(*q++) << 24;
           }
         else
           {
-            value=(*q++) << 24;
+            value=(ssize_t) (*q++) << 24;
             value|=(*q++) << 16;
             value|=(*q++) << 8;
             value|=(*q++);
@@ -387,7 +384,7 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
     (void) InsertValueInLinkedList(mime_cache,0,
       RemoveElementByValueFromLinkedList(mime_cache,p));
   UnlockSemaphoreInfo(mime_semaphore);
-  return(p);
+  return(mime_info);
 }
 
 /*
@@ -644,7 +641,7 @@ WizardExport const char *GetMimeType(const MimeInfo *mime_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   I s M i m e L i s t I n s t a n t i a t e d                               %
++   I s M i m e C a c h e I n s t a n t i a t e d                             %
 %                                                                             %
 %                                                                             %
 %                                                                             %
@@ -708,14 +705,14 @@ WizardExport WizardBooleanType ListMimeInfo(FILE *file,ExceptionInfo *exception)
   const MimeInfo
     **mime_info;
 
-  ssize_t
-    j;
-
   register ssize_t
     i;
 
   size_t
     number_aliases;
+
+  ssize_t
+    j;
 
   if (file == (const FILE *) NULL)
     file=stdout;
@@ -764,7 +761,7 @@ WizardExport WizardBooleanType ListMimeInfo(FILE *file,ExceptionInfo *exception)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   L o a d M i m e L i s t                                                   %
++   L o a d M i m e C a c h e                                                 %
 %                                                                             %
 %                                                                             %
 %                                                                             %

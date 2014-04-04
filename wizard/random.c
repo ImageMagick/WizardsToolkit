@@ -470,7 +470,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
     int
       file;
 
-    (void) GetPathTemplate(path);
+    (void) GetPathTemplate((const char *) NULL,path);
     file=mkstemp(path);
     if (file != -1)
       if (close(file) == -1)
