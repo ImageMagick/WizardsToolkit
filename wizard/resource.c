@@ -879,7 +879,8 @@ WizardExport WizardBooleanType ResourceComponentGenesis(void)
   /*
     Set Wizard resource limits.
   */
-  resource_semaphore=AcquireSemaphoreInfo();
+  if (resource_semaphore == (SemaphoreInfo *) NULL)
+    resource_semaphore=AcquireSemaphoreInfo();
   pagesize=(-1);
 #if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_PAGESIZE)
   pagesize=sysconf(_SC_PAGESIZE);

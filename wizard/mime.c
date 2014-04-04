@@ -993,7 +993,8 @@ static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,
 */
 WizardExport WizardBooleanType MimeComponentGenesis(void)
 {
-  mime_semaphore=AcquireSemaphoreInfo();
+  if (mime_semaphore == (SemaphoreInfo *) NULL)
+    mime_semaphore=AcquireSemaphoreInfo();
   return(WizardTrue);
 }
 

@@ -393,7 +393,8 @@ WizardExport double InterpretLocaleValue(const char *restrict string,
 */
 WizardExport WizardBooleanType LocaleComponentGenesis(void)
 {
-  locale_semaphore=AcquireSemaphoreInfo();
+  if (locale_semaphore == (SemaphoreInfo *) NULL)
+    locale_semaphore=AcquireSemaphoreInfo();
   return(WizardTrue);
 }
 

@@ -210,7 +210,8 @@ static LinkedListInfo *AcquireConfigureCache(const char *filename,
 */
 WizardExport WizardBooleanType ConfigureComponentGenesis(void)
 {
-  configure_semaphore=AcquireSemaphoreInfo();
+  if (configure_semaphore == (SemaphoreInfo *) NULL)
+    configure_semaphore=AcquireSemaphoreInfo();
   return(WizardTrue);
 }
 
