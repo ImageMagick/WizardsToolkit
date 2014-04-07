@@ -187,15 +187,12 @@ WizardExport StringInfo *AcquireStringInfo(const size_t length)
   string_info->timestamp=time((time_t *) NULL);
   string_info->signature=WizardSignature;
   string_info->length=length;
-  if (string_info->length != 0)
-    {
-      string_info->datum=(unsigned char *) NULL;
-      if (~string_info->length >= (MaxCipherBlocksize-1))
-        string_info->datum=(unsigned char *) AcquireQuantumMemory(
-          string_info->length+MaxCipherBlocksize,sizeof(*string_info->datum));
-      if (string_info->datum == (unsigned char *) NULL)
-        ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-    }
+  string_info->datum=(unsigned char *) NULL;
+  if (~string_info->length >= (MaxCipherBlocksize-1))
+    string_info->datum=(unsigned char *) AcquireQuantumMemory(
+      string_info->length+MaxCipherBlocksize,sizeof(*string_info->datum));
+  if (string_info->datum == (unsigned char *) NULL)
+    ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   return(string_info);
 }
 
