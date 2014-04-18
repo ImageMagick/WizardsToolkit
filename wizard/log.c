@@ -750,7 +750,7 @@ WizardExport WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
               (void) fprintf(file,"%s ",LogHandlers[j].name);
               length+=strlen(LogHandlers[j].name);
             }
-          if (LogHandlers[j].name == (const char * NULL)
+          if (LogHandlers[j].name == (const char *) NULL)
             break;
         }
         for (j=(ssize_t) length; j <= 12; j++)
