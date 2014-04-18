@@ -393,6 +393,7 @@ static unsigned char *DetachBlob(BlobInfo *blob_info)
   if (blob_info->mapped != WizardFalse)
     {
       (void) UnmapBlob(blob_info->data,blob_info->length);
+      blob_info->data=(unsigned char *) NULL;
       RelinquishWizardResource(MapResource,blob_info->length);
     }
   blob_info->mapped=WizardFalse;
