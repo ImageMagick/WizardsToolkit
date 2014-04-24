@@ -512,7 +512,7 @@ static void DestroyXMLTreeChild(XMLTreeInfo *xml_info)
       prev=node;
       node=node->child;
     }
-    DestroyXMLTree(node);
+    (void) DestroyXMLTree(node);
     if (prev != (XMLTreeInfo* ) NULL)
       prev->child=(XMLTreeInfo *) NULL;
     node=prev;
@@ -535,7 +535,7 @@ static void DestroyXMLTreeOrdered(XMLTreeInfo *xml_info)
       prev=node;
       node=node->ordered;
     }
-    DestroyXMLTree(node);
+    (void) DestroyXMLTree(node);
     if (prev != (XMLTreeInfo* ) NULL)
       prev->ordered=(XMLTreeInfo *) NULL;
     node=prev;
@@ -560,8 +560,6 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
   assert(xml_info != (XMLTreeInfo *) NULL);
   assert((xml_info->signature == WizardSignature) ||
          (((XMLTreeRoot *) xml_info)->signature == WizardSignature));
-  if (xml_info->debug != WizardFalse)
-    (void) LogMagickEvent(TraceEvent,GetMagickModule(),"...");
   if (xml_info->parent != (XMLTreeInfo *) NULL)
     return;
   /*
@@ -647,7 +645,8 @@ WizardExport XMLTreeInfo *DestroyXMLTree(XMLTreeInfo *xml_info)
 %
 */
 
-static inline size_t WizardMin(const size_t x,const size_t y)
+static inline WizardSizeType WizardMin(const WizardSizeType x,
+  const WizardSizeType y)
 {
   if (x < y)
     return(x);
