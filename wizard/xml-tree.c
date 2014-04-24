@@ -217,18 +217,18 @@ WizardExport XMLTreeInfo *AddPathToXMLTree(XMLTreeInfo *xml_info,
     subnode[MaxTextExtent],
     tag[MaxTextExtent];
 
-  ssize_t
-    j;
-
   register ssize_t
     i;
+
+  size_t
+    number_components;
+
+  ssize_t
+    j;
 
   XMLTreeInfo
     *child,
     *node;
-
-  size_t
-    number_components;
 
   WizardAssert(ResourceDomain,xml_info != (XMLTreeInfo *) NULL);
   WizardAssert(ResourceDomain,(xml_info->signature == WizardSignature) ||
@@ -248,7 +248,7 @@ WizardExport XMLTreeInfo *AddPathToXMLTree(XMLTreeInfo *xml_info,
     node=child;
     if (node == (XMLTreeInfo *) NULL)
       break;
-    for (j=StringToLong(subnode)-1; j > 0; j--)
+    for (j=(ssize_t) StringToLong(subnode)-1; j > 0; j--)
     {
       node=GetXMLTreeOrdered(node);
       if (node == (XMLTreeInfo *) NULL)
@@ -568,7 +568,7 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
   root=(XMLTreeRoot *) xml_info;
   for (i=NumberPredefinedEntities; root->entities[i] != (char *) NULL; i+=2)
     root->entities[i+1]=DestroyString(root->entities[i+1]);
-  root->entities=(char **) RelinquishMagickMemory(root->entities);
+  root->entities=(char **) RelinquishWizardMemory(root->entities);
   for (i=0; root->attributes[i] != (char **) NULL; i++)
   {
     attributes=root->attributes[i];
@@ -583,10 +583,10 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
       if (attributes[j+2] != (char *) NULL)
         attributes[j+2]=DestroyString(attributes[j+2]);
     }
-    attributes=(char **) RelinquishMagickMemory(attributes);
+    attributes=(char **) RelinquishWizardMemory(attributes);
   }
   if (root->attributes[0] != (char **) NULL)
-    root->attributes=(char ***) RelinquishMagickMemory(root->attributes);
+    root->attributes=(char ***) RelinquishWizardMemory(root->attributes);
   if (root->processing_instructions[0] != (char **) NULL)
     {
       for (i=0; root->processing_instructions[i] != (char **) NULL; i++)
@@ -596,10 +596,10 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
             root->processing_instructions[i][j]);
         root->processing_instructions[i][j+1]=DestroyString(
           root->processing_instructions[i][j+1]);
-        root->processing_instructions[i]=(char **) RelinquishMagickMemory(
+        root->processing_instructions[i]=(char **) RelinquishWizardMemory(
           root->processing_instructions[i]);
       }
-      root->processing_instructions=(char ***) RelinquishMagickMemory(
+      root->processing_instructions=(char ***) RelinquishWizardMemory(
         root->processing_instructions);
     }
 }
@@ -837,11 +837,11 @@ WizardExport XMLTreeInfo *GetNextXMLTreeTag(XMLTreeInfo *xml_info)
 WizardExport const char *GetXMLTreeAttribute(XMLTreeInfo *xml_info,
   const char *tag)
 {
-  ssize_t
-    j;
-
   register ssize_t
     i;
+
+  ssize_t
+    j;
 
   XMLTreeRoot
     *root;
@@ -1060,11 +1060,11 @@ WizardExport XMLTreeInfo *GetXMLTreePath(XMLTreeInfo *xml_info,const char *path)
     subnode[MaxTextExtent],
     tag[MaxTextExtent];
 
-  ssize_t
-    j;
-
   register ssize_t
     i;
+
+  ssize_t
+    j;
 
   XMLTreeInfo
     *node;
@@ -1087,7 +1087,7 @@ WizardExport XMLTreeInfo *GetXMLTreePath(XMLTreeInfo *xml_info,const char *path)
     node=GetXMLTreeChild(node,tag);
     if (node == (XMLTreeInfo *) NULL)
       break;
-    for (j=StringToLong(subnode)-1; j > 0; j--)
+    for (j=(ssize_t) StringToLong(subnode)-1; j > 0; j--)
     {
       node=GetXMLTreeOrdered(node);
       if (node == (XMLTreeInfo *) NULL)
@@ -1346,14 +1346,14 @@ static char *ConvertUTF16ToUTF8(const char *content,size_t *length)
     c,
     encoding;
 
-  ssize_t
-    j;
-
   register ssize_t
     i;
 
   size_t
     extent;
+
+  ssize_t
+    j;
 
   utf8=(char *) AcquireQuantumMemory(*length,sizeof(*utf8));
   if (utf8 == (char *) NULL)
@@ -1648,11 +1648,11 @@ static void ParseProcessingInstructions(XMLTreeRoot *root,char *xml,
   char
     *target;
 
-  ssize_t
-    j;
-
   register ssize_t
     i;
+
+  ssize_t
+    j;
 
   target=xml;
   xml[length]='\0';
@@ -1731,11 +1731,11 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
     *t,
     *v;
 
-  ssize_t
-    j;
-
   register ssize_t
     i;
+
+  ssize_t
+    j;
 
   n=(char *) NULL;
   predefined_entitites=(char **) AcquireWizardMemory(sizeof(sentinel));
@@ -1969,10 +1969,6 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
     c,
     terminal;
 
-  ssize_t
-    j,
-    l;
-
   register char
     *p;
 
@@ -1981,6 +1977,10 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
 
   size_t
     length;
+
+  ssize_t
+    j,
+    l;
 
   WizardBooleanType
     status;
@@ -2223,7 +2223,7 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
                 for (l=0; (*p != '\0') && (((l == 0) && (*p != '>')) ||
                      ((l != 0) && ((*p != ']') ||
                      (*(p+strspn(p+1,XMLWhitespace)+1) != '>'))));
-                  l=(*p == '[') ? 1 : l)
+                  l=(ssize_t) ((*p == '[') ? 1 : l))
                 p+=strcspn(p+1,"[]>")+1;
                 if ((*p == '\0') && (terminal != '>'))
                   {
@@ -2464,11 +2464,11 @@ WizardExport XMLTreeInfo *PruneTagFromXMLTree(XMLTreeInfo *xml_info)
 WizardExport XMLTreeInfo *SetXMLTreeAttribute(XMLTreeInfo *xml_info,
   const char *tag,const char *value)
 {
-  ssize_t
-    j;
-
   register ssize_t
     i;
+
+  ssize_t
+    j;
 
   WizardAssert(ResourceDomain,xml_info != (XMLTreeInfo *) NULL);
   WizardAssert(ResourceDomain,(xml_info->signature == WizardSignature) ||
@@ -2632,14 +2632,14 @@ static char *XMLTreeTagToXML(XMLTreeInfo *xml_info,char **source,size_t *length,
   const char
     *attribute;
 
-  ssize_t
-    j;
-
   register ssize_t
     i;
 
   size_t
     offset;
+
+  ssize_t
+    j;
 
   content=(char *) "";
   if (xml_info->parent != (XMLTreeInfo *) NULL)
