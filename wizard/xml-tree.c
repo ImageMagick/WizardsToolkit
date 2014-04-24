@@ -497,6 +497,52 @@ static char **DestroyXMLTreeAttributes(char **attributes)
   return((char **) NULL);
 }
 
+static void DestroyXMLTreeChild(XMLTreeInfo *xml_info)
+{
+  XMLTreeInfo
+    *node,
+    *prev;
+
+  node=xml_info->child;
+  while(node != (XMLTreeInfo *) NULL)
+  {
+    prev=(XMLTreeInfo *) NULL;
+    while(node->child != (XMLTreeInfo *) NULL)
+    {
+      prev=node;
+      node=node->child;
+    }
+    DestroyXMLTree(node);
+    if (prev != (XMLTreeInfo* ) NULL)
+      prev->child=(XMLTreeInfo *) NULL;
+    node=prev;
+  }
+  xml_info->child=(XMLTreeInfo *) NULL;
+}
+
+static void DestroyXMLTreeOrdered(XMLTreeInfo *xml_info)
+{
+  XMLTreeInfo
+    *node,
+    *prev;
+
+  node=xml_info->ordered;
+  while(node != (XMLTreeInfo *) NULL)
+  {
+    prev=(XMLTreeInfo *) NULL;
+    while(node->ordered != (XMLTreeInfo *) NULL)
+    {
+      prev=node;
+      node=node->ordered;
+    }
+    DestroyXMLTree(node);
+    if (prev != (XMLTreeInfo* ) NULL)
+      prev->ordered=(XMLTreeInfo *) NULL;
+    node=prev;
+  }
+  xml_info->ordered=(XMLTreeInfo *) NULL;
+}
+
 static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
 {
   char
@@ -514,6 +560,8 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
   assert(xml_info != (XMLTreeInfo *) NULL);
   assert((xml_info->signature == WizardSignature) ||
          (((XMLTreeRoot *) xml_info)->signature == WizardSignature));
+  if (xml_info->debug != WizardFalse)
+    (void) LogMagickEvent(TraceEvent,GetMagickModule(),"...");
   if (xml_info->parent != (XMLTreeInfo *) NULL)
     return;
   /*
@@ -522,7 +570,7 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
   root=(XMLTreeRoot *) xml_info;
   for (i=NumberPredefinedEntities; root->entities[i] != (char *) NULL; i+=2)
     root->entities[i+1]=DestroyString(root->entities[i+1]);
-  root->entities=(char **) RelinquishWizardMemory(root->entities);
+  root->entities=(char **) RelinquishMagickMemory(root->entities);
   for (i=0; root->attributes[i] != (char **) NULL; i++)
   {
     attributes=root->attributes[i];
@@ -537,10 +585,10 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
       if (attributes[j+2] != (char *) NULL)
         attributes[j+2]=DestroyString(attributes[j+2]);
     }
-    attributes=(char **) RelinquishWizardMemory(attributes);
+    attributes=(char **) RelinquishMagickMemory(attributes);
   }
   if (root->attributes[0] != (char **) NULL)
-    root->attributes=(char ***) RelinquishWizardMemory(root->attributes);
+    root->attributes=(char ***) RelinquishMagickMemory(root->attributes);
   if (root->processing_instructions[0] != (char **) NULL)
     {
       for (i=0; root->processing_instructions[i] != (char **) NULL; i++)
@@ -550,10 +598,10 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
             root->processing_instructions[i][j]);
         root->processing_instructions[i][j+1]=DestroyString(
           root->processing_instructions[i][j+1]);
-        root->processing_instructions[i]=(char **) RelinquishWizardMemory(
+        root->processing_instructions[i]=(char **) RelinquishMagickMemory(
           root->processing_instructions[i]);
       }
-      root->processing_instructions=(char ***) RelinquishWizardMemory(
+      root->processing_instructions=(char ***) RelinquishMagickMemory(
         root->processing_instructions);
     }
 }
@@ -564,10 +612,8 @@ WizardExport XMLTreeInfo *DestroyXMLTree(XMLTreeInfo *xml_info)
   WizardAssert(ResourceDomain,(xml_info->signature == WizardSignature) ||
          (((XMLTreeRoot *) xml_info)->signature == WizardSignature));
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
-  if (xml_info->child != (XMLTreeInfo *) NULL)
-    xml_info->child=DestroyXMLTree(xml_info->child);
-  if (xml_info->ordered != (XMLTreeInfo *) NULL)
-    xml_info->ordered=DestroyXMLTree(xml_info->ordered);
+  DestroyXMLTreeChild(xml_info);
+  DestroyXMLTreeOrdered(xml_info);
   DestroyXMLTreeRoot(xml_info);
   xml_info->attributes=DestroyXMLTreeAttributes(xml_info->attributes);
   xml_info->content=DestroyString(xml_info->content);
