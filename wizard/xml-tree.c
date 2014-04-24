@@ -2734,10 +2734,6 @@ WizardExport char *XMLTreeInfoToXML(XMLTreeInfo *xml_info)
   char
     *xml;
 
-  ssize_t
-    j,
-    k;
-
   register char
     *p,
     *q;
@@ -2748,6 +2744,10 @@ WizardExport char *XMLTreeInfoToXML(XMLTreeInfo *xml_info)
   size_t
     extent,
     length;
+
+  ssize_t
+    j,
+    k;
 
   XMLTreeInfo
     *ordered,
