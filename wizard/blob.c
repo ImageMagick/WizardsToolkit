@@ -1093,8 +1093,8 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
           if ((compress != WizardFalse) && ((int) magick[0] == 0x1F) &&
               ((int) magick[1] == 0x8B) && ((int) magick[2] == 0x08))
             {
-              (void) fclose(blob_info->file_info.file);
-              blob_info->type=UndefinedStream;
+              if (blob_info->file_info.file != (FILE *) NULL)
+                (void) fclose(blob_info->file_info.file);
               blob_info->file_info.gzfile=gzopen(filename,type);
               if (blob_info->file_info.gzfile != (gzFile) NULL)
                 blob_info->type=ZipStream;
@@ -1104,8 +1104,8 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
           if ((compress != WizardFalse) &&
               (strncmp((char *) magick,"BZh",3) == 0))
             {
-              (void) fclose(blob_info->file_info.file);
-              blob_info->type=UndefinedStream;
+              if (blob_info->file_info.file != (FILE *) NULL)
+                (void) fclose(blob_info->file_info.file);
               blob_info->file_info.bzfile=BZ2_bzopen(filename,type);
               if (blob_info->file_info.bzfile != (BZFILE *) NULL)
                 blob_info->type=BZipStream;
