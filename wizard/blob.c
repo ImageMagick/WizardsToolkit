@@ -1095,6 +1095,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
             {
               if (blob_info->file_info.file != (FILE *) NULL)
                 (void) fclose(blob_info->file_info.file);
+              blob_info->file_info.file=(FILE *) NULL;
               blob_info->file_info.gzfile=gzopen(filename,type);
               if (blob_info->file_info.gzfile != (gzFile) NULL)
                 blob_info->type=ZipStream;
@@ -1106,6 +1107,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
             {
               if (blob_info->file_info.file != (FILE *) NULL)
                 (void) fclose(blob_info->file_info.file);
+              blob_info->file_info.file=(FILE *) NULL;
               blob_info->file_info.bzfile=BZ2_bzopen(filename,type);
               if (blob_info->file_info.bzfile != (BZFILE *) NULL)
                 blob_info->type=BZipStream;
