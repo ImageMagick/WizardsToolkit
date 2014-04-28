@@ -1638,12 +1638,12 @@ Options used to compile and link:
   EXEC-PREFIX = $EXEC_PREFIX_DIR
   VERSION     = $PACKAGE_VERSION
   CC          = $CC
-  CFLAGS      = $WIZARD_CFLAGS
-  CPPFLAGS    = $WIZARD_CPPFLAGS
-  PCFLAGS     = $WIZARD_PCFLAGS
+  CFLAGS      = $CFLAGS
+  CPPFLAGS    = $CPPFLAGS
+  PCFLAGS     = $PCFLAGS
   DEFS        = $DEFS
-  LDFLAGS     = $WIZARD_LDFLAGS
-  LIBS        = $WIZARD_LIBS
+  LDFLAGS     = $LDFLAGS
+  LIBS        = $LIBS
   CXX         = $CXX
   CXXFLAGS    = $CXXFLAGS
 ])
