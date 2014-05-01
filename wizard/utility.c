@@ -251,6 +251,8 @@ WizardExport unsigned char *Base64Decode(const char *source,size_t *length)
               return((unsigned char *) NULL);
             }
         }
+        default:
+          break;
       }
     }
   *length=i;
