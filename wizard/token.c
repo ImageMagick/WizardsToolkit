@@ -110,10 +110,10 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
   p=start;
   while ((isspace((int) ((unsigned char) *p)) != 0) && (*p != '\0'))
     p++;
-  if (*p == '\0')
-    break;
   switch (*p)
   {
+    case '\0':
+      break;
     case '"':
     case '\'':
     case '`':
