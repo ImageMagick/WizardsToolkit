@@ -139,7 +139,7 @@ struct _LogInfo
   Declare log map.
 */
 static const HandlerInfo
-  LogHandlers[] =
+  LogHandlers[32] =
   {
     { "console", ConsoleHandler },
     { "debug", DebugHandler },
@@ -148,6 +148,30 @@ static const HandlerInfo
     { "none", NoHandler },
     { "stderr", StderrHandler },
     { "stdout", StdoutHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
+    { (char *) NULL, UndefinedHandler },
     { (char *) NULL, UndefinedHandler }
   };
 
