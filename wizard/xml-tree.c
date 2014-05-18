@@ -1954,7 +1954,8 @@ static void ParseOpenTag(XMLTreeRoot *root,char *tag,char **attributes)
     xml_info->tag=ConstantString(tag);
   else
     xml_info=AddChildToXMLTree(xml_info,tag,strlen(xml_info->content));
-  xml_info->attributes=attributes;
+  if (xml_info != (XMLTreeInfo *) NULL)
+    xml_info->attributes=attributes;
   root->node=xml_info;
 }
 
