@@ -1588,7 +1588,7 @@ void ParseCharacterContent(XMLTreeRoot *root,char *xml,const size_t length,
     return;
   xml[length]='\0';
   xml=ParseEntities(xml,root->entities,state);
-  if (*xml_info->content != '\0')
+  if ((xml_info->content != (char *) NULL) && (*xml_info->content != '\0'))
     {
       (void) ConcatenateString(&xml_info->content,xml);
       xml=DestroyString(xml);
