@@ -1545,7 +1545,8 @@ static char *ParseEntities(char *xml,char **entities,int state)
                   xml=p+offset;
                   entity=strchr(xml,';');
                 }
-              (void) CopyWizardMemory(xml+length,entity+1,strlen(entity));
+              if (entity != (char *) NULL)
+                (void) CopyWizardMemory(xml+length,entity+1,strlen(entity));
               (void) strncpy(xml,entities[i],length);
             }
         }
