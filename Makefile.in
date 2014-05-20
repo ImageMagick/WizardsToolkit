@@ -896,7 +896,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 windows_font_dir = @windows_font_dir@
-topincludedir = @includedir@
+topincludedir = @includedir@/wizard
 AM_CPPFLAGS = -I$(top_builddir) -I$(top_srcdir)
 ACLOCAL_AMFLAGS = -I m4
 

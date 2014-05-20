@@ -14,7 +14,7 @@
 #
 #  Top-Level Makefile for building the Wizard's Toolkit.
 
-topincludedir = @includedir@
+topincludedir = @includedir@/wizard
 
 AM_CPPFLAGS = -I$(top_builddir) -I$(top_srcdir)
 
