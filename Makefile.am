@@ -145,9 +145,9 @@ all-local: $(BZIP_LOCAL_TARGETS) $(ZIP_LOCAL_TARGETS) $(MAINTAINER_TARGETS)
 
 install-exec-local:
 
-install-data-local: $(WIZARD_INSTALL_DATA_LOCAL_TARGETS) $(HTML_INSTALL_DATA_TARGETS)
+install-data-local: $(HTML_INSTALL_DATA_TARGETS)
 
-uninstall-local: $(WIZARD_UNINSTALL_LOCAL_TARGETS) $(HTML_UNINSTALL_DATA_TARGETS)
+uninstall-local: $(HTML_UNINSTALL_DATA_TARGETS)
 
 clean-local: 
 

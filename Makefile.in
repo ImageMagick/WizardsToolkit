@@ -1253,12 +1253,6 @@ WIZARD_EXTRA_DIST = \
 	$(WIZARD_MANS) \
 	wizard/WizardsToolkit.pc.in
 
-
-# Install wizard-config_api.h as wizard-config.h
-WIZARD_INSTALL_DATA_LOCAL_TARGETS = wizard-install-data-local
-
-# Uninstall wizard-config.h
-WIZARD_UNINSTALL_LOCAL_TARGETS = wizard-uninstall-local
 TESTS_CHECK_PGRMS = \
 	tests/validate
 
@@ -2646,19 +2640,14 @@ uninstall-man: uninstall-man1
 	uninstall-local uninstall-man uninstall-man1 \
 	uninstall-pkgconfigDATA uninstall-wizardincHEADERS
 
-wizard-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(wizardincdir)
-	$(INSTALL_HEADER) wizard/wizard-config.h $(DESTDIR)$(wizardincdir)/wizard-config.h
-wizard-uninstall-local:
-	rm -f $(DESTDIR)$(wizardincdir)/wizard-config.h
 
 all-local: $(BZIP_LOCAL_TARGETS) $(ZIP_LOCAL_TARGETS) $(MAINTAINER_TARGETS)
 
 install-exec-local:
 
-install-data-local: $(WIZARD_INSTALL_DATA_LOCAL_TARGETS) $(HTML_INSTALL_DATA_TARGETS)
+install-data-local: $(HTML_INSTALL_DATA_TARGETS)
 
-uninstall-local: $(WIZARD_UNINSTALL_LOCAL_TARGETS) $(HTML_UNINSTALL_DATA_TARGETS)
+uninstall-local: $(HTML_UNINSTALL_DATA_TARGETS)
 
 clean-local: 
 

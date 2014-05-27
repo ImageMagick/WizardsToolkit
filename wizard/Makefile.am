@@ -250,16 +250,3 @@ WIZARD_EXTRA_DIST = \
 	wizard/WizardsToolkit-config.in \
 	$(WIZARD_MANS) \
 	wizard/WizardsToolkit.pc.in
-
-# Install wizard-config_api.h as wizard-config.h
-WIZARD_INSTALL_DATA_LOCAL_TARGETS = wizard-install-data-local
-wizard-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(wizardincdir)
-	$(INSTALL_HEADER) wizard/wizard-config.h $(DESTDIR)$(wizardincdir)/wizard-config.h
-
-# Uninstall wizard-config.h
-WIZARD_UNINSTALL_LOCAL_TARGETS = wizard-uninstall-local
-wizard-uninstall-local:
-	rm -f $(DESTDIR)$(wizardincdir)/wizard-config.h
-
-
