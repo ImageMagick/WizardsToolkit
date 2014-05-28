@@ -226,13 +226,15 @@ WizardExport StringInfo *BlobToStringInfo(const void *blob,const size_t length)
     *string_info;
 
   string_info=AcquireStringInfo(0);
-  if (string_info->datum != (unsigned char *) NULL)
-    string_info->datum=(unsigned char *) RelinquishMagickMemory(
-      string_info->datum);
+  if (~length < MaxTextExtent)
+    ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   string_info->length=length;
-  if (~string_info->length >= (MaxTextExtent-1))
-    string_info->datum=(unsigned char *) AcquireQuantumMemory(
-      string_info->length+MaxTextExtent,sizeof(*string_info->datum));
+  if (string_info->datum == (unsigned char *) NULL)
+    string_info->datum=(unsigned char *) AcquireQuantumMemory(length+
+      MaxTextExtent,sizeof(*string_info->datum));
+  else
+    string_info->datum=(unsigned char *) ResizeQuantumMemory(string_info->datum,
+      length+MaxTextExtent,sizeof(*string_info->datum));
   if (string_info->datum == (unsigned char *) NULL)
     {
       string_info=DestroyStringInfo(string_info);
@@ -620,11 +622,11 @@ WizardExport StringInfo *ConfigureFileToStringInfo(const char *filename)
   string[length]='\0';
   file=close(file)-1;
   string_info=AcquireStringInfo(0);
-  if (string_info->datum != (unsigned char *) NULL)
-    string_info->datum=(unsigned char *) RelinquishMagickMemory(
-      string_info->datum);
   (void) CopyWizardString(string_info->path,filename,MaxTextExtent);
   string_info->length=length;
+  if (string_info->datum != (unsigned char *) NULL)
+    string_info->datum=(unsigned char *) RelinquishWizardMemory(
+      string_info->datum);
   string_info->datum=(unsigned char *) string;
   return(string_info);
 }
@@ -967,10 +969,10 @@ WizardExport StringInfo *FileToStringInfo(const char *filename,
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",filename);
   WizardAssert(StringDomain,exception != (ExceptionInfo *) NULL);
   string_info=AcquireStringInfo(0);
-  if (string_info->datum != (unsigned char *) NULL)
-    string_info->datum=(unsigned char *) RelinquishMagickMemory(
-      string_info->datum);
   (void) CopyWizardString(string_info->path,filename,MaxTextExtent);
+  if (string_info->datum != (unsigned char *) NULL)
+    string_info->datum=(unsigned char *) RelinquishWizardMemory(
+      string_info->datum);
   string_info->datum=FileToBlob(filename,extent,&string_info->length,exception);
   if (string_info->datum == (unsigned char *) NULL)
     {
