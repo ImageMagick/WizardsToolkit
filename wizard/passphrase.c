@@ -210,7 +210,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
 #endif
       (void) tcsetattr(input,_T_FLUSH,&attributes);
     }
-  if ((flags & StdinMode) == 0)
+  if (((flags & StdinMode) == 0) && (output != -1))
     count=write(output,prompt,strlen(prompt));
   SetStringInfoLength(phrase,MaxTextExtent);
   p=GetStringInfoDatum(phrase);

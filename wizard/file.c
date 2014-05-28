@@ -117,11 +117,11 @@ static size_t GetWizardThreadId(void)
 {
 #if defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
   return((size_t) pthread_self());
-#endif
-#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
+#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   return((size_t) GetCurrentThreadId());
-#endif
+#else
   return((size_t) getpid());
+#endif
 }
 
 static WizardBooleanType AcquireFileLock(FileInfo *file_info,

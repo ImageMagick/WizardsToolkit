@@ -180,7 +180,7 @@ WizardExport WizardBooleanType AcquireUniqueFilename(char *path,
 
 static void *DestroyTemporaryResources(void *temporary_resource)
 {
-  remove_utf8((char *) temporary_resource);
+  (void) remove_utf8((char *) temporary_resource);
   temporary_resource=DestroyString((char *) temporary_resource);
   return((void *) NULL);
 }

@@ -1115,6 +1115,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 #endif
           length=(size_t) blob_info->properties.st_size;
           if ((blob_info->type == FileStream) &&
+              (blob_info->file_info.file != (FILE *) NULL) &&
               (length > WizardMaxBufferExtent) &&
               (AcquireWizardResource(MapResource,length) != WizardFalse))
             {
@@ -1579,6 +1580,8 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
 
           (void) UnmapBlob(blob_info->data,blob_info->length);
           RelinquishWizardResource(MapResource,blob_info->length);
+          if (blob_info->file_info.file == (FILE *) NULL)
+            return(WizardFalse);
           offset=fseek(blob_info->file_info.file,0,SEEK_END);
           if (offset < 0)
             return(WizardFalse);
