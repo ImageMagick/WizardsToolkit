@@ -343,6 +343,9 @@
 /* Define to 1 if you have the `strstr' function. */
 #undef HAVE_STRSTR
 
+/* Define to 1 if you have the `strtod' function. */
+#undef HAVE_STRTOD
+
 /* Define to 1 if you have the `strtod_l' function. */
 #undef HAVE_STRTOD_L
 
