@@ -1578,6 +1578,8 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
           WizardOffsetType
             offset;
 
+          if (blob_info->file_info.file < 0)
+            break;
           (void) UnmapBlob(blob_info->data,blob_info->length);
           RelinquishWizardResource(MapResource,blob_info->length);
           if (blob_info->file_info.file == (FILE *) NULL)

@@ -167,13 +167,12 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
       input=open_utf8(_PATH_TTY,O_RDWR,0);
       output=input;
     }
-  if (((flags & StdinMode) != 0) || (input == -1) || (output == -1))
+  if ((input == -1) || (output == -1))
+    return(WizardFalse);
+  if (((flags & StdinMode) != 0) && ((flags & RequireTTYMode) != 0))
     {
-      if ((flags & RequireTTYMode) != 0)
-        {
-          errno=ENOTTY;
-          return(WizardFalse);
-        }
+      errno=ENOTTY;
+      return(WizardFalse);
     }
   /*
     Set our signal handler.
