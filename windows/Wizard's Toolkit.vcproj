@@ -154,6 +154,9 @@
 				RelativePath="..\wizard\bzip.c">
 			</File>
 			<File
+				RelativePath="..\wizard\chacha.c">
+			</File>
+			<File
 				RelativePath="..\wizard\cipher.c">
 			</File>
 			<File
@@ -306,6 +309,9 @@
 			</File>
 			<File
 				RelativePath="..\wizard\bzip.h">
+			</File>
+			<File
+				RelativePath="..\wizard\chacha.h">
 			</File>
 			<File
 				RelativePath="..\wizard\cipher.h">

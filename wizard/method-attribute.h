@@ -24,22 +24,22 @@ extern "C" {
 
 #if defined(__BORLANDC__) && defined(_DLL)
 #  pragma message("BCBWizard lib DLL export interface")
-#  define _MAGICKDLL_
-#  define _MAGICKLIB_
+#  define _WIZARDDLL_
+#  define _WIZARDLIB_
 #  define WIZARDSTOOLKIT_MODULES_SUPPORT
 #  undef WIZARDSTOOLKIT_BUILD_MODULES
 #endif
 
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(__CYGWIN__)
 # define WizardPrivate
-# if defined(_MT) && defined(_DLL) && !defined(_MAGICKDLL_) && !defined(_LIB)
-#  define _MAGICKDLL_
+# if defined(_MT) && defined(_DLL) && !defined(_WIZARDDLL_) && !defined(_LIB)
+#  define _WIZARDDLL_
 # endif
-# if defined(_MAGICKDLL_)
+# if defined(_WIZARDDLL_)
 #  if defined(_VISUALC_)
 #   pragma warning( disable: 4273 )  /* Disable the dll linkage warnings */
 #  endif
-#  if !defined(_MAGICKLIB_)
+#  if !defined(_WIZARDLIB_)
 #   if defined(__clang__) || defined(__GNUC__)
 #    define WizardExport __attribute__ ((dllimport))
 #   else
