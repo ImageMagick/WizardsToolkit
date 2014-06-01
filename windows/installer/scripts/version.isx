@@ -16,5 +16,5 @@
 
 #define public WizardPackageName "WizardsToolkit"
 #define public WizardPackageVersion "1.0.9"
-#define public WizardPackageVersionAddendum "-0"
-#define public WizardPackageReleaseDate "2012-10-01"
+#define public WizardPackageVersionAddendum "-1"
+#define public WizardPackageReleaseDate "2014-06-01"
