@@ -1,11 +1,11 @@
 /*
-  Copyright 1999-2014 ImageWizard Studio LLC, a non-profit organization
+  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.
   obtain a copy of the License at
   
-    http://www.imagewizard.org/script/license.php
+    http://www.wizards-toolkit.org/script/license.php
   
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 
-  WizardCore locale methods.
+  WizardsToolkit locale methods.
 */
 #ifndef _WIZARDSTOOLKIT_LOCALE_H
 #define _WIZARDSTOOLKIT_LOCALE_H
@@ -24,10 +24,43 @@
 extern "C" {
 #endif
 
+typedef struct _LocaleInfo
+{
+  char
+    *path,
+    *tag,
+    *message;
+                                                                                
+  WizardBooleanType
+    stealth;
+                                                                                
+  struct _LocaleInfo
+    *previous,
+    *next;  /* deprecated, use GetLocaleInfoList() */
+
+  size_t
+    signature;
+} LocaleInfo;
+
+extern WizardExport char
+  **GetLocaleList(const char *,size_t *,ExceptionInfo *);
+
+extern WizardExport const char
+  *GetLocaleMessage(const char *);
+
+extern WizardExport const LocaleInfo
+  *GetLocaleInfo_(const char *,ExceptionInfo *),
+  **GetLocaleInfoList(const char *,size_t *,ExceptionInfo *);
+
 extern WizardExport double
   InterpretLocaleValue(const char *restrict,char **restrict);
 
+extern WizardExport LinkedListInfo
+  *DestroyLocaleOptions(LinkedListInfo *),
+  *GetLocaleOptions(const char *,ExceptionInfo *);
+
 extern WizardExport WizardBooleanType
+  ListLocaleInfo(FILE *,ExceptionInfo *),
   LocaleComponentGenesis(void);
 
 extern WizardExport ssize_t
