@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <configuremap>
   <configure name="NAME" value="WizardsToolkit" />
-  <configure name="SVN_REVISION" value="15907:15941M" />
+  <configure name="SVN_REVISION" value="15907:16029M" />
   <configure name="VERSION" value="1.0.9" />
   <configure name="LIB_VERSION" value="0x109" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,9,2" />
-  <configure name="RELEASE_DATE" value="2014-06-07" />
+  <configure name="RELEASE_DATE" value="2014-06-23" />
   <configure name="CONFIGURE" value="./configure " />
   <configure name="PREFIX" value="/usr/local" />
   <configure name="EXEC-PREFIX" value="/usr/local" />
@@ -19,7 +19,7 @@
   <configure name="CODER_PATH" value="@CODER_PATH@"/>
   <configure name="FILTER_PATH" value="@FILTER_PATH@"/>
   <configure name="CC" value="gcc -std=gnu99" />
-  <configure name="CFLAGS" value="-fopenmp -g -O2 -Wall -pthread" />
+  <configure name="CFLAGS" value="-fopenmp -g -O2 -Wall -march=corei7-avx -pthread" />
   <configure name="CPPFLAGS" value="-I/usr/local/include/WizardsToolkit-1" />
   <configure name="LDFLAGS" value="-L/usr/local/lib " />
   <configure name="LIBS" value="-lWizardsToolkit -lbz2 -llzma -lz -lm -lgomp -lpthread" />
