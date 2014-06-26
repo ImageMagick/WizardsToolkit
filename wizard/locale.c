@@ -1175,11 +1175,11 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
   LocaleInfo
     *locale_info;
 
-  WizardBooleanType
-    status;
-
   register char
     *p;
+
+  WizardStatusType
+    status;
 
   /*
     Read the locale configure file.
@@ -1382,7 +1382,7 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
   }
   token=(char *) RelinquishWizardMemory(token);
   (void) SetFatalErrorHandler(fatal_handler);
-  return(status);
+  return(status != 0 ? WizardTrue : WizardFalse);
 }
 
 /*

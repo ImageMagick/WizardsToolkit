@@ -1057,7 +1057,7 @@ static WizardBooleanType LoadConfigureCache(LinkedListInfo *configure_cache,
   ConfigureInfo
     *configure_info = (ConfigureInfo *) NULL;
 
-  WizardBooleanType
+  WizardStatusType
     status;
 
   XMLTreeInfo
@@ -1140,5 +1140,5 @@ static WizardBooleanType LoadConfigureCache(LinkedListInfo *configure_cache,
     configure=GetNextXMLTreeTag(configure);
   }
   configure_map=DestroyXMLTree(configure_map);
-  return(status);
+  return(status != 0 ? WizardTrue : WizardFalse);
 }

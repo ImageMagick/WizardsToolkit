@@ -797,7 +797,7 @@ static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,
   MimeInfo
     *mime_info = (MimeInfo *) NULL;
 
-  WizardBooleanType
+  WizardStatusType
     status;
 
   XMLTreeInfo
@@ -967,7 +967,7 @@ static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,
     mime=GetNextXMLTreeTag(mime);
   }
   mime_map=DestroyXMLTree(mime_map);
-  return(status);
+  return(status != 0 ? WizardTrue : WizardFalse);
 }
 
 /*
