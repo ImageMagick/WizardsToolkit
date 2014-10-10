@@ -354,7 +354,7 @@ WizardExport ssize_t FormatLocaleFileList(FILE *file,
 #endif
   }
 #else
-#if defined(WIZARDSTOOLKIT_HAVE_USELOCALE)
+#if defined(WIZARDSTOOLKIT_HAVE_USELOCALE) && defined(MAGICKCORE_HAVE_STRTOD_L)
   {
     locale_t
       locale,
@@ -445,7 +445,7 @@ WizardExport ssize_t FormatLocaleStringList(char *restrict string,
 #endif
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_VSNPRINTF)
-#if defined(WIZARDSTOOLKIT_HAVE_USELOCALE)
+#if defined(WIZARDSTOOLKIT_HAVE_USELOCALE) && defined(MAGICKCORE_HAVE_STRTOD_L)
   {
     locale_t
       locale,
