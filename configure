@@ -3199,7 +3199,7 @@ WIZARD_PATCHLEVEL_VERSION=2
 
 WIZARD_VERSION=1.0.9-2
 
-WIZARD_SVN_REVISION=15907:16938M
+WIZARD_SVN_REVISION=15907:16941M
 
 
 # Substitute library versioning
@@ -3207,7 +3207,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=15907:16938M
+WIZARD_SVN_REVISION=15907:16941M
 
 
 
@@ -24461,7 +24461,7 @@ $as_echo "" >&6; }
   passed=0
   ac_fn_c_check_header_mongrel "$LINENO" "jemalloc/jemalloc.h" "ac_cv_header_jemalloc_jemalloc_h" "$ac_includes_default"
 if test "x$ac_cv_header_jemalloc_jemalloc_h" = xyes; then :
-  passed=`expr $passed + 1`,failed=`expr $failed + 1`
+  passed=`expr $passed + 1`failed=`expr $failed + 1`
 fi
 
 
@@ -24502,7 +24502,9 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_jemalloc_malloc_stats_print" >&5
 $as_echo "$ac_cv_lib_jemalloc_malloc_stats_print" >&6; }
 if test "x$ac_cv_lib_jemalloc_malloc_stats_print" = xyes; then :
-  passed=`expr $passed + 1`,failed=`expr $failed + 1`
+  passed=`expr $passed + 1`
+else
+  failed=`expr $failed + 1`
 fi
 
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking if jemalloc memory allocation library is complete" >&5
