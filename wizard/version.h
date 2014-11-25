@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2014 ImageMagick Studio LLC, a non-profit organization
+  Copyright 1999-2015 ImageMagick Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
 
   You may not use this file except in compliance with the License.
@@ -27,14 +27,14 @@ extern "C" {
 */
 #define WizardPackageName "WizardsToolkit"
 #define WizardCopyright  "Copyright (C) 2004-2012 ImageMagick Studio LLC"
-#define WizardSVNRevision  "15907:17032M"
+#define WizardSVNRevision  "15907:17048M"
 #define WizardLibVersion  0x109
 #define WizardLibVersionText  "1.0.9"
 #define WizardLibVersionNumber  1,0,1
 #define WizardLibAddendum  "-2"
 #define WizardLibInterface  1
 #define WizardLibMinInterface  1
-#define WizardReleaseDate  "2014-11-14"
+#define WizardReleaseDate  "2014-11-25"
 #define WizardChangeDate   "20130704"
 #define WizardAuthoritativeURL  "http://www.wizards-toolkit.org"
 #define WizardVersion WizardPackageName " " WizardLibVersionText \

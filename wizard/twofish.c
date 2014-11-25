@@ -16,7 +16,7 @@
 %                                   Cristy                                    %
 %                                 March 2003                                  %
 %                                                                             %
-%  Copyright 1999-2014 ImageMagick Studio, LLC, Wilmington, DE, U.S.A.  All   %
+%  Copyright 1999-2015 ImageMagick Studio, LLC, Wilmington, DE, U.S.A.  All   %
 %  rights reserved.                                                           %
 %                                                                             %
 %  ImageMagick Studio, LLC. has intellectual property rights relating to      %
