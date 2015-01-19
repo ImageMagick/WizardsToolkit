@@ -281,7 +281,12 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
   WizardAssert(ResourceDomain,filename != (char *) NULL);
   (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s",path);
   if (random_info == (RandomInfo *) NULL)
-    random_info=AcquireRandomInfo(SHA2256Hash);
+    {
+      LockSemaphoreInfo(resource_semaphore);
+      if (random_info == (RandomInfo *) NULL)
+        random_info=AcquireRandomInfo(SHA2256Hash);
+      UnlockSemaphoreInfo(resource_semaphore);
+    }
   file=(-1);
   for (i=0; i < (ssize_t) TMP_MAX; i++)
   {
