@@ -38,10 +38,8 @@ typedef enum
 typedef struct _BlobInfo
   BlobInfo;
 
-extern WizardExport unsigned char
-  *FileToBlob(const char *,const size_t,size_t *,ExceptionInfo *);
-
 extern WizardExport void
+  *FileToBlob(const char *,const size_t,size_t *,ExceptionInfo *),
   *MapBlob(int,const MapMode,const WizardOffsetType,const size_t);
 
 extern WizardExport WizardBooleanType

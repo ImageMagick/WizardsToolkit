@@ -2762,9 +2762,7 @@ WizardExport char *XMLTreeInfoToXML(XMLTreeInfo *xml_info)
   root=(XMLTreeRoot *) xml_info;
   while (root->root.parent != (XMLTreeInfo *) NULL)
     root=(XMLTreeRoot *) root->root.parent;
-  parent=(XMLTreeInfo *) NULL;
-  if (xml_info != (XMLTreeInfo *) NULL)
-    parent=xml_info->parent;
+  parent=xml_info->parent;
   if (parent == (XMLTreeInfo *) NULL)
     for (i=0; root->processing_instructions[i] != (char **) NULL; i++)
     {

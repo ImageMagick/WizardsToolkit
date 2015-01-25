@@ -506,7 +506,7 @@ WizardExport int EOFBlob(BlobInfo *blob_info)
 %    o exception: Return any errors or warnings in this structure.
 %
 */
-WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
+WizardExport void *FileToBlob(const char *filename,const size_t extent,
   size_t *length,ExceptionInfo *exception)
 {
   int
@@ -538,7 +538,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
     {
       (void) ThrowWizardException(exception,GetWizardModule(),BlobError,
         "unable to open file `%s': %s",filename,strerror(errno));
-      return((unsigned char *) NULL);
+      return(NULL);
     }
   offset=(WizardOffsetType) lseek(file,0,SEEK_END);
   count=0;
@@ -585,7 +585,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
         {
           (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
             "memory allocation failed: `%s'",filename);
-          return((unsigned char *) NULL);
+          return(NULL);
         }
       *length=Min(i+count,extent);
       blob[*length]='\0';
@@ -606,7 +606,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
         }
       (void) ThrowWizardException(exception,GetWizardModule(),BlobError,
         "memory allocation failed `%s'",strerror(errno));
-      return((unsigned char *) NULL);
+      return(NULL);
     }
   map=MapBlob(file,ReadMode,0,*length);
   if (map != (void *) NULL)
@@ -645,7 +645,7 @@ WizardExport unsigned char *FileToBlob(const char *filename,const size_t extent,
           blob=(unsigned char *) RelinquishWizardMemory(blob);
           (void) ThrowWizardException(exception,GetWizardModule(),BlobError,
             "unable to read file `%s'",filename);
-          return((unsigned char *) NULL);
+          return(NULL);
         }
     }
   if (close(file) == -1)
