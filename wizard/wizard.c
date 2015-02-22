@@ -164,7 +164,7 @@ static void WizardSignalHandler(int signal_number)
   if (signal_number == SIGBREAK)
     exit(signal_number);
 #endif
-#if defined(SIGINT) && !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
+#if defined(SIGINT)
   if (signal_number == SIGINT)
     exit(signal_number);
 #endif
