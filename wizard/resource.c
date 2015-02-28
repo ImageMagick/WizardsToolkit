@@ -305,11 +305,14 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
     key=DestroyStringInfo(key);
 #if defined(WIZARDSTOOLKIT_HAVE_MKSTEMP)
     file=mkstemp(filename);
-#if defined(__OS2__)
-    setmode(file,O_BINARY);
-#endif
     if (file != -1)
-      break;
+      {
+        (void) fchmod(file,0600);
+#if defined(__OS2__)
+        setmode(file,O_BINARY);
+#endif
+        break;
+      }
 #endif
     key=GetRandomKey(random_info,12);
     p=filename+strlen(filename)-12;
