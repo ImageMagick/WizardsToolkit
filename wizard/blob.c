@@ -59,7 +59,7 @@
 /*
   Define declarations.
 */
-#define WizardMaxBlobExtent  65541
+#define WizardMaxBlobExtent  (8*8192)
 # if !defined(MAP_ANONYMOUS) && defined(MAP_ANON)
 #  define MAP_ANONYMOUS MAP_ANON
 # endif
