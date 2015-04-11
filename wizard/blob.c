@@ -1254,24 +1254,6 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
     case UndefinedStream:
       break;
     case StandardStream:
-    {
-      register ssize_t
-        i;
-
-      for (i=0; i < (ssize_t) length; i+=count)
-      {
-        count=read(fileno(blob_info->file_info.file),q+i,(size_t)
-          WizardMin(length-i,(WizardSizeType) SSIZE_MAX));
-        if (count <= 0)
-          {
-            count=0;
-            if (errno != EINTR)
-              break;
-          }
-      }
-      count=i;
-      break;
-    }
     case FileStream:
     case PipeStream:
     {
@@ -1281,6 +1263,22 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
         {
           count=(ssize_t) fread(q,1,length,blob_info->file_info.file);
           break;
+        }
+        case 4:
+        {
+          c=getc(blob_info->file_info.file);
+          if (c == EOF)
+            break;
+          *q++=(unsigned char) c;
+          count++;
+        }
+        case 3:
+        {
+          c=getc(blob_info->file_info.file);
+          if (c == EOF)
+            break;
+          *q++=(unsigned char) c;
+          count++;
         }
         case 2:
         {
@@ -1313,6 +1311,22 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
           count=(ssize_t) gzread(blob_info->file_info.gzfile,q,(unsigned int)
             length);
           break;
+        }
+        case 4:
+        {
+          c=gzgetc(blob_info->file_info.gzfile);
+          if (c == EOF)
+            break;
+          *q++=(unsigned char) c;
+          count++;
+        }
+        case 3:
+        {
+          c=gzgetc(blob_info->file_info.gzfile);
+          if (c == EOF)
+            break;
+          *q++=(unsigned char) c;
+          count++;
         }
         case 2:
         {
@@ -1833,6 +1847,7 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
   {
     case UndefinedStream:
       break;
+    case StandardStream:
     case FileStream:
     case PipeStream:
     {
