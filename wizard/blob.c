@@ -1833,11 +1833,6 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
   {
     case UndefinedStream:
       break;
-    case StandardStream:
-    {
-      count=write(fileno(blob_info->file_info.file),data,length);
-      break;
-    }
     case FileStream:
     case PipeStream:
     {
@@ -1848,6 +1843,20 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
           count=(ssize_t) fwrite((const char *) data,1,length,
             blob_info->file_info.file);
           break;
+        }
+        case 4:
+        {
+          c=putc((int) *p++,blob_info->file_info.file);
+          if (c == EOF)
+            break;
+          count++;
+        }
+        case 3:
+        {
+          c=putc((int) *p++,blob_info->file_info.file);
+          if (c == EOF)
+            break;
+          count++;
         }
         case 2:
         {
@@ -1878,6 +1887,20 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
           count=(ssize_t) gzwrite(blob_info->file_info.gzfile,(void *) data,
             (unsigned int) length);
           break;
+        }
+        case 4:
+        {
+          c=gzputc(blob_info->file_info.gzfile,(int) *p++);
+          if (c == EOF)
+            break;
+          count++;
+        }
+        case 3:
+        {
+          c=gzputc(blob_info->file_info.gzfile,(int) *p++);
+          if (c == EOF)
+            break;
+          count++;
         }
         case 2:
         {
