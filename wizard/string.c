@@ -999,7 +999,8 @@ WizardExport StringInfo *FileToStringInfo(const char *filename,
 %
 %  The format of the FormatWizardSize method is:
 %
-%      ssize_t FormatWizardSize(const WizardSizeType size,char *format)
+%      ssize_t FormatWizardSize(const WizardSizeType size,
+%        const WizardBooleanType bi,const size_t length,char *format)
 %
 %  A description of each parameter follows:
 %
@@ -1007,18 +1008,20 @@ WizardExport StringInfo *FileToStringInfo(const char *filename,
 %
 %    o bi:  use power of two rather than power of ten.
 %
+%    o length: The maximum length of the string.
+%
 %    o format:  human readable format.
 %
 */
 WizardExport ssize_t FormatWizardSize(const WizardSizeType size,
-  const WizardBooleanType bi,char *format)
+  const WizardBooleanType bi,const size_t length,char *format)
 {
   const char
     **units;
 
   double
     bytes,
-    length;
+    extent;
 
   ssize_t
     count;
@@ -1045,16 +1048,16 @@ WizardExport ssize_t FormatWizardSize(const WizardSizeType size,
       units=bi_units;
     }
 #if defined(_MSC_VER) && (_MSC_VER == 1200)
-  length=(double) ((WizardOffsetType) size);
+  extent=(double) ((WizardOffsetType) size);
 #else
-  length=(double) size;
+  extent=(double) size;
 #endif
-  for (i=0; (length >= bytes) && (units[i+1] != (const char *) NULL); i++)
-    length/=bytes;
+  for (i=0; (extent >= bytes) && (units[i+1] != (const char *) NULL); i++)
+    extent/=bytes;
   count=0;
   for (j=2; j < 12; j++)
   {
-    count=FormatLocaleString(format,MaxTextExtent,"%.*g%sB",(int) (i+j),length,
+    count=FormatLocaleString(format,length,"%.*g%sB",(int) (i+j),extent,
       units[i]);
     if (strchr(format,'+') == (char *) NULL)
       break;
@@ -1083,12 +1086,12 @@ WizardExport ssize_t FormatWizardSize(const WizardSizeType size,
 %
 %  A description of each parameter follows.
 %
-%   o time:  the time since the Epoch (00:00:00 UTC, January 1, 1970),
-%     measured in seconds.
+%    o time:  the time since the Epoch (00:00:00 UTC, January 1, 1970),
+%      measured in seconds.
 %
-%   o length: The maximum length of the string.
+%    o length: The maximum length of the string.
 %
-%   o timestamp:  Return the Internet date/time here.
+%    o timestamp:  Return the Internet date/time here.
 %
 */
 WizardExport ssize_t FormatWizardTime(const time_t time,const size_t length,

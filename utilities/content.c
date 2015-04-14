@@ -657,7 +657,8 @@ WizardExport WizardBooleanType PrintCipherProperties(
   (void) fprintf(file,"  Random Generator:\n");
   (void) fprintf(file,"    hash: %s\n",WizardOptionToMnemonic(WizardHashOptions,
     content_info->random_hash));
-  (void) FormatWizardSize(content_info->chunksize,WizardFalse,chunksize);
+  (void) FormatWizardSize(content_info->chunksize,WizardFalse,MaxTextExtent,
+    chunksize);
   (void) fprintf(file,"  Chunksize: %sB\n",chunksize);
   (void) fprintf(file,"  Dates:\n");
   (void) fprintf(file,"    modify: %s\n",timestamp);

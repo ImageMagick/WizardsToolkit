@@ -58,7 +58,8 @@ extern WizardExport size_t
     wizard_attribute((__nonnull__));
 
 extern WizardExport ssize_t
-  FormatWizardSize(const WizardSizeType,const WizardBooleanType,char *),
+  FormatWizardSize(const WizardSizeType,const WizardBooleanType,
+    const size_t,char *),
   FormatLocaleString(char *,const size_t,const char *,...)
     wizard_attribute((__format__ (__printf__,3,4))),
   FormatLocaleStringList(char *,const size_t,const char *,va_list),
