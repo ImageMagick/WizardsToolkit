@@ -102,12 +102,6 @@ extern "C" {
 #endif
 
 #define WizardSignature  0xabacadabUL
-#if !defined(WizardFormatExtent)
-# define WizardFormatExtent  64
-#endif
-#if !defined(WizardLocaleExtent)
-# define WizardLocaleExtent  256
-#endif
 #if !defined(WizardPathExtent)
 # define WizardPathExtent  4096  /* always >= 4096 */
 #endif

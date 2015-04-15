@@ -22,6 +22,10 @@
 extern "C" {
 #endif
 
+#if !defined(WizardFormatExtent)
+# define WizardFormatExtent  64
+#endif
+
 /*
   Typedef declarations.
 */

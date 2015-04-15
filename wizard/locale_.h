@@ -24,6 +24,10 @@
 extern "C" {
 #endif
 
+#if !defined(WizardLocaleExtent)
+# define WizardLocaleExtent  256
+#endif
+
 typedef struct _LocaleInfo
 {
   char
