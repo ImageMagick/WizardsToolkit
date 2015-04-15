@@ -541,7 +541,7 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
     *canonical_path,
     *hex,
     *keyring_rdf,
-    message[MaxTextExtent];
+    message[WizardPathExtent];
 
   const struct stat
     *properties;
@@ -583,15 +583,15 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
   (void) ConcatenateString(&keyring_rdf,"\">\n");
   properties=GetFileProperties(file_info);
   (void) ConcatenateString(&keyring_rdf,"    <keyring:modify-date>");
-  (void) FormatWizardTime(properties->st_mtime,MaxTextExtent,message);
+  (void) FormatWizardTime(properties->st_mtime,WizardPathExtent,message);
   (void) ConcatenateString(&keyring_rdf,message);
   (void) ConcatenateString(&keyring_rdf,"</keyring:modify-date>\n");
   (void) ConcatenateString(&keyring_rdf,"    <keyring:create-date>");
-  (void) FormatWizardTime(properties->st_mtime,MaxTextExtent,message);
+  (void) FormatWizardTime(properties->st_mtime,WizardPathExtent,message);
   (void) ConcatenateString(&keyring_rdf,message);
   (void) ConcatenateString(&keyring_rdf,"</keyring:create-date>\n");
   (void) ConcatenateString(&keyring_rdf,"    <keyring:timestamp>");
-  (void) FormatWizardTime(time((time_t *) NULL),MaxTextExtent,message);
+  (void) FormatWizardTime(time((time_t *) NULL),WizardPathExtent,message);
   (void) ConcatenateString(&keyring_rdf,message);
   (void) ConcatenateString(&keyring_rdf,"</keyring:timestamp>\n");
   (void) ConcatenateString(&keyring_rdf,"  </keyring:Keyring>\n");
@@ -695,11 +695,11 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
     hex=DestroyString(hex);
     (void) ConcatenateString(&keyring_rdf,"</keyring:nonce>\n");
     (void) ConcatenateString(&keyring_rdf,"    <keyring:timestamp>");
-    (void) FormatWizardTime(keyring_info.timestamp,MaxTextExtent,message);
+    (void) FormatWizardTime(keyring_info.timestamp,WizardPathExtent,message);
     (void) ConcatenateString(&keyring_rdf,message);
     (void) ConcatenateString(&keyring_rdf,"</keyring:timestamp>\n");
     (void) ConcatenateString(&keyring_rdf,"    <keyring:protocol>");
-    (void) FormatLocaleString(message,MaxTextExtent,"%u.%u",
+    (void) FormatLocaleString(message,WizardPathExtent,"%u.%u",
       keyring_info.protocol_major,(unsigned int) keyring_info.protocol_minor);
     (void) ConcatenateString(&keyring_rdf,message);
     (void) ConcatenateString(&keyring_rdf,"</keyring:protocol>\n");

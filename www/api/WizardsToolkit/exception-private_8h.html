@@ -184,11 +184,11 @@ Defines</h2></td></tr>
 <div class="memdoc">
 <b>Value:</b><div class="fragment"><pre class="fragment">{ \
   <span class="keywordtype">char</span> \
-    context[MaxTextExtent], \
-    tag[MaxTextExtent]; \
+    context[WizardPathExtent], \
+    tag[WizardPathExtent]; \
  \
-  (void) <a class="code" href="string_8c.html#a5f87e225f4c7fb733bd1fec58e91774f">FormatWizardString</a>(tag,<a class="code" href="studio_8h.html#a6bb6730cc0ff2be19b3a403e54b1aaf0">MaxTextExtent</a>,<span class="stringliteral">&quot;%ld\n&quot;</span>,(<span class="keywordtype">long</span>) domain); \
-  (void) <a class="code" href="string_8c.html#a5f87e225f4c7fb733bd1fec58e91774f">FormatWizardString</a>(context,<a class="code" href="studio_8h.html#a6bb6730cc0ff2be19b3a403e54b1aaf0">MaxTextExtent</a>,<span class="stringliteral">&quot;%ld\n&quot;</span>,(<span class="keywordtype">long</span>) error); \
+  (void) <a class="code" href="string_8c.html#a5f87e225f4c7fb733bd1fec58e91774f">FormatWizardString</a>(tag,<a class="code" href="studio_8h.html#a6bb6730cc0ff2be19b3a403e54b1aaf0">WizardPathExtent</a>,<span class="stringliteral">&quot;%ld\n&quot;</span>,(<span class="keywordtype">long</span>) domain); \
+  (void) <a class="code" href="string_8c.html#a5f87e225f4c7fb733bd1fec58e91774f">FormatWizardString</a>(context,<a class="code" href="studio_8h.html#a6bb6730cc0ff2be19b3a403e54b1aaf0">WizardPathExtent</a>,<span class="stringliteral">&quot;%ld\n&quot;</span>,(<span class="keywordtype">long</span>) error); \
   <a class="code" href="exception-private_8h.html#ade9df5424f85f3f19a6c013a2fa1f316">CatchWizardException</a>(<a class="code" href="exception_8h.html#a0e0f0f1661d7aeb71ed9698bff6c6383a2cc57f01efbbed1f4e3ed1261062b782">UndefinedException</a>,tag,context); \
   _exit((domain &lt;&lt; 3) | error); \
 }

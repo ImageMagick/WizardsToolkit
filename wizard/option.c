@@ -423,7 +423,7 @@ WizardExport ssize_t ParseWizardOption(const WizardOption option,
   const WizardBooleanType list,const char *options)
 {
   char
-    token[MaxTextExtent];
+    token[WizardPathExtent];
 
   const OptionInfo
     *option_info;
@@ -461,7 +461,7 @@ WizardExport ssize_t ParseWizardOption(const WizardOption option,
     while (((isspace((int) ((unsigned char) *p)) == 0) && (*p != ',')) &&
            (*p != '\0'))
     {
-      if ((q-token) >= (MaxTextExtent-1))
+      if ((q-token) >= (WizardPathExtent-1))
         break;
       *q++=(*p++);
     }
@@ -482,9 +482,9 @@ WizardExport ssize_t ParseWizardOption(const WizardOption option,
          (strchr(token+1,'_') != (char *) NULL)))
       {
         while ((q=strchr(token+1,'-')) != (char *) NULL)
-          (void) CopyWizardString(q,q+1,MaxTextExtent-strlen(q));
+          (void) CopyWizardString(q,q+1,WizardPathExtent-strlen(q));
         while ((q=strchr(token+1,'_')) != (char *) NULL)
-          (void) CopyWizardString(q,q+1,MaxTextExtent-strlen(q));
+          (void) CopyWizardString(q,q+1,WizardPathExtent-strlen(q));
         for (i=0; option_info[i].mnemonic != (char *) NULL; i++)
           if (LocaleCompare(token,option_info[i].mnemonic) == 0)
             {

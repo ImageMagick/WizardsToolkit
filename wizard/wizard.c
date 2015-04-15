@@ -204,8 +204,8 @@ WizardExport void WizardsToolkitGenesis(const char *path)
 {
   char
     *events,
-    execution_path[MaxTextExtent],
-    filename[MaxTextExtent];
+    execution_path[WizardPathExtent],
+    filename[WizardPathExtent];
 
   /*
     Initialize the Wizard environment.
@@ -249,9 +249,9 @@ WizardExport void WizardsToolkitGenesis(const char *path)
   /*
     Set client name and execution path.
   */
-  (void) GetExecutionPath(execution_path,MaxTextExtent);
+  (void) GetExecutionPath(execution_path,WizardPathExtent);
   if ((path != (const char *) NULL) && (*path != '\0'))
-    (void) CopyWizardString(execution_path,path,MaxTextExtent);
+    (void) CopyWizardString(execution_path,path,WizardPathExtent);
   GetPathComponent(execution_path,TailPath,filename);
   (void) SetClientName(filename);
   GetPathComponent(execution_path,HeadPath,execution_path);

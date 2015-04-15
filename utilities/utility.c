@@ -84,13 +84,13 @@ static int
 static void ExpandFilename(char *path)
 {
   char
-    expand_path[MaxTextExtent];
+    expand_path[WizardPathExtent];
 
   if (path == (char *) NULL)
     return;
   if (*path != '~')
     return;
-  (void) CopyWizardString(expand_path,path,MaxTextExtent);
+  (void) CopyWizardString(expand_path,path,WizardPathExtent);
   if ((*(path+1) == *DirectorySeparator) || (*(path+1) == '\0'))
     {
       char
@@ -99,15 +99,15 @@ static void ExpandFilename(char *path)
       /*
         Substitute ~ with $HOME.
       */
-      (void) CopyWizardString(expand_path,".",MaxTextExtent);
-      (void) ConcatenateWizardString(expand_path,path+1,MaxTextExtent);
+      (void) CopyWizardString(expand_path,".",WizardPathExtent);
+      (void) ConcatenateWizardString(expand_path,path+1,WizardPathExtent);
       home=GetEnvironmentValue("HOME");
       if (home == (char *) NULL)
         home=GetEnvironmentValue("USERPROFILE");
       if (home != (char *) NULL)
         {
-          (void) CopyWizardString(expand_path,home,MaxTextExtent);
-          (void) ConcatenateWizardString(expand_path,path+1,MaxTextExtent);
+          (void) CopyWizardString(expand_path,home,WizardPathExtent);
+          (void) ConcatenateWizardString(expand_path,path+1,WizardPathExtent);
           home=DestroyString(home);
         }
     }
@@ -115,7 +115,7 @@ static void ExpandFilename(char *path)
     {
 #if defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
       char
-        username[MaxTextExtent];
+        username[WizardPathExtent];
 
       register char
         *p;
@@ -126,22 +126,22 @@ static void ExpandFilename(char *path)
       /*
         Substitute ~ with home directory from password file.
       */
-      (void) CopyWizardString(username,path+1,MaxTextExtent);
+      (void) CopyWizardString(username,path+1,WizardPathExtent);
       p=strchr(username,'/');
       if (p != (char *) NULL)
         *p='\0';
       entry=getpwnam(username);
       if (entry == (struct passwd *) NULL)
         return;
-      (void) CopyWizardString(expand_path,entry->pw_dir,MaxTextExtent);
+      (void) CopyWizardString(expand_path,entry->pw_dir,WizardPathExtent);
       if (p != (char *) NULL)
         {
-          (void) ConcatenateWizardString(expand_path,"/",MaxTextExtent);
-          (void) ConcatenateWizardString(expand_path,p+1,MaxTextExtent);
+          (void) ConcatenateWizardString(expand_path,"/",WizardPathExtent);
+          (void) ConcatenateWizardString(expand_path,p+1,WizardPathExtent);
         }
 #endif
     }
-  (void) CopyWizardString(path,expand_path,MaxTextExtent);
+  (void) CopyWizardString(path,expand_path,WizardPathExtent);
 }
 
 /*
@@ -176,10 +176,10 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
 {
   char
     **filelist,
-    filename[MaxTextExtent],
-    home_directory[MaxTextExtent],
+    filename[WizardPathExtent],
+    home_directory[WizardPathExtent],
     *option,
-    path[MaxTextExtent],
+    path[WizardPathExtent],
     **vector;
 
   ssize_t
@@ -205,7 +205,7 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
   /*
     Expand any wildcard filenames.
   */
-  if (getcwd(home_directory,MaxTextExtent) == (char *) NULL)
+  if (getcwd(home_directory,WizardPathExtent) == (char *) NULL)
     return(WizardFalse);
   count=0;
   for (i=0; i < (ssize_t) *argc; i++)
@@ -259,20 +259,20 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
     count--;
     for (j=0; j < (ssize_t) number_files; j++)
     {
-      (void) CopyWizardString(filename,path,MaxTextExtent);
+      (void) CopyWizardString(filename,path,WizardPathExtent);
       if (*path != '\0')
         (void) ConcatenateWizardString(filename,DirectorySeparator,
-          MaxTextExtent);
+          WizardPathExtent);
       if (filelist[j] != (char *) NULL)
-        (void) ConcatenateWizardString(filename,filelist[j],MaxTextExtent);
+        (void) ConcatenateWizardString(filename,filelist[j],WizardPathExtent);
       filelist[j]=DestroyString(filelist[j]);
       if (IsPathAcessible(filename) != WizardFalse)
         {
           char
-            path[MaxTextExtent];
+            path[WizardPathExtent];
 
           *path='\0';
-          (void) ConcatenateWizardString(path,filename,MaxTextExtent);
+          (void) ConcatenateWizardString(path,filename,WizardPathExtent);
           vector[count++]=ConstantString(path);
         }
     }
@@ -456,7 +456,7 @@ static char **ListFiles(const char *directory,const char *pattern,
     Save the current and change to the new directory.
   */
   buffer=(struct dirent *) AcquireWizardMemory(sizeof(*buffer)+FILENAME_MAX+
-    MaxTextExtent);
+    WizardPathExtent);
   if (buffer == (struct dirent *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   while ((WizardReadDirectory(current_directory,buffer,&entry) == 0) &&
@@ -498,7 +498,7 @@ static char **ListFiles(const char *directory,const char *pattern,
         filelist[*number_entries]=(char *) AcquireString(entry->d_name);
         if (IsDirectory(entry->d_name) > 0)
           (void) ConcatenateWizardString(filelist[*number_entries],
-            DirectorySeparator,MaxTextExtent);
+            DirectorySeparator,WizardPathExtent);
         (*number_entries)++;
       }
   }

@@ -129,7 +129,7 @@ typedef struct _WizardMemoryMethods
 struct _MemoryInfo
 {
   char
-    filename[MaxTextExtent];
+    filename[WizardPathExtent];
 
   VirtualMemoryType
     type;

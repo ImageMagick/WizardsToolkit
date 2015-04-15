@@ -139,15 +139,15 @@ BOOL WINAPI DllMain(HINSTANCE handle,DWORD reason,LPVOID lpvReserved)
       ssize_t
         count;
 
-      module_path=(char *) AcquireQuantumMemory(MaxTextExtent,
+      module_path=(char *) AcquireQuantumMemory(WizardPathExtent,
         sizeof(*module_path));
-      new_path=(char *) AcquireQuantumMemory(16UL*MaxTextExtent,
+      new_path=(char *) AcquireQuantumMemory(16UL*WizardPathExtent,
         sizeof(*new_path));
-      path=(char *) AcquireQuantumMemory(16UL*MaxTextExtent,sizeof(*path));
+      path=(char *) AcquireQuantumMemory(16UL*WizardPathExtent,sizeof(*path));
       if ((module_path == (char *) NULL) || (new_path == (char *) NULL) ||
           (path == (char *) NULL))
         return(FALSE);
-      count=(ssize_t) GetModuleFileName(handle,module_path,MaxTextExtent);
+      count=(ssize_t) GetModuleFileName(handle,module_path,WizardPathExtent);
       if (count != 0)
         {
           for ( ; count > 0; count--)
@@ -157,12 +157,12 @@ BOOL WINAPI DllMain(HINSTANCE handle,DWORD reason,LPVOID lpvReserved)
                 break;
               }
           WizardsToolkitGenesis(module_path);
-          count=GetEnvironmentVariable("PATH",path,16*MaxTextExtent);
+          count=GetEnvironmentVariable("PATH",path,16*WizardPathExtent);
           if ((count != 0) && (strstr(path,module_path) == (char *) NULL))
             {
-              if ((strlen(module_path)+count+1) < (16*MaxTextExtent-1))
+              if ((strlen(module_path)+count+1) < (16*WizardPathExtent-1))
                 {
-                  (void) FormatLocaleString(new_path,16*MaxTextExtent,
+                  (void) FormatLocaleString(new_path,16*WizardPathExtent,
                     "%s;%s",module_path,path);
                   SetEnvironmentVariable("PATH",new_path);
                 }
@@ -535,7 +535,7 @@ WizardExport void NTErrorHandler(const ExceptionType error,const char *reason,
   const char *description)
 {
   char
-    buffer[3*MaxTextExtent],
+    buffer[3*WizardPathExtent],
     *message;
 
   if (reason == (char *) NULL)
@@ -545,18 +545,18 @@ WizardExport void NTErrorHandler(const ExceptionType error,const char *reason,
     }
   message=GetExceptionMessage(errno);
   if ((description != (char *) NULL) && errno)
-    (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s (%s) [%s].\n",
+    (void) FormatLocaleString(buffer,WizardPathExtent,"%s: %s (%s) [%s].\n",
       GetClientName(),reason,description,message);
   else
     if (description != (char *) NULL)
-      (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s (%s).\n",
+      (void) FormatLocaleString(buffer,WizardPathExtent,"%s: %s (%s).\n",
         GetClientName(),reason,description);
     else
       if (errno)
-        (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s [%s].\n",
+        (void) FormatLocaleString(buffer,WizardPathExtent,"%s: %s [%s].\n",
           GetClientName(),reason,message);
       else
-        (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s.\n",
+        (void) FormatLocaleString(buffer,WizardPathExtent,"%s: %s.\n",
           GetClientName(),reason);
   message=(char *) RelinquishWizardMemory(message);
   (void) MessageBox(NULL,buffer,"Wizard's Toolkit Exception",MB_OK |
@@ -731,7 +731,7 @@ char *NTGetLastError(void)
 WizardExport const char *NTGetLibraryError(void)
 {
   static char
-    last_error[MaxTextExtent];
+    last_error[WizardPathExtent];
 
   char
     *error;
@@ -739,7 +739,7 @@ WizardExport const char *NTGetLibraryError(void)
   *last_error='\0';
   error=NTGetLastError();
   if (error)
-    (void) CopyWizardString(last_error,error,MaxTextExtent);
+    (void) CopyWizardString(last_error,error,WizardPathExtent);
   error=(char *) RelinquishWizardMemory(error);
   return(last_error);
 }
@@ -807,7 +807,7 @@ void *NTGetLibrarySymbol(void *handle,const char *name)
 WizardExport WizardBooleanType NTGetModulePath(const char *module,char *path)
 {
   char
-    module_path[MaxTextExtent];
+    module_path[WizardPathExtent];
 
   HMODULE
     handle;
@@ -819,7 +819,7 @@ WizardExport WizardBooleanType NTGetModulePath(const char *module,char *path)
   handle=GetModuleHandle(module);
   if (handle == (HMODULE) NULL)
     return(WizardFalse);
-  length=GetModuleFileName(handle,module_path,MaxTextExtent);
+  length=GetModuleFileName(handle,module_path,WizardPathExtent);
   if (length != 0)
     GetPathComponent(module_path,HeadPath,path);
   return(WizardTrue);
@@ -1008,7 +1008,7 @@ WizardExport void *NTMapMemory(char *address,size_t length,int protection,
 WizardExport DIR *NTOpenDirectory(const char *path)
 {
   char
-    file_specification[MaxTextExtent];
+    file_specification[WizardPathExtent];
 
   DIR
     *entry;
@@ -1017,12 +1017,12 @@ WizardExport DIR *NTOpenDirectory(const char *path)
     length;
 
   assert(path != (const char *) NULL);
-  length=CopyWizardString(file_specification,path,MaxTextExtent);
-  if (length >= (MaxTextExtent-1))
+  length=CopyWizardString(file_specification,path,WizardPathExtent);
+  if (length >= (WizardPathExtent-1))
     return((DIR *) NULL);
   length=ConcatenateWizardString(file_specification,DirectorySeparator,
-    MaxTextExtent);
-  if (length >= (MaxTextExtent-1))
+    WizardPathExtent);
+  if (length >= (WizardPathExtent-1))
     return((DIR *) NULL);
   entry=(DIR *) AcquireWizardMemory(sizeof(DIR));
   if (entry != (DIR *) NULL)
@@ -1032,8 +1032,8 @@ WizardExport DIR *NTOpenDirectory(const char *path)
     }
   if (entry->hSearch == INVALID_HANDLE_VALUE)
     {
-      length=ConcatenateWizardString(file_specification,"\\*.*",MaxTextExtent);
-      if (length >= (MaxTextExtent-1))
+      length=ConcatenateWizardString(file_specification,"\\*.*",WizardPathExtent);
+      if (length >= (WizardPathExtent-1))
         {
           entry=(DIR *) RelinquishWizardMemory(entry);
           return((DIR *) NULL);
@@ -1087,7 +1087,7 @@ WizardExport void *NTOpenLibrary(const char *filename)
 #define MaxPathElements  31
 
   char
-    buffer[MaxTextExtent];
+    buffer[WizardPathExtent];
 
   int
     index;
@@ -1119,17 +1119,17 @@ WizardExport void *NTOpenLibrary(const char *filename)
     q=strchr(p,DirectoryListSeparator);
     if (q == (char *) NULL)
       {
-        (void) CopyWizardString(buffer,p,MaxTextExtent);
-        (void) ConcatenateWizardString(buffer,"\\",MaxTextExtent);
-        (void) ConcatenateWizardString(buffer,filename,MaxTextExtent);
+        (void) CopyWizardString(buffer,p,WizardPathExtent);
+        (void) ConcatenateWizardString(buffer,"\\",WizardPathExtent);
+        (void) ConcatenateWizardString(buffer,filename,WizardPathExtent);
         handle=(void *) LoadLibraryEx(buffer,NULL,
           LOAD_WITH_ALTERED_SEARCH_PATH);
         break;
       }
     i=q-p;
     (void) CopyWizardString(buffer,p,i+1);
-    (void) ConcatenateWizardString(buffer,"\\",MaxTextExtent);
-    (void) ConcatenateWizardString(buffer,filename,MaxTextExtent);
+    (void) ConcatenateWizardString(buffer,"\\",WizardPathExtent);
+    (void) ConcatenateWizardString(buffer,filename,WizardPathExtent);
     handle=(void *) LoadLibraryEx(buffer,NULL,LOAD_WITH_ALTERED_SEARCH_PATH);
     if (handle != (void *) NULL)
       break;
@@ -1222,7 +1222,7 @@ WizardExport struct dirent *NTReadDirectory(DIR *entry)
 WizardExport unsigned char *NTRegistryKeyLookup(const char *subkey)
 {
   char
-    package_key[MaxTextExtent];
+    package_key[WizardPathExtent];
 
   DWORD
     size,
@@ -1240,7 +1240,7 @@ WizardExport unsigned char *NTRegistryKeyLookup(const char *subkey)
   /*
     Look-up base key.
   */
-  (void) FormatLocaleString(package_key,MaxTextExtent,"SOFTWARE\\%s\\%s",
+  (void) FormatLocaleString(package_key,WizardPathExtent,"SOFTWARE\\%s\\%s",
     WizardPackageName,WizardLibVersionText);
   (void) LogWizardEvent(ConfigureEvent,GetWizardModule(),"%s",package_key);
   registry_key=(HKEY) INVALID_HANDLE_VALUE;
@@ -1353,7 +1353,7 @@ WizardExport WizardBooleanType NTReportEvent(const char *event,
 WizardExport unsigned char *NTResourceToBlob(const char *id)
 {
   char
-    path[MaxTextExtent];
+    path[WizardPathExtent];
 
   DWORD
     length;
@@ -1373,7 +1373,7 @@ WizardExport unsigned char *NTResourceToBlob(const char *id)
 
   assert(id != (const char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",id);
-  (void) FormatLocaleString(path,MaxTextExtent,"%s%s%s",GetClientPath(),
+  (void) FormatLocaleString(path,WizardPathExtent,"%s%s%s",GetClientPath(),
     DirectorySeparator,GetClientName());
   if (IsPathAcessible(path) != WizardFalse)
     handle=GetModuleHandle(path);
@@ -1394,7 +1394,7 @@ WizardExport unsigned char *NTResourceToBlob(const char *id)
       FreeResource(global);
       return((char *) NULL);
     }
-  blob=(unsigned char *) AcquireQuantumMemory(length+MaxTextExtent,
+  blob=(unsigned char *) AcquireQuantumMemory(length+WizardPathExtent,
     sizeof(*blob));
   if (blob != (unsigned char *) NULL)
     {
@@ -1534,7 +1534,7 @@ WizardExport int NTSyncMemory(void *address,size_t length,int flags)
 WizardExport int NTSystemCommand(const char *command)
 {
   char
-    local_command[MaxTextExtent];
+    local_command[WizardPathExtent];
 
   DWORD
     child_status;
@@ -1556,7 +1556,7 @@ WizardExport int NTSystemCommand(const char *command)
   GetStartupInfo(&startup_info);
   startup_info.dwFlags=STARTF_USESHOWWINDOW;
   startup_info.wShowWindow=SW_SHOWMINNOACTIVE;
-  (void) CopyWizardString(local_command,command,MaxTextExtent);
+  (void) CopyWizardString(local_command,command,WizardPathExtent);
   background_process=command[strlen(command)-1] == '&';
   if (background_process)
     local_command[strlen(command)-1]='\0';
@@ -1810,15 +1810,15 @@ WizardExport void NTWarningHandler(const ExceptionType warning,
   const char *reason,const char *description)
 {
   char
-    buffer[2*MaxTextExtent];
+    buffer[2*WizardPathExtent];
 
   if (reason == (char *) NULL)
     return;
   if (description == (char *) NULL)
-    (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s.\n",GetClientName(),
+    (void) FormatLocaleString(buffer,WizardPathExtent,"%s: %s.\n",GetClientName(),
       reason);
   else
-    (void) FormatLocaleString(buffer,MaxTextExtent,"%s: %s (%s).\n",
+    (void) FormatLocaleString(buffer,WizardPathExtent,"%s: %s (%s).\n",
       GetClientName(),reason,description);
   (void) MessageBox(NULL,buffer,"Wizard's Toolkit Warning",MB_OK |
     MB_TASKMODAL | MB_SETFOREGROUND | MB_ICONINFORMATION);

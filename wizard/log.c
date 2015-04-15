@@ -199,7 +199,7 @@ static const LogMapInfo
   };
 
 static char
-  log_name[MaxTextExtent] = "Wizard";
+  log_name[WizardPathExtent] = "Wizard";
 
 static LinkedListInfo
   *log_cache = (LinkedListInfo *) NULL;
@@ -963,11 +963,11 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
   text=AcquireString(event);
   if (log_info->format == (char *) NULL)
     return(text);
-  extent=strlen(event)+MaxTextExtent;
+  extent=strlen(event)+WizardPathExtent;
   if (LocaleCompare(log_info->format,"xml") == 0)
     {
       char
-        timestamp[MaxTextExtent];
+        timestamp[WizardPathExtent];
 
       /*
         Translate event in "XML" format.
@@ -998,10 +998,10 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
   for (p=log_info->format; *p != '\0'; p++)
   {
     *q='\0';
-    if ((size_t) (q-text+MaxTextExtent) >= extent)
+    if ((size_t) (q-text+WizardPathExtent) >= extent)
       {
-        extent+=MaxTextExtent;
-        text=(char *) ResizeQuantumMemory(text,extent+MaxTextExtent,
+        extent+=WizardPathExtent;
+        text=(char *) ResizeQuantumMemory(text,extent+WizardPathExtent,
           sizeof(*text));
         if (text == (char *) NULL)
           return((char *) NULL);
@@ -1167,15 +1167,15 @@ static char *TranslateFilename(const LogInfo *log_info)
   assert(log_info != (LogInfo *) NULL);
   assert(log_info->filename != (char *) NULL);
   filename=AcquireString((char *) NULL);
-  extent=MaxTextExtent;
+  extent=WizardPathExtent;
   q=filename;
   for (p=log_info->filename; *p != '\0'; p++)
   {
     *q='\0';
-    if ((size_t) (q-filename+MaxTextExtent) >= extent)
+    if ((size_t) (q-filename+WizardPathExtent) >= extent)
       {
-        extent+=MaxTextExtent;
-        filename=(char *) ResizeQuantumMemory(filename,extent+MaxTextExtent,
+        extent+=WizardPathExtent;
+        filename=(char *) ResizeQuantumMemory(filename,extent+WizardPathExtent,
           sizeof(*filename));
         if (filename == (char *) NULL)
           return((char *) NULL);
@@ -1253,7 +1253,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
   va_list operands)
 {
   char
-    event[MaxTextExtent],
+    event[WizardPathExtent],
     *text;
 
   const char
@@ -1283,12 +1283,12 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
     }
   domain=WizardOptionToMnemonic(WizardLogEventOptions,type);
 #if defined(WIZARDSTOOLKIT_HAVE_VSNPRINTF)
-  n=vsnprintf(event,MaxTextExtent,format,operands);
+  n=vsnprintf(event,WizardPathExtent,format,operands);
 #else
   n=vsprintf(event,format,operands);
 #endif
   if (n < 0)
-    event[MaxTextExtent-1]='\0';
+    event[WizardPathExtent-1]='\0';
   text=TranslateEvent(type,module,function,line,domain,event);
   if (text == (char *) NULL)
     {
@@ -1422,7 +1422,7 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
   const char *filename,const size_t depth,ExceptionInfo *exception)
 {
   char
-    keyword[MaxTextExtent],
+    keyword[WizardPathExtent],
     *token;
 
   const char
@@ -1449,7 +1449,7 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
     GetWizardToken(q,&q,token);
     if (*token == '\0')
       break;
-    (void) CopyWizardString(keyword,token,MaxTextExtent);
+    (void) CopyWizardString(keyword,token,WizardPathExtent);
     if (LocaleNCompare(keyword,"<!DOCTYPE",9) == 0)
       {
         /*
@@ -1475,7 +1475,7 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
         */
         while (((*token != '/') && (*(token+1) != '>')) && (*q != '\0'))
         {
-          (void) CopyWizardString(keyword,token,MaxTextExtent);
+          (void) CopyWizardString(keyword,token,WizardPathExtent);
           GetWizardToken(q,&q,token);
           if (*token != '=')
             continue;
@@ -1489,17 +1489,17 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
               else
                 {
                   char
-                    path[MaxTextExtent],
+                    path[WizardPathExtent],
                     *xml;
 
                   GetPathComponent(filename,HeadPath,path);
                   if (*path != '\0')
                     (void) ConcatenateWizardString(path,DirectorySeparator,
-                      MaxTextExtent);
+                      WizardPathExtent);
                   if (*token == *DirectorySeparator)
-                    (void) CopyWizardString(path,token,MaxTextExtent);
+                    (void) CopyWizardString(path,token,WizardPathExtent);
                   else
-                    (void) ConcatenateWizardString(path,token,MaxTextExtent);
+                    (void) ConcatenateWizardString(path,token,WizardPathExtent);
                   xml=FileToXML(path,~0UL);
                   if (xml != (char *) NULL)
                     {
@@ -1801,6 +1801,6 @@ WizardExport void SetLogFormat(const char *format)
 WizardExport const char *SetLogName(const char *name)
 {
   if ((name != (char *) NULL) && (*name != '\0'))
-    (void) CopyWizardString(log_name,name,MaxTextExtent);
+    (void) CopyWizardString(log_name,name,WizardPathExtent);
   return(log_name);
 }

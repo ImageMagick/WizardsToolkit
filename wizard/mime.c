@@ -831,17 +831,17 @@ static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,
         else
           {
             char
-              path[MaxTextExtent],
+              path[WizardPathExtent],
               *xml;
 
             GetPathComponent(filename,HeadPath,path);
             if (*path != '\0')
               (void) ConcatenateWizardString(path,DirectorySeparator,
-                MaxTextExtent);
+                WizardPathExtent);
             if (*attribute == *DirectorySeparator)
-              (void) CopyWizardString(path,attribute,MaxTextExtent);
+              (void) CopyWizardString(path,attribute,WizardPathExtent);
             else
-              (void) ConcatenateWizardString(path,attribute,MaxTextExtent);
+              (void) ConcatenateWizardString(path,attribute,WizardPathExtent);
             xml=FileToXML(path,~0UL);
             if (xml != (char *) NULL)
               {
@@ -1073,8 +1073,8 @@ WizardExport void MimeComponentTerminus(void)
 WizardExport char *WizardToMime(const char *wizard)
 {
   char
-    filename[MaxTextExtent],
-    media[MaxTextExtent];
+    filename[WizardPathExtent],
+    media[WizardPathExtent];
 
   const MimeInfo
     *mime_info;
@@ -1082,14 +1082,14 @@ WizardExport char *WizardToMime(const char *wizard)
   ExceptionInfo
     *exception;
 
-  (void) FormatLocaleString(filename,MaxTextExtent,"file.%s",wizard);
+  (void) FormatLocaleString(filename,WizardPathExtent,"file.%s",wizard);
   LocaleLower(filename);
   exception=AcquireExceptionInfo();
   mime_info=GetMimeInfo(filename,(unsigned char *) " ",1,exception);
   exception=DestroyExceptionInfo(exception);
   if (mime_info != (const MimeInfo *) NULL)
     return(ConstantString(GetMimeType(mime_info)));
-  (void) FormatLocaleString(media,MaxTextExtent,"image/x-%s",wizard);
+  (void) FormatLocaleString(media,WizardPathExtent,"image/x-%s",wizard);
   LocaleLower(media+8);
   return(ConstantString(media));
 }

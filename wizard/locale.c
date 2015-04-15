@@ -741,7 +741,7 @@ WizardExport char **GetLocaleList(const char *pattern,
 WizardExport const char *GetLocaleMessage(const char *tag)
 {
   char
-    name[MaxTextExtent];
+    name[WizardPathExtent];
 
   const LocaleInfo
     *locale_info;
@@ -752,7 +752,7 @@ WizardExport const char *GetLocaleMessage(const char *tag)
   if ((tag == (const char *) NULL) || (*tag == '\0'))
     return(tag);
   exception=AcquireExceptionInfo();
-  (void) FormatLocaleString(name,MaxTextExtent,"%s/",tag);
+  (void) FormatLocaleString(name,WizardPathExtent,"%s/",tag);
   locale_info=GetLocaleInfo_(name,exception);
   exception=DestroyExceptionInfo(exception);
   if (locale_info != (const LocaleInfo *) NULL)
@@ -790,7 +790,7 @@ WizardExport LinkedListInfo *GetLocaleOptions(const char *filename,
   ExceptionInfo *exception)
 {
   char
-    path[MaxTextExtent];
+    path[WizardPathExtent];
 
   const char
     *element;
@@ -805,7 +805,7 @@ WizardExport LinkedListInfo *GetLocaleOptions(const char *filename,
   assert(filename != (const char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",filename);
   assert(exception != (ExceptionInfo *) NULL);
-  (void) CopyWizardString(path,filename,MaxTextExtent);
+  (void) CopyWizardString(path,filename,WizardPathExtent);
   /*
     Load XML from configuration files to linked-list.
   */
@@ -817,7 +817,7 @@ WizardExport LinkedListInfo *GetLocaleOptions(const char *filename,
       element=(const char *) GetNextValueInLinkedList(paths);
       while (element != (const char *) NULL)
       {
-        (void) FormatLocaleString(path,MaxTextExtent,"%s%s",element,filename);
+        (void) FormatLocaleString(path,WizardPathExtent,"%s%s",element,filename);
         (void) LogWizardEvent(LocaleEvent,GetWizardModule(),
           "Searching for locale file: \"%s\"",path);
         xml=ConfigureFileToStringInfo(path);
@@ -1153,9 +1153,9 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
   ExceptionInfo *exception)
 {
   char
-    keyword[MaxTextExtent],
-    message[MaxTextExtent],
-    tag[MaxTextExtent],
+    keyword[WizardPathExtent],
+    message[WizardPathExtent],
+    tag[WizardPathExtent],
     *token;
 
   const char
@@ -1195,7 +1195,7 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
     GetWizardToken(q,&q,token);
     if (*token == '\0')
       break;
-    (void) CopyWizardString(keyword,token,MaxTextExtent);
+    (void) CopyWizardString(keyword,token,WizardPathExtent);
     if (LocaleNCompare(keyword,"<!DOCTYPE",9) == 0)
       {
         /*
@@ -1229,7 +1229,7 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
         */
         while (((*token != '/') && (*(token+1) != '>')) && (*q != '\0'))
         {
-          (void) CopyWizardString(keyword,token,MaxTextExtent);
+          (void) CopyWizardString(keyword,token,WizardPathExtent);
           GetWizardToken(q,&q,token);
           if (*token != '=')
             continue;
@@ -1249,18 +1249,18 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
               else
                 {
                   char
-                    path[MaxTextExtent],
+                    path[WizardPathExtent],
                     *xml;
 
                   *path='\0';
                   GetPathComponent(filename,HeadPath,path);
                   if (*path != '\0')
                     (void) ConcatenateWizardString(path,DirectorySeparator,
-                      MaxTextExtent);
+                      WizardPathExtent);
                   if (*token == *DirectorySeparator)
-                    (void) CopyWizardString(path,token,MaxTextExtent);
+                    (void) CopyWizardString(path,token,WizardPathExtent);
                   else
-                    (void) ConcatenateWizardString(path,token,MaxTextExtent);
+                    (void) ConcatenateWizardString(path,token,WizardPathExtent);
                   xml=FileToXML(path,~0UL);
                   if (xml != (char *) NULL)
                     {
@@ -1280,7 +1280,7 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
         */
         while ((*token != '>') && (*q != '\0'))
         {
-          (void) CopyWizardString(keyword,token,MaxTextExtent);
+          (void) CopyWizardString(keyword,token,WizardPathExtent);
           GetWizardToken(q,&q,token);
           if (*token != '=')
             continue;
@@ -1291,7 +1291,7 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
     if (LocaleCompare(keyword,"</locale>") == 0)
       {
         ChopLocaleComponents(tag,1);
-        (void) ConcatenateWizardString(tag,"/",MaxTextExtent);
+        (void) ConcatenateWizardString(tag,"/",WizardPathExtent);
         continue;
       }
     if (LocaleCompare(keyword,"<localemap>") == 0)
@@ -1305,15 +1305,15 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
         */
         while ((*token != '>') && (*q != '\0'))
         {
-          (void) CopyWizardString(keyword,token,MaxTextExtent);
+          (void) CopyWizardString(keyword,token,WizardPathExtent);
           GetWizardToken(q,&q,token);
           if (*token != '=')
             continue;
           GetWizardToken(q,&q,token);
           if (LocaleCompare(keyword,"name") == 0)
             {
-              (void) ConcatenateWizardString(tag,token,MaxTextExtent);
-              (void) ConcatenateWizardString(tag,"/",MaxTextExtent);
+              (void) ConcatenateWizardString(tag,token,WizardPathExtent);
+              (void) ConcatenateWizardString(tag,"/",WizardPathExtent);
             }
         }
         for (p=(char *) q; (*q != '<') && (*q != '\0'); q++) ;
@@ -1323,7 +1323,7 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
         while ((isspace((int) ((unsigned char) *q)) != 0) && (q > p))
           q--;
         (void) CopyWizardString(message,p,WizardMin((size_t) (q-p+2),
-          MaxTextExtent));
+          WizardPathExtent));
         locale_info=(LocaleInfo *) AcquireWizardMemory(sizeof(*locale_info));
         if (locale_info == (LocaleInfo *) NULL)
           ThrowFatalException(ResourceFatalError,
@@ -1337,15 +1337,15 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
         if (status == WizardFalse)
           ThrowFatalException(ResourceFatalError,
             "memory allocation failed `%s'");
-        (void) ConcatenateWizardString(tag,message,MaxTextExtent);
-        (void) ConcatenateWizardString(tag,"\n",MaxTextExtent);
+        (void) ConcatenateWizardString(tag,message,WizardPathExtent);
+        (void) ConcatenateWizardString(tag,"\n",WizardPathExtent);
         q++;
         continue;
       }
     if (LocaleCompare(keyword,"</message>") == 0)
       {
         ChopLocaleComponents(tag,2);
-        (void) ConcatenateWizardString(tag,"/",MaxTextExtent);
+        (void) ConcatenateWizardString(tag,"/",WizardPathExtent);
         continue;
       }
     if (*keyword == '<')
@@ -1359,13 +1359,13 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
           {
             ChopLocaleComponents(tag,1);
             if (*tag != '\0')
-              (void) ConcatenateWizardString(tag,"/",MaxTextExtent);
+              (void) ConcatenateWizardString(tag,"/",WizardPathExtent);
             continue;
           }
         token[strlen(token)-1]='\0';
-        (void) CopyWizardString(token,token+1,MaxTextExtent);
-        (void) ConcatenateWizardString(tag,token,MaxTextExtent);
-        (void) ConcatenateWizardString(tag,"/",MaxTextExtent);
+        (void) CopyWizardString(token,token+1,WizardPathExtent);
+        (void) ConcatenateWizardString(tag,token,WizardPathExtent);
+        (void) ConcatenateWizardString(tag,"/",WizardPathExtent);
         continue;
       }
     GetWizardToken(q,(const char **) NULL,token);

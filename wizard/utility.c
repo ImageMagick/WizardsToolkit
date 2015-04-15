@@ -94,7 +94,7 @@ static int
 WizardExport void AppendFileExtension(const char *extension,char *filename)
 {
   char
-    root[MaxTextExtent];
+    root[WizardPathExtent];
 
   assert(extension != (char *) NULL);
   assert(filename != (char *) NULL);
@@ -102,9 +102,9 @@ WizardExport void AppendFileExtension(const char *extension,char *filename)
   if ((*extension == '\0') || (*filename == '\0'))
     return;
   GetPathComponent(filename,RootPath,root);
-  (void) CopyWizardString(filename,root,MaxTextExtent);
-  (void) ConcatenateWizardString(filename,".",MaxTextExtent);
-  (void) ConcatenateWizardString(filename,extension,MaxTextExtent);
+  (void) CopyWizardString(filename,root,WizardPathExtent);
+  (void) ConcatenateWizardString(filename,".",WizardPathExtent);
+  (void) ConcatenateWizardString(filename,extension,WizardPathExtent);
 }
 
 /*
@@ -416,8 +416,8 @@ WizardExport void GetPathComponent(const char *path,PathType type,
   char *component)
 {
   char
-    filesystem[MaxTextExtent],
-    subnode[MaxTextExtent],
+    filesystem[WizardPathExtent],
+    subnode[WizardPathExtent],
     *q;
 
   register char
@@ -434,7 +434,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
       *component='\0';
       return;
     }
-  (void) CopyWizardString(component,path,MaxTextExtent);
+  (void) CopyWizardString(component,path,WizardPathExtent);
   *filesystem='\0';
   for (p=component; *p != '\0'; p++)
     if ((*p == ':') && (IsDirectory(path) < 0) &&
@@ -466,7 +466,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
           break;
       if (*q == '[')
         {
-          (void) CopyWizardString(subnode,q+1,MaxTextExtent);
+          (void) CopyWizardString(subnode,q+1,WizardPathExtent);
           subnode[p-q-1]='\0';
           *q='\0';
         }
@@ -480,7 +480,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
   {
     case FilesystemPath:
     {
-      (void) CopyWizardString(component,filesystem,MaxTextExtent);
+      (void) CopyWizardString(component,filesystem,WizardPathExtent);
       break;
     }
     case RootPath:
@@ -511,7 +511,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
     case BasePath:
     {
       if (IsBasenameSeparator(*p) != WizardFalse)
-        (void) CopyWizardString(component,p+1,MaxTextExtent);
+        (void) CopyWizardString(component,p+1,WizardPathExtent);
       for (p=component+(strlen(component)-1); p > component; p--)
         if (*p == '.')
           {
@@ -523,7 +523,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
     case ExtensionPath:
     {
       if (IsBasenameSeparator(*p) != WizardFalse)
-        (void) CopyWizardString(component,p+1,MaxTextExtent);
+        (void) CopyWizardString(component,p+1,WizardPathExtent);
       p=component;
       if (*p != '\0')
         for (p=component+strlen(component)-1; p > component; p--)
@@ -531,7 +531,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
             break;
       *component='\0';
       if (*p == '.')
-        (void) CopyWizardString(component,p+1,MaxTextExtent);
+        (void) CopyWizardString(component,p+1,WizardPathExtent);
       p=strchr(component,'?');
       if (p != (char *) NULL)
         *p='\0';
@@ -539,7 +539,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
     }
     case SubnodePath:
     {
-      (void) CopyWizardString(component,subnode,MaxTextExtent);
+      (void) CopyWizardString(component,subnode,WizardPathExtent);
       break;
     }
     case CanonicalPath:
@@ -604,7 +604,7 @@ WizardExport char **GetPathComponents(const char *path,
     for (q=(char *) p; *q != '\0'; q++)
       if (IsBasenameSeparator(*q))
         break;
-    components[i]=(char *) AcquireQuantumMemory((size_t) (q-p)+MaxTextExtent,
+    components[i]=(char *) AcquireQuantumMemory((size_t) (q-p)+WizardPathExtent,
       sizeof(**components));
     if (components[i] == (char *) NULL)
       ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
@@ -651,18 +651,18 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
 #if defined(WIZARDSTOOLKIT_HAVE_GETPID) && defined(WIZARDSTOOLKIT_HAVE_READLINK) && defined(PATH_MAX)
   {
     char
-      link_path[MaxTextExtent],
+      link_path[WizardPathExtent],
       real_path[PATH_MAX+1];
 
     int
       length;
 
-    (void) FormatLocaleString(link_path,MaxTextExtent,"/proc/%.20g/exe",
+    (void) FormatLocaleString(link_path,WizardPathExtent,"/proc/%.20g/exe",
       (double) getpid());
     length=readlink(link_path,real_path,PATH_MAX);
     if (length == -1)
       {
-        (void) FormatLocaleString(link_path,MaxTextExtent,"/proc/%.20g/file",
+        (void) FormatLocaleString(link_path,WizardPathExtent,"/proc/%.20g/file",
           (double) getpid());
         length=readlink(link_path,real_path,PATH_MAX);
       }

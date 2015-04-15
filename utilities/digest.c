@@ -137,9 +137,9 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
 
   char
     *create_date,
-    date[MaxTextExtent],
+    date[WizardPathExtent],
     *digest,
-    key[MaxTextExtent],
+    key[WizardPathExtent],
     *message,
     *modify_date,
     *option,
@@ -269,7 +269,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
     hash=SHA2256Hash;
     for (c=ReadBlobByte(digest_blob); (c != '>') && (c != EOF); )
     {
-      length=MaxTextExtent;
+      length=WizardPathExtent;
       options=AcquireString((char *) NULL);
       while ((isgraph(c) != WizardFalse) && (c != '>') && (c != EOF))
       {
@@ -290,7 +290,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                 break;
               if (c == (int) '>')
                 break;
-              if ((size_t) (p-key) < MaxTextExtent)
+              if ((size_t) (p-key) < WizardPathExtent)
                 *p++=(char) c;
               c=ReadBlobByte(digest_blob);
             } while (c != EOF);
@@ -311,7 +311,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                       *p='\0';
                       length<<=1;
                       options=(char *) ResizeQuantumMemory(options,length+
-                        MaxTextExtent,sizeof(*options));
+                        WizardPathExtent,sizeof(*options));
                       if (options == (char *) NULL)
                         break;
                       p=options+strlen(options);
@@ -435,7 +435,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                     if (strcmp(digest,GetHashHexDigest(hash_info)) != 0)
                       {
                         char
-                          algorithm[MaxTextExtent];
+                          algorithm[WizardPathExtent];
 
                         message=AcquireString("Path: ");
                         (void) ConcatenateString(&message,path);
@@ -446,7 +446,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                         (void) ConcatenateString(&message,"  modify date: ");
                         (void) ConcatenateString(&message,modify_date);
                         (void) ConcatenateString(&message,"\n");
-                        (void) FormatLocaleString(algorithm,MaxTextExtent,"%s",
+                        (void) FormatLocaleString(algorithm,WizardPathExtent,"%s",
                           WizardOptionToMnemonic(WizardHashOptions,hash));
                         (void) ConcatenateString(&message,"  hash: ");
                         (void) ConcatenateString(&message,algorithm);
@@ -458,7 +458,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                         (void) ConcatenateString(&message,"\n");
                         (void) ConcatenateString(&message,"  errant digest (");
                         (void) FormatWizardTime(time((time_t *) NULL),
-                          MaxTextExtent,date);
+                          WizardPathExtent,date);
                         (void) ConcatenateString(&message,date);
                         (void) ConcatenateString(&message,"):\n    ");
                         (void) ConcatenateString(&message,GetHashHexDigest(
@@ -514,13 +514,13 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     *digest_blob;
 
   char
-    algorithm[MaxTextExtent],
+    algorithm[WizardPathExtent],
     *canonical_path,
-    content_extent[MaxTextExtent],
+    content_extent[WizardPathExtent],
     *digest_rdf,
     *digest,
     *option,
-    timestamp[MaxTextExtent];
+    timestamp[WizardPathExtent];
 
   const struct stat
     *properties;
@@ -735,24 +735,24 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     canonical_path=DestroyString(canonical_path);
     (void) ConcatenateString(&digest_rdf,"\">\n");
     (void) ConcatenateString(&digest_rdf,"    <digest:timestamp>");
-    (void) FormatWizardTime(time((time_t *) NULL),MaxTextExtent,timestamp);
+    (void) FormatWizardTime(time((time_t *) NULL),WizardPathExtent,timestamp);
     (void) ConcatenateString(&digest_rdf,timestamp);
     (void) ConcatenateString(&digest_rdf,"</digest:timestamp>\n");
     (void) ConcatenateString(&digest_rdf,"    <digest:modify-date>");
-    (void) FormatWizardTime(properties->st_mtime,MaxTextExtent,timestamp);
+    (void) FormatWizardTime(properties->st_mtime,WizardPathExtent,timestamp);
     (void) ConcatenateString(&digest_rdf,timestamp);
     (void) ConcatenateString(&digest_rdf,"</digest:modify-date>\n");
     (void) ConcatenateString(&digest_rdf,"    <digest:create-date>");
-    (void) FormatWizardTime(properties->st_mtime,MaxTextExtent,timestamp);
+    (void) FormatWizardTime(properties->st_mtime,WizardPathExtent,timestamp);
     (void) ConcatenateString(&digest_rdf,timestamp);
     (void) ConcatenateString(&digest_rdf,"</digest:create-date>\n");
     (void) ConcatenateString(&digest_rdf,"    <digest:extent>");
-    (void) FormatLocaleString(content_extent,MaxTextExtent,"%.20g",(double)
+    (void) FormatLocaleString(content_extent,WizardPathExtent,"%.20g",(double)
       extent);
     (void) ConcatenateString(&digest_rdf,content_extent);
     (void) ConcatenateString(&digest_rdf,"</digest:extent>\n");
     (void) ConcatenateString(&digest_rdf,"    <digest:");
-    (void) FormatLocaleString(algorithm,MaxTextExtent,"%s",
+    (void) FormatLocaleString(algorithm,WizardPathExtent,"%s",
       WizardOptionToMnemonic(WizardHashOptions,hash));
     LocaleLower(algorithm);
     (void) ConcatenateString(&digest_rdf,algorithm);
@@ -761,7 +761,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     (void) ConcatenateString(&digest_rdf,digest);
     digest=DestroyString(digest);
     (void) ConcatenateString(&digest_rdf,"</digest:");
-    (void) FormatLocaleString(algorithm,MaxTextExtent,"%s",
+    (void) FormatLocaleString(algorithm,WizardPathExtent,"%s",
       WizardOptionToMnemonic(WizardHashOptions,hash));
     LocaleLower(algorithm);
     (void) ConcatenateString(&digest_rdf,algorithm);

@@ -471,7 +471,7 @@ WizardExport void GetExceptionInfo(ExceptionInfo *exception)
 WizardExport char *GetExceptionMessage(const int error)
 {
  char
-   exception[MaxTextExtent];
+   exception[WizardPathExtent];
 
   *exception='\0';
 #if defined(WIZARDSTOOLKIT_HAVE_STRERROR_R)
@@ -583,13 +583,13 @@ WizardExport const char *GetLocaleExceptionMessage(const ExceptionType severity,
 {
 #if defined(WIZARDSTOOLKIT_LOCALE)
   char
-    message[MaxTextExtent];
+    message[WizardPathExtent];
 
   const char
     *locale_message;
 
   assert(tag != (const char *) NULL);
-  (void) FormatLocaleString(message,MaxTextExtent,"Exception/%s%s",
+  (void) FormatLocaleString(message,WizardPathExtent,"Exception/%s%s",
     ExceptionSeverityToTag(severity),tag);
   locale_message=GetLocaleMessage(message);
   if (locale_message == (const char *) NULL)
@@ -1000,8 +1000,8 @@ WizardExport WizardBooleanType ThrowWizardExceptionList(
   va_list operands)
 {
   char
-    message[MaxTextExtent],
-    reason[MaxTextExtent];
+    message[WizardPathExtent],
+    reason[WizardPathExtent];
 
   int
     n;
@@ -1012,15 +1012,15 @@ WizardExport WizardBooleanType ThrowWizardExceptionList(
   assert(exception != (ExceptionInfo *) NULL);
   assert(exception->signature == WizardSignature);
 #if defined(WIZARDSTOOLKIT_HAVE_VSNPRINTF)
-  n=vsnprintf(reason,MaxTextExtent,format,operands);
+  n=vsnprintf(reason,WizardPathExtent,format,operands);
 #else
   n=vsprintf(reason,format,operands);
 #endif
   if (n < 0)
-    reason[MaxTextExtent-1]='\0';
+    reason[WizardPathExtent-1]='\0';
   status=LogWizardEvent(exception->severity >= ErrorException ?
     ExceptionEvent : WarningEvent,module,function,line,"%s",reason);
-  (void) FormatLocaleString(message,MaxTextExtent,"%s @ %s/%s/%.20g",reason,
+  (void) FormatLocaleString(message,WizardPathExtent,"%s @ %s/%s/%.20g",reason,
     module,function,(double) line);
   (void) ThrowException(exception,severity,message,(char *) NULL);
   return(status);

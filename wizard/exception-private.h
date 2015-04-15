@@ -64,11 +64,11 @@ extern "C" {
 #define ThrowWizardFatalError(domain,error) \
 { \
   char \
-    context[MaxTextExtent], \
-    tag[MaxTextExtent]; \
+    context[WizardPathExtent], \
+    tag[WizardPathExtent]; \
  \
-  (void) FormatLocaleString(tag,MaxTextExtent,"%ld\n",(long) domain); \
-  (void) FormatLocaleString(context,MaxTextExtent,"%ld\n",(long) error); \
+  (void) FormatLocaleString(tag,WizardPathExtent,"%ld\n",(long) domain); \
+  (void) FormatLocaleString(context,WizardPathExtent,"%ld\n",(long) error); \
   CatchWizardException(UndefinedException,tag,context); \
   WizardsToolkitTerminus(); \
   _exit((domain << 3) | error); \

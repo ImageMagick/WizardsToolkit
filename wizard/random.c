@@ -465,7 +465,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
 #if defined(WIZARDSTOOLKIT_HAVE_MKSTEMP)
   {
     char
-      path[MaxTextExtent];
+      path[WizardPathExtent];
 
     int
       file;

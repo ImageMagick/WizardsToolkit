@@ -66,11 +66,11 @@
 <a name="l00057"></a><a class="code" href="exception-private_8h.html#b21cec2c0ab4830b8831af4c483d1c0c">00057</a> <span class="preprocessor">#define ThrowWizardFatalError(domain,error) \</span>
 <a name="l00058"></a>00058 <span class="preprocessor">{ \</span>
 <a name="l00059"></a>00059 <span class="preprocessor">  char \</span>
-<a name="l00060"></a>00060 <span class="preprocessor">    context[MaxTextExtent], \</span>
-<a name="l00061"></a>00061 <span class="preprocessor">    tag[MaxTextExtent]; \</span>
+<a name="l00060"></a>00060 <span class="preprocessor">    context[WizardPathExtent], \</span>
+<a name="l00061"></a>00061 <span class="preprocessor">    tag[WizardPathExtent]; \</span>
 <a name="l00062"></a>00062 <span class="preprocessor"> \</span>
-<a name="l00063"></a>00063 <span class="preprocessor">  (void) FormatWizardString(tag,MaxTextExtent,"%ld\n",(long) domain); \</span>
-<a name="l00064"></a>00064 <span class="preprocessor">  (void) FormatWizardString(context,MaxTextExtent,"%ld\n",(long) error); \</span>
+<a name="l00063"></a>00063 <span class="preprocessor">  (void) FormatWizardString(tag,WizardPathExtent,"%ld\n",(long) domain); \</span>
+<a name="l00064"></a>00064 <span class="preprocessor">  (void) FormatWizardString(context,WizardPathExtent,"%ld\n",(long) error); \</span>
 <a name="l00065"></a>00065 <span class="preprocessor">  CatchWizardException(UndefinedException,tag,context); \</span>
 <a name="l00066"></a>00066 <span class="preprocessor">  _exit((domain &lt;&lt; 3) | error); \</span>
 <a name="l00067"></a>00067 <span class="preprocessor">}</span>

@@ -56,7 +56,7 @@
 struct _StringInfo
 {
   char
-    path[MaxTextExtent];
+    path[WizardPathExtent];
 
   unsigned char
     *datum;
@@ -117,7 +117,7 @@ static const unsigned char
 %  AcquireString() returns an new extented string, containing a clone of the
 %  given string.
 %
-%  An extended string is the string length, plus an extra MaxTextExtent space
+%  An extended string is the string length, plus an extra WizardPathExtent space
 %  to allow for the string to be activally worked on.
 %
 %  The format of the AcquireString method is:
@@ -140,9 +140,9 @@ WizardExport char *AcquireString(const char *source)
   length=0;
   if (source != (char *) NULL)
     length+=strlen(source);
-  if (~length < MaxTextExtent)
+  if (~length < WizardPathExtent)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  destination=(char *) AcquireQuantumMemory(length+MaxTextExtent,
+  destination=(char *) AcquireQuantumMemory(length+WizardPathExtent,
     sizeof(*destination));
   if (destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
@@ -226,15 +226,15 @@ WizardExport StringInfo *BlobToStringInfo(const void *blob,const size_t length)
     *string_info;
 
   string_info=AcquireStringInfo(0);
-  if (~length < MaxTextExtent)
+  if (~length < WizardPathExtent)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   string_info->length=length;
   if (string_info->datum == (unsigned char *) NULL)
     string_info->datum=(unsigned char *) AcquireQuantumMemory(length+
-      MaxTextExtent,sizeof(*string_info->datum));
+      WizardPathExtent,sizeof(*string_info->datum));
   else
     string_info->datum=(unsigned char *) ResizeQuantumMemory(string_info->datum,
-      length+MaxTextExtent,sizeof(*string_info->datum));
+      length+WizardPathExtent,sizeof(*string_info->datum));
   if (string_info->datum == (unsigned char *) NULL)
     {
       string_info=DestroyStringInfo(string_info);
@@ -288,9 +288,9 @@ WizardExport char *CloneString(char **destination,const char *source)
       return(*destination);
     }
   length=strlen(source);
-  if (~length < MaxTextExtent)
+  if (~length < WizardPathExtent)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  *destination=(char *) ResizeQuantumMemory(*destination,length+MaxTextExtent,
+  *destination=(char *) ResizeQuantumMemory(*destination,length+WizardPathExtent,
     sizeof(**destination));
   if (*destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
@@ -437,9 +437,9 @@ WizardExport WizardBooleanType ConcatenateString(char **destination,
   if (~length < source_length)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   length+=source_length;
-  if (~length < MaxTextExtent)
+  if (~length < WizardPathExtent)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  *destination=(char *) ResizeQuantumMemory(*destination,length+MaxTextExtent,
+  *destination=(char *) ResizeQuantumMemory(*destination,length+WizardPathExtent,
     sizeof(**destination));
   if (*destination == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
@@ -622,7 +622,7 @@ WizardExport StringInfo *ConfigureFileToStringInfo(const char *filename)
   string[length]='\0';
   file=close(file)-1;
   string_info=AcquireStringInfo(0);
-  (void) CopyWizardString(string_info->path,filename,MaxTextExtent);
+  (void) CopyWizardString(string_info->path,filename,WizardPathExtent);
   string_info->length=length;
   if (string_info->datum != (unsigned char *) NULL)
     string_info->datum=(unsigned char *) RelinquishWizardMemory(
@@ -969,7 +969,7 @@ WizardExport StringInfo *FileToStringInfo(const char *filename,
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",filename);
   WizardAssert(StringDomain,exception != (ExceptionInfo *) NULL);
   string_info=AcquireStringInfo(0);
-  (void) CopyWizardString(string_info->path,filename,MaxTextExtent);
+  (void) CopyWizardString(string_info->path,filename,WizardPathExtent);
   if (string_info->datum != (unsigned char *) NULL)
     string_info->datum=(unsigned char *) RelinquishWizardMemory(
       string_info->datum);
@@ -1661,7 +1661,7 @@ WizardExport int LocaleNCompare(const char *p,const char *q,const size_t length)
 WizardExport ssize_t PrintWizardString(FILE *file,const char *format,...)
 {
   char
-    string[MaxTextExtent];
+    string[WizardPathExtent];
 
   ssize_t
     length;
@@ -1670,7 +1670,7 @@ WizardExport ssize_t PrintWizardString(FILE *file,const char *format,...)
     operands;
 
   va_start(operands,format);
-  length=FormatLocaleStringList(string,MaxTextExtent,format,operands);
+  length=FormatLocaleStringList(string,WizardPathExtent,format,operands);
   va_end(operands);
   if (length < 0)
     return(-1);
@@ -1902,7 +1902,7 @@ WizardExport void SetStringInfoPath(StringInfo *string_info,const char *path)
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   WizardAssert(StringDomain,path != (const char *) NULL);
-  (void) CopyWizardString(string_info->path,path,MaxTextExtent);
+  (void) CopyWizardString(string_info->path,path,WizardPathExtent);
 }
 
 /*
@@ -1988,9 +1988,9 @@ WizardExport char *StringInfoToHexString(const StringInfo *string_info)
     hex_digits[16];
 
   length=string_info->length;
-  if (~length < MaxTextExtent)
+  if (~length < WizardPathExtent)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  string=(char *) AcquireQuantumMemory(length+MaxTextExtent,2*sizeof(*string));
+  string=(char *) AcquireQuantumMemory(length+WizardPathExtent,2*sizeof(*string));
   if (string == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
   hex_digits[0]='0';
@@ -2053,8 +2053,8 @@ WizardExport char *StringInfoToString(const StringInfo *string_info)
 
   string=(char *) NULL;
   length=string_info->length;
-  if (~length >= (MaxTextExtent-1))
-    string=(char *) AcquireQuantumMemory(length+MaxTextExtent,sizeof(*string));
+  if (~length >= (WizardPathExtent-1))
+    string=(char *) AcquireQuantumMemory(length+WizardPathExtent,sizeof(*string));
   if (string == (char *) NULL)
     return((char *) NULL);
   (void) memcpy(string,(char *) string_info->datum,length*sizeof(*string));
@@ -2148,7 +2148,7 @@ WizardExport char **StringToArgv(const char *text,int *argc)
       else
         while ((isspace((int) ((unsigned char) *q)) == 0) && (*q != '\0'))
           q++;
-    argv[i]=(char *) AcquireQuantumMemory((size_t) (q-p)+MaxTextExtent,
+    argv[i]=(char *) AcquireQuantumMemory((size_t) (q-p)+WizardPathExtent,
       sizeof(**argv));
     if (argv[i] == (char *) NULL)
       {
@@ -2324,7 +2324,7 @@ WizardExport WizardBooleanType SubstituteString(char **string,
         */
         offset=(ssize_t) (p-(*string));
         extent=strlen(*string)+replace_extent-search_extent+1;
-        *string=(char *) ResizeQuantumMemory(*string,extent+MaxTextExtent,
+        *string=(char *) ResizeQuantumMemory(*string,extent+WizardPathExtent,
           sizeof(*p));
         if (*string == (char *) NULL)
           ThrowFatalException(ResourceFatalError,

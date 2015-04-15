@@ -211,7 +211,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
     }
   if (((flags & StdinMode) == 0) && (output != -1))
     count=write(output,prompt,strlen(prompt));
-  SetStringInfoLength(phrase,MaxTextExtent);
+  SetStringInfoLength(phrase,WizardPathExtent);
   p=GetStringInfoDatum(phrase);
   while (((count=read(input,&c,1)) == 1) && (c != '\n') && (c != '\r'))
   {
@@ -262,8 +262,8 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
     }
 #else
   (void) fputs(prompt,stdout);
-  SetStringInfoLength(phrase,MaxTextExtent);
-  count=read(fileno(stdin),GetStringInfoDatum(phrase),MaxTextExtent);
+  SetStringInfoLength(phrase,WizardPathExtent);
+  count=read(fileno(stdin),GetStringInfoDatum(phrase),WizardPathExtent);
   SetStringInfoLength(phrase,count);
 #endif
   return(count != -1 ? WizardTrue : WizardFalse);
@@ -294,7 +294,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
 WizardExport StringInfo *GetPassphrase(ExceptionInfo *exception)
 {
   char
-    prompt[MaxTextExtent];
+    prompt[WizardPathExtent];
 
   WizardBooleanType
     status;
@@ -303,10 +303,10 @@ WizardExport StringInfo *GetPassphrase(ExceptionInfo *exception)
     *phrase,
     *rephrase;
 
-  phrase=AcquireStringInfo(MaxTextExtent);
-  rephrase=AcquireStringInfo(MaxTextExtent);
-  (void) FormatLocaleString(prompt,MaxTextExtent,
-    "Enter the passphrase (maximum of %d characters)\n",MaxTextExtent);
+  phrase=AcquireStringInfo(WizardPathExtent);
+  rephrase=AcquireStringInfo(WizardPathExtent);
+  (void) FormatLocaleString(prompt,WizardPathExtent,
+    "Enter the passphrase (maximum of %d characters)\n",WizardPathExtent);
   status=write(STDERR_FILENO,prompt,strlen(prompt)) < 0 ? WizardFalse :
     WizardTrue;
   for ( ; ; )

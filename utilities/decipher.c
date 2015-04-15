@@ -631,7 +631,7 @@ static WizardBooleanType DecipherContent(ContentInfo *content_info,
 }
 
   char
-    message[MaxTextExtent];
+    message[WizardPathExtent];
 
   EntropyType
     entropy;
@@ -787,7 +787,7 @@ static WizardBooleanType DecipherContent(ContentInfo *content_info,
           content_info->authenticate_info),plaintext);
         if (CompareStringInfo(hmac,GetHMACDigest(content_info->hmac_info)) != 0)
           {
-            (void) FormatLocaleString(message,MaxTextExtent,"corrupt cipher "
+            (void) FormatLocaleString(message,WizardPathExtent,"corrupt cipher "
               "chunk #%.20g `%s'",(double) chunk,cipher_filename);
             ThrowDecipherContentException(FileError,"%s: `%s'",message);
           }

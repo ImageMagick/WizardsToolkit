@@ -102,8 +102,14 @@ extern "C" {
 #endif
 
 #define WizardSignature  0xabacadabUL
-#if !defined(MaxTextExtent)
-# define MaxTextExtent  (16*8192)  /* always >= 4096 */
+#if !defined(WizardFormatExtent)
+# define WizardFormatExtent  64
+#endif
+#if !defined(WizardLocaleExtent)
+# define WizardLocaleExtent  256
+#endif
+#if !defined(WizardPathExtent)
+# define WizardPathExtent  4096  /* always >= 4096 */
 #endif
 
 #if defined(WIZARDSTOOLKIT_HAVE___ATTRIBUTE__)

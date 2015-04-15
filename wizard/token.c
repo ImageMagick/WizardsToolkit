@@ -200,13 +200,13 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
   if (LocaleNCompare(token,"url(#",5) == 0)
     {
       i=(ssize_t) strlen(token);
-      (void) CopyWizardString(token,token+5,MaxTextExtent);
+      (void) CopyWizardString(token,token+5,WizardPathExtent);
       token[i-6]='\0';
     }
   if (LocaleNCompare(token,"url(",4) == 0)
     {
       i=(ssize_t) strlen(token);
-      (void) CopyWizardString(token,token+4,MaxTextExtent);
+      (void) CopyWizardString(token,token+4,WizardPathExtent);
       token[i-5]='\0';
     }
   while (isspace((int) ((unsigned char) *p)) != 0)

@@ -123,7 +123,7 @@ static LinkedListInfo *AcquireConfigureCache(const char *filename,
   ExceptionInfo *exception)
 {
   char
-    path[MaxTextExtent];
+    path[WizardPathExtent];
 
   const StringInfo
     *option;
@@ -181,7 +181,7 @@ static LinkedListInfo *AcquireConfigureCache(const char *filename,
   option=(const StringInfo *) GetNextValueInLinkedList(options);
   while (option != (const StringInfo *) NULL)
   {
-    (void) CopyWizardString(path,GetStringInfoPath(option),MaxTextExtent);
+    (void) CopyWizardString(path,GetStringInfoPath(option),WizardPathExtent);
     status&=LoadConfigureCache(configure_cache,(const char *)
       GetStringInfoDatum(option),GetStringInfoPath(option),0,exception);
     option=(const StringInfo *) GetNextValueInLinkedList(options);
@@ -586,7 +586,7 @@ WizardExport LinkedListInfo *GetConfigureOptions(const char *filename,
   ExceptionInfo *exception)
 {
   char
-    path[MaxTextExtent];
+    path[WizardPathExtent];
 
   const char
     *element;
@@ -601,7 +601,7 @@ WizardExport LinkedListInfo *GetConfigureOptions(const char *filename,
   assert(filename != (const char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",filename);
   assert(exception != (ExceptionInfo *) NULL);
-  (void) CopyWizardString(path,filename,MaxTextExtent);
+  (void) CopyWizardString(path,filename,WizardPathExtent);
   /*
     Load XML from configuration files to linked-list.
   */
@@ -613,7 +613,7 @@ WizardExport LinkedListInfo *GetConfigureOptions(const char *filename,
       element=(const char *) GetNextValueInLinkedList(paths);
       while (element != (const char *) NULL)
       {
-        (void) FormatLocaleString(path,MaxTextExtent,"%s%s",element,filename);
+        (void) FormatLocaleString(path,WizardPathExtent,"%s%s",element,filename);
         (void) LogWizardEvent(ConfigureEvent,GetWizardModule(),
           "Searching for configure file: \"%s\"",path);
         xml=ConfigureFileToStringInfo(path);
@@ -679,7 +679,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
 #define WizardsToolkitDLL  "Wizard's Toolkit.dll"
 
   char
-    path[MaxTextExtent];
+    path[WizardPathExtent];
 
   LinkedListInfo
     *paths;
@@ -687,7 +687,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
   assert(filename != (const char *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",filename);
   assert(exception != (ExceptionInfo *) NULL);
-  (void) CopyWizardString(path,filename,MaxTextExtent);
+  (void) CopyWizardString(path,filename,WizardPathExtent);
   paths=NewLinkedList(0);
   {
     char
@@ -707,14 +707,14 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
       {
         for (p=configure_path-1; p != (char *) NULL; )
         {
-          (void) CopyWizardString(path,p+1,MaxTextExtent);
+          (void) CopyWizardString(path,p+1,WizardPathExtent);
           q=strchr(path,DirectoryListSeparator);
           if (q != (char *) NULL)
             *q='\0';
           q=path+strlen(path)-1;
           if ((q >= path) && (*q != *DirectorySeparator))
             (void) ConcatenateWizardString(path,DirectorySeparator,
-              MaxTextExtent);
+              WizardPathExtent);
           (void) AppendValueToLinkedList(paths,AcquireString(path));
           p=strchr(p+1,DirectoryListSeparator);
         }
@@ -753,7 +753,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
     key_value=NTRegistryKeyLookup(RegistryKey);
     if (key_value != (unsigned char *) NULL)
       {
-        (void) FormatLocaleString(path,MaxTextExtent,"%s%s",(char *) key_value,
+        (void) FormatLocaleString(path,WizardPathExtent,"%s%s",(char *) key_value,
           DirectorySeparator);
         (void) AppendValueToLinkedList(paths,ConstantString(path));
         key_value=(unsigned char *) RelinquishWizardMemory(key_value);
@@ -772,18 +772,18 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
 		if (home != (char *) NULL)
       {
 #if !defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
-        (void) FormatLocaleString(path,MaxTextExtent,
+        (void) FormatLocaleString(path,WizardPathExtent,
           "%s%s.config%sWizardsToolkit%s",home,DirectorySeparator,
           DirectorySeparator,DirectorySeparator);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
 #else
-        (void) FormatLocaleString(path,MaxTextExtent,"%s/etc/%s/",home,
+        (void) FormatLocaleString(path,WizardPathExtent,"%s/etc/%s/",home,
           WIZARDSTOOLKIT_CONFIGURE_RELATIVE_PATH);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
-        (void) FormatLocaleString(path,MaxTextExtent,"%s/share/%s/",home,
+        (void) FormatLocaleString(path,WizardPathExtent,"%s/share/%s/",home,
           WIZARDSTOOLKIT_SHARE_RELATIVE_PATH);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
-        (void) FormatLocaleString(path,MaxTextExtent,"%s",
+        (void) FormatLocaleString(path,WizardPathExtent,"%s",
           WIZARDSTOOLKIT_SHAREARCH_PATH);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
 #endif
@@ -793,25 +793,25 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
   if (*GetClientPath() != '\0')
     {
 #if !defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
-      (void) FormatLocaleString(path,MaxTextExtent,"%s%s",GetClientPath(),
+      (void) FormatLocaleString(path,WizardPathExtent,"%s%s",GetClientPath(),
         DirectorySeparator);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
 #else
       char
-        prefix[MaxTextExtent];
+        prefix[WizardPathExtent];
 
       /*
         Search based on executable directory if directory is known.
       */
-      (void) CopyWizardString(prefix,GetClientPath(),MaxTextExtent);
+      (void) CopyWizardString(prefix,GetClientPath(),WizardPathExtent);
       ChopPathComponents(prefix,1);
-      (void) FormatLocaleString(path,MaxTextExtent,"%s/etc/%s/",prefix,
+      (void) FormatLocaleString(path,WizardPathExtent,"%s/etc/%s/",prefix,
         WIZARDSTOOLKIT_CONFIGURE_RELATIVE_PATH);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
-      (void) FormatLocaleString(path,MaxTextExtent,"%s/share/%s/",prefix,
+      (void) FormatLocaleString(path,WizardPathExtent,"%s/share/%s/",prefix,
         WIZARDSTOOLKIT_SHARE_RELATIVE_PATH);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
-      (void) FormatLocaleString(path,MaxTextExtent,"%s",
+      (void) FormatLocaleString(path,WizardPathExtent,"%s",
         WIZARDSTOOLKIT_SHAREARCH_PATH);
       (void) AppendValueToLinkedList(paths,AcquireString(path));
 #endif
@@ -833,7 +833,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
         /*
           Search $HOME/.config/ImageMagick.
         */
-        (void) FormatLocaleString(path,MaxTextExtent,
+        (void) FormatLocaleString(path,WizardPathExtent,
           "%s%s.config%sWizardsToolkit%s",home,DirectorySeparator,
           DirectorySeparator,DirectorySeparator);
         (void) AppendValueToLinkedList(paths,AcquireString(path));
@@ -843,7 +843,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   {
     char
-      module_path[MaxTextExtent];
+      module_path[WizardPathExtent];
 
     if (NTGetModulePath(WizardsToolkitDLL,module_path) != WizardFalse)
       {
@@ -853,7 +853,7 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
         /*
           Search module path.
         */
-        (void) FormatLocaleString(path,MaxTextExtent,"%s%s",module_path,
+        (void) FormatLocaleString(path,WizardPathExtent,"%s%s",module_path,
           DirectorySeparator);
         key_value=NTRegistryKeyLookup(RegistryKey);
         if (key_value == (unsigned char *) NULL)
@@ -1091,14 +1091,14 @@ static WizardBooleanType LoadConfigureCache(LinkedListInfo *configure_cache,
         else
           {
             char
-              path[MaxTextExtent],
+              path[WizardPathExtent],
               *xml;
 
             GetPathComponent(filename,HeadPath,path);
             if (*path != '\0')
               (void) ConcatenateWizardString(path,DirectorySeparator,
-                MaxTextExtent);
-            (void) ConcatenateWizardString(path,attribute,MaxTextExtent);
+                WizardPathExtent);
+            (void) ConcatenateWizardString(path,attribute,WizardPathExtent);
             xml=FileToXML(path,~0UL);
             status&=LoadConfigureCache(configure_cache,xml,path,depth+1,
               exception);

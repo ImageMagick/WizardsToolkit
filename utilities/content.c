@@ -192,7 +192,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
 {
   char
     *digest,
-    key[MaxTextExtent],
+    key[WizardPathExtent],
     *options,
     *target_digest;
 
@@ -235,7 +235,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
   digest=(char *) NULL;
   for (c=ReadBlobByte(cipher_blob); (c != '>') && (c != EOF); )
   {
-    length=MaxTextExtent;
+    length=WizardPathExtent;
     options=AcquireString((char *) NULL);
     while ((isgraph(c) != WizardFalse) && (c != '>') && (c != EOF))
     {
@@ -256,7 +256,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
               break;
             if (c == (int) '=')
               break;
-            if ((size_t) (p-key) < MaxTextExtent)
+            if ((size_t) (p-key) < WizardPathExtent)
               *p++=(char) c;
             c=ReadBlobByte(cipher_blob);
           } while (c != EOF);
@@ -277,7 +277,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
                     *p='\0';
                     length<<=1;
                     options=(char *) ResizeQuantumMemory(options,length+
-                      MaxTextExtent,sizeof(*options));
+                      WizardPathExtent,sizeof(*options));
                     if (options == (char *) NULL)
                       break;
                     p=options+strlen(options);
@@ -626,13 +626,13 @@ WizardExport WizardBooleanType PrintCipherProperties(
   const ContentInfo *content_info,FILE *file)
 {
   char
-    chunksize[MaxTextExtent],
-    timestamp[MaxTextExtent];
+    chunksize[WizardPathExtent],
+    timestamp[WizardPathExtent];
 
   (void) fprintf(file,"Filename: %s\n",content_info->content);
   if (content_info->properties != (char *) NULL)
     (void) fprintf(file,"  Properties: %s\n",content_info->properties);
-  (void) FormatWizardTime(content_info->modify_date,MaxTextExtent,timestamp);
+  (void) FormatWizardTime(content_info->modify_date,WizardPathExtent,timestamp);
   (void) fprintf(file,"  Cipher:\n");
   (void) fprintf(file,"    type: %s\n",WizardOptionToMnemonic(
     WizardCipherOptions,content_info->cipher));
@@ -657,14 +657,14 @@ WizardExport WizardBooleanType PrintCipherProperties(
   (void) fprintf(file,"  Random Generator:\n");
   (void) fprintf(file,"    hash: %s\n",WizardOptionToMnemonic(WizardHashOptions,
     content_info->random_hash));
-  (void) FormatWizardSize(content_info->chunksize,WizardFalse,MaxTextExtent,
+  (void) FormatWizardSize(content_info->chunksize,WizardFalse,WizardPathExtent,
     chunksize);
   (void) fprintf(file,"  Chunksize: %sB\n",chunksize);
   (void) fprintf(file,"  Dates:\n");
   (void) fprintf(file,"    modify: %s\n",timestamp);
-  (void) FormatWizardTime(content_info->create_date,MaxTextExtent,timestamp);
+  (void) FormatWizardTime(content_info->create_date,WizardPathExtent,timestamp);
   (void) fprintf(file,"    create: %s\n",timestamp);
-  (void) FormatWizardTime(content_info->timestamp,MaxTextExtent,timestamp);
+  (void) FormatWizardTime(content_info->timestamp,WizardPathExtent,timestamp);
   (void) fprintf(file,"    timestamp: %s\n",timestamp);
   (void) fprintf(file,"  Protocol: %u.%u\n",(unsigned int)
     content_info->protocol_major,(unsigned int) content_info->protocol_minor);

@@ -283,7 +283,7 @@ WizardExport FileInfo *AcquireFileInfo(const char *path,
   file_info->timestamp=time((time_t *) NULL);
   file_info->signature=WizardSignature;
   if (path != (char *) NULL)
-    (void) CopyWizardString(file_info->path,path,MaxTextExtent);
+    (void) CopyWizardString(file_info->path,path,WizardPathExtent);
   else
     {
       /*
@@ -293,9 +293,9 @@ WizardExport FileInfo *AcquireFileInfo(const char *path,
       home=GetEnvironmentValue("WIZARD_HOME");
       if (home != (char *) NULL)
         {
-          (void) CopyWizardString(file_info->path,home,MaxTextExtent);
+          (void) CopyWizardString(file_info->path,home,WizardPathExtent);
           (void) ConcatenateWizardString(file_info->path,DirectorySeparator,
-            MaxTextExtent);
+            WizardPathExtent);
           home=(char *) RelinquishWizardMemory(home);
         }
       else
@@ -305,23 +305,23 @@ WizardExport FileInfo *AcquireFileInfo(const char *path,
             home=GetEnvironmentValue("USERPROFILE");
           if (home != (char *) NULL)
             {
-              (void) CopyWizardString(file_info->path,home,MaxTextExtent);
+              (void) CopyWizardString(file_info->path,home,WizardPathExtent);
               (void) ConcatenateWizardString(file_info->path,
-                DirectorySeparator,MaxTextExtent);
+                DirectorySeparator,WizardPathExtent);
               (void) ConcatenateWizardString(file_info->path,".wizard",
-                MaxTextExtent);
+                WizardPathExtent);
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
               (void) mkdir(file_info->path);
 #else
               (void) mkdir(file_info->path,0700);
 #endif
               (void) ConcatenateWizardString(file_info->path,
-                DirectorySeparator,MaxTextExtent);
+                DirectorySeparator,WizardPathExtent);
               home=(char *) RelinquishWizardMemory(home);
             }
         }
       (void) ConcatenateWizardString(file_info->path,relative_path,
-        MaxTextExtent);
+        WizardPathExtent);
     }
   if (AcquireFileLock(file_info,exception) == WizardFalse)
     {

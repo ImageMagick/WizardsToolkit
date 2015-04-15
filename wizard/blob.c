@@ -100,7 +100,7 @@ typedef union BlobFileInfo
 struct _BlobInfo
 {
   char
-    filename[MaxTextExtent];
+    filename[WizardPathExtent];
 
   size_t
     length,
@@ -989,7 +989,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
   /*
     Open file.
   */
-  (void) CopyWizardString(blob_info->filename,filename,MaxTextExtent);
+  (void) CopyWizardString(blob_info->filename,filename,WizardPathExtent);
   if (LocaleCompare(filename,"-") == 0)
     {
       blob_info->file_info.file=(*type == 'r') ? stdin : stdout;
@@ -1004,7 +1004,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
   if (LocaleNCompare(filename,"fd:",3) == 0)
     {
       char
-        mode[MaxTextExtent];
+        mode[WizardPathExtent];
 
       *mode=(*type);
       mode[1]='\0';
@@ -1021,7 +1021,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
   if (*filename == '|')
     {
       char
-        mode[MaxTextExtent];
+        mode[WizardPathExtent];
 
       /*
         Pipe blob_info to or from a system command.
@@ -1141,7 +1141,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
   else
     {
       char
-        extension[MaxTextExtent];
+        extension[WizardPathExtent];
 
       GetPathComponent(filename,ExtensionPath,extension);
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
