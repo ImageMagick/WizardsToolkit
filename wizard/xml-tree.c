@@ -1697,12 +1697,12 @@ static void ParseProcessingInstructions(XMLTreeRoot *root,char *xml,
     j++;
   root->processing_instructions[i]=(char **) ResizeQuantumMemory(
     root->processing_instructions[i],(size_t) (j+3),
-    sizeof(*root->processing_instructions));
+    sizeof(**root->processing_instructions));
   if (root->processing_instructions[i] == (char **) NULL)
     ThrowFatalException(ResourceFatalError,"unable to acquire string `%s'");
   root->processing_instructions[i][j+2]=(char *) ResizeQuantumMemory(
     root->processing_instructions[i][j+1],(size_t) (j+1),
-    sizeof(*root->processing_instructions));
+    sizeof(***root->processing_instructions));
   if (root->processing_instructions[i][j+2] == (char *) NULL)
     ThrowFatalException(ResourceFatalError,"unable to acquire string `%s'");
   (void) CopyWizardString(root->processing_instructions[i][j+2]+j-1,
@@ -1888,7 +1888,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                     ThrowFatalException(ResourceFatalError,
                       "unable to acquire string `%s'");
                   root->attributes[i]=(char **) AcquireQuantumMemory(2,
-                    sizeof(*root->attributes));
+                    sizeof(**root->attributes));
                   if (root->attributes[i] == (char **) NULL)
                     ThrowFatalException(ResourceFatalError,
                       "unable to acquire string `%s'");
@@ -1898,7 +1898,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                 }
               for (j=1; root->attributes[i][j] != (char *) NULL; j+=3) ;
               root->attributes[i]=(char **) ResizeQuantumMemory(
-                root->attributes[i],(size_t) (j+4),sizeof(*root->attributes));
+                root->attributes[i],(size_t) (j+4),sizeof(**root->attributes));
               if (root->attributes[i] == (char **) NULL)
                 ThrowFatalException(ResourceFatalError,
                   "unable to acquire string `%s'");
