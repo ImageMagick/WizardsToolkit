@@ -745,9 +745,7 @@ AC_TYPE_UINTMAX_T
 AC_TYPE_UINTPTR_T
 AC_TYPE_UNSIGNED_LONG_LONG_INT
 
-# If the C type char is unsigned, define __CHAR_UNSIGNED__, unless the
-# C compiler predefines it.
-AC_C_CHAR_UNSIGNED
+AC_CHECK_TYPES([locale_t])
 
 # Obtain size of an 'signed short' and define as SIZEOF_SIGNED_SHORT
 AC_CHECK_SIZEOF(signed short)
