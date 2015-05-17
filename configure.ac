@@ -745,7 +745,7 @@ AC_TYPE_UINTMAX_T
 AC_TYPE_UINTPTR_T
 AC_TYPE_UNSIGNED_LONG_LONG_INT
 
-AC_CHECK_TYPES([locale_t])
+AC_CHECK_TYPES([locale_t], [], [], [[#include <xlocale.h>]])
 
 # Obtain size of an 'signed short' and define as SIZEOF_SIGNED_SHORT
 AC_CHECK_SIZEOF(signed short)
