@@ -1207,8 +1207,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 %
 %  The format of the ReadBlob method is:
 %
-%      ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
-%        unsigned char *data)
+%      ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,void *data)
 %
 %  A description of each parameter follows:
 %
@@ -1229,7 +1228,7 @@ static inline WizardSizeType WizardMin(const WizardSizeType x,
 }
 
 WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
-  unsigned char *data)
+  void *data)
 {
   int
     c;
@@ -1404,7 +1403,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
 */
 
 static inline const unsigned char *ReadBlobStream(BlobInfo *blob_info,
-  const size_t length,unsigned char *data,ssize_t *count)
+  const size_t length,void *data,ssize_t *count)
 {
   assert(count != (ssize_t *) NULL);
   assert(blob_info != (BlobInfo *) NULL);
@@ -1441,7 +1440,7 @@ WizardExport int ReadBlobByte(BlobInfo *blob_info)
 
   assert(blob_info != (BlobInfo *) NULL);
   assert(blob_info->signature == WizardSignature);
-  p=ReadBlobStream(blob_info,1,buffer,&count);
+  p=(const unsigned char *) ReadBlobStream(blob_info,1,buffer,&count);
   if (count != 1)
     return(EOF);
   return((int) (*p));
@@ -1466,7 +1465,7 @@ WizardExport int ReadBlobByte(BlobInfo *blob_info)
 %  The format of the ReadBlobChunk method is:
 %
 %      ssize_t ReadBlobChunk(BlobInfo *blob_info,const size_t length,
-%        unsigned char *data)
+%        void *data)
 %
 %  A description of each parameter follows:
 %
@@ -1478,7 +1477,7 @@ WizardExport int ReadBlobByte(BlobInfo *blob_info)
 %
 */
 WizardExport ssize_t ReadBlobChunk(BlobInfo *blob_info,const size_t length,
-  unsigned char *data)
+  void *data)
 {
   register ssize_t
     i;
@@ -1813,7 +1812,7 @@ WizardExport WizardBooleanType UnmapBlob(void *map,const size_t length)
 %  The format of the WriteBlob method is:
 %
 %      ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
-%        const unsigned char *data)
+%        const void *data)
 %
 %  A description of each parameter follows:
 %
@@ -1825,7 +1824,7 @@ WizardExport WizardBooleanType UnmapBlob(void *map,const size_t length)
 %
 */
 WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
-  const unsigned char *data)
+  const void *data)
 {
   int
     c;
@@ -2004,7 +2003,7 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
 */
 
 static inline ssize_t WriteBlobStream(BlobInfo *blob_info,const size_t length,
-  const unsigned char *data)
+  const void *data)
 {
   register unsigned char
     *q;
@@ -2060,7 +2059,7 @@ WizardExport ssize_t WriteBlobByte(BlobInfo *blob_info,
 %  The format of the WriteBlob method is:
 %
 %      ssize_t WriteBlobChunk(BlobInfo *blob_info,const size_t length,
-%        const unsigned char *data)
+%        const void *data)
 %
 %  A description of each parameter follows:
 %
@@ -2072,7 +2071,7 @@ WizardExport ssize_t WriteBlobByte(BlobInfo *blob_info,
 %
 */
 WizardExport ssize_t WriteBlobChunk(BlobInfo *blob_info,const size_t length,
-  const unsigned char *data)
+  const void *data)
 {
   register ssize_t
     i;
