@@ -1247,7 +1247,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
     return(0);
   assert(data != (void *) NULL);
   count=0;
-  q=data;
+  q=(unsigned char *) data;
   switch (blob_info->type)
   {
     case UndefinedStream:
@@ -1402,7 +1402,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
 %
 */
 
-static inline const unsigned char *ReadBlobStream(BlobInfo *blob_info,
+static inline const void *ReadBlobStream(BlobInfo *blob_info,
   const size_t length,void *data,ssize_t *count)
 {
   assert(count != (ssize_t *) NULL);
@@ -1495,7 +1495,7 @@ WizardExport ssize_t ReadBlobChunk(BlobInfo *blob_info,const size_t length,
   for (i=0; i < (ssize_t) length; i+=count)
   {
     count=ReadBlob(blob_info,(size_t) WizardMin(length-i,(WizardSizeType)
-      SSIZE_MAX),data+i);
+      SSIZE_MAX),(unsigned char *) data+i);
     if (count <= 0)
       {
         count=0;
@@ -1837,11 +1837,11 @@ WizardExport ssize_t WriteBlob(BlobInfo *blob_info,const size_t length,
 
   assert(blob_info != (BlobInfo *) NULL);
   assert(blob_info->signature == WizardSignature);
-  assert(data != (const unsigned char *) NULL);
+  assert(data != (const void *) NULL);
   if (length == 0)
     return(0);
   count=0;
-  p=data;
+  p=(const unsigned char *) data;
   switch (blob_info->type)
   {
     case UndefinedStream:
@@ -2088,7 +2088,7 @@ WizardExport ssize_t WriteBlobChunk(BlobInfo *blob_info,const size_t length,
   for (i=0; i < (ssize_t) length; i+=count)
   {
     count=WriteBlob(blob_info,(size_t) WizardMin(length-i,(WizardSizeType)
-      SSIZE_MAX),data+i);
+      SSIZE_MAX),(const unsigned char *) data+i);
     if (count <= 0)
       {
         count=0;

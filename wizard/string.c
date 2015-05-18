@@ -973,7 +973,8 @@ WizardExport StringInfo *FileToStringInfo(const char *filename,
   if (string_info->datum != (unsigned char *) NULL)
     string_info->datum=(unsigned char *) RelinquishWizardMemory(
       string_info->datum);
-  string_info->datum=FileToBlob(filename,extent,&string_info->length,exception);
+  string_info->datum=(unsigned char *) FileToBlob(filename,extent,
+    &string_info->length,exception);
   if (string_info->datum == (unsigned char *) NULL)
     {
       string_info=DestroyStringInfo(string_info);

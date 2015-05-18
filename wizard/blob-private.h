@@ -55,11 +55,11 @@ extern WizardExport int
   SyncBlob(BlobInfo *);
 
 extern WizardExport ssize_t
-  ReadBlob(BlobInfo *,const size_t,unsigned char *),
-  ReadBlobChunk(BlobInfo *,const size_t,unsigned char *),
-  WriteBlob(BlobInfo *,const size_t,const unsigned char *),
+  ReadBlob(BlobInfo *,const size_t,void *),
+  ReadBlobChunk(BlobInfo *,const size_t,void *),
+  WriteBlob(BlobInfo *,const size_t,const void *),
   WriteBlobByte(BlobInfo *,const unsigned char),
-  WriteBlobChunk(BlobInfo *,const size_t,const unsigned char *),
+  WriteBlobChunk(BlobInfo *,const size_t,const void *),
   WriteBlobString(BlobInfo *,const char *);
 
 extern WizardExport WizardBooleanType
