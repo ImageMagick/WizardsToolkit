@@ -208,7 +208,7 @@ WizardExport WizardBooleanType GetPathTemplate(const char *path,char *filename)
       directory=GetEnvironmentValue("WIZARD_TMPDIR");
       if (directory == (char *) NULL)
         directory=GetEnvironmentValue("TMPDIR");
-#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
+#if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__OS2__) || defined(__CYGWIN__)
       if (directory == (char *) NULL)
         directory=GetEnvironmentValue("TMP");
       if (directory == (char *) NULL)
