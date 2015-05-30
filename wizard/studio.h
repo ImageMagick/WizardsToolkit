@@ -44,9 +44,6 @@ extern "C" {
 #if defined(_wizardstoolkit_inline) && !defined(inline)
 # define inline  _wizardstoolkit_inline
 #endif
-# if defined(_wizardstoolkit_restrict) && !defined(restrict)
-#  define restrict  _wizardstoolkit_restrict
-# endif
 # if defined(__cplusplus) || defined(c_plusplus)
 #  undef inline
 # endif
@@ -69,6 +66,9 @@ extern "C" {
 #  include <stdlib.h>
 # endif
 #endif
+# if defined(_wizardstoolkit_restrict) && !defined(restrict)
+#  define restrict  _wizardstoolkit_restrict
+# endif
 #if defined(WIZARDSTOOLKIT_HAVE_STRING_H)
 # if !defined(STDC_HEADERS) && defined(WIZARDSTOOLKIT_HAVE_MEMORY_H)
 #  include <memory.h>

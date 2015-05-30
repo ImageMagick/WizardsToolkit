@@ -74,8 +74,10 @@
 #define inline __inline
 
 // Visual C++ does not define restrict by default.
-#if !defined(restrict)
-  #define restrict
+#if (_MSC_VER >= 1400)
+#  define _wizardstoolkit_restrict __restrict
+#else
+#  define _wizardstoolkit_restrict
 #endif
 
 // Visual C++ does not define ssize_t by default.
