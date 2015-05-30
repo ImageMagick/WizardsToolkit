@@ -479,7 +479,8 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
       else
         RelinquishWizardResource(MapResource,length);
     }
-  if (memory_info->blob == NULL)
+  if ((memory_info->blob == NULL) &&
+      (AcquireWizardResource(DiskResource,length) != WizardFalse))
     {
       int
         file;
@@ -488,15 +489,26 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
         Anonymous memory mapping failed, try file-backed memory mapping.
       */
       file=AcquireUniqueFileResource("",memory_info->filename,exception);
-      if (file != -1)
+      if (file == -1)
+        RelinquishWizardResource(DiskResource,length);
+      else
         {
-          if ((lseek(file,length-1,SEEK_SET) >= 0) && (write(file,"",1) == 1))
+          if ((lseek(file,length-1,SEEK_SET) < 0) || (write(file,"",1) != 1))
+            RelinquishWizardResource(DiskResource,length);
+          else
             {
-              memory_info->blob=MapBlob(file,IOMode,0,length);
-              if (memory_info->blob != NULL)
+              if (AcquireWizardResource(MapResource,length) == WizardFalse)
+                RelinquishWizardResource(DiskResource,length);
+              else
                 {
-                   memory_info->type=MapVirtualMemory;
-                  (void) AcquireWizardResource(MapResource,length);
+                  memory_info->blob=MapBlob(file,IOMode,0,length);
+                  if (memory_info->blob != NULL)
+                    memory_info->type=MapVirtualMemory;
+                  else
+                    {
+                      RelinquishWizardResource(MapResource,length);
+                      RelinquishWizardResource(DiskResource,length);
+                    }
                 }
             }
           (void) close(file);
@@ -947,7 +959,11 @@ WizardExport MemoryInfo *RelinquishVirtualMemory(MemoryInfo *memory_info)
         memory_info->blob=NULL;
         RelinquishWizardResource(MapResource,memory_info->length);
         if (*memory_info->filename != '\0')
-          (void) RelinquishUniqueFileResource(memory_info->filename,WizardTrue);
+          {
+            (void) RelinquishUniqueFileResource(memory_info->filename,
+              WizardTrue);
+            RelinquishWizardResource(DiskResource,memory_info->length);
+          }
         break;
       }
       case UnalignedVirtualMemory:
