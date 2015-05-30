@@ -25,7 +25,7 @@ extern "C" {
 #endif
 
 #if !defined(WizardMaxBufferExtent)
-#define WizardMaxBufferExtent  (32*8192)
+#define WizardMaxBufferExtent  8192
 #endif
 
 typedef enum
