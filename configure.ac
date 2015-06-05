@@ -1336,41 +1336,25 @@ if test "$with_zlib" != 'yes'; then
 fi
 
 have_zlib='no'
-ZLIB_LIBS=''
-dnl PNG requires zlib so enable zlib check if PNG is requested
-if test "$with_zlib" != 'no' || test "$with_png" != 'no'; then
-  AC_MSG_NOTICE([-------------------------------------------------------------])
-  AC_MSG_CHECKING(for ZLIB)
-  AC_MSG_NOTICE([])
-  failed=0
-  passed=0
-  AC_CHECK_HEADER(zconf.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-  AC_CHECK_HEADER(zlib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-  AC_CHECK_LIB(z,compress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,uncompress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,deflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,deflateBound,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,inflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,gzseek,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_MSG_CHECKING([if ZLIB package is complete])
-  if test $passed -gt 0; then
-    if test $failed -gt 0; then
-      AC_MSG_NOTICE([no -- some components failed test])
-      have_zlib='no (failed tests)'
-    else
-      ZLIB_LIBS='-lz'
-      LIBS="$ZLIB_LIBS $LIBS"
-      AC_DEFINE(ZLIB_DELEGATE,1,Define if you have zlib compression library)
-      AC_MSG_NOTICE([yes])
-      have_zlib='yes'
-    fi
-  else
-    AC_MSG_NOTICE([no])
-  fi
+ZLIB_CFLAGS=""
+ZLIB_LIBS=""
+ZLIB_PKG=""
+if test "x$with_zlib" = "xyes"; then
+  AC_MSG_RESULT([-------------------------------------------------------------])
+  PKG_CHECK_MODULES(ZLIB,[zlib >= 1.0.0], have_zlib=yes, have_zlib=no)
+  AC_MSG_RESULT([])
 fi
+
+if test "$have_zlib" = 'yes'; then
+  AC_DEFINE(ZLIB_DELEGATE,1,Define if you have ZLIB library)
+  CFLAGS="$ZLIB_CFLAGS $CFLAGS"
+fi
+
 AM_CONDITIONAL(ZLIB_DELEGATE, test "$have_zlib" = 'yes')
+AC_SUBST(ZLIB_CFLAGS)
 AC_SUBST(ZLIB_LIBS)
+
+dnl ===========================================================================
 
 #
 # If profiling, then check for -ldl and dlopen (required for Solaris & gcc)
@@ -1610,7 +1594,7 @@ AC_SUBST(WIZARD_DEP_LIBS)
 #
 # Sanitize output variables (asthetic).
 #
-for variable in CC CFLAGS CPPFLAGS CXXFLAGS LDFLAGS TESTED_LIBS WIZARD_DEP_LIBS; do
+for variable in CFLAGS CPPFLAGS CXXFLAGS LDFLAGS PCFLAGS X_CFLAGS; do
   sanitize=''
   eval value=$`echo $variable`
   for component in $value

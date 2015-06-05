@@ -648,7 +648,7 @@
 /* Wizard API method prefix */
 #undef WizardMethodPrefix
 
-/* Define if you have zlib compression library */
+/* Define if you have ZLIB library */
 #undef ZLIB_DELEGATE
 
 /* Enable large inode numbers on Mac OS X 10.5.  */

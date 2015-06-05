@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <configuremap>
   <configure name="NAME" value="WizardsToolkit" />
-  <configure name="SVN_REVISION" value="15907:18692M" />
+  <configure name="SVN_REVISION" value="15907:18724M" />
   <configure name="VERSION" value="1.0.9" />
   <configure name="LIB_VERSION" value="0x109" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,9,3" />
@@ -22,7 +22,7 @@
   <configure name="CFLAGS" value="-fopenmp -g -O2 -Wall -mtune=sandybridge -pthread" />
   <configure name="CPPFLAGS" value="-I/usr/local/include/WizardsToolkit-1" />
   <configure name="LDFLAGS" value="-L/usr/local/lib " />
-  <configure name="LIBS" value="-lWizardsToolkit -lbz2 -llzma -lz -lm -lgomp -lpthread" />
+  <configure name="LIBS" value="-lWizardsToolkit   -lbz2 -llzma  -L/usr/lib64 -lz   -lm -lgomp   -lpthread" />
   <configure name="CXX" value="g++" />
   <configure name="CXXFLAGS" value="-pthread" />
   <configure name="DISTCHECK_CONFIG_FLAGS" value=" --with-jemalloc=no  --with-umem=no " />

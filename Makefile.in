@@ -863,6 +863,7 @@ WIZARD_VERSION = @WIZARD_VERSION@
 WinPathScript = @WinPathScript@
 X_CFLAGS = @X_CFLAGS@
 ZIP = @ZIP@
+ZLIB_CFLAGS = @ZLIB_CFLAGS@
 ZLIB_LIBS = @ZLIB_LIBS@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
