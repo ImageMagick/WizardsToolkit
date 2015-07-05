@@ -23,6 +23,9 @@
 #include "wizard/nt-base.h"
 #endif
 
+#define WizardMax(x,y)  (((x) > (y)) ? (x) : (y))
+#define WizardMin(x,y)  (((x) < (y)) ? (x) : (y))
+
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif

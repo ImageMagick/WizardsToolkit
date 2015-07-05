@@ -867,14 +867,6 @@ WizardExport WizardBooleanType RelinquishUniqueFileResource(const char *path,
 %      WizardBooleanType ResourceComponentGenesis(void)
 %
 */
-
-static inline ssize_t WizardMax(const ssize_t x,const ssize_t y)
-{
-  if (x > y)
-    return(x);
-  return(y);
-}
-
 WizardExport WizardBooleanType ResourceComponentGenesis(void)
 {
   char

@@ -55,6 +55,7 @@
 #include "wizard/string_.h"
 #include "wizard/token.h"
 #include "wizard/utility.h"
+#include "wizard/utility-private.h"
 #include "wizard/xml-tree.h"
 #include "wizard/xml-tree-private.h"
 
@@ -1145,13 +1146,6 @@ static void LocaleFatalErrorHandler(
   exit(1);
 }
 
-static inline size_t WizardMin(const size_t x,const size_t y)
-{
-  if (x < y)
-    return(x);
-  return(y);
-}
-
 static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
   const char *xml,const char *filename,const char *locale,const size_t depth,
   ExceptionInfo *exception)
@@ -1326,8 +1320,7 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
         q--;
         while ((isspace((int) ((unsigned char) *q)) != 0) && (q > p))
           q--;
-        (void) CopyWizardString(message,p,WizardMin((size_t) (q-p+2),
-          WizardLocaleExtent));
+        (void) CopyWizardString(message,p,WizardMin(q-p+2,WizardLocaleExtent));
         locale_info=(LocaleInfo *) AcquireWizardMemory(sizeof(*locale_info));
         if (locale_info == (LocaleInfo *) NULL)
           ThrowFatalException(ResourceFatalError,

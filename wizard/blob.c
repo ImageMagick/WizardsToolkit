@@ -1218,15 +1218,6 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 %    o data: area to place the information requested from the blob.
 %
 */
-
-static inline WizardSizeType WizardMin(const WizardSizeType x,
-  const WizardSizeType y)
-{
-  if (x < y)
-    return(x);
-  return(y);
-}
-
 WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
   void *data)
 {
@@ -1367,8 +1358,7 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
           break;
         }
       p=blob_info->data+blob_info->offset;
-      count=(ssize_t) WizardMin(length,(size_t) (blob_info->length-
-        blob_info->offset));
+      count=(ssize_t) WizardMin(length,blob_info->length-blob_info->offset);
       blob_info->offset+=count;
       if (count != (ssize_t) length)
         blob_info->eof=WizardTrue;
@@ -1419,8 +1409,7 @@ static inline const void *ReadBlobStream(BlobInfo *blob_info,
       return(data);
     }
   data=blob_info->data+blob_info->offset;
-  *count=(ssize_t) WizardMin(length,(size_t) (blob_info->length-
-    blob_info->offset));
+  *count=(ssize_t) WizardMin(length,blob_info->length-blob_info->offset);
   blob_info->offset+=(*count);
   if (*count != (ssize_t) length)
     blob_info->eof=WizardTrue;
@@ -1494,8 +1483,8 @@ WizardExport ssize_t ReadBlobChunk(BlobInfo *blob_info,const size_t length,
   count=0;
   for (i=0; i < (ssize_t) length; i+=count)
   {
-    count=ReadBlob(blob_info,(size_t) WizardMin(length-i,(WizardSizeType)
-      SSIZE_MAX),(unsigned char *) data+i);
+    count=ReadBlob(blob_info,(size_t) WizardMin(length-i,SSIZE_MAX),
+      (unsigned char *) data+i);
     if (count <= 0)
       {
         count=0;
@@ -2087,8 +2076,8 @@ WizardExport ssize_t WriteBlobChunk(BlobInfo *blob_info,const size_t length,
   count=0;
   for (i=0; i < (ssize_t) length; i+=count)
   {
-    count=WriteBlob(blob_info,(size_t) WizardMin(length-i,(WizardSizeType)
-      SSIZE_MAX),(const unsigned char *) data+i);
+    count=WriteBlob(blob_info,(size_t) WizardMin(length-i,SSIZE_MAX),
+      (const unsigned char *) data+i);
     if (count <= 0)
       {
         count=0;

@@ -630,15 +630,6 @@ WizardExport XMLTreeInfo *DestroyXMLTree(XMLTreeInfo *xml_info)
 %    o extent: Maximum length of the string.
 %
 */
-
-static inline WizardSizeType WizardMin(const WizardSizeType x,
-  const WizardSizeType y)
-{
-  if (x < y)
-    return(x);
-  return(y);
-}
-
 WizardPrivate char *FileToXML(const char *filename,const size_t extent)
 {
   char
@@ -686,8 +677,7 @@ WizardPrivate char *FileToXML(const char *filename,const size_t extent)
       offset=(WizardOffsetType) lseek(file,0,SEEK_SET);
       quantum=(size_t) WizardMaxBufferExtent;
       if ((fstat(file,&file_stats) == 0) && (file_stats.st_size > 0))
-        quantum=(size_t) WizardMin((WizardSizeType) file_stats.st_size,
-          WizardMaxBufferExtent);
+        quantum=(size_t) WizardMin(file_stats.st_size,WizardMaxBufferExtent);
       xml=(char *) AcquireQuantumMemory(quantum,sizeof(*xml));
       for (i=0; xml != (char *) NULL; i+=count)
       {
@@ -720,7 +710,7 @@ WizardPrivate char *FileToXML(const char *filename,const size_t extent)
       xml[length]='\0';
       return(xml);
     }
-  length=(size_t) WizardMin((WizardSizeType) offset,extent);
+  length=(size_t) WizardMin(offset,extent);
   xml=(char *) NULL;
   if (~length >= (WizardPathExtent-1))
     xml=(char *) AcquireQuantumMemory(length+WizardPathExtent,sizeof(*xml));
@@ -740,8 +730,7 @@ WizardPrivate char *FileToXML(const char *filename,const size_t extent)
       (void) lseek(file,0,SEEK_SET);
       for (i=0; i < length; i+=count)
       {
-        count=read(file,xml+i,(size_t) WizardMin(length-i,(WizardSizeType)
-          SSIZE_MAX));
+        count=read(file,xml+i,(size_t) WizardMin(length-i,SSIZE_MAX));
         if (count <= 0)
           {
             count=0;

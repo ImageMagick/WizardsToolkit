@@ -159,14 +159,6 @@ static StringInfo
 %    o hash: the hash type.
 %
 */
-
-static inline size_t WizardMin(const size_t x,const size_t y)
-{
-  if (x < y)
-    return(x);
-  return(y);
-}
-
 WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
 {
   ExceptionInfo

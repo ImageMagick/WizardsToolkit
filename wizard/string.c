@@ -362,14 +362,6 @@ WizardExport StringInfo *CloneStringInfo(const StringInfo *string_info)
 %    o source: The source string.
 %
 */
-
-static inline size_t WizardMin(const size_t x,const size_t y)
-{
-  if (x < y)
-    return(x);
-  return(y);
-}
-
 WizardExport int CompareStringInfo(const StringInfo *target,
   const StringInfo *source)
 {
@@ -603,8 +595,7 @@ WizardExport StringInfo *ConfigureFileToStringInfo(const char *filename)
       (void) lseek(file,0,SEEK_SET);
       for (i=0; i < length; i+=count)
       {
-        count=read(file,string+i,(size_t) WizardMin(length-i,(size_t)
-          SSIZE_MAX));
+        count=read(file,string+i,(size_t) WizardMin(length-i,SSIZE_MAX));
         if (count <= 0)
           {
             count=0;
