@@ -685,7 +685,7 @@ WizardPrivate char *FileToXML(const char *filename,const size_t extent)
       */
       offset=(WizardOffsetType) lseek(file,0,SEEK_SET);
       quantum=(size_t) WizardMaxBufferExtent;
-      if ((fstat(file,&file_stats) == 0) && (file_stats.st_size != 0))
+      if ((fstat(file,&file_stats) == 0) && (file_stats.st_size > 0))
         quantum=(size_t) WizardMin((WizardSizeType) file_stats.st_size,
           WizardMaxBufferExtent);
       xml=(char *) AcquireQuantumMemory(quantum,sizeof(*xml));

@@ -556,7 +556,7 @@ WizardExport void *FileToBlob(const char *filename,const size_t extent,
       */
       offset=(WizardOffsetType) lseek(file,0,SEEK_SET);
       quantum=(size_t) WizardMaxBufferExtent;
-      if ((fstat(file,&file_info) == 0) && (file_info.st_size != 0))
+      if ((fstat(file,&file_info) == 0) && (file_info.st_size > 0))
         quantum=Min((size_t) file_info.st_size,WizardMaxBufferExtent);
       blob=(unsigned char *) AcquireQuantumMemory(quantum,sizeof(*blob));
       for (i=0; blob != (unsigned char *) NULL; i+=count)
