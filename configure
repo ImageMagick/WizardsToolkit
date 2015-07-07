@@ -3212,7 +3212,7 @@ WIZARD_PATCHLEVEL_VERSION=3
 
 WIZARD_VERSION=1.0.9-3
 
-WIZARD_SVN_REVISION=15907:19135M
+WIZARD_SVN_REVISION=15907:19138M
 
 
 # Substitute library versioning
@@ -3220,7 +3220,7 @@ WIZARD_LIBRARY_CURRENT_MIN=`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`
 
 WIZARD_LIBRARY_VERSION_INFO=$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE
 
-WIZARD_SVN_REVISION=15907:19135M
+WIZARD_SVN_REVISION=15907:19138M
 
 
 
@@ -25719,30 +25719,6 @@ else
   WIZARD_DEP_LIBS="$USER_LIBS $IPC_LIBS $BZLIB_LIBS $LZMA_LIBS $ZLIB_LIBS $GDI32_LIBS $MATH_LIBS $UMEM_LIBS $GOMP_LIBS $UMEM_LIBS $JEMALLOC_LIBS $THREAD_LIBS"
 fi
 
-
-#
-# Sanitize output variables (asthetic).
-#
-for variable in CFLAGS CPPFLAGS CXXFLAGS LDFLAGS PCFLAGS X_CFLAGS; do
-  sanitize=''
-  eval value=$`echo $variable`
-  for component in $value
-  do
-    unique=yes
-    for test_component in $sanitize
-    do
-      if test $component = $test_component; then
-        unique=no
-        break
-      fi
-    done
-    if test $unique = yes; then
-      sanitize="$sanitize $component"
-    fi
-  done
-  sanitize=`echo $sanitize | sed -e 's/^ *//g'`
-  eval ${variable}=\${sanitize}
-done
 
 # Pass only user-provided LIBS as "global" libraries
 LIBS=$USER_LIBS
