@@ -205,7 +205,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
                 break;
               }
           }
-        (void) sleep(1);
+        WizardDelay(1000);
         continue;
       }
     pid=(ssize_t) getpid();

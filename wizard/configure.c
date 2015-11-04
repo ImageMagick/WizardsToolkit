@@ -825,13 +825,29 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
     char
       *home;
 
-    home=GetEnvironmentValue("HOME");
+    home=GetEnvironmentValue("XDG_CONFIG_HOME");
+    if (home == (char *) NULL)
+      home=GetEnvironmentValue("LOCALAPPDATA");
+    if (home == (char *) NULL)
+      home=GetEnvironmentValue("APPDATA");
     if (home == (char *) NULL)
       home=GetEnvironmentValue("USERPROFILE");
     if (home != (char *) NULL)
       {
         /*
-          Search $HOME/.config/ImageMagick.
+          Search $XDG_CONFIG_HOME/ImageMagick.
+        */
+        (void) FormatLocaleString(path,WizardPathExtent,
+          "%s%sWizardsToolkit%s%s",home,DirectorySeparator,DirectorySeparator,
+          filename);
+        (void) AppendValueToLinkedList(paths,ConstantString(path));
+        home=DestroyString(home);
+      }
+    home=GetEnvironmentValue("HOME");
+    if (home != (char *) NULL)
+      {
+        /*
+          Search $HOME/.config/WizardsToolkit.
         */
         (void) FormatLocaleString(path,WizardPathExtent,
           "%s%s.config%sWizardsToolkit%s",home,DirectorySeparator,

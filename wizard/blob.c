@@ -1086,7 +1086,9 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
           count=(ssize_t) fread(magick,1,sizeof(magick),
             blob_info->file_info.file);
           (void) fseek(blob_info->file_info.file,-((off_t) count),SEEK_CUR);
+#if defined(WIZARDSTOOLKIT_POSIX_SUPPORT)
           (void) fflush(blob_info->file_info.file);
+#endif
           (void) LogWizardEvent(BlobEvent,GetWizardModule(),
             "  read %.20g magic header bytes",(double) count);
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
