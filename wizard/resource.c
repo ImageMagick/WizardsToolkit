@@ -307,7 +307,9 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
     file=mkstemp(filename);
     if (file != -1)
       {
-        (void) fchmod(file,0600);
+#if defined(WIZARDSTOOLKIT_HAVE_FCHMOD)
+         (void) fchmod(file,0600);
+#endif
 #if defined(__OS2__)
         setmode(file,O_BINARY);
 #endif
