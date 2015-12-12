@@ -1,5 +1,5 @@
 /*
-  Copyright 1999-2015 ImageWizard Studio LLC, a non-profit organization
+  Copyright 1999-2016 ImageWizard Studio LLC, a non-profit organization
   dedicated to making software imaging solutions freely available.
   
   You may not use this file except in compliance with the License.
