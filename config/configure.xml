@@ -6,7 +6,7 @@
   <configure name="LIB_VERSION" value="0x109" />
   <configure name="LIB_VERSION_NUMBER" value="1,0,9,3" />
   <configure name="RELEASE_DATE" value="" />
-  <configure name="CONFIGURE" value="./configure " />
+  <configure name="CONFIGURE" value="./configure  'PKG_CONFIG_PATH=/usr/local/lib/pkgconfig'" />
   <configure name="PREFIX" value="/usr/local" />
   <configure name="EXEC-PREFIX" value="/usr/local" />
   <configure name="INCLUDE_PATH" value="/usr/local/include/WizardsToolkit-1"/>
@@ -27,6 +27,6 @@
   <configure name="CXXFLAGS" value=" -pthread" />
   <configure name="DISTCHECK_CONFIG_FLAGS" value=" --with-jemalloc=no  --with-umem=no " />
   <configure name="HOST" value="x86_64-unknown-linux-gnu" />
-  <configure name="COPYRIGHT" value="Copyright (C) 1999-2015 ImageMagick Studio LLC" />
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2016 ImageMagick Studio LLC" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
 </configuremap>
