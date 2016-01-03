@@ -24,7 +24,7 @@ m4_define([wizard_micro_version], [9])
 m4_define([wizard_patchlevel_version], [3])
 m4_define([wizard_version],
           [wizard_major_version.wizard_minor_version.wizard_micro_version-wizard_patchlevel_version])
-m4_define([wizard_svn_revision], esyscmd([sh -c "(svnversion .) | awk '{ print \$1 }' | tr -d '\n'"]))
+m4_define([wizard_git_revision], esyscmd([sh -c "(gitversion .) | tr -d '\n'"]))
 
 AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit])
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
@@ -94,7 +94,7 @@ AC_SUBST([WIZARD_MINOR_VERSION],[wizard_minor_version])
 AC_SUBST([WIZARD_MICRO_VERSION],[wizard_micro_version])
 AC_SUBST([WIZARD_PATCHLEVEL_VERSION],[wizard_patchlevel_version])
 AC_SUBST([WIZARD_VERSION],[wizard_version])
-AC_SUBST([WIZARD_SVN_REVISION],[wizard_svn_revision])
+AC_SUBST([WIZARD_GIT_REVISION],[wizard_git_revision])
 
 # Substitute library versioning
 AC_SUBST(WIZARD_LIBRARY_CURRENT)dnl
@@ -104,7 +104,6 @@ AC_SUBST([WIZARD_LIBRARY_CURRENT_MIN],
          [`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`])
 AC_SUBST([WIZARD_LIBRARY_VERSION_INFO],
          [$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE])
-AC_SUBST([WIZARD_SVN_REVISION],[wizard_svn_revision]) 
 
 AC_SUBST(PACKAGE_NAME)dnl
 AC_SUBST(PACKAGE_VERSION)dnl
