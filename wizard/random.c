@@ -477,7 +477,9 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
     file=mkstemp(path);
     if (file != -1)
       {
+#if defined(WIZARDSTOOLKIT_HAVE_FCHMOD)
         (void) fchmod(file,0600);
+#endif
         if (close(file) == -1)
           (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
             "unable to close file `%s': %s",path,strerror(errno));
