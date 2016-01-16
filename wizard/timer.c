@@ -67,7 +67,7 @@ struct _TimerInfo
   Define declarations.
 */
 #if !defined(CLOCKS_PER_SEC)
-#define CLOCKS_PER_SEC  sysconf(_SC_CLK_TCK)
+#define CLOCKS_PER_SEC  100
 #endif
 
 /*
@@ -203,11 +203,11 @@ WizardExport TimerInfo *DestroyTimerInfo(TimerInfo *timer_info)
 */
 static double ElapsedTime(void)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_TIMES)
+#if defined(WIZARDSTOOLKIT_HAVE_TIMES) && defined(WIZARDSTOOLKIT_HAVE_SYSCONF)
   struct tms
     timer;
 
-  return((double) times(&timer)/CLOCKS_PER_SEC);
+  return((double) times(&timer)/sysconf(_SC_CLK_TCK));
 #else
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   return(NTElapsedTime());
@@ -457,12 +457,12 @@ static void StopTimer(TimerInfo *timer_info)
 */
 static double UserTime(void)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_TIMES)
+#if defined(WIZARDSTOOLKIT_HAVE_TIMES) && defined(WIZARDSTOOLKIT_HAVE_SYSCONF)
   struct tms
     timer;
 
   (void) times(&timer);
-  return((double) (timer.tms_utime+timer.tms_stime)/CLOCKS_PER_SEC);
+  return((double) (timer.tms_utime+timer.tms_stime)/sysconf(_SC_CLK_TCK));
 #else
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   return(NTUserTime());
