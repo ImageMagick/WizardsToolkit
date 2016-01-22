@@ -340,8 +340,7 @@ WizardExport void WizardsToolkitTerminus(void)
   ResourceComponentTerminus();
   RandomComponentTerminus();
   LogComponentTerminus();
-  SemaphoreComponentTerminus();
   instantiate_wizardstoolkit=WizardFalse;
   UnlockWizardMutex();
-  DestroyWizardMutex();
+  SemaphoreComponentTerminus();
 }
