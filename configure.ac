@@ -26,7 +26,11 @@ m4_define([wizard_version],
           [wizard_major_version.wizard_minor_version.wizard_micro_version-wizard_patchlevel_version])
 m4_define([wizard_git_revision], esyscmd([sh -c "(gitversion .) | tr -d '\n'"]))
 
-AC_INIT([WizardsToolkit],[wizard_version],[http://www.wizards-toolkit.org],[WizardsToolkit])
+AC_INIT([WizardsToolkit],
+        [wizard_version],
+        [http://www.wizards-toolkit.org],
+        [WizardsToolkit],
+        [http://www.wizards-toolkit.org])
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
 AC_CONFIG_AUX_DIR([config])
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
@@ -34,22 +38,9 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_LIBOBJ_DIR([wizard])
 AC_CONFIG_HEADERS([config/config.h])
 AX_PREFIX_CONFIG_H([wizard/wizard-config.h],[WizardsToolkit])
-AC_CONFIG_FILES([\
-  common.shi \
-  config/configure.xml \
-  config/WizardsToolkit.dox \
-  Makefile \
-  wizard.sh \
-  utilities/cipher-info.1 \
-  utilities/decipher.1 \
-  utilities/digest.1 \
-  utilities/encipher.1 \
-  utilities/keyring.1 \
-  windows/WizardsToolkit.bat \
-  wizard/version.h \
-  wizard/WizardsToolkit-config \
-  wizard/WizardsToolkit.pc \
-  WizardsToolkit.spec ])
+AC_CANONICAL_SYSTEM
+AC_CANONICAL_TARGET
+AM_INIT_AUTOMAKE([foreign color-tests -Wall -Wno-portability subdir-objects])
 
 #
 # Save initial user-tunable values
@@ -67,14 +58,40 @@ AC_SUBST(DISTCHECK_CONFIG_FLAGS)
 CONFIGURE_ARGS="$0 ${ac_configure_args}"
 AC_SUBST(CONFIGURE_ARGS)
 
+echo "configuring ${PACKAGE_NAME} ${PACKAGE_VERSION}${PACKAGE_VERSION_ADDENDUM}"
+
+# Ensure that make can run correctly
+AM_SANITY_CHECK
+
 # Source file containing package/library versioning information.
 . ${srcdir}/version.sh
 
-echo "configuring ${PACKAGE_NAME} ${PACKAGE_VERSION}${PACKAGE_VERSION_ADDENDUM}"
-AC_CANONICAL_SYSTEM
+#
+# Enable OS features.
+#
+AC_USE_SYSTEM_EXTENSIONS
+
+# Check for programs
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_LD
+AC_SUBST(LD)
+AC_PROG_CC_C99
+AM_PROG_CC_C_O
+AX_CFLAGS_WARN_ALL
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+AC_PROG_LN_S
+AC_PROG_AWK
+AM_WITH_DMALLOC
+AX_C___ATTRIBUTE__
+AX_GCC_ARCHFLAG([yes])
+PKG_PROG_PKG_CONFIG([0.20])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
-AC_CANONICAL_TARGET
+
+AX_COMPILER_VENDOR
+#AX_COMPILER_FLAGS
 
 WIZARD_TARGET_CPU=$host_cpu
 AC_SUBST(WIZARD_TARGET_CPU)
@@ -120,10 +137,8 @@ AC_SUBST(CVS_BRANCH_TAG)dnl
 # Ensure that make can run correctly
 AM_SANITY_CHECK
 
-AM_INIT_AUTOMAKE([1.12 nostdinc color-tests foreign parallel-tests silent-rules subdir-objects dist-bzip2 dist-lzip dist-xz dist-zip])
-
 # Enable support for silent build rules
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+AM_SILENT_RULES([yes])
 
 WIZARD_LIB_VERSION="0x"
 if test ${WIZARD_LIBRARY_CURRENT} -lt 10 ; then
@@ -226,28 +241,6 @@ AC_SUBST(WIZARD_CONFIGURE_SRC_PATH)
 AC_SUBST(WIZARD_CONFIGURE_BUILD_PATH)
 AC_SUBST(DIRSEP)
 
-#
-# Enable OS features.
-#
-AC_USE_SYSTEM_EXTENSIONS
-
-# Check for programs
-AC_PROG_CC
-AC_PROG_CPP
-AC_PROG_LD
-AC_SUBST(LD)
-AC_PROG_CC_C99
-AM_PROG_CC_C_O
-AX_CFLAGS_WARN_ALL
-AX_COMPILER_VENDOR
-AC_PROG_INSTALL
-AC_PROG_MAKE_SET
-AC_PROG_LN_S
-AC_PROG_AWK
-AM_WITH_DMALLOC
-AX_C___ATTRIBUTE__
-AX_GCC_ARCHFLAG([yes])
-PKG_PROG_PKG_CONFIG
 
 # Check for linker script support 
 gl_LD_VERSION_SCRIPT
@@ -1064,6 +1057,12 @@ WIZARD_CPPFLAGS="-I$INCLUDE_DIR/${PACKAGE_NAME}-$WIZARD_MAJOR_VERSION $WIZARD_CP
 GOMP_LIBS=''
 if test "$enable_openmp" != 'no'; then
   if test "${GCC}" = "yes"; then
+    # Clang 3.8 and later defaults to the LLVM OpenMP implementation
+    if test "x$GOMP_LIBS" = x ; then
+      if $CC --version 2>&1 | grep clang > /dev/null ; then
+        AC_CHECK_LIB(omp,omp_get_num_procs,GOMP_LIBS="-lomp",,)
+      fi
+    fi
     # Open64 (passes for GCC but uses different OpenMP implementation)
     if test "x$GOMP_LIBS" = x ; then
       if $CC --version 2>&1 | grep Open64 > /dev/null ; then
@@ -1615,6 +1614,22 @@ AC_SUBST(WIZARD_LIBS)
 # Set configured scripts to executable.
 AC_CONFIG_COMMANDS([WizardsToolkit-config.in],[chmod +x wizard/WizardsToolkit-config])
 
+AC_CONFIG_FILES([\
+  common.shi \
+  config/configure.xml \
+  config/WizardsToolkit.dox \
+  Makefile \
+  wizard.sh \
+  utilities/cipher-info.1 \
+  utilities/decipher.1 \
+  utilities/digest.1 \
+  utilities/encipher.1 \
+  utilities/keyring.1 \
+  windows/WizardsToolkit.bat \
+  wizard/version.h \
+  wizard/WizardsToolkit-config \
+  wizard/WizardsToolkit.pc \
+  WizardsToolkit.spec ])
 AC_OUTPUT
 
 rm -f wizard-version

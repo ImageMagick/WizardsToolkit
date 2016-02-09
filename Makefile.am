@@ -240,7 +240,7 @@ libtool: $(LIBTOOL_DEPS)
 	$(SHELL) ./config.status --recheck
 
 # Format C API documentation
-html:
+html-local:
 	doxygen config/WizardsToolkit.dox
 
 #
