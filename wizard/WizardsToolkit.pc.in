@@ -4,8 +4,8 @@ libdir=@libdir@
 includedir=@includedir@/WizardsToolkit-@WIZARD_MAJOR_VERSION@
 																																								Name: WizardsToolkit
 Description: Wizard's Toolkit
+URL: https://www.wizards-toolkit.org
 Version: @PACKAGE_VERSION@
-Requires:
-Libs: -L${libdir} -lWizardsToolkit
 Cflags: -I${includedir} @WIZARD_PCFLAGS@
+Libs: -L${libdir} -lWizardsToolkit
 
