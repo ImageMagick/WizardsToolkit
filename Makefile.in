@@ -2578,7 +2578,9 @@ dvi: dvi-am
 
 dvi-am:
 
-html-am:
+html: html-am
+
+html-am: html-local
 
 info: info-am
 
@@ -2657,12 +2659,13 @@ uninstall-man: uninstall-man1
 	dist-zip distcheck distclean distclean-compile \
 	distclean-generic distclean-hdr distclean-libtool \
 	distclean-local distclean-tags distcleancheck distdir \
-	distuninstallcheck dvi dvi-am html html-am info info-am \
-	install install-am install-binPROGRAMS install-binSCRIPTS \
-	install-configlibDATA install-configshareDATA \
-	install-configsharearchDATA install-data install-data-am \
-	install-data-local install-docDATA install-dvi install-dvi-am \
-	install-exec install-exec-am install-exec-local install-html \
+	distuninstallcheck dvi dvi-am html html-am html-local info \
+	info-am install install-am install-binPROGRAMS \
+	install-binSCRIPTS install-configlibDATA \
+	install-configshareDATA install-configsharearchDATA \
+	install-data install-data-am install-data-local \
+	install-docDATA install-dvi install-dvi-am install-exec \
+	install-exec-am install-exec-local install-html \
 	install-html-am install-includeHEADERS install-info \
 	install-info-am install-libLTLIBRARIES install-man \
 	install-man1 install-pdf install-pdf-am install-pkgconfigDATA \
@@ -2763,7 +2766,7 @@ libtool: $(LIBTOOL_DEPS)
 	$(SHELL) ./config.status --recheck
 
 # Format C API documentation
-html:
+html-local:
 	doxygen config/WizardsToolkit.dox
 @RPM_DELEGATE_TRUE@.PHONY: srpm
 @RPM_DELEGATE_TRUE@$(DIST_ARCHIVE_SRPM) srpm: dist
