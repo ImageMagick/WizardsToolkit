@@ -40,7 +40,7 @@ AC_CONFIG_HEADERS([config/config.h])
 AX_PREFIX_CONFIG_H([wizard/wizard-config.h],[WizardsToolkit])
 AC_CANONICAL_SYSTEM
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE([foreign color-tests -Wall -Wno-portability subdir-objects])
+AM_INIT_AUTOMAKE([foreign color-tests -Wall -Wno-portability subdir-objects dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
 
 #
 # Save initial user-tunable values
