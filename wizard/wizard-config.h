@@ -792,7 +792,7 @@
 
 /* Define to the home page for this package. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_URL
-#define WIZARDSTOOLKIT_PACKAGE_URL ""
+#define WIZARDSTOOLKIT_PACKAGE_URL "http://www.wizards-toolkit.org"
 #endif
 
 /* Define to the version of this package. */

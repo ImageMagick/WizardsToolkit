@@ -34,7 +34,7 @@ extern WizardExport WizardBooleanType
   IsGlob(const char *);
 
 extern WizardExport void
-  GetWizardToken(const char *,const char **,char *);
+  GetNextToken(const char *,const char **,const size_t extent,char *);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

@@ -255,11 +255,11 @@ static LinkedListInfo *AcquireLogCache(const char *filename,
     *log_cache,
     *options;
 
-  WizardStatusType
-    status;
-
   register ssize_t
     i;
+
+  WizardStatusType
+    status;
 
   /*
     Load built-in log map.
@@ -1431,6 +1431,9 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
   LogInfo
     *log_info = (LogInfo *) NULL;
 
+  size_t
+    extent;
+
   WizardStatusType
     status;
 
@@ -1446,7 +1449,7 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
     /*
       Interpret XML.
     */
-    GetWizardToken(q,&q,token);
+    GetNextToken(q,&q,extent,token);
     if (*token == '\0')
       break;
     (void) CopyWizardString(keyword,token,WizardPathExtent);
@@ -1456,7 +1459,7 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
           Doctype element.
         */
         while ((LocaleNCompare(q,"]>",2) != 0) && (*q != '\0'))
-          GetWizardToken(q,&q,token);
+          GetNextToken(q,&q,extent,token);
         continue;
       }
     if (LocaleNCompare(keyword,"<!--",4) == 0)
@@ -1465,7 +1468,7 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
           Comment element.
         */
         while ((LocaleNCompare(q,"->",2) != 0) && (*q != '\0'))
-          GetWizardToken(q,&q,token);
+          GetNextToken(q,&q,extent,token);
         continue;
       }
     if (LocaleCompare(keyword,"<include") == 0)
@@ -1476,10 +1479,10 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
         while (((*token != '/') && (*(token+1) != '>')) && (*q != '\0'))
         {
           (void) CopyWizardString(keyword,token,WizardPathExtent);
-          GetWizardToken(q,&q,token);
+          GetNextToken(q,&q,extent,token);
           if (*token != '=')
             continue;
-          GetWizardToken(q,&q,token);
+          GetNextToken(q,&q,extent,token);
           if (LocaleCompare(keyword,"file") == 0)
             {
               if (depth > 200)
@@ -1538,11 +1541,11 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
         log_info=(LogInfo *) NULL;
         continue;
       }
-    GetWizardToken(q,(const char **) NULL,token);
+    GetNextToken(q,(const char **) NULL,extent,token);
     if (*token != '=')
       continue;
-    GetWizardToken(q,&q,token);
-    GetWizardToken(q,&q,token);
+    GetNextToken(q,&q,extent,token);
+    GetNextToken(q,&q,extent,token);
     switch (*keyword)
     {
       case 'E':
@@ -1562,16 +1565,16 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
         if (LocaleCompare((char *) keyword,"filename") == 0)
           {
             if (log_info->filename != (char *) NULL)
-              log_info->filename=(char *)
-                RelinquishWizardMemory(log_info->filename);
+              log_info->filename=(char *) RelinquishWizardMemory(
+                log_info->filename);
             log_info->filename=ConstantString(token);
             break;
           }
         if (LocaleCompare((char *) keyword,"format") == 0)
           {
             if (log_info->format != (char *) NULL)
-              log_info->format=(char *)
-                RelinquishWizardMemory(log_info->format);
+              log_info->format=(char *) RelinquishWizardMemory(
+                log_info->format);
             log_info->format=ConstantString(token);
             break;
           }

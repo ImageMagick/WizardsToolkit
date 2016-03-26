@@ -72,20 +72,22 @@ struct _TokenInfo
 %                                                                             %
 %                                                                             %
 %                                                                             %
-+   G e t W i z a r d T o k e n                                               %
++   G e t N e x t T o k e n                                                   %
 %                                                                             %
 %                                                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetWizardToken() gets a token from the token stream.  A token is defined as a
-%  sequence of characters delimited by whitespace (e.g. clip-path), a sequence
-%  delimited with quotes (.e.g "Quote me"), or a sequence enclosed in
-%  parenthesis (e.g. rgb(0,0,0)).
+%  GetNextToken() gets a token from the token stream.  A token is defined as
+%  a sequence of characters delimited by whitespace (e.g. clip-path), a
+%  sequence delimited with quotes (.e.g "Quote me"), or a sequence enclosed in
+%  parenthesis (e.g. rgb(0,0,0)).  GetNextToken() also recognizes these
+%  separator characters: ':', '=', ',', and ';'.
 %
-%  The format of the GetWizardToken method is:
+%  The format of the GetNextToken method is:
 %
-%      void GetWizardToken(const char *start,const char **end,char *token)
+%      void GetNextToken(const char *start,const char **end,
+%        const size_t extent,char *token)
 %
 %  A description of each parameter follows:
 %
@@ -93,11 +95,17 @@ struct _TokenInfo
 %
 %    o end: point to the end of the token sequence.
 %
+%    o extent: maximum extent of the token.
+%
 %    o token: copy the token to this buffer.
 %
 */
-WizardExport void GetWizardToken(const char *start,const char **end,char *token)
+WizardExport void GetNextToken(const char *start,const char **end,
+  const size_t extent,char *token)
 {
+  double
+    value;
+
   register const char
     *p;
 
@@ -140,15 +148,18 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
               p++;
               break;
             }
-        token[i++]=(*p);
+        if (i < extent)
+          token[i++]=(*p);
       }
       break;
     }
     case '/':
     {
-      token[i++]=(*p++);
-      if ((*p == '>') || (*p == '/'))
+      if (i < extent)
         token[i++]=(*p++);
+      if ((*p == '>') || (*p == '/'))
+        if (i < extent)
+          token[i++]=(*p++);
       break;
     }
     default:
@@ -156,39 +167,41 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
       char
         *q;
 
-      double
-        value;
-
       value=StringToDouble(p,&q);
       (void) value;
       if ((p != q) && (*p != ','))
         {
           for ( ; (p < q) && (*p != ','); p++)
-            token[i++]=(*p);
+            if (i < extent)
+              token[i++]=(*p);
           if (*p == '%')
-            token[i++]=(*p++);
+            if (i < extent)
+              token[i++]=(*p++);
           break;
         }
       if ((*p != '\0') && (isalpha((int) ((unsigned char) *p)) == 0) &&
           (*p != *DirectorySeparator) && (*p != '#') && (*p != '<'))
         {
-          token[i++]=(*p++);
+          if (i < extent)
+            token[i++]=(*p++);
           break;
         }
       for ( ; *p != '\0'; p++)
       {
         if (((isspace((int) ((unsigned char) *p)) != 0) || (*p == '=') ||
-            (*p == ',') || (*p == ':')) && (*(p-1) != '\\'))
+            (*p == ',') || (*p == ':') || (*p == ';')) && (*(p-1) != '\\'))
           break;
         if ((i > 0) && (*p == '<'))
           break;
-        token[i++]=(*p);
+        if (i < extent)
+          token[i++]=(*p);
         if (*p == '>')
           break;
         if (*p == '(')
           for (p++; *p != '\0'; p++)
           {
-            token[i++]=(*p);
+            if (i < extent)
+              token[i++]=(*p);
             if ((*p == ')') && (*(p-1) != '\\'))
               break;
           }
@@ -197,17 +210,17 @@ WizardExport void GetWizardToken(const char *start,const char **end,char *token)
     }
   }
   token[i]='\0';
-  if (LocaleNCompare(token,"url(#",5) == 0)
-    {
-      i=(ssize_t) strlen(token);
-      (void) CopyWizardString(token,token+5,WizardPathExtent);
-      token[i-6]='\0';
-    }
   if (LocaleNCompare(token,"url(",4) == 0)
     {
+      ssize_t
+        offset;
+
+      offset=4;
+      if (token[offset] == '#')
+        offset++;
       i=(ssize_t) strlen(token);
-      (void) CopyWizardString(token,token+4,WizardPathExtent);
-      token[i-5]='\0';
+      (void) CopyWizardString(token,token+offset,WizardPathExtent);
+      token[i-offset-1]='\0';
     }
   while (isspace((int) ((unsigned char) *p)) != 0)
     p++;
