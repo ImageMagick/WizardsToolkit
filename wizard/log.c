@@ -1444,6 +1444,7 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
     return(WizardFalse);
   status=WizardTrue;
   token=AcquireString((char *) xml);
+  extent=WizardPathExtent;
   for (q=(char *) xml; *q != '\0'; )
   {
     /*

@@ -38,6 +38,9 @@ extern "C" {
 #if defined(_WIZARDSTOOLKIT__FILE_OFFSET_BITS) && !defined(_FILE_OFFSET_BITS)
 # define _FILE_OFFSET_BITS _WIZARDSTOOLKIT__FILE_OFFSET_BITS
 #endif
+#if __cplusplus > 199711L
+#define register
+#endif  
 #if defined(_wizardstoolkit_const) && !defined(const)
 # define const  _wizardstoolkit_const
 #endif
