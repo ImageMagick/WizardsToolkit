@@ -21,7 +21,7 @@
 #if defined(__cplusplus) || defined(c_plusplus)
 extern "C" {
 #endif
-#if defined(WIZARD_TARGET_CPU) && (WIZARD_TARGET_CPU == powerpc)
+#if defined(__powerpc__)
 #  define CACHE_LINE_SIZE 128
 #else
 #  define CACHE_LINE_SIZE 64
