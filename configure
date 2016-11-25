@@ -7699,7 +7699,7 @@ WIZARD_PATCHLEVEL_VERSION=3
 
 WIZARD_VERSION=1.0.9-3
 
-WIZARD_GIT_REVISION=811:ad43596:20160813
+WIZARD_GIT_REVISION=813:44f75f6:20161125
 
 
 # Substitute library versioning
@@ -24032,7 +24032,7 @@ $as_echo "#define STRERROR_R_CHAR_P 1" >>confdefs.h
 
 fi
 
-for ac_func in _aligned_malloc atexit clock fchmod fprintf_l ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii isnan localtime_r lstat madvise memmove memset mkdir munmap mkstemp newloacle _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readdir_r readlink realpath sbrk select strtod strtod_l setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times uselocale usleep utime vfprintf vfprintf_l vsprintf vsnprintf vsnprintf_l _wfopen
+for ac_func in _aligned_malloc atexit clock fchmod fprintf_l ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii isnan localtime_r lstat madvise memmove memset mkdir munmap mkstemp newloacle _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readlink realpath sbrk select strtod strtod_l setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times uselocale usleep utime vfprintf vfprintf_l vsprintf vsnprintf vsnprintf_l _wfopen
 do :
   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
 ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"

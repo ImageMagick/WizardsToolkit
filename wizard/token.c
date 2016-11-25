@@ -401,35 +401,34 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
               done=WizardTrue;
               break;
             }
-          else
-            if (match != WizardFalse)
-              {
-                expression=p;
-                while ((*pattern != '}') && (*pattern != '\0'))
-                {
-                  pattern++;
-                  if (*pattern == '\\')
-                    {
-                      pattern++;
-                      if (*pattern == '}')
-                        pattern++;
-                    }
-                }
-              }
-            else
-              {
-                while ((*pattern != '}') && (*pattern != ',') &&
-                       (*pattern != '\0'))
-                {
-                  pattern++;
-                  if (*pattern == '\\')
-                    {
-                      pattern++;
-                      if ((*pattern == '}') || (*pattern == ','))
-                        pattern++;
-                    }
-                }
-              }
+          if (match != WizardFalse)
+            {
+              expression=p;
+               while ((*pattern != '}') && (*pattern != '\0'))
+               {
+                 pattern++;
+                 if (*pattern == '\\')
+                   {
+                     pattern++;
+                     if (*pattern == '}')
+                       pattern++;
+                   }
+               }
+             }
+           else
+             {
+               while ((*pattern != '}') && (*pattern != ',') &&
+                      (*pattern != '\0'))
+               {
+                 pattern++;
+                 if (*pattern == '\\')
+                   {
+                     pattern++;
+                     if ((*pattern == '}') || (*pattern == ','))
+                       pattern++;
+                   }
+               }
+             }
             if (*pattern != '\0')
               pattern++;
           }

@@ -404,14 +404,12 @@ static int FileCompare(const void *x,const void *y)
 static inline int WizardReadDirectory(DIR *directory,struct dirent *entry,
   struct dirent **result)
 {
-#if defined(WIZARDSTOOLKIT_HAVE_READDIR_R)
-  return(readdir_r(directory,entry,result));
-#else
-  (void) entry;
   errno=0;
-  *result=readdir(directory);
-  return(errno);
-#endif
+  entry=readdir(directory);
+  *result=entry;
+  if ((entry == (struct dirent *) NULL) && (errno != 0))
+    return(-1);
+  return(0);
 }
 
 static char **ListFiles(const char *directory,const char *pattern,

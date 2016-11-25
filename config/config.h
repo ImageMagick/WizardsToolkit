@@ -256,9 +256,6 @@
 /* Define to 1 if you have the `raise' function. */
 #define HAVE_RAISE 1
 
-/* Define to 1 if you have the `readdir_r' function. */
-#define HAVE_READDIR_R 1
-
 /* Define to 1 if you have the `readlink' function. */
 #define HAVE_READLINK 1
 
@@ -523,7 +520,7 @@
 #define PACKAGE_TARNAME "WizardsToolkit"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL ""
+#define PACKAGE_URL "http://www.wizards-toolkit.org"
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "1.0.9-3"

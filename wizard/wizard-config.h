@@ -388,11 +388,6 @@
 #define WIZARDSTOOLKIT_HAVE_RAISE 1
 #endif
 
-/* Define to 1 if you have the `readdir_r' function. */
-#ifndef WIZARDSTOOLKIT_HAVE_READDIR_R
-#define WIZARDSTOOLKIT_HAVE_READDIR_R 1
-#endif
-
 /* Define to 1 if you have the `readlink' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_READLINK
 #define WIZARDSTOOLKIT_HAVE_READLINK 1
