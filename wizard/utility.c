@@ -801,6 +801,43 @@ WizardExport WizardBooleanType IsPathAcessible(const char *path)
 %                                                                             %
 %                                                                             %
 %                                                                             %
+%   G e t W i z a d d P a g e S i z e                                         %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  GetWizardPageSize() returns the memory page size.
+%
+%  The format of the GetWizardPageSize method is:
+%
+%      ssize_t GetWizardPageSize()
+%
+*/
+WizardPrivate ssize_t GetWizardPageSize(void)
+{
+  static ssize_t
+    page_size = -1;
+
+  if (page_size > 0)
+    return(page_size);
+#if defined(WIZARDSTOOLKIT_HAVE_SYSCONF) && defined(_SC_PAGE_SIZE)
+  page_size=(ssize_t) sysconf(_SC_PAGE_SIZE);
+#else
+#if defined(WIZARDSTOOLKIT_HAVE_GETPAGESIZE)
+  page_size=(ssize_t) getpagesize();
+#endif
+#endif
+  if (page_size <= 0)
+    page_size=16384;
+  return(page_size);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
 +  I s D i r e c t o r y                                                      %
 %                                                                             %
 %                                                                             %

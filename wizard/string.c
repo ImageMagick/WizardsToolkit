@@ -416,8 +416,6 @@ WizardExport WizardBooleanType ConcatenateString(char **destination,
     source_length;
 
   assert(destination != (char **) NULL);
-  if (source == (const char *) NULL)
-    return(WizardTrue);
   if (*destination == (char *) NULL)
     {
       *destination=AcquireString(source);
@@ -753,8 +751,6 @@ WizardExport size_t CopyWizardString(char *destination,const char *source,
   register size_t
     n;
 
-  if (source == (const char *) NULL)
-    return(0);
   p=source;
   q=destination;
   for (n=length; n > 4; n-=4)

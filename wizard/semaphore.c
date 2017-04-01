@@ -51,6 +51,7 @@
 #include "wizard/string_.h"
 #include "wizard/thread_.h"
 #include "wizard/thread-private.h"
+#include "wizard/utility-private.h"
 
 /*
   Struct declaractions.
@@ -109,9 +110,9 @@ static void *AcquireSemaphoreMemory(const size_t count,const size_t quantum)
       return((void *) NULL);
     }
   memory=NULL;
-  alignment=CACHE_LINE_SIZE;
-  extent=AlignedExtent(size,alignment);
-  if ((size == 0) || (alignment < sizeof(void *)) || (extent < size))
+  alignment=GetWizardPageSize();
+  extent=AlignedExtent(size,CACHE_LINE_SIZE);
+  if ((size == 0) || (extent < size))
     return((void *) NULL);
 #if defined(WIZARDSTOOLKIT_HAVE_POSIX_MEMALIGN)
   if (posix_memalign(&memory,alignment,extent) != 0)

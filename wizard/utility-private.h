@@ -36,8 +36,8 @@ extern WizardExport char
 extern WizardExport WizardBooleanType
   GetExecutionPath(char *,const size_t);
 
-extern WizardExport ssize_t
-  GetMagickPageSize(void);
+extern WizardPrivate ssize_t
+  GetWizardPageSize(void);
 
 extern WizardExport void
   ChopPathComponents(char *,const size_t),
