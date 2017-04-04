@@ -200,7 +200,7 @@ static WizardBooleanType
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %  AcquireAlignedMemory() returns a pointer to a block of memory at least size
-%  bytes whose address is aligned on a page boundary.
+%  bytes whose address is aligned on a cache line or page boundary.
 %
 %  The format of the AcquireAlignedMemory method is:
 %
@@ -233,7 +233,9 @@ WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
       return((void *) NULL);
     }
   memory=NULL;
-  alignment=GetWizardPageSize();
+  alignment=CACHE_LINE_SIZE;
+  if (size > (GetWizardPageSize() >> 1))
+    alignment=GetWizardPageSize();
   extent=AlignedExtent(size,CACHE_LINE_SIZE);
   if ((size == 0) || (extent < size))
     return((void *) NULL);
