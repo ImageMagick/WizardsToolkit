@@ -941,7 +941,7 @@
 
 /* Target Host Vendor */
 #ifndef WIZARDSTOOLKIT_WIZARD_TARGET_VENDOR
-#define WIZARDSTOOLKIT_WIZARD_TARGET_VENDOR unknown
+#define WIZARDSTOOLKIT_WIZARD_TARGET_VENDOR pc
 #endif
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most

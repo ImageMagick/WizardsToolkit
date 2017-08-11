@@ -628,7 +628,7 @@
 #define WIZARD_TARGET_OS linux-gnu
 
 /* Target Host Vendor */
-#define WIZARD_TARGET_VENDOR unknown
+#define WIZARD_TARGET_VENDOR pc
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */
