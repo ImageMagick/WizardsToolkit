@@ -234,8 +234,8 @@ WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
     }
   memory=NULL;
   alignment=CACHE_LINE_SIZE;
-  if (size > (GetWizardPageSize() >> 1))
-    alignment=GetWizardPageSize();
+  if (size > (size_t) (GetWizardPageSize() >> 1))
+    alignment=(size_t) GetWizardPageSize();
   extent=AlignedExtent(size,CACHE_LINE_SIZE);
   if ((size == 0) || (extent < size))
     return((void *) NULL);

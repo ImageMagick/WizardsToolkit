@@ -710,7 +710,7 @@ WizardPrivate char *FileToXML(const char *filename,const size_t extent)
       xml[length]='\0';
       return(xml);
     }
-  length=(size_t) WizardMin(offset,extent);
+  length=(size_t) WizardMin(offset,(WizardOffsetType) extent);
   xml=(char *) NULL;
   if (~length >= (WizardPathExtent-1))
     xml=(char *) AcquireQuantumMemory(length+WizardPathExtent,sizeof(*xml));

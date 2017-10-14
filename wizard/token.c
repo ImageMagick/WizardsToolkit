@@ -148,17 +148,17 @@ WizardExport void GetNextToken(const char *start,const char **end,
               p++;
               break;
             }
-        if (i < extent)
+        if (i < (ssize_t) (extent-1))
           token[i++]=(*p);
       }
       break;
     }
     case '/':
     {
-      if (i < extent)
+      if (i < (ssize_t) (extent-1))
         token[i++]=(*p++);
       if ((*p == '>') || (*p == '/'))
-        if (i < extent)
+        if (i < (ssize_t) (extent-1))
           token[i++]=(*p++);
       break;
     }
@@ -172,17 +172,17 @@ WizardExport void GetNextToken(const char *start,const char **end,
       if ((p != q) && (*p != ','))
         {
           for ( ; (p < q) && (*p != ','); p++)
-            if (i < extent)
+            if (i < (ssize_t) (extent-1))
               token[i++]=(*p);
           if (*p == '%')
-            if (i < extent)
+            if (i < (ssize_t) (extent-1))
               token[i++]=(*p++);
           break;
         }
       if ((*p != '\0') && (isalpha((int) ((unsigned char) *p)) == 0) &&
           (*p != *DirectorySeparator) && (*p != '#') && (*p != '<'))
         {
-          if (i < extent)
+          if (i < (ssize_t) (extent-1))
             token[i++]=(*p++);
           break;
         }
@@ -193,14 +193,14 @@ WizardExport void GetNextToken(const char *start,const char **end,
           break;
         if ((i > 0) && (*p == '<'))
           break;
-        if (i < extent)
+        if (i < (ssize_t) (extent-1))
           token[i++]=(*p);
         if (*p == '>')
           break;
         if (*p == '(')
           for (p++; *p != '\0'; p++)
           {
-            if (i < extent)
+            if (i < (ssize_t) (extent-1))
               token[i++]=(*p);
             if ((*p == ')') && (*(p-1) != '\\'))
               break;
