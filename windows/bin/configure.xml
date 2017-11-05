@@ -13,6 +13,6 @@
   <configure name="VERSION" value="1.0.9"/>
   <configure name="CC" value="vs10"/>
   <configure name="HOST" value="Windows"/>
-  <configure name="COPYRIGHT" value="Copyright (C) 1999-2016 ImageMagick Studio LLC"/>
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2018 ImageMagick Studio LLC"/>
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org"/>
 </configuremap>
