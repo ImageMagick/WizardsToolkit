@@ -17,7 +17,7 @@
 %                               September 2002                                %
 %                                                                             %
 %                                                                             %
-%  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization      %
+%  Copyright 1999-2018 ImageWizard Studio LLC, a non-profit organization      %
 %  dedicated to making software imaging solutions freely available.           %
 %                                                                             %
 %  You may not use this file except in compliance with the License.  You may  %
@@ -422,9 +422,12 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
     {
       resource_info.memory+=size;
       limit=resource_info.memory_limit;
-      status=(resource_info.memory_limit == WizardResourceInfinity) ||
-        (resource_info.memory < (WizardOffsetType) limit) ?  WizardTrue :
-        WizardFalse;
+      if ((limit == WizardResourceInfinity) ||
+          (resource_info.memory < (WizardOffsetType) limit))
+        status=WizardTrue;
+      else
+        resource_info.memory-=(WizardOffsetType) size;
+      assert(resource_info.memory >= 0);
       (void) FormatWizardSize((WizardSizeType) resource_info.memory,WizardTrue,
         WizardFormatExtent,resource_current);
       (void) FormatWizardSize(resource_info.memory_limit,WizardTrue,
@@ -435,9 +438,12 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
     {
       resource_info.map+=size;
       limit=resource_info.map_limit;
-      status=(resource_info.map_limit == WizardResourceInfinity) ||
-        (resource_info.map < (WizardOffsetType) limit) ?
-        WizardTrue : WizardFalse;
+      if ((limit == WizardResourceInfinity) ||
+          (resource_info.map < (WizardOffsetType) limit))
+        status=WizardTrue;
+      else
+        resource_info.map-=(WizardOffsetType) size;
+      assert(resource_info.map >= 0);
       (void) FormatWizardSize((WizardSizeType) resource_info.map,WizardTrue,
         WizardFormatExtent,resource_current);
       (void) FormatWizardSize(resource_info.map_limit,WizardTrue,
@@ -448,9 +454,12 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
     {
       resource_info.disk+=size;
       limit=resource_info.disk_limit;
-      status=(resource_info.disk_limit == WizardResourceInfinity) ||
-        (resource_info.disk < (WizardOffsetType) limit) ?
-        WizardTrue : WizardFalse;
+      if ((limit == WizardResourceInfinity) ||
+          (resource_info.disk < (WizardOffsetType) limit))
+        status=WizardTrue;
+      else
+        resource_info.disk-=(WizardOffsetType) size;
+      assert(resource_info.disk >= 0);
       (void) FormatWizardSize((WizardSizeType) resource_info.disk,WizardTrue,
         WizardFormatExtent,resource_current);
       (void) FormatWizardSize(resource_info.disk_limit,WizardTrue,
@@ -461,9 +470,12 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
     {
       resource_info.file+=size;
       limit=resource_info.file_limit;
-      status=(resource_info.file_limit == WizardResourceInfinity) ||
-        (resource_info.file < (WizardOffsetType) limit) ?
-        WizardTrue : WizardFalse;
+      if ((limit == WizardResourceInfinity) ||
+          (resource_info.file < (WizardOffsetType) limit))
+        status=WizardTrue;
+      else
+        resource_info.file-=(WizardOffsetType) size;
+      assert(resource_info.file >= 0);
       (void) FormatWizardSize((WizardSizeType) resource_info.file,WizardFalse,
         WizardFormatExtent,resource_current);
       (void) FormatWizardSize((WizardSizeType) resource_info.file_limit,
