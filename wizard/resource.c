@@ -423,7 +423,7 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
       resource_info.memory+=size;
       limit=resource_info.memory_limit;
       status=(resource_info.memory_limit == WizardResourceInfinity) ||
-        ((WizardSizeType) resource_info.memory < limit) ?  WizardTrue :
+        (resource_info.memory < (WizardOffsetType) limit) ?  WizardTrue :
         WizardFalse;
       (void) FormatWizardSize((WizardSizeType) resource_info.memory,WizardTrue,
         WizardFormatExtent,resource_current);
@@ -436,7 +436,7 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
       resource_info.map+=size;
       limit=resource_info.map_limit;
       status=(resource_info.map_limit == WizardResourceInfinity) ||
-        ((WizardSizeType) resource_info.map < limit) ?
+        (resource_info.map < (WizardOffsetType) limit) ?
         WizardTrue : WizardFalse;
       (void) FormatWizardSize((WizardSizeType) resource_info.map,WizardTrue,
         WizardFormatExtent,resource_current);
@@ -449,7 +449,7 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
       resource_info.disk+=size;
       limit=resource_info.disk_limit;
       status=(resource_info.disk_limit == WizardResourceInfinity) ||
-        ((WizardSizeType) resource_info.disk < limit) ?
+        (resource_info.disk < (WizardOffsetType) limit) ?
         WizardTrue : WizardFalse;
       (void) FormatWizardSize((WizardSizeType) resource_info.disk,WizardTrue,
         WizardFormatExtent,resource_current);
@@ -462,7 +462,7 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
       resource_info.file+=size;
       limit=resource_info.file_limit;
       status=(resource_info.file_limit == WizardResourceInfinity) ||
-        ((WizardSizeType) resource_info.file < limit) ?
+        (resource_info.file < (WizardOffsetType) limit) ?
         WizardTrue : WizardFalse;
       (void) FormatWizardSize((WizardSizeType) resource_info.file,WizardFalse,
         WizardFormatExtent,resource_current);
