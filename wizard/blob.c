@@ -1098,7 +1098,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
               if (blob_info->file_info.file != (FILE *) NULL)
                 (void) fclose(blob_info->file_info.file);
               blob_info->file_info.file=(FILE *) NULL;
-              blob_info->file_info.gzfile=gzopen(filename,type);
+              blob_info->file_info.gzfile=gzopen(filename,"rb");
               if (blob_info->file_info.gzfile != (gzFile) NULL)
                 blob_info->type=ZipStream;
             }
@@ -1110,7 +1110,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
               if (blob_info->file_info.file != (FILE *) NULL)
                 (void) fclose(blob_info->file_info.file);
               blob_info->file_info.file=(FILE *) NULL;
-              blob_info->file_info.bzfile=BZ2_bzopen(filename,type);
+              blob_info->file_info.bzfile=BZ2_bzopen(filename,"r");
               if (blob_info->file_info.bzfile != (BZFILE *) NULL)
                 blob_info->type=BZipStream;
             }
@@ -1151,9 +1151,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
           ((LocaleCompare(extension,"Z") == 0) ||
            (LocaleCompare(extension,"gz") == 0)))
         {
-          if (mode == WriteBinaryBlobMode)
-            type="wb";
-          blob_info->file_info.gzfile=gzopen(filename,type);
+          blob_info->file_info.gzfile=gzopen(filename,"wb");
           if (blob_info->file_info.gzfile != (gzFile) NULL)
             blob_info->type=ZipStream;
         }
@@ -1162,7 +1160,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
         if ((compress != WizardFalse) && (LocaleCompare(extension,"bz2") == 0))
           {
-            blob_info->file_info.bzfile=BZ2_bzopen(filename,type);
+            blob_info->file_info.bzfile=BZ2_bzopen(filename,"w");
             if (blob_info->file_info.gzfile != (BZFILE *) NULL)
               blob_info->type=BZipStream;
           }
