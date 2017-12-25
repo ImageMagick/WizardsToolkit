@@ -1151,6 +1151,8 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
           ((LocaleCompare(extension,"Z") == 0) ||
            (LocaleCompare(extension,"gz") == 0)))
         {
+          if (mode == WriteBinaryBlobMode)
+            type="wb";
           blob_info->file_info.gzfile=gzopen(filename,type);
           if (blob_info->file_info.gzfile != (gzFile) NULL)
             blob_info->type=ZipStream;
