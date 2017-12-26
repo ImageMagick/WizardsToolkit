@@ -997,7 +997,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
       if (strchr(type,'b') != (char *) NULL)
         setmode(_fileno(blob_info->file_info.file),_O_BINARY);
 #endif
-      blob_info->type=StandardStream;
+      blob_info->type=FileStream;
       blob_info->exempt=WizardTrue;
       return(blob_info);
     }
@@ -1013,7 +1013,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
       if (strchr(type,'b') != (char *) NULL)
         setmode(_fileno(blob_info->file_info.file),_O_BINARY);
 #endif
-      blob_info->type=StandardStream;
+      blob_info->type=FileStream;
       blob_info->exempt=WizardTrue;
       return(blob_info);
     }
