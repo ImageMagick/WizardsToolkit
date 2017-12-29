@@ -1009,6 +1009,13 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
       *mode=(*type);
       mode[1]='\0';
       blob_info->file_info.file=fdopen((long) StringToLong(filename+3),mode);
+      if (blob_info->file_info.file == (FILE *) NULL)
+        {
+          (void) ThrowWizardException(exception,GetWizardModule(),BlobError,
+            "unable to open file `%s': %s",filename,strerror(errno));
+          blob_info=(BlobInfo *) RelinquishWizardMemory(blob_info);
+          return((BlobInfo *) NULL);
+        }
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
       if (strchr(type,'b') != (char *) NULL)
         setmode(_fileno(blob_info->file_info.file),_O_BINARY);
