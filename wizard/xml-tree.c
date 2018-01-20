@@ -1507,22 +1507,22 @@ static char *ParseEntities(char *xml,char **entities,int state)
                     offset=(ssize_t) (xml-p);
                     extent=(size_t) (offset+length+strlen(entity));
                     if (p != q)
-                      p=(char *) ResizeQuantumMemory(p,extent,sizeof(*p));
+                      p=(char *) ResizeQuantumMemory(p,extent+1,sizeof(*p));
                     else
                       {
                         char
                           *xml;
 
-                        xml=(char *) AcquireQuantumMemory(extent,sizeof(*xml));
+                        xml=(char *) AcquireQuantumMemory(extent+1,
+                          sizeof(*xml));
                         if (xml != (char *) NULL)
-                          {
-                            (void) CopyWizardString(xml,p,extent*sizeof(*xml));
-                            p=xml;
-                          }
+                          (void) CopyWizardString(xml,p,extent*sizeof(*xml));
+                        p=xml;
                       }
                     if (p == (char *) NULL)
                       ThrowFatalException(ResourceFatalError,
                         "unable to acquire string `%s'");
+                    p[extent]='\0';
                     xml=p+offset;
                     entity=strchr(xml,';');
                   }
