@@ -1507,22 +1507,23 @@ static char *ParseEntities(char *xml,char **entities,int state)
                     offset=(ssize_t) (xml-p);
                     extent=(size_t) (offset+length+strlen(entity));
                     if (p != q)
-                      p=(char *) ResizeQuantumMemory(p,extent+1,sizeof(*p));
+                      p=(char *) ResizeQuantumMemory(p,extent,sizeof(*p));
                     else
                       {
                         char
                           *xml;
 
-                        xml=(char *) AcquireQuantumMemory(extent+1,
-                          sizeof(*xml));
+                        xml=(char *) AcquireQuantumMemory(extent,sizeof(*xml));
                         if (xml != (char *) NULL)
-                          (void) CopyWizardString(xml,p,extent*sizeof(*xml));
+                          {
+                            ResetWizardMemory(xml,0,extent*sizeof(*xml));
+                            (void) CopyWizardString(xml,p,extent*sizeof(*xml));
+                          }
                         p=xml;
                       }
                     if (p == (char *) NULL)
                       ThrowFatalException(ResourceFatalError,
                         "unable to acquire string `%s'");
-                    p[extent]='\0';
                     xml=p+offset;
                     entity=strchr(xml,';');
                   }
@@ -2284,8 +2285,6 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
   utf8=DestroyString(utf8);
   if (root->node == (XMLTreeInfo *) NULL)
     return(&root->root);
-  if (l != 0)
-    (void) DestroyXMLTreeAttributes(attributes);
   if (root->node->tag == (char *) NULL)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),OptionWarning,
