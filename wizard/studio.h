@@ -300,6 +300,7 @@ extern int vsnprintf(char *,size_t,const char *,va_list);
   Define declarations.
 */
 #define AbsoluteValue(x)  ((x) < 0 ? -(x) : (x))
+#define WizardMaxRecursionDepth  1024
 #define WizardEpoch  1000000000L
 #define Max(x,y)  (((x) > (y)) ? (x) : (y))
 #define Min(x,y)  (((x) < (y)) ? (x) : (y))

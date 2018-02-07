@@ -1603,7 +1603,8 @@ static XMLTreeInfo *ParseCloseTag(XMLTreeRoot *root,char *tag,
   return((XMLTreeInfo *) NULL);
 }
 
-static WizardBooleanType ValidateEntities(char *tag,char *xml,char **entities)
+static WizardBooleanType ValidateEntities(char *tag,char *xml,
+  const size_t depth,char **entities)
 {
   register ssize_t
     i;
@@ -1611,6 +1612,8 @@ static WizardBooleanType ValidateEntities(char *tag,char *xml,char **entities)
   /*
     Check for circular entity references.
   */
+  if (depth > WizardMaxRecursionDepth)
+    return(WizardFalse);
   for ( ; ; xml++)
   {
     while ((*xml != '\0') && (*xml != '&'))
@@ -1624,7 +1627,7 @@ static WizardBooleanType ValidateEntities(char *tag,char *xml,char **entities)
            (strncmp(entities[i],xml+1,strlen(entities[i])) == 0))
       i+=2;
     if ((entities[i] != (char *) NULL) &&
-        (ValidateEntities(tag,entities[i+1],entities) == 0))
+        (ValidateEntities(tag,entities[i+1],depth+1,entities) == 0))
       return(WizardFalse);
   }
   return(WizardTrue);
@@ -1782,7 +1785,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
           }
         entities[i+1]=ParseEntities(v,predefined_entitites,'%');
         entities[i+2]=(char *) NULL;
-        if (ValidateEntities(n,entities[i+1],entities) != WizardFalse)
+        if (ValidateEntities(n,entities[i+1],0,entities) != WizardFalse)
           entities[i]=n;
         else
           {
