@@ -193,6 +193,8 @@ WizardExport StringInfo *AcquireStringInfo(const size_t length)
       string_info->length+MaxCipherBlocksize,sizeof(*string_info->datum));
   if (string_info->datum == (unsigned char *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
+  (void) memset(string_info->datum,0,(length+MaxCipherBlocksize)*
+    sizeof(*string_info->datum));
   return(string_info);
 }
 
@@ -1707,7 +1709,7 @@ WizardExport void PrintStringInfo(FILE *file,const char *id,
     if (isascii((int) ((unsigned char) *p)) == 0)
       break;
   }
-  (void) PrintWizardString(file,"%s(%.20g): ",id,(double) string_info->length);
+  (void) PrintWizardString(file,"%s(%.20g):\n",id,(double) string_info->length);
   if (p == q)
     for (p=string_info->datum; p < q; p++)
       (void) PrintWizardString(file,"%c",(int) *p);
