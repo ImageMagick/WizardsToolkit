@@ -2013,11 +2013,12 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
       return((XMLTreeInfo *) NULL);
     }
   attribute=(char **) NULL;
+  l=0;
   for (p++; ; p++)
   {
     attributes=(char **) sentinel;
     tag=p;
-    if ((isalpha((int) ((unsigned char) *p)) !=0) || (*p == '_') ||
+    if ((isalpha((int) ((unsigned char) *p)) != 0) || (*p == '_') ||
         (*p == ':') || (*p < '\0'))
       {
         /*
@@ -2033,80 +2034,91 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
         p+=strcspn(p,XMLWhitespace "/>");
         while (isspace((int) ((unsigned char) *p)) != 0)
           *p++='\0';
-        if ((*p != '\0') && (*p != '/') && (*p != '>'))
+        if ((isalpha((int) ((unsigned char) *p)) != 0) || (*p == '_'))
           {
-            /*
-              Find tag in default attributes list.
-            */
-            i=0;
-            while ((root->attributes[i] != (char **) NULL) &&
-                   (strcmp(root->attributes[i][0],tag) != 0))
-              i++;
-            attribute=root->attributes[i];
-          }
-        for (l=0; (*p != '\0') && (*p != '/') && (*p != '>'); l+=2)
-        {
-          /*
-            Attribute.
-          */
-          if (l == 0)
-            attributes=(char **) AcquireQuantumMemory(4,sizeof(*attributes));
-          else
-            attributes=(char **) ResizeQuantumMemory(attributes,(size_t) (l+4),
-              sizeof(*attributes));
-          if (attributes == (char **) NULL)
+            if ((*p != '\0') && (*p != '/') && (*p != '>'))
+              {
+                /*
+                  Find tag in default attributes list.
+                */
+                i=0;
+                while ((root->attributes[i] != (char **) NULL) &&
+                       (strcmp(root->attributes[i][0],tag) != 0))
+                  i++;
+                attribute=root->attributes[i];
+              }
+            for (l=0; (*p != '\0') && (*p != '/') && (*p != '>'); l+=2)
             {
-              (void) ThrowWizardException(exception,GetWizardModule(),
-                ResourceError,"memory allocation failed `%s'",strerror(errno));
-              utf8=DestroyString(utf8);
-              return(&root->root);
-            }
-          attributes[l+2]=(char *) NULL;
-          attributes[l+1]=(char *) NULL;
-          attributes[l]=p;
-          p+=strcspn(p,XMLWhitespace "=/>");
-          if ((*p != '=') && (isspace((int) ((unsigned char) *p)) == 0))
-            attributes[l]=ConstantString("");
-          else
-            {
-              *p++='\0';
-              p+=strspn(p,XMLWhitespace "=");
-              c=(*p);
-              if ((c == '"') || (c == '\''))
+              /*
+                Attribute.
+              */
+              if (l == 0)
+                attributes=(char **) AcquireQuantumMemory(4,
+                  sizeof(*attributes));
+              else
+                attributes=(char **) ResizeQuantumMemory(attributes,(size_t)
+                  (l+4),sizeof(*attributes));
+              if (attributes == (char **) NULL)
                 {
-                  /*
-                    Attributes value.
-                  */
-                  p++;
-                  attributes[l+1]=p;
-                  while ((*p != '\0') && (*p != c))
-                    p++;
-                  if (*p != '\0')
-                    *p++='\0';
-                  else
-                    {
-                      attributes[l]=ConstantString("");
-                      attributes[l+1]=ConstantString("");
-                      (void) DestroyXMLTreeAttributes(attributes);
-                      (void) ThrowWizardException(exception,GetWizardModule(),
-                        OptionWarning,"missing %c",c);
-                      utf8=DestroyString(utf8);
-                      return(&root->root);
-                    }
-                  j=1;
-                  while ((attribute != (char **) NULL) &&
-                         (attribute[j] != (char *) NULL) &&
-                         (strcmp(attribute[j],attributes[l]) != 0))
-                    j+=3;
-                  attributes[l+1]=ParseEntities(attributes[l+1],root->entities,
-                    (attribute != (char **) NULL) && (attribute[j] !=
-                    (char *) NULL) ? *attribute[j+2] : ' ');
+                  (void) ThrowWizardException(exception,GetWizardModule(),
+                    ResourceError,"memory allocation failed `%s'",
+                    strerror(errno));
+                  utf8=DestroyString(utf8);
+                  return(&root->root);
                 }
-              attributes[l]=ConstantString(attributes[l]);
+              attributes[l+2]=(char *) NULL;
+              attributes[l+1]=(char *) NULL;
+              attributes[l]=p;
+              p+=strcspn(p,XMLWhitespace "=/>");
+              if ((*p != '=') && (isspace((int) ((unsigned char) *p)) == 0))
+                attributes[l]=ConstantString("");
+              else
+                {
+                  *p++='\0';
+                  p+=strspn(p,XMLWhitespace "=");
+                  c=(*p);
+                  if ((c == '"') || (c == '\''))
+                    {
+                      /*
+                        Attributes value.
+                      */
+                      p++;
+                      attributes[l+1]=p;
+                      while ((*p != '\0') && (*p != c))
+                        p++;
+                      if (*p != '\0')
+                        *p++='\0';
+                      else
+                        {
+                          attributes[l]=ConstantString("");
+                          attributes[l+1]=ConstantString("");
+                          (void) DestroyXMLTreeAttributes(attributes);
+                          (void) ThrowWizardException(exception,
+                            GetWizardModule(),OptionWarning,"missing %c",c);
+                          utf8=DestroyString(utf8);
+                          return(&root->root);
+                        }
+                      j=1;
+                      while ((attribute != (char **) NULL) &&
+                             (attribute[j] != (char *) NULL) &&
+                             (strcmp(attribute[j],attributes[l]) != 0))
+                        j+=3;
+                      attributes[l+1]=ParseEntities(attributes[l+1],
+                        root->entities,(attribute != (char **) NULL) &&
+                        (attribute[j] != (char *) NULL) ? *attribute[j+2] :
+                        ' ');
+                    }
+                  attributes[l]=ConstantString(attributes[l]);
+                }
+              while (isspace((int) ((unsigned char) *p)) != 0)
+                p++;
             }
-          while (isspace((int) ((unsigned char) *p)) != 0)
-            p++;
-        }
+          }
+        else
+          {
+            while((*p != '\0') && (*p != '/') && (*p != '>'))
+              p++;
+          }
         if (*p == '/')
           {
             /*
