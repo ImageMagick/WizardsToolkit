@@ -276,6 +276,8 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
     Evaluate glob expression.
   */
   done=WizardFalse;
+  while (*pattern == '*') 
+    pattern++;
   while ((*pattern != '\0') && (done == WizardFalse))
   {
     if (*expression == '\0')
