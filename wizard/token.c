@@ -288,7 +288,8 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
         WizardBooleanType
           status;
 
-        pattern++;
+        while (*pattern == '*') 
+          pattern++;
         status=WizardFalse;
         while ((*expression != '\0') && (status == WizardFalse))
           status=GlobExpression(expression++,pattern,case_insensitive);
