@@ -23,13 +23,13 @@
 %                               December 2004                                 %
 %                                                                             %
 %                                                                             %
-%  Copyright 1999-2018 ImageMagick Studio LLC, a non-profit organization      %
+%  Copyright 1999-2019 ImageMagick Studio LLC, a non-profit organization      %
 %  dedicated to making software imaging solutions freely available.           %
 %                                                                             %
 %  You may not use this file except in compliance with the License.  You may  %
 %  obtain a copy of the License at                                            %
 %                                                                             %
-%    http://www.wizards-toolkit.org/script/license.php                        %
+%    https://imagemagick.org/script/license.php                               %
 %                                                                             %
 %  Unless required by applicable law or agreed to in writing, software        %
 %  distributed under the License is distributed on an "AS IS" BASIS,          %
@@ -172,7 +172,7 @@ WizardExport XMLTreeInfo *AddChildToXMLTree(XMLTreeInfo *xml_info,
   child=(XMLTreeInfo *) AcquireWizardMemory(sizeof(*child));
   if (child == (XMLTreeInfo *) NULL)
     return((XMLTreeInfo *) NULL);
-  (void) ResetWizardMemory(child,0,sizeof(*child));
+  (void) memset(child,0,sizeof(*child));
   child->tag=ConstantString(tag);
   child->attributes=sentinel;
   child->content=ConstantString("");
@@ -730,7 +730,7 @@ WizardPrivate char *FileToXML(const char *filename,const size_t extent)
       (void) lseek(file,0,SEEK_SET);
       for (i=0; i < length; i+=count)
       {
-        count=read(file,xml+i,(size_t) WizardMin(length-i,SSIZE_MAX));
+        count=read(file,xml+i,(size_t) WizardMin(length-i,(ssize_t) SSIZE_MAX));
         if (count <= 0)
           {
             count=0;
@@ -1306,7 +1306,7 @@ WizardExport XMLTreeInfo *InsertTagIntoXMLTree(XMLTreeInfo *xml_info,
 %
 %    o xml:  The XML string.
 %
-%    o exception: Return any errors or warnings in this structure.
+%    o exception: return any errors or warnings in this structure.
 %
 */
 
@@ -1339,7 +1339,7 @@ static char *ConvertUTF16ToUTF8(const char *content,size_t *length)
       /*
         Already UTF-8.
       */
-      (void) CopyWizardMemory(utf8,content,*length*sizeof(*utf8));
+      (void) memcpy(utf8,content,*length*sizeof(*utf8));
       utf8[*length]='\0';
       return(utf8);
     }
@@ -1424,7 +1424,7 @@ static char *ParseEntities(char *xml,char **entities,int state)
     {
       *(xml++)='\n';
       if (*xml == '\n')
-        (void) CopyWizardMemory(xml,xml+1,strlen(xml));
+        (void) memmove(xml,xml+1,strlen(xml));
     }
   for (xml=p; ; )
   {
@@ -1478,7 +1478,7 @@ static char *ParseEntities(char *xml,char **entities,int state)
               xml++;
             }
           }
-        (void) CopyWizardMemory(xml,strchr(xml,';')+1,strlen(strchr(xml,';')));
+        (void) memmove(xml,strchr(xml,';')+1,strlen(strchr(xml,';')));
       }
     else
       if (((*xml == '&') && ((state == '&') || (state == ' ') ||
@@ -1501,7 +1501,7 @@ static char *ParseEntities(char *xml,char **entities,int state)
                 */
                 length=strlen(entities[i]);
                 entity=strchr(xml,';');
-                if ((entity != (char *) NULL) && 
+                if ((entity != (char *) NULL) &&
                     ((length-1L) >= (size_t) (entity-xml)))
                   {
                     offset=(ssize_t) (xml-p);
@@ -1511,15 +1511,18 @@ static char *ParseEntities(char *xml,char **entities,int state)
                     else
                       {
                         char
-                          *xml;
+                          *extent_xml;
 
-                        xml=(char *) AcquireQuantumMemory(extent,sizeof(*xml));
-                        if (xml != (char *) NULL)
+                        extent_xml=(char *) AcquireQuantumMemory(extent,
+                          sizeof(*extent_xml));
+                        if (extent_xml != (char *) NULL)
                           {
-                            ResetWizardMemory(xml,0,extent*sizeof(*xml));
-                            (void) CopyWizardString(xml,p,extent*sizeof(*xml));
+                            memset(extent_xml,0,extent*
+                              sizeof(*extent_xml));
+                            (void) CopyWizardString(extent_xml,p,extent*
+                              sizeof(*extent_xml));
                           }
-                        p=xml;
+                        p=extent_xml;
                       }
                     if (p == (char *) NULL)
                       ThrowFatalException(ResourceFatalError,
@@ -1528,7 +1531,7 @@ static char *ParseEntities(char *xml,char **entities,int state)
                     entity=strchr(xml,';');
                   }
                 if (entity != (char *) NULL)
-                  (void) CopyWizardMemory(xml+length,entity+1,strlen(entity));
+                  (void) memmove(xml+length,entity+1,strlen(entity));
                 (void) strncpy(xml,entities[i],length);
               }
         }
@@ -1551,7 +1554,7 @@ static char *ParseEntities(char *xml,char **entities,int state)
 
         i=(ssize_t) strspn(xml,accept);
         if (i != 0)
-          (void) CopyWizardMemory(xml,xml+i,strlen(xml+i)+1);
+          (void) memmove(xml,xml+i,strlen(xml+i)+1);
         while ((*xml != '\0') && (*xml != ' '))
           xml++;
         if (*xml == '\0')
@@ -1590,7 +1593,7 @@ void ParseCharacterContent(XMLTreeRoot *root,char *xml,const size_t length,
 }
 
 static XMLTreeInfo *ParseCloseTag(XMLTreeRoot *root,char *tag,
-  char *wizard_unused(xml),ExceptionInfo *exception)
+  ExceptionInfo *exception)
 {
   if ((root->node == (XMLTreeInfo *) NULL) ||
       (root->node->tag == (char *) NULL) || (strcmp(tag,root->node->tag) != 0))
@@ -1706,8 +1709,8 @@ static void ParseProcessingInstructions(XMLTreeRoot *root,char *xml,
     ThrowFatalException(ResourceFatalError,"unable to acquire string `%s'");
   (void) CopyWizardString(root->processing_instructions[i][j+2]+j-1,
     root->root.tag != (char *) NULL ? ">" : "<",2);
-  root->processing_instructions[i][j+1]=(char *) NULL;
   root->processing_instructions[i][j]=ConstantString(xml);
+  root->processing_instructions[i][j+1]=(char *) NULL;
 }
 
 static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
@@ -1736,7 +1739,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
         "memory allocation failed `%s'",strerror(errno));
       return(WizardFalse);
     }
-  (void) CopyWizardMemory(predefined_entitites,sentinel,sizeof(sentinel));
+  (void) memcpy(predefined_entitites,sentinel,sizeof(sentinel));
   for (xml[length]='\0'; xml != (char *) NULL; )
   {
     while ((*xml != '\0') && (*xml != '<') && (*xml != '%'))
@@ -1753,6 +1756,8 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
         xml+=strspn(xml+8,XMLWhitespace)+8;
         c=xml;
         n=xml+strspn(xml,XMLWhitespace "%");
+        if ((isalpha((int) ((unsigned char) *n)) == 0) && (*n != '_'))
+          break;
         xml=n+strcspn(n,XMLWhitespace);
         *xml=';';
         v=xml+strspn(xml+1,XMLWhitespace)+1;
@@ -1824,7 +1829,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                    (n != (char *) NULL) &&
                    (strcmp(n,root->attributes[i][0]) != 0))
               i++;
-            while ((*(n=xml+strspn(xml+1,XMLWhitespace)+1) != '\0') && 
+            while ((*(n=xml+strspn(xml+1,XMLWhitespace)+1) != '\0') &&
                    (*n != '>'))
             {
               xml=n+strcspn(n,XMLWhitespace);
@@ -1884,7 +1889,8 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                       sizeof(*root->attributes));
                   else
                     root->attributes=(char ***) ResizeQuantumMemory(
-                      root->attributes,(size_t) (i+2),sizeof(*root->attributes));
+                      root->attributes,(size_t) (i+2),
+                      sizeof(*root->attributes));
                   if (root->attributes == (char ***) NULL)
                     ThrowFatalException(ResourceFatalError,
                       "unable to acquire string `%s'");
@@ -1951,6 +1957,29 @@ static void ParseOpenTag(XMLTreeRoot *root,char *tag,char **attributes)
   root->node=xml_info;
 }
 
+static const char
+  *ignore_tags[3] =
+  {
+    "rdf:Bag",
+    "rdf:Seq",
+    (const char *) NULL
+  };
+
+static inline WizardBooleanType IsSkipTag(const char *tag)
+{
+  register ssize_t
+    i;
+
+  i=0;
+  while (ignore_tags[i] != (const char *) NULL)
+  {
+    if (LocaleCompare(tag,ignore_tags[i]) == 0)
+      return(WizardTrue);
+    i++;
+  }
+  return(WizardFalse);
+}
+
 WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
 {
   char
@@ -1970,6 +1999,7 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
     i;
 
   size_t
+    ignore_depth,
     length;
 
   ssize_t
@@ -2014,12 +2044,14 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
     }
   attribute=(char **) NULL;
   l=0;
+  ignore_depth=0;
   for (p++; ; p++)
   {
     attributes=(char **) sentinel;
     tag=p;
+    c=(*p);
     if ((isalpha((int) ((unsigned char) *p)) != 0) || (*p == '_') ||
-        (*p == ':') || (*p < '\0'))
+        (*p == ':') || (c < '\0'))
       {
         /*
           Tag.
@@ -2034,7 +2066,8 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
         p+=strcspn(p,XMLWhitespace "/>");
         while (isspace((int) ((unsigned char) *p)) != 0)
           *p++='\0';
-        if ((isalpha((int) ((unsigned char) *p)) != 0) || (*p == '_'))
+        if (((isalpha((int) ((unsigned char) *p)) != 0) || (*p == '_')) &&
+            (ignore_depth == 0))
           {
             if ((*p != '\0') && (*p != '/') && (*p != '>'))
               {
@@ -2135,8 +2168,13 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
                 utf8=DestroyString(utf8);
                 return(&root->root);
               }
-            ParseOpenTag(root,tag,attributes);
-            (void) ParseCloseTag(root,tag,p,exception);
+            if ((ignore_depth != 0) || (IsSkipTag(tag) != WizardFalse))
+              (void) DestroyXMLTreeAttributes(attributes);
+            else
+              {
+                ParseOpenTag(root,tag,attributes);
+                (void) ParseCloseTag(root,tag,exception);
+              }
           }
         else
           {
@@ -2144,7 +2182,13 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
             if ((*p == '>') || ((*p == '\0') && (terminal == '>')))
               {
                 *p='\0';
-                ParseOpenTag(root,tag,attributes);
+                if ((ignore_depth == 0) && (IsSkipTag(tag) == WizardFalse))
+                  ParseOpenTag(root,tag,attributes);
+                else
+                  {
+                    ignore_depth++;
+                    (void) DestroyXMLTreeAttributes(attributes);
+                  }
                 *p=c;
               }
             else
@@ -2175,11 +2219,14 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
               return(&root->root);
             }
           *p='\0';
-          if (ParseCloseTag(root,tag,p,exception) != (XMLTreeInfo *) NULL)
+          if ((ignore_depth == 0) &&
+              (ParseCloseTag(root,tag,exception) != (XMLTreeInfo *) NULL))
             {
               utf8=DestroyString(utf8);
               return(&root->root);
             }
+          if (ignore_depth > 0)
+            ignore_depth--;
           *p=c;
           if (isspace((int) ((unsigned char) *p)) != 0)
             p+=strspn(p,XMLWhitespace);
@@ -2210,7 +2257,8 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
               if (p != (char *) NULL)
                 {
                   p+=2;
-                  ParseCharacterContent(root,tag+8,(size_t) (p-tag-10),'c');
+                  if (ignore_depth == 0)
+                    ParseCharacterContent(root,tag+8,(size_t) (p-tag-10),'c');
                 }
               else
                 {
@@ -2295,7 +2343,8 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
           p++;
         if (*p == '\0')
           break;
-        ParseCharacterContent(root,tag,(size_t) (p-tag),'&');
+        if (ignore_depth == 0)
+          ParseCharacterContent(root,tag,(size_t) (p-tag),'&');
       }
     else
       if (*p == '\0')
@@ -2352,7 +2401,7 @@ WizardExport XMLTreeInfo *NewXMLTreeTag(const char *tag)
   root=(XMLTreeRoot *) AcquireWizardMemory(sizeof(*root));
   if (root == (XMLTreeRoot *) NULL)
     return((XMLTreeInfo *) NULL);
-  (void) ResetWizardMemory(root,0,sizeof(*root));
+  (void) memset(root,0,sizeof(*root));
   root->root.tag=(char *) NULL;
   if (tag != (char *) NULL)
     root->root.tag=ConstantString(tag);
@@ -2361,8 +2410,7 @@ WizardExport XMLTreeInfo *NewXMLTreeTag(const char *tag)
   root->entities=(char **) AcquireWizardMemory(sizeof(predefined_entities));
   if (root->entities == (char **) NULL)
     return((XMLTreeInfo *) NULL);
-  (void) CopyWizardMemory(root->entities,predefined_entities,
-    sizeof(predefined_entities));
+  (void) memcpy(root->entities,predefined_entities,sizeof(predefined_entities));
   root->root.attributes=sentinel;
   root->attributes=(char ***) root->root.attributes;
   root->processing_instructions=(char ***) root->root.attributes;
@@ -2382,7 +2430,7 @@ WizardExport XMLTreeInfo *NewXMLTreeTag(const char *tag)
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  PruneTagFromXMLTree() prunes a tag from the xml-tree assize_t with all its
+%  PruneTagFromXMLTree() prunes a tag from the xml-tree along with all its
 %  subtags.
 %
 %  The format of the PruneTagFromXMLTree method is:
@@ -2520,16 +2568,15 @@ WizardExport XMLTreeInfo *SetXMLTreeAttribute(XMLTreeInfo *xml_info,
     }
   if (xml_info->attributes[i] != (char *) NULL)
     xml_info->attributes[i]=DestroyString(xml_info->attributes[i]);
-  (void) CopyWizardMemory(xml_info->attributes+i,xml_info->attributes+i+2,
-    (size_t) (j-i)*sizeof(*xml_info->attributes));
+  (void) memmove(xml_info->attributes+i,xml_info->attributes+i+2,(size_t)
+    (j-i)*sizeof(*xml_info->attributes));
   xml_info->attributes=(char **) ResizeQuantumMemory(xml_info->attributes,
     (size_t) (j+2),sizeof(*xml_info->attributes));
   if (xml_info->attributes == (char **) NULL)
     ThrowFatalException(ResourceFatalError,"unable to acquire string `%s'");
   j-=2;
-  (void) CopyWizardMemory(xml_info->attributes[j+1]+(i/2),
-    xml_info->attributes[j+1]+(i/2)+1,(size_t) (((j+2)/2)-(i/2))*
-    sizeof(**xml_info->attributes));
+  (void) memmove(xml_info->attributes[j+1]+(i/2),xml_info->attributes[j+1]+
+    (i/2)+1,(size_t) (((j+2)/2)-(i/2))*sizeof(**xml_info->attributes));
   return(xml_info);
 }
 
@@ -2803,9 +2850,7 @@ WizardExport char *XMLTreeInfoToXML(XMLTreeInfo *xml_info)
         p=root->processing_instructions[i][j];
       }
     }
-  ordered=(XMLTreeInfo *) NULL;
-  if (xml_info != (XMLTreeInfo *) NULL)
-    ordered=xml_info->ordered;
+  ordered=xml_info->ordered;
   xml_info->parent=(XMLTreeInfo *) NULL;
   xml_info->ordered=(XMLTreeInfo *) NULL;
   xml=XMLTreeTagToXML(xml_info,&xml,&length,&extent,0,root->attributes);
