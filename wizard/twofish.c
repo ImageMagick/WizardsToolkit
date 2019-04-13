@@ -16,19 +16,19 @@
 %                                   Cristy                                    %
 %                                 March 2003                                  %
 %                                                                             %
-%  Copyright 1999-2018 ImageMagick Studio, LLC, Wilmington, DE, U.S.A.  All   %
+%  Copyright 1999-2019 ImageMagick Studio, LLC, Wilmington, DE, U.S.A.  All   %
 %  rights reserved.                                                           %
 %                                                                             %
-%  ImageMagick Studio, LLC. has intellectual property rights relating to      %
-%  technology embodied in this product.  In particular, and without           %
-%  limitation, these intellectual property rights may include one or more of  %
-%  the U.S. patents or pending patent applications in the U.S. and other      %
-%  countries.                                                                 %
+%  You may not use this file except in compliance with the License.  You may  %
+%  obtain a copy of the License at                                            %
 %                                                                             %
-%  This product is distributed under licenses restricting its use, copying    %
-%  distribution, and decompilation.  No part of this product may be           %
-%  reproduced in any form by any means without prior written authorization of %
-%  ImageMagick Studio and its licensors, if any.                              %
+%    https://imagemagick.org/script/license.php                               %
+%                                                                             %
+%  Unless required by applicable law or agreed to in writing, software        %
+%  distributed under the License is distributed on an "AS IS" BASIS,          %
+%  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   %
+%  See the License for the specific language governing permissions and        %
+%  limitations under the License.                                             %
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
