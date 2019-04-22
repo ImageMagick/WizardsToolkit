@@ -875,8 +875,6 @@ static void *DestroyLogElement(void *log_info)
     p->timer=DestroyTimerInfo(p->timer);
   if (p->event_semaphore == (SemaphoreInfo *) NULL)
     ActivateSemaphoreInfo(&p->event_semaphore);
-  LockSemaphoreInfo(p->event_semaphore);
-  UnlockSemaphoreInfo(p->event_semaphore);
   RelinquishSemaphoreInfo(&p->event_semaphore);
   p=(LogInfo *) RelinquishWizardMemory(p);
   return((void *) NULL);
