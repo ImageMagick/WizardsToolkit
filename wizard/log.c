@@ -94,7 +94,7 @@ typedef struct _EventInfo
 typedef struct _HandlerInfo
 {
   const char
-    *name;
+    name[10];
 
   LogHandlerType
     handler;
@@ -131,6 +131,9 @@ struct _LogInfo
   TimerInfo
     *timer;
 
+  SemaphoreInfo
+    *event_semaphore;
+
   size_t
     signature;
 };
@@ -148,31 +151,31 @@ static const HandlerInfo
     { "none", NoHandler },
     { "stderr", StderrHandler },
     { "stdout", StdoutHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler },
-    { (char *) NULL, UndefinedHandler }
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler },
+    { "", UndefinedHandler }
   };
 
 typedef struct _LogMapInfo
@@ -205,7 +208,6 @@ static LinkedListInfo
   *log_cache = (LinkedListInfo *) NULL;
 
 static SemaphoreInfo
-  *event_semaphore = (SemaphoreInfo *) NULL,
   *log_semaphore = (SemaphoreInfo *) NULL;
 
 /*
@@ -767,7 +769,7 @@ WizardExport WizardBooleanType ListLogInfo(FILE *file,ExceptionInfo *exception)
           size_t
             mask;
 
-          if (LogHandlers[j].name == (const char *) NULL)
+          if (*LogHandlers[j].name == '\0')
             break;
           mask=1;
           mask<<=j;
@@ -829,7 +831,6 @@ WizardExport WizardBooleanType LogComponentGenesis(void)
   exception=AcquireExceptionInfo();
   (void) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
-  event_semaphore=AcquireSemaphoreInfo();
   return(WizardTrue);
 }
 
@@ -872,17 +873,17 @@ static void *DestroyLogElement(void *log_info)
     p->path=DestroyString(p->path);
   if (p->timer != (TimerInfo *) NULL)
     p->timer=DestroyTimerInfo(p->timer);
+  if (p->event_semaphore == (SemaphoreInfo *) NULL)
+    ActivateSemaphoreInfo(&p->event_semaphore);
+  LockSemaphoreInfo(p->event_semaphore);
+  UnlockSemaphoreInfo(p->event_semaphore);
+  RelinquishSemaphoreInfo(&p->event_semaphore);
   p=(LogInfo *) RelinquishWizardMemory(p);
   return((void *) NULL);
 }
 
 WizardExport void LogComponentTerminus(void)
 {
-  if (event_semaphore == (SemaphoreInfo *) NULL)
-    ActivateSemaphoreInfo(&event_semaphore);
-  LockSemaphoreInfo(event_semaphore);
-  UnlockSemaphoreInfo(event_semaphore);
-  RelinquishSemaphoreInfo(&event_semaphore);
   if (log_semaphore == (SemaphoreInfo *) NULL)
     ActivateSemaphoreInfo(&log_semaphore);
   LockSemaphoreInfo(log_semaphore);
@@ -1273,12 +1274,12 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
-  if (event_semaphore == (SemaphoreInfo *) NULL)
-    ActivateSemaphoreInfo(&event_semaphore);
-  LockSemaphoreInfo(event_semaphore);
+  if (log_info->event_semaphore == (SemaphoreInfo *) NULL)
+    ActivateSemaphoreInfo(&log_info->event_semaphore);
+  LockSemaphoreInfo(log_info->event_semaphore);
   if ((log_info->event_mask & type) == 0)
     {
-      UnlockSemaphoreInfo(event_semaphore);
+      UnlockSemaphoreInfo(log_info->event_semaphore);
       return(WizardTrue);
     }
   domain=WizardOptionToMnemonic(WizardLogEventOptions,type);
@@ -1293,7 +1294,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
   if (text == (char *) NULL)
     {
       (void) ContinueTimer(log_info->timer);
-      UnlockSemaphoreInfo(event_semaphore);
+      UnlockSemaphoreInfo(log_info->event_semaphore);
       return(WizardFalse);
     }
   if ((log_info->handler_mask & ConsoleHandler) != 0)
@@ -1322,7 +1323,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
       file_info.st_size=0;
       if (log_info->file != (FILE *) NULL)
         (void) fstat(fileno(log_info->file),&file_info);
-      if (file_info.st_size > (ssize_t) (1024*1024*log_info->limit))
+      if (file_info.st_size > (WizardOffsetType) (1024*1024*log_info->limit))
         {
           (void) fprintf(log_info->file,"</log>\n");
           (void) fclose(log_info->file);
@@ -1337,7 +1338,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
           if (filename == (char *) NULL)
             {
               (void) ContinueTimer(log_info->timer);
-              UnlockSemaphoreInfo(event_semaphore);
+              UnlockSemaphoreInfo(log_info->event_semaphore);
               return(WizardFalse);
             }
           log_info->append=IsPathAcessible(filename);
@@ -1345,7 +1346,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
           filename=(char  *) RelinquishWizardMemory(filename);
           if (log_info->file == (FILE *) NULL)
             {
-              UnlockSemaphoreInfo(event_semaphore);
+              UnlockSemaphoreInfo(log_info->event_semaphore);
               return(WizardFalse);
             }
           log_info->generation++;
@@ -1369,7 +1370,7 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
     }
   text=(char  *) RelinquishWizardMemory(text);
   (void) ContinueTimer(log_info->timer);
-  UnlockSemaphoreInfo(event_semaphore);
+  UnlockSemaphoreInfo(log_info->event_semaphore);
   return(WizardTrue);
 }
 
@@ -1675,7 +1676,7 @@ static LogHandlerType ParseLogHandlers(const char *handlers)
     while ((*p != '\0') && ((isspace((int) ((unsigned char) *p)) != 0) ||
            (*p == ',')))
       p++;
-    for (i=0; LogHandlers[i].name != (char *) NULL; i++)
+    for (i=0; *LogHandlers[i].name != '\0'; i++)
     {
       length=strlen(LogHandlers[i].name);
       if (LocaleNCompare(p,LogHandlers[i].name,length) == 0)
@@ -1684,7 +1685,7 @@ static LogHandlerType ParseLogHandlers(const char *handlers)
           break;
         }
     }
-    if (LogHandlers[i].name == (char *) NULL)
+    if (*LogHandlers[i].name == '\0')
       return(UndefinedHandler);
   }
   return(handler_mask);
