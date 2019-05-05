@@ -915,7 +915,6 @@ AC_TRY_COMPILE([],
 # Check for functions
 #
 ########
-WIZARD_FUNC_MMAP_FILEIO
 AC_FUNC_VPRINTF
 AC_FUNC_STRTOD
 AC_FUNC_MMAP
@@ -924,7 +923,6 @@ AC_FUNC_MKTIME
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_STAT
 AC_FUNC_STRERROR_R
-AC_CHECK_FUNCS([_aligned_malloc atexit clock fchmod fprintf_l ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii isnan localtime_r lstat madvise memmove memset mkdir munmap mkstemp newloacle _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readlink realpath sbrk select strtod strtod_l setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times uselocale usleep utime vfprintf vfprintf_l vsprintf vsnprintf vsnprintf_l _wfopen])
 
 #
 # Check for clock_gettime().
@@ -1551,6 +1549,11 @@ ZIP=''
 AC_CHECK_PROGS(ZIP,[zip])
 AC_SUBST(ZIP)
 AM_CONDITIONAL(ZIP_DELEGATE, test "x$ZIP" != "x" )
+
+# Check for functions
+#
+WIZARD_FUNC_MMAP_FILEIO
+AC_CHECK_FUNCS([_aligned_malloc atexit clock fchmod fprintf_l ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii isnan localtime_r lstat madvise memmove memset mkdir munmap mkstemp newloacle _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readlink realpath sbrk select strtod strtod_l setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times uselocale usleep utime vfprintf vfprintf_l vsprintf vsnprintf vsnprintf_l _wfopen])
 
 #
 # Handle special compiler flags
