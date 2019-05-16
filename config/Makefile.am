@@ -36,6 +36,7 @@ configlib_DATA = \
 CONFIG_EXTRA_DIST = \
   config/configure.xml \
   config/config.h.in \
+  config/install-sh \
   config/log.xml \
   config/mime.c \
   config/mime.xml
