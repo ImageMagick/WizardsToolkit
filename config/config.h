@@ -236,7 +236,7 @@
 #define HAVE_POSIX_MEMALIGN 1
 
 /* Define to 1 if you have the `pow' function. */
-/* #undef HAVE_POW */
+#define HAVE_POW 1
 
 /* Define to 1 if you have the `pread' function. */
 #define HAVE_PREAD 1

@@ -356,7 +356,9 @@
 #endif
 
 /* Define to 1 if you have the `pow' function. */
-/* #undef HAVE_POW */
+#ifndef WIZARDSTOOLKIT_HAVE_POW
+#define WIZARDSTOOLKIT_HAVE_POW 1
+#endif
 
 /* Define to 1 if you have the `pread' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_PREAD
