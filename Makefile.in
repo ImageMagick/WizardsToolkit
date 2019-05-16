@@ -2934,9 +2934,9 @@ html-local:
 @RPM_DELEGATE_TRUE@.PHONY: rpm
 @RPM_DELEGATE_TRUE@rpm: dist
 @RPM_DELEGATE_TRUE@	rm -rf $(RPMDIR)
-@RPM_DELEGATE_TRUE@	$(MKDIR_P) $(RPMDIR)
-@RPM_DELEGATE_TRUE@	$(MKDIR_P) $(RPMDIR)/BUILD
-@RPM_DELEGATE_TRUE@	$(MKDIR_P) $(RPMDIR)/RPMS
+@RPM_DELEGATE_TRUE@	$(mkinstalldirs) $(RPMDIR)
+@RPM_DELEGATE_TRUE@	$(mkinstalldirs) $(RPMDIR)/BUILD
+@RPM_DELEGATE_TRUE@	$(mkinstalldirs) $(RPMDIR)/RPMS
 @RPM_DELEGATE_TRUE@	$(RPM) --define="_sourcedir `pwd`" --define="_rpmdir `pwd`/$(RPMDIR)/RPMS" --define="_builddir `pwd`/$(RPMDIR)/BUILD" --nodeps -bb WizardsToolkit.spec
 @RPM_DELEGATE_TRUE@	@echo ==============================================================
 @RPM_DELEGATE_TRUE@	@echo $(DIST_ARCHIVE_RPM) is ready for distribution.

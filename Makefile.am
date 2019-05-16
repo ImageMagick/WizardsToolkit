@@ -268,9 +268,9 @@ DIST_ARCHIVE_RPM= \
 .PHONY: rpm
 rpm: dist
 	rm -rf $(RPMDIR)
-	$(MKDIR_P) $(RPMDIR)
-	$(MKDIR_P) $(RPMDIR)/BUILD
-	$(MKDIR_P) $(RPMDIR)/RPMS
+	$(mkinstalldirs) $(RPMDIR)
+	$(mkinstalldirs) $(RPMDIR)/BUILD
+	$(mkinstalldirs) $(RPMDIR)/RPMS
 	$(RPM) --define="_sourcedir `pwd`" --define="_rpmdir `pwd`/$(RPMDIR)/RPMS" --define="_builddir `pwd`/$(RPMDIR)/BUILD" --nodeps -bb WizardsToolkit.spec
 	@echo ==============================================================
 	@echo $(DIST_ARCHIVE_RPM) is ready for distribution.
