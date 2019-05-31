@@ -1077,6 +1077,12 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
           log_info->generations));
         break;
       }
+      case 'i':
+      {
+        q+=FormatLocaleString(q,extent,"%.20g",(double)
+          GetWizardThreadSignature());
+        break;
+      }
       case 'l':
       {
         q+=FormatLocaleString(q,extent,"%.20g",(double) line);
