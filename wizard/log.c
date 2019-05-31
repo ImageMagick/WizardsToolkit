@@ -1013,6 +1013,7 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
         %e   event
         %f   function
         %g   generation
+        %i   thread id
         %l   line
         %m   module
         %n   log name
