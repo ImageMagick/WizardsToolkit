@@ -1046,6 +1046,11 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
     p++;
     switch (*p)
     {
+      case '\0':
+      {
+        p--;
+        break;
+      }
       case 'c':
       {
         q+=CopyWizardString(q,GetClientName(),extent);
