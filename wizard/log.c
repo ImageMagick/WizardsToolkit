@@ -1044,6 +1044,8 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
         continue;
       }
     p++;
+    if (*p == '\0')
+      break;
     switch (*p)
     {
       case '\0':
@@ -1207,6 +1209,8 @@ static char *TranslateFilename(const LogInfo *log_info)
         continue;
       }
     p++;
+    if (*p == '\0')
+      break;
     switch (*p)
     {
       case 'c':
