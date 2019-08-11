@@ -1400,6 +1400,7 @@ WizardExport WizardBooleanType LocaleComponentGenesis(void)
 {
   if (locale_semaphore == (SemaphoreInfo *) NULL)
     locale_semaphore=AcquireSemaphoreInfo();
+  (void) AcquireCLocale();
   return(WizardTrue);
 }
 
