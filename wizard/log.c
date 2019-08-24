@@ -974,7 +974,7 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
       (void) FormatLocaleString(text,extent,
         "<entry>\n"
         "  <timestamp>%s</timestamp>\n"
-        "  <elapsed-time>%lu:%02lu.%03lu</elapsed-time>\n"
+        "  <elapsed-time>%lu:%02lu.%06lu</elapsed-time>\n"
         "  <user-time>%0.3f</user-time>\n"
         "  <process-id>%.20g</process-id>\n"
         "  <thread-id>%.20g</thread-id>\n"
@@ -984,7 +984,7 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
         "  <domain>%s</domain>\n"
         "  <event>%s</event>\n"
         "</entry>",timestamp,(unsigned long) (elapsed_time/60.0),(unsigned long)
-        floor(fmod(elapsed_time,60.0)),(unsigned long) (1000.0*(elapsed_time-
+        floor(fmod(elapsed_time,60.0)),(unsigned long) (1000000.0*(elapsed_time-
         floor(elapsed_time))+0.5),user_time,(double) getpid(),(double)
         GetWizardThreadSignature(),module,function,(double) line,domain,event);
       return(text);
