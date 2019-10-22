@@ -1410,7 +1410,7 @@ WizardExport double InterpretSiPrefixValue(const char *restrict string,
   double
     value;
 
-  value=InterpretSiPrefixValue(string,&q);
+  value=InterpretLocaleValue(string,&q);
   if (q != string)
     {
       if ((*q >= 'E') && (*q <= 'z'))
@@ -1456,7 +1456,7 @@ WizardExport double InterpretSiPrefixValue(const char *restrict string,
                 }
             }
         }
-      if (*q == 'B')
+      if ((*q == 'B') || (*q == 'P'))
         q++;
     }
   if (sentinal != (char **) NULL)
