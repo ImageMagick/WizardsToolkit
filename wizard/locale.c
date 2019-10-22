@@ -127,7 +127,7 @@ static locale_t AcquireCLocale(void)
 #if defined(WIZARDSTOOLKIT_HAVE_NEWLOCALE)
   if (c_locale == (locale_t) NULL)
     c_locale=newlocale(LC_ALL_MASK,"C",(locale_t) 0);
-#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
+#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(__MINGW32__)
   if (c_locale == (locale_t) NULL)
     c_locale=_create_locale(LC_ALL,"C");
 #endif
@@ -254,13 +254,8 @@ static SplayTreeInfo *AcquireLocaleSplayTree(const char *filename,
 */
 static void DestroyCLocale(void)
 {
-#if defined(WIZARDSTOOLKIT_LOCALE_SUPPORT) && defined(WIZARDSTOOLKIT_HAVE_NEWLOCALE)
   if (c_locale != (locale_t) NULL)
     freelocale(c_locale);
-#elif defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
-  if (c_locale != (locale_t) NULL)
-    _free_locale(c_locale);
-#endif
   c_locale=(locale_t) NULL;
 }
 #endif
@@ -1400,7 +1395,9 @@ WizardExport WizardBooleanType LocaleComponentGenesis(void)
 {
   if (locale_semaphore == (SemaphoreInfo *) NULL)
     locale_semaphore=AcquireSemaphoreInfo();
+#if defined(WIZARDSTOOLKIT_LOCALE_SUPPORT)
   (void) AcquireCLocale();
+#endif
   return(WizardTrue);
 }
 

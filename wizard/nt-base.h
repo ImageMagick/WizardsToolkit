@@ -98,6 +98,9 @@ extern "C" {
 #if !defined(fileno)
 #  define fileno  _fileno
 #endif
+#if !defined(freelocale)
+#  define freelocale  _free_locale
+#endif
 #if !defined(fseek) && !defined(__MINGW32__) && !defined(__MINGW64__)
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) && !defined(Windows95) && \
   !(defined(_MSC_VER) && (_MSC_VER < 1400)) && \

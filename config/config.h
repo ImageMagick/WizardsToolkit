@@ -68,7 +68,7 @@
 
 /* Define to 1 if you have the declaration of `strlcpy', and to 0 if you
    don't. */
-#define HAVE_DECL_STRLCPY 0
+#define HAVE_DECL_STRLCPY 1
 
 /* Define to 1 if you have the declaration of `vsnprintf', and to 0 if you
    don't. */
@@ -151,7 +151,7 @@
 #define HAVE_LOCALE_H 1
 
 /* Define to 1 if the system has the type `locale_t'. */
-/* #undef HAVE_LOCALE_T */
+#define HAVE_LOCALE_T 1
 
 /* Define to 1 if you have the `localtime_r' function. */
 #define HAVE_LOCALTIME_R 1
@@ -449,7 +449,7 @@
 #define HAVE_VSPRINTF 1
 
 /* Define to 1 if you have the <xlocale.h> header file. */
-/* #undef HAVE_XLOCALE_H */
+#define HAVE_XLOCALE_H 1
 
 /* Define to 1 if you have the `_aligned_malloc' function. */
 /* #undef HAVE__ALIGNED_MALLOC */
