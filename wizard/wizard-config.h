@@ -101,7 +101,7 @@
 /* Define to 1 if you have the declaration of `strlcpy', and to 0 if you
    don't. */
 #ifndef WIZARDSTOOLKIT_HAVE_DECL_STRLCPY
-#define WIZARDSTOOLKIT_HAVE_DECL_STRLCPY 1
+#define WIZARDSTOOLKIT_HAVE_DECL_STRLCPY 0
 #endif
 
 /* Define to 1 if you have the declaration of `vsnprintf', and to 0 if you
@@ -229,9 +229,7 @@
 #endif
 
 /* Define to 1 if the system has the type `locale_t'. */
-#ifndef WIZARDSTOOLKIT_HAVE_LOCALE_T
-#define WIZARDSTOOLKIT_HAVE_LOCALE_T 1
-#endif
+/* #undef HAVE_LOCALE_T */
 
 /* Define to 1 if you have the `localtime_r' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_LOCALTIME_R
@@ -685,9 +683,7 @@
 #endif
 
 /* Define to 1 if you have the <xlocale.h> header file. */
-#ifndef WIZARDSTOOLKIT_HAVE_XLOCALE_H
-#define WIZARDSTOOLKIT_HAVE_XLOCALE_H 1
-#endif
+/* #undef HAVE_XLOCALE_H */
 
 /* Define to 1 if you have the `_aligned_malloc' function. */
 /* #undef HAVE__ALIGNED_MALLOC */
