@@ -21,7 +21,7 @@ AC_PREREQ(2.69)
 m4_define([wizard_major_version], [1])
 m4_define([wizard_minor_version], [0])
 m4_define([wizard_micro_version], [9])
-m4_define([wizard_patchlevel_version], [3])
+m4_define([wizard_patchlevel_version], [4])
 m4_define([wizard_version],
           [wizard_major_version.wizard_minor_version.wizard_micro_version-wizard_patchlevel_version])
 m4_define([wizard_git_revision], esyscmd([sh -c "(gitversion.sh .) | awk '{ print \$1 }' | tr -d '\n'"]))
