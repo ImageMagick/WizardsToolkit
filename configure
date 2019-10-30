@@ -3015,7 +3015,7 @@ ac_aux_dir=
 for ac_dir in config "$srcdir"/config; do
   if test -f "$ac_dir/install-sh"; then
     ac_aux_dir=$ac_dir
-    ac_install_sh="$SHELL $ac_pwd/$ac_aux_dir/install-sh -c"
+    ac_install_sh="$ac_aux_dir/install-sh -c"
     break
   elif test -f "$ac_dir/install.sh"; then
     ac_aux_dir=$ac_dir
@@ -7736,7 +7736,7 @@ WIZARD_PATCHLEVEL_VERSION=4
 
 WIZARD_VERSION=1.0.9-4
 
-WIZARD_GIT_REVISION=885:c869827:20191030
+WIZARD_GIT_REVISION=884:eff1eed:20191030
 
 
 # Substitute library versioning
