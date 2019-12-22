@@ -92,7 +92,6 @@ TOP_EXTRA_DIST = \
 	NOTICE \
 	NEWS.txt \
 	index.html \
-  gitversion.sh \
 	version.sh \
 	winpath.sh \
 	wizard.sh.in
@@ -233,7 +232,7 @@ wizard-version: wizard/version.h
 	fi ; \
 	touch wizard-version
 
-${srcdir}/configure: ${srcdir}/version.sh ${srcdir}/gitversion.sh
+${srcdir}/configure: ${srcdir}/version.sh
 
 # Automatically reconfigure libtool
 LIBTOOL_DEPS = @LIBTOOL_DEPS@

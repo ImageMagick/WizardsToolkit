@@ -24,8 +24,13 @@ m4_define([wizard_micro_version], [9])
 m4_define([wizard_patchlevel_version], [4])
 m4_define([wizard_version],
           [wizard_major_version.wizard_minor_version.wizard_micro_version-wizard_patchlevel_version])
-m4_define([wizard_git_revision], esyscmd([sh -c "(gitversion.sh .) | awk '{ print \$1 }' | tr -d '\n'"]))
-
+m4_define([wizard_git_revision],
+          esyscmd([
+            c=$(git log --full-history --format=tformat:. HEAD | wc -l)
+            h=$(git rev-parse --short HEAD)
+            d=$(date +%Y%m%d)
+            printf %s "$c:$h:$d"
+          ]))
 AC_INIT([WizardsToolkit],
         [wizard_version],
         [http://www.wizards-toolkit.org],
