@@ -187,6 +187,8 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
     random_info->hmac_info));
   ResetStringInfo(random_info->reservoir);
   random_info->normalize=1.0/(~0UL);
+  random_info->seed[0]=WizardULLConstant(0xd2a98b26625eee7b);
+  random_info->seed[1]=WizardULLConstant(0xdddf9b1090aa7ac1);
   random_info->secret_key=secret_key;
   random_info->protocol_major=RandomProtocolMajorVersion;
   random_info->protocol_minor=RandomProtocolMinorVersion;
@@ -256,7 +258,6 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
   /*
     Initialize pseudo-random number generator.
   */
-  random_info->seed[1]=WizardULLConstant(0x170865df4b3201fc);
   return(random_info);
 }
 
