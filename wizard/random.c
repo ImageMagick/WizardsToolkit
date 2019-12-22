@@ -81,8 +81,8 @@ struct _RandomInfo
   size_t
     i;
 
-  unsigned long
-    seed[4];
+  WizardSizeType
+    seed[2];
 
   double
     normalize;
@@ -256,12 +256,7 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
   /*
     Initialize pseudo-random number generator.
   */
-  random_info->seed[1]=0x50a7f451UL;
-  random_info->seed[2]=0x5365417eUL;
-  random_info->seed[3]=0xc3a4171aUL;
-  (void) GetPseudoRandomValue(random_info);
-  (void) GetPseudoRandomValue(random_info);
-  (void) GetPseudoRandomValue(random_info);
+  random_info->seed[1]=WizardULLConstant(0x170865df4b3201fc);
   return(random_info);
 }
 
@@ -792,22 +787,21 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
 */
 WizardExport double GetPseudoRandomValue(RandomInfo *random_info)
 {
-  register unsigned long
-    *seed;
+#define RandomROTL(x,k) (((x) << (k)) | ((x) >> (64-(k))))
 
-  unsigned long
-    alpha;
+  const WizardSizeType
+    seed0 = random_info->seed[0];
 
-  seed=random_info->seed;
-  do
-  {
-    alpha=(unsigned long) (seed[1] ^ (seed[1] << 11));
-    seed[1]=seed[2];
-    seed[2]=seed[3];
-    seed[3]=seed[0];
-    seed[0]=(seed[0] ^ (seed[0] >> 19)) ^ (alpha ^ (alpha >> 8));
-  } while (seed[0] == ~0UL);
-  return(random_info->normalize*seed[0]);
+  WizardSizeType
+    seed1 = random_info->seed[1];
+
+  const WizardSizeType
+    value = (seed0+seed1);
+
+  seed1^=seed0;
+  random_info->seed[0]=RandomROTL(seed0,24) ^ seed1 ^ (seed1 << 16);
+  random_info->seed[1]=RandomROTL(seed1,37);
+  return(random_info->normalize*value);
 }
 
 /*
