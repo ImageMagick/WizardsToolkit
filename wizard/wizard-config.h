@@ -775,7 +775,7 @@
 
 /* Define to the full name and version of this package. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_STRING
-#define WIZARDSTOOLKIT_PACKAGE_STRING "WizardsToolkit 1.0.9-3"
+#define WIZARDSTOOLKIT_PACKAGE_STRING "WizardsToolkit 1.0.9-4"
 #endif
 
 /* Define to the one symbol short name of this package. */
@@ -790,7 +790,7 @@
 
 /* Define to the version of this package. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_VERSION
-#define WIZARDSTOOLKIT_PACKAGE_VERSION "1.0.9-3"
+#define WIZARDSTOOLKIT_PACKAGE_VERSION "1.0.9-4"
 #endif
 
 /* Define to necessary symbol if this constant uses a non-standard name on
@@ -921,7 +921,7 @@
 
 /* Version number of package */
 #ifndef WIZARDSTOOLKIT_VERSION
-#define WIZARDSTOOLKIT_VERSION "1.0.9-3"
+#define WIZARDSTOOLKIT_VERSION "1.0.9-4"
 #endif
 
 /* Define if using the dmalloc debugging malloc package */

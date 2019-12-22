@@ -514,7 +514,7 @@
 #define PACKAGE_NAME "WizardsToolkit"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "WizardsToolkit 1.0.9-3"
+#define PACKAGE_STRING "WizardsToolkit 1.0.9-4"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "WizardsToolkit"
@@ -523,7 +523,7 @@
 #define PACKAGE_URL "http://www.wizards-toolkit.org"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0.9-3"
+#define PACKAGE_VERSION "1.0.9-4"
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
@@ -616,7 +616,7 @@
 
 
 /* Version number of package */
-#define VERSION "1.0.9-3"
+#define VERSION "1.0.9-4"
 
 /* Define if using the dmalloc debugging malloc package */
 /* #undef WITH_DMALLOC */
