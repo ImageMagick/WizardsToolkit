@@ -82,7 +82,7 @@ struct _RandomInfo
     i;
 
   WizardSizeType
-    seed[2];
+    seed[4];
 
   double
     normalize;
@@ -186,9 +186,11 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
   random_info->reservoir=AcquireStringInfo(GetHMACDigestsize(
     random_info->hmac_info));
   ResetStringInfo(random_info->reservoir);
-  random_info->normalize=0x1.0p-53;
-  random_info->seed[0]=WizardULLConstant(0xd2a98b26625eee7b);
-  random_info->seed[1]=WizardULLConstant(0xdddf9b1090aa7ac1);
+  random_info->normalize=(double) (1.0/(WizardULLConstant(~0) >> 11));
+  random_info->seed[0]=WizardULLConstant(0x76e15d3efefdcbbf);
+  random_info->seed[1]=WizardULLConstant(0xc5004e441c522fb3);
+  random_info->seed[2]=WizardULLConstant(0x77710069854ee241);
+  random_info->seed[3]=WizardULLConstant(0x39109bb02acbe635);
   random_info->secret_key=secret_key;
   random_info->protocol_major=RandomProtocolMajorVersion;
   random_info->protocol_minor=RandomProtocolMinorVersion;
@@ -230,11 +232,9 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
   */
   if (random_info->secret_key == ~0UL)
     {
-      key=GetRandomKey(random_info,2*sizeof(*random_info->seed));
-      (void) memcpy(random_info->seed+0,GetStringInfoDatum(key),
-        sizeof(*random_info->seed));
-      (void) memcpy(random_info->seed+1,GetStringInfoDatum(key)+
-        sizeof(*random_info->seed),sizeof(*random_info->seed));
+      key=GetRandomKey(random_info,sizeof(random_info->seed));
+      (void) memcpy(random_info->seed,GetStringInfoDatum(key),
+        sizeof(random_info->seed));
       key=DestroyStringInfo(key);
     }
   else
@@ -248,18 +248,15 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
       signature_info=AcquireHashInfo(PseudoRandomHash);
       key=AcquireStringInfo(sizeof(random_info->secret_key));
       SetStringInfoDatum(key,(unsigned char *) &random_info->secret_key);
-      UpdateHash(signature_info,key);
+      (void) UpdateHash(signature_info,key);
       key=DestroyStringInfo(key);
-      FinalizeHash(signature_info);
+      (void) FinalizeHash(signature_info);
       digest=GetHashDigest(signature_info);
       (void) CopyWizardMemory(random_info->seed,GetStringInfoDatum(digest),
         WizardMin((size_t) GetHashDigestsize(signature_info),
         sizeof(*random_info->seed)));
       signature_info=DestroyHashInfo(signature_info);
     }
-  /*
-    Initialize pseudo-random number generator.
-  */
   return(random_info);
 }
 
@@ -793,17 +790,17 @@ WizardExport double GetPseudoRandomValue(RandomInfo *random_info)
 {
 #define RandomROTL(x,k) (((x) << (k)) | ((x) >> (64-(k))))
 
-  WizardSizeType
-    seed1 = random_info->seed[1];
-
   const WizardSizeType
-    seed0 = random_info->seed[0],
-    value = (seed0+seed1);
+    alpha = (random_info->seed[1] << 17),
+    value = (random_info->seed[0]+random_info->seed[3]);
 
-  seed1^=seed0;
-  random_info->seed[0]=RandomROTL(seed0,24) ^ seed1 ^ (seed1 << 16);
-  random_info->seed[1]=RandomROTL(seed1,37);
-  return(random_info->normalize*(double) (value >> 11));
+  random_info->seed[2]^=random_info->seed[0];
+  random_info->seed[3]^=random_info->seed[1];
+  random_info->seed[1]^=random_info->seed[2];
+  random_info->seed[0]^=random_info->seed[3];
+  random_info->seed[2]^=alpha;
+  random_info->seed[3]=RandomROTL(random_info->seed[3],45);
+  return((double) ((value >> 11)*random_info->normalize));
 }
 
 /*
