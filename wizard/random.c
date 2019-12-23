@@ -186,7 +186,7 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
   random_info->reservoir=AcquireStringInfo(GetHMACDigestsize(
     random_info->hmac_info));
   ResetStringInfo(random_info->reservoir);
-  random_info->normalize=1.0/(~0UL);
+  random_info->normalize=1.0/(double) WizardULLConstant(~0);
   random_info->seed[0]=WizardULLConstant(0xd2a98b26625eee7b);
   random_info->seed[1]=WizardULLConstant(0xdddf9b1090aa7ac1);
   random_info->secret_key=secret_key;
@@ -251,7 +251,7 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
       FinalizeHash(signature_info);
       digest=GetHashDigest(signature_info);
       (void) CopyWizardMemory(random_info->seed,GetStringInfoDatum(digest),
-        WizardMin(GetHashDigestsize(signature_info),
+        WizardMin((size_t) GetHashDigestsize(signature_info),
         sizeof(*random_info->seed)));
       signature_info=DestroyHashInfo(signature_info);
     }
@@ -428,8 +428,8 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
 
     if (gettimeofday(&timer,(struct timezone *) NULL) == 0)
       {
-        seconds=timer.tv_sec;
-        nanoseconds=1000UL*timer.tv_usec;
+        seconds=(size_t) timer.tv_sec;
+        nanoseconds=(size_t) (1000UL*timer.tv_usec);
       }
   }
 #endif
@@ -802,7 +802,7 @@ WizardExport double GetPseudoRandomValue(RandomInfo *random_info)
   seed1^=seed0;
   random_info->seed[0]=RandomROTL(seed0,24) ^ seed1 ^ (seed1 << 16);
   random_info->seed[1]=RandomROTL(seed1,37);
-  return(random_info->normalize*value);
+  return(random_info->normalize*(double) value);
 }
 
 /*
