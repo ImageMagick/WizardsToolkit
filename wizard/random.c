@@ -776,8 +776,9 @@ static StringInfo *GetEntropyFromReservoir(RandomInfo *random_info,
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  GetPseudoRandomValue() return a non-negative size_t value uniformly
-%  distributed over the interval [0.0, 1.0) with a 2 to the 128th-1 period.
+%  GetPseudoRandomValue() is a Xoshiro generator that return a non-negative
+%  double value uniformly distributed over the interval [0.0, 1.0) with a 2
+%  to the 128th-1 period.
 %
 %  The format of the GetPseudoRandomValue method is:
 %
