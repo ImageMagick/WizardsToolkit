@@ -69,9 +69,13 @@ extern "C" {
 #  include <stdlib.h>
 # endif
 #endif
-# if defined(_wizardstoolkit_restrict) && !defined(restrict)
-#  define restrict  _wizardstoolkit_restrict
+#if !defined(wizard_restrict)
+# if !defined(_wizardcore_restrict)
+#  define wizard_restrict restrict
+# else
+#  define wizard_restrict _wizardcore_restrict
 # endif
+#endif
 #if defined(WIZARDSTOOLKIT_HAVE_STRING_H)
 # if !defined(STDC_HEADERS) && defined(WIZARDSTOOLKIT_HAVE_MEMORY_H)
 #  include <memory.h>

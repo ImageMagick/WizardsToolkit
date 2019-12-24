@@ -57,7 +57,7 @@ extern WizardExport const LocaleInfo
   **GetLocaleInfoList(const char *,size_t *,ExceptionInfo *);
 
 extern WizardExport double
-  InterpretLocaleValue(const char *restrict,char **restrict);
+  InterpretLocaleValue(const char *wizard_restrict,char **wizard_restrict);
 
 extern WizardExport LinkedListInfo
   *DestroyLocaleOptions(LinkedListInfo *),
@@ -68,14 +68,16 @@ extern WizardExport WizardBooleanType
   LocaleComponentGenesis(void);
 
 extern WizardExport ssize_t
-  FormatLocaleFile(FILE *,const char *restrict,...)
+  FormatLocaleFile(FILE *,const char *wizard_restrict,...)
     wizard_attribute((__format__ (__printf__,2,3))),
-  FormatLocaleFileList(FILE *,const char *restrict,va_list)
+  FormatLocaleFileList(FILE *,const char *wizard_restrict,va_list)
     wizard_attribute((__format__ (__printf__,2,0))),
-  FormatLocaleString(char *restrict,const size_t,const char *restrict,...)
+  FormatLocaleString(char *wizard_restrict,const size_t,
+    const char *wizard_restrict,...)
     wizard_attribute((__format__ (__printf__,3,4))),
-  FormatLocaleStringList(char *restrict,const size_t,const char *restrict,
-    va_list) wizard_attribute((__format__ (__printf__,3,0)));
+  FormatLocaleStringList(char *restrict,const size_t,
+    const char *wizard_restrict,va_list)
+    wizard_attribute((__format__ (__printf__,3,0)));
 
 extern WizardExport void
   LocaleComponentTerminus(void);

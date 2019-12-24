@@ -42,9 +42,13 @@ extern "C" {
 #if defined(_wizardstoolkit_inline) && !defined(inline)
 # define inline _wizardstoolkit_inline
 #endif
-# if defined(_wizardstoolkit_restrict) && !defined(restrict)
-#  define restrict  _wizardstoolkit_restrict
+#if !defined(wizard_restrict)
+# if !defined(_wizardcore_restrict)
+#  define wizard_restrict restrict
+# else
+#  define wizard_restrict _wizardcore_restrict
 # endif
+#endif
 # if defined(__cplusplus) || defined(c_plusplus)
 #  undef inline
 # endif
