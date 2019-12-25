@@ -254,7 +254,7 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
       digest=GetHashDigest(signature_info);
       (void) CopyWizardMemory(random_info->seed,GetStringInfoDatum(digest),
         WizardMin((size_t) GetHashDigestsize(signature_info),
-        sizeof(*random_info->seed)));
+        sizeof(random_info->seed)));
       signature_info=DestroyHashInfo(signature_info);
     }
   return(random_info);
