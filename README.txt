@@ -3,9 +3,9 @@ Introduction to the Wizard's Toolkit
 The Wizard's Toolkit includes command line utilities to encipher plaintext,
 decipher ciphertext, report properties associated with ciphertext, compute the
 message digest of a file, and read message digests from a file and
-authenticate them. In addition, the Wizard's Toolkit includes a a
-cross-platform C API that includes a number of enciphering and hash methods
-many developers should find useful in their projects.
+authenticate them. In addition, the Wizard's Toolkit includes a cross-platform
+C API that includes a number of enciphering and hash methods many developers
+should find useful in their projects.
 
 The Wizard's Toolkit is free software delivered as a ready-to-run binary
 distribution or as source code that you may freely use, copy, modify, and
