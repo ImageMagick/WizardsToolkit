@@ -140,6 +140,7 @@ static SignalHandler *SetWizardSignalHandler(int signal_number,
 #if defined(SA_ONSTACK)
   action.sa_flags|=SA_ONSTACK;
 #endif
+  previous_action.sa_handler=SIG_DFL;
   status=sigaction(signal_number,&action,&previous_action);
   if (status < 0)
     return(SIG_ERR);
