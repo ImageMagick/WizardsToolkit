@@ -466,33 +466,6 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
   SetStringInfoLength(chaos,sizeof(nanoseconds));
   SetStringInfoDatum(chaos,(unsigned char *) &nanoseconds);
   ConcatenateStringInfo(entropy,chaos);
-#if defined(WIZARDSTOOLKIT_HAVE_MKSTEMP)
-  {
-    char
-      path[WizardPathExtent];
-
-    int
-      file;
-
-    (void) strcpy(path,"XXXXXX");
-    file=mkstemp(path);
-    if (file != -1)
-      {
-#if defined(WIZARDSTOOLKIT_HAVE_FCHMOD)
-        (void) fchmod(file,0600);
-#endif
-        if (close(file) == -1)
-          (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
-            "unable to close file `%s': %s",path,strerror(errno));
-      }
-    if (remove_utf8(path) == -1)
-      (void) ThrowWizardException(exception,GetWizardModule(),RandomError,
-        "unable to remove file `%s': %s",path,strerror(errno));
-    SetStringInfoLength(chaos,strlen(path));
-    SetStringInfoDatum(chaos,(unsigned char *) path);
-    ConcatenateStringInfo(entropy,chaos);
-  }
-#endif
 #if defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT)
   {
     double
