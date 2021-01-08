@@ -504,6 +504,9 @@
 /* Define to 1 if assertions should be disabled. */
 /* #undef NDEBUG */
 
+/* Name of package */
+#define PACKAGE "WizardsToolkit"
+
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "https://github.com/ImageMagick/WizardsToolkit/issues"
 
@@ -611,6 +614,9 @@
 # define __EXTENSIONS__ 1
 #endif
 
+
+/* Version number of package */
+#define VERSION "1.0.9-4"
 
 /* Define if using the dmalloc debugging malloc package */
 /* #undef WITH_DMALLOC */

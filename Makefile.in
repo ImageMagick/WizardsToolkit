@@ -397,9 +397,41 @@ AM_V_at = $(am__v_at_@AM_V@)
 am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
-DEFAULT_INCLUDES = 
-depcomp =
-am__maybe_remake_depfiles =
+DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/config
+depcomp = $(SHELL) $(top_srcdir)/config/depcomp
+am__maybe_remake_depfiles = depfiles
+am__depfiles_remade = tests/$(DEPDIR)/validate-validate.Po \
+	utilities/$(DEPDIR)/cipher-info.Po \
+	utilities/$(DEPDIR)/content.Po utilities/$(DEPDIR)/decipher.Po \
+	utilities/$(DEPDIR)/digest.Po utilities/$(DEPDIR)/encipher.Po \
+	utilities/$(DEPDIR)/keyring.Po utilities/$(DEPDIR)/utility.Po \
+	wizard/$(DEPDIR)/aes.Plo wizard/$(DEPDIR)/authenticate.Plo \
+	wizard/$(DEPDIR)/blob.Plo wizard/$(DEPDIR)/bzip.Plo \
+	wizard/$(DEPDIR)/chacha.Plo wizard/$(DEPDIR)/cipher.Plo \
+	wizard/$(DEPDIR)/client.Plo wizard/$(DEPDIR)/configure.Plo \
+	wizard/$(DEPDIR)/crc64.Plo wizard/$(DEPDIR)/entropy.Plo \
+	wizard/$(DEPDIR)/exception.Plo wizard/$(DEPDIR)/file.Plo \
+	wizard/$(DEPDIR)/hash.Plo wizard/$(DEPDIR)/hashmap.Plo \
+	wizard/$(DEPDIR)/hmac.Plo wizard/$(DEPDIR)/key.Plo \
+	wizard/$(DEPDIR)/keyring.Plo wizard/$(DEPDIR)/locale.Plo \
+	wizard/$(DEPDIR)/log.Plo wizard/$(DEPDIR)/lzma.Plo \
+	wizard/$(DEPDIR)/magick.Plo wizard/$(DEPDIR)/md5.Plo \
+	wizard/$(DEPDIR)/memory.Plo wizard/$(DEPDIR)/mime.Plo \
+	wizard/$(DEPDIR)/nt-base.Plo wizard/$(DEPDIR)/option.Plo \
+	wizard/$(DEPDIR)/passphrase.Plo wizard/$(DEPDIR)/random.Plo \
+	wizard/$(DEPDIR)/resource.Plo wizard/$(DEPDIR)/sanitize.Plo \
+	wizard/$(DEPDIR)/secret.Plo wizard/$(DEPDIR)/semaphore.Plo \
+	wizard/$(DEPDIR)/serpent.Plo wizard/$(DEPDIR)/sha1.Plo \
+	wizard/$(DEPDIR)/sha2224.Plo wizard/$(DEPDIR)/sha2256.Plo \
+	wizard/$(DEPDIR)/sha2384.Plo wizard/$(DEPDIR)/sha2512.Plo \
+	wizard/$(DEPDIR)/sha3.Plo wizard/$(DEPDIR)/signature.Plo \
+	wizard/$(DEPDIR)/splay-tree.Plo wizard/$(DEPDIR)/string.Plo \
+	wizard/$(DEPDIR)/thread.Plo wizard/$(DEPDIR)/timer.Plo \
+	wizard/$(DEPDIR)/token.Plo wizard/$(DEPDIR)/twofish.Plo \
+	wizard/$(DEPDIR)/utility.Plo wizard/$(DEPDIR)/version.Plo \
+	wizard/$(DEPDIR)/wizard.Plo wizard/$(DEPDIR)/xml-tree.Plo \
+	wizard/$(DEPDIR)/zip.Plo
+am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -644,8 +676,8 @@ am__DIST_COMMON = $(srcdir)/Makefile.in \
 	$(top_srcdir)/config/config.h.in \
 	$(top_srcdir)/config/config.sub \
 	$(top_srcdir)/config/configure.xml.in \
-	$(top_srcdir)/config/install-sh $(top_srcdir)/config/ltmain.sh \
-	$(top_srcdir)/config/missing \
+	$(top_srcdir)/config/depcomp $(top_srcdir)/config/install-sh \
+	$(top_srcdir)/config/ltmain.sh $(top_srcdir)/config/missing \
 	$(top_srcdir)/config/mkinstalldirs \
 	$(top_srcdir)/config/tap-driver.sh \
 	$(top_srcdir)/config/test-driver \
@@ -658,8 +690,9 @@ am__DIST_COMMON = $(srcdir)/Makefile.in \
 	$(top_srcdir)/wizard/WizardsToolkit-config.in \
 	$(top_srcdir)/wizard/WizardsToolkit.pc.in \
 	$(top_srcdir)/wizard/version.h.in ChangeLog config/compile \
-	config/config.guess config/config.sub config/install-sh \
-	config/ltmain.sh config/missing config/mkinstalldirs
+	config/config.guess config/config.sub config/depcomp \
+	config/install-sh config/ltmain.sh config/missing \
+	config/mkinstalldirs
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -690,6 +723,7 @@ AWK = @AWK@
 BIN_DIR = @BIN_DIR@
 BZLIB_LIBS = @BZLIB_LIBS@
 CC = @CC@
+CCDEPMODE = @CCDEPMODE@
 CCMALLOCDelegate = @CCMALLOCDelegate@
 CFLAGS = @CFLAGS@
 CONFIGURE_ARGS = @CONFIGURE_ARGS@
@@ -700,10 +734,12 @@ CPPFLAGS = @CPPFLAGS@
 CVS_BRANCH_TAG = @CVS_BRANCH_TAG@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
+CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DATA_DIR = @DATA_DIR@
 DEFS = @DEFS@
+DEPDIR = @DEPDIR@
 DIRSEP = @DIRSEP@
 DISTCHECK_CONFIG_FLAGS = @DISTCHECK_CONFIG_FLAGS@
 DLLTOOL = @DLLTOOL@
@@ -869,7 +905,9 @@ ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
+am__include = @am__include@
 am__leading_dot = @am__leading_dot@
+am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
 ax_pthread_config = @ax_pthread_config@
@@ -1441,15 +1479,15 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am $(srcdir)/m4
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
-	      echo ' cd $(srcdir) && $(AUTOMAKE) --foreign --ignore-deps'; \
-	      $(am__cd) $(srcdir) && $(AUTOMAKE) --foreign --ignore-deps \
+	      echo ' cd $(srcdir) && $(AUTOMAKE) --foreign'; \
+	      $(am__cd) $(srcdir) && $(AUTOMAKE) --foreign \
 		&& exit 0; \
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign --ignore-deps Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign --ignore-deps Makefile
+	  $(AUTOMAKE) --foreign Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -1608,64 +1646,117 @@ clean-libLTLIBRARIES:
 wizard/$(am__dirstamp):
 	@$(MKDIR_P) wizard
 	@: > wizard/$(am__dirstamp)
-wizard/aes.lo: wizard/$(am__dirstamp)
-wizard/authenticate.lo: wizard/$(am__dirstamp)
-wizard/blob.lo: wizard/$(am__dirstamp)
-wizard/bzip.lo: wizard/$(am__dirstamp)
-wizard/chacha.lo: wizard/$(am__dirstamp)
-wizard/cipher.lo: wizard/$(am__dirstamp)
-wizard/client.lo: wizard/$(am__dirstamp)
-wizard/configure.lo: wizard/$(am__dirstamp)
-wizard/crc64.lo: wizard/$(am__dirstamp)
-wizard/entropy.lo: wizard/$(am__dirstamp)
-wizard/exception.lo: wizard/$(am__dirstamp)
-wizard/file.lo: wizard/$(am__dirstamp)
-wizard/hash.lo: wizard/$(am__dirstamp)
-wizard/hashmap.lo: wizard/$(am__dirstamp)
-wizard/hmac.lo: wizard/$(am__dirstamp)
-wizard/key.lo: wizard/$(am__dirstamp)
-wizard/keyring.lo: wizard/$(am__dirstamp)
-wizard/locale.lo: wizard/$(am__dirstamp)
-wizard/log.lo: wizard/$(am__dirstamp)
-wizard/lzma.lo: wizard/$(am__dirstamp)
-wizard/magick.lo: wizard/$(am__dirstamp)
-wizard/md5.lo: wizard/$(am__dirstamp)
-wizard/memory.lo: wizard/$(am__dirstamp)
-wizard/mime.lo: wizard/$(am__dirstamp)
-wizard/option.lo: wizard/$(am__dirstamp)
-wizard/passphrase.lo: wizard/$(am__dirstamp)
-wizard/random.lo: wizard/$(am__dirstamp)
-wizard/resource.lo: wizard/$(am__dirstamp)
-wizard/sanitize.lo: wizard/$(am__dirstamp)
-wizard/secret.lo: wizard/$(am__dirstamp)
-wizard/semaphore.lo: wizard/$(am__dirstamp)
-wizard/serpent.lo: wizard/$(am__dirstamp)
-wizard/signature.lo: wizard/$(am__dirstamp)
-wizard/sha1.lo: wizard/$(am__dirstamp)
-wizard/sha2224.lo: wizard/$(am__dirstamp)
-wizard/sha2256.lo: wizard/$(am__dirstamp)
-wizard/sha2384.lo: wizard/$(am__dirstamp)
-wizard/sha2512.lo: wizard/$(am__dirstamp)
-wizard/sha3.lo: wizard/$(am__dirstamp)
-wizard/splay-tree.lo: wizard/$(am__dirstamp)
-wizard/string.lo: wizard/$(am__dirstamp)
-wizard/thread.lo: wizard/$(am__dirstamp)
-wizard/timer.lo: wizard/$(am__dirstamp)
-wizard/token.lo: wizard/$(am__dirstamp)
-wizard/twofish.lo: wizard/$(am__dirstamp)
-wizard/utility.lo: wizard/$(am__dirstamp)
-wizard/version.lo: wizard/$(am__dirstamp)
-wizard/wizard.lo: wizard/$(am__dirstamp)
-wizard/xml-tree.lo: wizard/$(am__dirstamp)
-wizard/zip.lo: wizard/$(am__dirstamp)
-wizard/nt-base.lo: wizard/$(am__dirstamp)
+wizard/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) wizard/$(DEPDIR)
+	@: > wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/aes.lo: wizard/$(am__dirstamp) wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/authenticate.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/blob.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/bzip.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/chacha.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/cipher.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/client.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/configure.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/crc64.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/entropy.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/exception.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/file.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/hash.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/hashmap.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/hmac.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/key.lo: wizard/$(am__dirstamp) wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/keyring.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/locale.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/log.lo: wizard/$(am__dirstamp) wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/lzma.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/magick.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/md5.lo: wizard/$(am__dirstamp) wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/memory.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/mime.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/option.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/passphrase.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/random.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/resource.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/sanitize.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/secret.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/semaphore.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/serpent.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/signature.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/sha1.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/sha2224.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/sha2256.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/sha2384.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/sha2512.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/sha3.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/splay-tree.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/string.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/thread.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/timer.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/token.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/twofish.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/utility.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/version.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/wizard.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/xml-tree.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/zip.lo: wizard/$(am__dirstamp) wizard/$(DEPDIR)/$(am__dirstamp)
+wizard/nt-base.lo: wizard/$(am__dirstamp) \
+	wizard/$(DEPDIR)/$(am__dirstamp)
 
 wizard/libWizardsToolkit.la: $(wizard_libWizardsToolkit_la_OBJECTS) $(wizard_libWizardsToolkit_la_DEPENDENCIES) $(EXTRA_wizard_libWizardsToolkit_la_DEPENDENCIES) wizard/$(am__dirstamp)
 	$(AM_V_CCLD)$(wizard_libWizardsToolkit_la_LINK) -rpath $(libdir) $(wizard_libWizardsToolkit_la_OBJECTS) $(wizard_libWizardsToolkit_la_LIBADD) $(LIBS)
 tests/$(am__dirstamp):
 	@$(MKDIR_P) tests
 	@: > tests/$(am__dirstamp)
-tests/validate-validate.$(OBJEXT): tests/$(am__dirstamp)
+tests/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) tests/$(DEPDIR)
+	@: > tests/$(DEPDIR)/$(am__dirstamp)
+tests/validate-validate.$(OBJEXT): tests/$(am__dirstamp) \
+	tests/$(DEPDIR)/$(am__dirstamp)
 
 tests/validate$(EXEEXT): $(tests_validate_OBJECTS) $(tests_validate_DEPENDENCIES) $(EXTRA_tests_validate_DEPENDENCIES) tests/$(am__dirstamp)
 	@rm -f tests/validate$(EXEEXT)
@@ -1673,29 +1764,39 @@ tests/validate$(EXEEXT): $(tests_validate_OBJECTS) $(tests_validate_DEPENDENCIES
 utilities/$(am__dirstamp):
 	@$(MKDIR_P) utilities
 	@: > utilities/$(am__dirstamp)
-utilities/cipher-info.$(OBJEXT): utilities/$(am__dirstamp)
-utilities/content.$(OBJEXT): utilities/$(am__dirstamp)
-utilities/utility.$(OBJEXT): utilities/$(am__dirstamp)
+utilities/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) utilities/$(DEPDIR)
+	@: > utilities/$(DEPDIR)/$(am__dirstamp)
+utilities/cipher-info.$(OBJEXT): utilities/$(am__dirstamp) \
+	utilities/$(DEPDIR)/$(am__dirstamp)
+utilities/content.$(OBJEXT): utilities/$(am__dirstamp) \
+	utilities/$(DEPDIR)/$(am__dirstamp)
+utilities/utility.$(OBJEXT): utilities/$(am__dirstamp) \
+	utilities/$(DEPDIR)/$(am__dirstamp)
 
 utilities/cipher-info$(EXEEXT): $(utilities_cipher_info_OBJECTS) $(utilities_cipher_info_DEPENDENCIES) $(EXTRA_utilities_cipher_info_DEPENDENCIES) utilities/$(am__dirstamp)
 	@rm -f utilities/cipher-info$(EXEEXT)
 	$(AM_V_CCLD)$(utilities_cipher_info_LINK) $(utilities_cipher_info_OBJECTS) $(utilities_cipher_info_LDADD) $(LIBS)
-utilities/decipher.$(OBJEXT): utilities/$(am__dirstamp)
+utilities/decipher.$(OBJEXT): utilities/$(am__dirstamp) \
+	utilities/$(DEPDIR)/$(am__dirstamp)
 
 utilities/decipher$(EXEEXT): $(utilities_decipher_OBJECTS) $(utilities_decipher_DEPENDENCIES) $(EXTRA_utilities_decipher_DEPENDENCIES) utilities/$(am__dirstamp)
 	@rm -f utilities/decipher$(EXEEXT)
 	$(AM_V_CCLD)$(utilities_decipher_LINK) $(utilities_decipher_OBJECTS) $(utilities_decipher_LDADD) $(LIBS)
-utilities/digest.$(OBJEXT): utilities/$(am__dirstamp)
+utilities/digest.$(OBJEXT): utilities/$(am__dirstamp) \
+	utilities/$(DEPDIR)/$(am__dirstamp)
 
 utilities/digest$(EXEEXT): $(utilities_digest_OBJECTS) $(utilities_digest_DEPENDENCIES) $(EXTRA_utilities_digest_DEPENDENCIES) utilities/$(am__dirstamp)
 	@rm -f utilities/digest$(EXEEXT)
 	$(AM_V_CCLD)$(utilities_digest_LINK) $(utilities_digest_OBJECTS) $(utilities_digest_LDADD) $(LIBS)
-utilities/encipher.$(OBJEXT): utilities/$(am__dirstamp)
+utilities/encipher.$(OBJEXT): utilities/$(am__dirstamp) \
+	utilities/$(DEPDIR)/$(am__dirstamp)
 
 utilities/encipher$(EXEEXT): $(utilities_encipher_OBJECTS) $(utilities_encipher_DEPENDENCIES) $(EXTRA_utilities_encipher_DEPENDENCIES) utilities/$(am__dirstamp)
 	@rm -f utilities/encipher$(EXEEXT)
 	$(AM_V_CCLD)$(utilities_encipher_LINK) $(utilities_encipher_OBJECTS) $(utilities_encipher_LDADD) $(LIBS)
-utilities/keyring.$(OBJEXT): utilities/$(am__dirstamp)
+utilities/keyring.$(OBJEXT): utilities/$(am__dirstamp) \
+	utilities/$(DEPDIR)/$(am__dirstamp)
 
 utilities/keyring$(EXEEXT): $(utilities_keyring_OBJECTS) $(utilities_keyring_DEPENDENCIES) $(EXTRA_utilities_keyring_DEPENDENCIES) utilities/$(am__dirstamp)
 	@rm -f utilities/keyring$(EXEEXT)
@@ -1746,20 +1847,109 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@tests/$(DEPDIR)/validate-validate.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@utilities/$(DEPDIR)/cipher-info.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@utilities/$(DEPDIR)/content.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@utilities/$(DEPDIR)/decipher.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@utilities/$(DEPDIR)/digest.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@utilities/$(DEPDIR)/encipher.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@utilities/$(DEPDIR)/keyring.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@utilities/$(DEPDIR)/utility.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/aes.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/authenticate.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/blob.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/bzip.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/chacha.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/cipher.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/client.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/configure.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/crc64.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/entropy.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/exception.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/file.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/hash.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/hashmap.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/hmac.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/key.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/keyring.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/locale.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/log.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/lzma.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/magick.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/md5.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/memory.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/mime.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/nt-base.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/option.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/passphrase.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/random.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/resource.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/sanitize.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/secret.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/semaphore.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/serpent.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/sha1.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/sha2224.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/sha2256.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/sha2384.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/sha2512.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/sha3.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/signature.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/splay-tree.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/string.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/thread.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/timer.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/token.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/twofish.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/utility.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/version.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/wizard.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/xml-tree.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@wizard/$(DEPDIR)/zip.Plo@am__quote@ # am--include-marker
+
+$(am__depfiles_remade):
+	@$(MKDIR_P) $(@D)
+	@echo '# dummy' >$@-t && $(am__mv) $@-t $@
+
+am--depfiles: $(am__depfiles_remade)
+
 .c.o:
-	$(AM_V_CC)$(COMPILE) -c -o $@ $<
+@am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ $<
 
 .c.obj:
-	$(AM_V_CC)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+@am__fastdepCC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 .c.lo:
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $<
+@am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.lo$$||'`;\
+@am__fastdepCC_TRUE@	$(LTCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCC_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
 tests/validate-validate.o: tests/validate.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/validate-validate.o `test -f 'tests/validate.c' || echo '$(srcdir)/'`tests/validate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tests/validate-validate.o -MD -MP -MF tests/$(DEPDIR)/validate-validate.Tpo -c -o tests/validate-validate.o `test -f 'tests/validate.c' || echo '$(srcdir)/'`tests/validate.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) tests/$(DEPDIR)/validate-validate.Tpo tests/$(DEPDIR)/validate-validate.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='tests/validate.c' object='tests/validate-validate.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/validate-validate.o `test -f 'tests/validate.c' || echo '$(srcdir)/'`tests/validate.c
 
 tests/validate-validate.obj: tests/validate.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/validate-validate.obj `if test -f 'tests/validate.c'; then $(CYGPATH_W) 'tests/validate.c'; else $(CYGPATH_W) '$(srcdir)/tests/validate.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tests/validate-validate.obj -MD -MP -MF tests/$(DEPDIR)/validate-validate.Tpo -c -o tests/validate-validate.obj `if test -f 'tests/validate.c'; then $(CYGPATH_W) 'tests/validate.c'; else $(CYGPATH_W) '$(srcdir)/tests/validate.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) tests/$(DEPDIR)/validate-validate.Tpo tests/$(DEPDIR)/validate-validate.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='tests/validate.c' object='tests/validate-validate.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/validate-validate.obj `if test -f 'tests/validate.c'; then $(CYGPATH_W) 'tests/validate.c'; else $(CYGPATH_W) '$(srcdir)/tests/validate.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -2405,8 +2595,11 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f tests/$(DEPDIR)/$(am__dirstamp)
 	-rm -f tests/$(am__dirstamp)
+	-rm -f utilities/$(DEPDIR)/$(am__dirstamp)
 	-rm -f utilities/$(am__dirstamp)
+	-rm -f wizard/$(DEPDIR)/$(am__dirstamp)
 	-rm -f wizard/$(am__dirstamp)
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
@@ -2420,6 +2613,65 @@ clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
+		-rm -f tests/$(DEPDIR)/validate-validate.Po
+	-rm -f utilities/$(DEPDIR)/cipher-info.Po
+	-rm -f utilities/$(DEPDIR)/content.Po
+	-rm -f utilities/$(DEPDIR)/decipher.Po
+	-rm -f utilities/$(DEPDIR)/digest.Po
+	-rm -f utilities/$(DEPDIR)/encipher.Po
+	-rm -f utilities/$(DEPDIR)/keyring.Po
+	-rm -f utilities/$(DEPDIR)/utility.Po
+	-rm -f wizard/$(DEPDIR)/aes.Plo
+	-rm -f wizard/$(DEPDIR)/authenticate.Plo
+	-rm -f wizard/$(DEPDIR)/blob.Plo
+	-rm -f wizard/$(DEPDIR)/bzip.Plo
+	-rm -f wizard/$(DEPDIR)/chacha.Plo
+	-rm -f wizard/$(DEPDIR)/cipher.Plo
+	-rm -f wizard/$(DEPDIR)/client.Plo
+	-rm -f wizard/$(DEPDIR)/configure.Plo
+	-rm -f wizard/$(DEPDIR)/crc64.Plo
+	-rm -f wizard/$(DEPDIR)/entropy.Plo
+	-rm -f wizard/$(DEPDIR)/exception.Plo
+	-rm -f wizard/$(DEPDIR)/file.Plo
+	-rm -f wizard/$(DEPDIR)/hash.Plo
+	-rm -f wizard/$(DEPDIR)/hashmap.Plo
+	-rm -f wizard/$(DEPDIR)/hmac.Plo
+	-rm -f wizard/$(DEPDIR)/key.Plo
+	-rm -f wizard/$(DEPDIR)/keyring.Plo
+	-rm -f wizard/$(DEPDIR)/locale.Plo
+	-rm -f wizard/$(DEPDIR)/log.Plo
+	-rm -f wizard/$(DEPDIR)/lzma.Plo
+	-rm -f wizard/$(DEPDIR)/magick.Plo
+	-rm -f wizard/$(DEPDIR)/md5.Plo
+	-rm -f wizard/$(DEPDIR)/memory.Plo
+	-rm -f wizard/$(DEPDIR)/mime.Plo
+	-rm -f wizard/$(DEPDIR)/nt-base.Plo
+	-rm -f wizard/$(DEPDIR)/option.Plo
+	-rm -f wizard/$(DEPDIR)/passphrase.Plo
+	-rm -f wizard/$(DEPDIR)/random.Plo
+	-rm -f wizard/$(DEPDIR)/resource.Plo
+	-rm -f wizard/$(DEPDIR)/sanitize.Plo
+	-rm -f wizard/$(DEPDIR)/secret.Plo
+	-rm -f wizard/$(DEPDIR)/semaphore.Plo
+	-rm -f wizard/$(DEPDIR)/serpent.Plo
+	-rm -f wizard/$(DEPDIR)/sha1.Plo
+	-rm -f wizard/$(DEPDIR)/sha2224.Plo
+	-rm -f wizard/$(DEPDIR)/sha2256.Plo
+	-rm -f wizard/$(DEPDIR)/sha2384.Plo
+	-rm -f wizard/$(DEPDIR)/sha2512.Plo
+	-rm -f wizard/$(DEPDIR)/sha3.Plo
+	-rm -f wizard/$(DEPDIR)/signature.Plo
+	-rm -f wizard/$(DEPDIR)/splay-tree.Plo
+	-rm -f wizard/$(DEPDIR)/string.Plo
+	-rm -f wizard/$(DEPDIR)/thread.Plo
+	-rm -f wizard/$(DEPDIR)/timer.Plo
+	-rm -f wizard/$(DEPDIR)/token.Plo
+	-rm -f wizard/$(DEPDIR)/twofish.Plo
+	-rm -f wizard/$(DEPDIR)/utility.Plo
+	-rm -f wizard/$(DEPDIR)/version.Plo
+	-rm -f wizard/$(DEPDIR)/wizard.Plo
+	-rm -f wizard/$(DEPDIR)/xml-tree.Plo
+	-rm -f wizard/$(DEPDIR)/zip.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-libtool distclean-local distclean-tags
@@ -2471,6 +2723,65 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
+		-rm -f tests/$(DEPDIR)/validate-validate.Po
+	-rm -f utilities/$(DEPDIR)/cipher-info.Po
+	-rm -f utilities/$(DEPDIR)/content.Po
+	-rm -f utilities/$(DEPDIR)/decipher.Po
+	-rm -f utilities/$(DEPDIR)/digest.Po
+	-rm -f utilities/$(DEPDIR)/encipher.Po
+	-rm -f utilities/$(DEPDIR)/keyring.Po
+	-rm -f utilities/$(DEPDIR)/utility.Po
+	-rm -f wizard/$(DEPDIR)/aes.Plo
+	-rm -f wizard/$(DEPDIR)/authenticate.Plo
+	-rm -f wizard/$(DEPDIR)/blob.Plo
+	-rm -f wizard/$(DEPDIR)/bzip.Plo
+	-rm -f wizard/$(DEPDIR)/chacha.Plo
+	-rm -f wizard/$(DEPDIR)/cipher.Plo
+	-rm -f wizard/$(DEPDIR)/client.Plo
+	-rm -f wizard/$(DEPDIR)/configure.Plo
+	-rm -f wizard/$(DEPDIR)/crc64.Plo
+	-rm -f wizard/$(DEPDIR)/entropy.Plo
+	-rm -f wizard/$(DEPDIR)/exception.Plo
+	-rm -f wizard/$(DEPDIR)/file.Plo
+	-rm -f wizard/$(DEPDIR)/hash.Plo
+	-rm -f wizard/$(DEPDIR)/hashmap.Plo
+	-rm -f wizard/$(DEPDIR)/hmac.Plo
+	-rm -f wizard/$(DEPDIR)/key.Plo
+	-rm -f wizard/$(DEPDIR)/keyring.Plo
+	-rm -f wizard/$(DEPDIR)/locale.Plo
+	-rm -f wizard/$(DEPDIR)/log.Plo
+	-rm -f wizard/$(DEPDIR)/lzma.Plo
+	-rm -f wizard/$(DEPDIR)/magick.Plo
+	-rm -f wizard/$(DEPDIR)/md5.Plo
+	-rm -f wizard/$(DEPDIR)/memory.Plo
+	-rm -f wizard/$(DEPDIR)/mime.Plo
+	-rm -f wizard/$(DEPDIR)/nt-base.Plo
+	-rm -f wizard/$(DEPDIR)/option.Plo
+	-rm -f wizard/$(DEPDIR)/passphrase.Plo
+	-rm -f wizard/$(DEPDIR)/random.Plo
+	-rm -f wizard/$(DEPDIR)/resource.Plo
+	-rm -f wizard/$(DEPDIR)/sanitize.Plo
+	-rm -f wizard/$(DEPDIR)/secret.Plo
+	-rm -f wizard/$(DEPDIR)/semaphore.Plo
+	-rm -f wizard/$(DEPDIR)/serpent.Plo
+	-rm -f wizard/$(DEPDIR)/sha1.Plo
+	-rm -f wizard/$(DEPDIR)/sha2224.Plo
+	-rm -f wizard/$(DEPDIR)/sha2256.Plo
+	-rm -f wizard/$(DEPDIR)/sha2384.Plo
+	-rm -f wizard/$(DEPDIR)/sha2512.Plo
+	-rm -f wizard/$(DEPDIR)/sha3.Plo
+	-rm -f wizard/$(DEPDIR)/signature.Plo
+	-rm -f wizard/$(DEPDIR)/splay-tree.Plo
+	-rm -f wizard/$(DEPDIR)/string.Plo
+	-rm -f wizard/$(DEPDIR)/thread.Plo
+	-rm -f wizard/$(DEPDIR)/timer.Plo
+	-rm -f wizard/$(DEPDIR)/token.Plo
+	-rm -f wizard/$(DEPDIR)/twofish.Plo
+	-rm -f wizard/$(DEPDIR)/utility.Plo
+	-rm -f wizard/$(DEPDIR)/version.Plo
+	-rm -f wizard/$(DEPDIR)/wizard.Plo
+	-rm -f wizard/$(DEPDIR)/xml-tree.Plo
+	-rm -f wizard/$(DEPDIR)/zip.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic \
 	maintainer-clean-local
@@ -2499,8 +2810,8 @@ uninstall-man: uninstall-man1
 
 .MAKE: check-am install-am install-strip
 
-.PHONY: CTAGS GTAGS TAGS all all-am all-local am--refresh check \
-	check-TESTS check-am check-local clean clean-binPROGRAMS \
+.PHONY: CTAGS GTAGS TAGS all all-am all-local am--depfiles am--refresh \
+	check check-TESTS check-am check-local clean clean-binPROGRAMS \
 	clean-checkPROGRAMS clean-cscope clean-generic \
 	clean-libLTLIBRARIES clean-libtool clean-local cscope \
 	cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
