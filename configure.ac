@@ -62,7 +62,7 @@ AC_CONFIG_LIBOBJ_DIR([wizard])
 AX_PREFIX_CONFIG_H([wizard/wizard-config.h],[WizardsToolkit])
 AC_CANONICAL_SYSTEM
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE([foreign color-tests -Wall -Wno-portability subdir-objects dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
+AM_INIT_AUTOMAKE([foreign no-define color-tests parallel-tests -Wall -Wno-portability subdir-objects dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
 AM_SILENT_RULES([yes])
 
 #
