@@ -504,11 +504,8 @@
 /* Define to 1 if assertions should be disabled. */
 /* #undef NDEBUG */
 
-/* Name of package */
-#define PACKAGE "WizardsToolkit"
-
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "http://www.wizards-toolkit.org"
+#define PACKAGE_BUGREPORT "https://github.com/ImageMagick/WizardsToolkit/issues"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "WizardsToolkit"
@@ -520,7 +517,7 @@
 #define PACKAGE_TARNAME "WizardsToolkit"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL "http://www.wizards-toolkit.org"
+#define PACKAGE_URL "https://urban-warrior.org"
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "1.0.9-4"
@@ -614,9 +611,6 @@
 # define __EXTENSIONS__ 1
 #endif
 
-
-/* Version number of package */
-#define VERSION "1.0.9-4"
 
 /* Define if using the dmalloc debugging malloc package */
 /* #undef WITH_DMALLOC */

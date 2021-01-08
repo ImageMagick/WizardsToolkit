@@ -15,15 +15,26 @@
 #  Copying and distribution of this file, with or without modification,
 #  are permitted in any medium without royalty provided the copyright
 #  notice and this notice are preserved.
-
 AC_PREREQ(2.69)
 
+# ==============================================================================
+# Wizard's Tookit versioning
+# ==============================================================================
+m4_define([wizard_name], [WizardsToolkit])
 m4_define([wizard_major_version], [1])
 m4_define([wizard_minor_version], [0])
 m4_define([wizard_micro_version], [9])
 m4_define([wizard_patchlevel_version], [4])
+m4_define([wizard_base_version],
+          [wizard_major_version.wizard_minor_version.wizard_micro_version])
 m4_define([wizard_version],
-          [wizard_major_version.wizard_minor_version.wizard_micro_version-wizard_patchlevel_version])
+          [wizard_base_version-wizard_patchlevel_version])
+m4_define([wizard_bugreport], 
+          [https://github.com/ImageMagick/WizardsToolkit/issues])
+m4_define([wizard_url], [https://urban-warrior.org])
+m4_define([wizard_lib_version],[0x109])
+m4_define([wizard_lib_version_number],
+          [wizard_major_version,wizard_minor_version,wizard_micro_version,wizard_patchlevel_version])
 m4_define([wizard_git_revision],
           esyscmd([
             c=$(git log --full-history --format=tformat:. HEAD | wc -l)
@@ -31,21 +42,25 @@ m4_define([wizard_git_revision],
             d=$(date +%Y%m%d)
             printf %s "$c:$h:$d"
           ]))
-AC_INIT([WizardsToolkit],
+m4_define([wizard_tarname],[WizardsToolkit])
+
+# ==============================================================================
+# Initalize Automake
+# ==============================================================================
+AC_INIT([wizard_name],
         [wizard_version],
-        [http://www.wizards-toolkit.org],
-        [WizardsToolkit],
-        [http://www.wizards-toolkit.org])
+        [wizard_bugreport],
+        [wizard_tarname],
+        [wizard_url])
+
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
 AC_CONFIG_AUX_DIR([config])
 AC_REQUIRE_AUX_FILE([tap-driver.sh])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_LIBOBJ_DIR([wizard])
-AC_CONFIG_HEADERS([config/config.h])
 AX_PREFIX_CONFIG_H([wizard/wizard-config.h],[WizardsToolkit])
 AC_CANONICAL_SYSTEM
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE([foreign color-tests -Wall -Wno-portability subdir-objects dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
 
 #
 # Save initial user-tunable values
@@ -63,13 +78,22 @@ AC_SUBST(DISTCHECK_CONFIG_FLAGS)
 CONFIGURE_ARGS="$0 ${ac_configure_args}"
 AC_SUBST(CONFIGURE_ARGS)
 
-echo "configuring ${PACKAGE_NAME} ${PACKAGE_VERSION}${PACKAGE_VERSION_ADDENDUM}"
+AC_ARG_ENABLE([reproducible-build],
+    [AC_HELP_STRING([--enable-reproducible-build],
+                    [enable reproducible build])],
+    [enable_reproducible_build=$enableval],
+    [enable_reproducible_build='no'])
 
 # Ensure that make can run correctly
 AM_SANITY_CHECK
+AC_CONFIG_HEADERS([config/config.h])
+AM_INIT_AUTOMAKE([foreign color-tests no-define nostdinc -Wall -Wno-portability subdir-objects parallel-tests dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
+AM_SILENT_RULES([yes])
 
 # Source file containing package/library versioning information.
 . ${srcdir}/version.sh
+
+echo "Configuring ${PACKAGE_NAME} ${PACKAGE_VERSION}"
 
 #
 # Enable OS features.
@@ -128,23 +152,20 @@ AC_SUBST([WIZARD_LIBRARY_CURRENT_MIN],
 AC_SUBST([WIZARD_LIBRARY_VERSION_INFO],
          [$WIZARD_LIBRARY_CURRENT:$WIZARD_LIBRARY_REVISION:$WIZARD_LIBRARY_AGE])
 
-AC_SUBST(PACKAGE_NAME)dnl
-AC_SUBST(PACKAGE_VERSION)dnl
-AC_SUBST(PACKAGE_RELEASE)dnl
-AC_SUBST(PACKAGE_CHANGE_DATE)dnl
-AC_SUBST(PACKAGE_LIB_VERSION)dnl
-AC_SUBST(PACKAGE_LIB_VERSION_NUMBER)dnl
-AC_SUBST(PACKAGE_RELEASE_DATE)dnl
-AC_SUBST(PACKAGE_VERSION_ADDENDUM)dnl
+AC_SUBST([PACKAGE_BASE_VERSION],[wizard_base_version])
+AC_SUBST([PACKAGE_PATCHLEVEL_VERSION],[wizard_patchlevel_version])
+AC_SUBST([PACKAGE_VERSION_ADDENDUM],[-wizard_patchlevel_version])
+AC_SUBST([PACKAGE_LIB_VERSION],[wizard_lib_version])
+AC_SUBST([PACKAGE_LIB_VERSION_NUMBER],[wizard_lib_version_number])
+AS_IF([test X$enable_reproducible_build = Xyes],
+ [PACKAGE_RELEASE_DATE=$PACKAGE_RELEASE_DATE_REPRODUCIBLE],
+ [PACKAGE_RELEASE_DATE=$PACKAGE_RELEASE_DATE_RAW],
+)
+AC_SUBST([PACKAGE_RELEASE_DATE])dnl
 
 # Substitute CVS branch tag
 AC_SUBST(CVS_BRANCH_TAG)dnl
 
-# Ensure that make can run correctly
-AM_SANITY_CHECK
-
-# Enable support for silent build rules
-AM_SILENT_RULES([yes])
 
 WIZARD_LIB_VERSION="0x"
 if test ${WIZARD_LIBRARY_CURRENT} -lt 10 ; then
@@ -162,7 +183,7 @@ WIZARD_LIB_VERSION=${WIZARD_LIB_VERSION}${WIZARD_LIBRARY_REVISION}
 AC_SUBST(WIZARD_LIB_VERSION)
 
 # Definition used to define WizardLibVersionText in version.h
-WIZARD_LIB_VERSION_TEXT="${PACKAGE_VERSION}"
+WIZARD_LIB_VERSION_TEXT="${PACKAGE_BASE_VERSION}"
 AC_SUBST(WIZARD_LIB_VERSION_TEXT)
 
 # Definition used to define WizardLibVersionNumber in version.h
@@ -1396,7 +1417,7 @@ AC_DEFINE_UNQUOTED(INCLUDEARCH_PATH,"$DEFINE_INCLUDE_PATH",[Directory where Wiza
 AC_SUBST(INCLUDEARCH_PATH)
 
 # Subdirectory under lib to place Wizard lib files
-LIBRARY_RELATIVE_PATH="${PACKAGE_NAME}-${PACKAGE_VERSION}"
+LIBRARY_RELATIVE_PATH="${PACKAGE_NAME}-${PACKAGE_BASE_VERSION}"
 AC_DEFINE_UNQUOTED(LIBRARY_RELATIVE_PATH,"$LIBRARY_RELATIVE_PATH",Subdirectory of lib where Wizard architecture dependent files are installed)
 
 # Path to Wizard bin directory
@@ -1644,8 +1665,8 @@ AC_OUTPUT
 rm -f wizard-version
 
 AC_MSG_NOTICE([
-The Wizards Toolkit is configured as follows. Please verify that
-this configuration matches your expectations.
+${PACKAGE_NAME} ${PACKAGE_VERSION} is configured as follows. Please verify that this
+configuration matches your expectations.
 
 Host system type: $host
 Build system type: $build

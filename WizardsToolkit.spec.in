@@ -1,6 +1,6 @@
-%global VERSION  @PACKAGE_VERSION@
+%global VERSION  @PACKAGE_BASE_VERSION@
 %global MAJOR_VERSION  @WIZARD_MAJOR_VERSION@
-%global Patchlevel  @PACKAGE_RELEASE@
+%global Patchlevel  @MAGICK_PATCHLEVEL_VERSION@
 
 Name:           @PACKAGE_NAME@
 Version:        %{VERSION}

@@ -5,7 +5,7 @@
   <configure name="CODER_PATH" value="@CODER_PATH@"/>
   <configure name="CONFIGURE_PATH" value="@CONFIGURE_PATH@"/>
   <configure name="CONFIGURE" value="@CONFIGURE_ARGS@" />
-  <configure name="COPYRIGHT" value="Copyright (C) 1999-2020 ImageMagick Studio LLC" />
+  <configure name="COPYRIGHT" value="Copyright (C) 1999-2021 ImageMagick Studio LLC" />
   <configure name="CPPFLAGS" value="@WIZARD_CPPFLAGS@" />
   <configure name="CXXFLAGS" value="@CXXFLAGS@" />
   <configure name="CXX" value="@CXX@" />
@@ -27,6 +27,6 @@
   <configure name="RELEASE_DATE" value="@PACKAGE_RELEASE_DATE@" />
   <configure name="SHARE_PATH" value="@SHARE_PATH@"/>
   <configure name="SHARE_PATH" value="@SHARE_PATH@"/>
-  <configure name="VERSION" value="@PACKAGE_VERSION@" />
+  <configure name="VERSION" value="@PACKAGE_BASE_VERSION@" />
   <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
 </configuremap>

@@ -758,14 +758,9 @@
 /* Define to 1 if assertions should be disabled. */
 /* #undef NDEBUG */
 
-/* Name of package */
-#ifndef WIZARDSTOOLKIT_PACKAGE
-#define WIZARDSTOOLKIT_PACKAGE "WizardsToolkit"
-#endif
-
 /* Define to the address where bug reports for this package should be sent. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_BUGREPORT
-#define WIZARDSTOOLKIT_PACKAGE_BUGREPORT "http://www.wizards-toolkit.org"
+#define WIZARDSTOOLKIT_PACKAGE_BUGREPORT "https://github.com/ImageMagick/WizardsToolkit/issues"
 #endif
 
 /* Define to the full name of this package. */
@@ -785,7 +780,7 @@
 
 /* Define to the home page for this package. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_URL
-#define WIZARDSTOOLKIT_PACKAGE_URL "http://www.wizards-toolkit.org"
+#define WIZARDSTOOLKIT_PACKAGE_URL "https://urban-warrior.org"
 #endif
 
 /* Define to the version of this package. */
@@ -918,11 +913,6 @@
 # define __EXTENSIONS__ 1
 #endif
 
-
-/* Version number of package */
-#ifndef WIZARDSTOOLKIT_VERSION
-#define WIZARDSTOOLKIT_VERSION "1.0.9-4"
-#endif
 
 /* Define if using the dmalloc debugging malloc package */
 /* #undef WITH_DMALLOC */
