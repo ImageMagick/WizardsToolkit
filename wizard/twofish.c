@@ -16,7 +16,7 @@
 %                                   Cristy                                    %
 %                                 March 2003                                  %
 %                                                                             %
-%  Copyright 1999-2020 ImageMagick Studio, LLC, Wilmington, DE, U.S.A.  All   %
+%  Copyright 1999-2021 ImageMagick Studio, LLC, Wilmington, DE, U.S.A.  All   %
 %  rights reserved.                                                           %
 %                                                                             %
 %  You may not use this file except in compliance with the License.  You may  %
