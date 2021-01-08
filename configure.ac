@@ -87,7 +87,7 @@ AC_ARG_ENABLE([reproducible-build],
 # Ensure that make can run correctly
 AM_SANITY_CHECK
 AC_CONFIG_HEADERS([config/config.h])
-AM_INIT_AUTOMAKE([foreign color-tests no-define nostdinc -Wall -Wno-portability subdir-objects parallel-tests dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
+AM_INIT_AUTOMAKE([foreign color-tests no-define no-dependencies nostdinc -Wall -Wno-portability subdir-objects parallel-tests dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
 AM_SILENT_RULES([yes])
 
 # Source file containing package/library versioning information.
