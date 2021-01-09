@@ -129,7 +129,7 @@ WizardExport SHA2224Info *AcquireSHA2224Info(void)
   sha_info->lsb_first=(*(char *) &lsb_first) != 0 ? WizardTrue : WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
-  InitializeSHA2224(sha_info);
+  (void) InitializeSHA2224(sha_info);
   return(sha_info);
 }
 
