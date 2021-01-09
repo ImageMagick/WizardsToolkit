@@ -1092,11 +1092,11 @@ WizardExport void *NTOpenLibrary(const char *filename)
   int
     index;
 
-  register const char
+   const char
     *p,
     *q;
 
-  register int
+   int
     i;
 
   UINT

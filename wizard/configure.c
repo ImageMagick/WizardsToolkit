@@ -132,7 +132,7 @@ static LinkedListInfo *AcquireConfigureCache(const char *filename,
     *configure_cache,
     *options;
 
-  register ssize_t
+   ssize_t
     i;
 
   WizardStatusType
@@ -150,7 +150,7 @@ static LinkedListInfo *AcquireConfigureCache(const char *filename,
     ConfigureInfo
       *configure_info;
 
-    register const ConfigureMapInfo
+     const ConfigureMapInfo
       *p;
 
     p=ConfigureMap+i;
@@ -237,7 +237,7 @@ WizardExport WizardBooleanType ConfigureComponentGenesis(void)
 
 static void *DestroyConfigureElement(void *configure_info)
 {
-  register ConfigureInfo
+   ConfigureInfo
     *p;
 
   p=(ConfigureInfo *) configure_info;
@@ -333,7 +333,7 @@ WizardExport LinkedListInfo *DestroyConfigureOptions(LinkedListInfo *options)
 WizardExport const ConfigureInfo *GetConfigureInfo(const char *name,
   ExceptionInfo *exception)
 {
-  register const ConfigureInfo
+   const ConfigureInfo
     *p;
 
   assert(exception != (ExceptionInfo *) NULL);
@@ -423,10 +423,10 @@ WizardExport const ConfigureInfo **GetConfigureInfoList(const char *pattern,
   const ConfigureInfo
     **options;
 
-  register const ConfigureInfo
+   const ConfigureInfo
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   /*
@@ -498,7 +498,7 @@ extern "C" {
 
 static int ConfigureCompare(const void *x,const void *y)
 {
-  register char
+   char
     **p,
     **q;
 
@@ -517,10 +517,10 @@ WizardExport char **GetConfigureList(const char *pattern,
   char
     **options;
 
-  register const ConfigureInfo
+   const ConfigureInfo
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   /*
@@ -693,10 +693,10 @@ WizardExport LinkedListInfo *GetConfigurePaths(const char *filename,
     char
       *configure_path;
 
-    register char
+     char
       *q;
 
-    register const char
+     const char
       *p;
 
     /*
@@ -987,7 +987,7 @@ WizardExport WizardBooleanType ListConfigureInfo(FILE *file,
   ssize_t
     j;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t

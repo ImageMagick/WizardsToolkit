@@ -229,13 +229,13 @@ WizardExport void DecipherSerpentBlock(SerpentInfo *serpent_info,
   gamma^=crypt_key[4*(i)+2]; delta^=crypt_key[4*(i)+3]; \
 }
 
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register unsigned char
+   unsigned char
     *q;
 
-  register unsigned int
+   unsigned int
     *crypt_key;
 
   unsigned int
@@ -473,13 +473,13 @@ WizardExport void EncipherSerpentBlock(SerpentInfo *serpent_info,
   delta^=beta; epsilon|=alpha; epsilon^=beta; \
 }
 
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register unsigned char
+   unsigned char
     *q;
 
-  register unsigned int
+   unsigned int
     *crypt_key;
 
   unsigned int
@@ -653,13 +653,13 @@ WizardExport void SetSerpentKey(SerpentInfo *serpent_info,const StringInfo *key)
   crypt_key[(i)+2]=gamma; crypt_key[(i)+3]=delta; \
 }
 
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
-  register unsigned int
+   unsigned int
     *crypt_key;
 
   unsigned char

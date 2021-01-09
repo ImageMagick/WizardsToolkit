@@ -163,7 +163,7 @@ WizardExport ExceptionInfo *AcquireExceptionInfo(void)
 
 static void *DestroyExceptionElement(void *exception)
 {
-  register ExceptionInfo
+   ExceptionInfo
     *p;
 
   p=(ExceptionInfo *) exception;
@@ -177,7 +177,7 @@ static void *DestroyExceptionElement(void *exception)
 
 WizardExport void ClearWizardException(ExceptionInfo *exception)
 {
-  register ExceptionInfo
+   ExceptionInfo
     *p;
 
   assert(exception != (ExceptionInfo *) NULL);
@@ -225,7 +225,7 @@ WizardExport void ClearWizardException(ExceptionInfo *exception)
 */
 WizardExport void CatchException(ExceptionInfo *exception)
 {
-  register const ExceptionInfo
+   const ExceptionInfo
     *p;
 
   assert(exception != (ExceptionInfo *) NULL);
@@ -659,7 +659,7 @@ WizardExport ExceptionType GetExceptionSeverity(const ExceptionInfo *exception)
 WizardExport void InheritException(ExceptionInfo *exception,
   const ExceptionInfo *relative)
 {
-  register const ExceptionInfo
+   const ExceptionInfo
     *p;
 
   assert(exception != (ExceptionInfo *) NULL);
@@ -920,7 +920,7 @@ WizardExport WarningHandler SetWarningHandler(WarningHandler handler)
 WizardExport WizardBooleanType ThrowException(ExceptionInfo *exception,
   const ExceptionType severity,const char *reason,const char *description)
 {
-  register ExceptionInfo
+   ExceptionInfo
     *p;
 
   assert(exception != (ExceptionInfo *) NULL);

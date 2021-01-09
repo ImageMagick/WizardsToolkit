@@ -166,7 +166,7 @@ static locale_t AcquireCLocale(void)
 
 static void *DestroyLocaleNode(void *locale_info)
 {
-  register LocaleInfo
+   LocaleInfo
     *p;
 
   p=(LocaleInfo *) locale_info;
@@ -323,8 +323,8 @@ WizardExport LinkedListInfo *DestroyLocaleOptions(LinkedListInfo *messages)
 %
 */
 
-WizardExport ssize_t FormatLocaleFileList(FILE *file,
-  const char *wizard_restrict format,va_list operands)
+WizardExport ssize_t FormatLocaleFileList(FILE *file,const char *format,
+  va_list operands)
 {
   ssize_t
     n;
@@ -368,8 +368,7 @@ WizardExport ssize_t FormatLocaleFileList(FILE *file,
   return(n);
 }
 
-WizardExport ssize_t FormatLocaleFile(FILE *file,
-  const char *wizard_restrict format,...)
+WizardExport ssize_t FormatLocaleFile(FILE *file,const char *format,...)
 {
   ssize_t
     n;
@@ -414,8 +413,8 @@ WizardExport ssize_t FormatLocaleFile(FILE *file,
 %
 */
 
-WizardExport ssize_t FormatLocaleStringList(char *wizard_restrict string,
-  const size_t length,const char *wizard_restrict format,va_list operands)
+WizardExport ssize_t FormatLocaleStringList(char *string,const size_t length,
+  const char *format,va_list operands)
 {
   ssize_t
     n;
@@ -463,8 +462,8 @@ WizardExport ssize_t FormatLocaleStringList(char *wizard_restrict string,
   return(n);
 }
 
-WizardExport ssize_t FormatLocaleString(char *wizard_restrict string,
-  const size_t length,const char *wizard_restrict format,...)
+WizardExport ssize_t FormatLocaleString(char *string,const size_t length,
+  const char *format,...)
 {
   ssize_t
     n;
@@ -583,10 +582,10 @@ WizardExport const LocaleInfo **GetLocaleInfoList(const char *pattern,
   const LocaleInfo
     **messages;
 
-  register const LocaleInfo
+   const LocaleInfo
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   /*
@@ -659,7 +658,7 @@ extern "C" {
 
 static int LocaleTagCompare(const void *x,const void *y)
 {
-  register char
+   char
     **p,
     **q;
 
@@ -678,10 +677,10 @@ WizardExport char **GetLocaleList(const char *pattern,
   char
     **messages;
 
-  register const LocaleInfo
+   const LocaleInfo
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   /*
@@ -913,7 +912,7 @@ static WizardBooleanType IsLocaleTreeInstantiated(ExceptionInfo *exception)
           char
             *locale;
 
-          register const char
+           const char
             *p;
 
           locale=(char *) NULL;
@@ -967,8 +966,7 @@ static WizardBooleanType IsLocaleTreeInstantiated(ExceptionInfo *exception)
 %      referenced by sentinal.
 %
 */
-WizardExport double InterpretLocaleValue(const char *wizard_restrict string,
-  char **wizard_restrict sentinal)
+WizardExport double InterpretLocaleValue(const char *string,char **sentinal)
 {
   char
     *q;
@@ -1031,7 +1029,7 @@ WizardExport WizardBooleanType ListLocaleInfo(FILE *file,
   const LocaleInfo
     **locale_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -1104,7 +1102,7 @@ WizardExport WizardBooleanType ListLocaleInfo(FILE *file,
 
 static void ChopLocaleComponents(char *path,const size_t components)
 {
-  register char
+   char
     *p;
 
   ssize_t
@@ -1160,7 +1158,7 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
   LocaleInfo
     *locale_info;
 
-  register char
+   char
     *p;
 
   size_t

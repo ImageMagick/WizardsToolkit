@@ -242,12 +242,12 @@ WizardExport SHA3Info *DestroySHA3Info(SHA3Info *sha_info)
 static inline void ConvertBytesToWords(const unsigned char *bytes,
   WizardSizeType *words)
 {
-  register ssize_t
+   ssize_t
     i;
 
   for (i=0; i < (SHA3PermutationSize/64); i++)
   {
-    register ssize_t
+     ssize_t
       j;
 
     words[i]=0;
@@ -259,12 +259,12 @@ static inline void ConvertBytesToWords(const unsigned char *bytes,
 static inline void ConvertWordsToBytes(const WizardSizeType *words,
   unsigned char *bytes)
 {
-  register ssize_t
+   ssize_t
     i;
 
   for (i=0; i < (SHA3PermutationSize/64); i++)
   {
-    register ssize_t
+     ssize_t
       j;
 
     for (j=0; j < (64/8); j++)
@@ -275,7 +275,7 @@ static inline void ConvertWordsToBytes(const WizardSizeType *words,
 static void SHA3PermutationOnWords(const SHA3Info *sha_info,
   WizardSizeType *state)
 {
-  register ssize_t
+   ssize_t
     i;
 
   for (i=0; i < SHA3Rounds; i++)
@@ -356,7 +356,7 @@ static inline void SHA3Permutation(const SHA3Info *sha_info,
 static inline void SHA3PermutationAfterXor(const SHA3Info *sha_info,
   const unsigned char *message,const size_t length,unsigned char *state)
 {
-  register ssize_t
+   ssize_t
     i;
 
   for (i=0; i < (ssize_t) length; i++)
@@ -434,7 +434,7 @@ static inline void PadAndSwitchToSqueezingPhase(SHA3Info *sha_info)
 static inline WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
   unsigned char *output)
 {
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -467,10 +467,10 @@ static inline WizardBooleanType Squeeze(SHA3Info *sha_info,const size_t length,
 
 WizardExport WizardBooleanType FinalizeSHA3(SHA3Info *sha_info)
 {
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -632,7 +632,7 @@ static inline int LFSR86540(unsigned char *byte)
 
 static inline void SHA3InitializeRoundConstants(SHA3Info *sha_info)
 {
-  register ssize_t
+   ssize_t
     i;
 
   unsigned char
@@ -641,7 +641,7 @@ static inline void SHA3InitializeRoundConstants(SHA3Info *sha_info)
   byte=0x01;
   for (i=0; i < SHA3Rounds; i++)
   {
-    register ssize_t
+     ssize_t
       j;
 
     ssize_t
@@ -659,7 +659,7 @@ static inline void SHA3InitializeRoundConstants(SHA3Info *sha_info)
 
 static inline void SHA3InitializeRho(SHA3Info *sha_info)
 {
-  register ssize_t
+   ssize_t
     i;
 
   ssize_t
@@ -775,10 +775,10 @@ WizardExport WizardBooleanType InitializeSHA3(SHA3Info *sha_info)
 static inline WizardBooleanType Absorb(SHA3Info *sha_info,
   const unsigned char *message,const size_t length)
 {
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -821,7 +821,7 @@ static inline WizardBooleanType Absorb(SHA3Info *sha_info,
       }
     else
       {
-        register ssize_t
+         ssize_t
           j;
 
         blocks=(size_t) ((length-i)/sha_info->rate);

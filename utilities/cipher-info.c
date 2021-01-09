@@ -147,7 +147,7 @@ WizardExport WizardBooleanType CipherInfoCommand(int argc,char **argv,
   ContentInfo
     *content_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   WizardBooleanType
@@ -311,7 +311,7 @@ static int WizardMain(int argc,char **argv)
   ExceptionInfo
     *exception;
 
-  register ssize_t
+   ssize_t
     i;
 
   TimerInfo
@@ -385,7 +385,7 @@ int wmain(int argc,wchar_t *argv[])
   int
     status;
 
-  register int
+   int
     i;
 
   utf8=NTArgvToUTF8(argc,argv);

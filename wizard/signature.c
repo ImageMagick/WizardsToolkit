@@ -199,10 +199,10 @@ static void TransformSignature(SignatureInfo *signature_info)
   ssize_t
     j;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   static size_t
@@ -348,7 +348,7 @@ static void TransformSignature(SignatureInfo *signature_info)
 WizardExport void UpdateSignature(SignatureInfo *signature_info,
   const unsigned char *message,const size_t length)
 {
-  register ssize_t
+   ssize_t
     i;
 
   size_t

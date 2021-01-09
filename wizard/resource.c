@@ -193,7 +193,7 @@ WizardExport WizardBooleanType GetPathTemplate(const char *path,char *filename)
   int
     status;
 
-  register char
+   char
     *p;
 
   struct stat
@@ -261,10 +261,10 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
     c,
     file;
 
-  register char
+   char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   static const char
@@ -290,7 +290,7 @@ WizardExport int AcquireUniqueFileResource(const char *path,char *filename,
   file=(-1);
   for (i=0; i < (ssize_t) TMP_MAX; i++)
   {
-    register ssize_t
+     ssize_t
       j;
 
     /*
@@ -847,7 +847,7 @@ WizardExport WizardBooleanType RelinquishUniqueFileResource(const char *path,
   (void) LogWizardEvent(ResourceEvent,GetWizardModule(),"%s",path);
   if (temporary_resources != (SplayTreeInfo *) NULL)
     {
-      register char
+       char
         *p;
 
       ResetSplayTreeIterator(temporary_resources);

@@ -288,7 +288,7 @@ WizardExport char **GetWizardOptions(const WizardOption option)
   const OptionInfo
     *option_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   option_info=GetOptionInfo(option);
@@ -373,7 +373,7 @@ WizardExport WizardBooleanType ListWizardOptions(FILE *file,
   const OptionInfo
     *option_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   if (file == (FILE *) NULL)
@@ -431,13 +431,13 @@ WizardExport ssize_t ParseWizardOption(const WizardOption option,
   ssize_t
     option_types;
 
-  register char
+   char
     *q;
 
-  register const char
+   const char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   WizardBooleanType
@@ -534,7 +534,7 @@ WizardExport const char *WizardOptionToMnemonic(const WizardOption option,
   const OptionInfo
     *option_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   option_info=GetOptionInfo(option);

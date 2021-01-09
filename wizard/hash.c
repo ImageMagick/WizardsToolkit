@@ -715,10 +715,10 @@ WizardExport char *GetHashHexDigest(const HashInfo *hash_info)
   char
     *digest;
 
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");

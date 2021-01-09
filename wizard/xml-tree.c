@@ -217,7 +217,7 @@ WizardExport XMLTreeInfo *AddPathToXMLTree(XMLTreeInfo *xml_info,
     subnode[WizardPathExtent],
     tag[WizardPathExtent];
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -295,10 +295,10 @@ WizardExport XMLTreeInfo *AddPathToXMLTree(XMLTreeInfo *xml_info,
 
 static unsigned char *ConvertLatin1ToUTF8(const unsigned char *content)
 {
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register unsigned char
+   unsigned char
     *q;
 
   size_t
@@ -341,10 +341,10 @@ WizardExport char *CanonicalXMLContent(const char *content,
     *base64,
     *canonical_content;
 
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -475,7 +475,7 @@ WizardExport char *CanonicalXMLContent(const char *content,
 
 static char **DestroyXMLTreeAttributes(char **attributes)
 {
-  register ssize_t
+   ssize_t
     i;
 
   /*
@@ -534,7 +534,7 @@ static void DestroyXMLTreeRoot(XMLTreeInfo *xml_info)
   char
     **attributes;
 
-  register ssize_t
+   ssize_t
     i;
 
   ssize_t
@@ -641,7 +641,7 @@ WizardPrivate char *FileToXML(const char *filename,const size_t extent)
   WizardOffsetType
     offset;
 
-  register size_t
+   size_t
     i;
 
   size_t
@@ -812,7 +812,7 @@ WizardExport XMLTreeInfo *GetNextXMLTreeTag(XMLTreeInfo *xml_info)
 WizardExport const char *GetXMLTreeAttribute(XMLTreeInfo *xml_info,
   const char *tag)
 {
-  register ssize_t
+   ssize_t
     i;
 
   ssize_t
@@ -880,7 +880,7 @@ WizardExport const char *GetXMLTreeAttribute(XMLTreeInfo *xml_info,
 WizardExport WizardBooleanType GetXMLTreeAttributes(const XMLTreeInfo *xml_info,
   SplayTreeInfo *attributes)
 {
-  register ssize_t
+   ssize_t
     i;
 
   WizardAssert(ResourceDomain,xml_info != (XMLTreeInfo *) NULL);
@@ -1035,7 +1035,7 @@ WizardExport XMLTreeInfo *GetXMLTreePath(XMLTreeInfo *xml_info,const char *path)
     subnode[WizardPathExtent],
     tag[WizardPathExtent];
 
-  register ssize_t
+   ssize_t
     i;
 
   ssize_t
@@ -1105,7 +1105,7 @@ WizardExport XMLTreeInfo *GetXMLTreePath(XMLTreeInfo *xml_info,const char *path)
 WizardExport const char **GetXMLTreeProcessingInstructions(
   XMLTreeInfo *xml_info,const char *target)
 {
-  register ssize_t
+   ssize_t
     i;
 
   XMLTreeRoot
@@ -1321,7 +1321,7 @@ static char *ConvertUTF16ToUTF8(const char *content,size_t *length)
     c,
     encoding;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -1400,11 +1400,11 @@ static char *ParseEntities(char *xml,char **entities,int state)
     byte,
     c;
 
-  register char
+   char
     *p,
     *q;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -1612,7 +1612,7 @@ static XMLTreeInfo *ParseCloseTag(XMLTreeRoot *root,char *tag,
 static WizardBooleanType ValidateEntities(char *tag,char *xml,
   const size_t depth,char **entities)
 {
-  register ssize_t
+   ssize_t
     i;
 
   /*
@@ -1645,7 +1645,7 @@ static void ParseProcessingInstructions(XMLTreeRoot *root,char *xml,
   char
     *target;
 
-  register ssize_t
+   ssize_t
     i;
 
   ssize_t
@@ -1728,7 +1728,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
     *t,
     *v;
 
-  register ssize_t
+   ssize_t
     i;
 
   ssize_t
@@ -1972,7 +1972,7 @@ static const char
 
 static inline WizardBooleanType IsSkipTag(const char *tag)
 {
-  register ssize_t
+   ssize_t
     i;
 
   i=0;
@@ -1997,10 +1997,10 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
     c,
     terminal;
 
-  register char
+   char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -2523,7 +2523,7 @@ WizardExport XMLTreeInfo *PruneTagFromXMLTree(XMLTreeInfo *xml_info)
 WizardExport XMLTreeInfo *SetXMLTreeAttribute(XMLTreeInfo *xml_info,
   const char *tag,const char *value)
 {
-  register ssize_t
+   ssize_t
     i;
 
   ssize_t
@@ -2690,7 +2690,7 @@ static char *XMLTreeTagToXML(XMLTreeInfo *xml_info,char **source,size_t *length,
   const char
     *attribute;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -2792,11 +2792,11 @@ WizardExport char *XMLTreeInfoToXML(XMLTreeInfo *xml_info)
   char
     *xml;
 
-  register char
+   char
     *p,
     *q;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t

@@ -42,13 +42,6 @@ extern "C" {
 #if defined(_wizardstoolkit_inline) && !defined(inline)
 # define inline _wizardstoolkit_inline
 #endif
-#if !defined(wizard_restrict)
-# if !defined(_wizardcore_restrict)
-#  define wizard_restrict restrict
-# else
-#  define wizard_restrict _wizardcore_restrict
-# endif
-#endif
 # if defined(__cplusplus) || defined(c_plusplus)
 #  undef inline
 # endif
@@ -61,8 +54,16 @@ extern "C" {
 #if defined(WizardMethodPrefix)
 # include "wizard/methods.h"
 #endif
+
+#if !defined(wizard_restrict)
+# if !defined(_wizardcore_restrict)
+#  define wizard_restrict restrict
+# else
+#  define wizard_restrict _wizardcore_restrict
+# endif
+#endif
+
 #include "wizard/wizard-type.h"
-#include "wizard/string_.h"
 #include "wizard/authenticate.h"
 #include "wizard/blob.h"
 #include "wizard/bzip.h"
@@ -87,6 +88,7 @@ extern "C" {
 #include "wizard/semaphore.h"
 #include "wizard/secret.h"
 #include "wizard/splay-tree.h"
+#include "wizard/string_.h"
 #include "wizard/timer.h"
 #include "wizard/token.h"
 #include "wizard/utility.h"

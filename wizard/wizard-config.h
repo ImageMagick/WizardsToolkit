@@ -309,9 +309,7 @@
 #endif
 
 /* Define to 1 if you have a working `mmap' system call. */
-#ifndef WIZARDSTOOLKIT_HAVE_MMAP_FILEIO
-#define WIZARDSTOOLKIT_HAVE_MMAP_FILEIO 1
-#endif
+/* #undef HAVE_MMAP_FILEIO */
 
 /* Define to 1 if you have the `munmap' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MUNMAP
@@ -441,9 +439,7 @@
 #endif
 
 /* Define to 1 if stdbool.h conforms to C99. */
-#ifndef WIZARDSTOOLKIT_HAVE_STDBOOL_H
-#define WIZARDSTOOLKIT_HAVE_STDBOOL_H 1
-#endif
+/* #undef HAVE_STDBOOL_H */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #ifndef WIZARDSTOOLKIT_HAVE_STDINT_H
@@ -689,9 +685,7 @@
 /* #undef HAVE__ALIGNED_MALLOC */
 
 /* Define to 1 if the system has the type `_Bool'. */
-#ifndef WIZARDSTOOLKIT_HAVE__BOOL
-#define WIZARDSTOOLKIT_HAVE__BOOL 1
-#endif
+/* #undef HAVE__BOOL */
 
 /* Define to 1 if you have the `_NSGetExecutablePath' function. */
 /* #undef HAVE__NSGETEXECUTABLEPATH */

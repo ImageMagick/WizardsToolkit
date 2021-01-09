@@ -117,7 +117,7 @@ static void ExpandFilename(char *path)
       char
         username[WizardPathExtent];
 
-      register char
+       char
         *p;
 
       struct passwd
@@ -186,7 +186,7 @@ WizardExport WizardBooleanType ExpandFilenames(int *argc,char ***argv)
     count,
     parameters;
 
-  register ssize_t
+   ssize_t
     i,
     j;
 
@@ -388,7 +388,7 @@ extern "C" {
 
 static int FileCompare(const void *x,const void *y)
 {
-  register const char
+   const char
     **p,
     **q;
 
@@ -482,7 +482,7 @@ static char **ListFiles(const char *directory,const char *pattern,
           }
 #if defined(vms)
         {
-          register char
+           char
             *p;
 
           p=strchr(entry->d_name,';');

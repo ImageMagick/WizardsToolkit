@@ -239,7 +239,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
     options=AcquireString((char *) NULL);
     while ((isgraph(c) != WizardFalse) && (c != '>') && (c != EOF))
     {
-      register char
+       char
         *p;
 
       if (isalnum(c) == WizardFalse)

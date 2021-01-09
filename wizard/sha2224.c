@@ -196,13 +196,13 @@ WizardExport SHA2224Info *DestroySHA2224Info(SHA2224Info *sha_info)
 */
 WizardExport WizardBooleanType FinalizeSHA2224(SHA2224Info *sha_info)
 {
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *q;
 
-  register unsigned int
+   unsigned int
     *p;
 
   ssize_t
@@ -451,10 +451,10 @@ static void TransformSHA2224(SHA2224Info *sha_info)
   ssize_t
     j;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   static unsigned int
@@ -611,10 +611,10 @@ static void TransformSHA2224(SHA2224Info *sha_info)
 WizardExport WizardBooleanType UpdateSHA2224(SHA2224Info *sha_info,
   const StringInfo *message)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   size_t

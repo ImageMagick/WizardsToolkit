@@ -337,7 +337,7 @@ WizardExport unsigned int GetCRC64Digestsize(const CRC64Info *crc64_info)
 */
 WizardExport WizardBooleanType InitializeCRC64(CRC64Info *crc_info)
 {
-  register ssize_t
+   ssize_t
     i,
     j;
 
@@ -391,10 +391,10 @@ WizardExport WizardBooleanType InitializeCRC64(CRC64Info *crc_info)
 WizardExport WizardBooleanType UpdateCRC64(CRC64Info *crc_info,
   const StringInfo *message)
 {
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register size_t
+   size_t
     i;
 
   /*

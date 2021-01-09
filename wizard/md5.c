@@ -187,10 +187,10 @@ WizardExport WizardBooleanType FinalizeMD5(MD5Info *md5_info)
   ssize_t
     number_bytes;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   StringInfo
@@ -445,13 +445,13 @@ static inline unsigned int RotateLeft(const unsigned int x,const unsigned int n)
 
 static void TransformMD5(MD5Info *md5_info,const unsigned int *message)
 {
-  register const unsigned int
+   const unsigned int
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned int
+   unsigned int
     j;
 
   static const unsigned int
@@ -604,10 +604,10 @@ static void TransformMD5(MD5Info *md5_info,const unsigned int *message)
 WizardExport WizardBooleanType UpdateMD5(MD5Info *md5_info,
   const StringInfo *message)
 {
-  register unsigned char
+   unsigned char
     *p;
 
-  register ssize_t
+   ssize_t
     i,
     j;
 

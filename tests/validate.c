@@ -102,7 +102,7 @@ static WizardBooleanType TestAES(void)
   CipherInfo
     *cipher_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -278,7 +278,7 @@ static WizardBooleanType TestBZIPEntropy(void)
   ExceptionInfo
     *exception;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -346,7 +346,7 @@ static WizardBooleanType TestChacha(void)
   CipherInfo
     *cipher_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -472,7 +472,7 @@ static WizardBooleanType TestCRC64(void)
   HashInfo
     *hash_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -546,7 +546,7 @@ static WizardBooleanType TestCRC64(void)
 
 static WizardBooleanType TestHMACMD5(void)
 {
-  register ssize_t
+   ssize_t
     i;
 
   HMACInfo
@@ -588,7 +588,7 @@ static WizardBooleanType TestHMACMD5(void)
 
 static WizardBooleanType TestHMACSHA1(void)
 {
-  register ssize_t
+   ssize_t
     i;
 
   HMACInfo
@@ -631,7 +631,7 @@ static WizardBooleanType TestHMACSHA1(void)
 
 static WizardBooleanType TestHMACSHA2256(void)
 {
-  register ssize_t
+   ssize_t
     i;
 
   HMACInfo
@@ -732,7 +732,7 @@ static WizardBooleanType TestLZMAEntropy(void)
   ExceptionInfo
     *exception;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -799,7 +799,7 @@ static WizardBooleanType TestMD5(void)
   HashInfo
     *hash_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -873,7 +873,7 @@ static WizardBooleanType TestMD5(void)
 
 static WizardBooleanType TestMemory(void)
 {
-  register ssize_t
+   ssize_t
     i;
 
   WizardBooleanType
@@ -936,7 +936,7 @@ static WizardBooleanType TestRandomKey(void)
   RandomInfo
     *random_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -973,7 +973,7 @@ static WizardBooleanType TestSerpent(void)
   CipherInfo
     *cipher_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -1101,7 +1101,7 @@ static WizardBooleanType TestSHA1(void)
   HashInfo
     *hash_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -1178,7 +1178,7 @@ static WizardBooleanType TestSHA2256(void)
   HashInfo
     *hash_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -1255,7 +1255,7 @@ static WizardBooleanType TestSHA2384(void)
   HashInfo
     *hash_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -1332,7 +1332,7 @@ static WizardBooleanType TestSHA2512(void)
   HashInfo
     *hash_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -1409,7 +1409,7 @@ static WizardBooleanType TestSHA3(void)
   HashInfo
     *hash_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -1508,7 +1508,7 @@ static WizardBooleanType TestTwofish(void)
   CipherInfo
     *cipher_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo
@@ -1646,7 +1646,7 @@ static WizardBooleanType TestZIPEntropy(void)
   ExceptionInfo
     *exception;
 
-  register ssize_t
+   ssize_t
     i;
 
   StringInfo

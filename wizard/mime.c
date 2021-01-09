@@ -231,13 +231,13 @@ WizardExport const MimeInfo *GetMimeInfo(const char *filename,
   EndianType
     endian;
 
-  register const MimeInfo
+   const MimeInfo
     *p;
 
-  register const unsigned char
+   const unsigned char
     *q;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -444,10 +444,10 @@ WizardExport const MimeInfo **GetMimeInfoList(const char *pattern,
   const MimeInfo
     **aliases;
 
-  register const MimeInfo
+   const MimeInfo
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   /*
@@ -520,7 +520,7 @@ extern "C" {
 
 static int MimeCompare(const void *x,const void *y)
 {
-  register char
+   char
     *p,
     *q;
 
@@ -539,10 +539,10 @@ WizardExport char **GetMimeList(const char *pattern,
   char
     **aliases;
 
-  register const MimeInfo
+   const MimeInfo
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   /*
@@ -705,7 +705,7 @@ WizardExport WizardBooleanType ListMimeInfo(FILE *file,ExceptionInfo *exception)
   const MimeInfo
     **mime_info;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -887,7 +887,7 @@ static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,
         const char
           *p;
 
-        register unsigned char
+         unsigned char
           *q;
 
         token=AcquireString(attribute);
@@ -1016,7 +1016,7 @@ WizardExport WizardBooleanType MimeComponentGenesis(void)
 
 static void *DestroyMimeElement(void *mime_info)
 {
-  register MimeInfo
+   MimeInfo
     *p;
 
   p=(MimeInfo *) mime_info;

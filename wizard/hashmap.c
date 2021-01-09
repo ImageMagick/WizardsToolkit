@@ -149,7 +149,7 @@ struct _HashmapInfo
 WizardExport WizardBooleanType AppendValueToLinkedList(
   LinkedListInfo *list_info,const void *value)
 {
-  register ElementInfo
+   ElementInfo
     *next;
 
   assert(list_info != (LinkedListInfo *) NULL);
@@ -206,7 +206,7 @@ WizardExport void ClearLinkedList(LinkedListInfo *list_info,
   ElementInfo
     *element;
 
-  register ElementInfo
+   ElementInfo
     *next;
 
   assert(list_info != (LinkedListInfo *) NULL);
@@ -331,10 +331,10 @@ WizardExport HashmapInfo *DestroyHashmap(HashmapInfo *hashmap_info)
   LinkedListInfo
     *list_info;
 
-  register EntryInfo
+   EntryInfo
     *entry;
 
-  register ssize_t
+   ssize_t
     i;
 
   assert(hashmap_info != (HashmapInfo *) NULL);
@@ -400,7 +400,7 @@ WizardExport LinkedListInfo *DestroyLinkedList(LinkedListInfo *list_info,
   ElementInfo
     *entry;
 
-  register ElementInfo
+   ElementInfo
     *next;
 
   assert(list_info != (LinkedListInfo *) NULL);
@@ -485,7 +485,7 @@ WizardExport void *GetNextKeyInHashmap(HashmapInfo *hashmap_info)
   LinkedListInfo
     *list_info;
 
-  register EntryInfo
+   EntryInfo
     *entry;
 
   void
@@ -546,7 +546,7 @@ WizardExport void *GetNextValueInHashmap(HashmapInfo *hashmap_info)
   LinkedListInfo
     *list_info;
 
-  register EntryInfo
+   EntryInfo
     *entry;
 
   void
@@ -713,7 +713,7 @@ WizardExport void *GetValueFromHashmap(HashmapInfo *hashmap_info,
   LinkedListInfo
     *list_info;
 
-  register EntryInfo
+   EntryInfo
     *entry;
 
   size_t
@@ -787,10 +787,10 @@ WizardExport void *GetValueFromHashmap(HashmapInfo *hashmap_info,
 WizardExport void *GetValueFromLinkedList(LinkedListInfo *list_info,
   const size_t index)
 {
-  register ElementInfo
+   ElementInfo
     *next;
 
-  register ssize_t
+   ssize_t
     i;
 
   void
@@ -888,7 +888,7 @@ WizardExport size_t HashStringType(const void *string)
   HashInfo
     *hashmap_info;
 
-  register size_t
+   size_t
     i;
 
   size_t
@@ -940,7 +940,7 @@ WizardExport size_t HashStringType(const void *string)
 */
 WizardExport size_t HashStringInfoType(const void *string)
 {
-  register size_t
+   size_t
     i;
 
   size_t
@@ -991,10 +991,10 @@ WizardExport size_t HashStringInfoType(const void *string)
 WizardExport WizardBooleanType InsertValueInLinkedList(
   LinkedListInfo *list_info,const size_t index,const void *value)
 {
-  register ElementInfo
+   ElementInfo
     *next;
 
-  register ssize_t
+   ssize_t
     i;
 
   assert(list_info != (LinkedListInfo *) NULL);
@@ -1096,10 +1096,10 @@ WizardExport WizardBooleanType InsertValueInSortedLinkedList(
   ElementInfo
     *element;
 
-  register ElementInfo
+   ElementInfo
     *next;
 
-  register ssize_t
+   ssize_t
     i;
 
   assert(list_info != (LinkedListInfo *) NULL);
@@ -1239,10 +1239,10 @@ WizardExport WizardBooleanType IsLinkedListEmpty(
 WizardExport WizardBooleanType LinkedListToArray(LinkedListInfo *list_info,
   void **array)
 {
-  register ElementInfo
+   ElementInfo
     *next;
 
-  register ssize_t
+   ssize_t
     i;
 
   assert(list_info != (LinkedListInfo *) NULL);
@@ -1428,10 +1428,10 @@ static WizardBooleanType IncreaseHashmapCapacity(HashmapInfo *hashmap_info)
     *map_info,
     **map;
 
-  register ElementInfo
+   ElementInfo
     *next;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -1500,7 +1500,7 @@ WizardExport WizardBooleanType PutEntryInHashmap(HashmapInfo *hashmap_info,
   LinkedListInfo
     *list_info;
 
-  register size_t
+   size_t
     i;
 
   assert(hashmap_info != (HashmapInfo *) NULL);
@@ -1670,7 +1670,7 @@ WizardExport void *RemoveElementFromLinkedList(LinkedListInfo *list_info,
   ElementInfo
     *next;
 
-  register ssize_t
+   ssize_t
     i;
 
   void
@@ -1745,7 +1745,7 @@ WizardExport void *RemoveEntryFromHashmap(HashmapInfo *hashmap_info,
   LinkedListInfo
     *list_info;
 
-  register size_t
+   size_t
     i;
 
   size_t

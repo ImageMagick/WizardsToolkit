@@ -162,7 +162,7 @@ WizardExport void DecipherTwofishBlock(TwofishInfo *twofish_info,
   gamma=(gamma << 1)+(gamma >> 31); gamma^=(rho+twofish_info->k[2*(i)]); \
 }
 
-  register unsigned char
+   unsigned char
     *q;
 
   unsigned int
@@ -291,7 +291,7 @@ WizardExport void EncipherTwofishBlock(TwofishInfo *twofish_info,
   delta=((delta << 1)+(delta >> 31)) ^ sigma; \
 }
 
-  register unsigned char
+   unsigned char
     *q;
 
   unsigned int
@@ -851,10 +851,10 @@ WizardExport void SetTwofishKey(TwofishInfo *twofish_info,const StringInfo *key)
     j,
     k;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   unsigned char

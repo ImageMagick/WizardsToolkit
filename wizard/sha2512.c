@@ -197,13 +197,13 @@ WizardExport SHA2512Info *DestroySHA2512Info(SHA2512Info *sha_info)
 */
 WizardExport WizardBooleanType FinalizeSHA2512(SHA2512Info *sha_info)
 {
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *q;
 
-  register WizardSizeType
+   WizardSizeType
     *p;
 
   unsigned char
@@ -465,10 +465,10 @@ static void TransformSHA2512(SHA2512Info *sha_info)
   ssize_t
     j;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   static WizardSizeType
@@ -675,10 +675,10 @@ static void TransformSHA2512(SHA2512Info *sha_info)
 WizardExport WizardBooleanType UpdateSHA2512(SHA2512Info *sha_info,
   const StringInfo *message)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   size_t

@@ -133,7 +133,7 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
   ssize_t
     pid;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -606,7 +606,7 @@ WizardExport int ReadFileByte(FileInfo *file_info)
 WizardExport WizardBooleanType ReadFileChunk(FileInfo *file_info,void *data,
   const size_t length)
 {
-  register ssize_t
+   ssize_t
     i;
 
   ssize_t
@@ -851,7 +851,7 @@ static WizardBooleanType RelinquishFileLock(FileInfo *file_info,
 WizardExport WizardBooleanType WriteFileChunk(FileInfo *file_info,
   const void *data,const size_t length)
 {
-  register ssize_t
+   ssize_t
     i;
 
   ssize_t

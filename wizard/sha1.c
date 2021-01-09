@@ -198,13 +198,13 @@ WizardExport SHA1Info *DestroySHA1Info(SHA1Info *sha_info)
 */
 WizardExport WizardBooleanType FinalizeSHA1(SHA1Info *sha_info)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *q;
 
-  register unsigned int
+   unsigned int
     *p;
 
   ssize_t
@@ -430,13 +430,13 @@ static unsigned int RotateLeft(const unsigned int x,const unsigned int n)
 
 static void TransformSHA1(SHA1Info *sha_info)
 {
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
-  register unsigned int
+   unsigned int
     *q;
 
   unsigned int
@@ -592,10 +592,10 @@ static void TransformSHA1(SHA1Info *sha_info)
 WizardExport WizardBooleanType UpdateSHA1(SHA1Info *sha_info,
   const StringInfo *message)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   size_t

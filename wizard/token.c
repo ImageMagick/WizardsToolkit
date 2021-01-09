@@ -106,10 +106,10 @@ WizardExport void GetNextToken(const char *start,const char **end,
   double
     value;
 
-  register const char
+   const char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   assert(start != (const char *) NULL);
@@ -127,7 +127,7 @@ WizardExport void GetNextToken(const char *start,const char **end,
     case '`':
     case '{':
     {
-      register char
+       char
         escape;
 
       switch (*p)
@@ -378,7 +378,7 @@ WizardExport WizardBooleanType GlobExpression(const char *expression,
       }
       case '{':
       {
-        register const char
+         const char
           *p;
 
         pattern++;
@@ -499,7 +499,7 @@ WizardExport WizardBooleanType IsGlob(const char *path)
   WizardBooleanType
     status = WizardFalse;
 
-  register const char
+   const char
     *p;
 
   if (IsPathAcessible(path) != WizardFalse)

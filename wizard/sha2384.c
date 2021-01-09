@@ -197,13 +197,13 @@ WizardExport SHA2384Info *DestroySHA2384Info(SHA2384Info *sha_info)
 */
 WizardExport WizardBooleanType FinalizeSHA2384(SHA2384Info *sha_info)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *q;
 
-  register WizardSizeType
+   WizardSizeType
     *p;
 
   unsigned char
@@ -465,10 +465,10 @@ static void TransformSHA2384(SHA2384Info *sha_info)
   ssize_t
     j;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   static WizardSizeType
@@ -675,10 +675,10 @@ static void TransformSHA2384(SHA2384Info *sha_info)
 WizardExport WizardBooleanType UpdateSHA2384(SHA2384Info *sha_info,
   const StringInfo *message)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p;
 
   size_t

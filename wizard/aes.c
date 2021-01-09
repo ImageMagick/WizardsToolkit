@@ -218,7 +218,7 @@ WizardExport AESInfo *AcquireAESInfo(void)
 static inline void AddRoundKey(const unsigned int *ciphertext,
   const unsigned int *key,unsigned int *plaintext)
 {
-  register ssize_t
+   ssize_t
     i;
 
   /*
@@ -258,10 +258,10 @@ static inline unsigned int ByteSubTransform(const unsigned int x,
 static void FinalizeRoundKey(const unsigned int *ciphertext,
   const unsigned int *key,unsigned char *plaintext)
 {
-  register unsigned char
+   unsigned char
     *p;
 
-  register unsigned int
+   unsigned int
     i,
     j;
 
@@ -287,10 +287,10 @@ static void FinalizeRoundKey(const unsigned int *ciphertext,
 static void InitializeRoundKey(const unsigned char *ciphertext,
   const unsigned int *key,unsigned int *plaintext)
 {
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register unsigned int
+   unsigned int
     i,
     j;
 
@@ -409,7 +409,7 @@ WizardExport void DecipherAESBlock(AESInfo *aes_info,
       0x4257b8d0U
     };
 
-  register ssize_t
+   ssize_t
     i,
     j;
 
@@ -521,7 +521,7 @@ WizardExport AESInfo *DestroyAESInfo(AESInfo *aes_info)
 WizardExport void EncipherAESBlock(AESInfo *aes_info,
   const unsigned char *plaintext,unsigned char *ciphertext)
 {
-  register ssize_t
+   ssize_t
     i,
     j;
 
@@ -688,7 +688,7 @@ WizardExport unsigned int GetAESBlocksize(const AESInfo *aes_info)
 static inline void InverseAddRoundKey(const unsigned int *alpha,
   unsigned int *beta)
 {
-  register unsigned int
+   unsigned int
     i,
     j;
 
@@ -725,7 +725,7 @@ WizardExport void SetAESKey(AESInfo *aes_info,const StringInfo *key)
     bytes,
     n;
 
-  register ssize_t
+   ssize_t
     i;
 
   unsigned char

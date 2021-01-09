@@ -291,7 +291,7 @@ WizardExport void *AcquireAlignedMemory(const size_t count,const size_t quantum)
 
 static inline size_t AllocationPolicy(size_t size)
 {
-  register size_t
+   size_t
     blocksize;
 
   /*
@@ -319,7 +319,7 @@ static inline size_t AllocationPolicy(size_t size)
 
 static inline void InsertFreeBlock(void *block,const size_t i)
 {
-  register void
+   void
     *next,
     *previous;
 
@@ -346,7 +346,7 @@ static inline void InsertFreeBlock(void *block,const size_t i)
 
 static inline void RemoveFreeBlock(void *block,const size_t i)
 {
-  register void
+   void
     *next,
     *previous;
 
@@ -362,10 +362,10 @@ static inline void RemoveFreeBlock(void *block,const size_t i)
 
 static void *AcquireBlock(size_t size)
 {
-  register size_t
+   size_t
     i;
 
-  register void
+   void
     *block;
 
   /*
@@ -558,7 +558,7 @@ WizardExport MemoryInfo *AcquireVirtualMemory(const size_t count,
 */
 WizardExport void *AcquireWizardMemory(const size_t size)
 {
-  register void
+   void
     *memory;
 
 #if !defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
@@ -571,7 +571,7 @@ WizardExport void *AcquireWizardMemory(const size_t size)
       LockSemaphoreInfo(memory_semaphore);
       if (free_segments == (DataSegmentInfo *) NULL)
         {
-          register ssize_t
+           ssize_t
             i;
 
           assert(2*sizeof(size_t) > (size_t) (~SizeMask));
@@ -673,10 +673,10 @@ WizardExport void *AcquireQuantumMemory(const size_t count,const size_t quantum)
 WizardExport void *CopyWizardMemory(void *destination,const void *source,
   const size_t size)
 {
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register unsigned char
+   unsigned char
     *q;
 
   assert(destination != (void *) NULL);
@@ -721,7 +721,7 @@ WizardExport void *CopyWizardMemory(void *destination,const void *source,
 WizardExport void DestroyWizardMemory(void)
 {
 #if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
-  register ssize_t
+   ssize_t
     i;
 
   if (memory_semaphore == (SemaphoreInfo *) NULL)
@@ -773,10 +773,10 @@ static WizardBooleanType ExpandHeap(size_t size)
   WizardBooleanType
     mapped;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register void
+   void
     *block;
 
   size_t
@@ -1117,7 +1117,7 @@ WizardExport void *ResetWizardMemory(void *memory,int byte,const size_t size)
 #if defined(WIZARDSTOOLKIT_EMBEDDABLE_SUPPORT)
 static inline void *ResizeBlock(void *block,size_t size)
 {
-  register void
+   void
     *memory;
 
   if (block == (void *) NULL)
@@ -1136,7 +1136,7 @@ static inline void *ResizeBlock(void *block,size_t size)
 
 WizardExport void *ResizeWizardMemory(void *memory,const size_t size)
 {
-  register void
+   void
     *block;
 
   if (memory == (void *) NULL)

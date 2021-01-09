@@ -155,7 +155,7 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
   int
     compare;
 
-  register NodeInfo
+   NodeInfo
     *node;
 
   LockSemaphoreInfo(splay_tree->semaphore);
@@ -245,7 +245,7 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
 static NodeInfo *LinkSplayTreeNodes(NodeInfo **nodes,const size_t low,
   const size_t high)
 {
-  register NodeInfo
+   NodeInfo
     *node;
 
   size_t
@@ -266,7 +266,7 @@ static NodeInfo *LinkSplayTreeNodes(NodeInfo **nodes,const size_t low,
 
 static inline int SplayTreeToNodeArray(NodeInfo *node,const void *nodes)
 {
-  register const NodeInfo
+   const NodeInfo
     ***p;
 
   p=(const NodeInfo ***) nodes;
@@ -330,7 +330,7 @@ static void BalanceSplayTree(SplayTreeInfo *splay_tree)
 
 static inline void *GetFirstSplayTreeNode(SplayTreeInfo *splay_tree)
 {
-  register NodeInfo
+   NodeInfo
     *node;
 
   node=splay_tree->root;
@@ -344,7 +344,7 @@ static inline void *GetFirstSplayTreeNode(SplayTreeInfo *splay_tree)
 WizardExport SplayTreeInfo *CloneSplayTree(SplayTreeInfo *splay_tree,
   void *(*clone_key)(void *),void *(*clone_value)(void *))
 {
-  register NodeInfo
+   NodeInfo
     *next,
     *node;
 
@@ -484,7 +484,7 @@ WizardExport int CompareSplayTreeStringInfo(const void *target,
 WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
   SplayTreeInfo *splay_tree,const void *value)
 {
-  register NodeInfo
+   NodeInfo
     *next,
     *node;
 
@@ -515,7 +515,7 @@ WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
         int
           compare;
 
-        register NodeInfo
+         NodeInfo
           *left,
           *right;
 
@@ -602,7 +602,7 @@ WizardExport WizardBooleanType DeleteNodeFromSplayTree(
   int
     compare;
 
-  register NodeInfo
+   NodeInfo
     *left,
     *right;
 
@@ -680,7 +680,7 @@ WizardExport SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
   NodeInfo
     *node;
 
-  register NodeInfo
+   NodeInfo
     *active,
     *pend;
 
@@ -764,7 +764,7 @@ WizardExport SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
 */
 WizardExport const void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
 {
-  register NodeInfo
+   NodeInfo
     *node;
 
   void
@@ -818,7 +818,7 @@ WizardExport const void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
 */
 WizardExport const void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 {
-  register NodeInfo
+   NodeInfo
     *node;
 
   void
@@ -983,10 +983,10 @@ static int IterateOverSplayTree(SplayTreeInfo *splay_tree,
   NodeInfo
     **nodes;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register NodeInfo
+   NodeInfo
     *node;
 
   TransitionType
@@ -1145,7 +1145,7 @@ WizardExport SplayTreeInfo *NewSplayTree(
 WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
   const void *value)
 {
-  register NodeInfo
+   NodeInfo
     *next,
     *node;
 
@@ -1177,7 +1177,7 @@ WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
         int
           compare;
 
-        register NodeInfo
+         NodeInfo
           *left,
           *right;
 
@@ -1257,7 +1257,7 @@ WizardExport void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,
   int
     compare;
 
-  register NodeInfo
+   NodeInfo
     *left,
     *right;
 
@@ -1337,7 +1337,7 @@ WizardExport void ResetSplayTree(SplayTreeInfo *splay_tree)
   NodeInfo
     *node;
 
-  register NodeInfo
+   NodeInfo
     *active,
     *pend;
 
@@ -1476,7 +1476,7 @@ static NodeInfo *Splay(SplayTreeInfo *splay_tree,const size_t depth,
   NodeInfo
     **next;
 
-  register NodeInfo
+   NodeInfo
     *n,
     *p;
 

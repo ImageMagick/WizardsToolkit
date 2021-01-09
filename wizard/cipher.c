@@ -237,10 +237,10 @@ WizardExport CipherInfo *AcquireCipherInfo(const CipherType cipher,
 static StringInfo *DecipherCBCMode(CipherInfo *cipher_info,
   StringInfo *ciphertext)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -319,10 +319,10 @@ static StringInfo *DecipherCBCMode(CipherInfo *cipher_info,
 static StringInfo *DecipherCFBMode(CipherInfo *cipher_info,
   StringInfo *ciphertext)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -482,7 +482,7 @@ WizardExport StringInfo *DecipherCipher(CipherInfo *cipher_info,
 static inline void IncrementCipherNonce(const size_t length,
   unsigned char *nonce)
 {
-  register ssize_t
+   ssize_t
     i;
 
   for (i=(ssize_t) (length-1); i >= 0; i--)
@@ -497,10 +497,10 @@ static inline void IncrementCipherNonce(const size_t length,
 static StringInfo *DecipherCTRMode(CipherInfo *cipher_info,
   StringInfo *ciphertext)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -576,7 +576,7 @@ static StringInfo *DecipherCTRMode(CipherInfo *cipher_info,
 static StringInfo *DecipherECBMode(CipherInfo *cipher_info,
   StringInfo *ciphertext)
 {
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -635,10 +635,10 @@ static StringInfo *DecipherECBMode(CipherInfo *cipher_info,
 static StringInfo *DecipherOFBMode(CipherInfo *cipher_info,
   StringInfo *ciphertext)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -775,11 +775,11 @@ WizardExport CipherInfo *DestroyCipherInfo(CipherInfo *cipher_info)
 static StringInfo *EncipherCBCMode(CipherInfo *cipher_info,
   StringInfo *plaintext)
 {
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
-  register size_t
+   size_t
     i;
 
   size_t
@@ -860,10 +860,10 @@ static StringInfo *EncipherCBCMode(CipherInfo *cipher_info,
 static StringInfo *EncipherCFBMode(CipherInfo *cipher_info,
   StringInfo *plaintext)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -1022,10 +1022,10 @@ WizardExport StringInfo *EncipherCipher(CipherInfo *cipher_info,
 static StringInfo *EncipherCTRMode(CipherInfo *cipher_info,
   StringInfo *plaintext)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -1108,7 +1108,7 @@ static StringInfo *EncipherCTRMode(CipherInfo *cipher_info,
 static StringInfo *EncipherECBMode(CipherInfo *cipher_info,
   StringInfo *plaintext)
 {
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -1173,10 +1173,10 @@ static StringInfo *EncipherECBMode(CipherInfo *cipher_info,
 static StringInfo *EncipherOFBMode(CipherInfo *cipher_info,
   StringInfo *plaintext)
 {
-  register size_t
+   size_t
     i;
 
-  register unsigned char
+   unsigned char
     *p,
     *q;
 

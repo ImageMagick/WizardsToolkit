@@ -221,7 +221,7 @@ WizardExport void EncipherChachaBlock(ChachaInfo *chacha_info,
   (p)[3]=((unsigned char) (((v) >> 24) & 0xff)); \
 }
 
-  register ssize_t
+   ssize_t
     i;
 
   unsigned int

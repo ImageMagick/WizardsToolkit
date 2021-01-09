@@ -311,7 +311,7 @@ WizardExport size_t GetHMACDigestsize(const HMACInfo *hmac_info)
 */
 WizardExport void InitializeHMAC(HMACInfo *hmac_info,const StringInfo *key)
 {
-  register size_t
+   size_t
     i;
 
   unsigned char

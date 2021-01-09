@@ -478,13 +478,13 @@ WizardExport size_t ConcatenateWizardString(char *destination,
   const char *source,const size_t length)
 {
 #if !defined(WIZARDSTOOLKIT_HAVE_STRLCAT)
-  register char
+   char
     *q;
 
-  register const char
+   const char
     *p;
 
-  register size_t
+   size_t
     i;
 
   size_t
@@ -590,7 +590,7 @@ WizardExport StringInfo *ConfigureFileToStringInfo(const char *filename)
     }
   else
     {
-      register size_t
+       size_t
         i;
 
       ssize_t
@@ -748,13 +748,13 @@ WizardExport void ConcatenateStringInfo(StringInfo *string_info,
 WizardExport size_t CopyWizardString(char *destination,const char *source,
   const size_t length)
 {
-  register char
+   char
     *q;
 
-  register const char
+   const char
     *p;
 
-  register size_t
+   size_t
     n;
 
   p=source;
@@ -876,7 +876,7 @@ WizardExport StringInfo *DestroyStringInfo(StringInfo *string_info)
 */
 WizardExport char **DestroyStringList(char **list)
 {
-  register ssize_t
+   ssize_t
     i;
 
   assert(list != (char **) NULL);
@@ -1020,7 +1020,7 @@ WizardExport ssize_t FormatWizardSize(const WizardSizeType size,
   ssize_t
     count;
 
-  register ssize_t
+   ssize_t
     i,
     j;
 
@@ -1323,13 +1323,13 @@ WizardExport const char *GetStringInfoPath(const StringInfo *string_info)
 */
 WizardExport StringInfo *HexStringToStringInfo(const char *string)
 {
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *q;
 
   unsigned char
@@ -1401,8 +1401,7 @@ WizardExport StringInfo *HexStringToStringInfo(const char *string)
 %      after the last character used in the conversion.
 %
 */
-WizardExport double InterpretSiPrefixValue(const char *restrict string,
-  char **restrict sentinal)
+WizardExport double InterpretSiPrefixValue(const char *string,char **sentinal)
 {
   char
     *q;
@@ -1506,7 +1505,7 @@ WizardExport int LocaleCompare(const char *p,const char *q)
   return(strcasecmp(p,q));
 #else
   {
-    register int
+     int
       c,
       d;
 
@@ -1549,7 +1548,7 @@ WizardExport int LocaleCompare(const char *p,const char *q)
 */
 WizardExport void LocaleLower(char *string)
 {
-  register char
+   char
     *q;
 
   assert(string != (char *) NULL);
@@ -1604,11 +1603,11 @@ WizardExport int LocaleNCompare(const char *p,const char *q,const size_t length)
   return(strncasecmp(p,q,length));
 #else
   {
-    register int
+     int
       c,
       d;
 
-    register size_t
+     size_t
       i;
 
     for (i=length; i != 0; i--)
@@ -1699,7 +1698,7 @@ WizardExport ssize_t PrintWizardString(FILE *file,const char *format,...)
 WizardExport void PrintStringInfo(FILE *file,const char *id,
   const StringInfo *string_info)
 {
-  register unsigned char
+   unsigned char
     *p,
     *q;
 
@@ -1966,13 +1965,13 @@ WizardExport char *StringInfoToHexString(const StringInfo *string_info)
   char
     *string;
 
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
-  register unsigned char
+   unsigned char
     *q;
 
   size_t
@@ -2089,11 +2088,11 @@ WizardExport char **StringToArgv(const char *text,int *argc)
   char
     **argv;
 
-  register const char
+   const char
     *p,
     *q;
 
-  register ssize_t
+   ssize_t
     i;
 
   *argc=0;
@@ -2219,7 +2218,7 @@ WizardExport StringInfo *StringToStringInfo(const char *string)
 */
 WizardExport void StripString(char *message)
 {
-  register char
+   char
     *p,
     *q;
 
@@ -2285,7 +2284,7 @@ WizardExport WizardBooleanType SubstituteString(char **string,
   WizardBooleanType
     status;
 
-  register char
+   char
     *p;
 
   size_t

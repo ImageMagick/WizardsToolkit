@@ -156,7 +156,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
   int
     c;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -273,7 +273,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
       options=AcquireString((char *) NULL);
       while ((isgraph(c) != WizardFalse) && (c != '>') && (c != EOF))
       {
-        register char
+         char
           *p;
 
         if ((isalnum(c) == WizardFalse) && (c != '/'))
@@ -531,7 +531,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
   HashType
     hash;
 
-  register ssize_t
+   ssize_t
     i;
 
   size_t
@@ -814,7 +814,7 @@ static int WizardMain(int argc,char **argv)
   ExceptionInfo
     *exception;
 
-  register ssize_t
+   ssize_t
     i;
 
   TimerInfo
@@ -888,7 +888,7 @@ int wmain(int argc,wchar_t *argv[])
   int
     status;
 
-  register int
+   int
     i;
 
   utf8=NTArgvToUTF8(argc,argv);

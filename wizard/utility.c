@@ -138,11 +138,11 @@ WizardExport unsigned char *Base64Decode(const char *source,size_t *length)
   int
     state;
 
-  register const char
+   const char
     *p,
     *q;
 
-  register size_t
+   size_t
     i;
 
   unsigned char
@@ -295,10 +295,10 @@ WizardExport char *Base64Encode(const unsigned char *blob,
   char
     *encode;
 
-  register const unsigned char
+   const unsigned char
     *p;
 
-  register size_t
+   size_t
     i;
 
   size_t
@@ -377,7 +377,7 @@ WizardExport char *Base64Encode(const unsigned char *blob,
 */
 WizardExport void ChopPathComponents(char *path,const size_t components)
 {
-  register ssize_t
+   ssize_t
     i;
 
   for (i=0; i < (ssize_t) components; i++)
@@ -420,7 +420,7 @@ WizardExport void GetPathComponent(const char *path,PathType type,
     subnode[WizardPathExtent],
     *q;
 
-  register char
+   char
     *p;
 
   /*
@@ -579,13 +579,13 @@ WizardExport char **GetPathComponents(const char *path,
   char
     **components;
 
-  register char
+   char
     *q;
 
-  register const char
+   const char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   if (path == (char *) NULL)
@@ -959,10 +959,10 @@ WizardExport const char *ParseWizardTime(const char *timestamp,time_t *target)
   ssize_t
     timezone;
 
-  register const char
+   const char
     *p;
 
-  register ssize_t
+   ssize_t
     i;
 
   static char

@@ -137,7 +137,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
     input,
     output;
 
-  register unsigned char
+   unsigned char
     *p;
 
   struct sigaction
