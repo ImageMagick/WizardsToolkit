@@ -24,7 +24,7 @@ m4_define([wizard_name], [WizardsToolkit])
 m4_define([wizard_major_version], [1])
 m4_define([wizard_minor_version], [0])
 m4_define([wizard_micro_version], [9])
-m4_define([wizard_patchlevel_version], [4])
+m4_define([wizard_patchlevel_version], [5])
 m4_define([wizard_base_version],
           [wizard_major_version.wizard_minor_version.wizard_micro_version])
 m4_define([wizard_version],
