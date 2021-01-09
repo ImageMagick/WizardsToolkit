@@ -759,9 +759,7 @@
 /* #undef NDEBUG */
 
 /* Name of package */
-#ifndef WIZARDSTOOLKIT_PACKAGE
-#define WIZARDSTOOLKIT_PACKAGE "WizardsToolkit"
-#endif
+/* #undef PACKAGE */
 
 /* Define to the address where bug reports for this package should be sent. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_BUGREPORT
@@ -920,9 +918,7 @@
 
 
 /* Version number of package */
-#ifndef WIZARDSTOOLKIT_VERSION
-#define WIZARDSTOOLKIT_VERSION "1.0.9-4"
-#endif
+/* #undef VERSION */
 
 /* Define if using the dmalloc debugging malloc package */
 /* #undef WITH_DMALLOC */

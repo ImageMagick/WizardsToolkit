@@ -505,7 +505,7 @@
 /* #undef NDEBUG */
 
 /* Name of package */
-#define PACKAGE "WizardsToolkit"
+/* #undef PACKAGE */
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "https://github.com/ImageMagick/WizardsToolkit/issues"
@@ -616,7 +616,7 @@
 
 
 /* Version number of package */
-#define VERSION "1.0.9-4"
+/* #undef VERSION */
 
 /* Define if using the dmalloc debugging malloc package */
 /* #undef WITH_DMALLOC */
