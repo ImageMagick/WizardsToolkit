@@ -3050,7 +3050,7 @@ ac_config_headers="$ac_config_headers config/config.h"
 
 
 
-ac_config_commands="$ac_config_commands wizard/wizard-config.h"
+ac_config_commands="$ac_config_commands wizard/wizard-baseconfig.h"
 
 # Make sure we can run config.sub.
 $SHELL "$ac_aux_dir/config.sub" sun4 >/dev/null 2>&1 ||
@@ -7845,7 +7845,7 @@ WIZARD_PATCHLEVEL_VERSION=4
 
 WIZARD_VERSION=1.0.9-4
 
-WIZARD_GIT_REVISION=917:691b945:20210108
+WIZARD_GIT_REVISION=924:ae2ddf3:20210109
 
 
 # Substitute library versioning
@@ -28172,7 +28172,7 @@ for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
     "config/config.h") CONFIG_HEADERS="$CONFIG_HEADERS config/config.h" ;;
-    "wizard/wizard-config.h") CONFIG_COMMANDS="$CONFIG_COMMANDS wizard/wizard-config.h" ;;
+    "wizard/wizard-baseconfig.h") CONFIG_COMMANDS="$CONFIG_COMMANDS wizard/wizard-baseconfig.h" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "WizardsToolkit-config.in") CONFIG_COMMANDS="$CONFIG_COMMANDS WizardsToolkit-config.in" ;;
@@ -28786,7 +28786,7 @@ $as_echo "$as_me: executing $ac_file commands" >&6;}
 
 
   case $ac_file$ac_mode in
-    "wizard/wizard-config.h":C) ac_prefix_conf_OUT=`echo wizard/wizard-config.h`
+    "wizard/wizard-baseconfig.h":C) ac_prefix_conf_OUT=`echo wizard/wizard-baseconfig.h`
 ac_prefix_conf_DEF=`echo _$ac_prefix_conf_OUT | sed -e "y:abcdefghijklmnopqrstuvwxyz:ABCDEFGHIJKLMNOPQRSTUVWXYZ:" -e "s/[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/_/g"`
 ac_prefix_conf_PKG=`echo WizardsToolkit`
 ac_prefix_conf_LOW=`echo _$ac_prefix_conf_PKG | sed -e "y:ABCDEFGHIJKLMNOPQRSTUVWXYZ-:abcdefghijklmnopqrstuvwxyz_:"`
