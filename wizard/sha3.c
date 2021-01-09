@@ -179,6 +179,7 @@ WizardExport SHA3Info *AcquireSHA3Info(const HashType hash)
     WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
+  (void) InitializeSHA3(sha_info);
   return(sha_info);
 }
 
@@ -596,7 +597,7 @@ WizardExport unsigned int GetSHA3Digestsize(const SHA3Info *sha_info)
 %                                                                             %
 %                                                                             %
 %                                                                             %
-%   I n i t i a l i z e S H A                                                 %
+%   I n i t i a l i z e S H A 3                                               %
 %                                                                             %
 %                                                                             %
 %                                                                             %
@@ -604,9 +605,9 @@ WizardExport unsigned int GetSHA3Digestsize(const SHA3Info *sha_info)
 %
 %  IntializeSHA3() intializes the SHA3 accumulator.
 %
-%  The format of the DestroySHA3Info method is:
+%  The format of the InitializeSHA3Info method is:
 %
-%      WizardBooleanType InitializeSHA3Info(SHA3Info *sha_info)
+%      WizardBooleanType InitializeSHA3(SHA3Info *sha_info)
 %
 %  A description of each parameter follows:
 %

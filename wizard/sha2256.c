@@ -130,7 +130,7 @@ WizardExport SHA2256Info *AcquireSHA2256Info(void)
     WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
-  InitializeSHA2256(sha_info);
+  (void) InitializeSHA2256(sha_info);
   return(sha_info);
 }
 

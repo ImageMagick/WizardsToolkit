@@ -131,7 +131,7 @@ WizardExport SHA1Info *AcquireSHA1Info(void)
     (*(char *) &lsb_first) == 1 ? WizardTrue : WizardFalse;
   sha_info->timestamp=time((time_t *) NULL);
   sha_info->signature=WizardSignature;
-  InitializeSHA1(sha_info);
+  (void) InitializeSHA1(sha_info);
   return(sha_info);
 }
 
