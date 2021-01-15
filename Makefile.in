@@ -729,7 +729,6 @@ CFLAGS = @CFLAGS@
 CONFIGURE_ARGS = @CONFIGURE_ARGS@
 CONFIGURE_DEPENDENCIES = @CONFIGURE_DEPENDENCIES@
 CONFIGURE_PATH = @CONFIGURE_PATH@
-CONFIG_STATUS_DEPENDENCIES = @CONFIG_STATUS_DEPENDENCIES@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CVS_BRANCH_TAG = @CVS_BRANCH_TAG@
@@ -1026,7 +1025,6 @@ TOP_EXTRA_DIST = \
 	NOTICE \
 	NEWS.txt \
 	index.html \
-	version.sh \
 	winpath.sh \
 	wizard.sh.in
 
@@ -2923,7 +2921,7 @@ wizard-version: wizard/version.h
 	fi ; \
 	touch wizard-version
 
-${srcdir}/configure: ${srcdir}/version.sh
+wizard/version.h: $(top_srcdir)/ChangeLog $(top_srcdir)/m4/version.m4
 libtool: $(LIBTOOL_DEPS)
 	$(SHELL) ./config.status --recheck
 

@@ -40,7 +40,7 @@ AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([foreign no-define color-tests parallel-tests -Wall -Wno-portability subdir-objects dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
 
 AM_SILENT_RULES([yes])
-AC_SUBST([CONFIGURE_DEPENDENCIES],["$CONFIGURE_DEPENDENCIES \$(top_srcdir)/ChangeLog \$(top_srcdir)/version.sh"])
+AC_SUBST([CONFIGURE_DEPENDENCIES],["$CONFIGURE_DEPENDENCIES \$(top_srcdir)/ChangeLog \$(top_srcdir)/m4/version.m4"])
 
 #
 # Save initial user-tunable values
@@ -58,17 +58,8 @@ AC_SUBST(DISTCHECK_CONFIG_FLAGS)
 CONFIGURE_ARGS="$0 ${ac_configure_args}"
 AC_SUBST(CONFIGURE_ARGS)
 
-AC_ARG_ENABLE([reproducible-build],
-    [AC_HELP_STRING([--enable-reproducible-build],
-                    [enable reproducible build])],
-    [enable_reproducible_build=$enableval],
-    [enable_reproducible_build='no'])
-
 # Ensure that make can run correctly
 AM_SANITY_CHECK
-
-# Source file containing package/library versioning information.
-. ${srcdir}/version.sh
 
 echo "Configuring ${PACKAGE_NAME} ${PACKAGE_VERSION}"
 
@@ -121,9 +112,9 @@ AC_SUBST([WIZARD_VERSION],[wizard_version])
 AC_SUBST([WIZARD_GIT_REVISION],[wizard_git_revision])
 
 # Substitute library versioning
-AC_SUBST(WIZARD_LIBRARY_CURRENT)dnl
-AC_SUBST(WIZARD_LIBRARY_REVISION)dnl
-AC_SUBST(WIZARD_LIBRARY_AGE)dnl
+AC_SUBST([WIZARD_LIBRARY_CURRENT],[wizard_library_current])dnl
+AC_SUBST([WIZARD_LIBRARY_REVISION],[wizard_library_revision])dnl
+AC_SUBST([WIZARD_LIBRARY_AGE],[wizard_library_age])dnl
 AC_SUBST([WIZARD_LIBRARY_CURRENT_MIN],
          [`expr $WIZARD_LIBRARY_CURRENT - $WIZARD_LIBRARY_AGE`])
 AC_SUBST([WIZARD_LIBRARY_VERSION_INFO],
@@ -134,11 +125,7 @@ AC_SUBST([PACKAGE_PATCHLEVEL_VERSION],[wizard_patchlevel_version])
 AC_SUBST([PACKAGE_VERSION_ADDENDUM],[-wizard_patchlevel_version])
 AC_SUBST([PACKAGE_LIB_VERSION],[wizard_lib_version])
 AC_SUBST([PACKAGE_LIB_VERSION_NUMBER],[wizard_lib_version_number])
-AS_IF([test X$enable_reproducible_build = Xyes],
- [PACKAGE_RELEASE_DATE=$PACKAGE_RELEASE_DATE_REPRODUCIBLE],
- [PACKAGE_RELEASE_DATE=$PACKAGE_RELEASE_DATE_RAW],
-)
-AC_SUBST([PACKAGE_RELEASE_DATE])dnl
+AC_SUBST([PACKAGE_RELEASE_DATE],[wizard_release_date])
 
 # Substitute CVS branch tag
 AC_SUBST(CVS_BRANCH_TAG)dnl
@@ -166,9 +153,6 @@ AC_SUBST(WIZARD_LIB_VERSION_TEXT)
 # Definition used to define WizardLibVersionNumber in version.h
 WIZARD_LIB_VERSION_NUMBER="${WIZARD_LIBRARY_CURRENT},${WIZARD_LIBRARY_AGE},${WIZARD_LIBRARY_REVISION}"
 AC_SUBST(WIZARD_LIB_VERSION_NUMBER)
-
-# Regenerate config.status if ChangeLog or version.sh is updated.
-AC_SUBST([CONFIG_STATUS_DEPENDENCIES],['$(top_srcdir)/version.sh'])
 
 WIZARD_CFLAGS=''
 WIZARD_CPPFLAGS=$CPPFLAGS_USER

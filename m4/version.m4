@@ -30,11 +30,32 @@ m4_define([wizard_lib_version],[0x109])
 m4_define([wizard_lib_version_number],
           [wizard_major_version,wizard_minor_version,wizard_micro_version,wizard_patchlevel_version])
 m4_define([wizard_git_revision],
-          esyscmd([
+          m4_esyscmd([
             c=$(git log --full-history --format=tformat:. HEAD | wc -l)
             h=$(git rev-parse --short HEAD)
             d=$(date +%Y%m%d)
             printf %s "$c:$h:$d"
           ]))
 m4_define([wizard_tarname],[WizardsToolkit])
+m4_define([wizard_release_date],
+          m4_esyscmd([
+            d=$(date +%F -r ./ChangeLog)
+            printf %s "$d"
+          ]))
 
+#
+# If the library source code has changed at all since the last update,
+# increment revision (‘c:r:a’ becomes ‘c:r+1:a’).  If any interfaces have been
+# added, removed, or changed since the last update, increment current, and set
+# revision to 0.  If any interfaces have been added since the last public
+# release, then increment age.  If any interfaces have been removed or changed
+# since the last public release, then set age to 0.
+#
+# PLEASE NOTE that doing a SO BUMP aka raising the CURRENT REVISION
+# could be avoided using libversioning aka map files.  You MUST change .map
+# files if you raise these versions.
+#
+# Bump the minor release # whenever there is an SOVersion bump.
+m4_define([wizard_library_current],[1])
+m4_define([wizard_library_revision],[1])
+m4_define([wizard_library_age],[0])

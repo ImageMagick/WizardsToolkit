@@ -92,7 +92,6 @@ TOP_EXTRA_DIST = \
 	NOTICE \
 	NEWS.txt \
 	index.html \
-	version.sh \
 	winpath.sh \
 	wizard.sh.in
 
@@ -232,7 +231,7 @@ wizard-version: wizard/version.h
 	fi ; \
 	touch wizard-version
 
-${srcdir}/configure: ${srcdir}/version.sh
+wizard/version.h: $(top_srcdir)/ChangeLog $(top_srcdir)/m4/version.m4
 
 # Automatically reconfigure libtool
 LIBTOOL_DEPS = @LIBTOOL_DEPS@
