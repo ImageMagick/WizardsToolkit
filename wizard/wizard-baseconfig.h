@@ -758,9 +758,6 @@
 /* Define to 1 if assertions should be disabled. */
 /* #undef NDEBUG */
 
-/* Name of package */
-/* #undef PACKAGE */
-
 /* Define to the address where bug reports for this package should be sent. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_BUGREPORT
 #define WIZARDSTOOLKIT_PACKAGE_BUGREPORT "https://github.com/ImageMagick/WizardsToolkit/issues"
@@ -773,7 +770,7 @@
 
 /* Define to the full name and version of this package. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_STRING
-#define WIZARDSTOOLKIT_PACKAGE_STRING "WizardsToolkit 1.0.9-4"
+#define WIZARDSTOOLKIT_PACKAGE_STRING "WizardsToolkit 1.0.9-5"
 #endif
 
 /* Define to the one symbol short name of this package. */
@@ -788,7 +785,7 @@
 
 /* Define to the version of this package. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_VERSION
-#define WIZARDSTOOLKIT_PACKAGE_VERSION "1.0.9-4"
+#define WIZARDSTOOLKIT_PACKAGE_VERSION "1.0.9-5"
 #endif
 
 /* Define to necessary symbol if this constant uses a non-standard name on
@@ -916,9 +913,6 @@
 # define __EXTENSIONS__ 1
 #endif
 
-
-/* Version number of package */
-/* #undef VERSION */
 
 /* Define if using the dmalloc debugging malloc package */
 /* #undef WITH_DMALLOC */
