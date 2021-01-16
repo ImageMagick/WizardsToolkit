@@ -12,36 +12,18 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-#  ImageMagick versioning
+#  WizardsToolkit versioning.
 #
 m4_define([wizard_name], [WizardsToolkit])
 m4_define([wizard_major_version], [1])
 m4_define([wizard_minor_version], [0])
 m4_define([wizard_micro_version], [9])
 m4_define([wizard_patchlevel_version], [5])
-m4_define([wizard_base_version],
-          [wizard_major_version.wizard_minor_version.wizard_micro_version])
-m4_define([wizard_version],
-          [wizard_base_version-wizard_patchlevel_version])
 m4_define([wizard_bugreport], 
           [https://github.com/ImageMagick/WizardsToolkit/issues])
 m4_define([wizard_url], [https://urban-warrior.org])
 m4_define([wizard_lib_version],[0x109])
-m4_define([wizard_lib_version_number],
-          [wizard_major_version,wizard_minor_version,wizard_micro_version,wizard_patchlevel_version])
-m4_define([wizard_git_revision],
-          m4_esyscmd([
-            c=$(git log --full-history --format=tformat:. HEAD | wc -l)
-            h=$(git rev-parse --short HEAD)
-            d=$(date +%Y%m%d)
-            printf %s "$c:$h:$d"
-          ]))
 m4_define([wizard_tarname],[WizardsToolkit])
-m4_define([wizard_release_date],
-          m4_esyscmd([
-            d=$(date +%F -r ./ChangeLog)
-            printf %s "$d"
-          ]))
 
 #
 # If the library source code has changed at all since the last update,
