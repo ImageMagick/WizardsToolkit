@@ -33,7 +33,7 @@
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-  We provide these memory allocators:
+%  We provide these memory allocators:
 %
 %    AcquireCriticalMemory(): allocate a small memory request with
 %      AcquireMagickMemory(), however, on fail throw a fatal exception and exit.

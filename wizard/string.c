@@ -10,7 +10,7 @@
 %                  SSSSS     T    R  R   IIIII  N   N   GGGG                  %
 %                                                                             %
 %                                                                             %
-%                        Wizard's Toolkit String Methods                      %
+%                       Wizard's Toolkit String Methods                       %
 %                                                                             %
 %                             Software Design                                 %
 %                                 Cristy                                      %
@@ -38,7 +38,7 @@
 */
 
 /*
-  Inc.,de declarations.
+  Include declarations.
 */
 #include "wizard/studio.h"
 #include "wizard/blob.h"
