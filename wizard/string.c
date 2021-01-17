@@ -599,7 +599,8 @@ WizardExport StringInfo *ConfigureFileToStringInfo(const char *filename)
       (void) lseek(file,0,SEEK_SET);
       for (i=0; i < length; i+=count)
       {
-        count=read(file,string+i,(size_t) WizardMin(length-i,SSIZE_MAX));
+        count=read(file,string+i,(size_t) WizardMin(length-i,(size_t)
+          SSIZE_MAX));
         if (count <= 0)
           {
             count=0;
@@ -1204,9 +1205,9 @@ WizardExport WizardSizeType GetStringInfoCRC(const StringInfo *string_info)
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
   crc_info=AcquireCRC64Info();
-  InitializeCRC64(crc_info);
-  UpdateCRC64(crc_info,string_info);
-  FinalizeCRC64(crc_info);
+  (void) InitializeCRC64(crc_info);
+  (void) UpdateCRC64(crc_info,string_info);
+  (void) FinalizeCRC64(crc_info);
   crc=GetCRC64CyclicRedundancyCheck(crc_info);
   crc_info=DestroyCRC64Info(crc_info);
   return(crc);
