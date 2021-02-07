@@ -1,156 +1,106 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+
+
+
+
+<!doctype html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="verify-v1" content="g222frIIxcQTrvDR3NBRUSKP3AnMNoqxOkIniCEkV7U="/>
-  <title>Wizard's Toolkit: Encipher and Decipher Content</title>
-  <meta http-equiv="Content-Language" content="en-US"/>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta http-equiv="Reply-to" content="magick-users@imagemagick.org"/>
-  <meta name="Application-name" content="Wizard's Toolkit"/>
-  <meta name="Description" content="The Wizard's Toolkit converts plaintext to ciphertext and back, reports properties about ciphertext, and computes and authenticates message digests."/>
-  <meta name="Application-url" content="http://www.wizards-toolkit.org"/>
-  <meta name="Generator" content="PHP"/>
-  <meta name="Keywords" content="encipher, decipher, content, WizardsToolkit, Wizard's, Toolkit"/>
-  <meta name="Rating" content="GENERAL"/>
-  <meta name="Robots" content="INDEX, FOLLOW"/>
-  <meta name="Generator" content="ImageMagick Studio LLC"/>
-  <meta name="Author" content="ImageMagick Studio LLC"/>
-  <meta name="Revisit-after" content="2 DAYS"/>
-  <meta name="Resource-type" content="document"/>
-  <meta name="Copyright" content="Copyright (c) 1999-2021 ImageMagick Studio LLC"/>
-  <meta name="Distribution" content="Global"/>
-  <link rel="icon" href="images/wand.png"/>
-  <link rel="shortcut icon" href="images/wand.ico"  type="images/x-icon"/>
-  <link rel="meta" type="application/rdf+xml" title="ICI" href="http://imagemagick.org/ici.rdf"/>
-  <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
-  <style type="text/css" media="all">
-    @import url("www/www/www/www/wizard.css");
-  </style>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-  <script type="text/javascript" src="fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-  <link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $("a[href$=.jpg],a[href$=.png],a[href$=.gif]").fancybox({
-        'transitionIn'  : 'elastic',
-        'transitionOut' : 'elastic',
-        'overlayShow'   : false,
-        'opacity'       : true
-      });
-    });
-  </script>
+  <meta charset="utf-8"  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"  />
+  <title>Wizard's Toolkit - Convert Plaintext To Ciphertext And Back</title>
+  <meta name="application-name" content="Wizard's Toolkit" />
+  <meta name="description" content="Use the Wizard's Toolkit to convert plaintext to ciphertext and back, reports properties about ciphertext, and computes and authenticates message digests." />
+  <meta name="application-url" content="https://urban-warrior.org" />
+  <meta name="generator" content="PHP" />
+  <meta name="keywords" content="convert, plaintext, to, ciphertext, back, Wizards Toolkit encipher decipher crytography" />
+  <meta name="rating" content="GENERAL" />
+  <meta name="robots" content="INDEX, FOLLOW" />
+  <meta name="generator" content="ImageMagick Studio LLC" />
+  <meta name="author" content="ImageMagick Studio LLC" />
+  <meta name="revisit-after" content="2 DAYS" />
+  <meta name="resource-type" content="document" />
+  <meta name="copyright" content="Copyright (c) 1999-2020 ImageMagick Studio LLC" />
+  <meta name="distribution" content="Global" />
+  <meta name="magick-serial" content="P131-S030410-R485315270133-P82224-A6668-G1245-1" />
+  <meta property='og:url' content='./' />
+  <meta property='og:title' content='Wizard\'s Toolkit' />
+  <meta property='og:image' content='./images/logo.png' />
+  <meta property='og:type' content='website' />
+  <meta property='og:site_name' content='Wizard\'s Toolkit' />
+  <meta property='og:description' content="Create, Edit, Compose, or Convert Digital Images" />
+  <meta name="google-site-verification" content="_bMOCDpkx9ZAzBwb2kF3PRHbfUUdFj2uO8Jd1AXArz4" />
+  <link href="index.html" rel="canonical" />
+  <link href="images/wand.png" rel="icon" />
+  <link href="images/wand.ico" rel="shortcut icon" />
+  <link href="www/assets/magick.css" rel="stylesheet" />
 </head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><img class="d-block" id="icon" alt="Wizard's Toolkit" width="32" height="32" src="WizardsToolkit/images/wand.ico"/></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#magick-navbars" aria-controls="magick-navbars" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<body id="www-wizards-toolkit-org">
-<div class="titlebar">
-<div style="margin: 17px auto; float: left;">
-  <script type="text/javascript">
-  <!--
-    google_ad_client = "pub-3129977114552745";
-    google_ad_slot = "5439289906";
-    google_ad_width = 728;
-    google_ad_height = 90;
-  //-->
-  </script>
-  <script type="text/javascript"
-    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-  </script>
-</div>
-<a href="http://www.wizards-toolkit.org/discourse-server/viewforum.html?f=17">
-  <img src="images/logo.jpg"
-  alt="Wizard's Toolkit Logo"
-  style="width: 114px; height: 118px; border: 0px; float: right;" /></a>
-<a href="index.html">
-  <img src="images/sprite.jpg"
-  alt="Wizard's Toolkit Sprite"
-  style="width: 114px; height: 118px; border: 0px; float: right;" /></a>
-</div>
-<div class="westbar">
+    <div class="collapse navbar-collapse" id="magick-navbars">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item ">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="www/download.html">Download</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="www/command-line-tools.html">Tools</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="www/command-line-options.html">CLI Options</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" target="_blank" href="https://github.com/ImageMagick/WizardsToolkit/discussions">Community</a>
+        </li>
+        <li class="nav-item">
+            
+        </li>
+        <li class="nav-item">
+          <iframe src="https://github.com/sponsors/ImageMagick/button" title="Sponsor Wizard's Toolkit" height="35" width="107" style="border: 0;"></iframe>
+        </li>
+      </ul>
+      <form class="d-flex" action="./www/search.html">
+        <input class="form-control me-2" type="text" name="q" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit" name="sa">Search</button>
+      </form>
+    </div>
+  </div>
+  </nav>
 
-<div class="menu">
-  <a href="index.html">About the Wizard's Toolkit</a>
-</div>
-<div class="sep"></div>
-<div class="menu">
-  <a href="www/binary-releases.html">Binary Releases</a>
-</div>
-<div class="sub">
-    <a href="www/binary-releases.html#unix">Unix</a>
-</div>
-<div class="sub">
-    <a href="www/binary-releases.html#macosx">Mac OS X</a>
-</div>
-<div class="sub">
-    <a href="www/binary-releases.html#windows">Windows</a>
-</div>
-<div class="menu">
-  <a href="www/command-line-tools.html">Command-line Tools</a>
-</div>
-<div class="sub">
-    <a title="Command-line Tools: Options" href="www/command-line-options.html">Options</a>
-</div>
-<div class="sep"></div>
-<div class="menu">
-  <a href="www/api.html">Application Program Interface</a>
-</div>
-<div class="sep"></div>
-<div  class="menu">
-   <a href="www/install-source.html">Install from Source</a>
-</div>
-<div class="sub">
-    <a href="www/install-source.html#unix">Unix</a>
-</div>
-<div class="sub">
-    <a href="www/install-source.html#windows">Windows</a>
- </div>
-<div class="sep"></div>
-<div class="menu">
-  <a href="www/download.html">Download</a>
-</div>
-<div class="sep"></div>
-<div class="menu">
-  <a href="www/search.html">Search</a>
-</div>
-<div class="sep"></div>
-<div  class="menu">
-  <a href="www/sponsors.html">Sponsors:</a>
+  <div class="container">
+    <script async="async" src="https://localhost/pagead/js/adsbygoogle.js"></script>    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-3129977114552745"
+      data-ad-slot="6345125851"
+      data-full-width-responsive="true"
+      data-ad-format="horizontal"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 
-<a href="http://www.wizards-toolkit.org/">
-  <img src="images/networkredux.png" alt="[sponsor]"
-  style="margin-top: 4px; margin-left: 4px; border: 0px; float: left;" /></a>
-<div class="sponsbox">
-<div  class="sponsor">
-  <a title="Sponsor: Best Web Hosting" href="http://webhostinggeeks.com">Best Web Hosting</a><!-- 201110010720 -->
-</div>
-<div  class="sponsor">
-  <a title="Sponsor: Web Hosting Ratings" href="http://webhostingrating.com">Web Hosting Ratings</a><!-- 201110010720 -->
-</div>
-</div>
-</div>
-</div>
+  </div>
 
-<div class="eastbar">
-</div>
+  <main class="container">
+  <div class="magick-template">
+<div class="magick-header">
+<h1 class="text-center">Wizard's Toolkit</h1>
+<p class="lead magick-description"><a href="WizardsToolkit/images/wizard.png" title="And Now a Touch of Magick"><img class="img-fluid magick-icon" id="logo" alt="And Now a Touch of Magick" width="265" height="352" src="WizardsToolkit/images/wizard.jpg" /></a> 
+The Wizard's Toolkit provides command-line utilities to convert plaintext to ciphertext, convert ciphertext to plaintext, report properties associated with ciphertext, compute the message digest of a file, and read message digests from a file and authenticate them. In addition, the Wizard's Toolkit includes a cross-platform C API that includes a number of encryption and hash methods many developers should find useful in their projects.</p>
 
-<div class="main">
+<p>Wizard's Toolkit is free software delivered as a ready-to-run binary distribution or as source code that you may use, copy, modify, and distribute in both open and proprietary applications. It is distributed under a derived Apache 2.0 <a href="./www/license.html">license</a>.</p>
 
-<h1>Convert Plaintext to Ciphertext and Back</h1>
-<p class="navigation-index">[<a href="#features">Features and Capabilities</a>]</p>
-<div class="doc-section">
-<p>The Wizard's Toolkit includes command line utilities to convert plaintext to ciphertext, convert ciphertext to plaintext, report properties associated with ciphertext, compute the message digest of a file, and read message digests from a file and authenticate them. In addition, the Wizard's Toolkit includes a a cross-platform C API that includes a number of encryption and hash methods many developers should find useful in their projects.</p>
+<p>The current release is Wizard's Toolkit <a href="www/download.html">1.0.9-4</a>.  It runs on <a href="WizardsToolkit/www/download.html#unix">Linux</a>, <a href="WizardsToolkit/www/download.html#windows">Windows</a>, <a href="WizardsToolkit/www/download.html#macosx">Mac Os X</a>, iOS, Android OS, and others.</p>
 
-<p>The Wizard's Toolkit is free software delivered as a ready-to-run binary distribution or as source code that you may freely use, copy, modify, and distribute in both open and proprietary applications. It is distributed under the Apache 2.0 <a href="http://www.wizards-toolkit.org/www/license.html" rel="license">license</a>,  approved by the <a href="http://www.opensource.org/">OSI</a> and recommended for use by the <a href="http://www.osscc.net/">OSSCC</a>.</p>
+<p>The authoritative Wizard's Toolkit web site is <a href="index.html">https://urban-warrior.org</a>. The authoritative source code repository is <a href="https://github.com/ImageMagick/WizardsToolkit" target="_blank">https://github.com/ImageMagick/WizardsToolkit</a>.
 
-<p>The Wizard's Toolkit development process ensures a stable API and ABI. Before each Wizard's Toolkit release, we perform a comprehensive security assessment that includes <a href="http://www.valgrind.org">memory and thread</a> error detection to prevent security vulnerabilities.</p>
-</div>
-
-
-<div style="margin: auto;">
-  <h2><a id="features"></a>Features and Capabilities</h2>
-</div>
-<div class="doc-section">
+<h2><a class="anchor" id="features"></a>Features and Capabilities</h2>
 <p>Here are just a few examples of what the Wizard's Toolkit command line utilities can do:</p>
 
 <ul style="font-size: 90%;">
@@ -169,7 +119,7 @@
   <li>Write/read characters, shorts, words, and long words to/from a file</li>
   <li>Compute a cyclic redundancy checksum</li>
   <li>Handle C exceptions</li>
-  <li>Generate a secure hash (includes MD5, SHA-1, SHA-224, SHA-256, SHA-384, and SHA-512)</li>
+  <li>Generate a secure hash (includes MD5, SHA-1, SHA 2, and SHA 3)</li>
   <li>Generate a keyed-hash for message authentication</li>
   <li>Encrypt/decrypt messages (includes AES, Serpent, and Twofish)</li>
   <li>Authenticate a user (only secret-key supported at this time)</li>
@@ -187,29 +137,33 @@
 </ul>
 </div>
 
+
 </div>
-
-<div id="linkbar">
-    <span id="linkbar-west">&nbsp;</span>
-    <span id="linkbar-center">
-      <a href="http://www.imagemagick.org/discourse-server/viewforum.html?f=17">Discourse Server</a>
-    </span>
-    <span id="linkbar-east">&nbsp;</span>
   </div>
-  <div class="footer">
-    <span id="footer-west">&copy; 1999-2021 ImageMagick Studio LLC</span>
-  </div>
-  <div style="clear: both; margin: 0; width: 100%; "></div>
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-17690367-1']);
-    _gaq.push(['_trackPageview']);
+  </main><!-- /.container -->
+  <footer class="magick-footer">
+    <div class="container-fluid">
+      <a href="./www/security-policy.html">Security</a> •
+      <a href="./www/news.html">News</a>
+     
+      <a href="index.html#"><img class="d-inline" id="wand" alt="And Now a Touch of Magick" width="16" height="16" src="WizardsToolkit/images/wand.ico"/></a>
+     
+      <a href="./www/links.html">Related</a> •
+      <a href="./www/sitemap.html">Sitemap</a>
+   <br/>
+     <a href="./www/support.html">Sponsor</a> •
+     <a href="./www/cite.html">Cite</a> •
+     <a href="http://pgp.mit.edu/pks/lookup?op=get&amp;search=0x89AB63D48277377A">Public Key</a> •
+     <a href="www/https://urban-warrior.org/script/contact.php">Contact Us</a>
+   <br/>
+     <a href="https://github.com/imagemagick/imagemagick" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 499.36" width="2%" height="2%" role="img" focusable="false"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"/></svg></a> •
+     <a href="https://twitter.com/imagemagick" target="_blank" rel="noopener" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 416.32" width="2%" height="2%" role="img" focusable="false"><title>Twitter</title><path fill="currentColor" d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"/></svg></a>
+   <br/>
+    <small>© 1999-2021 ImageMagick Studio LLC</small>
+    <div>
+  </footer>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-</body>
+  <!-- Javascript assets -->
+  <script src="www/assets/magick.js" ></script>
+  </body>
 </html>

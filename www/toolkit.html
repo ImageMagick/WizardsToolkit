@@ -7,12 +7,12 @@
 <head>
   <meta charset="utf-8"  />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"  />
-  <title>Wizard's Toolkit - Contact the Development Team</title>
+  <title>Wizard's Toolkit - Wizard's Toolkit, Low-level C API</title>
   <meta name="application-name" content="Wizard's Toolkit" />
   <meta name="description" content="Use the Wizard's Toolkit to convert plaintext to ciphertext and back, reports properties about ciphertext, and computes and authenticates message digests." />
   <meta name="application-url" content="https://urban-warrior.org" />
   <meta name="generator" content="PHP" />
-  <meta name="keywords" content="contact, the, development, team, Wizards Toolkit encipher decipher crytography" />
+  <meta name="keywords" content="wizard's, toolkit, low-level, c, api, Wizards Toolkit encipher decipher crytography" />
   <meta name="rating" content="GENERAL" />
   <meta name="robots" content="INDEX, FOLLOW" />
   <meta name="generator" content="ImageMagick Studio LLC" />
@@ -29,7 +29,7 @@
   <meta property='og:site_name' content='Wizard\'s Toolkit' />
   <meta property='og:description' content="Create, Edit, Compose, or Convert Digital Images" />
   <meta name="google-site-verification" content="_bMOCDpkx9ZAzBwb2kF3PRHbfUUdFj2uO8Jd1AXArz4" />
-  <link href="https://urban-warrior.org/script/contact.php" rel="canonical" />
+  <link href="toolkit.html" rel="canonical" />
   <link href="../images/wand.png" rel="icon" />
   <link href="../images/wand.ico" rel="shortcut icon" />
   <link href="assets/magick.css" rel="stylesheet" />
@@ -90,64 +90,101 @@
   <main class="container">
   <div class="magick-template">
 <div class="magick-header">
-  <div>
-  <h1 class="text-center">Contact the Wizards</h1>
-  <p class="lead magick-description">Post here for any of the issues listed below.  You can expect a response from our team if your issue is a sponsorship, <a href="../www/license.html">license</a>, security, or paid support issue.  If you require a response for any other issue, post to the ImageMagick public <a href="https://github.com/ImageMagick/WizardsToolkit/discussions">forums</a>.  You can also post bug reports to the <a href="https://github.com/ImageMagick/WizardsToolkit/issues">issues</a> forum.  Note, we do <u>not</u> offer sponsored links <u>nor do we respond to solicitations</u>.</p>
-  <fieldset>
-  <h2>Contact the Wizards</h2>
-	<p>Enter this code, <code>
-1bf0c1</code>, in the Authenticate field and fill in the remaining fields.  Press Send to forward your message to the ImageMagick wizards:</p>
-  <br/>
-  <form method="post" name="post" id="post" action="https://urban-warrior.org/script/contact.php" enctype="application/x-www-form-urlencoded">
-  <div class="table-responsive" style="font-size:87.5% !important;">
-  <table class="table table-sm table-hover">
-    <tr>
-      <td><label id="authenticate" title="Your authentication code">Authenticate</label></td>
-        <td valign="top"><input type="text" name="authenticate" size="32" maxlength="255" value="" /></td>
-    </tr>
+<h1 class="text-center">Wizard's Toolkit API for C</h1>
+<p  class="lead magick-description">The <a href="api/WizardsToolkit/index.html">Wizard's Toolkit API</a>  is a low-level interface between the C programming language and the Toolkit's libraries.  A description of the public methods are found here:</p>
 
-    <tr>
-      <td><label id="e-mail" title="Without a valid e-mail address, we cannot respond to your message">E-mail</label></td>
-        <td valign="top"><input type="text" name="address" size="32" maxlength="255" value="" /></td>
-    </tr>
+<ul>
+  <li><a href="../WizardsToolkit/api/aes.html">American Encryption Standard Methods</a></li>
+  <li><a href="../WizardsToolkit/api/authenticate.html">Authentication Methods</a></li>
+  <li><a href="../WizardsToolkit/api/blob.html">Binary Large OBjectS Methods</a></li>
+  <li><a href="../WizardsToolkit/api/bzip.html">Bzip Entropy Methods</a></li>
+  <li><a href="../WizardsToolkit/api/client.html">Client Methods</a></li>
+  <li><a href="../WizardsToolkit/api/crc64.html">Cyclic Redunancy Checksum Methods</a></li>
+  <li><a href="../WizardsToolkit/api/cipher.html">Secure Cipher Methods</a></li>
+  <li><a href="../WizardsToolkit/api/entropy.html">Entropy Methods</a></li>
+  <li><a href="../WizardsToolkit/api/exception.html">Exception Methods</a></li>
+  <li><a href="../WizardsToolkit/api/file.html">File Methods</a></li>
+  <li><a href="../WizardsToolkit/api/hash.html">Secure Hash Algorithm Methods</a></li>
+  <li><a href="../WizardsToolkit/api/hashmap.html">Hash-map and Linked-list Methods</a></li>
+  <li><a href="../WizardsToolkit/api/hmac.html">Keyed-Hashing for Message Authentication</a></li>
+  <li><a href="../WizardsToolkit/api/key.html">Key Methods</a></li>
+  <li><a href="../WizardsToolkit/api/keyring.html">Keyring Methods</a></li>
+  <li><a href="../WizardsToolkit/api/lzma.html">LZMA Entropy Methods</a></li>
+  <li><a href="../WizardsToolkit/api/log.html">Log Events</a></li>
+  <li><a href="../WizardsToolkit/api/magick.html">Wizard Methods</a></li>
+  <li><a href="../WizardsToolkit/api/md5.html">Message Digest Algorithm Methods</a></li>
+  <li><a href="../WizardsToolkit/api/memory.html">Memory Allocation Methods</a></li>
+  <li><a href="../WizardsToolkit/api/mime.html">Mime Methods</a></li>
+  <li><a href="../WizardsToolkit/api/option.html">Option Methods</a></li>
+  <li><a href="../WizardsToolkit/api/passphrase.html">Passphrase Methods</a></li>
+  <li><a href="../WizardsToolkit/api/random.html">Random Numbers Methods</a></li>
+  <li><a href="../WizardsToolkit/api/resource.html">Get/Set Resources</a></li>
+  <li><a href="../WizardsToolkit/api/sanitize.html">Environment Sanitization Methods</a></li>
+  <li><a href="../WizardsToolkit/api/secret.html">Secret Authentication Methods</a></li>
+  <li><a href="../WizardsToolkit/api/semaphore.html">Semaphore Methods</a></li>
+  <li><a href="../WizardsToolkit/api/sha1.html">Secure Hash Algorithm 1 Methods</a></li>
+  <li><a href="../WizardsToolkit/api/sha2224.html">Secure Hash Algorithm 2-224 Methods</a></li>
+  <li><a href="../WizardsToolkit/api/sha2256.html">Secure Hash Algorithm 2-256 Methods</a></li>
+  <li><a href="../WizardsToolkit/api/sha2384.html">Secure Hash Algorithm 2-384 Methods</a></li>
+  <li><a href="../WizardsToolkit/api/sha2512.html">Secure Hash Algorithm 2-512 Methods</a></li>
+  <li><a href="../WizardsToolkit/api/sha3.html">Secure Hash Algorithm 3 Methods</a></li>
+  <li><a href="../WizardsToolkit/api/splay-tree.html">Self-adjusting Binary Tree Methods</a></li>
+  <li><a href="../WizardsToolkit/api/serpent.html">Serpent Cipher Methods</a></li>
+  <li><a href="../WizardsToolkit/api/string.html">String Methods</a></li>
+  <li><a href="../WizardsToolkit/api/timer.html">Timing Methods</a></li>
+  <li><a href="../WizardsToolkit/api/token.html">Token Methods</a></li>
+  <li><a href="../WizardsToolkit/api/twofish.html">TwoFish Cipher Methods</a></li>
+  <li><a href="../WizardsToolkit/api/version.html">Version Methods</a></li>
+  <li><a href="../WizardsToolkit/api/xml-tree.html">XML Parser Methods</a></li>
+  <li><a href="../WizardsToolkit/api/zip.html">Zip Entropy Methods</a></li>
+</ul>
 
-    <tr>
-      <td><label id="name" title="Your name or nickname">Name</label></td>
-        <td valign="top"><input type="text" name="name" size="32" maxlength="255" value="" /></td>
-    </tr>
+<p>After you write your Toolkit program, compile it like this:</p>
 
-    <tr>
-      <td><label id="issues" title="We only accept these issues">Issue</label></td>
-    <td valign="top"><select name="issue" >
-<option value="">Choose an appropriate issue</option>
-<option value="Bug Report">Bug Report</option>
-<option value="ImageMagick Mirror">ImageMagick Mirror</option>
-<option value="Source or Documentation Patch">Source or Documentation Patch</option>
-<option value="Website Suggestion">Website Suggestion</option>
-<option value="Security Issue">Security Issue</option>
-<option value="License or Export Classification Issue">License or Export Classification Issue</option>
-<option value="ImageMagick Support ($$)">ImageMagick Support ($$)</option>
-<option value="ImageMagick Donation">ImageMagick Donation</option>
-</select></td>
-    </tr>
+<pre class="text">
+  cc `WizardsToolkit-config --cflags --cppflags` -o wizard wizard.c `WizardsToolkit-config --ldflags --libs`
+</pre>
 
-    <tr>
-      <td><label id="message" title="Your message must directly relate to the issue, otherwise do not expect a response">Message</label></td>
-      <td><textarea style="font-size: 90%;" rows="24" cols="80" name="message"></textarea></td>
-    </tr>
+<p>Here is a example program that utilizes the Wizard's Toolkit API to get you started, <a href="https://urban-warrior.org/source/wizard.c">wizard.c</a>. It simply computes and prints the Secure Hash Algorithm 2, with a 512-bit digest, of a string.</p>
 
-    <tr>
-      <td colspan="2" style="text-align: center"><br />
-        <input type="submit" name="action" value="Send" />
-        <input type="reset" name="Reset" value="Clear" />
-      </td>
-    </tr>
-  </table>
-  </div>
-  </form>
-  </fieldset>
-  </div>
-  <br />
+<div class="viewport">
+  #include &lt;stdio.h>
+  #include &lt;wizard/WizardsToolkit.h>
+  
+  int main(int argc,char **argv)
+  {
+    HashInfo
+      *hash_info;
+  
+    StringInfo
+      *content;
+  
+    /*
+      Initialize the Wizard's Toolkit.
+    */
+    WizardsToolkitGenesis(*argv);
+    /*
+      Compute hash digest of a message.
+    */
+    hash_info=AcquireHashInfo(SHA2512Hash);
+    InitializeHash(hash_info);
+    content=StringToStringInfo("The Wizard's Toolkit");
+    UpdateHash(hash_info,content);
+    FinalizeHash(hash_info);
+    /*
+      Print the hash digest of the message.
+    */
+    PrintStringInfo("Content",content);
+    PrintStringInfo("Digest",GetHashDigest(hash_info));
+    /*
+      Clean up.
+    */
+    DestroyHashInfo(hash_info);
+    DestroyStringInfo(content);
+    WizardsToolkitTerminus();
+    return(0);
+  }
+</div>
 </div>
   </div>
   </main><!-- /.container -->
@@ -156,7 +193,7 @@
       <a href="../WizardsToolkit/www/security-policy.html">Security</a> •
       <a href="../WizardsToolkit/www/news.html">News</a>
      
-      <a href="https://urban-warrior.org/script/contact.php#"><img class="d-inline" id="wand" alt="And Now a Touch of Magick" width="16" height="16" src="../images/wand.ico"/></a>
+      <a href="toolkit.html#"><img class="d-inline" id="wand" alt="And Now a Touch of Magick" width="16" height="16" src="../images/wand.ico"/></a>
      
       <a href="../WizardsToolkit/www/links.html">Related</a> •
       <a href="../WizardsToolkit/www/sitemap.html">Sitemap</a>
