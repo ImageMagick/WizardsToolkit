@@ -191,7 +191,7 @@ static WizardBooleanType GetPhrase(const char *prompt,PassphraseMode flags,
   (void) sigaction(SIGTTOU,&action,&sigttou);
   if ((input == STDIN_FILENO) || (tcgetattr(input,&save_attributes) != 0))
     {
-      (void) ResetWizardMemory(&attributes,0,sizeof(attributes));
+      (void) memset(&attributes,0,sizeof(attributes));
       attributes.c_lflag|=ECHO;
       (void) CopyWizardMemory(&save_attributes,&attributes,sizeof(attributes));
     }

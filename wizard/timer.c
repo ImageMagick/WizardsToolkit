@@ -106,7 +106,7 @@ WizardExport TimerInfo *AcquireTimerInfo(void)
   timer_info=(TimerInfo *) AcquireWizardMemory(sizeof(*timer_info));
   if (timer_info == (TimerInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
-  (void) ResetWizardMemory(timer_info,0,sizeof(*timer_info));
+  (void) memset(timer_info,0,sizeof(*timer_info));
   timer_info->signature=WizardSignature;
   GetTimerInfo(timer_info);
   return(timer_info);

@@ -165,7 +165,7 @@ WizardExport SemaphoreInfo *AcquireSemaphoreInfo(void)
     sizeof(*semaphore_info));
   if (semaphore_info == (SemaphoreInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  (void) ResetWizardMemory(semaphore_info,0,sizeof(SemaphoreInfo));
+  (void) memset(semaphore_info,0,sizeof(SemaphoreInfo));
   /*
     Initialize the semaphore.
   */

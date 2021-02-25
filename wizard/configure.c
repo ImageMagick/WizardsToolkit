@@ -162,7 +162,7 @@ static LinkedListInfo *AcquireConfigureCache(const char *filename,
           "memory allocation failed `%s'",strerror(errno));
         continue;
       }
-    (void) ResetWizardMemory(configure_info,0,sizeof(*configure_info));
+    (void) memset(configure_info,0,sizeof(*configure_info));
     configure_info->path=(char *) "[built-in]";
     configure_info->name=(char *) p->name;
     configure_info->value=(char *) p->value;
@@ -1136,7 +1136,7 @@ static WizardBooleanType LoadConfigureCache(LinkedListInfo *configure_cache,
       sizeof(*configure_info));
     if (configure_info == (ConfigureInfo *) NULL)
       ThrowFatalException(ResourceFatalError,"memory allocation failed `%s`");
-    (void) ResetWizardMemory(configure_info,0,sizeof(*configure_info));
+    (void) memset(configure_info,0,sizeof(*configure_info));
     configure_info->path=ConstantString(filename);
     configure_info->exempt=WizardFalse;
     configure_info->signature=WizardSignature;

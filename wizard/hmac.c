@@ -96,7 +96,7 @@ WizardExport HMACInfo *AcquireHMACInfo(const HashType hash)
   hmac_info=(HMACInfo *) AcquireWizardMemory(sizeof(*hmac_info));
   if (hmac_info == (HMACInfo *) NULL)
     ThrowWizardFatalError(MACDomain,MemoryError);
-  (void) ResetWizardMemory(hmac_info,0,sizeof(*hmac_info));
+  (void) memset(hmac_info,0,sizeof(*hmac_info));
   hmac_info->hash_info=AcquireHashInfo(hash);
   hmac_info->digest=AcquireStringInfo((size_t) GetHashDigestsize(
     hmac_info->hash_info));

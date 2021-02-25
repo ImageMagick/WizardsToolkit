@@ -116,7 +116,7 @@ WizardExport SHA2224Info *AcquireSHA2224Info(void)
   sha_info=(SHA2224Info *) AcquireWizardMemory(sizeof(*sha_info));
   if (sha_info == (SHA2224Info *) NULL)
     ThrowWizardFatalError(HashError,MemoryError);
-  (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));
+  (void) memset(sha_info,0,sizeof(*sha_info));
   sha_info->digestsize=SHA2224Digestsize;
   sha_info->blocksize=SHA2224Blocksize;
   sha_info->digest=AcquireStringInfo(SHA2224Digestsize);
@@ -227,14 +227,14 @@ WizardExport WizardBooleanType FinalizeSHA2224(SHA2224Info *sha_info)
   datum=GetStringInfoDatum(sha_info->message);
   datum[count++]=(unsigned char) 0x80;
   if (count <= (ssize_t) (GetStringInfoLength(sha_info->message)-8))
-    (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
+    (void) memset(datum+count,0,GetStringInfoLength(
       sha_info->message)-8-count);
   else
     {
-      (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
+      (void) memset(datum+count,0,GetStringInfoLength(
         sha_info->message)-count);
       TransformSHA2224(sha_info);
-      (void) ResetWizardMemory(datum,0,GetStringInfoLength(sha_info->message)-
+      (void) memset(datum,0,GetStringInfoLength(sha_info->message)-
         8);
     }
   datum[56]=(unsigned char) (high_order >> 24);
@@ -580,7 +580,7 @@ static void TransformSHA2224(SHA2224Info *sha_info)
   T=0;
   T1=0;
   T2=0;
-  (void) ResetWizardMemory(W,0,sizeof(W));
+  (void) memset(W,0,sizeof(W));
 }
 
 /*

@@ -107,7 +107,7 @@ WizardExport MD5Info *AcquireMD5Info(void)
   md5_info=(MD5Info *) AcquireWizardMemory(sizeof(*md5_info));
   if (md5_info == (MD5Info *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
-  (void) ResetWizardMemory(md5_info,0,sizeof(*md5_info));
+  (void) memset(md5_info,0,sizeof(*md5_info));
   md5_info->digestsize=MD5Digestsize;
   md5_info->blocksize=MD5Blocksize;
   md5_info->digest=AcquireStringInfo(MD5Digestsize);
@@ -252,7 +252,7 @@ WizardExport WizardBooleanType FinalizeMD5(MD5Info *md5_info)
     Reset working registers.
   */
   number_bytes=0;
-  (void) ResetWizardMemory(message,0,sizeof(message));
+  (void) memset(message,0,sizeof(message));
   return(WizardTrue);
 }
 
@@ -653,6 +653,6 @@ WizardExport WizardBooleanType UpdateMD5(MD5Info *md5_info,
   */
   number_bits=0;
   number_bytes=0;
-  (void) ResetWizardMemory(buffer,0,sizeof(buffer));
+  (void) memset(buffer,0,sizeof(buffer));
   return(WizardTrue);
 }

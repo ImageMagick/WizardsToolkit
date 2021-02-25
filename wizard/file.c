@@ -276,7 +276,7 @@ WizardExport FileInfo *AcquireFileInfo(const char *path,
         "memory allocation failed `%s'",strerror(errno));
       return((FileInfo *) NULL);
     }
-  (void) ResetWizardMemory(file_info,0,sizeof(*file_info));
+  (void) memset(file_info,0,sizeof(*file_info));
   file_info->path=AcquireString((char *) NULL);
   file_info->file=(-1);
   file_info->semaphore=AcquireSemaphoreInfo();

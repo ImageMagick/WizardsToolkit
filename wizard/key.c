@@ -116,7 +116,7 @@ WizardExport KeyInfo *AcquireKeyInfo(void)
   key_info=(KeyInfo *) AcquireWizardMemory(sizeof(*key_info));
   if (key_info == (KeyInfo *) NULL)
     ThrowWizardFatalError(KeymapDomain,MemoryError);
-  (void) ResetWizardMemory(key_info,0,sizeof(*key_info));
+  (void) memset(key_info,0,sizeof(*key_info));
   key_info->key_map=NewSplayTree(CompareSplayTreeStringInfo,DestroyNode,
     DestroyNode);
   key_info->cipher_info=AcquireCipherInfo(KeymapCipher,KeymapMode);

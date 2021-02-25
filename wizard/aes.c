@@ -170,7 +170,7 @@ WizardExport AESInfo *AcquireAESInfo(void)
   aes_info=(AESInfo *) AcquireWizardMemory(sizeof(*aes_info));
   if (aes_info == (AESInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
-  (void) ResetWizardMemory(aes_info,0,sizeof(*aes_info));
+  (void) memset(aes_info,0,sizeof(*aes_info));
   aes_info->blocksize=AESBlocksize;
   aes_info->key=AcquireStringInfo(32);
   aes_info->encipher_key=(unsigned int *) AcquireQuantumMemory(60UL,
@@ -759,7 +759,7 @@ WizardExport void SetAESKey(AESInfo *aes_info,const StringInfo *key)
     Generate crypt key.
   */
   datum=GetStringInfoDatum(aes_info->key);
-  (void) ResetWizardMemory(datum,0,GetStringInfoLength(aes_info->key));
+  (void) memset(datum,0,GetStringInfoLength(aes_info->key));
   (void) CopyWizardMemory(datum,GetStringInfoDatum(key),
     Min(GetStringInfoLength(key),GetStringInfoLength(aes_info->key)));
   for (i=0; i < n; i++)

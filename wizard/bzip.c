@@ -98,7 +98,7 @@ WizardExport BZIPInfo *AcquireBZIPInfo(const size_t level)
   bzip_info=(BZIPInfo *) AcquireWizardMemory(sizeof(*bzip_info));
   if (bzip_info == (BZIPInfo *) NULL)
     ThrowWizardFatalError(EntropyDomain,MemoryError);
-  (void) ResetWizardMemory(bzip_info,0,sizeof(*bzip_info));
+  (void) memset(bzip_info,0,sizeof(*bzip_info));
   bzip_info->chaos=AcquireStringInfo(1);
   bzip_info->level=level;
   bzip_info->timestamp=time((time_t *) NULL);

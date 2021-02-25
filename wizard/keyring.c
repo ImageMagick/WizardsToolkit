@@ -113,7 +113,7 @@ WizardExport KeyringInfo *AcquireKeyringInfo(const char *path)
   keyring_info=(KeyringInfo *) AcquireWizardMemory(sizeof(*keyring_info));
   if (keyring_info == (KeyringInfo *) NULL)
     ThrowWizardFatalError(KeyringDomain,MemoryError);
-  (void) ResetWizardMemory(keyring_info,0,sizeof(*keyring_info));
+  (void) memset(keyring_info,0,sizeof(*keyring_info));
   keyring_info->path=(char *) NULL;
   if (path != (char *) NULL)
     keyring_info->path=ConstantString(path);
@@ -628,7 +628,7 @@ WizardExport WizardBooleanType PrintKeyringProperties(const char *path,
   filetype=DestroyStringInfo(filetype);
   target=DestroyStringInfo(target);
   length=0;
-  (void) ResetWizardMemory(&keyring_info,0,sizeof(keyring_info));
+  (void) memset(&keyring_info,0,sizeof(keyring_info));
   while (ReadFile32Bits(file_info,&keyring_info.signature) != 0)
   {
     if (keyring_info.signature != WizardSignature)

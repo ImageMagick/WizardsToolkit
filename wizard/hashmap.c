@@ -1314,7 +1314,7 @@ WizardExport HashmapInfo *NewHashmap(const size_t capacity,
   hashmap_info=(HashmapInfo *) AcquireWizardMemory(sizeof(*hashmap_info));
   if (hashmap_info == (HashmapInfo *) NULL)
     ThrowWizardFatalError(CacheDomain,MemoryError);
-  (void) ResetWizardMemory(hashmap_info,0,sizeof(*hashmap_info));
+  (void) memset(hashmap_info,0,sizeof(*hashmap_info));
   hashmap_info->hash=HashPointerType;
   if (hash != (size_t (*)(const void *)) NULL)
     hashmap_info->hash=hash;
@@ -1329,7 +1329,7 @@ WizardExport HashmapInfo *NewHashmap(const size_t capacity,
     capacity+1UL,sizeof(*hashmap_info->map));
   if (hashmap_info->map == (LinkedListInfo **) NULL)
     ThrowWizardFatalError(CacheDomain,MemoryError);
-  (void) ResetWizardMemory(hashmap_info->map,0,(size_t) capacity*
+  (void) memset(hashmap_info->map,0,(size_t) capacity*
     sizeof(*hashmap_info->map));
   hashmap_info->semaphore=AcquireSemaphoreInfo();
   hashmap_info->signature=WizardSignature;
@@ -1367,7 +1367,7 @@ WizardExport LinkedListInfo *NewLinkedList(const size_t capacity)
   list_info=(LinkedListInfo *) AcquireWizardMemory(sizeof(*list_info));
   if (list_info == (LinkedListInfo *) NULL)
     ThrowWizardFatalError(CacheDomain,MemoryError);
-  (void) ResetWizardMemory(list_info,0,sizeof(*list_info));
+  (void) memset(list_info,0,sizeof(*list_info));
   list_info->capacity=capacity == 0 ? (size_t) (~0) : capacity;
   list_info->elements=0;
   list_info->head=(ElementInfo *) NULL;
@@ -1450,7 +1450,7 @@ static WizardBooleanType IncreaseHashmapCapacity(HashmapInfo *hashmap_info)
     sizeof(*map));
   if (map == (LinkedListInfo **) NULL)
     return(WizardFalse);
-  (void) ResetWizardMemory(map,0,(size_t) capacity*sizeof(*map));
+  (void) memset(map,0,(size_t) capacity*sizeof(*map));
   /*
     Copy entries to new hashmap with increased capacity.
   */

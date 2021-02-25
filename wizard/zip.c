@@ -98,7 +98,7 @@ WizardExport ZIPInfo *AcquireZIPInfo(const size_t level)
   zip_info=(ZIPInfo *) AcquireWizardMemory(sizeof(*zip_info));
   if (zip_info == (ZIPInfo *) NULL)
     ThrowWizardFatalError(EntropyError,MemoryError);
-  (void) ResetWizardMemory(zip_info,0,sizeof(*zip_info));
+  (void) memset(zip_info,0,sizeof(*zip_info));
   zip_info->chaos=AcquireStringInfo(1);
   zip_info->level=level;
   zip_info->timestamp=(ssize_t) (time((time_t *) NULL)-WizardEpoch);

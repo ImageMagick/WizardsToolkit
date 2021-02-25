@@ -1322,7 +1322,7 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
         if (locale_info == (LocaleInfo *) NULL)
           ThrowFatalException(ResourceFatalError,
             "memory allocation failed `%s'");
-        (void) ResetWizardMemory(locale_info,0,sizeof(*locale_info));
+        (void) memset(locale_info,0,sizeof(*locale_info));
         locale_info->path=ConstantString(filename);
         locale_info->tag=ConstantString(tag);
         locale_info->message=ConstantString(message);

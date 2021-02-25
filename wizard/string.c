@@ -183,7 +183,7 @@ WizardExport StringInfo *AcquireStringInfo(const size_t length)
   string_info=(StringInfo *) AcquireWizardMemory(sizeof(*string_info));
   if (string_info == (StringInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  (void) ResetWizardMemory(string_info,0,sizeof(*string_info));
+  (void) memset(string_info,0,sizeof(*string_info));
   string_info->timestamp=time((time_t *) NULL);
   string_info->signature=WizardSignature;
   string_info->length=length;
@@ -1341,7 +1341,7 @@ WizardExport StringInfo *HexStringToStringInfo(const char *string)
 
   WizardAssert(StringDomain,string != (const char *) NULL);
   string_info=AcquireStringInfo(strlen(string)/2);
-  (void) ResetWizardMemory(hex_digits,0,sizeof(hex_digits));
+  (void) memset(hex_digits,0,sizeof(hex_digits));
   hex_digits[(int) '0']=0;
   hex_digits[(int) '1']=1;
   hex_digits[(int) '2']=2;
@@ -1749,7 +1749,7 @@ WizardExport void ResetStringInfo(StringInfo *string_info)
 {
   WizardAssert(StringDomain,string_info != (StringInfo *) NULL);
   WizardAssert(StringDomain,string_info->signature == WizardSignature);
-  (void) ResetWizardMemory(string_info->datum,0,string_info->length);
+  (void) memset(string_info->datum,0,string_info->length);
 }
 
 /*
@@ -1785,7 +1785,7 @@ WizardExport void SetStringInfo(StringInfo *string_info,
   WizardAssert(StringDomain,source->signature == WizardSignature);
   if (string_info->length == 0)
     return;
-  (void) ResetWizardMemory(string_info->datum,0,string_info->length);
+  (void) memset(string_info->datum,0,string_info->length);
   (void) memcpy(string_info->datum,source->datum,
     WizardMin(string_info->length,source->length));
 }

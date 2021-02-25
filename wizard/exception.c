@@ -130,7 +130,7 @@ WizardExport ExceptionInfo *AcquireExceptionInfo(void)
   exception=(ExceptionInfo *) AcquireWizardMemory(sizeof(*exception));
   if (exception == (ExceptionInfo *) NULL)
     ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-  (void) ResetWizardMemory(exception,0,sizeof(*exception));
+  (void) memset(exception,0,sizeof(*exception));
   GetExceptionInfo(exception);
   exception->relinquish=WizardTrue;
   exception->signature=WizardSignature;
@@ -438,7 +438,7 @@ WizardExport ExceptionInfo *DestroyExceptionInfo(ExceptionInfo *exception)
 WizardExport void GetExceptionInfo(ExceptionInfo *exception)
 {
   assert(exception != (ExceptionInfo *) NULL);
-  (void) ResetWizardMemory(exception,0,sizeof(*exception));
+  (void) memset(exception,0,sizeof(*exception));
   exception->severity=UndefinedException;
   exception->exceptions=(void *) NewLinkedList(0);
   exception->semaphore=AcquireSemaphoreInfo();
@@ -943,7 +943,7 @@ WizardExport WizardBooleanType ThrowException(ExceptionInfo *exception,
       UnlockSemaphoreInfo(exception->semaphore);
       ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
     }
-  (void) ResetWizardMemory(p,0,sizeof(*p));
+  (void) memset(p,0,sizeof(*p));
   p->severity=severity;
   if (reason != (const char *) NULL)
     p->reason=ConstantString(reason);

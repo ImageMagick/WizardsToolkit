@@ -99,7 +99,7 @@ WizardExport CRC64Info *AcquireCRC64Info(void)
   crc_info=(CRC64Info *) AcquireWizardMemory(sizeof(*crc_info));
   if (crc_info == (CRC64Info *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
-  (void) ResetWizardMemory(crc_info,0,sizeof(*crc_info));
+  (void) memset(crc_info,0,sizeof(*crc_info));
   crc_info->digestsize=CRC64Digestsize;
   crc_info->blocksize=CRC64Blocksize;
   crc_info->digest=AcquireStringInfo(CRC64Digestsize);

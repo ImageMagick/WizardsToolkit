@@ -107,7 +107,7 @@ WizardExport AuthenticateInfo *AcquireAuthenticateInfo(
     sizeof(*authenticate_info));
   if (authenticate_info == (AuthenticateInfo *) NULL)
     ThrowWizardFatalError(AuthenticateDomain,MemoryError);
-  (void) ResetWizardMemory(authenticate_info,0,sizeof(*authenticate_info));
+  (void) memset(authenticate_info,0,sizeof(*authenticate_info));
   authenticate_info->method=method;
   switch (method)
   {

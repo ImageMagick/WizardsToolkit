@@ -99,14 +99,14 @@ WizardExport void FinalizeSignature(SignatureInfo *signature_info)
   count=(ssize_t) ((low_order >> 3) & 0x3f);
   signature_info->message[count++]=(unsigned char) 0x80;
   if (count <= (WizardSignatureSize-8))
-    (void) ResetWizardMemory(signature_info->message+count,0,(size_t)
+    (void) memset(signature_info->message+count,0,(size_t)
       (WizardSignatureSize-8-count));
   else
     {
-      (void) ResetWizardMemory(signature_info->message+count,0,(size_t)
+      (void) memset(signature_info->message+count,0,(size_t)
         (WizardSignatureSize-count));
       TransformSignature(signature_info);
-      (void) ResetWizardMemory(signature_info->message,0,WizardSignatureSize-8);
+      (void) memset(signature_info->message,0,WizardSignatureSize-8);
     }
   signature_info->message[56]=(unsigned char) (high_order >> 24);
   signature_info->message[57]=(unsigned char) (high_order >> 16);
@@ -148,7 +148,7 @@ WizardExport void GetSignatureInfo(SignatureInfo *signature_info)
     lsb_first;
 
   assert(signature_info != (SignatureInfo *) NULL);
-  (void) ResetWizardMemory(signature_info,0,sizeof(*signature_info));
+  (void) memset(signature_info,0,sizeof(*signature_info));
   signature_info->digest[0]=0x6a09e667UL;
   signature_info->digest[1]=0xbb67ae85UL;
   signature_info->digest[2]=0x3c6ef372UL;

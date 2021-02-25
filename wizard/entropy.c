@@ -101,7 +101,7 @@ WizardExport EntropyInfo *AcquireEntropyInfo(const EntropyType entropy,
   entropy_info=(EntropyInfo *) AcquireWizardMemory(sizeof(*entropy_info));
   if (entropy_info == (EntropyInfo *) NULL)
     ThrowWizardFatalError(EntropyDomain,MemoryError);
-  (void) ResetWizardMemory(entropy_info,0,sizeof(*entropy_info));
+  (void) memset(entropy_info,0,sizeof(*entropy_info));
   entropy_info->entropy=entropy;
   switch (entropy_info->entropy)
   {

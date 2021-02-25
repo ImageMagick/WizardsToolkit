@@ -864,7 +864,7 @@ static WizardBooleanType LoadMimeCache(LinkedListInfo *mime_cache,
     mime_info=(MimeInfo *) AcquireWizardMemory(sizeof(*mime_info));
     if (mime_info == (MimeInfo *) NULL)
       ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
-    (void) ResetWizardMemory(mime_info,0,sizeof(*mime_info));
+    (void) memset(mime_info,0,sizeof(*mime_info));
     mime_info->path=ConstantString(filename);
     mime_info->signature=WizardSignature;
     attribute=GetXMLTreeAttribute(mime,"data-type");

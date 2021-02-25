@@ -105,7 +105,7 @@ WizardExport SerpentInfo *AcquireSerpentInfo(void)
   serpent_info=(SerpentInfo *) AcquireWizardMemory(sizeof(*serpent_info));
   if (serpent_info == (SerpentInfo *) NULL)
     ThrowWizardFatalError(CipherError,MemoryError);
-  (void) ResetWizardMemory(serpent_info,0,sizeof(*serpent_info));
+  (void) memset(serpent_info,0,sizeof(*serpent_info));
   serpent_info->blocksize=SerpentBlocksize;
   serpent_info->timestamp=time((time_t *) NULL);
   serpent_info->signature=WizardSignature;

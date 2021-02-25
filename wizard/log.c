@@ -301,7 +301,7 @@ static LinkedListInfo *AcquireLogCache(const char *filename,
           "memory allocation failed `%s'",p->filename);
         continue;
       }
-    (void) ResetWizardMemory(log_info,0,sizeof(*log_info));
+    (void) memset(log_info,0,sizeof(*log_info));
     log_info->path=ConstantString("[built-in]");
     log_info->timer=AcquireTimerInfo();
     log_info->event_mask=p->event_mask;
@@ -1539,7 +1539,7 @@ static WizardBooleanType LoadLogCache(LinkedListInfo *log_cache,const char *xml,
         if (log_info == (LogInfo *) NULL)
           ThrowFatalException(ResourceFatalError,
             "memory allocation failed: `%s'");
-        (void) ResetWizardMemory(log_info,0,sizeof(*log_info));
+        (void) memset(log_info,0,sizeof(*log_info));
         log_info->path=ConstantString(filename);
         log_info->timer=AcquireTimerInfo();
         log_info->signature=WizardSignature;

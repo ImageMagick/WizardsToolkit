@@ -1093,25 +1093,36 @@ WizardExport void *RelinquishWizardMemory(void *memory)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %  ResetWizardMemory() fills the first size bytes of the memory area pointed to
-%  by memory with the constant byte c.
+%  by memory with the constant byte c.  We use a volatile pointer when
+%  updating the byte string.  Most compilers will avoid optimizing away access
+%  to a volatile pointer, even if the pointer appears to be unused after the
+%  call.
 %
 %  The format of the ResetWizardMemory method is:
 %
-%      void *ResetWizardMemory(void *memory,int byte,const size_t size)
+%      void *ResetWizardMemory(void *memory,int c,const size_t size)
 %
 %  A description of each parameter follows:
 %
 %    o memory: A pointer to a memory allocation.
 %
-%    o byte: Set the memory to this value.
+%    o c: Set the memory to this value.
 %
 %    o size: Size of the memory to reset.
 %
 */
-WizardExport void *ResetWizardMemory(void *memory,int byte,const size_t size)
+WizardExport void *ResetWizardMemory(void *memory,int c,const size_t size)
 {
+  volatile unsigned char
+    *p = memory;
+
+  size_t
+    n = size;
+
   assert(memory != (void *) NULL);
-  return(memset(memory,byte,size));
+  while (n-- != 0)
+    *p++=(unsigned char) c;
+  return(memory);
 }
 
 /*

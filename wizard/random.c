@@ -178,7 +178,7 @@ WizardExport RandomInfo *AcquireRandomInfo(const HashType hash)
   random_info=(RandomInfo *) AcquireWizardMemory(sizeof(*random_info));
   if (random_info == (RandomInfo *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
-  (void) ResetWizardMemory(random_info,0,sizeof(*random_info));
+  (void) memset(random_info,0,sizeof(*random_info));
   random_info->hmac_info=AcquireHMACInfo(hash);
   random_info->nonce=AcquireStringInfo(2*GetHMACDigestsize(
     random_info->hmac_info));
@@ -295,7 +295,7 @@ WizardExport RandomInfo *DestroyRandomInfo(RandomInfo *random_info)
     random_info->nonce=DestroyStringInfo(random_info->nonce);
   if (random_info->hmac_info != (HMACInfo *) NULL)
     random_info->hmac_info=DestroyHMACInfo(random_info->hmac_info);
-  (void) ResetWizardMemory(random_info->seed,0,sizeof(*random_info->seed));
+  (void) memset(random_info->seed,0,sizeof(*random_info->seed));
   random_info->signature=(~WizardSignature);
   UnlockSemaphoreInfo(random_info->semaphore);
   RelinquishSemaphoreInfo(&random_info->semaphore);

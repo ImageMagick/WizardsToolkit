@@ -140,7 +140,7 @@ WizardExport SHA3Info *AcquireSHA3Info(const HashType hash)
   sha_info=(SHA3Info *) AcquireWizardMemory(sizeof(*sha_info));
   if (sha_info == (SHA3Info *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
-  (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));
+  (void) memset(sha_info,0,sizeof(*sha_info));
   sha_info->hash=hash;
   switch (sha_info->hash)
   {
@@ -491,7 +491,7 @@ WizardExport WizardBooleanType FinalizeSHA3(SHA3Info *sha_info)
   assert(sha_info != (SHA3Info *) NULL);
   assert(sha_info->signature == WizardSignature);
   clone_info=(*sha_info);
-  (void) ResetWizardMemory(digest,0,sizeof(*digest));
+  (void) memset(digest,0,sizeof(*digest));
   status=Squeeze(&clone_info,clone_info.length,digest);
   if (status == WizardFalse)
     return(WizardFalse);

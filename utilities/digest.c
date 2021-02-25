@@ -260,7 +260,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
     digest_blob=OpenBlob(argv[i],ReadBinaryBlobMode,WizardTrue,exception);
     if (digest_blob == (BlobInfo *) NULL)
       return(WizardFalse);
-    (void) ResetWizardMemory(key,0,sizeof(key));
+    (void) memset(key,0,sizeof(key));
     create_date=ConstantString("unknown");
     digest=ConstantString("unknown");
     path=ConstantString("unknown");

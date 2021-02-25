@@ -1101,7 +1101,7 @@ WizardExport SplayTreeInfo *NewSplayTree(
   splay_tree=(SplayTreeInfo *) AcquireWizardMemory(sizeof(*splay_tree));
   if (splay_tree == (SplayTreeInfo *) NULL)
     ThrowWizardFatalError(CacheDomain,MemoryError);
-  (void) ResetWizardMemory(splay_tree,0,sizeof(*splay_tree));
+  (void) memset(splay_tree,0,sizeof(*splay_tree));
   splay_tree->root=(NodeInfo *) NULL;
   splay_tree->compare=compare;
   splay_tree->relinquish_key=relinquish_key;

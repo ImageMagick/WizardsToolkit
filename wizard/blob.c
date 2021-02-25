@@ -711,7 +711,7 @@ WizardExport const char *GetBlobFilename(const BlobInfo *blob_info)
 WizardExport void GetBlobInfo(BlobInfo *blob_info)
 {
   assert(blob_info != (BlobInfo *) NULL);
-  (void) ResetWizardMemory(blob_info,0,sizeof(*blob_info));
+  (void) memset(blob_info,0,sizeof(*blob_info));
   blob_info->type=UndefinedStream;
   blob_info->quantum=(size_t) WizardMaxBlobExtent;
   blob_info->debug=IsEventLogging();
@@ -1089,7 +1089,7 @@ WizardExport BlobInfo *OpenBlob(const char *filename,const BlobMode mode,
           (void) setvbuf(blob_info->file_info.file,(char *) NULL,(int) _IOFBF,
             16384);
 #endif
-          (void) ResetWizardMemory(magick,0,sizeof(magick));
+          (void) memset(magick,0,sizeof(magick));
           count=(ssize_t) fread(magick,1,sizeof(magick),
             blob_info->file_info.file);
           (void) fseek(blob_info->file_info.file,-((off_t) count),SEEK_CUR);

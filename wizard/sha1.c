@@ -117,7 +117,7 @@ WizardExport SHA1Info *AcquireSHA1Info(void)
   sha_info=(SHA1Info *) AcquireWizardMemory(sizeof(*sha_info));
   if (sha_info == (SHA1Info *) NULL)
     ThrowWizardFatalError(HashDomain,MemoryError);
-  (void) ResetWizardMemory(sha_info,0,sizeof(*sha_info));
+  (void) memset(sha_info,0,sizeof(*sha_info));
   sha_info->digestsize=SHA1Digestsize;
   sha_info->blocksize=SHA1Blocksize;
   sha_info->digest=AcquireStringInfo(SHA1Digestsize);
@@ -229,14 +229,14 @@ WizardExport WizardBooleanType FinalizeSHA1(SHA1Info *sha_info)
   datum=GetStringInfoDatum(sha_info->message);
   datum[count++]=(unsigned char) 0x80;
   if (count <= (ssize_t) (GetStringInfoLength(sha_info->message)-8))
-    (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
+    (void) memset(datum+count,0,GetStringInfoLength(
       sha_info->message)-8-count);
   else
     {
-      (void) ResetWizardMemory(datum+count,0,GetStringInfoLength(
+      (void) memset(datum+count,0,GetStringInfoLength(
         sha_info->message)-count);
       TransformSHA1(sha_info);
-      (void) ResetWizardMemory(datum,0,GetStringInfoLength(sha_info->message)-
+      (void) memset(datum,0,GetStringInfoLength(sha_info->message)-
         8);
     }
   datum[56]=(unsigned char) (high_order >> 24);
@@ -561,7 +561,7 @@ static void TransformSHA1(SHA1Info *sha_info)
   D=0;
   E=0;
   T=0;
-  (void) ResetWizardMemory(W,0,sizeof(W));
+  (void) memset(W,0,sizeof(W));
 }
 
 /*

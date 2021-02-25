@@ -140,7 +140,7 @@ WizardExport CipherInfo *AcquireCipherInfo(const CipherType cipher,
   cipher_info=(CipherInfo *) AcquireWizardMemory(sizeof(*cipher_info));
   if (cipher_info == (CipherInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
-  (void) ResetWizardMemory(cipher_info,0,sizeof(*cipher_info));
+  (void) memset(cipher_info,0,sizeof(*cipher_info));
   cipher_info->cipher=cipher;
   switch (cipher_info->cipher)
   {

@@ -988,7 +988,7 @@ WizardExport const char *ParseWizardTime(const char *timestamp,time_t *target)
     gm_time.tm_hour+24*((local_time.tm_year-gm_time.tm_year) != 0 ?
     (local_time.tm_year-gm_time.tm_year) : (local_time.tm_yday-
     gm_time.tm_yday)));
-  (void) ResetWizardMemory(&target_time,0,sizeof(target_time));
+  (void) memset(&target_time,0,sizeof(target_time));
   p=timestamp;
   for (i=0; ; i++)
   {

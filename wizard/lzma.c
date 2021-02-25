@@ -101,7 +101,7 @@ WizardExport LZMAInfo *AcquireLZMAInfo(const size_t level)
   lzma_info=(LZMAInfo *) AcquireWizardMemory(sizeof(*lzma_info));
   if (lzma_info == (LZMAInfo *) NULL)
     ThrowWizardFatalError(EntropyError,MemoryError);
-  (void) ResetWizardMemory(lzma_info,0,sizeof(*lzma_info));
+  (void) memset(lzma_info,0,sizeof(*lzma_info));
   lzma_info->chaos=AcquireStringInfo(1);
   lzma_info->level=level;
   lzma_info->timestamp=(ssize_t) (time((time_t *) NULL)-WizardEpoch);
@@ -233,7 +233,7 @@ WizardExport WizardBooleanType IncreaseLZMA(LZMAInfo *lzma_info,
   WizardAssert(EntropyDomain,lzma_info != (LZMAInfo *) NULL);
   WizardAssert(EntropyDomain,lzma_info->signature == WizardSignature);
   WizardAssert(EntropyDomain,message != (const StringInfo *) NULL);
-  (void) ResetWizardMemory(&allocator,0,sizeof(allocator));
+  (void) memset(&allocator,0,sizeof(allocator));
   allocator.alloc=AcquireLZMAMemory;
   allocator.free=RelinquishLZMAMemory;
   stream=initialize_lzma;
@@ -329,7 +329,7 @@ WizardExport WizardBooleanType RestoreLZMA(LZMAInfo *lzma_info,
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   WizardAssert(EntropyDomain,lzma_info->signature == WizardSignature);
   WizardAssert(EntropyDomain,message != (const StringInfo *) NULL);
-  (void) ResetWizardMemory(&allocator,0,sizeof(allocator));
+  (void) memset(&allocator,0,sizeof(allocator));
   allocator.alloc=AcquireLZMAMemory;
   allocator.free=RelinquishLZMAMemory;
   stream=initialize_lzma;

@@ -77,7 +77,7 @@ WizardExport ContentInfo *AcquireContentInfo(void)
   content_info=(ContentInfo *) AcquireWizardMemory(sizeof(*content_info));
   if (content_info == (ContentInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
-  (void) ResetWizardMemory(content_info,0,sizeof(*content_info));
+  (void) memset(content_info,0,sizeof(*content_info));
   content_info->cipher=AESCipher;
   content_info->mode=CTRMode;
   content_info->authenticate_method=SecretAuthenticateMethod;
@@ -230,7 +230,7 @@ WizardExport WizardBooleanType GetContentInfo(ContentInfo *content_info,
   WizardAssert(CipherDomain,exception != (ExceptionInfo *) NULL);
   (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",
     GetBlobFilename(cipher_blob));
-  (void) ResetWizardMemory(key,0,sizeof(key));
+  (void) memset(key,0,sizeof(key));
   bytes=0;
   digest=(char *) NULL;
   for (c=ReadBlobByte(cipher_blob); (c != '>') && (c != EOF); )

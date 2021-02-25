@@ -117,7 +117,7 @@ WizardExport TwofishInfo *AcquireTwofishInfo(void)
   twofish_info=(TwofishInfo *) AcquireWizardMemory(sizeof(*twofish_info));
   if (twofish_info == (TwofishInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
-  (void) ResetWizardMemory(twofish_info,0,sizeof(*twofish_info));
+  (void) memset(twofish_info,0,sizeof(*twofish_info));
   twofish_info->blocksize=TwofishBlocksize;
   twofish_info->timestamp=time((time_t *) NULL);
   twofish_info->signature=WizardSignature;

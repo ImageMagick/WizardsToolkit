@@ -100,7 +100,7 @@ WizardExport ChachaInfo *AcquireChachaInfo(void)
   chacha_info=(ChachaInfo *) AcquireWizardMemory(sizeof(*chacha_info));
   if (chacha_info == (ChachaInfo *) NULL)
     ThrowWizardFatalError(CipherDomain,MemoryError);
-  (void) ResetWizardMemory(chacha_info,0,sizeof(*chacha_info));
+  (void) memset(chacha_info,0,sizeof(*chacha_info));
   chacha_info->blocksize=ChachaBlocksize;
   chacha_info->timestamp=time((time_t *) NULL);
   chacha_info->signature=WizardSignature;
