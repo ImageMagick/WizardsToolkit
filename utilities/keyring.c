@@ -152,7 +152,7 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
   KeyringInfo
     *keyring_info;
 
-   ssize_t
+  ssize_t
     i;
 
   StringInfo
