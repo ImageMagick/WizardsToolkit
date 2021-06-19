@@ -40,6 +40,20 @@ extern "C" {
 #define WizardAssumeAligned(address)  (address)
 #endif
 
+static inline size_t OverAllocateMemory(const size_t length)
+{
+  size_t
+    extent;
+
+  /*
+    Over allocate memory, typically used when concatentating strings.
+  */
+  extent=length;
+  if (extent < 131072)
+    for (extent=256; extent < length; extent*=2);
+  return(extent);
+}
+
 #if defined(__cplusplus) || defined(c_plusplus)
 }
 #endif
