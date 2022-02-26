@@ -1114,7 +1114,7 @@ WizardExport void *RelinquishWizardMemory(void *memory)
 WizardExport void *ResetWizardMemory(void *memory,int c,const size_t size)
 {
   volatile unsigned char
-    *p = memory;
+    *p = (volatile unsigned char *) memory;
 
   size_t
     n = size;
