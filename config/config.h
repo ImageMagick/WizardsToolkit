@@ -68,7 +68,7 @@
 
 /* Define to 1 if you have the declaration of `strlcpy', and to 0 if you
    don't. */
-#define HAVE_DECL_STRLCPY 0
+#define HAVE_DECL_STRLCPY 1
 
 /* Define to 1 if you have the declaration of `vsnprintf', and to 0 if you
    don't. */

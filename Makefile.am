@@ -87,7 +87,7 @@ TOP_EXTRA_DIST = \
   AUTHORS.txt \
 	README.txt \
 	QuickStart.txt \
-	ChangeLog \
+	ChangeLog.md \
 	LICENSE \
 	NOTICE \
 	NEWS.txt \
@@ -133,7 +133,7 @@ man_MANS = \
 docdir = $(DOCUMENTATION_PATH)
 doc_DATA = \
 	LICENSE \
-	ChangeLog \
+	ChangeLog.md \
 	NEWS.txt
 
 if MAINTAINER_MODE
@@ -231,7 +231,7 @@ wizard-version: wizard/version.h
 	fi ; \
 	touch wizard-version
 
-wizard/version.h: $(top_srcdir)/ChangeLog $(top_srcdir)/m4/version.m4
+wizard/version.h: $(top_srcdir)/ChangeLog.md $(top_srcdir)/m4/version.m4
 
 # Automatically reconfigure libtool
 LIBTOOL_DEPS = @LIBTOOL_DEPS@

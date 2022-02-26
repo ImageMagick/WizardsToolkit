@@ -689,7 +689,7 @@ am__DIST_COMMON = $(srcdir)/Makefile.in \
 	$(top_srcdir)/windows/WizardsToolkit.bat.in \
 	$(top_srcdir)/wizard/WizardsToolkit-config.in \
 	$(top_srcdir)/wizard/WizardsToolkit.pc.in \
-	$(top_srcdir)/wizard/version.h.in ChangeLog config/compile \
+	$(top_srcdir)/wizard/version.h.in config/compile \
 	config/config.guess config/config.sub config/depcomp \
 	config/install-sh config/ltmain.sh config/missing \
 	config/mkinstalldirs
@@ -1021,7 +1021,7 @@ TOP_EXTRA_DIST = \
   AUTHORS.txt \
 	README.txt \
 	QuickStart.txt \
-	ChangeLog \
+	ChangeLog.md \
 	LICENSE \
 	NOTICE \
 	NEWS.txt \
@@ -1439,7 +1439,7 @@ man_MANS = \
 
 doc_DATA = \
 	LICENSE \
-	ChangeLog \
+	ChangeLog.md \
 	NEWS.txt
 
 @MAINTAINER_MODE_TRUE@MAINTAINER_TARGETS = wizard-version $(RST2HTML_TARGETS)
@@ -2922,7 +2922,7 @@ wizard-version: wizard/version.h
 	fi ; \
 	touch wizard-version
 
-wizard/version.h: $(top_srcdir)/ChangeLog $(top_srcdir)/m4/version.m4
+wizard/version.h: $(top_srcdir)/ChangeLog.md $(top_srcdir)/m4/version.m4
 libtool: $(LIBTOOL_DEPS)
 	$(SHELL) ./config.status --recheck
 
