@@ -55,6 +55,9 @@
 #include "wizard/thread-private.h"
 #include "wizard/semaphore.h"
 #include "wizard/utility-private.h"
+#if defined(WIZARDSTOOLKIT_HAVE_GETENTROPY)
+#include <sys/random.h>
+#endif
 
 /*
   Define declarations.
@@ -382,7 +385,7 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
   if (entropy == (StringInfo *) NULL)
     entropy=AcquireStringInfo(0);
   LockSemaphoreInfo(random_info->semaphore);
-#if defined(MAGICKCORE_HAVE_GETENTROPY)
+#if defined(WIZARDSTOOLKIT_HAVE_GETENTROPY)
   {
     int
       status;
