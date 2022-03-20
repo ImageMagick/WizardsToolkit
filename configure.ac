@@ -29,14 +29,13 @@ m4_define([wizard_lib_version_number],
           [wizard_major_version,wizard_minor_version,wizard_micro_version,wizard_patchlevel_version])
 m4_define([wizard_git_revision],
           m4_esyscmd([
-            c=$(git log --full-history --format=tformat:. HEAD | wc -l)
             h=$(git rev-parse --short HEAD)
-            d=$(date +%Y%m%d)
-            printf %s "$c:$h:$d"
+            d=$(git log -1 --format=:%cd --date=format:%Y%m%d || date -u +%Y%m%d -r ./ChangeLog.md)
+            printf %s "$h$d"
           ]))
 m4_define([wizard_release_date],
           m4_esyscmd([
-            d=$(date +%F -r ./ChangeLog.md)
+            d=$(git log -1 --format=%cd --date=format:%Y-%m-%d || date -u +%F -r ./ChangeLog.md)
             printf %s "$d"
           ]))
 
@@ -1560,7 +1559,7 @@ AM_CONDITIONAL(ZIP_DELEGATE, test "x$ZIP" != "x" )
 # Check for functions
 #
 WIZARD_FUNC_MMAP_FILEIO
-AC_CHECK_FUNCS([_aligned_malloc atexit clock fchmod fprintf_l ftime getcwd getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii isnan localtime_r lstat madvise memmove memset mkdir munmap mkstemp newloacle _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readlink realpath sbrk select strtod strtod_l setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times uselocale usleep utime vfprintf vfprintf_l vsprintf vsnprintf vsnprintf_l _wfopen])
+AC_CHECK_FUNCS([_aligned_malloc atexit clock fchmod fprintf_l ftime getcwd getentropy getexecname getdtablesize getpid getpagesize getrusage gettimeofday gmtime_r isascii isnan localtime_r lstat madvise memmove memset mkdir munmap mkstemp newloacle _NSGetExecutablePath pclose poll popen posix_fallocate posix_memalign pow pread pwrite raise readlink realpath sbrk select strtod strtod_l setvbuf sysconf sigemptyset sigaction spawnvp strlcat strlcpy strcasecmp strncasecmp setlocale strchr strcspn strdup strrchr strspn strstr strtol strtoul times uselocale usleep utime vfprintf vfprintf_l vsprintf vsnprintf vsnprintf_l _wfopen])
 
 #
 # Handle special compiler flags

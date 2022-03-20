@@ -157,6 +157,11 @@
 #define WIZARDSTOOLKIT_HAVE_GETDTABLESIZE 1
 #endif
 
+/* Define to 1 if you have the `getentropy' function. */
+#ifndef WIZARDSTOOLKIT_HAVE_GETENTROPY
+#define WIZARDSTOOLKIT_HAVE_GETENTROPY 1
+#endif
+
 /* Define to 1 if you have the `getexecname' function. */
 /* #undef HAVE_GETEXECNAME */
 
@@ -309,7 +314,9 @@
 #endif
 
 /* Define to 1 if you have a working `mmap' system call. */
-/* #undef HAVE_MMAP_FILEIO */
+#ifndef WIZARDSTOOLKIT_HAVE_MMAP_FILEIO
+#define WIZARDSTOOLKIT_HAVE_MMAP_FILEIO 1
+#endif
 
 /* Define to 1 if you have the `munmap' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MUNMAP
@@ -439,7 +446,9 @@
 #endif
 
 /* Define to 1 if stdbool.h conforms to C99. */
-/* #undef HAVE_STDBOOL_H */
+#ifndef WIZARDSTOOLKIT_HAVE_STDBOOL_H
+#define WIZARDSTOOLKIT_HAVE_STDBOOL_H 1
+#endif
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #ifndef WIZARDSTOOLKIT_HAVE_STDINT_H
@@ -685,7 +694,9 @@
 /* #undef HAVE__ALIGNED_MALLOC */
 
 /* Define to 1 if the system has the type `_Bool'. */
-/* #undef HAVE__BOOL */
+#ifndef WIZARDSTOOLKIT_HAVE__BOOL
+#define WIZARDSTOOLKIT_HAVE__BOOL 1
+#endif
 
 /* Define to 1 if you have the `_NSGetExecutablePath' function. */
 /* #undef HAVE__NSGETEXECUTABLEPATH */

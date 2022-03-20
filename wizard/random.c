@@ -359,7 +359,7 @@ static ssize_t ReadRandom(int file,unsigned char *source,size_t length)
 static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
   ExceptionInfo *exception)
 {
-#define MaxEntropyExtent  64
+#define MaxEntropyExtent  64  /* max permitted: 256 */
 
   ssize_t
     pid;
@@ -382,6 +382,20 @@ static StringInfo *GenerateEntropicChaos(RandomInfo *random_info,
   if (entropy == (StringInfo *) NULL)
     entropy=AcquireStringInfo(0);
   LockSemaphoreInfo(random_info->semaphore);
+#if defined(MAGICKCORE_HAVE_GETENTROPY)
+  {
+    int
+      status;
+
+    SetStringInfoLength(entropy,MaxEntropyExtent);
+    status=getentropy(GetStringInfoDatum(entropy),MaxEntropyExtent);
+    if (status == 0)
+      {
+        UnlockSemaphoreInfo(random_info->semaphore);
+        return(entropy);
+      }
+  }
+#endif
   chaos=AcquireStringInfo(sizeof(unsigned char *));
   SetStringInfoDatum(chaos,(unsigned char *) &entropy);
   ConcatenateStringInfo(entropy,chaos);
