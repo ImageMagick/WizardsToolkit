@@ -26,7 +26,7 @@ extern "C" {
   Define declarations.
 */
 #define WizardPackageName "WizardsToolkit"
-#define WizardCopyright  "Copyright (C) 1999-2021 ImageMagick Studio LLC"
+#define WizardCopyright  "(C) 1999 ImageMagick Studio LLC"
 #define WizardLibVersion  0x109
 #define WizardLibVersionText  "1.0.9"
 #define WizardLibVersionNumber  1,0,1

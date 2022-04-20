@@ -295,7 +295,8 @@ WizardExport WizardBooleanType ExportKeyring(int argc,char **argv,
 
         hex_id=StringInfoToHexString(id);
         (void) ThrowWizardException(exception,GetWizardModule(),KeyringError,
-          "no such key `%s': `%s'",hex_id,keyring == (char * ) NULL ? "" : keyring);
+          "no such key `%s': `%s'",hex_id,keyring == (const char * ) NULL ? "" :
+          keyring);
         hex_id=DestroyString(hex_id);
       }
     else

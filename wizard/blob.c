@@ -1562,6 +1562,8 @@ WizardExport WizardBooleanType SetBlobExtent(BlobInfo *blob_info,
         break;
       offset=fseek(blob_info->file_info.file,(WizardOffsetType) extent-1,
         SEEK_SET);
+      if (offset < 0)
+        break;
       count=(ssize_t) fwrite((const unsigned char *) "",1,1,
         blob_info->file_info.file);
       offset=fseek(blob_info->file_info.file,offset,SEEK_SET);

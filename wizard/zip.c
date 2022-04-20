@@ -223,6 +223,7 @@ WizardExport WizardBooleanType IncreaseZIP(ZIPInfo *zip_info,
   WizardAssert(EntropyDomain,zip_info != (ZIPInfo *) NULL);
   WizardAssert(EntropyDomain,zip_info->signature == WizardSignature);
   WizardAssert(EntropyDomain,message != (const StringInfo *) NULL);
+  (void) memset(&stream,0,sizeof(stream));
   stream.zalloc=AcquireZIPMemory;
   stream.zfree=RelinquishZIPMemory;
   stream.opaque=(voidpf) NULL;

@@ -205,7 +205,9 @@ static WizardBooleanType AcquireFileLock(FileInfo *file_info,
                 break;
               }
           }
+        UnlockSemaphoreInfo(file_info->semaphore);
         WizardDelay(1000);
+        LockSemaphoreInfo(file_info->semaphore);
         continue;
       }
     pid=(ssize_t) getpid();

@@ -389,9 +389,9 @@ WizardExport WizardBooleanType AcquireWizardResource(const ResourceType type,
   const WizardSizeType size)
 {
   char
-    resource_current[WizardFormatExtent],
-    resource_limit[WizardFormatExtent],
-    resource_request[WizardFormatExtent];
+    resource_current[WizardFormatExtent] = "",
+    resource_limit[WizardFormatExtent] = "",
+    resource_request[WizardFormatExtent] = "";
 
   WizardBooleanType
     status;
