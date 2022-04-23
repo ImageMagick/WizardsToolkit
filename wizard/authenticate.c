@@ -281,8 +281,6 @@ WizardExport WizardBooleanType GenerateAuthenticateKey(
 
       secret_info=(SecretInfo *) authenticate_info->handle;
       status=GenerateSecretKey(secret_info,exception);
-      if (status == WizardFalse)
-        break;
       break;
     }
     default:
