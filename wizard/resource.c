@@ -747,9 +747,9 @@ WizardExport void RelinquishWizardResource(const ResourceType type,
   const WizardSizeType size)
 {
   char
-    resource_current[WizardFormatExtent],
-    resource_limit[WizardFormatExtent],
-    resource_request[WizardFormatExtent];
+    resource_current[WizardFormatExtent] = "",
+    resource_limit[WizardFormatExtent] = "",
+    resource_request[WizardFormatExtent] = "";
 
   (void) FormatWizardSize(size,WizardFalse,WizardFormatExtent,resource_request);
   if (resource_semaphore == (SemaphoreInfo *) NULL)
