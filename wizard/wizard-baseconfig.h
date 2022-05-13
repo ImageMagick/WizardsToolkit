@@ -13,7 +13,7 @@
 #define WIZARDSTOOLKIT_BZLIB_DELEGATE 1
 #endif
 
-/* Define to 1 if the `closedir' function returns void instead of `int'. */
+/* Define to 1 if the `closedir' function returns void instead of int. */
 /* #undef CLOSEDIR_VOID */
 
 /* Directory where architecture-dependent configuration files live. */
@@ -288,15 +288,13 @@
 #define WIZARDSTOOLKIT_HAVE_MEMMOVE 1
 #endif
 
-/* Define to 1 if you have the <memory.h> header file. */
-#ifndef WIZARDSTOOLKIT_HAVE_MEMORY_H
-#define WIZARDSTOOLKIT_HAVE_MEMORY_H 1
-#endif
-
 /* Define to 1 if you have the `memset' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MEMSET
 #define WIZARDSTOOLKIT_HAVE_MEMSET 1
 #endif
+
+/* Define to 1 if you have the <minix/config.h> header file. */
+/* #undef HAVE_MINIX_CONFIG_H */
 
 /* Define to 1 if you have the `mkdir' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MKDIR
@@ -455,13 +453,15 @@
 #define WIZARDSTOOLKIT_HAVE_STDINT_H 1
 #endif
 
+/* Define to 1 if you have the <stdio.h> header file. */
+#ifndef WIZARDSTOOLKIT_HAVE_STDIO_H
+#define WIZARDSTOOLKIT_HAVE_STDIO_H 1
+#endif
+
 /* Define to 1 if you have the <stdlib.h> header file. */
 #ifndef WIZARDSTOOLKIT_HAVE_STDLIB_H
 #define WIZARDSTOOLKIT_HAVE_STDLIB_H 1
 #endif
-
-/* define if the compiler supports ISO C++ standard library */
-/* #undef HAVE_STD_LIBS */
 
 /* Define to 1 if you have the `strcasecmp' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRCASECMP
@@ -483,7 +483,7 @@
 #define WIZARDSTOOLKIT_HAVE_STRDUP 1
 #endif
 
-/* Define to 1 if you have the `strerror_r' function. */
+/* Define if you have `strerror_r'. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRERROR_R
 #define WIZARDSTOOLKIT_HAVE_STRERROR_R 1
 #endif
@@ -687,6 +687,11 @@
 #define WIZARDSTOOLKIT_HAVE_VSPRINTF 1
 #endif
 
+/* Define to 1 if you have the <wchar.h> header file. */
+#ifndef WIZARDSTOOLKIT_HAVE_WCHAR_H
+#define WIZARDSTOOLKIT_HAVE_WCHAR_H 1
+#endif
+
 /* Define to 1 if you have the <xlocale.h> header file. */
 /* #undef HAVE_XLOCALE_H */
 
@@ -874,7 +879,9 @@
 /* Define to 1 if the `S_IS*' macros in <sys/stat.h> do not work properly. */
 /* #undef STAT_MACROS_BROKEN */
 
-/* Define to 1 if you have the ANSI C header files. */
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
 #ifndef WIZARDSTOOLKIT_STDC_HEADERS
 #define WIZARDSTOOLKIT_STDC_HEADERS 1
 #endif
@@ -889,11 +896,6 @@
 #define WIZARDSTOOLKIT_THREAD_SUPPORT 1
 #endif
 
-/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
-#ifndef WIZARDSTOOLKIT_TIME_WITH_SYS_TIME
-#define WIZARDSTOOLKIT_TIME_WITH_SYS_TIME 1
-#endif
-
 /* Define to 1 if your <sys/time.h> declares `struct tm'. */
 /* #undef TM_IN_SYS_TIME */
 
@@ -901,21 +903,87 @@
 #ifndef _ALL_SOURCE
 # define _ALL_SOURCE 1
 #endif
+/* Enable general extensions on macOS.  */
+#ifndef _DARWIN_C_SOURCE
+# define _DARWIN_C_SOURCE 1
+#endif
+/* Enable general extensions on Solaris.  */
+#ifndef __EXTENSIONS__
+# define __EXTENSIONS__ 1
+#endif
 /* Enable GNU extensions on systems that have them.  */
 #ifndef _GNU_SOURCE
 # define _GNU_SOURCE 1
 #endif
-/* Enable threading extensions on Solaris.  */
+/* Enable X/Open compliant socket functions that do not require linking
+   with -lxnet on HP-UX 11.11.  */
+#ifndef _HPUX_ALT_XOPEN_SOCKET_API
+# define _HPUX_ALT_XOPEN_SOCKET_API 1
+#endif
+/* Identify the host operating system as Minix.
+   This macro does not affect the system headers' behavior.
+   A future release of Autoconf may stop defining this macro.  */
+#ifndef _MINIX
+/* # undef _MINIX */
+#endif
+/* Enable general extensions on NetBSD.
+   Enable NetBSD compatibility extensions on Minix.  */
+#ifndef _NETBSD_SOURCE
+# define _NETBSD_SOURCE 1
+#endif
+/* Enable OpenBSD compatibility extensions on NetBSD.
+   Oddly enough, this does nothing on OpenBSD.  */
+#ifndef _OPENBSD_SOURCE
+# define _OPENBSD_SOURCE 1
+#endif
+/* Define to 1 if needed for POSIX-compatible behavior.  */
+#ifndef _POSIX_SOURCE
+/* # undef _POSIX_SOURCE */
+#endif
+/* Define to 2 if needed for POSIX-compatible behavior.  */
+#ifndef _POSIX_1_SOURCE
+/* # undef _POSIX_1_SOURCE */
+#endif
+/* Enable POSIX-compatible threading on Solaris.  */
 #ifndef _POSIX_PTHREAD_SEMANTICS
 # define _POSIX_PTHREAD_SEMANTICS 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-5:2014.  */
+#ifndef __STDC_WANT_IEC_60559_ATTRIBS_EXT__
+# define __STDC_WANT_IEC_60559_ATTRIBS_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-1:2014.  */
+#ifndef __STDC_WANT_IEC_60559_BFP_EXT__
+# define __STDC_WANT_IEC_60559_BFP_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-2:2015.  */
+#ifndef __STDC_WANT_IEC_60559_DFP_EXT__
+# define __STDC_WANT_IEC_60559_DFP_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-4:2015.  */
+#ifndef __STDC_WANT_IEC_60559_FUNCS_EXT__
+# define __STDC_WANT_IEC_60559_FUNCS_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-3:2015.  */
+#ifndef __STDC_WANT_IEC_60559_TYPES_EXT__
+# define __STDC_WANT_IEC_60559_TYPES_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TR 24731-2:2010.  */
+#ifndef __STDC_WANT_LIB_EXT2__
+# define __STDC_WANT_LIB_EXT2__ 1
+#endif
+/* Enable extensions specified by ISO/IEC 24747:2009.  */
+#ifndef __STDC_WANT_MATH_SPEC_FUNCS__
+# define __STDC_WANT_MATH_SPEC_FUNCS__ 1
 #endif
 /* Enable extensions on HP NonStop.  */
 #ifndef _TANDEM_SOURCE
 # define _TANDEM_SOURCE 1
 #endif
-/* Enable general extensions on Solaris.  */
-#ifndef __EXTENSIONS__
-# define __EXTENSIONS__ 1
+/* Enable X/Open extensions.  Define to 500 only if necessary
+   to make mbstate_t available.  */
+#ifndef _XOPEN_SOURCE
+/* # undef _XOPEN_SOURCE */
 #endif
 
 
@@ -957,11 +1025,6 @@
 #define WIZARDSTOOLKIT_ZLIB_DELEGATE 1
 #endif
 
-/* Enable large inode numbers on Mac OS X 10.5.  */
-#ifndef _DARWIN_USE_64_BIT_INODE
-# define _DARWIN_USE_64_BIT_INODE 1
-#endif
-
 /* Number of bits in a file offset, on hosts where this is settable. */
 /* #undef _FILE_OFFSET_BITS */
 
@@ -970,16 +1033,6 @@
 
 /* Define for large files, on AIX-style hosts. */
 /* #undef _LARGE_FILES */
-
-/* Define to 1 if on MINIX. */
-/* #undef _MINIX */
-
-/* Define to 2 if the system does not provide POSIX.1 features except with
-   this defined. */
-/* #undef _POSIX_1_SOURCE */
-
-/* Define to 1 if you need to in order for `stat' and other things to work. */
-/* #undef _POSIX_SOURCE */
 
 /* Define for Solaris 2.5.1 so the uint32_t typedef from <sys/synch.h>,
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
@@ -996,13 +1049,11 @@
    #define below would cause a syntax error. */
 /* #undef _UINT8_T */
 
-/* Define to 1 if type `char' is unsigned and you are not using gcc.  */
+/* Define to 1 if type `char' is unsigned and your compiler does not
+   predefine this macro.  */
 #ifndef __CHAR_UNSIGNED__
 /* # undef __CHAR_UNSIGNED__ */
 #endif
-
-/* Define to appropriate substitue if compiler does not have __func__ */
-/* #undef __func__ */
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */
@@ -1049,21 +1100,22 @@
 /* Define to `long int' if <sys/types.h> does not define. */
 /* #undef off_t */
 
-/* Define to `int' if <sys/types.h> does not define. */
+/* Define as a signed integer type capable of holding a process identifier. */
 /* #undef pid_t */
 
 /* Define to the equivalent of the C99 'restrict' keyword, or to
    nothing if this is not supported.  Do not define if restrict is
-   supported directly.  */
+   supported only directly.  */
 #ifndef _wizardstoolkit_restrict
-#define _wizardstoolkit_restrict __restrict
+#define _wizardstoolkit_restrict __restrict__
 #endif
-/* Work around a bug in Sun C++: it does not support _Restrict or
-   __restrict__, even though the corresponding Sun C compiler ends up with
-   "#define restrict _Restrict" or "#define restrict __restrict__" in the
-   previous line.  Perhaps some future version of Sun C++ will work with
-   restrict; if so, hopefully it defines __RESTRICT like Sun C does.  */
-#if defined __SUNPRO_CC && !defined __RESTRICT
+/* Work around a bug in older versions of Sun C++, which did not
+   #define __restrict__ or support _Restrict or __restrict__
+   even though the corresponding Sun C compiler ended up with
+   "#define restrict _Restrict" or "#define restrict __restrict__"
+   in the previous line.  This workaround can be removed once
+   we assume Oracle Developer Studio 12.5 (2016) or later.  */
+#if defined __SUNPRO_CC && !defined __RESTRICT && !defined __restrict__
 # define _Restrict
 # define __restrict__
 #endif

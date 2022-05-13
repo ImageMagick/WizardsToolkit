@@ -15,7 +15,7 @@
 #  Copying and distribution of this file, with or without modification,
 #  are permitted in any medium without royalty provided the copyright
 #  notice and this notice are preserved.
-AC_PREREQ(2.69)
+AC_PREREQ([2.71])
 
 # ==============================================================================
 # Initalize Automake
@@ -39,11 +39,7 @@ m4_define([wizard_release_date],
             printf %s "$d"
           ]))
 
-AC_INIT([wizard_name],
-        [wizard_version],
-        [wizard_bugreport],
-        [wizard_tarname],
-        [wizard_url])
+AC_INIT([wizard_name],[wizard_version],[wizard_bugreport],[wizard_tarname],[wizard_url])
 
 AC_CONFIG_SRCDIR([wizard/WizardsToolkit.h])
 AC_CONFIG_AUX_DIR([config])
@@ -52,7 +48,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_LIBOBJ_DIR([wizard])
 AX_PREFIX_CONFIG_H([wizard/wizard-baseconfig.h],[WizardsToolkit])
-AC_CANONICAL_SYSTEM
+AC_CANONICAL_TARGET
 AC_CANONICAL_TARGET
 
 AM_INIT_AUTOMAKE([foreign no-define color-tests parallel-tests -Wall -Wno-portability subdir-objects dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
@@ -89,9 +85,8 @@ AC_USE_SYSTEM_EXTENSIONS
 # Check for programs
 AC_PROG_CC
 AC_PROG_CPP
-AC_PROG_LD
+LT_PATH_LD
 AC_SUBST(LD)
-AC_PROG_CC_C99
 AM_PROG_CC_C_O
 AX_CFLAGS_WARN_ALL
 AC_PROG_INSTALL
@@ -338,8 +333,7 @@ case "$host" in
   fi
   dnl OS X universal binary support, requires --disable-dependency-tracking
   AC_ARG_ENABLE(osx-universal-binary,
-        AC_HELP_STRING([--enable-osx-universal-binary],
-           [build universal binary on OS X [[default=no]]]),
+        AS_HELP_STRING([--enable-osx-universal-binary],[build universal binary on OS X [[default=no]]]),
         [build_osxuniversal="${enableval}"], [build_osxuniversal=no])
   
   if test "${build_osxuniversal}" != no ; then
@@ -360,8 +354,7 @@ esac
 # ARCH specific include directory
 #
 AC_ARG_WITH([includearch-dir],
-    [AC_HELP_STRING([--includearch-dir=DIR],
-                    [ARCH specific include directory])],
+    [AS_HELP_STRING([--includearch-dir=DIR],[ARCH specific include directory])],
                     [includearch_dir=$withval],
                     [includearch_dir=$INCLUDE_DIR])
 
@@ -372,8 +365,7 @@ AC_SUBST(INCLUDEARCH_DIR)
 # ARCH specific configuration directory
 #
 AC_ARG_WITH([sharearch-dir],
-    [AC_HELP_STRING([--sharearch-dir=DIR],
-                    [ARCH specific config directory])],
+    [AS_HELP_STRING([--sharearch-dir=DIR],[ARCH specific config directory])],
                     [sharearch_dir=$withval],
                     [sharearch_dir="${LIB_DIR}"])
 
@@ -389,8 +381,7 @@ AC_SUBST([pkgconfigdir])
 
 # Enable support for threads
 AC_ARG_WITH([threads],
-    [AC_HELP_STRING([--without-threads],
-                    [disable threads support])],
+    [AS_HELP_STRING([--without-threads],[disable threads support])],
     [with_threads=$withval],
     [with_threads='yes'])
 
@@ -459,8 +450,7 @@ fi
 AC_SUBST(LFS_CPPFLAGS)
 
 # Configure libtool
-AC_LIBTOOL_DLOPEN
-LT_INIT([disable-shared win32-dll])
+LT_INIT([win32-dll dlopen])
 LT_LANG([C++])
 AC_SUBST(LIBTOOL_DEPS)
 
@@ -481,15 +471,14 @@ AM_CONDITIONAL(WITH_SHARED_LIBS, test "${libtool_build_shared_libs}" = 'yes')
 # Enable build using delegate libraries built in subdirectories rather than installed
 # delegate libraries (bzlib lzma zlib)
 AC_ARG_ENABLE([delegate-build],
-    [AC_HELP_STRING([--enable-delegate-build],
-                    [look for delegate libraries in build directory])],
+    [AS_HELP_STRING([--enable-delegate-build],[look for delegate libraries in build directory])],
     [enable_delegate_build=$enableval],
     [enable_delegate_build='yes'])
 
 # Build a version of Wizard which operates uninstalled.
 # Used to build distributions located via WIZARD_HOME / executable path
 AC_ARG_ENABLE([installed],
-    [AC_HELP_STRING([--disable-installed],                    [Formally install Wizard's Toolkit under PREFIX])],
+    [AS_HELP_STRING([--disable-installed],[Formally install Wizard's Toolkit under PREFIX])],
     [enable_installed=$enableval],
     [enable_installed='yes'])
 
@@ -503,8 +492,7 @@ AC_SUBST(THREAD_LIBS)
 
 # Build an embeddable version of Wizard's Toolkit.
 AC_ARG_ENABLE([embeddable],
-    [AC_HELP_STRING([--enable-embeddable],
-                    [enable self-contained, embeddable, zero-configuration Wizard's Toolkit])],
+    [AS_HELP_STRING([--enable-embeddable],[enable self-contained, embeddable, zero-configuration Wizard's Toolkit])],
     [enable_embeddable=$enableval],
     [enable_embeddable='no'])
 
@@ -514,8 +502,7 @@ fi
 
 # Build a version of Wizard with assert statements.
 AC_ARG_ENABLE([assert],
-    [AC_HELP_STRING([--disable-assert],
-                    [disable assert() statements in build])],
+    [AS_HELP_STRING([--disable-assert],[disable assert() statements in build])],
     [enable_assert=$enableval],
     [enable_assert='yes'])
 
@@ -530,15 +517,13 @@ AM_MAINTAINER_MODE
 
 # Enable hugepages support
 AC_ARG_ENABLE([hugepages],
-    [AC_HELP_STRING([--enable-hugepages],
-                    [enable 'huge pages' support])],
+    [AS_HELP_STRING([--enable-hugepages],[enable 'huge pages' support])],
     [enable_hugepages=$enableval],
     [enable_hugepages='no'])
 
 # Enable Wizard Debugging
 AC_ARG_ENABLE([debug],
-    [AC_HELP_STRING([--disable-debug],
-                    [disable Wizard Executable Environment debugging])],
+    [AS_HELP_STRING([--disable-debug],[disable Wizard Executable Environment debugging])],
     [enable_debug=$enableval],
     [enable_debug='yes'])
 
@@ -548,36 +533,31 @@ fi
 
 # Enable ccmalloc memory debugging support
 AC_ARG_ENABLE([ccmalloc],
-    [AC_HELP_STRING([--enable-ccmalloc],
-                    [enable 'ccmalloc' memory debug support])],
+    [AS_HELP_STRING([--enable-ccmalloc],[enable 'ccmalloc' memory debug support])],
     [enable_ccmalloc=$enableval],
     [enable_ccmalloc='no'])
 
 # Enable Electric Fence memory debugging support
 AC_ARG_ENABLE([efence],
-    [AC_HELP_STRING([--enable-efence],
-                    [enable 'efence' memory debug support])],
+    [AS_HELP_STRING([--enable-efence],[enable 'efence' memory debug support])],
     [enable_efence=$enableval],
     [enable_efence='no'])
 
 # Enable prof-based profiling support
 AC_ARG_ENABLE([prof],
-    [AC_HELP_STRING([--enable-prof],
-                    [enable 'prof' profiling support])],
+    [AS_HELP_STRING([--enable-prof],[enable 'prof' profiling support])],
     [enable_prof=$enableval],
     [enable_prof='no'])
 
 # Enable gprof-based profiling support
 AC_ARG_ENABLE([gprof],
-    [AC_HELP_STRING([--enable-gprof],
-                    [enable 'gprof' profiling support])],
+    [AS_HELP_STRING([--enable-gprof],[enable 'gprof' profiling support])],
     [enable_gprof=$enableval], 
     [enable_gprof='no'])
 
 # Enable gcov-based profiling support
 AC_ARG_ENABLE([gcov],
-    [AC_HELP_STRING([--enable-gcov],
-                    [enable 'gcov' profiling support])],
+    [AS_HELP_STRING([--enable-gcov],[enable 'gcov' profiling support])],
     [enable_gcov=$enableval],
     [enable_gcov='no'])
 
@@ -592,8 +572,7 @@ fi
 
 # Wizard API method prefix
 AC_ARG_WITH([method-prefix],
-    [AC_HELP_STRING([--with-method-prefix=PREFIX],
-                    [prefix WizardsToolkit API methods])],
+    [AS_HELP_STRING([--with-method-prefix=PREFIX],[prefix WizardsToolkit API methods])],
     [with_method_prefix=$withval],
     [with_method_prefix='no'])
 
@@ -624,8 +603,7 @@ fi
 # Specify path to shared libstdc++ if not in normal location
 #
 AC_ARG_WITH([libstdc],
-    [AC_HELP_STRING([--with-libstdc=DIR],
-                    [ use libstdc++ in DIR (for GNU C++)])],
+    [AS_HELP_STRING([--with-libstdc=DIR],[ use libstdc++ in DIR (for GNU C++)])],
     [with_libstdc=$withval],
     [with_libstdc=''])
 
@@ -679,12 +657,6 @@ AC_SUBST(MODULE_EXTRA_CPPFLAGS)
 AC_SUBST(LIBRARY_EXTRA_CPPFLAGS)
 
 # Check standard headers
-AC_HEADER_STDC
-if ! test x"$ac_cv_header_stdc" = x"yes"; then
-  AC_MSG_WARN([configure has detected that you do not have the ANSI standard C
-    header files.  Compilation cannot proceed.  Please install the ANSI C
-    headers and rerun this script.]);
-fi
 AC_HEADER_ASSERT
 AC_HEADER_DIRENT
 
@@ -701,7 +673,6 @@ AC_HEADER_STDBOOL
 AC_C_VOLATILE
 AC_C_STRINGIZE
 AC_HEADER_STAT
-AC_HEADER_TIME
 AC_STRUCT_TM
 AC_SYS_INTERPRETER
 
@@ -900,21 +871,10 @@ AC_SUBST(UINTPTR_F)
 
 
 
-# Test for C compiler __func__ support
-AC_MSG_CHECKING([whether our compiler supports __func__])
-AC_TRY_COMPILE([],
- [{ const char *func = __func__; return(func != 0 ? 0 : 1); }],
- AC_MSG_NOTICE([yes]),
- AC_MSG_NOTICE([no])
- AC_MSG_CHECKING([whether our compiler supports __FUNCTION__])
- AC_TRY_COMPILE([],
-   [{ const char *func = __FUNCTION__; return(func != 0 ? 0 : 1); }],
-   AC_MSG_NOTICE([yes])
-   AC_DEFINE(__func__, __FUNCTION__,
-     [Define to appropriate substitue if compiler does not have __func__]),
-   AC_MSG_NOTICE([no])
-   AC_DEFINE(__func__, __FILE__,
-     [Define to appropriate substitue if compiler does not have __func__])))
+#
+# Check for __func__ support
+#
+########
 
 ########
 #
@@ -988,7 +948,6 @@ if test "$with_wizard_plus_plus" = 'yes'; then
  AX_CXX_BOOL
  AX_CXX_NAMESPACES
  AX_CXX_NAMESPACE_STD
- AC_CXX_HAVE_STD_LIBS
  AC_OPENMP([C++])
  AC_LANG_POP
 
@@ -1099,26 +1058,24 @@ AC_SUBST(GOMP_LIBS)
 # Find Posix threads library
 #
 THREAD_LIBS=''
-if test "$with_threads" != 'no' && test "$have_threads" = 'yes'; then
-
-  if test "x$PTHREAD_LIBS" = "x"; then
-    case "${host_cpu}-${host_os}" in
-      *-freebsd*)
-        WIZARD_CHECK_PTHREAD_LIB(c_r,PTHREAD_LIBS=-lc_r) ;;
-    esac
-  fi
-
-  for lib in pthread pthreads
-  do
-    if test "x$PTHREAD_LIBS" = "x"; then
-      WIZARD_CHECK_PTHREAD_LIB([$lib],[PTHREAD_LIBS=-l$lib])
+have_threads=no
+if test "$with_threads" != 'no'; then
+    AX_PTHREAD()
+    if test "$ax_pthread_ok" = yes; then
+        have_threads=yes
+        DEF_THREAD="$PTHREAD_CFLAGS"
+        CFLAGS="$CFLAGS $DEF_THREAD"
+        CXXFLAGS="$CXXFLAGS $DEF_THREAD"
+        THREAD_LIBS="$PTHREAD_LIBS"
+        if test "$CC" != "$PTHREAD_CC"; then
+            AC_MSG_WARN([Replacing compiler $CC with compiler $PTHREAD_CC to support pthreads.])
+            CC="$PTHREAD_CC"
+        fi
+        AC_DEFINE([THREAD_SUPPORT],[1],[Define if you have POSIX threads libraries and header files.])
     fi
-  done
-
-  THREAD_LIBS="$PTHREAD_LIBS"
-  LIBS="$LIBS $THREAD_LIBS"
 fi
-AC_SUBST(THREAD_LIBS)
+LIBS="$LIBS $THREAD_LIBS"
+AC_SUBST([THREAD_LIBS])
 
 #
 # Check for jemalloc.
@@ -1233,8 +1190,7 @@ dnl ===========================================================================
 
 # Encode the this name into the shared library.
 AC_ARG_WITH([package-release-name],
-    [AC_HELP_STRING([--with-package-release-name=NAME],
-                    [encode this name into the shared library])],
+    [AS_HELP_STRING([--with-package-release-name=NAME],[encode this name into the shared library])],
 [WIZARD_LT_RELEASE_OPTS="-release $withval"])
 AC_SUBST(WIZARD_LT_RELEASE_OPTS)
 
@@ -1244,7 +1200,7 @@ AC_SUBST(WIZARD_LT_RELEASE_OPTS)
 #
 
 AC_ARG_WITH([bzlib],
-    [AC_HELP_STRING([--without-bzlib],                    [disable BZLIB support])],
+    [AS_HELP_STRING([--without-bzlib],[disable BZLIB support])],
     [with_bzlib=$withval],
     [with_bzlib='yes'])
 
@@ -1328,8 +1284,7 @@ dnl ===========================================================================
 #
 
 AC_ARG_WITH([zlib],
-    [AC_HELP_STRING([--without-zlib],
-                    [disable ZLIB support])],
+    [AS_HELP_STRING([--without-zlib],[disable ZLIB support])],
     [with_zlib=$withval],
     [with_zlib='yes'])
 
