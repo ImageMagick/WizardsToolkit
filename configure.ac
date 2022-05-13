@@ -49,7 +49,6 @@ AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_LIBOBJ_DIR([wizard])
 AX_PREFIX_CONFIG_H([wizard/wizard-baseconfig.h],[WizardsToolkit])
 AC_CANONICAL_TARGET
-AC_CANONICAL_TARGET
 
 AM_INIT_AUTOMAKE([foreign no-define color-tests parallel-tests -Wall -Wno-portability subdir-objects dist-bzip2 dist-lzip dist-xz dist-zip tar-ustar])
 

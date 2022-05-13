@@ -3760,7 +3760,6 @@ test -n "$target_alias" &&
     NONENONEs,x,x, &&
   program_prefix=${target_alias}-
 
-
 am__api_version='1.16'
 
 
@@ -8607,7 +8606,7 @@ WIZARD_PATCHLEVEL_VERSION=5
 
 WIZARD_VERSION=1.0.9-5
 
-WIZARD_GIT_REVISION=61ee7e4:20220513
+WIZARD_GIT_REVISION=abf57e4:20220513
 
 
 # Substitute library versioning
