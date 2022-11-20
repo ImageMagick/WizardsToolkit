@@ -51,6 +51,8 @@ static inline int StringToInteger(const char *value)
 
 static inline long StringToLong(const char *value)
 {
+  if (value == (const char *) NULL)
+    return(0);
   return(strtol(value,(char **) NULL,10));
 }
 

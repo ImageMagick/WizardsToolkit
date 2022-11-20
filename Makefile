@@ -724,7 +724,7 @@ CC = gcc
 CCDEPMODE = depmode=gcc3
 CCMALLOCDelegate = 
 CFLAGS =  -fopenmp -Wall -g -O2 -mtune=broadwell -pthread -pthread
-CONFIGURE_ARGS = ./configure 
+CONFIGURE_ARGS = ./configure  'PKG_CONFIG_PATH=/usr/local/lib/pkgconfig'
 CONFIGURE_DEPENDENCIES =  $(top_srcdir)/ChangeLog.md $(top_srcdir)/m4/version.m4
 CONFIGURE_PATH = /usr/local/etc/WizardsToolkit-1
 CPP = gcc -E
@@ -823,7 +823,7 @@ PACKAGE_LIB_VERSION = 0x109
 PACKAGE_LIB_VERSION_NUMBER = 1,0,9,5
 PACKAGE_NAME = WizardsToolkit
 PACKAGE_PATCHLEVEL_VERSION = 5
-PACKAGE_RELEASE_DATE = 2022-07-04
+PACKAGE_RELEASE_DATE = 2022-10-15
 PACKAGE_STRING = WizardsToolkit 1.0.9-5
 PACKAGE_TARNAME = WizardsToolkit
 PACKAGE_URL = https://urban-warrior.org
@@ -832,7 +832,7 @@ PACKAGE_VERSION_ADDENDUM = -5
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
-PKG_CONFIG_PATH = 
+PKG_CONFIG_PATH = /usr/local/lib/pkgconfig
 POW_LIB = 
 PREFIX_DIR = /usr/local
 PRTDIAG = 
@@ -874,7 +874,7 @@ WIZARD_CONFIGURE_BUILD_PATH = /home/cristy/WizardsToolkit-1.0.9/config
 WIZARD_CONFIGURE_SRC_PATH = /home/cristy/WizardsToolkit-1.0.9/config
 WIZARD_CPPFLAGS = -I/usr/local/include/WizardsToolkit-1
 WIZARD_DEP_LIBS =   -lbz2 -llzma  -lz   -lm -lgomp   -lpthread
-WIZARD_GIT_REVISION = 4f22f5b:20220704
+WIZARD_GIT_REVISION = 12ec9d2:20221015
 WIZARD_LDFLAGS = -L/usr/local/lib 
 WIZARD_LIBRARY_AGE = 0
 WIZARD_LIBRARY_CURRENT = 1
