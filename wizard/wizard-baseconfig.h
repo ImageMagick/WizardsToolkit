@@ -504,10 +504,14 @@
 #endif
 
 /* Define to 1 if you have the `strlcat' function. */
-/* #undef HAVE_STRLCAT */
+#ifndef WIZARDSTOOLKIT_HAVE_STRLCAT
+#define WIZARDSTOOLKIT_HAVE_STRLCAT 1
+#endif
 
 /* Define to 1 if you have the `strlcpy' function. */
-/* #undef HAVE_STRLCPY */
+#ifndef WIZARDSTOOLKIT_HAVE_STRLCPY
+#define WIZARDSTOOLKIT_HAVE_STRLCPY 1
+#endif
 
 /* Define to 1 if you have the `strncasecmp' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRNCASECMP
