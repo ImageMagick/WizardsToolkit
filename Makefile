@@ -14,7 +14,7 @@
 
 
 
-#  Copyright 1999-2021 ImageMagick Studio LLC, a non-profit organization
+#  Copyright @ 1999 ImageMagick Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.  You may
@@ -46,7 +46,7 @@
 #
 #  Makefile for building ImageMagick m4 macros.
 
-#  Copyright 1999-2021 ImageMagick Studio LLC, a non-profit organization
+#  Copyright @ 1999 ImageMagick Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.  You may
@@ -62,7 +62,7 @@
 #
 #  Makefile for the Wizard's Toolkit configuration files.
 
-#  Copyright 1999-2021 ImageMagick Studio LLC, a non-profit organization
+#  Copyright @ 1999 ImageMagick Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@
 #
 #  Makefile for building Wizard's Toolkit library.
 
-# Copyright 1999-2021 ImageMagick Studio LLC, a non-profit organization
+# Copyright @ 1999 ImageMagick Studio LLC, a non-profit organization
 # dedicated to making software imaging solutions freely available.
 #
 # You may not use this file except in compliance with the License.
@@ -94,7 +94,7 @@
 #
 #  Makefile for Wizard's Toolkit tests invoked via the C API.
 
-#  Copyright 1999-2021 ImageMagick Studio LLC, a non-profit organization
+#  Copyright @ 1999 ImageMagick Studio LLC, a non-profit organization
 #  dedicated to making software imaging solutions freely available.
 #
 #  You may not use this file except in compliance with the License.  You may
