@@ -685,7 +685,7 @@ am__DIST_COMMON = $(srcdir)/Makefile.in \
 	$(top_srcdir)/windows/WizardsToolkit.bat.in \
 	$(top_srcdir)/wizard/WizardsToolkit-config.in \
 	$(top_srcdir)/wizard/WizardsToolkit.pc.in \
-	$(top_srcdir)/wizard/version.h.in ChangeLog.md config/compile \
+	$(top_srcdir)/wizard/version.h.in ChangeLog config/compile \
 	config/config.guess config/config.sub config/depcomp \
 	config/install-sh config/ltmain.sh config/missing \
 	config/mkinstalldirs

@@ -685,7 +685,7 @@ am__DIST_COMMON = $(srcdir)/Makefile.in \
 	$(top_srcdir)/windows/WizardsToolkit.bat.in \
 	$(top_srcdir)/wizard/WizardsToolkit-config.in \
 	$(top_srcdir)/wizard/WizardsToolkit.pc.in \
-	$(top_srcdir)/wizard/version.h.in ChangeLog.md config/compile \
+	$(top_srcdir)/wizard/version.h.in ChangeLog config/compile \
 	config/config.guess config/config.sub config/depcomp \
 	config/install-sh config/ltmain.sh config/missing \
 	config/mkinstalldirs
@@ -823,7 +823,7 @@ PACKAGE_LIB_VERSION = 0x109
 PACKAGE_LIB_VERSION_NUMBER = 1,0,9,5
 PACKAGE_NAME = WizardsToolkit
 PACKAGE_PATCHLEVEL_VERSION = 5
-PACKAGE_RELEASE_DATE = 2023-09-20
+PACKAGE_RELEASE_DATE = 2023-11-19
 PACKAGE_STRING = WizardsToolkit 1.0.9-5
 PACKAGE_TARNAME = WizardsToolkit
 PACKAGE_URL = https://urban-warrior.org
@@ -874,7 +874,7 @@ WIZARD_CONFIGURE_BUILD_PATH = /home/cristy/WizardsToolkit-1.0.9/config
 WIZARD_CONFIGURE_SRC_PATH = /home/cristy/WizardsToolkit-1.0.9/config
 WIZARD_CPPFLAGS = -I/usr/local/include/WizardsToolkit-1
 WIZARD_DEP_LIBS =   -lbz2 -llzma -lz  -lm -lgomp   -lpthread
-WIZARD_GIT_REVISION = 89f5983:20230920
+WIZARD_GIT_REVISION = 3dbb57e:20231119
 WIZARD_LDFLAGS = -L/usr/local/lib 
 WIZARD_LIBRARY_AGE = 0
 WIZARD_LIBRARY_CURRENT = 1
