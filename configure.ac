@@ -411,6 +411,7 @@ AC_OPENMP([C])
 CFLAGS="$OPENMP_CFLAGS $CFLAGS"
 WIZARD_PCFLAGS="$WIZARD_PCFLAGS $OPENMP_CFLAGS"
 AC_SUBST(OPENMP_CFLAGS)
+AC_CHECK_DECL([_OPENMP],[OPENMP_ENABLED='yes'],[OPENMP_ENABLED='yes'],[])
 
 ########
 #
@@ -1017,18 +1018,18 @@ WIZARD_CPPFLAGS="-I$INCLUDE_DIR/${PACKAGE_NAME}-$WIZARD_MAJOR_VERSION $WIZARD_CP
 # Find OpenMP library
 #
 GOMP_LIBS=''
-if test "$enable_openmp" != 'no'; then
+if test "${OPENMP_ENABLED}" == 'yes'; then
   if test "${GCC}" = "yes"; then
-    # Clang 3.8 and later defaults to the LLVM OpenMP implementation
-    if test "x$GOMP_LIBS" = x ; then
-      if $CC --version 2>&1 | grep clang > /dev/null ; then
-        AC_CHECK_LIB(omp,omp_get_num_procs,GOMP_LIBS="-lomp",,)
-      fi
-    fi
     # Open64 (passes for GCC but uses different OpenMP implementation)
     if test "x$GOMP_LIBS" = x ; then
       if $CC --version 2>&1 | grep Open64 > /dev/null ; then
         AC_CHECK_LIB(openmp,omp_get_num_procs,GOMP_LIBS="-lopenmp",,)
+      fi
+    fi
+    # Clang 3.8 and later defaults to the LLVM OpenMP implementation
+    if test "x$GOMP_LIBS" = x ; then
+      if $CC --version 2>&1 | grep clang > /dev/null ; then
+        AC_CHECK_LIB(omp,omp_get_num_procs,GOMP_LIBS="-lomp",,)
       fi
     fi
     # GCC
