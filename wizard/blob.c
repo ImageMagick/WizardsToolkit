@@ -254,8 +254,8 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
   switch (blob_info->type)
   {
     case UndefinedStream:
-    case StandardStream:
       break;
+    case StandardStream:
     case FileStream:
     case PipeStream:
     {
