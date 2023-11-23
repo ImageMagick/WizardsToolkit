@@ -492,7 +492,8 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
   if (argc == 2)
     status=PrintKeyringProperties((const char *) NULL,keyring_blob,exception);
   (void) WriteBlobString(keyring_blob,"</rdf:RDF>\n");
-  status=CloseBlob(keyring_blob);
+  if (CloseBlob(keyring_blob) == WizardFalse)
+    status=WizardFalse;
   /*
     Free resources.
   */

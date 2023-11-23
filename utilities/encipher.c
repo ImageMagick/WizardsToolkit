@@ -806,7 +806,7 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
       if (properties == (BlobInfo *) NULL)
         return(WizardFalse);
       count=WriteBlob(properties,length,(unsigned char *) cipher_packet);
-      if (CloseBlob(properties) == WizardTrue)
+      if (CloseBlob(properties) == WizardFalse)
         ThrowFileException(exception,FileError,content_info->properties);
       properties=DestroyBlob(properties);
     }
@@ -895,9 +895,9 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
         ThrowEncipherContentException(FileError,"unable to write ciphertext "
           "`%s': `%s'",cipher_filename);
     }
-  if (CloseBlob(content_info->cipherblob) != WizardFalse)
+  if (CloseBlob(content_info->cipherblob) == WizardFalse)
     ThrowFileException(exception,FileError,content_info->content);
-  if (CloseBlob(content_info->plainblob) != WizardFalse)
+  if (CloseBlob(content_info->plainblob) == WizardFalse)
     ThrowFileException(exception,FileError,content_info->content);
   plaintext=DestroyStringInfo(plaintext);
   return(WizardTrue);

@@ -274,7 +274,7 @@ WizardExport WizardBooleanType CipherInfoCommand(int argc,char **argv,
         status=GetContentInfo(content_info,content_info->cipherblob,exception);
         if (status != WizardFalse)
           (void) PrintCipherProperties(content_info,stdout);
-        if (CloseBlob(content_info->cipherblob) != WizardFalse)
+        if (CloseBlob(content_info->cipherblob) == WizardFalse)
           ThrowFileException(exception,FileError,content_info->content);
       }
   }

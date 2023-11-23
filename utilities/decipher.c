@@ -684,7 +684,7 @@ static WizardBooleanType DecipherContent(ContentInfo *content_info,
       if (properties == (BlobInfo *) NULL)
         return(WizardFalse);
       status=GetContentInfo(content_info,properties,exception);
-      if (CloseBlob(properties) == WizardTrue)
+      if (CloseBlob(properties) == WizardFalse)
         ThrowFileException(exception,FileError,content_info->properties);
       properties=DestroyBlob(properties);
     }
@@ -798,9 +798,9 @@ static WizardBooleanType DecipherContent(ContentInfo *content_info,
       ThrowDecipherContentException(FileError,"unable to write plaintext "
         "`%s': `%s'",cipher_filename);
   }
-  if (CloseBlob(content_info->cipherblob) != WizardFalse)
+  if (CloseBlob(content_info->cipherblob) == WizardFalse)
     ThrowFileException(exception,FileError,content_info->content);
-  if (CloseBlob(content_info->plainblob) != WizardFalse)
+  if (CloseBlob(content_info->plainblob) == WizardFalse)
     ThrowFileException(exception,FileError,content_info->content);
 #if defined(WIZARDSTOOLKIT_HAVE_UTIME)
   {

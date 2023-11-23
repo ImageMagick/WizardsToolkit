@@ -470,7 +470,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
                         message=DestroyString(message);
                       }
                     hash_info=DestroyHashInfo(hash_info);
-                    if (CloseBlob(content_blob) != WizardFalse)
+                    if (CloseBlob(content_blob) == WizardFalse)
                       ThrowFileException(exception,FileError,argv[i]);
                     content_blob=DestroyBlob(content_blob);
                     break;
@@ -484,7 +484,7 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
           c=ReadBlobByte(digest_blob);
       }
       options=DestroyString(options);
-      if (CloseBlob(digest_blob) != WizardFalse)
+      if (CloseBlob(digest_blob) == WizardFalse)
         ThrowFileException(exception,FileError,argv[i]);
     }
     if (path != (char *) NULL)
@@ -498,7 +498,8 @@ static WizardBooleanType AuthenticateDigest(int argc,char **argv,
     if (modify_date != (char *) NULL)
       modify_date=DestroyString(modify_date);
   }
-  (void) CloseBlob(authenticate_blob);
+  if (CloseBlob(authenticate_blob) == WizardFalse)
+    status=WizardFalse;
   authenticate_blob=DestroyBlob(authenticate_blob);
   if (hash == UndefinedHash)
     ThrowDigestException(OptionError,"missing a digest RDF file: `%s'",
@@ -769,7 +770,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     (void) ConcatenateString(&digest_rdf,"  </digest:Content>\n");
     content=DestroyStringInfo(content);
     hash_info=DestroyHashInfo(hash_info);
-    if (CloseBlob(content_blob) != WizardFalse)
+    if (CloseBlob(content_blob) == WizardFalse)
       ThrowFileException(exception,FileError,argv[i]);
     content_blob=DestroyBlob(content_blob);
     length=strlen(digest_rdf);
@@ -779,7 +780,8 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
       ThrowFileException(exception,FileError,argv[argc-1]);
   }
   (void) WriteBlobString(digest_blob,"</rdf:RDF>\n");
-  status=CloseBlob(digest_blob);
+  if (CloseBlob(digest_blob) == WizardFalse)
+    status=WizardFalse;
   /*
     Free resources.
   */

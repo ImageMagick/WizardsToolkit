@@ -107,9 +107,16 @@ struct _BlobInfo
     extent,
     quantum;
 
+  BlobMode
+    mode;
+
   WizardBooleanType
     mapped,
     eof;
+
+  int
+    error,
+    error_number;
 
   WizardOffsetType
     offset;
@@ -119,8 +126,10 @@ struct _BlobInfo
 
   WizardBooleanType
     exempt,
-    status,
     temporary;
+
+  int
+    status;
 
   StreamType
     type;
@@ -216,6 +225,14 @@ static void AttachBlob(BlobInfo *blob_info,const void *blob,const size_t length)
 %    o blob_info: the blob info.
 %
 */
+
+static inline void ThrowBlobException(BlobInfo *blob_info)
+{
+  if ((blob_info->status == 0) && (errno != 0))
+    blob_info->error_number=errno;
+  blob_info->status=(-1);
+}
+
 WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
 {
   int
@@ -231,7 +248,9 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
       blob_info->filename);
   if (blob_info->type == UndefinedStream)
     return(WizardTrue);
-  status=SyncBlob(blob_info);
+  if (SyncBlob(blob_info) != 0)
+    return(WizardFalse);
+  status=blob_info->status;
   switch (blob_info->type)
   {
     case UndefinedStream:
@@ -240,33 +259,42 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
     case FileStream:
     case PipeStream:
     {
-      status=ferror(blob_info->file_info.file);
+      if ((status != 0) && (ferror(blob_info->file_info.file) != 0))
+        ThrowBlobException(blob_info);
       break;
     }
     case ZipStream:
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
+      status=Z_OK;
       (void) gzerror(blob_info->file_info.gzfile,&status);
+      if (status != Z_OK)
+        ThrowBlobException(blob_info);
 #endif
       break;
     }
     case BZipStream:
     {
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
+     status=BZ_OK;
       (void) BZ2_bzerror(blob_info->file_info.bzfile,&status);
+      if (status != BZ_OK)
+        ThrowBlobException(blob_info);
 #endif
       break;
     }
     case BlobStream:
       break;
   }
-  blob_info->status=status < 0 ? WizardTrue : WizardFalse;
+  blob_info->status=status;
   blob_info->size=GetBlobSize(blob_info);
   blob_info->eof=WizardFalse;
+  blob_info->error=0;
+  blob_info->mode=UndefinedBlobMode;
   if (blob_info->exempt != WizardFalse)
     {
       blob_info->type=UndefinedStream;
-      return(blob_info->status);
+      return(blob_info->status != 0 ? WizardFalse : WizardTrue);
     }
   switch (blob_info->type)
   {
@@ -275,13 +303,20 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
       break;
     case FileStream:
     {
-      status=fclose(blob_info->file_info.file);
+      if (blob_info->file_info.file != (FILE *) NULL)
+        {
+          status=fclose(blob_info->file_info.file);
+          if (status != 0)
+            ThrowBlobException(blob_info);
+        }
       break;
     }
     case PipeStream:
     {
 #if defined(WIZARDSTOOLKIT_HAVE_POPEN)
       status=pclose(blob_info->file_info.file);
+      if (status != 0)
+        ThrowBlobException(blob_info);
 #endif
       break;
     }
@@ -289,6 +324,8 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
     {
 #if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
       status=gzclose(blob_info->file_info.gzfile);
+      if (status != Z_OK)
+        ThrowBlobException(blob_info);
 #endif
       break;
     }
@@ -303,8 +340,8 @@ WizardExport WizardBooleanType CloseBlob(BlobInfo *blob_info)
       break;
   }
   (void) DetachBlob(blob_info);
-  blob_info->status=status < 0 ? WizardTrue : WizardFalse;
-  return(blob_info->status);
+  blob_info->status=status;
+  return(blob_info->status != 0 ? WizardFalse : WizardTrue);
 }
 
 /*
@@ -743,62 +780,83 @@ WizardExport void GetBlobInfo(BlobInfo *blob_info)
 %    o blob_info: the blob info.
 %
 */
+
+static WizardBooleanType GetPathAttributes(const char *path,void *attributes)
+{
+  WizardBooleanType
+    status;
+
+  if (path == (const char *) NULL)
+    {
+      errno=EINVAL;
+      return(WizardFalse);
+    }
+  (void) memset(attributes,0,sizeof(struct stat));
+  status=stat_utf8(path,(struct stat *) attributes) == 0 ? WizardTrue :
+    WizardFalse;
+  return(status);
+}
+
 WizardExport WizardSizeType GetBlobSize(BlobInfo *blob_info)
 {
   WizardSizeType
-    length;
+    extent;
 
   assert(blob_info != (BlobInfo *) NULL);
   if (blob_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",
       blob_info->filename);
-  length=0;
+  if (SyncBlob(blob_info) != 0)
+    return(0);
+  extent=0;
   switch (blob_info->type)
   {
     case UndefinedStream:
-    {
-      length=blob_info->size;
-      break;
-    }
     case StandardStream:
     {
-      length=blob_info->size;
+      extent=blob_info->size;
       break;
     }
     case FileStream:
     {
-      if (fstat(fileno(blob_info->file_info.file),&blob_info->properties) == 0)
-        length=(WizardSizeType) blob_info->properties.st_size;
+      int
+        file_descriptor;
+
+      extent=(WizardSizeType) blob_info->properties.st_size;
+      if (extent == 0)
+        extent=blob_info->size;
+      file_descriptor=fileno(blob_info->file_info.file);
+      if (file_descriptor == -1)
+        break;
+      if (fstat(file_descriptor,&blob_info->properties) == 0)
+        extent=(WizardSizeType) blob_info->properties.st_size;
       break;
     }
     case PipeStream:
     {
-      length=blob_info->size;
+      extent=blob_info->size;
       break;
     }
     case ZipStream:
-    {
-#if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
-      if (fstat(fileno(blob_info->file_info.file),&blob_info->properties) == 0)
-        length=(WizardSizeType) blob_info->properties.st_size;
-#endif
-      break;
-    }
     case BZipStream:
     {
-#if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
-      if (fstat(fileno(blob_info->file_info.file),&blob_info->properties) == 0)
-        length=(WizardSizeType) blob_info->properties.st_size;
+#if defined(WIZARDSTOOLKIT_ZLIB_DELEGATE)
+      WizardBooleanType
+        status;
+
+      status=GetPathAttributes(blob_info->filename,&blob_info->properties);
+      if (status != WizardFalse)
+        extent=(WizardSizeType) blob_info->properties.st_size;
 #endif
       break;
     }
     case BlobStream:
     {
-      length=(WizardSizeType) blob_info->length;
+      extent=(WizardSizeType) blob_info->extent;
       break;
     }
   }
-  return(length);
+  return(extent);
 }
 
 /*
