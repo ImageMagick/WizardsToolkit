@@ -806,8 +806,6 @@ WizardExport WizardSizeType GetBlobSize(BlobInfo *blob_info)
   if (blob_info->debug != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"%s",
       blob_info->filename);
-  if (SyncBlob(blob_info) != 0)
-    return(0);
   extent=0;
   switch (blob_info->type)
   {
