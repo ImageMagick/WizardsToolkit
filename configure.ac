@@ -1564,11 +1564,19 @@ AC_SUBST(X_CFLAGS)
 #AC_SUBST(X_LIBS)
 #AC_SUBST(X_EXTRA_LIBS)
 
+CC=`echo $CC | sed -e 's/  */ /g'`
+CFLAGS=`echo $CFLAGS | sed -e 's/  */ /g'`
+CPPFLAGS=`echo $CPPFLAGS | sed -e 's/  */ /g'`
+CXXFLAGS=`echo $CXXFLAGS | sed -e 's/  */ /g'`
+LDFLAGS=`echo $LDFLAGS | sed -e 's/  */ /g'`
+
 WIZARD_CFLAGS=$CFLAGS
 WIZARD_CPPFLAGS=`echo $WIZARD_CPPFLAGS | sed -e 's/  */ /g'`
 WIZARD_PCFLAGS=`echo $WIZARD_PCFLAGS | sed -e 's/  */ /g'`
 WIZARD_LDFLAGS="-L$LIB_DIR $LDFLAGS"
 WIZARD_LIBS="-lWizardsToolkit $WIZARD_DEP_LIBS $WIZARD_EXTRA_DEP_LIBS"
+WIZARD_DEP_LIBS=`echo $WIZARD_DEP_LIBS | sed -e 's/  */ /g'`
+WIZARD_EXTRA_DEP_LIBS=`echo $WIZARD_EXTRA_DEP_LIBS | sed -e 's/  */ /g'`
 
 AC_SUBST(WIZARD_CFLAGS)
 AC_SUBST(WIZARD_CPPFLAGS)
@@ -1613,9 +1621,9 @@ Static libraries  --enable-static=$enable_static		$libtool_build_static_libs
 GNU ld            --with-gnu-ld=$with_gnu_ld		$lt_cv_prog_gnu_ld
 
 Delegate Configuration:
-BZLIB             --with-bzlib=$with_bzlib               $have_bzlib
-LZMA              --with-lzma=$with_lzma                $have_lzma
-ZLIB              --with-zlib=$with_zlib                $have_zlib
+BZLIB             --with-bzlib=$with_bzlib              $have_bzlib
+LZMA              --with-lzma=$with_lzma               $have_lzma
+ZLIB              --with-zlib=$with_zlib               $have_zlib
 
 Options used to compile and link:
   PREFIX      = $PREFIX_DIR
