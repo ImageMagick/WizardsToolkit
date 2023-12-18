@@ -6,7 +6,7 @@ Wizard's Toolkit is free software delivered as a ready-to-run binary distributio
 
 The current release is Wizard's Toolkit 1.0.9-3. It runs on Linux, Windows, Mac Os X, iOS, Android OS, and others.
 
-The authoritative Wizard's Toolkit web site is https://urban-warrior.org. The authoritative source code repository is https://github.com/ImageMagick/WizardsToolkit.
+The authoritative Wizard's Toolkit web site is https://urban-warrior.org/WizardsToolkit. The authoritative source code repository is https://github.com/ImageMagick/WizardsToolkit.
 
 Features and Capabilities
 

@@ -624,7 +624,7 @@ PACKAGE_TARNAME='WizardsToolkit'
 PACKAGE_VERSION='1.0.9-5'
 PACKAGE_STRING='WizardsToolkit 1.0.9-5'
 PACKAGE_BUGREPORT='https://github.com/ImageMagick/WizardsToolkit/issues'
-PACKAGE_URL='https://urban-warrior.org'
+PACKAGE_URL='https://urban-warrior.org/WizardsToolkit'
 
 ac_unique_file="wizard/WizardsToolkit.h"
 ac_config_libobj_dir=wizard
@@ -1733,7 +1733,7 @@ Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
 
 Report bugs to <https://github.com/ImageMagick/WizardsToolkit/issues>.
-WizardsToolkit home page: <https://urban-warrior.org>.
+WizardsToolkit home page: <https://urban-warrior.org/WizardsToolkit>.
 _ACEOF
 ac_status=$?
 fi
@@ -8608,7 +8608,7 @@ WIZARD_PATCHLEVEL_VERSION=5
 
 WIZARD_VERSION=1.0.9-5
 
-WIZARD_GIT_REVISION=3730cc9:20231130
+WIZARD_GIT_REVISION=f061afe:20231216
 
 
 # Substitute library versioning
@@ -8630,7 +8630,7 @@ PACKAGE_LIB_VERSION=0x109
 
 PACKAGE_LIB_VERSION_NUMBER=1,0,9,5
 
-PACKAGE_RELEASE_DATE=2023-11-30
+PACKAGE_RELEASE_DATE=2023-12-16
 
 
 # Substitute CVS branch tag
@@ -30221,7 +30221,7 @@ Configuration commands:
 $config_commands
 
 Report bugs to <https://github.com/ImageMagick/WizardsToolkit/issues>.
-WizardsToolkit home page: <https://urban-warrior.org>."
+WizardsToolkit home page: <https://urban-warrior.org/WizardsToolkit>."
 
 _ACEOF
 ac_cs_config=`printf "%s\n" "$ac_configure_args" | sed "$ac_safe_unquote"`

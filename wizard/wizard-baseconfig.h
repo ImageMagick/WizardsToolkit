@@ -794,7 +794,7 @@
 
 /* Define to the home page for this package. */
 #ifndef WIZARDSTOOLKIT_PACKAGE_URL
-#define WIZARDSTOOLKIT_PACKAGE_URL "https://urban-warrior.org"
+#define WIZARDSTOOLKIT_PACKAGE_URL "https://urban-warrior.org/WizardsToolkit"
 #endif
 
 /* Define to the version of this package. */

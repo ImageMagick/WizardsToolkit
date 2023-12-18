@@ -30,7 +30,7 @@ m4_define([wizard_micro_version], [9])
 m4_define([wizard_patchlevel_version], [5])
 m4_define([wizard_bugreport], 
           [https://github.com/ImageMagick/WizardsToolkit/issues])
-m4_define([wizard_url], [https://urban-warrior.org])
+m4_define([wizard_url], [https://urban-warrior.org/WizardsToolkit])
 m4_define([wizard_lib_version],[0x109])
 m4_define([wizard_tarname],[WizardsToolkit])
 
