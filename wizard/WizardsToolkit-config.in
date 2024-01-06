@@ -1,5 +1,13 @@
 #!/bin/sh
 #
+# Configure options script for re-calling MagickCore compilation options
+# required to use the MagickCore library.
+#
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+export PKG_CONFIG_LIBDIR="${exec_prefix}/lib/pkgconfig"
+
 usage="\
 Usage: WizardsToolkit-config [--cflags] [--cppflags] [--exec-prefix] [--ldflags] [--libs] [--prefix] [--version]"
 
