@@ -14,5 +14,5 @@
   <configure name="CC" value="vs10"/>
   <configure name="HOST" value="Windows"/>
   <configure name="COPYRIGHT" value="Copyright (C) 1999-2018 ImageMagick Studio LLC"/>
-  <configure name="WEBSITE" value="http://www.wizards-toolkit.org"/>
+  <configure name="WEBSITE" value="https://urban-warrior.org/WizardsToolkit"/>
 </configuremap>

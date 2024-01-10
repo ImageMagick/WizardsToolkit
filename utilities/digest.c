@@ -589,7 +589,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
   (void) WriteBlobString(digest_blob,"<rdf:RDF xmlns:rdf=\""
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n");
   (void) WriteBlobString(digest_blob,"         xmlns:digest=\""
-     "http://www.wizards-toolkit.org/digest/1.0/\">\n");
+     "https://urban-warrior.org/WizardsToolkit/digest/1.0/\">\n");
   for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];

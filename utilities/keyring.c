@@ -388,7 +388,7 @@ WizardExport WizardBooleanType KeyringCommand(int argc,char **argv,
   (void) WriteBlobString(keyring_blob,"<rdf:RDF xmlns:rdf=\""
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n");
   (void) WriteBlobString(keyring_blob,"         xmlns:keyring=\""
-    "http://www.wizards-toolkit.org/keyring/1.0/\">\n");
+    "https://urban-warrior.org/WizardsToolkit/keyring/1.0/\">\n");
   for (i=1; i < (ssize_t) (argc-1); i++)
   {
     option=argv[i];

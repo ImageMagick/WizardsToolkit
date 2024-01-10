@@ -7,9 +7,9 @@ Version:        %{VERSION}
 Release:        %{Patchlevel}
 Summary:        The Wizard's Toolkit includes command line utilities to convert plaintext to ciphertext, convert ciphertext to plaintext, report properties associated with ciphertext, compute the message digest of a file, and read message digests from a file and authenticate them. In addition, the Wizard's Toolkit includes a a cross-platform C API that includes a number of enciphering and hash methods many developers should find useful in their projects.
 Group:          Applications/Multimedia
-License:        http://www.wizards-toolkit.org/script/license.php
-Url:            http://www.wizards-toolkit.org/
-Source0:        http://www.wizards-toolkit.org/download/%{name}/%{name}-%{VERSION}-%{Patchlevel}.tar.bz2
+License:        https://urban-warrior.org/WizardsToolkit/script/license.php
+Url:            https://urban-warrior.org/WizardsToolkit/
+Source0:        https://urban-warrior.org/WizardsToolkit/download/%{name}/%{name}-%{VERSION}-%{Patchlevel}.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  bzip2-devel, zlib-devel
@@ -73,7 +73,7 @@ Group: Documentation
 WizardsToolkit documentation, this package contains usage (for the
 commandline tools) and API (for the libraries) documentation in HTML format.
 Note this documentation can also be found on the WizardsToolkit website:
-http://www.wizards-toolkit.org/
+https://urban-warrior.org/WizardsToolkit/
 
 
 %prep

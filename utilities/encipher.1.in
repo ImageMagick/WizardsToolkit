@@ -7,7 +7,7 @@ encipher \-
 .SH OVERVIEW
 \fBEncipher\fP converts plaintext to ciphertext.
 
-For more information about the encipher command, point your browser to file://@DOCUMENTATION_PATH@/www/encipher.html or http://www.wizards-toolkit.org/script/encipher.php.
+For more information about the encipher command, point your browser to file://@DOCUMENTATION_PATH@/www/encipher.html or https://urban-warrior.org/WizardsToolkit/script/encipher.php.
 .SH DESCRIPTION
   -authenticate method authenticate with this method: Secret or Public
   -chunksize bytes     number of bytes in a chunk
@@ -35,4 +35,4 @@ WizardsToolkit(1)
 
 .SH COPYRIGHT
 
-\fBCopyright (C) @ 1999 ImageMagick Studio LLC. Additional copyrights and licenses apply to this software, see file://@DOCUMENTATION_PATH@/www/license.php or http://www.wizards-toolkit.org/script/license.php\fP
+\fBCopyright (C) @ 1999 ImageMagick Studio LLC. Additional copyrights and licenses apply to this software, see file://@DOCUMENTATION_PATH@/www/license.php or https://urban-warrior.org/WizardsToolkit/script/license.php\fP

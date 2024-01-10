@@ -703,7 +703,7 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
   cipher_rdf=AcquireString("<rdf:RDF xmlns:rdf=\""
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n");
   (void) ConcatenateString(&cipher_rdf,"         xmlns:cipher=\""
-     "http://www.wizards-toolkit.org/cipher/1.0/\">\n");
+     "https://urban-warrior.org/WizardsToolkit/cipher/1.0/\">\n");
   (void) ConcatenateString(&cipher_rdf,"  <cipher:Content rdf:about=\"");
   (void) ConcatenateString(&cipher_rdf,plain_filename);
   (void) ConcatenateString(&cipher_rdf,"\">\n");

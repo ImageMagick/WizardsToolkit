@@ -28,5 +28,5 @@
   <configure name="SHARE_PATH" value="@SHARE_PATH@"/>
   <configure name="SHARE_PATH" value="@SHARE_PATH@"/>
   <configure name="VERSION" value="@PACKAGE_BASE_VERSION@" />
-  <configure name="WEBSITE" value="http://www.wizards-toolkit.org" />
+  <configure name="WEBSITE" value="https://urban-warrior.org/WizardsToolkit" />
 </configuremap>

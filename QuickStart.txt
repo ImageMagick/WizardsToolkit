@@ -3,7 +3,7 @@ built by ImageMagick Studio LLC, and found in the Wizard's Toolkit
 'binaries' subdirectory of Wizard's Toolkit ftp sites.  Those who
 want to build the Wizard's Toolkit from source code should refer
 to the file README.txt in the Wizard's Toolkit source package or
-http://www.wizards-toolkit.org/WizardsToolkit/script/install-source.php
+https://urban-warrior.org/WizardsToolkit/WizardsToolkit/script/install-source.php
 on the web.
 
 Unix/Linux/Darwin/Cygwin/MinGW Install:

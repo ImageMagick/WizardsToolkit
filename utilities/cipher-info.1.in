@@ -7,7 +7,7 @@ cipher-info \-
 .SH OVERVIEW
 \fBCipher-info\fP displays properties associated with ciphertext.
 
-For more information about the cipher-info command, point your browser to file://@DOCUMENTATION_PATH@/www/cipher-info.html or http://www.wizards-toolkit.org/script/cipher-info.php.
+For more information about the cipher-info command, point your browser to file://@DOCUMENTATION_PATH@/www/cipher-info.html or https://urban-warrior.org/WizardsToolkit/script/cipher-info.php.
 .SH DESCRIPTION
   -debug events        display copious debugging information
   -help                print program options
@@ -19,4 +19,4 @@ WizardsToolkit(1)
 
 .SH COPYRIGHT
 
-\fBCopyright (C) @ 1999 ImageMagick Studio LLC. Additional copyrights and licenses apply to this software, see file://@DOCUMENTATION_PATH@/www/license.php or http://www.wizards-toolkit.org/script/license.php\fP
+\fBCopyright (C) @ 1999 ImageMagick Studio LLC. Additional copyrights and licenses apply to this software, see file://@DOCUMENTATION_PATH@/www/license.php or https://urban-warrior.org/WizardsToolkit/script/license.php\fP
