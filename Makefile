@@ -723,7 +723,7 @@ BZLIB_LIBS = -lbz2
 CC = gcc
 CCDEPMODE = depmode=none
 CCMALLOCDelegate = 
-CFLAGS = -fopenmp -Wall -g -O2 -mtune=core2 -pthread -pthread
+CFLAGS = -DWITH_GZFILEOP -fopenmp -Wall -g -O2 -mtune=core2 -pthread -pthread
 CONFIGURE_ARGS = ./configure  '--disable-dependency-tracking'
 CONFIGURE_DEPENDENCIES =  $(top_srcdir)/ChangeLog.md $(top_srcdir)/m4/version.m4
 CONFIGURE_PATH = /usr/local/etc/WizardsToolkit-1
@@ -823,7 +823,7 @@ PACKAGE_LIB_VERSION = 0x109
 PACKAGE_LIB_VERSION_NUMBER = 1,0,9,5
 PACKAGE_NAME = WizardsToolkit
 PACKAGE_PATCHLEVEL_VERSION = 5
-PACKAGE_RELEASE_DATE = 2023-12-16
+PACKAGE_RELEASE_DATE = 2024-02-14
 PACKAGE_STRING = WizardsToolkit 1.0.9-5
 PACKAGE_TARNAME = WizardsToolkit
 PACKAGE_URL = https://urban-warrior.org/WizardsToolkit
@@ -869,13 +869,13 @@ UINTPTR_F = "l"
 UINTPTR_T = unsigned long
 UMEM_LIBS = 
 VERSION = 1.0.9-5
-WIZARD_CFLAGS = -fopenmp -Wall -g -O2 -mtune=core2 -pthread -pthread
+WIZARD_CFLAGS = -DWITH_GZFILEOP -fopenmp -Wall -g -O2 -mtune=core2 -pthread -pthread
 WIZARD_CONFIGURE_BUILD_PATH = /home/cristy/WizardsToolkit-1.0.9/config
 WIZARD_CONFIGURE_SRC_PATH = /home/cristy/WizardsToolkit-1.0.9/config
 WIZARD_CPPFLAGS = -I/usr/local/include/WizardsToolkit-1
 WIZARD_DEP_LIBS = -lbz2 -llzma -lz -lm -lgomp -lpthread
 WIZARD_EXTRA_DEP_LIBS = -lgomp
-WIZARD_GIT_REVISION = f061afe:20231216
+WIZARD_GIT_REVISION = 6e9b9c4:20240214
 WIZARD_LDFLAGS = -L/usr/local/lib 
 WIZARD_LIBRARY_AGE = 0
 WIZARD_LIBRARY_CURRENT = 1
@@ -899,7 +899,7 @@ WIZARD_VERSION = 1.0.9-5
 WinPathScript = /home/cristy/WizardsToolkit-1.0.9/winpath.sh
 X_CFLAGS = 
 ZIP = zip
-ZLIB_CFLAGS = 
+ZLIB_CFLAGS = -DWITH_GZFILEOP
 ZLIB_LIBS = -lz
 abs_builddir = /home/cristy/WizardsToolkit-1.0.9
 abs_srcdir = /home/cristy/WizardsToolkit-1.0.9
