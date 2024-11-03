@@ -13,7 +13,7 @@
 #define WIZARDSTOOLKIT_BZLIB_DELEGATE 1
 #endif
 
-/* Define to 1 if the `closedir' function returns void instead of int. */
+/* Define to 1 if the 'closedir' function returns void instead of int. */
 /* #undef CLOSEDIR_VOID */
 
 /* Directory where architecture-dependent configuration files live. */
@@ -46,7 +46,7 @@
 #define WIZARDSTOOLKIT_EXECUTABLE_PATH "/usr/local/bin/"
 #endif
 
-/* Define to 1 if you have the `alarm' function. */
+/* Define to 1 if you have the 'alarm' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_ALARM
 #define WIZARDSTOOLKIT_HAVE_ALARM 1
 #endif
@@ -59,7 +59,7 @@
 /* Define to 1 if you have the <arm/limits.h> header file. */
 /* #undef HAVE_ARM_LIMITS_H */
 
-/* Define to 1 if you have the `atexit' function. */
+/* Define to 1 if you have the 'atexit' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_ATEXIT
 #define WIZARDSTOOLKIT_HAVE_ATEXIT 1
 #endif
@@ -67,7 +67,7 @@
 /* define if bool is a built-in type */
 /* #undef HAVE_BOOL */
 
-/* Define to 1 if you have the `clock' function. */
+/* Define to 1 if you have the 'clock' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_CLOCK
 #define WIZARDSTOOLKIT_HAVE_CLOCK 1
 #endif
@@ -80,37 +80,37 @@
 /* Define to 1 if clock_gettime supports CLOCK_REALTIME. */
 /* #undef HAVE_CLOCK_REALTIME */
 
-/* Define to 1 if you have the declaration of `pread', and to 0 if you don't.
+/* Define to 1 if you have the declaration of 'pread', and to 0 if you don't.
    */
 #ifndef WIZARDSTOOLKIT_HAVE_DECL_PREAD
 #define WIZARDSTOOLKIT_HAVE_DECL_PREAD 1
 #endif
 
-/* Define to 1 if you have the declaration of `pwrite', and to 0 if you don't.
+/* Define to 1 if you have the declaration of 'pwrite', and to 0 if you don't.
    */
 #ifndef WIZARDSTOOLKIT_HAVE_DECL_PWRITE
 #define WIZARDSTOOLKIT_HAVE_DECL_PWRITE 1
 #endif
 
-/* Define to 1 if you have the declaration of `strerror_r', and to 0 if you
+/* Define to 1 if you have the declaration of 'strerror_r', and to 0 if you
    don't. */
 #ifndef WIZARDSTOOLKIT_HAVE_DECL_STRERROR_R
 #define WIZARDSTOOLKIT_HAVE_DECL_STRERROR_R 1
 #endif
 
-/* Define to 1 if you have the declaration of `strlcpy', and to 0 if you
+/* Define to 1 if you have the declaration of 'strlcpy', and to 0 if you
    don't. */
 #ifndef WIZARDSTOOLKIT_HAVE_DECL_STRLCPY
 #define WIZARDSTOOLKIT_HAVE_DECL_STRLCPY 0
 #endif
 
-/* Define to 1 if you have the declaration of `vsnprintf', and to 0 if you
+/* Define to 1 if you have the declaration of 'vsnprintf', and to 0 if you
    don't. */
 #ifndef WIZARDSTOOLKIT_HAVE_DECL_VSNPRINTF
 #define WIZARDSTOOLKIT_HAVE_DECL_VSNPRINTF 1
 #endif
 
-/* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
+/* Define to 1 if you have the <dirent.h> header file, and it defines 'DIR'.
    */
 #ifndef WIZARDSTOOLKIT_HAVE_DIRENT_H
 #define WIZARDSTOOLKIT_HAVE_DIRENT_H 1
@@ -121,10 +121,10 @@
 #define WIZARDSTOOLKIT_HAVE_DLFCN_H 1
 #endif
 
-/* Define to 1 if you don't have `vprintf' but do have `_doprnt.' */
+/* Define to 1 if you don't have 'vprintf' but do have '_doprnt.' */
 /* #undef HAVE_DOPRNT */
 
-/* Define to 1 if you have the `fchmod' function. */
+/* Define to 1 if you have the 'fchmod' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_FCHMOD
 #define WIZARDSTOOLKIT_HAVE_FCHMOD 1
 #endif
@@ -134,58 +134,58 @@
 #define WIZARDSTOOLKIT_HAVE_FCNTL_H 1
 #endif
 
-/* Define to 1 if you have the `fprintf_l' function. */
+/* Define to 1 if you have the 'fprintf_l' function. */
 /* #undef HAVE_FPRINTF_L */
 
-/* Define to 1 if fseeko (and presumably ftello) exists and is declared. */
+/* Define to 1 if fseeko (and ftello) are declared in stdio.h. */
 #ifndef WIZARDSTOOLKIT_HAVE_FSEEKO
 #define WIZARDSTOOLKIT_HAVE_FSEEKO 1
 #endif
 
-/* Define to 1 if you have the `ftime' function. */
+/* Define to 1 if you have the 'ftime' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_FTIME
 #define WIZARDSTOOLKIT_HAVE_FTIME 1
 #endif
 
-/* Define to 1 if you have the `getcwd' function. */
+/* Define to 1 if you have the 'getcwd' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_GETCWD
 #define WIZARDSTOOLKIT_HAVE_GETCWD 1
 #endif
 
-/* Define to 1 if you have the `getdtablesize' function. */
+/* Define to 1 if you have the 'getdtablesize' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_GETDTABLESIZE
 #define WIZARDSTOOLKIT_HAVE_GETDTABLESIZE 1
 #endif
 
-/* Define to 1 if you have the `getentropy' function. */
+/* Define to 1 if you have the 'getentropy' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_GETENTROPY
 #define WIZARDSTOOLKIT_HAVE_GETENTROPY 1
 #endif
 
-/* Define to 1 if you have the `getexecname' function. */
+/* Define to 1 if you have the 'getexecname' function. */
 /* #undef HAVE_GETEXECNAME */
 
-/* Define to 1 if you have the `getpagesize' function. */
+/* Define to 1 if you have the 'getpagesize' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_GETPAGESIZE
 #define WIZARDSTOOLKIT_HAVE_GETPAGESIZE 1
 #endif
 
-/* Define to 1 if you have the `getpid' function. */
+/* Define to 1 if you have the 'getpid' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_GETPID
 #define WIZARDSTOOLKIT_HAVE_GETPID 1
 #endif
 
-/* Define to 1 if you have the `getrusage' function. */
+/* Define to 1 if you have the 'getrusage' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_GETRUSAGE
 #define WIZARDSTOOLKIT_HAVE_GETRUSAGE 1
 #endif
 
-/* Define to 1 if you have the `gettimeofday' function. */
+/* Define to 1 if you have the 'gettimeofday' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_GETTIMEOFDAY
 #define WIZARDSTOOLKIT_HAVE_GETTIMEOFDAY 1
 #endif
 
-/* Define to 1 if you have the `gmtime_r' function. */
+/* Define to 1 if you have the 'gmtime_r' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_GMTIME_R
 #define WIZARDSTOOLKIT_HAVE_GMTIME_R 1
 #endif
@@ -193,12 +193,12 @@
 /* Compile with hugepage support */
 /* #undef HAVE_HUGEPAGES */
 
-/* Define to 1 if the system has the type `intmax_t'. */
+/* Define to 1 if the system has the type 'intmax_t'. */
 #ifndef WIZARDSTOOLKIT_HAVE_INTMAX_T
 #define WIZARDSTOOLKIT_HAVE_INTMAX_T 1
 #endif
 
-/* Define to 1 if the system has the type `intptr_t'. */
+/* Define to 1 if the system has the type 'intptr_t'. */
 #ifndef WIZARDSTOOLKIT_HAVE_INTPTR_T
 #define WIZARDSTOOLKIT_HAVE_INTPTR_T 1
 #endif
@@ -208,12 +208,12 @@
 #define WIZARDSTOOLKIT_HAVE_INTTYPES_H 1
 #endif
 
-/* Define to 1 if you have the `isascii' function. */
+/* Define to 1 if you have the 'isascii' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_ISASCII
 #define WIZARDSTOOLKIT_HAVE_ISASCII 1
 #endif
 
-/* Define to 1 if you have the `isnan' function. */
+/* Define to 1 if you have the 'isnan' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_ISNAN
 #define WIZARDSTOOLKIT_HAVE_ISNAN 1
 #endif
@@ -233,31 +233,31 @@
 #define WIZARDSTOOLKIT_HAVE_LOCALE_H 1
 #endif
 
-/* Define to 1 if the system has the type `locale_t'. */
+/* Define to 1 if the system has the type 'locale_t'. */
 /* #undef HAVE_LOCALE_T */
 
-/* Define to 1 if you have the `localtime_r' function. */
+/* Define to 1 if you have the 'localtime_r' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_LOCALTIME_R
 #define WIZARDSTOOLKIT_HAVE_LOCALTIME_R 1
 #endif
 
-/* Define to 1 if the system has the type `long double'. */
+/* Define to 1 if the system has the type 'long double'. */
 #ifndef WIZARDSTOOLKIT_HAVE_LONG_DOUBLE
 #define WIZARDSTOOLKIT_HAVE_LONG_DOUBLE 1
 #endif
 
-/* Define to 1 if the type `long double' works and has more range or precision
-   than `double'. */
+/* Define to 1 if the type 'long double' works and has more range or precision
+   than 'double'. */
 #ifndef WIZARDSTOOLKIT_HAVE_LONG_DOUBLE_WIDER
 #define WIZARDSTOOLKIT_HAVE_LONG_DOUBLE_WIDER 1
 #endif
 
-/* Define to 1 if the system has the type `long long int'. */
+/* Define to 1 if the system has the type 'long long int'. */
 #ifndef WIZARDSTOOLKIT_HAVE_LONG_LONG_INT
 #define WIZARDSTOOLKIT_HAVE_LONG_LONG_INT 1
 #endif
 
-/* Define to 1 if you have the `lstat' function. */
+/* Define to 1 if you have the 'lstat' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_LSTAT
 #define WIZARDSTOOLKIT_HAVE_LSTAT 1
 #endif
@@ -268,7 +268,7 @@
 /* Define to 1 if you have the <mach-o/dyld.h> header file. */
 /* #undef HAVE_MACH_O_DYLD_H */
 
-/* Define to 1 if you have the `madvise' function. */
+/* Define to 1 if you have the 'madvise' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MADVISE
 #define WIZARDSTOOLKIT_HAVE_MADVISE 1
 #endif
@@ -283,12 +283,12 @@
 #define WIZARDSTOOLKIT_HAVE_MBSTATE_T 1
 #endif
 
-/* Define to 1 if you have the `memmove' function. */
+/* Define to 1 if you have the 'memmove' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MEMMOVE
 #define WIZARDSTOOLKIT_HAVE_MEMMOVE 1
 #endif
 
-/* Define to 1 if you have the `memset' function. */
+/* Define to 1 if you have the 'memset' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MEMSET
 #define WIZARDSTOOLKIT_HAVE_MEMSET 1
 #endif
@@ -296,17 +296,17 @@
 /* Define to 1 if you have the <minix/config.h> header file. */
 /* #undef HAVE_MINIX_CONFIG_H */
 
-/* Define to 1 if you have the `mkdir' function. */
+/* Define to 1 if you have the 'mkdir' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MKDIR
 #define WIZARDSTOOLKIT_HAVE_MKDIR 1
 #endif
 
-/* Define to 1 if you have the `mkstemp' function. */
+/* Define to 1 if you have the 'mkstemp' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MKSTEMP
 #define WIZARDSTOOLKIT_HAVE_MKSTEMP 1
 #endif
 
-/* Define to 1 if you have a working `mmap' system call. */
+/* Define to 1 if you have a working 'mmap' system call. */
 #ifndef WIZARDSTOOLKIT_HAVE_MMAP
 #define WIZARDSTOOLKIT_HAVE_MMAP 1
 #endif
@@ -316,7 +316,7 @@
 #define WIZARDSTOOLKIT_HAVE_MMAP_FILEIO 1
 #endif
 
-/* Define to 1 if you have the `munmap' function. */
+/* Define to 1 if you have the 'munmap' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_MUNMAP
 #define WIZARDSTOOLKIT_HAVE_MUNMAP 1
 #endif
@@ -327,43 +327,43 @@
 /* Define if g++ supports namespace std. */
 /* #undef HAVE_NAMESPACE_STD */
 
-/* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
+/* Define to 1 if you have the <ndir.h> header file, and it defines 'DIR'. */
 /* #undef HAVE_NDIR_H */
 
-/* Define to 1 if you have the `newloacle' function. */
+/* Define to 1 if you have the 'newloacle' function. */
 /* #undef HAVE_NEWLOACLE */
 
-/* Define to 1 if you have the `pclose' function. */
+/* Define to 1 if you have the 'pclose' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_PCLOSE
 #define WIZARDSTOOLKIT_HAVE_PCLOSE 1
 #endif
 
-/* Define to 1 if you have the `poll' function. */
+/* Define to 1 if you have the 'poll' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_POLL
 #define WIZARDSTOOLKIT_HAVE_POLL 1
 #endif
 
-/* Define to 1 if you have the `popen' function. */
+/* Define to 1 if you have the 'popen' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_POPEN
 #define WIZARDSTOOLKIT_HAVE_POPEN 1
 #endif
 
-/* Define to 1 if you have the `posix_fallocate' function. */
+/* Define to 1 if you have the 'posix_fallocate' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_POSIX_FALLOCATE
 #define WIZARDSTOOLKIT_HAVE_POSIX_FALLOCATE 1
 #endif
 
-/* Define to 1 if you have the `posix_memalign' function. */
+/* Define to 1 if you have the 'posix_memalign' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_POSIX_MEMALIGN
 #define WIZARDSTOOLKIT_HAVE_POSIX_MEMALIGN 1
 #endif
 
-/* Define to 1 if you have the `pow' function. */
+/* Define to 1 if you have the 'pow' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_POW
 #define WIZARDSTOOLKIT_HAVE_POW 1
 #endif
 
-/* Define to 1 if you have the `pread' function. */
+/* Define to 1 if you have the 'pread' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_PREAD
 #define WIZARDSTOOLKIT_HAVE_PREAD 1
 #endif
@@ -381,60 +381,60 @@
 #define WIZARDSTOOLKIT_HAVE_PTHREAD_PRIO_INHERIT 1
 #endif
 
-/* Define to 1 if you have the `pwrite' function. */
+/* Define to 1 if you have the 'pwrite' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_PWRITE
 #define WIZARDSTOOLKIT_HAVE_PWRITE 1
 #endif
 
-/* Define to 1 if you have the `raise' function. */
+/* Define to 1 if you have the 'raise' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_RAISE
 #define WIZARDSTOOLKIT_HAVE_RAISE 1
 #endif
 
-/* Define to 1 if you have the `readlink' function. */
+/* Define to 1 if you have the 'readlink' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_READLINK
 #define WIZARDSTOOLKIT_HAVE_READLINK 1
 #endif
 
-/* Define to 1 if you have the `realpath' function. */
+/* Define to 1 if you have the 'realpath' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_REALPATH
 #define WIZARDSTOOLKIT_HAVE_REALPATH 1
 #endif
 
-/* Define to 1 if you have the `sbrk' function. */
+/* Define to 1 if you have the 'sbrk' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_SBRK
 #define WIZARDSTOOLKIT_HAVE_SBRK 1
 #endif
 
-/* Define to 1 if you have the `select' function. */
+/* Define to 1 if you have the 'select' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_SELECT
 #define WIZARDSTOOLKIT_HAVE_SELECT 1
 #endif
 
-/* Define to 1 if you have the `setlocale' function. */
+/* Define to 1 if you have the 'setlocale' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_SETLOCALE
 #define WIZARDSTOOLKIT_HAVE_SETLOCALE 1
 #endif
 
-/* Define to 1 if you have the `setvbuf' function. */
+/* Define to 1 if you have the 'setvbuf' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_SETVBUF
 #define WIZARDSTOOLKIT_HAVE_SETVBUF 1
 #endif
 
-/* Define to 1 if you have the `sigaction' function. */
+/* Define to 1 if you have the 'sigaction' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_SIGACTION
 #define WIZARDSTOOLKIT_HAVE_SIGACTION 1
 #endif
 
-/* Define to 1 if you have the `sigemptyset' function. */
+/* Define to 1 if you have the 'sigemptyset' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_SIGEMPTYSET
 #define WIZARDSTOOLKIT_HAVE_SIGEMPTYSET 1
 #endif
 
-/* Define to 1 if you have the `spawnvp' function. */
+/* Define to 1 if you have the 'spawnvp' function. */
 /* #undef HAVE_SPAWNVP */
 
-/* Define to 1 if `stat' has the bug that it succeeds when given the
+/* Define to 1 if 'stat' has the bug that it succeeds when given the
    zero-length file name argument. */
 /* #undef HAVE_STAT_EMPTY_STRING_BUG */
 
@@ -463,27 +463,27 @@
 #define WIZARDSTOOLKIT_HAVE_STDLIB_H 1
 #endif
 
-/* Define to 1 if you have the `strcasecmp' function. */
+/* Define to 1 if you have the 'strcasecmp' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRCASECMP
 #define WIZARDSTOOLKIT_HAVE_STRCASECMP 1
 #endif
 
-/* Define to 1 if you have the `strchr' function. */
+/* Define to 1 if you have the 'strchr' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRCHR
 #define WIZARDSTOOLKIT_HAVE_STRCHR 1
 #endif
 
-/* Define to 1 if you have the `strcspn' function. */
+/* Define to 1 if you have the 'strcspn' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRCSPN
 #define WIZARDSTOOLKIT_HAVE_STRCSPN 1
 #endif
 
-/* Define to 1 if you have the `strdup' function. */
+/* Define to 1 if you have the 'strdup' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRDUP
 #define WIZARDSTOOLKIT_HAVE_STRDUP 1
 #endif
 
-/* Define if you have `strerror_r'. */
+/* Define if you have 'strerror_r'. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRERROR_R
 #define WIZARDSTOOLKIT_HAVE_STRERROR_R 1
 #endif
@@ -503,52 +503,52 @@
 #define WIZARDSTOOLKIT_HAVE_STRING_H 1
 #endif
 
-/* Define to 1 if you have the `strlcat' function. */
+/* Define to 1 if you have the 'strlcat' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRLCAT
 #define WIZARDSTOOLKIT_HAVE_STRLCAT 1
 #endif
 
-/* Define to 1 if you have the `strlcpy' function. */
+/* Define to 1 if you have the 'strlcpy' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRLCPY
 #define WIZARDSTOOLKIT_HAVE_STRLCPY 1
 #endif
 
-/* Define to 1 if you have the `strncasecmp' function. */
+/* Define to 1 if you have the 'strncasecmp' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRNCASECMP
 #define WIZARDSTOOLKIT_HAVE_STRNCASECMP 1
 #endif
 
-/* Define to 1 if you have the `strrchr' function. */
+/* Define to 1 if you have the 'strrchr' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRRCHR
 #define WIZARDSTOOLKIT_HAVE_STRRCHR 1
 #endif
 
-/* Define to 1 if you have the `strspn' function. */
+/* Define to 1 if you have the 'strspn' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRSPN
 #define WIZARDSTOOLKIT_HAVE_STRSPN 1
 #endif
 
-/* Define to 1 if you have the `strstr' function. */
+/* Define to 1 if you have the 'strstr' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRSTR
 #define WIZARDSTOOLKIT_HAVE_STRSTR 1
 #endif
 
-/* Define to 1 if you have the `strtod' function. */
+/* Define to 1 if you have the 'strtod' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRTOD
 #define WIZARDSTOOLKIT_HAVE_STRTOD 1
 #endif
 
-/* Define to 1 if you have the `strtod_l' function. */
+/* Define to 1 if you have the 'strtod_l' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRTOD_L
 #define WIZARDSTOOLKIT_HAVE_STRTOD_L 1
 #endif
 
-/* Define to 1 if you have the `strtol' function. */
+/* Define to 1 if you have the 'strtol' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRTOL
 #define WIZARDSTOOLKIT_HAVE_STRTOL 1
 #endif
 
-/* Define to 1 if you have the `strtoul' function. */
+/* Define to 1 if you have the 'strtoul' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_STRTOUL
 #define WIZARDSTOOLKIT_HAVE_STRTOUL 1
 #endif
@@ -556,12 +556,12 @@
 /* Define to 1 if you have the <sun_prefetch.h> header file. */
 /* #undef HAVE_SUN_PREFETCH_H */
 
-/* Define to 1 if you have the `sysconf' function. */
+/* Define to 1 if you have the 'sysconf' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_SYSCONF
 #define WIZARDSTOOLKIT_HAVE_SYSCONF 1
 #endif
 
-/* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
+/* Define to 1 if you have the <sys/dir.h> header file, and it defines 'DIR'.
    */
 /* #undef HAVE_SYS_DIR_H */
 
@@ -570,7 +570,7 @@
 #define WIZARDSTOOLKIT_HAVE_SYS_MMAN_H 1
 #endif
 
-/* Define to 1 if you have the <sys/ndir.h> header file, and it defines `DIR'.
+/* Define to 1 if you have the <sys/ndir.h> header file, and it defines 'DIR'.
    */
 /* #undef HAVE_SYS_NDIR_H */
 
@@ -620,17 +620,17 @@
 #define WIZARDSTOOLKIT_HAVE_TERMIOS_H 1
 #endif
 
-/* Define to 1 if you have the `times' function. */
+/* Define to 1 if you have the 'times' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_TIMES
 #define WIZARDSTOOLKIT_HAVE_TIMES 1
 #endif
 
-/* Define to 1 if the system has the type `uintmax_t'. */
+/* Define to 1 if the system has the type 'uintmax_t'. */
 #ifndef WIZARDSTOOLKIT_HAVE_UINTMAX_T
 #define WIZARDSTOOLKIT_HAVE_UINTMAX_T 1
 #endif
 
-/* Define to 1 if the system has the type `uintptr_t'. */
+/* Define to 1 if the system has the type 'uintptr_t'. */
 #ifndef WIZARDSTOOLKIT_HAVE_UINTPTR_T
 #define WIZARDSTOOLKIT_HAVE_UINTPTR_T 1
 #endif
@@ -640,22 +640,22 @@
 #define WIZARDSTOOLKIT_HAVE_UNISTD_H 1
 #endif
 
-/* Define to 1 if the system has the type `unsigned long long int'. */
+/* Define to 1 if the system has the type 'unsigned long long int'. */
 #ifndef WIZARDSTOOLKIT_HAVE_UNSIGNED_LONG_LONG_INT
 #define WIZARDSTOOLKIT_HAVE_UNSIGNED_LONG_LONG_INT 1
 #endif
 
-/* Define to 1 if you have the `uselocale' function. */
+/* Define to 1 if you have the 'uselocale' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_USELOCALE
 #define WIZARDSTOOLKIT_HAVE_USELOCALE 1
 #endif
 
-/* Define to 1 if you have the `usleep' function. */
+/* Define to 1 if you have the 'usleep' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_USLEEP
 #define WIZARDSTOOLKIT_HAVE_USLEEP 1
 #endif
 
-/* Define to 1 if you have the `utime' function. */
+/* Define to 1 if you have the 'utime' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_UTIME
 #define WIZARDSTOOLKIT_HAVE_UTIME 1
 #endif
@@ -665,28 +665,28 @@
 #define WIZARDSTOOLKIT_HAVE_UTIME_H 1
 #endif
 
-/* Define to 1 if you have the `vfprintf' function. */
+/* Define to 1 if you have the 'vfprintf' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_VFPRINTF
 #define WIZARDSTOOLKIT_HAVE_VFPRINTF 1
 #endif
 
-/* Define to 1 if you have the `vfprintf_l' function. */
+/* Define to 1 if you have the 'vfprintf_l' function. */
 /* #undef HAVE_VFPRINTF_L */
 
-/* Define to 1 if you have the `vprintf' function. */
+/* Define to 1 if you have the 'vprintf' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_VPRINTF
 #define WIZARDSTOOLKIT_HAVE_VPRINTF 1
 #endif
 
-/* Define to 1 if you have the `vsnprintf' function. */
+/* Define to 1 if you have the 'vsnprintf' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_VSNPRINTF
 #define WIZARDSTOOLKIT_HAVE_VSNPRINTF 1
 #endif
 
-/* Define to 1 if you have the `vsnprintf_l' function. */
+/* Define to 1 if you have the 'vsnprintf_l' function. */
 /* #undef HAVE_VSNPRINTF_L */
 
-/* Define to 1 if you have the `vsprintf' function. */
+/* Define to 1 if you have the 'vsprintf' function. */
 #ifndef WIZARDSTOOLKIT_HAVE_VSPRINTF
 #define WIZARDSTOOLKIT_HAVE_VSPRINTF 1
 #endif
@@ -699,18 +699,18 @@
 /* Define to 1 if you have the <xlocale.h> header file. */
 /* #undef HAVE_XLOCALE_H */
 
-/* Define to 1 if you have the `_aligned_malloc' function. */
+/* Define to 1 if you have the '_aligned_malloc' function. */
 /* #undef HAVE__ALIGNED_MALLOC */
 
-/* Define to 1 if the system has the type `_Bool'. */
+/* Define to 1 if the system has the type '_Bool'. */
 #ifndef WIZARDSTOOLKIT_HAVE__BOOL
 #define WIZARDSTOOLKIT_HAVE__BOOL 1
 #endif
 
-/* Define to 1 if you have the `_NSGetExecutablePath' function. */
+/* Define to 1 if you have the '_NSGetExecutablePath' function. */
 /* #undef HAVE__NSGETEXECUTABLEPATH */
 
-/* Define to 1 if you have the `_wfopen' function. */
+/* Define to 1 if you have the '_wfopen' function. */
 /* #undef HAVE__WFOPEN */
 
 /* define if your compiler has __attribute__ */
@@ -753,7 +753,7 @@
 #define WIZARDSTOOLKIT_LIBRARY_RELATIVE_PATH "WizardsToolkit-1.0.9"
 #endif
 
-/* Define to 1 if `lstat' dereferences a symlink specified with a trailing
+/* Define to 1 if 'lstat' dereferences a symlink specified with a trailing
    slash. */
 #ifndef WIZARDSTOOLKIT_LSTAT_FOLLOWS_SLASHED_SYMLINK
 #define WIZARDSTOOLKIT_LSTAT_FOLLOWS_SLASHED_SYMLINK 1
@@ -825,65 +825,65 @@
 #define WIZARDSTOOLKIT_SHARE_RELATIVE_PATH "WizardsToolkit-1"
 #endif
 
-/* The size of `off_t', as computed by sizeof. */
+/* The size of 'off_t', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_OFF_T
 #define WIZARDSTOOLKIT_SIZEOF_OFF_T 8
 #endif
 
-/* The size of `signed int', as computed by sizeof. */
+/* The size of 'signed int', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_SIGNED_INT
 #define WIZARDSTOOLKIT_SIZEOF_SIGNED_INT 4
 #endif
 
-/* The size of `signed long', as computed by sizeof. */
+/* The size of 'signed long', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_SIGNED_LONG
 #define WIZARDSTOOLKIT_SIZEOF_SIGNED_LONG 8
 #endif
 
-/* The size of `signed long long', as computed by sizeof. */
+/* The size of 'signed long long', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_SIGNED_LONG_LONG
 #define WIZARDSTOOLKIT_SIZEOF_SIGNED_LONG_LONG 8
 #endif
 
-/* The size of `signed short', as computed by sizeof. */
+/* The size of 'signed short', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_SIGNED_SHORT
 #define WIZARDSTOOLKIT_SIZEOF_SIGNED_SHORT 2
 #endif
 
-/* The size of `size_t', as computed by sizeof. */
+/* The size of 'size_t', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_SIZE_T
 #define WIZARDSTOOLKIT_SIZEOF_SIZE_T 8
 #endif
 
-/* The size of `unsigned int', as computed by sizeof. */
+/* The size of 'unsigned int', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_UNSIGNED_INT
 #define WIZARDSTOOLKIT_SIZEOF_UNSIGNED_INT 4
 #endif
 
-/* The size of `unsigned int*', as computed by sizeof. */
+/* The size of 'unsigned int*', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_UNSIGNED_INTP
 #define WIZARDSTOOLKIT_SIZEOF_UNSIGNED_INTP 8
 #endif
 
-/* The size of `unsigned long', as computed by sizeof. */
+/* The size of 'unsigned long', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_UNSIGNED_LONG
 #define WIZARDSTOOLKIT_SIZEOF_UNSIGNED_LONG 8
 #endif
 
-/* The size of `unsigned long long', as computed by sizeof. */
+/* The size of 'unsigned long long', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_UNSIGNED_LONG_LONG
 #define WIZARDSTOOLKIT_SIZEOF_UNSIGNED_LONG_LONG 8
 #endif
 
-/* The size of `unsigned short', as computed by sizeof. */
+/* The size of 'unsigned short', as computed by sizeof. */
 #ifndef WIZARDSTOOLKIT_SIZEOF_UNSIGNED_SHORT
 #define WIZARDSTOOLKIT_SIZEOF_UNSIGNED_SHORT 2
 #endif
 
-/* Define to 1 if the `S_IS*' macros in <sys/stat.h> do not work properly. */
+/* Define to 1 if the 'S_IS*' macros in <sys/stat.h> do not work properly. */
 /* #undef STAT_MACROS_BROKEN */
 
-/* Define to 1 if all of the C90 standard headers exist (not just the ones
+/* Define to 1 if all of the C89 standard headers exist (not just the ones
    required in a freestanding environment). This macro is provided for
    backward compatibility; new code need not use it. */
 #ifndef WIZARDSTOOLKIT_STDC_HEADERS
@@ -900,10 +900,10 @@
 #define WIZARDSTOOLKIT_THREAD_SUPPORT 1
 #endif
 
-/* Define to 1 if your <sys/time.h> declares `struct tm'. */
+/* Define to 1 if your <sys/time.h> declares 'struct tm'. */
 /* #undef TM_IN_SYS_TIME */
 
-/* Enable extensions on AIX 3, Interix.  */
+/* Enable extensions on AIX, Interix, z/OS.  */
 #ifndef _ALL_SOURCE
 # define _ALL_SOURCE 1
 #endif
@@ -964,11 +964,15 @@
 #ifndef __STDC_WANT_IEC_60559_DFP_EXT__
 # define __STDC_WANT_IEC_60559_DFP_EXT__ 1
 #endif
+/* Enable extensions specified by C23 Annex F.  */
+#ifndef __STDC_WANT_IEC_60559_EXT__
+# define __STDC_WANT_IEC_60559_EXT__ 1
+#endif
 /* Enable extensions specified by ISO/IEC TS 18661-4:2015.  */
 #ifndef __STDC_WANT_IEC_60559_FUNCS_EXT__
 # define __STDC_WANT_IEC_60559_FUNCS_EXT__ 1
 #endif
-/* Enable extensions specified by ISO/IEC TS 18661-3:2015.  */
+/* Enable extensions specified by C23 Annex H and ISO/IEC TS 18661-3:2015.  */
 #ifndef __STDC_WANT_IEC_60559_TYPES_EXT__
 # define __STDC_WANT_IEC_60559_TYPES_EXT__ 1
 #endif
@@ -1032,11 +1036,14 @@
 /* Number of bits in a file offset, on hosts where this is settable. */
 /* #undef _FILE_OFFSET_BITS */
 
-/* Define to 1 to make fseeko visible on some hosts (e.g. glibc 2.2). */
+/* Define to 1 if necessary to make fseeko visible. */
 /* #undef _LARGEFILE_SOURCE */
 
-/* Define for large files, on AIX-style hosts. */
+/* Define to 1 on platforms where this makes off_t a 64-bit type. */
 /* #undef _LARGE_FILES */
+
+/* Number of bits in time_t, on hosts where this is settable. */
+/* #undef _TIME_BITS */
 
 /* Define for Solaris 2.5.1 so the uint32_t typedef from <sys/synch.h>,
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
@@ -1053,19 +1060,22 @@
    #define below would cause a syntax error. */
 /* #undef _UINT8_T */
 
-/* Define to 1 if type `char' is unsigned and your compiler does not
+/* Define to 1 if type 'char' is unsigned and your compiler does not
    predefine this macro.  */
 #ifndef __CHAR_UNSIGNED__
 /* # undef __CHAR_UNSIGNED__ */
 #endif
 
-/* Define to empty if `const' does not conform to ANSI C. */
+/* Define to 1 on platforms where this makes time_t a 64-bit type. */
+/* #undef __MINGW_USE_VC2005_COMPAT */
+
+/* Define to empty if 'const' does not conform to ANSI C. */
 /* #undef const */
 
-/* Define to `int' if <sys/types.h> doesn't define. */
+/* Define as 'int' if <sys/types.h> doesn't define. */
 /* #undef gid_t */
 
-/* Define to `__inline__' or `__inline' if that's what the C compiler
+/* Define to '__inline__' or '__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
 #ifndef __cplusplus
 /* #undef inline */
@@ -1098,10 +1108,10 @@
 /* Define to a type if <wchar.h> does not define. */
 /* #undef mbstate_t */
 
-/* Define to `int' if <sys/types.h> does not define. */
+/* Define to 'int' if <sys/types.h> does not define. */
 /* #undef mode_t */
 
-/* Define to `long int' if <sys/types.h> does not define. */
+/* Define to 'long int' if <sys/types.h> does not define. */
 /* #undef off_t */
 
 /* Define as a signed integer type capable of holding a process identifier. */
@@ -1124,13 +1134,13 @@
 # define __restrict__
 #endif
 
-/* Define to `unsigned int' if <sys/types.h> does not define. */
+/* Define as 'unsigned int' if <stddef.h> doesn't define. */
 /* #undef size_t */
 
-/* Define to `int' if <sys/types.h> does not define. */
+/* Define as 'int' if <sys/types.h> doesn't define. */
 /* #undef ssize_t */
 
-/* Define to `int' if <sys/types.h> doesn't define. */
+/* Define as 'int' if <sys/types.h> doesn't define. */
 /* #undef uid_t */
 
 /* Define to the type of an unsigned integer type of width exactly 16 bits if
@@ -1157,8 +1167,8 @@
    pointer, if such a type exists, and if the system does not define it. */
 /* #undef uintptr_t */
 
-/* Define to empty if the keyword `volatile' does not work. Warning: valid
-   code using `volatile' can become incorrect without. Disable with care. */
+/* Define to empty if the keyword 'volatile' does not work. Warning: valid
+   code using 'volatile' can become incorrect without. Disable with care. */
 /* #undef volatile */
  
 /* once: _WIZARD_WIZARD_BASECONFIG_H */

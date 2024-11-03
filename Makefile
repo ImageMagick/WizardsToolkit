@@ -194,8 +194,7 @@ XFAIL_TESTS = $(am__EXEEXT_3)
 check_PROGRAMS = $(am__EXEEXT_2)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/ac_func_fseeko.m4 \
-	$(top_srcdir)/m4/ax_c___attribute__.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_c___attribute__.m4 \
 	$(top_srcdir)/m4/ax_cflags_warn_all.m4 \
 	$(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
@@ -721,10 +720,10 @@ AWK = gawk
 BIN_DIR = /usr/local/bin
 BZLIB_LIBS = -lbz2
 CC = gcc
-CCDEPMODE = depmode=gcc3
+CCDEPMODE = depmode=none
 CCMALLOCDelegate = 
-CFLAGS = -DWITH_GZFILEOP -fopenmp -Wall -g -O2 -mtune=haswell -pthread -pthread
-CONFIGURE_ARGS = ./configure 
+CFLAGS = -DWITH_GZFILEOP -fopenmp -Wall -g -O2 -mtune=core2 -pthread -pthread
+CONFIGURE_ARGS = ./configure  '--disable-dependency-tracking'
 CONFIGURE_DEPENDENCIES =  $(top_srcdir)/ChangeLog.md $(top_srcdir)/m4/version.m4
 CONFIGURE_PATH = /usr/local/etc/WizardsToolkit-1
 CPP = gcc -E
@@ -734,7 +733,7 @@ CTAGS = ctags
 CVS_BRANCH_TAG = 
 CXX = g++
 CXXCPP = g++ -E
-CXXDEPMODE = depmode=gcc3
+CXXDEPMODE = depmode=none
 CXXFLAGS = -pthread -pthread
 CYGPATH_W = echo
 DATA_DIR = /usr/local/share
@@ -779,7 +778,7 @@ INT8_T = signed char
 JEMALLOC_LIBS = 
 LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
-LFS_CPPFLAGS =  -D_LARGE_FILES=1
+LFS_CPPFLAGS =  -D_FILE_OFFSET_BITS= -D_LARGE_FILES=1 -D_LARGEFILE_SOURCE=1
 LIBEXEC_DIR = /usr/local/libexec
 LIBOBJS = 
 LIBRARY_EXTRA_CPPFLAGS = 
@@ -823,7 +822,7 @@ PACKAGE_LIB_VERSION = 0x109
 PACKAGE_LIB_VERSION_NUMBER = 1,0,9,5
 PACKAGE_NAME = WizardsToolkit
 PACKAGE_PATCHLEVEL_VERSION = 5
-PACKAGE_RELEASE_DATE = 2024-05-05
+PACKAGE_RELEASE_DATE = 2024-10-06
 PACKAGE_STRING = WizardsToolkit 1.0.9-5
 PACKAGE_TARNAME = WizardsToolkit
 PACKAGE_URL = https://urban-warrior.org/WizardsToolkit
@@ -869,13 +868,13 @@ UINTPTR_F = "l"
 UINTPTR_T = unsigned long
 UMEM_LIBS = 
 VERSION = 1.0.9-5
-WIZARD_CFLAGS = -DWITH_GZFILEOP -fopenmp -Wall -g -O2 -mtune=haswell -pthread -pthread
+WIZARD_CFLAGS = -DWITH_GZFILEOP -fopenmp -Wall -g -O2 -mtune=core2 -pthread -pthread
 WIZARD_CONFIGURE_BUILD_PATH = /home/cristy/WizardsToolkit-1.0.9/config
 WIZARD_CONFIGURE_SRC_PATH = /home/cristy/WizardsToolkit-1.0.9/config
 WIZARD_CPPFLAGS = -I/usr/local/include/WizardsToolkit-1
 WIZARD_DEP_LIBS = -lbz2 -llzma -lz -lm -lgomp -lpthread
 WIZARD_EXTRA_DEP_LIBS = -lgomp
-WIZARD_GIT_REVISION = bbcf2f1:20240505
+WIZARD_GIT_REVISION = a8b12f3:20241006
 WIZARD_LDFLAGS = -L/usr/local/lib 
 WIZARD_LIBRARY_AGE = 0
 WIZARD_LIBRARY_CURRENT = 1
@@ -1852,65 +1851,65 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include tests/$(DEPDIR)/validate-validate.Po # am--include-marker
-include utilities/$(DEPDIR)/cipher-info.Po # am--include-marker
-include utilities/$(DEPDIR)/content.Po # am--include-marker
-include utilities/$(DEPDIR)/decipher.Po # am--include-marker
-include utilities/$(DEPDIR)/digest.Po # am--include-marker
-include utilities/$(DEPDIR)/encipher.Po # am--include-marker
-include utilities/$(DEPDIR)/keyring.Po # am--include-marker
-include utilities/$(DEPDIR)/utility.Po # am--include-marker
-include wizard/$(DEPDIR)/aes.Plo # am--include-marker
-include wizard/$(DEPDIR)/authenticate.Plo # am--include-marker
-include wizard/$(DEPDIR)/blob.Plo # am--include-marker
-include wizard/$(DEPDIR)/bzip.Plo # am--include-marker
-include wizard/$(DEPDIR)/chacha.Plo # am--include-marker
-include wizard/$(DEPDIR)/cipher.Plo # am--include-marker
-include wizard/$(DEPDIR)/client.Plo # am--include-marker
-include wizard/$(DEPDIR)/configure.Plo # am--include-marker
-include wizard/$(DEPDIR)/crc64.Plo # am--include-marker
-include wizard/$(DEPDIR)/entropy.Plo # am--include-marker
-include wizard/$(DEPDIR)/exception.Plo # am--include-marker
-include wizard/$(DEPDIR)/file.Plo # am--include-marker
-include wizard/$(DEPDIR)/hash.Plo # am--include-marker
-include wizard/$(DEPDIR)/hashmap.Plo # am--include-marker
-include wizard/$(DEPDIR)/hmac.Plo # am--include-marker
-include wizard/$(DEPDIR)/key.Plo # am--include-marker
-include wizard/$(DEPDIR)/keyring.Plo # am--include-marker
-include wizard/$(DEPDIR)/locale.Plo # am--include-marker
-include wizard/$(DEPDIR)/log.Plo # am--include-marker
-include wizard/$(DEPDIR)/lzma.Plo # am--include-marker
-include wizard/$(DEPDIR)/magick.Plo # am--include-marker
-include wizard/$(DEPDIR)/md5.Plo # am--include-marker
-include wizard/$(DEPDIR)/memory.Plo # am--include-marker
-include wizard/$(DEPDIR)/mime.Plo # am--include-marker
-include wizard/$(DEPDIR)/nt-base.Plo # am--include-marker
-include wizard/$(DEPDIR)/option.Plo # am--include-marker
-include wizard/$(DEPDIR)/passphrase.Plo # am--include-marker
-include wizard/$(DEPDIR)/random.Plo # am--include-marker
-include wizard/$(DEPDIR)/resource.Plo # am--include-marker
-include wizard/$(DEPDIR)/sanitize.Plo # am--include-marker
-include wizard/$(DEPDIR)/secret.Plo # am--include-marker
-include wizard/$(DEPDIR)/semaphore.Plo # am--include-marker
-include wizard/$(DEPDIR)/serpent.Plo # am--include-marker
-include wizard/$(DEPDIR)/sha1.Plo # am--include-marker
-include wizard/$(DEPDIR)/sha2224.Plo # am--include-marker
-include wizard/$(DEPDIR)/sha2256.Plo # am--include-marker
-include wizard/$(DEPDIR)/sha2384.Plo # am--include-marker
-include wizard/$(DEPDIR)/sha2512.Plo # am--include-marker
-include wizard/$(DEPDIR)/sha3.Plo # am--include-marker
-include wizard/$(DEPDIR)/signature.Plo # am--include-marker
-include wizard/$(DEPDIR)/splay-tree.Plo # am--include-marker
-include wizard/$(DEPDIR)/string.Plo # am--include-marker
-include wizard/$(DEPDIR)/thread.Plo # am--include-marker
-include wizard/$(DEPDIR)/timer.Plo # am--include-marker
-include wizard/$(DEPDIR)/token.Plo # am--include-marker
-include wizard/$(DEPDIR)/twofish.Plo # am--include-marker
-include wizard/$(DEPDIR)/utility.Plo # am--include-marker
-include wizard/$(DEPDIR)/version.Plo # am--include-marker
-include wizard/$(DEPDIR)/wizard.Plo # am--include-marker
-include wizard/$(DEPDIR)/xml-tree.Plo # am--include-marker
-include wizard/$(DEPDIR)/zip.Plo # am--include-marker
+#include tests/$(DEPDIR)/validate-validate.Po # am--include-marker
+#include utilities/$(DEPDIR)/cipher-info.Po # am--include-marker
+#include utilities/$(DEPDIR)/content.Po # am--include-marker
+#include utilities/$(DEPDIR)/decipher.Po # am--include-marker
+#include utilities/$(DEPDIR)/digest.Po # am--include-marker
+#include utilities/$(DEPDIR)/encipher.Po # am--include-marker
+#include utilities/$(DEPDIR)/keyring.Po # am--include-marker
+#include utilities/$(DEPDIR)/utility.Po # am--include-marker
+#include wizard/$(DEPDIR)/aes.Plo # am--include-marker
+#include wizard/$(DEPDIR)/authenticate.Plo # am--include-marker
+#include wizard/$(DEPDIR)/blob.Plo # am--include-marker
+#include wizard/$(DEPDIR)/bzip.Plo # am--include-marker
+#include wizard/$(DEPDIR)/chacha.Plo # am--include-marker
+#include wizard/$(DEPDIR)/cipher.Plo # am--include-marker
+#include wizard/$(DEPDIR)/client.Plo # am--include-marker
+#include wizard/$(DEPDIR)/configure.Plo # am--include-marker
+#include wizard/$(DEPDIR)/crc64.Plo # am--include-marker
+#include wizard/$(DEPDIR)/entropy.Plo # am--include-marker
+#include wizard/$(DEPDIR)/exception.Plo # am--include-marker
+#include wizard/$(DEPDIR)/file.Plo # am--include-marker
+#include wizard/$(DEPDIR)/hash.Plo # am--include-marker
+#include wizard/$(DEPDIR)/hashmap.Plo # am--include-marker
+#include wizard/$(DEPDIR)/hmac.Plo # am--include-marker
+#include wizard/$(DEPDIR)/key.Plo # am--include-marker
+#include wizard/$(DEPDIR)/keyring.Plo # am--include-marker
+#include wizard/$(DEPDIR)/locale.Plo # am--include-marker
+#include wizard/$(DEPDIR)/log.Plo # am--include-marker
+#include wizard/$(DEPDIR)/lzma.Plo # am--include-marker
+#include wizard/$(DEPDIR)/magick.Plo # am--include-marker
+#include wizard/$(DEPDIR)/md5.Plo # am--include-marker
+#include wizard/$(DEPDIR)/memory.Plo # am--include-marker
+#include wizard/$(DEPDIR)/mime.Plo # am--include-marker
+#include wizard/$(DEPDIR)/nt-base.Plo # am--include-marker
+#include wizard/$(DEPDIR)/option.Plo # am--include-marker
+#include wizard/$(DEPDIR)/passphrase.Plo # am--include-marker
+#include wizard/$(DEPDIR)/random.Plo # am--include-marker
+#include wizard/$(DEPDIR)/resource.Plo # am--include-marker
+#include wizard/$(DEPDIR)/sanitize.Plo # am--include-marker
+#include wizard/$(DEPDIR)/secret.Plo # am--include-marker
+#include wizard/$(DEPDIR)/semaphore.Plo # am--include-marker
+#include wizard/$(DEPDIR)/serpent.Plo # am--include-marker
+#include wizard/$(DEPDIR)/sha1.Plo # am--include-marker
+#include wizard/$(DEPDIR)/sha2224.Plo # am--include-marker
+#include wizard/$(DEPDIR)/sha2256.Plo # am--include-marker
+#include wizard/$(DEPDIR)/sha2384.Plo # am--include-marker
+#include wizard/$(DEPDIR)/sha2512.Plo # am--include-marker
+#include wizard/$(DEPDIR)/sha3.Plo # am--include-marker
+#include wizard/$(DEPDIR)/signature.Plo # am--include-marker
+#include wizard/$(DEPDIR)/splay-tree.Plo # am--include-marker
+#include wizard/$(DEPDIR)/string.Plo # am--include-marker
+#include wizard/$(DEPDIR)/thread.Plo # am--include-marker
+#include wizard/$(DEPDIR)/timer.Plo # am--include-marker
+#include wizard/$(DEPDIR)/token.Plo # am--include-marker
+#include wizard/$(DEPDIR)/twofish.Plo # am--include-marker
+#include wizard/$(DEPDIR)/utility.Plo # am--include-marker
+#include wizard/$(DEPDIR)/version.Plo # am--include-marker
+#include wizard/$(DEPDIR)/wizard.Plo # am--include-marker
+#include wizard/$(DEPDIR)/xml-tree.Plo # am--include-marker
+#include wizard/$(DEPDIR)/zip.Plo # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -1919,42 +1918,42 @@ $(am__depfiles_remade):
 am--depfiles: $(am__depfiles_remade)
 
 .c.o:
-	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
-	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
-	$(am__mv) $$depbase.Tpo $$depbase.Po
-#	$(AM_V_CC)source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(COMPILE) -c -o $@ $<
+#	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+#	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+#	$(am__mv) $$depbase.Tpo $$depbase.Po
+#	$(AM_V_CC)source='$<' object='$@' libtool=no 
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) 
+	$(AM_V_CC)$(COMPILE) -c -o $@ $<
 
 .c.obj:
-	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
-	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
-	$(am__mv) $$depbase.Tpo $$depbase.Po
-#	$(AM_V_CC)source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+#	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+#	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+#	$(am__mv) $$depbase.Tpo $$depbase.Po
+#	$(AM_V_CC)source='$<' object='$@' libtool=no 
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) 
+	$(AM_V_CC)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 .c.lo:
-	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.lo$$||'`;\
-	$(LTCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
-	$(am__mv) $$depbase.Tpo $$depbase.Plo
-#	$(AM_V_CC)source='$<' object='$@' libtool=yes \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LTCOMPILE) -c -o $@ $<
+#	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.lo$$||'`;\
+#	$(LTCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+#	$(am__mv) $$depbase.Tpo $$depbase.Plo
+#	$(AM_V_CC)source='$<' object='$@' libtool=yes 
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) 
+	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $<
 
 tests/validate-validate.o: tests/validate.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tests/validate-validate.o -MD -MP -MF tests/$(DEPDIR)/validate-validate.Tpo -c -o tests/validate-validate.o `test -f 'tests/validate.c' || echo '$(srcdir)/'`tests/validate.c
-	$(AM_V_at)$(am__mv) tests/$(DEPDIR)/validate-validate.Tpo tests/$(DEPDIR)/validate-validate.Po
-#	$(AM_V_CC)source='tests/validate.c' object='tests/validate-validate.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/validate-validate.o `test -f 'tests/validate.c' || echo '$(srcdir)/'`tests/validate.c
+#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tests/validate-validate.o -MD -MP -MF tests/$(DEPDIR)/validate-validate.Tpo -c -o tests/validate-validate.o `test -f 'tests/validate.c' || echo '$(srcdir)/'`tests/validate.c
+#	$(AM_V_at)$(am__mv) tests/$(DEPDIR)/validate-validate.Tpo tests/$(DEPDIR)/validate-validate.Po
+#	$(AM_V_CC)source='tests/validate.c' object='tests/validate-validate.o' libtool=no 
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) 
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/validate-validate.o `test -f 'tests/validate.c' || echo '$(srcdir)/'`tests/validate.c
 
 tests/validate-validate.obj: tests/validate.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tests/validate-validate.obj -MD -MP -MF tests/$(DEPDIR)/validate-validate.Tpo -c -o tests/validate-validate.obj `if test -f 'tests/validate.c'; then $(CYGPATH_W) 'tests/validate.c'; else $(CYGPATH_W) '$(srcdir)/tests/validate.c'; fi`
-	$(AM_V_at)$(am__mv) tests/$(DEPDIR)/validate-validate.Tpo tests/$(DEPDIR)/validate-validate.Po
-#	$(AM_V_CC)source='tests/validate.c' object='tests/validate-validate.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/validate-validate.obj `if test -f 'tests/validate.c'; then $(CYGPATH_W) 'tests/validate.c'; else $(CYGPATH_W) '$(srcdir)/tests/validate.c'; fi`
+#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tests/validate-validate.obj -MD -MP -MF tests/$(DEPDIR)/validate-validate.Tpo -c -o tests/validate-validate.obj `if test -f 'tests/validate.c'; then $(CYGPATH_W) 'tests/validate.c'; else $(CYGPATH_W) '$(srcdir)/tests/validate.c'; fi`
+#	$(AM_V_at)$(am__mv) tests/$(DEPDIR)/validate-validate.Tpo tests/$(DEPDIR)/validate-validate.Po
+#	$(AM_V_CC)source='tests/validate.c' object='tests/validate-validate.obj' libtool=no 
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) 
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(tests_validate_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/validate-validate.obj `if test -f 'tests/validate.c'; then $(CYGPATH_W) 'tests/validate.c'; else $(CYGPATH_W) '$(srcdir)/tests/validate.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

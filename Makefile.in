@@ -194,8 +194,7 @@ XFAIL_TESTS = $(am__EXEEXT_3)
 check_PROGRAMS = $(am__EXEEXT_2)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/ac_func_fseeko.m4 \
-	$(top_srcdir)/m4/ax_c___attribute__.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/ax_c___attribute__.m4 \
 	$(top_srcdir)/m4/ax_cflags_warn_all.m4 \
 	$(top_srcdir)/m4/ax_check_compile_flag.m4 \
 	$(top_srcdir)/m4/ax_compiler_vendor.m4 \
