@@ -998,9 +998,8 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
     *q='\0';
     if ((size_t) (q-text+WizardPathExtent) >= extent)
       {
-        extent+=WizardPathExtent;
-        text=(char *) ResizeQuantumMemory(text,extent+WizardPathExtent,
-          sizeof(*text));
+        extent<<=1;
+        text=(char *) ResizeQuantumMemory(text,extent,sizeof(*text));
         if (text == (char *) NULL)
           return((char *) NULL);
         q=text+strlen(text);
@@ -1055,45 +1054,45 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
       }
       case 'c':
       {
-        q+=CopyWizardString(q,GetClientName(),extent);
+        q+=CopyWizardString(q,GetClientName(),extent-(q-text));
         break;
       }
       case 'd':
       {
-        q+=CopyWizardString(q,domain,extent);
+        q+=CopyWizardString(q,domain,extent-(q-text));
         break;
       }
       case 'e':
       {
-        q+=CopyWizardString(q,event,extent);
+        q+=CopyWizardString(q,event,extent-(q-text));
         break;
       }
       case 'f':
       {
-        q+=CopyWizardString(q,function,extent);
+        q+=CopyWizardString(q,function,extent-(q-text));
         break;
       }
       case 'g':
       {
         if (log_info->generations == 0)
           {
-            (void) CopyWizardString(q,"0",extent);
+            (void) CopyWizardString(q,"0",extent-(q-text));
             q++;
             break;
           }
-        q+=FormatLocaleString(q,extent,"%.20g",(double) (log_info->generation %
-          log_info->generations));
+        q+=FormatLocaleString(q,extent-(q-text),"%.20g",(double)
+          (log_info->generation % log_info->generations));
         break;
       }
       case 'i':
       {
-        q+=FormatLocaleString(q,extent,"%.20g",(double)
+        q+=FormatLocaleString(q,extent-(q-text),"%.20g",(double)
           GetWizardThreadSignature());
         break;
       }
       case 'l':
       {
-        q+=FormatLocaleString(q,extent,"%.20g",(double) line);
+        q+=FormatLocaleString(q,extent-(q-text),"%.20g",(double) line);
         break;
       }
       case 'm':
@@ -1107,39 +1106,40 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
               p++;
               break;
             }
-        q+=CopyWizardString(q,p,extent);
+        q+=CopyWizardString(q,p,extent-(q-text));
         break;
       }
       case 'n':
       {
-        q+=CopyWizardString(q,GetLogName(),extent);
+        q+=CopyWizardString(q,GetLogName(),extent-(q-text));
         break;
       }
       case 'p':
       {
-        q+=FormatLocaleString(q,extent,"%.20g",(double) getpid());
+        q+=FormatLocaleString(q,extent-(q-text),"%.20g",(double) getpid());
         break;
       }
       case 'r':
       {
-        q+=FormatLocaleString(q,extent,"%lu:%02lu.%03lu",(unsigned long)
-          (elapsed_time/60.0),(unsigned long) floor(fmod(elapsed_time,60.0)),
-          (unsigned long) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));
+        q+=FormatLocaleString(q,extent-(q-text),"%lu:%02lu.%03lu",
+          (unsigned long) (elapsed_time/60.0),(unsigned long) floor(fmod(
+          elapsed_time,60.0)),(unsigned long) (1000.0*(elapsed_time-floor(
+          elapsed_time))+0.5));
         break;
       }
       case 't':
       {
-        q+=FormatWizardTime(seconds,extent,q);
+        q+=FormatWizardTime(seconds,extent-(q-text),q);
         break;
       }
       case 'u':
       {
-        q+=FormatLocaleString(q,extent,"%0.3fu",user_time);
+        q+=FormatLocaleString(q,extent-(q-text),"%0.3fu",user_time);
         break;
       }
       case 'v':
       {
-        q+=CopyWizardString(q,WizardLibVersionText,extent);
+        q+=CopyWizardString(q,WizardLibVersionText,extent-(q-text));
         break;
       }
       case '%':
