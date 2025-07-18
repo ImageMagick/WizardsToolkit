@@ -18,10 +18,6 @@
 #ifndef _WIZARDSTOOLKIT_STUDIO_H
 #define _WIZARDSTOOLKIT_STUDIO_H
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
-
 #if defined(WIN32) || defined(WIN64)
 #  define WIZARDSTOOLKIT_WINDOWS_SUPPORT
 #else
@@ -47,6 +43,15 @@ extern "C" {
 # if defined(__cplusplus) || defined(c_plusplus)
 #  undef inline
 # endif
+#endif
+
+#if defined(_OPENMP) && (_OPENMP >= 200203)
+#  include <omp.h>
+#  define WIZARDSTOOLKIT_HAVE_OPENMP 1
+#endif
+
+#if defined(__cplusplus) || defined(c_plusplus)
+extern "C" {
 #endif
 
 #if !defined(const)
@@ -135,10 +140,6 @@ extern "C" {
 #endif
 #if defined(WIZARDSTOOLKIT_HAVE_ARM_LIMITS_H)
 #  include <arm/limits.h>
-#endif
-#if defined(_OPENMP) && (_OPENMP >= 200203)
-#  include <omp.h>
-#  define WIZARDSTOOLKIT_HAVE_OPENMP 1
 #endif
 
 #if defined(WIZARDSTOOLKIT_HAVE_PREAD) && defined(WIZARDSTOOLKIT_HAVE_DECL_PREAD) && !WIZARDSTOOLKIT_HAVE_DECL_PREAD
