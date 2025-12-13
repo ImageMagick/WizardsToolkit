@@ -1,8 +1,8 @@
-%global VERSION  @PACKAGE_BASE_VERSION@
-%global MAJOR_VERSION  @WIZARD_MAJOR_VERSION@
-%global Patchlevel  @WIZARD_PATCHLEVEL_VERSION@
+%global VERSION  1.0.9
+%global MAJOR_VERSION  1
+%global Patchlevel  5
 
-Name:           @PACKAGE_NAME@
+Name:           WizardsToolkit
 Version:        %{VERSION}
 Release:        %{Patchlevel}
 Summary:        The Wizard's Toolkit includes command line utilities to convert plaintext to ciphertext, convert ciphertext to plaintext, report properties associated with ciphertext, compute the message digest of a file, and read message digests from a file and authenticate them. In addition, the Wizard's Toolkit includes a a cross-platform C API that includes a number of enciphering and hash methods many developers should find useful in their projects.
@@ -137,7 +137,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc QuickStart.txt 
+%doc QuickStart.txt
 %doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt
 %{_libdir}/libWizardsToolkit.so.*
 %{_libdir}/%{name}-%{VERSION}
