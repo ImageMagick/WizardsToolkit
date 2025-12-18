@@ -8892,7 +8892,7 @@ WIZARD_PATCHLEVEL_VERSION=5
 
 WIZARD_VERSION=1.0.9-5
 
-WIZARD_GIT_REVISION=8c82b05:20251003
+WIZARD_GIT_REVISION=ec5b5ec:20251213
 
 
 # Substitute library versioning
@@ -8914,7 +8914,7 @@ PACKAGE_LIB_VERSION=0x109
 
 PACKAGE_LIB_VERSION_NUMBER=1,0,9,5
 
-PACKAGE_RELEASE_DATE=2025-10-03
+PACKAGE_RELEASE_DATE=2025-12-13
 
 
 # Substitute CVS branch tag
@@ -26514,6 +26514,58 @@ printf "%s\n" "$as_me: $UINTPTR_T" >&6;}
 # Check for __func__ support
 #
 ########
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether our compiler supports __func__" >&5
+printf %s "checking whether our compiler supports __func__... " >&6; }
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main (void)
+{
+{ const char *func = __func__; return(func != 0 ? 0 : 1); }
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+else case e in #(
+  e) { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+ { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether our compiler supports __FUNCTION__" >&5
+printf %s "checking whether our compiler supports __FUNCTION__... " >&6; }
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main (void)
+{
+{ const char *func = __FUNCTION__; return(func != 0 ? 0 : 1); }
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"
+then :
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+printf "%s\n" "#define __func__ __FUNCTION__" >>confdefs.h
+
+else case e in #(
+  e) { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+printf "%s\n" "#define __func__ __FILE__" >>confdefs.h
+ ;;
+esac
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext ;;
+esac
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
 
 ########
 #

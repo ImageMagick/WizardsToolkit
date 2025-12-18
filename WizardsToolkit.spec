@@ -137,7 +137,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc QuickStart.txt
+%doc QuickStart.txt 
 %doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt
 %{_libdir}/libWizardsToolkit.so.*
 %{_libdir}/%{name}-%{VERSION}

@@ -872,6 +872,20 @@ AC_SUBST(UINTPTR_F)
 # Check for __func__ support
 #
 ########
+AC_MSG_CHECKING([whether our compiler supports __func__])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([],
+ [{ const char *func = __func__; return(func != 0 ? 0 : 1); }])],
+ AC_MSG_RESULT([yes]),
+ AC_MSG_RESULT([no])
+ AC_MSG_CHECKING([whether our compiler supports __FUNCTION__])
+ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([],
+   [{ const char *func = __FUNCTION__; return(func != 0 ? 0 : 1); }])],
+   AC_MSG_RESULT([yes])
+   AC_DEFINE(__func__, __FUNCTION__,
+     [Define to appropriate substitute if compiler does not have __func__]),
+   AC_MSG_RESULT([no])
+   AC_DEFINE(__func__, __FILE__,
+     [Define to appropriate substitute if compiler does not have __func__])))
 
 ########
 #
@@ -1149,7 +1163,7 @@ if test "$enable_ccmalloc" = 'yes'; then
     OLIBS="$LIBS"
     # Assume that gcc is used with ccmalloc.
     LIBS="$LIBS $CCMALLOC_PREFIX/lib/ccmalloc-gcc.o"
-    AC_CHECK_LIB(ccmalloc,ccmalloc_malloc,CCMALLOC_LIBS="$CCMALLOC_PREFIX/lib/ccmalloc-gcc.o -lccmalloc -ldl",,-ldl)
+    AC_CHECK_LIB([ccmalloc],[ccmalloc_malloc],[CCMALLOC_LIBS="$CCMALLOC_PREFIX/lib/ccmalloc-gcc.o -lccmalloc -ldl"],[],[-ldl])
     if test -n "$CCMALLOC_LIBS"; then
       LIBS="$OLIBS"
       LIBS="$LIBS $CCMALLOC_LIBS"
