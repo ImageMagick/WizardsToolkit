@@ -348,6 +348,8 @@ WizardExport void CloseWizardLog(void)
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
+  if (log_info == (LogInfo *) NULL)
+    return;
   LockSemaphoreInfo(log_semaphore);
   if ((log_info != (LogInfo *) NULL) && (log_info->file != (FILE *) NULL))
     {
@@ -699,6 +701,8 @@ WizardExport WizardBooleanType IsEventLogging(void)
   exception=AcquireExceptionInfo();
   log_info=GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
+  if (log_info == (LogInfo *) NULL)
+    return(WizardFalse);
   return(log_info->event_mask != NoEvents ? WizardTrue : WizardFalse);
 }
 /*
@@ -955,10 +959,12 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
+  text=AcquireString(event);
+  if (log_info == (LogInfo *) NULL)
+    return(text);
   seconds=time((time_t *) NULL);
   elapsed_time=GetElapsedTime(log_info->timer);
   user_time=GetUserTime(log_info->timer);
-  text=AcquireString(event);
   if (log_info->format == (char *) NULL)
     return(text);
   extent=strlen(event)+WizardPathExtent;
@@ -1287,6 +1293,8 @@ WizardBooleanType LogWizardEventList(const LogEventType type,const char *module,
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
+  if (log_info == (LogInfo *) NULL)
+    return(WizardTrue);
   if (log_info->event_semaphore == (SemaphoreInfo *) NULL)
     ActivateSemaphoreInfo(&log_info->event_semaphore);
   LockSemaphoreInfo(log_info->event_semaphore);
@@ -1742,9 +1750,13 @@ WizardExport LogEventType SetLogEventMask(const char *events)
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
+  if (log_info == (LogInfo *) NULL)
+    return(NoEvents);
   option=ParseWizardOption(WizardLogEventOptions,WizardTrue,events);
   LockSemaphoreInfo(log_semaphore);
   log_info=(LogInfo *) GetValueFromLinkedList(log_cache,0);
+  if (log_info == (LogInfo *) NULL)
+    return(NoEvents);
   log_info->event_mask=(LogEventType) option;
   if (option == -1)
     log_info->event_mask=UndefinedEvents;
@@ -1785,6 +1797,8 @@ WizardExport void SetLogFormat(const char *format)
   exception=AcquireExceptionInfo();
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
+  if (log_info == (LogInfo *) NULL)
+    return;
   LockSemaphoreInfo(log_semaphore);
   if (log_info->format != (char *) NULL)
     log_info->format=DestroyString(log_info->format);
