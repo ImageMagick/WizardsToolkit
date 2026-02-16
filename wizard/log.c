@@ -349,7 +349,7 @@ WizardExport void CloseWizardLog(void)
   log_info=(LogInfo *) GetLogInfo("*",exception);
   exception=DestroyExceptionInfo(exception);
   LockSemaphoreInfo(log_semaphore);
-  if (log_info->file != (FILE *) NULL)
+  if ((log_info != (LogInfo *) NULL) && (log_info->file != (FILE *) NULL))
     {
       (void) fprintf(log_info->file,"</log>\n");
       (void) fclose(log_info->file);
