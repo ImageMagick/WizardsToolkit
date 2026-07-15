@@ -657,12 +657,12 @@ WizardExport WizardBooleanType GetExecutionPath(char *path,const size_t extent)
     int
       length;
 
-    (void) FormatLocaleString(link_path,WizardPathExtent,"/proc/%.20g/exe",
+    (void) FormatLocaleString(link_path,WizardPathExtent,"/proc/%.17g/exe",
       (double) getpid());
     length=readlink(link_path,real_path,PATH_MAX);
     if (length == -1)
       {
-        (void) FormatLocaleString(link_path,WizardPathExtent,"/proc/%.20g/file",
+        (void) FormatLocaleString(link_path,WizardPathExtent,"/proc/%.17g/file",
           (double) getpid());
         length=readlink(link_path,real_path,PATH_MAX);
       }

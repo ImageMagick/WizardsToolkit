@@ -748,7 +748,7 @@ WizardExport WizardBooleanType DigestCommand(int argc,char **argv,
     (void) ConcatenateString(&digest_rdf,timestamp);
     (void) ConcatenateString(&digest_rdf,"</digest:create-date>\n");
     (void) ConcatenateString(&digest_rdf,"    <digest:extent>");
-    (void) FormatLocaleString(content_extent,WizardPathExtent,"%.20g",(double)
+    (void) FormatLocaleString(content_extent,WizardPathExtent,"%.17g",(double)
       extent);
     (void) ConcatenateString(&digest_rdf,content_extent);
     (void) ConcatenateString(&digest_rdf,"</digest:extent>\n");
@@ -865,7 +865,7 @@ static int WizardMain(int argc,char **argv)
     {
       elapsed_time=GetElapsedTime(timer);
       user_time=GetUserTime(timer);
-      (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %.20g:%02g.%03g\n",
+      (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %.17g:%02g.%03g\n",
         iterations,1.0*iterations/elapsed_time,user_time,(double)
         (elapsed_time/60.0+0.5),floor(fmod(elapsed_time,60.0)),
         (double) (1000.0*(elapsed_time-floor(elapsed_time))+0.5));

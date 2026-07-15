@@ -745,7 +745,7 @@ static WizardBooleanType EncipherContent(ContentInfo *content_info,
     WizardHashOptions,content_info->hmac));
   (void) ConcatenateString(&cipher_rdf,message);
   (void) FormatLocaleString(message,WizardPathExtent,
-    "    <cipher:chunksize>%.20g</cipher:chunksize>\n",(double)
+    "    <cipher:chunksize>%.17g</cipher:chunksize>\n",(double)
     content_info->chunksize);
   (void) ConcatenateString(&cipher_rdf,message);
   (void) FormatWizardTime(content_info->modify_date,WizardPathExtent,timestamp);
@@ -978,7 +978,7 @@ static int WizardMain(int argc,char **argv)
     {
       elapsed_time=GetElapsedTime(timer);
       user_time=GetUserTime(timer);
-      (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %.20g:%02g.%03g\n",
+      (void) fprintf(stderr,"Performance: %ui %gips %0.3fu %.17g:%02g.%03g\n",
         iterations,1.0*iterations/elapsed_time,user_time,(double)
         (elapsed_time/60.0+0.5),floor(fmod(elapsed_time,60.0)),(double)
         (1000.0*(elapsed_time-floor(elapsed_time))+0.5));

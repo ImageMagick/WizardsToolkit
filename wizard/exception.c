@@ -1020,7 +1020,7 @@ WizardExport WizardBooleanType ThrowWizardExceptionList(
     reason[WizardPathExtent-1]='\0';
   status=LogWizardEvent(exception->severity >= ErrorException ?
     ExceptionEvent : WarningEvent,module,function,line,"%s",reason);
-  (void) FormatLocaleString(message,WizardPathExtent,"%s @ %s/%s/%.20g",reason,
+  (void) FormatLocaleString(message,WizardPathExtent,"%s @ %s/%s/%.17g",reason,
     module,function,(double) line);
   (void) ThrowException(exception,severity,message,(char *) NULL);
   return(status);

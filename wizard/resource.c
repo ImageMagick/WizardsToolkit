@@ -200,7 +200,7 @@ WizardExport WizardBooleanType GetPathTemplate(const char *path,char *filename)
     file_info;
 
   (void) FormatLocaleString(filename,WizardPathExtent,
-    "wizard-%.20gXXXXXXXXXXXX",(double) getpid());
+    "wizard-%.17gXXXXXXXXXXXX",(double) getpid());
   if ((path == (const char *) NULL) || (*path != '\0'))
     directory=ConstantString(path);
   else
@@ -234,10 +234,10 @@ WizardExport WizardBooleanType GetPathTemplate(const char *path,char *filename)
     }
   if (directory[strlen(directory)-1] == *DirectorySeparator)
     (void) FormatLocaleString(filename,WizardPathExtent,
-      "%swizard-%.20gXXXXXXXXXXXX",directory,(double) getpid());
+      "%swizard-%.17gXXXXXXXXXXXX",directory,(double) getpid());
   else
     (void) FormatLocaleString(filename,WizardPathExtent,
-      "%s%swizard-%.20gXXXXXXXXXXXX",directory,DirectorySeparator,(double)
+      "%s%swizard-%.17gXXXXXXXXXXXX",directory,DirectorySeparator,(double)
       getpid());
   directory=(char *) RelinquishWizardMemory(directory);
   if (*DirectorySeparator != '/')

@@ -982,11 +982,11 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
         "  <timestamp>%s</timestamp>\n"
         "  <elapsed-time>%lu:%02lu.%06lu</elapsed-time>\n"
         "  <user-time>%0.3f</user-time>\n"
-        "  <process-id>%.20g</process-id>\n"
-        "  <thread-id>%.20g</thread-id>\n"
+        "  <process-id>%.17g</process-id>\n"
+        "  <thread-id>%.17g</thread-id>\n"
         "  <module>%s</module>\n"
         "  <function>%s</function>\n"
-        "  <line>%.20g</line>\n"
+        "  <line>%.17g</line>\n"
         "  <domain>%s</domain>\n"
         "  <event>%s</event>\n"
         "</entry>",timestamp,(unsigned long) (elapsed_time/60.0),(unsigned long)
@@ -1086,19 +1086,19 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
             q++;
             break;
           }
-        q+=FormatLocaleString(q,extent-(q-text),"%.20g",(double)
+        q+=FormatLocaleString(q,extent-(q-text),"%.17g",(double)
           (log_info->generation % log_info->generations));
         break;
       }
       case 'i':
       {
-        q+=FormatLocaleString(q,extent-(q-text),"%.20g",(double)
+        q+=FormatLocaleString(q,extent-(q-text),"%.17g",(double)
           GetWizardThreadSignature());
         break;
       }
       case 'l':
       {
-        q+=FormatLocaleString(q,extent-(q-text),"%.20g",(double) line);
+        q+=FormatLocaleString(q,extent-(q-text),"%.17g",(double) line);
         break;
       }
       case 'm':
@@ -1122,7 +1122,7 @@ static char *TranslateEvent(const LogEventType wizard_unused(type),
       }
       case 'p':
       {
-        q+=FormatLocaleString(q,extent-(q-text),"%.20g",(double) getpid());
+        q+=FormatLocaleString(q,extent-(q-text),"%.17g",(double) getpid());
         break;
       }
       case 'r':
@@ -1232,7 +1232,7 @@ static char *TranslateFilename(const LogInfo *log_info)
             q++;
             break;
           }
-        q+=FormatLocaleString(q,extent,"%.20g",(double) (log_info->generation %
+        q+=FormatLocaleString(q,extent,"%.17g",(double) (log_info->generation %
           log_info->generations));
         break;
       }
@@ -1243,7 +1243,7 @@ static char *TranslateFilename(const LogInfo *log_info)
       }
       case 'p':
       {
-        q+=FormatLocaleString(q,extent,"%.20g",(double) getpid());
+        q+=FormatLocaleString(q,extent,"%.17g",(double) getpid());
         break;
       }
       case 'v':
