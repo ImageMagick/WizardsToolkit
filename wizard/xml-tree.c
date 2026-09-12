@@ -1611,7 +1611,7 @@ static XMLTreeInfo *ParseCloseTag(XMLTreeRoot *root,char *tag,
 }
 
 static WizardBooleanType ValidateEntities(char *tag,char *xml,
-  const size_t depth,char **entities)
+  const int delimiter,const size_t depth,char **entities)
 {
    ssize_t
     i;
@@ -1623,7 +1623,7 @@ static WizardBooleanType ValidateEntities(char *tag,char *xml,
     return(WizardFalse);
   for ( ; ; xml++)
   {
-    while ((*xml != '\0') && (*xml != '&'))
+    while ((*xml != '\0') && (*xml != delimiter))
       xml++;
     if (*xml == '\0')
       return(WizardTrue);
@@ -1634,7 +1634,7 @@ static WizardBooleanType ValidateEntities(char *tag,char *xml,
            (strncmp(entities[i],xml+1,strlen(entities[i])) == 0))
       i+=2;
     if ((entities[i] != (char *) NULL) &&
-        (ValidateEntities(tag,entities[i+1],depth+1,entities) == 0))
+        (ValidateEntities(tag,entities[i+1],delimiter,depth+1,entities) == 0))
       return(WizardFalse);
   }
   return(WizardTrue);
@@ -1798,7 +1798,8 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
           }
         entities[i+1]=ParseEntities(v,predefined_entitites,'%');
         entities[i+2]=(char *) NULL;
-        if (ValidateEntities(n,entities[i+1],0,entities) != WizardFalse)
+        if ((ValidateEntities(n,entities[i+1],'%',0,entities) != MagickFalse) &&
+            (ValidateEntities(n,entities[i+1],'&',0,entities) != MagickFalse))
           entities[i]=n;
         else
           {
