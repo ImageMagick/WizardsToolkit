@@ -500,7 +500,8 @@ WizardExport int EOFBlob(BlobInfo *blob_info)
 
       status=0;
       (void) BZ2_bzerror(blob_info->file_info.bzfile,&status);
-      blob_info->eof=status == BZ_UNEXPECTED_EOF ? WizardTrue : WizardFalse;
+      if (status == BZ_UNEXPECTED_EOF)
+        blob_info->eof=WizardTrue;
 #endif
       break;
     }
@@ -1408,7 +1409,16 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
     case BZipStream:
     {
 #if defined(WIZARDSTOOLKIT_BZLIB_DELEGATE)
+      int
+        status;
+
       count=(ssize_t) BZ2_bzread(blob_info->file_info.bzfile,q,(int) length);
+      status=BZ_OK;
+      (void) BZ2_bzerror(blob_info->file_info.bzfile,&status);
+      if ((count != (ssize_t) length) && (status != BZ_OK))
+        ThrowBlobException(blob_info);
+      if ((count != (ssize_t) length) && (status == BZ_OK))
+        blob_info->eof=WizardTrue;
 #endif
       break;
     }
