@@ -625,6 +625,13 @@ WizardExport void *FileToBlob(const char *filename,const size_t extent,
             "memory allocation failed: `%s'",filename);
           return(NULL);
         }
+      if (count < 0)
+        {
+          blob=(unsigned char *) RelinquishWizardMemory(blob);
+          (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
+            "unable to read blob: `%s'",filename);
+          return(NULL);
+        }
       *length=Min(i+count,extent);
       blob[*length]='\0';
       return(blob);
