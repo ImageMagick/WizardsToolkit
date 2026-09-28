@@ -1729,10 +1729,8 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
     *t,
     *v;
 
-   ssize_t
-    i;
-
   ssize_t
+    i,
     j;
 
   n=(char *) NULL;
@@ -1945,6 +1943,9 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                if ((*(xml++) == '%') && (root->standalone == WizardFalse))
                  break;
     }
+  for (i=0; predefined_entities[i] != (char *) NULL; i++)
+    if ((i & 0x01) != 0)
+       predefined_entities[i]=DestroyString(predefined_entities[i]);
   predefined_entitites=(char **) RelinquishWizardMemory(predefined_entitites);
   return(WizardTrue);
 }
