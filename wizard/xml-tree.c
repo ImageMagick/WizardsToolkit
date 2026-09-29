@@ -124,6 +124,7 @@ struct _XMLTreeRoot
     *semaphore;
 
   size_t
+    depth,
     signature;
 };
 
@@ -1607,6 +1608,7 @@ static XMLTreeInfo *ParseCloseTag(XMLTreeRoot *root,char *tag,
       return(&root->root);
     }
   root->node=root->node->parent;
+  root->depth--;
   return((XMLTreeInfo *) NULL);
 }
 
@@ -1796,8 +1798,8 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
           }
         entities[i+1]=ParseEntities(v,predefined_entitites,'%');
         entities[i+2]=(char *) NULL;
-        if ((ValidateEntities(n,entities[i+1],'%',0,entities) != MagickFalse) &&
-            (ValidateEntities(n,entities[i+1],'&',0,entities) != MagickFalse))
+        if ((ValidateEntities(n,entities[i+1],'%',0,entities) != WizardFalse) &&
+            (ValidateEntities(n,entities[i+1],'&',0,entities) != WizardFalse))
           entities[i]=n;
         else
           {
@@ -1943,18 +1945,25 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                if ((*(xml++) == '%') && (root->standalone == WizardFalse))
                  break;
     }
-  for (i=0; predefined_entities[i] != (char *) NULL; i++)
+  for (i=0; predefined_entitites[i] != (char *) NULL; i++)
     if ((i & 0x01) != 0)
-       predefined_entities[i]=DestroyString(predefined_entities[i]);
+       predefined_entitites[i]=DestroyString(predefined_entitites[i]);
   predefined_entitites=(char **) RelinquishWizardMemory(predefined_entitites);
   return(WizardTrue);
 }
 
-static void ParseOpenTag(XMLTreeRoot *root,char *tag,char **attributes)
+static WizardBooleanType ParseOpenTag(XMLTreeRoot *root,char *tag,
+  char **attributes,ExceptionInfo *exception)
 {
   XMLTreeInfo
     *xml_info;
 
+  if (root->depth >= WizardMaxRecursionDepth)
+    {
+      (void) ThrowWizardException(exception,GetWizardModule(),OptionWarning,
+        "unexpected open tag </%s>",tag);
+      return(WizardFalse);
+    }
   xml_info=root->node;
   if (xml_info->tag == (char *) NULL)
     xml_info->tag=ConstantString(tag);
@@ -1963,6 +1972,8 @@ static void ParseOpenTag(XMLTreeRoot *root,char *tag,char **attributes)
   if (xml_info != (XMLTreeInfo *) NULL)
     xml_info->attributes=attributes;
   root->node=xml_info;
+  root->depth++;
+  return(WizardTrue);
 }
 
 static const char
@@ -2180,7 +2191,14 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
               (void) DestroyXMLTreeAttributes(attributes);
             else
               {
-                ParseOpenTag(root,tag,attributes);
+                status=ParseOpenTag(root,tag,attributes,exception);
+                if (status == WizardFalse)
+                  {
+                    if (l != 0)
+                      (void) DestroyXMLTreeAttributes(attributes);
+                    utf8=DestroyString(utf8);
+                    return(&root->root);
+                  }
                 (void) ParseCloseTag(root,tag,exception);
               }
           }
@@ -2191,7 +2209,16 @@ WizardExport XMLTreeInfo *NewXMLTree(const char *xml,ExceptionInfo *exception)
               {
                 *p='\0';
                 if ((ignore_depth == 0) && (IsSkipTag(tag) == WizardFalse))
-                  ParseOpenTag(root,tag,attributes);
+                  {
+                    status=ParseOpenTag(root,tag,attributes,exception);
+                    if (status == WizardFalse)
+                      {
+                        if (l != 0)
+                          (void) DestroyXMLTreeAttributes(attributes);
+                        utf8=DestroyString(utf8);
+                        return(&root->root);
+                      }
+                  }
                 else
                   {
                     ignore_depth++;
