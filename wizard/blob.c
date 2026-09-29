@@ -1419,6 +1419,8 @@ WizardExport ssize_t ReadBlob(BlobInfo *blob_info,const size_t length,
       int
         status;
 
+      if (blob_info->status != 0)
+        break;
       count=(ssize_t) BZ2_bzread(blob_info->file_info.bzfile,q,(int) length);
       status=BZ_OK;
       (void) BZ2_bzerror(blob_info->file_info.bzfile,&status);
