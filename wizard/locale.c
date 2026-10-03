@@ -1193,15 +1193,58 @@ static WizardBooleanType LoadLocaleCache(SplayTreeInfo *locale_cache,
     (void) CopyWizardString(keyword,token,WizardLocaleExtent);
     if (LocaleNCompare(keyword,"<!DOCTYPE",9) == 0)
       {
+        int
+          bracket_depth = 0,
+          quote = 0;
+    
         /*
-          Doctype element.
+          Parse DOCTYPE element.
         */
-        while ((LocaleNCompare(q,"]>",2) != 0) && (*q != '\0'))
+        for ( ; *q != '\0'; q++)
         {
-          GetNextToken(q,&q,extent,token);
-          while (isspace((int) ((unsigned char) *q)) != 0)
-            q++;
+          /*
+            Skip DTD comments.
+          */
+          if ((quote == 0) && (q[0] == '<') && (q[1] == '!') &&
+              (q[2] == '-') && (q[3] == '-'))
+            {
+              q+=4;
+              while ((*q != '\0') && !((q[0] == '-') && (q[1] == '-') &&
+                     (q[2] == '>')))
+                q++;
+              if (*q == '\0')
+                break;
+              q+=2;
+              continue;
+            }
+          if (quote != 0)
+            {
+              if (*q == quote)
+                quote = 0;
+            }
+          else
+            {
+              if ((*q == '"') || (*q == '\''))
+                quote = (*q);
+              else
+                if (*q == '[')
+                  bracket_depth++;
+                else
+                  if (*q == ']')
+                    {
+                      if (bracket_depth > 0)
+                        bracket_depth--;
+                    }
+                  else
+                    if ((*q == '>') && (bracket_depth == 0))
+                      {
+                        q++;
+                        break;
+                      }
+            }
         }
+        if (*q == '\0')
+          break;
         continue;
       }
     if (LocaleNCompare(keyword,"<!--",4) == 0)
