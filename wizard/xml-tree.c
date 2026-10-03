@@ -1722,11 +1722,20 @@ static void ParseProcessingInstructions(XMLTreeRoot *root,char *xml,
 static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
   size_t length,ExceptionInfo *exception)
 {
+#define DestroyXMLEntities(predefined_entities) \
+{ \
+  ssize_t k; \
+  for (k=0; predefined_entities[k] != (char *) NULL; k++) \
+    if ((k & 0x01) != 0) \
+      predefined_entities[k]=DestroyString(predefined_entities[k]); \
+  predefined_entities=(char **) RelinquishWizardMemory(predefined_entities); \
+}
+
   char
     *c,
     **entities,
     *n,
-    **predefined_entitites,
+    **predefined_entities,
     q,
     *t,
     *v;
@@ -1736,14 +1745,14 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
     j;
 
   n=(char *) NULL;
-  predefined_entitites=(char **) AcquireWizardMemory(sizeof(sentinel));
-  if (predefined_entitites == (char **) NULL)
+  predefined_entities=(char **) AcquireWizardMemory(sizeof(sentinel));
+  if (predefined_entities == (char **) NULL)
     {
       (void) ThrowWizardException(exception,GetWizardModule(),ResourceError,
         "memory allocation failed `%s'",strerror(errno));
       return(WizardFalse);
     }
-  (void) memcpy(predefined_entitites,sentinel,sizeof(sentinel));
+  (void) memcpy(predefined_entities,sentinel,sizeof(sentinel));
   for (xml[length]='\0'; xml != (char *) NULL; )
   {
     while ((*xml != '\0') && (*xml != '<') && (*xml != '%'))
@@ -1777,7 +1786,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
             xml=strchr(xml,'>');
             continue;
           }
-        entities=(*c == '%') ? predefined_entitites : root->entities;
+        entities=(*c == '%') ? predefined_entities : root->entities;
         for (i=0; entities[i] != (char *) NULL; i++) ;
         entities=(char **) ResizeQuantumMemory(entities,(size_t) (i+3),
           sizeof(*entities));
@@ -1785,7 +1794,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
           ThrowFatalException(ResourceFatalError,
             "unable to acquire string `%s'");
         if (*c == '%')
-          predefined_entitites=entities;
+          predefined_entities=entities;
         else
           root->entities=entities;
         xml++;
@@ -1796,7 +1805,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
             *xml='\0';
             xml++;
           }
-        entities[i+1]=ParseEntities(v,predefined_entitites,'%');
+        entities[i+1]=ParseEntities(v,predefined_entities,'%');
         entities[i+2]=(char *) NULL;
         if ((ValidateEntities(n,entities[i+1],'%',0,entities) != WizardFalse) &&
             (ValidateEntities(n,entities[i+1],'&',0,entities) != WizardFalse))
@@ -1807,8 +1816,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
               entities[i+1]=DestroyString(entities[i+1]);
             (void) ThrowWizardException(exception,GetWizardModule(),
               OptionWarning,"circular entity declaration &%s",n);
-            predefined_entitites=(char **) RelinquishWizardMemory(
-              predefined_entitites);
+            DestroyXMLEntities(predefined_entities);
             return(WizardFalse);
           }
         }
@@ -1823,8 +1831,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
               {
                 (void) ThrowWizardException(exception,GetWizardModule(),
                   OptionWarning,"unclosed <!ATTLIST");
-                predefined_entitites=(char **) RelinquishWizardMemory(
-                  predefined_entitites);
+                DestroyXMLEntities(predefined_entities);
                 return(WizardFalse);
               }
             xml=t+strcspn(t,XMLWhitespace ">");
@@ -1846,8 +1853,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                 {
                   (void) ThrowWizardException(exception,GetWizardModule(),
                     OptionWarning,"malformed <!ATTLIST");
-                  predefined_entitites=(char **) RelinquishWizardMemory(
-                    predefined_entitites);
+                  DestroyXMLEntities(predefined_entities);
                   return(WizardFalse);
                 }
               xml+=strspn(xml+1,XMLWhitespace)+1;
@@ -1860,8 +1866,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                 {
                   (void) ThrowWizardException(exception,GetWizardModule(),
                     OptionWarning,"malformed <!ATTLIST");
-                  predefined_entitites=(char **) RelinquishWizardMemory(
-                    predefined_entitites);
+                  DestroyXMLEntities(predefined_entities);
                   return(WizardFalse);
                 }
               xml+=strspn(xml,XMLWhitespace ")");
@@ -1882,8 +1887,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                   {
                     (void) ThrowWizardException(exception,GetWizardModule(),
                       OptionWarning,"malformed <!ATTLIST");
-                    predefined_entitites=(char **) RelinquishWizardMemory(
-                      predefined_entitites);
+                    DestroyXMLEntities(predefined_entities);
                     return(WizardFalse);
                   }
               if (root->attributes[i] == (char **) NULL)
@@ -1945,10 +1949,7 @@ static WizardBooleanType ParseInternalDoctype(XMLTreeRoot *root,char *xml,
                if ((*(xml++) == '%') && (root->standalone == WizardFalse))
                  break;
     }
-  for (i=0; predefined_entitites[i] != (char *) NULL; i++)
-    if ((i & 0x01) != 0)
-       predefined_entitites[i]=DestroyString(predefined_entitites[i]);
-  predefined_entitites=(char **) RelinquishWizardMemory(predefined_entitites);
+  DestroyXMLEntities(predefined_entities);
   return(WizardTrue);
 }
 
