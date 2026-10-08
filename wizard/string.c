@@ -2102,19 +2102,20 @@ WizardExport char **StringToArgv(const char *text,int *argc)
   char
     **argv;
 
-   const char
+  const char
     *p,
-    *q;
+    *q,
+    *shell_operators = ";&|><";
 
-   ssize_t
+  ssize_t
     i;
 
-  *argc=0;
-  if (text == (char *) NULL)
-    return((char **) NULL);
   /*
     Determine the number of arguments.
   */
+  *argc=0;
+  if (text == (char *) NULL)
+    return((char **) NULL);
   for (p=text; *p != '\0'; )
   {
     while (isspace((int) ((unsigned char) *p)) != 0)
@@ -2123,20 +2124,33 @@ WizardExport char **StringToArgv(const char *text,int *argc)
       break;
     (*argc)++;
     if (*p == '"')
-      for (p++; (*p != '"') && (*p != '\0'); p++) ;
+      for (p++; (*p != '"') && (*p != '\0'); p++);
     if (*p == '\'')
-      for (p++; (*p != '\'') && (*p != '\0'); p++) ;
+      for (p++; (*p != '\'') && (*p != '\0'); p++);
+    /*
+      Advance to end of token, but stop immediately if we hit a shell operator.
+    */
+    q=p;
     while ((isspace((int) ((unsigned char) *p)) == 0) && (*p != '\0'))
+    {
+      if (strchr(shell_operators,(int) ((unsigned char) *p)) != (char *) NULL)
+        break;
+      p++;
+    }
+    if ((p == q) && (*p != '\0') &&
+        (strchr(shell_operators,(int) ((unsigned char) *p)) != (char *) NULL))
       p++;
   }
-  argv=(char **) AcquireQuantumMemory((size_t) (*argc+1),sizeof(*argv));
+  (*argc)++;
+  argv=(char **) AcquireQuantumMemory((size_t) *argc+1UL,sizeof(*argv));
   if (argv == (char **) NULL)
-    ThrowFatalException(ResourceFatalError,"memory allocation failed `%s'");
+    ThrowFatalException(ResourceFatalError,"unable to convert string to ARGV `%s'");
   /*
     Convert string to an ASCII list.
   */
-  p=(char *) text;
-  for (i=0; i < (ssize_t) *argc; i++)
+  argv[0]=AcquireString("magick");
+  p=text;
+  for (i=1; i < (ssize_t) *argc; i++)
   {
     while (isspace((int) ((unsigned char) *p)) != 0)
       p++;
@@ -2154,21 +2168,20 @@ WizardExport char **StringToArgv(const char *text,int *argc)
         }
       else
         while ((isspace((int) ((unsigned char) *q)) == 0) && (*q != '\0'))
+        {
+          if (strchr(shell_operators,(int) ((unsigned char) *q)) != (char *) NULL)
+            break;
           q++;
-    argv[i]=(char *) AcquireQuantumMemory((size_t) (q-p)+WizardPathExtent,
-      sizeof(**argv));
-    if (argv[i] == (char *) NULL)
-      {
-        for (i--; i >= 0; i--)
-          argv[i]=(char *) RelinquishWizardMemory(argv[i]);
-        argv=(char **) RelinquishWizardMemory(argv);
-        ThrowFatalException(StringFatalError,"memory allocation failed `%s'");
-      }
-    (void) memcpy(argv[i],p,(size_t) (q-p));
-    argv[i][q-p]='\0';
+        }
+    argv[i]=AcquireString(p);
+    (void) CopyWizardString(argv[i],p,(size_t) (q-p+1));
+    if ((*q == '"') || (*q == '\''))
+      q++;
+    else
+      if ((p == q) && (*q != '\0') &&
+          (strchr(shell_operators,(int) ((unsigned char) *q)) != (char *) NULL))
+        q++;
     p=q;
-    while ((isspace((int) ((unsigned char) *p)) == 0) && (*p != '\0'))
-      p++;
   }
   argv[i]=(char *) NULL;
   return(argv);
