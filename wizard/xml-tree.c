@@ -1394,6 +1394,8 @@ static char *ConvertUTF16ToUTF8(const char *content,size_t *length)
 
 static char *ParseEntities(char *xml,char **entities,int state)
 {
+#define MaxXMLProfileSize  (16*1024*1024)
+
   char
     *entity;
 
@@ -1529,7 +1531,7 @@ static char *ParseEntities(char *xml,char **entities,int state)
                           }
                         p=extent_xml;
                       }
-                    if (p == (char *) NULL)
+                    if ((p == (char *) NULL) || (strlen(p) > MaxXMLProfileSize))
                       ThrowFatalException(ResourceFatalError,
                         "unable to acquire string `%s'");
                     xml=p+offset;
