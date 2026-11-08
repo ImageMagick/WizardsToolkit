@@ -907,6 +907,10 @@
 #ifndef _ALL_SOURCE
 # define _ALL_SOURCE 1
 #endif
+/* Enable extensions on Cosmopolitan Libc. */
+#ifndef _COSMO_SOURCE
+# define _COSMO_SOURCE 1
+#endif
 /* Enable general extensions on macOS.  */
 #ifndef _DARWIN_C_SOURCE
 # define _DARWIN_C_SOURCE 1

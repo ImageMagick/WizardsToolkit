@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<configuremap>
+  <configure name="CC" value="gcc" />
+  <configure name="CFLAGS" value="-DWITH_GZFILEOP -fopenmp -Wall -g -O2 -mtune=amdfam10 -pthread -pthread" />
+  <configure name="CODER_PATH" value="@CODER_PATH@"/>
+  <configure name="CONFIGURE_PATH" value="/usr/local/etc/WizardsToolkit-1"/>
+  <configure name="CONFIGURE" value="./configure  '--disable-dependency-tracking'" />
+  <configure name="COPYRIGHT" value="Copyright (C) @ 1999 ImageMagick Studio LLC" />
+  <configure name="CPPFLAGS" value="-I/usr/local/include/WizardsToolkit-1" />
+  <configure name="CXXFLAGS" value="-pthread -pthread" />
+  <configure name="CXX" value="g++" />
+  <configure name="DISTCHECK_CONFIG_FLAGS" value=" --with-jemalloc=no  --with-umem=no " />
+  <configure name="DOCUMENTATION_PATH" value="/usr/local/share/doc/WizardsToolkit-1"/>
+  <configure name="EXEC-PREFIX" value="/usr/local" />
+  <configure name="EXECUTABLE_PATH" value="/usr/local/bin"/>
+  <configure name="FILTER_PATH" value="@FILTER_PATH@"/>
+  <configure name="GIT_REVISION" value="9633203:20261017" />
+  <configure name="HOST" value="x86_64-pc-linux-gnu" />
+  <configure name="INCLUDE_PATH" value="/usr/local/include/WizardsToolkit-1"/>
+  <configure name="LDFLAGS" value="-L/usr/local/lib " />
+  <configure name="LIBRARY_PATH" value="/usr/local/lib/WizardsToolkit-1.0.9"/>
+  <configure name="LIBS" value="-lWizardsToolkit   -lbz2 -llzma -lz  -lm -lgomp   -lpthread -lgomp" />
+  <configure name="LIB_VERSION_NUMBER" value="1,0,9,5" />
+  <configure name="LIB_VERSION" value="0x109" />
+  <configure name="NAME" value="WizardsToolkit" />
+  <configure name="PREFIX" value="/usr/local" />
+  <configure name="RELEASE_DATE" value="2026-10-17" />
+  <configure name="SHARE_PATH" value="/usr/local/share/WizardsToolkit-1"/>
+  <configure name="SHARE_PATH" value="/usr/local/share/WizardsToolkit-1"/>
+  <configure name="VERSION" value="1.0.9" />
+  <configure name="WEBSITE" value="https://urban-warrior.org/WizardsToolkit" />
+</configuremap>
