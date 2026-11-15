@@ -54,7 +54,7 @@
 #include "wizard/utility-private.h"
 
 /*
-  Struct declaractions.
+  Struct declarations.
 */
 struct SemaphoreInfo
 {
@@ -103,20 +103,32 @@ static void *AcquireSemaphoreMemory(const size_t count,const size_t quantum)
   void
     *memory;
 
-  size=count*quantum;
-  if ((count == 0) || (quantum != (size/count)))
+  if ((count == 0) || (quantum == 0) || (count > (SIZE_MAX/quantum)))
     {
       errno=ENOMEM;
       return((void *) NULL);
     }
-  memory=NULL;
+  size=count*quantum;
+  memory=(void *) NULL;
   alignment=CACHE_LINE_SIZE;
-  extent=AlignedExtent(size,CACHE_LINE_SIZE);
-  if ((size == 0) || (extent < size))
-    return((void *) NULL);
+  extent=AlignedExtent(size,alignment);
+  if (extent < size)
+    {
+      errno=ENOMEM;
+      return((void *) NULL);
+    }
 #if defined(WIZARDSTOOLKIT_HAVE_POSIX_MEMALIGN)
-  if (posix_memalign(&memory,alignment,extent) != 0)
-    memory=NULL;
+  {
+    int
+      status;
+
+    status=posix_memalign(&memory,alignment,extent);
+    if (status != 0)
+      {
+        errno=status;
+        memory=(void *) NULL;
+      }
+  }
 #elif defined(WIZARDSTOOLKIT_HAVE__ALIGNED_MALLOC)
   memory=_aligned_malloc(extent,alignment);
 #else
@@ -124,15 +136,16 @@ static void *AcquireSemaphoreMemory(const size_t count,const size_t quantum)
     void
       *p;
 
-    extent=(size+alignment-1)+sizeof(void *);
-    if (extent > size)
+    if (extent > (SIZE_MAX-sizeof(void *)))
       {
-        p=malloc(extent);
-        if (p != NULL)
-          {
-            memory=(void *) AlignedExtent((size_t) p+sizeof(void *),alignment);
-            *((void **) memory-1)=p;
-          }
+        errno=ENOMEM;
+        return((void *) NULL);
+      }
+    p=malloc(extent+sizeof(void *));
+    if (p != (void *) NULL)
+      {
+        memory=(void *) AlignedExtent((uintptr_t) p+sizeof(void *),alignment);
+        *((void **) memory-1)=p;
       }
   }
 #endif
@@ -150,7 +163,7 @@ static void *RelinquishSemaphoreMemory(void *memory)
 #else
   free(*((void **) memory-1));
 #endif
-  return(NULL);
+  return((void *) NULL);
 }
 
 WizardExport SemaphoreInfo *AcquireSemaphoreInfo(void)
@@ -186,6 +199,9 @@ WizardExport SemaphoreInfo *AcquireSemaphoreInfo(void)
         perror("unable to initialize mutex attributes");
         _exit(1);
       }
+#if defined(WIZARDSTOOLKIT_DEBUG)
+    (void) pthread_mutexattr_settype(&mutex_info,PTHREAD_MUTEX_ERRORCHECK);
+#endif
     status=pthread_mutex_init(&semaphore_info->mutex,&mutex_info);
     if (status != 0)
       {
@@ -197,23 +213,16 @@ WizardExport SemaphoreInfo *AcquireSemaphoreInfo(void)
     if (status != 0)
       {
         errno=status;
-        perror("unable to destroy mutex");
+        perror("unable to destroy mutex attributes");
         _exit(1);
       }
   }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-  {
-    int
-      status;
-
-    status=InitializeCriticalSectionAndSpinCount(&semaphore_info->mutex,0x400);
-    if (status == 0)
-      {
-        errno=status;
-        perror("unable to initialize critical section");
-        _exit(1);
-      }
-  }
+  if (InitializeCriticalSectionAndSpinCount(&semaphore_info->mutex,0x400) == 0)
+    {
+      perror("unable to initialize critical section");
+      _exit(1);
+    }
 #endif
   semaphore_info->id=GetWizardThreadId();
   semaphore_info->reference_count=0;
@@ -252,7 +261,17 @@ WizardExport void ActivateSemaphoreInfo(SemaphoreInfo **semaphore_info)
       InitializeWizardMutex();
       LockWizardMutex();
       if (*semaphore_info == (SemaphoreInfo *) NULL)
-        *semaphore_info=AcquireSemaphoreInfo();
+        {
+          SemaphoreInfo
+            *acquired_semaphore;
+
+          acquired_semaphore=AcquireSemaphoreInfo();
+#if defined(__ATOMIC_RELEASE)
+          __atomic_store_n(semaphore_info,acquired_semaphore,__ATOMIC_RELEASE);
+#else
+          *semaphore_info=acquired_semaphore;
+#endif
+        }
       UnlockWizardMutex();
     }
 }
@@ -337,31 +356,38 @@ WizardExport void LockSemaphoreInfo(SemaphoreInfo *semaphore_info)
 */
 WizardExport void RelinquishSemaphoreInfo(SemaphoreInfo **semaphore_info)
 {
+  SemaphoreInfo
+    *target;
+
   assert(semaphore_info != (SemaphoreInfo **) NULL);
   assert((*semaphore_info) != (SemaphoreInfo *) NULL);
   assert((*semaphore_info)->signature == WizardSignature);
   InitializeWizardMutex();
   LockWizardMutex();
+  target=(*semaphore_info);
+  if (target != (SemaphoreInfo *) NULL)
+    {
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
-  omp_destroy_lock((omp_lock_t *) &(*semaphore_info)->mutex);
+      omp_destroy_lock((omp_lock_t *) &target->mutex);
 #elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
-  {
-    int
-      status;
-
-    status=pthread_mutex_destroy(&(*semaphore_info)->mutex);
-    if (status != 0)
       {
-        errno=status;
-        perror("unable to destroy mutex");
-        _exit(1);
+        int
+          status;
+
+        status=pthread_mutex_destroy(&target->mutex);
+        if (status != 0)
+          {
+            errno=status;
+            perror("unable to destroy mutex");
+            _exit(1);
+          }
       }
-  }
 #elif defined(WIZARDSTOOLKIT_HAVE_WINTHREADS)
-  DeleteCriticalSection(&(*semaphore_info)->mutex);
+      DeleteCriticalSection(&target->mutex);
 #endif
-  (*semaphore_info)->signature=(~WizardSignature);
-  *semaphore_info=(SemaphoreInfo *) RelinquishSemaphoreMemory(*semaphore_info);
+      target->signature=(~WizardSignature);
+      *semaphore_info=(SemaphoreInfo *) RelinquishSemaphoreMemory(target);
+    }
   UnlockWizardMutex();
 }
 
@@ -446,8 +472,9 @@ WizardExport void UnlockSemaphoreInfo(SemaphoreInfo *semaphore_info)
       (void) fflush(stderr);
       return;
     }
-  semaphore_info->reference_count--;
 #endif
+  if (semaphore_info->reference_count > 0)
+    semaphore_info->reference_count--;
 #if defined(WIZARDSTOOLKIT_OPENMP_SUPPORT)
   omp_unset_lock((omp_lock_t *) &semaphore_info->mutex);
 #elif defined(WIZARDSTOOLKIT_THREAD_SUPPORT)
