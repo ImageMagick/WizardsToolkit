@@ -47,6 +47,12 @@ extern WizardExport void
   Windows UTF8 compatibility methods.
 */
 
+#if defined(MAGICKCORE_WINDOWS_SUPPORT) && !defined(__CYGWIN__)
+#define close_utf8 _close
+#else
+#define close_utf8 close
+#endif
+
 static inline int access_utf8(const char *path,int mode)
 {
 #if !defined(WIZARDSTOOLKIT_WINDOWS_SUPPORT) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__MINGW64__)
@@ -253,6 +259,26 @@ static inline int stat_utf8(const char *path,struct stat *attributes)
    path_wide=(WCHAR *) RelinquishWizardMemory(path_wide);
    return(status);
 #endif
+}
+
+static inline ssize_t WizardRead(int fd,void *buffer,size_t extent)
+{
+  unsigned char *p = (unsigned char *) buffer;
+  size_t offset = 0;
+  while (offset < extent)
+  {
+    ssize_t count = read(fd,p+offset,extent-offset);
+    if (count < 0)
+      {
+        if (errno == EINTR)
+          continue;
+        return(-1);
+      }
+    if (count == 0)
+      break;
+    offset+=(size_t) count;
+  }
+  return((ssize_t) offset);
 }
 
 #if defined(__cplusplus) || defined(c_plusplus)

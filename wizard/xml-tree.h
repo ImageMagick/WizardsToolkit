@@ -39,14 +39,12 @@ extern WizardExport const char
 
 extern WizardExport XMLTreeInfo
   *AddChildToXMLTree(XMLTreeInfo *,const char *,const size_t),
-  *AddPathToXMLTree(XMLTreeInfo *,const char *,const size_t),
   *DestroyXMLTree(XMLTreeInfo *),
   *GetNextXMLTreeTag(XMLTreeInfo *),
   *GetXMLTreeChild(XMLTreeInfo *,const char *),
   *GetXMLTreeOrdered(XMLTreeInfo *),
   *GetXMLTreePath(XMLTreeInfo *,const char *),
   *GetXMLTreeSibling(XMLTreeInfo *),
-  *InsertTagIntoXMLTree(XMLTreeInfo *,XMLTreeInfo *,const size_t),
   *NewXMLTree(const char *,ExceptionInfo *),
   *NewXMLTreeTag(const char *),
   *PruneTagFromXMLTree(XMLTreeInfo *),

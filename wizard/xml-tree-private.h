@@ -23,7 +23,11 @@ extern "C" {
 #endif
 
 extern WizardPrivate char
-  *FileToXML(const char *,const size_t);
+  *FileToXML(const char *,const size_t),
+  *SubstituteXMLEntities(const char *,const WizardBooleanType);
+
+extern WizardPrivate XMLTreeInfo
+  *AddPathToXMLTree(XMLTreeInfo *,const char *,const size_t);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

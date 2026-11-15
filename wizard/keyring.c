@@ -50,6 +50,7 @@
 #include "wizard/nt-base.h"
 #include "wizard/utility.h"
 #include "wizard/xml-tree.h"
+#include "wizard/xml-tree-private.h"
 
 /*
   Define declarations.

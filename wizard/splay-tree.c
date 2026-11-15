@@ -16,10 +16,10 @@
 %                           T    R  R   EEEEE  EEEEE                          %
 %                                                                             %
 %                                                                             %
-%          Wizard's Toolkit Self-adjusting Binary Search Tree Methods         %
+%         Wizard's Toolkit Self-adjusting Binary Search Tree Methods          %
 %                                                                             %
 %                              Software Design                                %
-%                                  Cristy                                     %
+%                                   Cristy                                    %
 %                               December 2002                                 %
 %                                                                             %
 %                                                                             %
@@ -29,7 +29,7 @@
 %  You may not use this file except in compliance with the License.  You may  %
 %  obtain a copy of the License at                                            %
 %                                                                             %
-%    https://imagemagick.org/script/license.php                               %
+%    https://imagemagick.org/license/                                         %
 %                                                                             %
 %  Unless required by applicable law or agreed to in writing, software        %
 %  distributed under the License is distributed on an "AS IS" BASIS,          %
@@ -51,8 +51,10 @@
 #include "wizard/studio.h"
 #include "wizard/exception.h"
 #include "wizard/exception-private.h"
+#include "wizard/locale_.h"
 #include "wizard/log.h"
 #include "wizard/memory_.h"
+#include "wizard/memory-private.h"
 #include "wizard/splay-tree.h"
 #include "wizard/semaphore.h"
 #include "wizard/string_.h"
@@ -131,8 +133,8 @@ static void
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  AddValueToSplayTree() adds the given key and value to the splay-tree.
-%  Both key and value are used as is, without coping or cloning.  It returns
+%  AddValueToSplayTree() adds the given key and value to the splay-tree.  Both
+%  key and value are used as is, without coping or cloning.  It returns
 %  WizardTrue on success, otherwise WizardFalse.
 %
 %  The format of the AddValueToSplayTree method is:
@@ -142,20 +144,20 @@ static void
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay-tree info.
+%    o splay_tree: the splay-tree info.
 %
-%    o key: The key.
+%    o key: the key.
 %
-%    o value: The value.
+%    o value: the value.
 %
 */
-WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
-  const void *key,const void *value)
+WizardExport WizardBooleanType AddValueToSplayTree(
+  SplayTreeInfo *splay_tree,const void *key,const void *value)
 {
   int
     compare;
 
-   NodeInfo
+  NodeInfo
     *node;
 
   LockSemaphoreInfo(splay_tree->semaphore);
@@ -170,15 +172,22 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
           ((splay_tree->root->key < key) ? -1 : 0);
       if (compare == 0)
         {
+          if (splay_tree->relinquish_key != (void *(*)(void *)) NULL)
+            {
+              if ((key != (const void *) NULL) &&
+                  (key != splay_tree->root->key))
+                (void) splay_tree->relinquish_key((void *) key);
+            }
+          else
+            {
+              if (splay_tree->next == splay_tree->root->key)
+                splay_tree->next=(void *) key;
+              splay_tree->root->key=(void *) key;
+            }
           if ((splay_tree->relinquish_value != (void *(*)(void *)) NULL) &&
               (splay_tree->root->value != (void *) NULL))
             splay_tree->root->value=splay_tree->relinquish_value(
               splay_tree->root->value);
-          if ((splay_tree->relinquish_key != (void *(*)(void *)) NULL) &&
-              (splay_tree->root->key != (void *) NULL))
-            splay_tree->root->key=splay_tree->relinquish_key(
-              splay_tree->root->key);
-          splay_tree->root->key=(void *) key;
           splay_tree->root->value=(void *) value;
           UnlockSemaphoreInfo(splay_tree->semaphore);
           return(WizardTrue);
@@ -236,16 +245,16 @@ WizardExport WizardBooleanType AddValueToSplayTree(SplayTreeInfo *splay_tree,
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay-tree info.
+%    o splay_tree: the splay-tree info.
 %
-%    o key: The key.
+%    o key: the key.
 %
 */
 
 static NodeInfo *LinkSplayTreeNodes(NodeInfo **nodes,const size_t low,
   const size_t high)
 {
-   NodeInfo
+  NodeInfo
     *node;
 
   size_t
@@ -266,7 +275,7 @@ static NodeInfo *LinkSplayTreeNodes(NodeInfo **nodes,const size_t low,
 
 static inline int SplayTreeToNodeArray(NodeInfo *node,const void *nodes)
 {
-   const NodeInfo
+  const NodeInfo
     ***p;
 
   p=(const NodeInfo ***) nodes;
@@ -291,8 +300,8 @@ static void BalanceSplayTree(SplayTreeInfo *splay_tree)
   if (nodes == (NodeInfo **) NULL)
     ThrowWizardFatalError(CacheDomain,MemoryError);
   node=nodes;
-  (void) IterateOverSplayTree(splay_tree,SplayTreeToNodeArray,
-    (const void *) &node);
+  (void) IterateOverSplayTree(splay_tree,SplayTreeToNodeArray,(const void *)
+    &node);
   splay_tree->root=LinkSplayTreeNodes(nodes,0,splay_tree->nodes-1);
   splay_tree->balance=WizardFalse;
   nodes=(NodeInfo **) RelinquishWizardMemory(nodes);
@@ -314,23 +323,23 @@ static void BalanceSplayTree(SplayTreeInfo *splay_tree)
 %  The format of the CloneSplayTree method is:
 %
 %      SplayTreeInfo *CloneSplayTree(SplayTreeInfo *splay_tree,
-%        void *(*clone_key)(void *),void *(*cline_value)(void *))
+%        void *(*clone_key)(void *),void *(*clone_value)(void *))
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay tree.
+%    o splay_tree: the splay tree.
 %
-%    o clone_key: The key clone method, typically ConstantString(), called
+%    o clone_key: the key clone method, typically ConstantString(), called
 %      whenever a key is added to the splay-tree.
 %
-%    o clone_value: The value clone method;  typically ConstantString(), called
+%    o clone_value: the value clone method;  typically ConstantString(), called
 %      whenever a value object is added to the splay-tree.
 %
 */
 
 static inline void *GetFirstSplayTreeNode(SplayTreeInfo *splay_tree)
 {
-   NodeInfo
+  NodeInfo
     *node;
 
   node=splay_tree->root;
@@ -344,16 +353,16 @@ static inline void *GetFirstSplayTreeNode(SplayTreeInfo *splay_tree)
 WizardExport SplayTreeInfo *CloneSplayTree(SplayTreeInfo *splay_tree,
   void *(*clone_key)(void *),void *(*clone_value)(void *))
 {
-   NodeInfo
+  NodeInfo
     *next,
     *node;
 
   SplayTreeInfo
     *clone_tree;
 
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   clone_tree=NewSplayTree(splay_tree->compare,splay_tree->relinquish_key,
     splay_tree->relinquish_value);
@@ -402,9 +411,9 @@ WizardExport SplayTreeInfo *CloneSplayTree(SplayTreeInfo *splay_tree,
 %
 %  A description of each parameter follows:
 %
-%    o target: The target string.
+%    o target: the target string.
 %
-%    o source: The source string.
+%    o source: the source string.
 %
 */
 WizardExport int CompareSplayTreeString(const void *target,const void *source)
@@ -438,9 +447,9 @@ WizardExport int CompareSplayTreeString(const void *target,const void *source)
 %
 %  A description of each parameter follows:
 %
-%    o target: The target string.
+%    o target: the target string.
 %
-%    o source: The source string.
+%    o source: the source string.
 %
 */
 WizardExport int CompareSplayTreeStringInfo(const void *target,
@@ -476,21 +485,62 @@ WizardExport int CompareSplayTreeStringInfo(const void *target,
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay-tree info.
+%    o splay_tree: the splay-tree info.
 %
-%    o value: The value.
+%    o value: the value.
 %
 */
+
+static NodeInfo *DetachRootFromSplayTree(SplayTreeInfo *splay_tree)
+{
+  NodeInfo
+    *left,
+    *node,
+    *right;
+
+  /*
+    The caller holds the tree semaphore.
+  */
+  node=splay_tree->root;
+  left=node->left;
+  right=node->right;
+  if (splay_tree->next == node->key)
+    {
+      NodeInfo
+        *successor;
+
+      successor=right;
+      if (successor != (NodeInfo *) NULL)
+        while (successor->left != (NodeInfo *) NULL)
+          successor=successor->left;
+      splay_tree->next=successor != (NodeInfo *) NULL ?
+        successor->key : (void *) NULL;
+    }
+  splay_tree->root=right;
+  if (left != (NodeInfo *) NULL)
+    {
+      splay_tree->root=left;
+      if (right != (NodeInfo *) NULL)
+        {
+          while (left->right != (NodeInfo *) NULL)
+            left=left->right;
+          left->right=right;
+        }
+    }
+  splay_tree->nodes--;
+  return(node);
+}
+
 WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
   SplayTreeInfo *splay_tree,const void *value)
 {
-   NodeInfo
+  NodeInfo
     *next,
     *node;
 
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(splay_tree->semaphore);
   if (splay_tree->root == (NodeInfo *) NULL)
@@ -515,10 +565,6 @@ WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
         int
           compare;
 
-         NodeInfo
-          *left,
-          *right;
-
         void
           *key;
 
@@ -538,31 +584,14 @@ WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
             UnlockSemaphoreInfo(splay_tree->semaphore);
             return(WizardFalse);
           }
-        left=splay_tree->root->left;
-        right=splay_tree->root->right;
+        node=DetachRootFromSplayTree(splay_tree);
         if ((splay_tree->relinquish_value != (void *(*)(void *)) NULL) &&
-            (splay_tree->root->value != (void *) NULL))
-          splay_tree->root->value=splay_tree->relinquish_value(
-            splay_tree->root->value);
+            (node->value != (void *) NULL))
+          node->value=splay_tree->relinquish_value(node->value);
         if ((splay_tree->relinquish_key != (void *(*)(void *)) NULL) &&
-            (splay_tree->root->key != (void *) NULL))
-          splay_tree->root->key=splay_tree->relinquish_key(
-            splay_tree->root->key);
-        splay_tree->root=(NodeInfo *) RelinquishWizardMemory(splay_tree->root);
-        splay_tree->nodes--;
-        if (left == (NodeInfo *) NULL)
-          {
-            splay_tree->root=right;
-            UnlockSemaphoreInfo(splay_tree->semaphore);
-            return(WizardTrue);
-          }
-        splay_tree->root=left;
-        if (right != (NodeInfo *) NULL)
-          {
-            while (left->right != (NodeInfo *) NULL)
-              left=left->right;
-            left->right=right;
-          }
+            (node->key != (void *) NULL))
+          node->key=splay_tree->relinquish_key(node->key);
+        node=(NodeInfo *) RelinquishWizardMemory(node);
         UnlockSemaphoreInfo(splay_tree->semaphore);
         return(WizardTrue);
       }
@@ -582,7 +611,9 @@ WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  DeleteNodeFromSplayTree() deletes a node from the splay-tree.
+%  DeleteNodeFromSplayTree() deletes a node from the splay-tree.  It returns
+%  WizardTrue if the option is found and successfully deleted from the
+%  splay-tree.
 %
 %  The format of the DeleteNodeFromSplayTree method is:
 %
@@ -591,9 +622,9 @@ WizardExport WizardBooleanType DeleteNodeByValueFromSplayTree(
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay-tree info.
+%    o splay_tree: the splay-tree info.
 %
-%    o key: The key.
+%    o key: the key.
 %
 */
 WizardExport WizardBooleanType DeleteNodeFromSplayTree(
@@ -602,13 +633,12 @@ WizardExport WizardBooleanType DeleteNodeFromSplayTree(
   int
     compare;
 
-   NodeInfo
-    *left,
-    *right;
+  NodeInfo
+    *node;
 
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (splay_tree->root == (NodeInfo *) NULL)
     return(WizardFalse);
@@ -625,30 +655,14 @@ WizardExport WizardBooleanType DeleteNodeFromSplayTree(
       UnlockSemaphoreInfo(splay_tree->semaphore);
       return(WizardFalse);
     }
-  left=splay_tree->root->left;
-  right=splay_tree->root->right;
+  node=DetachRootFromSplayTree(splay_tree);
   if ((splay_tree->relinquish_value != (void *(*)(void *)) NULL) &&
-      (splay_tree->root->value != (void *) NULL))
-    splay_tree->root->value=splay_tree->relinquish_value(
-      splay_tree->root->value);
+      (node->value != (void *) NULL))
+    node->value=splay_tree->relinquish_value(node->value);
   if ((splay_tree->relinquish_key != (void *(*)(void *)) NULL) &&
-      (splay_tree->root->key != (void *) NULL))
-    splay_tree->root->key=splay_tree->relinquish_key(splay_tree->root->key);
-  splay_tree->root=(NodeInfo *) RelinquishWizardMemory(splay_tree->root);
-  splay_tree->nodes--;
-  if (left == (NodeInfo *) NULL)
-    {
-      splay_tree->root=right;
-      UnlockSemaphoreInfo(splay_tree->semaphore);
-      return(WizardTrue);
-    }
-  splay_tree->root=left;
-  if (right != (NodeInfo *) NULL)
-    {
-      while (left->right != (NodeInfo *) NULL)
-        left=left->right;
-      left->right=right;
-    }
+      (node->key != (void *) NULL))
+    node->key=splay_tree->relinquish_key(node->key);
+  node=(NodeInfo *) RelinquishWizardMemory(node);
   UnlockSemaphoreInfo(splay_tree->semaphore);
   return(WizardTrue);
 }
@@ -672,16 +686,14 @@ WizardExport WizardBooleanType DeleteNodeFromSplayTree(
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay tree.
+%    o splay_tree: the splay tree.
 %
 */
 WizardExport SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
 {
   NodeInfo
-    *node;
-
-   NodeInfo
     *active,
+    *node,
     *pend;
 
   LockSemaphoreInfo(splay_tree->semaphore);
@@ -757,27 +769,30 @@ WizardExport SplayTreeInfo *DestroySplayTree(SplayTreeInfo *splay_tree)
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay tree.
+%    o splay_tree: the splay tree.
 %
-%    o key: The key.
+%    o key: the key.
 %
 */
 WizardExport const void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
 {
-   NodeInfo
+  NodeInfo
     *node;
 
   void
     *key;
 
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
+  LockSemaphoreInfo(splay_tree->semaphore);
   if ((splay_tree->root == (NodeInfo *) NULL) ||
       (splay_tree->next == (void *) NULL))
-    return((void *) NULL);
-  LockSemaphoreInfo(splay_tree->semaphore);
+    {
+      UnlockSemaphoreInfo(splay_tree->semaphore);
+      return((void *) NULL);
+    }
   SplaySplayTree(splay_tree,splay_tree->next);
   splay_tree->next=(void *) NULL;
   node=splay_tree->root->right;
@@ -811,27 +826,30 @@ WizardExport const void *GetNextKeyInSplayTree(SplayTreeInfo *splay_tree)
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay tree.
+%    o splay_tree: the splay tree.
 %
-%    o key: The key.
+%    o key: the key.
 %
 */
 WizardExport const void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 {
-   NodeInfo
+  NodeInfo
     *node;
 
   void
     *value;
 
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
+  LockSemaphoreInfo(splay_tree->semaphore);
   if ((splay_tree->root == (NodeInfo *) NULL) ||
       (splay_tree->next == (void *) NULL))
-    return((void *) NULL);
-  LockSemaphoreInfo(splay_tree->semaphore);
+    {
+      UnlockSemaphoreInfo(splay_tree->semaphore);
+      return((void *) NULL);
+    }
   SplaySplayTree(splay_tree,splay_tree->next);
   splay_tree->next=(void *) NULL;
   node=splay_tree->root->right;
@@ -851,6 +869,47 @@ WizardExport const void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 %                                                                             %
 %                                                                             %
 %                                                                             %
+%   G e t R o o t V a l u e F r o m S p l a y T r e e                         %
+%                                                                             %
+%                                                                             %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  GetRootValueFromSplayTree() gets the root value from the splay-tree.
+%
+%  The format of the GetRootValueFromSplayTree method is:
+%
+%      const void *GetRootValueFromSplayTree(SplayTreeInfo *splay_tree)
+%
+%  A description of each parameter follows:
+%
+%    o splay_tree: the splay tree.
+%
+%    o key: the key.
+%
+*/
+WizardExport const void *GetRootValueFromSplayTree(SplayTreeInfo *splay_tree)
+{
+  const void
+    *value;
+
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
+    (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
+  value=(const void *) NULL;
+  LockSemaphoreInfo(splay_tree->semaphore);
+  if (splay_tree->root != (NodeInfo *) NULL)
+    value=splay_tree->root->value;
+  UnlockSemaphoreInfo(splay_tree->semaphore);
+  return(value);
+}
+
+/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                                                             %
+%                                                                             %
 %   G e t V a l u e F r o m S p l a y T r e e                                 %
 %                                                                             %
 %                                                                             %
@@ -859,6 +918,8 @@ WizardExport const void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 %
 %  GetValueFromSplayTree() gets a value from the splay-tree by its key.
 %
+%  Note, the value is a constant.  Do not attempt to free it.
+%
 %  The format of the GetValueFromSplayTree method is:
 %
 %      const void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
@@ -866,9 +927,9 @@ WizardExport const void *GetNextValueInSplayTree(SplayTreeInfo *splay_tree)
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay tree.
+%    o splay_tree: the splay tree.
 %
-%    o key: The key.
+%    o key: the key.
 %
 */
 WizardExport const void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
@@ -880,9 +941,9 @@ WizardExport const void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
   void
     *value;
 
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   if (splay_tree->root == (NodeInfo *) NULL)
     return((void *) NULL);
@@ -923,15 +984,14 @@ WizardExport const void *GetValueFromSplayTree(SplayTreeInfo *splay_tree,
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay tree.
+%    o splay_tree: the splay tree.
 %
 */
-WizardExport size_t GetNumberOfNodesInSplayTree(
-  const SplayTreeInfo *splay_tree)
+WizardExport size_t GetNumberOfNodesInSplayTree(const SplayTreeInfo *splay_tree)
 {
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   return(splay_tree->nodes);
 }
@@ -956,11 +1016,11 @@ WizardExport size_t GetNumberOfNodesInSplayTree(
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay-tree info.
+%    o splay_tree: the splay-tree info.
 %
-%    o method: The method.
+%    o method: the method.
 %
-%    o value: The value.
+%    o value: the value.
 %
 */
 static int IterateOverSplayTree(SplayTreeInfo *splay_tree,
@@ -977,23 +1037,21 @@ static int IterateOverSplayTree(SplayTreeInfo *splay_tree,
   int
     status;
 
-  WizardBooleanType
-    final_transition;
-
   NodeInfo
+    *node,
     **nodes;
 
-   ssize_t
+  ssize_t
     i;
-
-   NodeInfo
-    *node;
 
   TransitionType
     transition;
 
   unsigned char
     *transitions;
+
+  WizardBooleanType
+    final_transition;
 
   if (splay_tree->root == (NodeInfo *) NULL)
     return(0);
@@ -1080,13 +1138,13 @@ static int IterateOverSplayTree(SplayTreeInfo *splay_tree,
 %
 %  A description of each parameter follows:
 %
-%    o compare: The compare method.
+%    o compare: the compare method.
 %
-%    o relinquish_key: The key deallocation method, typically
+%    o relinquish_key: the key deallocation method, typically
 %      RelinquishWizardMemory(), called whenever a key is removed from the
 %      splay-tree.
 %
-%    o relinquish_value: The value deallocation method;  typically
+%    o relinquish_value: the value deallocation method;  typically
 %      RelinquishWizardMemory(), called whenever a value object is removed from
 %      the splay-tree.
 %
@@ -1137,24 +1195,24 @@ WizardExport SplayTreeInfo *NewSplayTree(
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay-tree info.
+%    o splay_tree: the splay-tree info.
 %
-%    o value: The value.
+%    o value: the value.
 %
 */
 WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
   const void *value)
 {
-   NodeInfo
+  NodeInfo
     *next,
     *node;
 
   void
     *key;
 
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   key=(void *) NULL;
   if (splay_tree->root == (NodeInfo *) NULL)
@@ -1177,10 +1235,6 @@ WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
         int
           compare;
 
-         NodeInfo
-          *left,
-          *right;
-
         /*
           We found the node that matches the value; now remove it.
         */
@@ -1197,27 +1251,11 @@ WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
             UnlockSemaphoreInfo(splay_tree->semaphore);
             return(key);
           }
-        left=splay_tree->root->left;
-        right=splay_tree->root->right;
+        node=DetachRootFromSplayTree(splay_tree);
         if ((splay_tree->relinquish_value != (void *(*)(void *)) NULL) &&
-            (splay_tree->root->value != (void *) NULL))
-          splay_tree->root->value=splay_tree->relinquish_value(
-            splay_tree->root->value);
-        splay_tree->root=(NodeInfo *) RelinquishWizardMemory(splay_tree->root);
-        splay_tree->nodes--;
-        if (left == (NodeInfo *) NULL)
-          {
-            splay_tree->root=right;
-            UnlockSemaphoreInfo(splay_tree->semaphore);
-            return(key);
-          }
-        splay_tree->root=left;
-        if (right != (NodeInfo *) NULL)
-          {
-            while (left->right != (NodeInfo *) NULL)
-              left=left->right;
-            left->right=right;
-          }
+            (node->value != (void *) NULL))
+          node->value=splay_tree->relinquish_value(node->value);
+        node=(NodeInfo *) RelinquishWizardMemory(node);
         UnlockSemaphoreInfo(splay_tree->semaphore);
         return(key);
       }
@@ -1246,9 +1284,9 @@ WizardExport void *RemoveNodeByValueFromSplayTree(SplayTreeInfo *splay_tree,
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay-tree info.
+%    o splay_tree: the splay-tree info.
 %
-%    o key: The key.
+%    o key: the key.
 %
 */
 WizardExport void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,
@@ -1257,16 +1295,15 @@ WizardExport void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,
   int
     compare;
 
-   NodeInfo
-    *left,
-    *right;
+  NodeInfo
+    *node;
 
   void
     *value;
 
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   value=(void *) NULL;
   if (splay_tree->root == (NodeInfo *) NULL)
@@ -1284,27 +1321,12 @@ WizardExport void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,
       UnlockSemaphoreInfo(splay_tree->semaphore);
       return(value);
     }
-  left=splay_tree->root->left;
-  right=splay_tree->root->right;
-  value=splay_tree->root->value;
+  node=DetachRootFromSplayTree(splay_tree);
+  value=node->value;
   if ((splay_tree->relinquish_key != (void *(*)(void *)) NULL) &&
-      (splay_tree->root->key != (void *) NULL))
-    splay_tree->root->key=splay_tree->relinquish_key(splay_tree->root->key);
-  splay_tree->root=(NodeInfo *) RelinquishWizardMemory(splay_tree->root);
-  splay_tree->nodes--;
-  if (left == (NodeInfo *) NULL)
-    {
-      splay_tree->root=right;
-      UnlockSemaphoreInfo(splay_tree->semaphore);
-      return(value);
-    }
-  splay_tree->root=left;
-  if (right != (NodeInfo *) NULL)
-    {
-      while (left->right != (NodeInfo *) NULL)
-        left=left->right;
-      left->right=right;
-    }
+      (node->key != (void *) NULL))
+    node->key=splay_tree->relinquish_key(node->key);
+  node=(NodeInfo *) RelinquishWizardMemory(node);
   UnlockSemaphoreInfo(splay_tree->semaphore);
   return(value);
 }
@@ -1335,15 +1357,13 @@ WizardExport void *RemoveNodeFromSplayTree(SplayTreeInfo *splay_tree,
 WizardExport void ResetSplayTree(SplayTreeInfo *splay_tree)
 {
   NodeInfo
-    *node;
-
-   NodeInfo
     *active,
+    *node,
     *pend;
 
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(splay_tree->semaphore);
   if (splay_tree->root != (NodeInfo *) NULL)
@@ -1421,14 +1441,14 @@ WizardExport void ResetSplayTree(SplayTreeInfo *splay_tree)
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay tree.
+%    o splay_tree: the splay tree.
 %
 */
 WizardExport void ResetSplayTreeIterator(SplayTreeInfo *splay_tree)
 {
-  WizardAssert(ResourceDomain,splay_tree != (SplayTreeInfo *) NULL);
-  WizardAssert(ResourceDomain,splay_tree->signature == WizardSignature);
-  if (splay_tree->debug != WizardFalse)
+  assert(splay_tree != (SplayTreeInfo *) NULL);
+  assert(splay_tree->signature == WizardSignature);
+  if (IsEventLogging() != WizardFalse)
     (void) LogWizardEvent(TraceEvent,GetWizardModule(),"...");
   LockSemaphoreInfo(splay_tree->semaphore);
   splay_tree->next=GetFirstSplayTreeNode(splay_tree);
@@ -1455,15 +1475,15 @@ WizardExport void ResetSplayTreeIterator(SplayTreeInfo *splay_tree)
 %
 %  A description of each parameter follows:
 %
-%    o splay_tree: The splay-tree info.
+%    o splay_tree: the splay-tree info.
 %
-%    o key: The key.
+%    o key: the key.
 %
-%    o node: The node.
+%    o node: the node.
 %
-%    o parent: The parent node.
+%    o parent: the parent node.
 %
-%    o grandparent: The grandparent node.
+%    o grandparent: the grandparent node.
 %
 */
 
@@ -1474,10 +1494,8 @@ static NodeInfo *Splay(SplayTreeInfo *splay_tree,const size_t depth,
     compare;
 
   NodeInfo
-    **next;
-
-   NodeInfo
     *n,
+    **next,
     *p;
 
   n=(*node);
