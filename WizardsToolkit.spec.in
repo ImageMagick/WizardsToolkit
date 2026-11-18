@@ -79,9 +79,9 @@ https://urban-warrior.org/WizardsToolkit/
 %prep
 %setup -q -n %{name}-%{VERSION}-%{Patchlevel}
 sed -i 's/libltdl.la/libltdl.so/g' configure
-iconv -f ISO-8859-1 -t UTF-8 README.txt > README.txt.tmp
-touch -r README.txt README.txt.tmp
-mv README.txt.tmp README.txt
+iconv -f ISO-8859-1 -t UTF-8 README.md > README.md.tmp
+touch -r README.md README.md.tmp
+mv README.md.tmp README.md
 
 %build
 %configure --enable-shared \
@@ -138,7 +138,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc QuickStart.txt 
-%doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt
+%doc README.md LICENSE NOTICE AUTHORS.txt NEWS.txt
 %{_libdir}/libWizardsToolkit.so.*
 %{_libdir}/%{name}-%{VERSION}
 %{_bindir}/[a-z]*

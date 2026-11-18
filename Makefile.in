@@ -691,10 +691,10 @@ am__DIST_COMMON = $(srcdir)/Makefile.in \
 	$(top_srcdir)/windows/WizardsToolkit.bat.in \
 	$(top_srcdir)/wizard/WizardsToolkit-config.in \
 	$(top_srcdir)/wizard/WizardsToolkit.pc.in \
-	$(top_srcdir)/wizard/version.h.in ChangeLog.md config/compile \
-	config/config.guess config/config.sub config/depcomp \
-	config/install-sh config/ltmain.sh config/missing \
-	config/mkinstalldirs
+	$(top_srcdir)/wizard/version.h.in ChangeLog.md README.md \
+	config/compile config/config.guess config/config.sub \
+	config/depcomp config/install-sh config/ltmain.sh \
+	config/missing config/mkinstalldirs
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -1033,7 +1033,7 @@ TESTS = \
 
 TOP_EXTRA_DIST = \
   AUTHORS.txt \
-	README.txt \
+	README.md \
 	QuickStart.txt \
 	ChangeLog.md \
 	LICENSE \

@@ -85,7 +85,7 @@ XFAIL_TESTS = \
 
 TOP_EXTRA_DIST = \
   AUTHORS.txt \
-	README.txt \
+	README.md \
 	QuickStart.txt \
 	ChangeLog.md \
 	LICENSE \

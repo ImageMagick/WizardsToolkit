@@ -2,7 +2,7 @@ This file documents how to use the binary distribution packages
 built by ImageMagick Studio LLC, and found in the Wizard's Toolkit
 'binaries' subdirectory of Wizard's Toolkit ftp sites.  Those who
 want to build the Wizard's Toolkit from source code should refer
-to the file README.txt in the Wizard's Toolkit source package or
+to the file README.md in the Wizard's Toolkit source package or
 https://urban-warrior.org/WizardsToolkit/WizardsToolkit/script/install-source.php
 on the web.
 
